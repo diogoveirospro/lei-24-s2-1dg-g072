@@ -1,4 +1,4 @@
-# US006 - As a GPV I want to register a vehicle
+# US002 - As an GRH I want to register a profession
 
 [Requirements Engineering](01.requirements-engineering/Readme.md)
 

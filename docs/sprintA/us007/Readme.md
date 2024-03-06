@@ -1,4 +1,4 @@
-# US006 - As a GPV I want to register a vehicle
+# US006 - As a GPV I want to register a vehicle overhaul
 
 [Requirements Engineering](01.requirements-engineering/Readme.md)
 

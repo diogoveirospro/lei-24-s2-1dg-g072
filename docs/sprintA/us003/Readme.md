@@ -1,4 +1,4 @@
-# US006 - As a GPV I want to register a vehicle
+# US003 - As a GRH I want to register an employee with a profession and fundamental attributes
 
 [Requirements Engineering](01.requirements-engineering/Readme.md)
 

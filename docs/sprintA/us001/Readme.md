@@ -1,4 +1,4 @@
-# US006 - As a GPV I want to register a vehicle
+# US001 - As GRH I want to record competences that can be attributed to an employee
 
 [Requirements Engineering](01.requirements-engineering/Readme.md)
 

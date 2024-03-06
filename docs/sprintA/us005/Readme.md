@@ -1,4 +1,4 @@
-# US006 - As a GPV I want to register a vehicle
+# US006 - As GRH I want to automatically generate a team proposal
 
 [Requirements Engineering](01.requirements-engineering/Readme.md)
 

@@ -1,4 +1,4 @@
-# US006 - As a GPV I want to register a vehicle
+# US004 - As GRH I want to assign one or more competences to an employee
 
 [Requirements Engineering](01.requirements-engineering/Readme.md)
 
