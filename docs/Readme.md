@@ -4,12 +4,12 @@
 
 The teams consists of students identified in the following table.
 
-| Student Number | Name              |
-|----------------|-------------------|
-| **1XXXXXX**    | Name of student 1 |
-| **1XXXXXX**    | Name of student 2 |
-| **1XXXXXX**    | Name of student 3 |
-| **1XXXXXX**    | Name of student 4 |
+| Student Number | Name                               |
+|----------------|------------------------------------|
+| **1230462**    | Diogo Filipe Marques Veiros        |
+| **1230630**    | José Duarte Noronha da Rocha Alves |
+| **1230948**    | Diogo Miguel Monteiro Pereira      |
+| **1230917**    | Tiago João Conceição Sampaio       |
 
 # 2. Task Distribution ###
 
@@ -25,6 +25,10 @@ was carried out as described in the following table.
 | Supplementary Specification | [all](sprintA/global-artifacts/01.requirements-engineering/supplementary-specification.md) | [all](sprintB/global-artifacts/01.engineering-requirements/supplementary-specification.md) | [all](sprintC/global-artifacts/01.engineering-requirements/supplementary-specification.md) |
 | Domain Model                | [all](sprintA/global-artifacts/02.analysis/analysis.md)                                    | [all](sprintB/global-artifacts/02.analysis/analysis.md)                                    | [all](sprintC/global-artifacts/02.analysis/analysis.md)                                    |
 | US001 (SDP Activities)      | [1XXXXXX](sprintA/us001/Readme.md)                                                         |                                                                                            |                                                                                            |
-| ...                         | ...                                                                                        | ...                                                                                        | ...                                                                                        |
-| US006 (SDP Activities)      | [1XXXXXX](sprintA/us006/Readme.md)                                                         |                                                                                            |                                                                                            |
-| ...                         | ...                                                                                        | ...                                                                                        | ...                                                                                        |
+| US002 (SDP Activities)      | ...                                                                                        | ...                                                                                        | ...                                                                                        |
+| US003 (SDP Activities)      | ...                                                                                        | ...                                                                                        | ...                                                                                        |
+| US004 (SDP Activities)      | ...                                                                                        | ...                                                                                        | ...                                                                                        |
+| US005 (SDP Activities)      | ...                                                                                        | ...                                                                                        | ...                                                                                        |
+| US006 (SDP Activities)      | ...                                                                                        | ...                                                                                        | ...                                                                                        |
+| US007 (SDP Activities)      | [1XXXXXX](sprintA/us006/Readme.md)                                                         |                                                                                            |                                                                                            |
+| US008 (SPD Activities)      | ...                                                                                        | ...                                                                                        | ...                                                                                        |
