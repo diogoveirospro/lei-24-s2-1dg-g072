@@ -12,13 +12,13 @@ However, be aware, this is a pedagogical simplification. On further projects and
 
 # Use Cases / User Stories
 
-| UC/US | Description                                   |                   
-|:------|:----------------------------------------------|
-| US001 | [Short name for US001](../../us001/Readme.md) |
-| US002 | ...                                           |
-| US003 | ...                                           |
-| US004 | ...                                           |
-| US005 | ...                                           |
-| US006 | [Create a Task](../../us006/Readme.md)        |
-| US007 | ...                                           |
-| US008 | ...                                           |
+| UC/US | Description                                    |                   
+|:------|:-----------------------------------------------|
+| US001 | [Register Competences](../../us001/Readme.md)  |
+| US002 | [Register a Profession](../../us002/Readme.md) |
+| US003 | ...                                            |
+| US004 | ...                                            |
+| US005 | ...                                            |
+| US006 | [Create a Task](../../us006/Readme.md)         |
+| US007 | ...                                            |
+| US008 | ...                                            |
