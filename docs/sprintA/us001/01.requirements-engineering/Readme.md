@@ -1,11 +1,11 @@
-# US006 - Create a Task 
+# US001 - Register competences
 
 
 ## 1. Requirements Engineering
 
 ### 1.1. User Story Description
 
-As an organization employee, I want to create a new task in order to be further published.
+As a HRM I want to record competences that can be attributed to an employee.
 
 ### 1.2. Customer Specifications and Clarifications 
 
@@ -33,7 +33,7 @@ As an organization employee, I want to create a new task in order to be further 
 
 ### 1.4. Found out Dependencies
 
-* There is a dependency on "US003 - Create a task category" as there must be at least one task category to classify the task being created.
+* There is no dependencies.
 
 ### 1.5 Input and Output Data
 
