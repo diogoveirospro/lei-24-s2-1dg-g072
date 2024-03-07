@@ -33,26 +33,26 @@ As a GRH I want to register a profession.
 
 ### 1.4. Found out Dependencies
 
-* There is a dependency on "US003 - Create a task category" as there must be at least one task category to classify the task being created.
+* There is a dependency on "US001 - Create a competence because there has to be at least one competence to assign to the profession we are creating
 
 ### 1.5 Input and Output Data
 
 **Input Data:**
 
 * Typed data:
-    * a reference
     * a designation 
     * an informal description
     * a technical description
-    * an estimated duration
-    * an estimated cost
+    * a medium salary
 	
 * Selected data:
-    * a task category 
+    * a level of education required
+    * required competences
+    * a sector of activity
 
 **Output Data:**
 
-* List of existing task categories
+* List of all registered professions
 * (In)Success of the operation
 
 ### 1.6. System Sequence Diagram (SSD)
@@ -61,12 +61,15 @@ As a GRH I want to register a profession.
 
 #### Alternative One
 
-![System Sequence Diagram - Alternative One](svg/us006-system-sequence-diagram-alternative-one.svg)
+![System Sequence Diagram - Alternative One](svg/us002-system-sequence-diagram-alternative-one.svg)
 
 #### Alternative Two
 
-![System Sequence Diagram - Alternative Two](svg/us006-system-sequence-diagram-alternative-two.svg)
+![System Sequence Diagram - Alternative Two](svg/us002-system-sequence-diagram-alternative-two.svg)
+
+#### Alternative Three
+
+![System Sequence Diagram - Alternative Three](svg/us002-system-sequence-diagram-alternative-three.svg)
 
 ### 1.7 Other Relevant Remarks
 
-* The created task stays in a "not published" state in order to distinguish from "published" tasks.

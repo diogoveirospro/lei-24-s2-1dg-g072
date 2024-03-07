@@ -1,4 +1,4 @@
-# US001 - As GRH I want to record competences that can be attributed to an employee
+# US001 - Register Competences
 
 [Requirements Engineering](01.requirements-engineering/Readme.md)
 

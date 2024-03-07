@@ -1,4 +1,4 @@
-# US002 - As an GRH I want to register a profession
+# US002 - Register a Profession
 
 [Requirements Engineering](01.requirements-engineering/Readme.md)
 

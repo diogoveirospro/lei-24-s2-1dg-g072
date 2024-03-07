@@ -1,0 +1,63 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD) - Alternative Three
+
+autonumber
+
+actor "Human Resources\nManager" as GRH
+participant ":System" as System
+
+activate GRH
+
+    GRH -> System : asks to create a new profession
+        activate System
+
+            System --> GRH : requests data (i.e. designation, descriptions, medium salary)
+        deactivate System
+
+        GRH -> System : types requested data
+        activate System
+
+            System --> GRH : shows a list of required education levels and asks to select one
+        deactivate System
+
+        GRH -> System : selects a required level of education
+        activate System
+
+                System --> GRH : shows a list of competences and asks you to select all the ones you need
+        deactivate System
+
+        GRH -> System : selects all the necessary competences
+        activate System
+
+                System --> GRH : presents a list of sectors of activity and asks you to select one
+        deactivate System
+
+        GRH -> System : selects a sector of activity
+        activate System
+
+            System --> GRH : shows all data and requests confirmation
+        deactivate System
+
+        GRH -> System : not confirm data
+        activate System
+
+            System --> GRH : returns the data and asks for revision
+        deactivate System
+
+        GRH -> System : review and change the desired data
+        activate System
+
+            System --> GRH : shows all data and requests confirmation
+        deactivate System
+
+        GRH -> System : confirms data
+        activate System
+
+            System --> GRH : displays operation success
+        deactivate System
+
+@enduml
