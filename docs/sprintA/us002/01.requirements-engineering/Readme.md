@@ -33,7 +33,7 @@ As a GRH I want to register a profession.
 
 ### 1.4. Found out Dependencies
 
-* There is a dependency on "US001 - Create a competence because there has to be at least one competence to assign to the profession we are creating
+* There is a dependency on US001 - Create a competence because there has to be at least one competence to assign to the profession we are creating
 
 ### 1.5 Input and Output Data
 
