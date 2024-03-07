@@ -1,4 +1,4 @@
-# US004 - As GRH I want to assign one or more competences to an employee
+# US004 - Assigning competences to an employee
 
 [Requirements Engineering](01.requirements-engineering/Readme.md)
 

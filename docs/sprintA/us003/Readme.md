@@ -1,4 +1,4 @@
-# US003 - As a GRH I want to register an employee with a profession and fundamental attributes
+# US003 - Registration of an employee with profession and attributes
 
 [Requirements Engineering](01.requirements-engineering/Readme.md)
 

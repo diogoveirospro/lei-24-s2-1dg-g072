@@ -1,4 +1,4 @@
-# US006 - As GRH I want to automatically generate a team proposal
+# US005 - Generate a Team Proposal
 
 [Requirements Engineering](01.requirements-engineering/Readme.md)
 

@@ -1,11 +1,11 @@
-# US006 - Create a Task 
+# US005 - Generate a Team Proposal 
 
 
 ## 1. Requirements Engineering
 
 ### 1.1. User Story Description
 
-As an organization employee, I want to create a new task in order to be further published.
+As GRH I want to automatically generate a team proposal.
 
 ### 1.2. Customer Specifications and Clarifications 
 
@@ -27,33 +27,32 @@ As an organization employee, I want to create a new task in order to be further 
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** All required fields must be filled in.
-* **AC2:** The task reference must have at least 5 alphanumeric characters.
-* **AC3:** When creating a task with an existing reference, the system must reject such operation and the user must be able to modify the typed reference.
+* **AC1:** The desired number of employees must be provided by the GRH.
+* **AC2:** The desired set of competences must be provided by the GRH.
 
 ### 1.4. Found out Dependencies
 
-* There is a dependency on "US003 - Create a task category" as there must be at least one task category to classify the task being created.
+* There is a dependency on **"US003 - Registration of an employee with profession and attributes"** since it needs information about the employees, such as experience and skills. This allows the system to select the appropriate employees to form the team.
+* There is a dependency on **"US004 - Assigning competences to an employee"** since competences need to be assigned to employees in the system. The system will have to take the relevant competences into account when forming teams.
 
 ### 1.5 Input and Output Data
 
 **Input Data:**
 
 * Typed data:
-    * a reference
-    * a designation 
-    * an informal description
-    * a technical description
+    * a designation
+    * a detailed task description
     * an estimated duration
-    * an estimated cost
+    * a deadline
 	
 * Selected data:
-    * a task category 
+    * a task category
+    * task requirements
 
 **Output Data:**
 
-* List of existing task categories
 * (In)Success of the operation
+* A team recommendation
 
 ### 1.6. System Sequence Diagram (SSD)
 
@@ -61,12 +60,16 @@ As an organization employee, I want to create a new task in order to be further 
 
 #### Alternative One
 
-![System Sequence Diagram - Alternative One](svg/us006-system-sequence-diagram-alternative-one.svg)
+![System Sequence Diagram - Alternative One](svg/us005-system-sequence-diagram-alternative-one.svg)
 
 #### Alternative Two
 
-![System Sequence Diagram - Alternative Two](svg/us006-system-sequence-diagram-alternative-two.svg)
+![System Sequence Diagram - Alternative Two](svg/us005-system-sequence-diagram-alternative-two.svg)
+
+#### Alternative Three
+
+![System Sequence Diagram - Alternative Three](svg/us005-system-sequence-diagram-alternative-three.svg)
 
 ### 1.7 Other Relevant Remarks
 
-* The created task stays in a "not published" state in order to distinguish from "published" tasks.
+* The GRH can change the team's recommendation and will be notified if none of the members have the necessary skills to carry out the task.
