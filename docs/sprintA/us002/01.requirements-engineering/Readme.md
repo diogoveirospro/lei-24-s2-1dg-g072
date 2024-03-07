@@ -1,11 +1,11 @@
-# US006 - Create a Task 
+# US002 - Register a Profession 
 
 
 ## 1. Requirements Engineering
 
 ### 1.1. User Story Description
 
-As an organization employee, I want to create a new task in order to be further published.
+As a GRH I want to register a profession.
 
 ### 1.2. Customer Specifications and Clarifications 
 
