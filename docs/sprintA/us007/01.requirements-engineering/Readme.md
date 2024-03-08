@@ -1,11 +1,11 @@
-# US006 - Create a Task 
+# US007 - Register the inspection of a vehicle 
 
 
 ## 1. Requirements Engineering
 
 ### 1.1. User Story Description
 
-As an organization employee, I want to create a new task in order to be further published.
+The GPV wants to register the inspection of a vehicle.
 
 ### 1.2. Customer Specifications and Clarifications 
 
@@ -33,18 +33,16 @@ As an organization employee, I want to create a new task in order to be further 
 
 ### 1.4. Found out Dependencies
 
-* There is a dependency on "US003 - Create a task category" as there must be at least one task category to classify the task being created.
+* There is a dependency on "US006 - Register a vehicle" as there must be at least one vehicle registered so that it can be inspected.
 
 ### 1.5 Input and Output Data
 
 **Input Data:**
 
 * Typed data:
-    * a reference
     * a designation 
     * an informal description
     * a technical description
-    * an estimated duration
     * an estimated cost
 	
 * Selected data:
