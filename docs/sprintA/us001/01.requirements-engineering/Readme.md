@@ -66,4 +66,4 @@ As a HRM I want to record competences that can be attributed to an employee.
 
 ### 1.7 Other Relevant Remarks
 
-* The data acquired in this US (competences), will be saved in an array so then it can be used later in 
+* The data acquired in this US (competences), will be saved in an array so then it can be used later in  other US.
