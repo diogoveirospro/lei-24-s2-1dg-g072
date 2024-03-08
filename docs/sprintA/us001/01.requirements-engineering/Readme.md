@@ -33,26 +33,23 @@ As a HRM I want to record competences that can be attributed to an employee.
 
 ### 1.4. Found out Dependencies
 
-* There is no dependencies.
+* There are no dependencies in other US.
 
 ### 1.5 Input and Output Data
 
 **Input Data:**
 
 * Typed data:
-    * a reference
-    * a designation 
-    * an informal description
-    * a technical description
-    * an estimated duration
-    * an estimated cost
+    * the quantity of competences
+    * a competence
+  
 	
 * Selected data:
-    * a task category 
+    * array with the information of the competences
 
 **Output Data:**
 
-* List of existing task categories
+* Information of the competences that were recorded!
 * (In)Success of the operation
 
 ### 1.6. System Sequence Diagram (SSD)
@@ -61,11 +58,11 @@ As a HRM I want to record competences that can be attributed to an employee.
 
 #### Alternative One
 
-![System Sequence Diagram - Alternative One](svg/us006-system-sequence-diagram-alternative-one.svg)
+![System Sequence Diagram - Alternative One](svg/us001-system-sequence-diagram-alternative-one.svg)
 
 #### Alternative Two
 
-![System Sequence Diagram - Alternative Two](svg/us006-system-sequence-diagram-alternative-two.svg)
+![System Sequence Diagram - Alternative Two](svg/us001-system-sequence-diagram-alternative-two.svg)
 
 ### 1.7 Other Relevant Remarks
 
