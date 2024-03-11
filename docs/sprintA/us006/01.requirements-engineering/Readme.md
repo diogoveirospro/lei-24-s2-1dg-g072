@@ -5,7 +5,7 @@
 
 ### 1.1. User Story Description
 
-The GPV wants to register a vehicle.
+The VPM wants to register a vehicle.
 
 ### 1.2. Customer Specifications and Clarifications 
 
@@ -27,6 +27,7 @@ The GPV wants to register a vehicle.
 ### 1.3. Acceptance Criteria
 
 * **AC1:** The attributes used to describe a vehicle are: Brand, Model, Type, Tare, Gross weight, Current Kms, Registration Date, Acquisition Date and Service Frequency (in Kms).
+* **AC2:** All required fields must be filled.
 
 ### 1.4. Found out Dependencies
 

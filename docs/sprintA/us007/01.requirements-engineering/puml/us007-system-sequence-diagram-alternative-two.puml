@@ -12,22 +12,16 @@ participant ":System" as System
 
 activate Employee
 
-    Employee -> System : asks to create a new task
+    Employee -> System : asks to register a vehicle for inspection
     activate System
 
-        System --> Employee : shows task category list and asks to select one
+        System --> Employee : shows a list of registered vehicles
     deactivate System
 
-    Employee -> System : selects a task category
+    Employee -> System : selects vehicle
     activate System
 
-        System --> Employee : requests data (i.e. reference, designation, informal\ndescription, technical description, duration, cost)
-    deactivate System
-
-    Employee -> System : types requested data
-    activate System
-
-        System --> Employee : shows all data and requests confirmation
+        System --> Employee : requests confirmation
     deactivate System
 
     Employee -> System : confirms data
@@ -35,4 +29,5 @@ activate Employee
 
         System --> Employee : displays operation success
     deactivate System
+
 @enduml

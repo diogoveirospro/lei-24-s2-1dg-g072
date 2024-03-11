@@ -1,4 +1,4 @@
-# US006 - As a GPV I want to register a vehicle overhaul
+# US007 - Register the inspection of a vehicle
 
 [Requirements Engineering](01.requirements-engineering/Readme.md)
 

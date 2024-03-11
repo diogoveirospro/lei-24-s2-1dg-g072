@@ -5,7 +5,7 @@
 
 ### 1.1. User Story Description
 
-The GPV wants to register the inspection of a vehicle.
+The VPM wants to register the inspection of a vehicle.
 
 ### 1.2. Customer Specifications and Clarifications 
 
@@ -28,8 +28,7 @@ The GPV wants to register the inspection of a vehicle.
 ### 1.3. Acceptance Criteria
 
 * **AC1:** All required fields must be filled in.
-* **AC2:** The task reference must have at least 5 alphanumeric characters.
-* **AC3:** When creating a task with an existing reference, the system must reject such operation and the user must be able to modify the typed reference.
+* **AC2:** The chosen vehicle must be a registered vehicle.
 
 ### 1.4. Found out Dependencies
 
@@ -40,17 +39,11 @@ The GPV wants to register the inspection of a vehicle.
 **Input Data:**
 
 * Typed data:
-    * a designation 
-    * an informal description
-    * a technical description
+    * a designation of the registered vehicle
     * an estimated cost
-	
-* Selected data:
-    * a task category 
 
 **Output Data:**
 
-* List of existing task categories
 * (In)Success of the operation
 
 ### 1.6. System Sequence Diagram (SSD)
@@ -59,11 +52,11 @@ The GPV wants to register the inspection of a vehicle.
 
 #### Alternative One
 
-![System Sequence Diagram - Alternative One](svg/us006-system-sequence-diagram-alternative-one.svg)
+![System Sequence Diagram - Alternative One](svg/us007-system-sequence-diagram-alternative-one.svg)
 
 #### Alternative Two
 
-![System Sequence Diagram - Alternative Two](svg/us006-system-sequence-diagram-alternative-two.svg)
+![System Sequence Diagram - Alternative Two](svg/us007-system-sequence-diagram-alternative-two.svg)
 
 ### 1.7 Other Relevant Remarks
 
