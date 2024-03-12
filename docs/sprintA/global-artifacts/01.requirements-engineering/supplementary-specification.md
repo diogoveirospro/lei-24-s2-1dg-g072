@@ -6,7 +6,10 @@ _Specifies functionalities that:
 &nbsp; &nbsp; (i) are common across several US/UC;  
 &nbsp; &nbsp; (ii) are not related to US/UC, namely: Audit, Reporting and Security._
 
-(fill in here)
+&nbsp; &nbsp; (1)  Skills registered on US01 are used in US02, US03 and US04;
+
+&nbsp; &nbsp; (2)  Vehicles registered on US06 are used in US07 and US08.
+
 
 ## Usability
 
@@ -14,13 +17,34 @@ _Evaluates the user interface. It has several subcategories,
 among them: error prevention; interface aesthetics and design; help and
 documentation; consistency and standards._
 
-(fill in here )
+1. Develop a Portal in which parks and garden users can post comments, and report faults and malfunctions of equipment.
+2. The diary is a crucial mechanism for planning the week’s work. Each entry in the diary
+   defines a task.  Comparatively analyzing the
+   diary entries and the pending tasks. Allows the evaluation of the work.
+3. Teams are temporary associations of employees who will carry out a set of tasks in
+   one or more green spaces. When creating multipurpose teams, the number of members
+   and the set of skills that must be covered are crucial.
+4. The green spaces for collective use managed by MS can significantly vary in size and
+   installed equipment,
 
+   • Garden - garden space with or without trees with little or no equipment (may
+   have a basic irrigation system);
+
+   • Medium-sized park - green space with a few hundred or thousands of square
+   meters with a wooded garden area, it includes some infrastructures such as toilets,
+   drinking fountains, irrigation system, lighting, children’s playground (for example,
+   Quinta do Covelo, Jardim de Arca de Agua); ´
+   
+   • Large-sized park - multi-function space with diverse garden spaces, and woods,
+   including varied equipment and services (for example, Parque da Cidade)
 ## Reliability
 
 _Refers to the integrity, compliance and interoperability of the software. The requirements to be considered are: frequency and severity of failure, possibility of recovery, possibility of prediction, accuracy, average time between failures._
 
-(fill in here )
+1. Business rules validation must be respected when recording and updating data. 
+2. The class structure must be designed to allow easy maintenance and the addition
+of new features, following the best OO practices.
+
 
 ## Performance
 
@@ -42,7 +66,9 @@ configurability, installability, scalability and more._
 
 _Specifies or constraints the system design process. Examples may include: programming languages, software process, mandatory standards/patterns, use of development tools, class library, etc._
 
-(fill in here )
+The application must be developed in Java language using the IntelliJ IDE or
+NetBeans. The application’s graphical interface is to be developed in JavaFX 11.
+
 
 ### Implementation Constraints
 
@@ -50,7 +76,17 @@ _Specifies or constraints the code or construction of a system such
 such as: mandatory standards/patterns, implementation languages,
 database integrity, resource limits, operating system._
 
-(fill in here )
+All those who wish to use the application must be authenticated with a password
+of seven alphanumeric characters, including three capital letters and two digits.
+The application must support the English language.
+(i) adopt best practices for
+identifying requirements, and for OO software analysis and design; 
+
+(ii) adopt recognized coding standards (e.g., CamelCase); 
+
+(iii) use Javadoc to generate useful
+documentation for Java code.
+
 
 ### Interface Constraints
 
