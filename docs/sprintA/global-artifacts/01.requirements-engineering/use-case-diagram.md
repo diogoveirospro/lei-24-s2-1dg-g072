@@ -12,13 +12,13 @@ However, be aware, this is a pedagogical simplification. On further projects and
 
 # Use Cases / User Stories
 
-| UC/US | Description                                    |                   
-|:------|:-----------------------------------------------|
-| US001 | [Register Competences](../../us001/Readme.md)  |
-| US002 | [Register a Profession](../../us002/Readme.md) |
-| US003 | ...                                            |
-| US004 | ...                                            |
-| US005 | ...                                            |
-| US006 | [Create a Task](../../us006/Readme.md)         |
-| US007 | ...                                            |
-| US008 | ...                                            |
+| UC/US | Description                                                     |                   
+|:------|:----------------------------------------------------------------|
+| US001 | [Register Competences](../../us001/Readme.md)                   |
+| US002 | [Register a Job](../../us002/Readme.md)                         |
+| US003 | [Registration of an employee](../../us003/Readme.md)            |
+| US004 | [Assigning competences to an employee](../../us004/Readme.md)   |
+| US005 | [Generate a Team Proposal](../../us005/Readme.md)               |
+| US006 | [Register a vehicle](../../us006/Readme.md)                     |
+| US007 | [Register the inspection of a vehicle](../../us007/Readme.md)   |
+| US008 | [List vehicles that need to be serviced](../../us008/Readme.md) |

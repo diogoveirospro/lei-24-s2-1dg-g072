@@ -1,4 +1,4 @@
-# US006 - As a GPV I intend to list the vehicles that need to be serviced
+# US008 - List vehicles that need to be serviced
 
 [Requirements Engineering](01.requirements-engineering/Readme.md)
 

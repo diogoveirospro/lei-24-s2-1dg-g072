@@ -1,4 +1,4 @@
-# US003 - Registration of an employee with profession and attributes
+# US003 - Registration of an employee
 
 [Requirements Engineering](01.requirements-engineering/Readme.md)
 

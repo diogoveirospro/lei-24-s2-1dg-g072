@@ -1,4 +1,4 @@
-# US002 - Register a Profession 
+# US002 - Register a Job
 
 ## 2. Analysis
 

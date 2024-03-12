@@ -1,4 +1,4 @@
-# US006 - Create a Task 
+# US004 - Assigning competences to an employee 
 
 ## 3. Design - User Story Realization 
 

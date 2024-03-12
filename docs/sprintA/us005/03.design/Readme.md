@@ -1,4 +1,4 @@
-# US006 - Create a Task 
+# US005 - Generate a Team Proposal 
 
 ## 3. Design - User Story Realization 
 
