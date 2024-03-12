@@ -12,7 +12,7 @@ participant ":System" as System
 
 activate Employee
 
-    Employee -> System : asks to register a vehicle for inspection
+    Employee -> System : asks to register a vehicle for check-up
     activate System
 
         System --> Employee : requests data (i.e. designation of the vehicle, cost)

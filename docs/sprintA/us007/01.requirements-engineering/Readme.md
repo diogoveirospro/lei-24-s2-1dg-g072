@@ -1,11 +1,11 @@
-# US007 - Register the inspection of a vehicle 
+# US007 - Register the check-up of a vehicle 
 
 
 ## 1. Requirements Engineering
 
 ### 1.1. User Story Description
 
-The VPM wants to register the inspection of a vehicle.
+The VPM wants to register a vehicles check-up.
 
 ### 1.2. Customer Specifications and Clarifications 
 
@@ -15,15 +15,6 @@ The VPM wants to register the inspection of a vehicle.
 
 >	As long as it is not published, access to the task is exclusive to the employees of the respective organization. 
 
-**From the client clarifications:**
-
-> **Question:** Which is the unit of measurement used to estimate duration?
->
-> **Answer:** Duration is estimated in days.
-
-> **Question:** Monetary data is expressed in any particular currency?
->
-> **Answer:** Monetary data (e.g. estimated cost of a task) is indicated in POT (virtual currency internal to the platform).
 
 ### 1.3. Acceptance Criteria
 
@@ -40,7 +31,6 @@ The VPM wants to register the inspection of a vehicle.
 
 * Typed data:
     * a designation of the registered vehicle
-    * an estimated cost
 
 **Output Data:**
 
