@@ -27,10 +27,9 @@ As a HRM I want to record competences that can be attributed to an employee.
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** All required fields must be filled in.
-* **AC2:** The task reference must have at least 5 alphanumeric characters.
-* **AC3:** When creating a task with an existing reference, the system must reject such operation and the user must be able to modify the typed reference.
-
+* **AC1:** The HRM needs to write at least one competence.
+* **AC2:** It must be a String.
+* **AC3:** If it is not a String ask again for competences.
 ### 1.4. Found out Dependencies
 
 * There are no dependencies in other US.
@@ -40,7 +39,6 @@ As a HRM I want to record competences that can be attributed to an employee.
 **Input Data:**
 
 * Typed data:
-    * the quantity of competences
     * a competence
   
 	
@@ -54,7 +52,7 @@ As a HRM I want to record competences that can be attributed to an employee.
 
 ### 1.6. System Sequence Diagram (SSD)
 
-**_Other alternatives might exist._**
+
 
 #### Alternative One
 
@@ -63,6 +61,7 @@ As a HRM I want to record competences that can be attributed to an employee.
 #### Alternative Two
 
 ![System Sequence Diagram - Alternative Two](svg/us001-system-sequence-diagram-alternative-two.svg)
+
 
 ### 1.7 Other Relevant Remarks
 
