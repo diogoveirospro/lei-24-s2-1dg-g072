@@ -28,9 +28,7 @@ The FM wants to register a vehicle.
 **Input Data:**
 
 * Typed data:
-    * a designation 
-    * an informal description
-    * a technical description
+    * a designation for the vehicle
     * the attributes of the vehicle
 	
 * Selected data:
