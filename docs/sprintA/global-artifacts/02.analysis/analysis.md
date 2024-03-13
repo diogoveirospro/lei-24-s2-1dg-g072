@@ -10,7 +10,7 @@ To identify domain conceptual classes, start by making a list of candidate conce
 
 **Business Transactions**
 
-* 
+* Task
 
 ---
 
@@ -34,13 +34,24 @@ To identify domain conceptual classes, start by making a list of candidate conce
 
 **Roles of People or Organizations**
 
-* 
+* Collaborator
+* Fleet Manager (FM)
+* Green Spaces Manager (GSM)
+* Green Spaces User (GSU)
+* Human Resources Manager (HRM)
+* Designer
+* Estimator
+* Gardened
+* Electrician
+* Bricklayer
 
 ---
 
 **Places**
 
-* 
+* Garden
+* Medium-sized park
+* Large-sized park
 
 ---
 
@@ -52,7 +63,24 @@ To identify domain conceptual classes, start by making a list of candidate conce
 
 **Physical Objects**
 
-* 
+* Vehicle for Passengers
+* Vehicle Mixed
+* Tractors
+* Backhoe Loaders
+* Rotating Machines
+* Lawnmowers
+* Sprayers
+* Lifting 
+* Platforms
+* Chainsaws
+* Brush cutters
+* Blowers
+* Ladders
+* Cisterns
+* Disc harrows
+* Weeders
+* Aerators
+* Scarifiers
 
 ---
 
