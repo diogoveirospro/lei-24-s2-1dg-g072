@@ -26,9 +26,7 @@ documentation; consistency and standards._
 
 _Refers to the integrity, compliance and interoperability of the software. The requirements to be considered are: frequency and severity of failure, possibility of recovery, possibility of prediction, accuracy, average time between failures._
 
-1. Business rules validation must be respected when recording and updating data. 
-2. The class structure must be designed to allow easy maintenance and the addition
-of new features, following the best OO practices.
+1. Business rules validation must be respected when recording and updating data.
 
 
 ## Performance
@@ -43,7 +41,7 @@ _The supportability requirements gathers several characteristics, such as:
 testability, adaptability, maintainability, compatibility,
 configurability, installability, scalability and more._
 
-The class structure must be designed to allow easy maintenance and the addition
+1. The class structure must be designed to allow easy maintenance and the addition
 of new features, following the best OO practices.
 
 ## +
@@ -52,7 +50,7 @@ of new features, following the best OO practices.
 
 _Specifies or constraints the system design process. Examples may include: programming languages, software process, mandatory standards/patterns, use of development tools, class library, etc._
 
-The application must be developed in Java language using the IntelliJ IDE or
+1. The application must be developed in Java language using the IntelliJ IDE or
 NetBeans. The application’s graphical interface is to be developed in JavaFX 11. Adopt the best practices for identifying requirements, 
 and for OO software analysis and design. Adopt recognized coding standards (e.g., CamelCase).
 
@@ -63,15 +61,15 @@ _Specifies or constraints the code or construction of a system such
 such as: mandatory standards/patterns, implementation languages,
 database integrity, resource limits, operating system._
 
-All those who wish to use the application must be authenticated with a password
+1. All those who wish to use the application must be authenticated with a password
 of seven alphanumeric characters, including three capital letters and two digits.
 The application must support the English language.
 
-• The development team must implement unit tests for all methods, except for
+2. The development team must implement unit tests for all methods, except for
 methods that implement Input/Output operations. The unit tests should be
 implemented using the JUnit 5 framework. 
 
-• The application should use object serialization to ensure data persistence between
+3. The application should use object serialization to ensure data persistence between
 two runs of the application.
 
 ### Interface Constraints
@@ -79,12 +77,10 @@ two runs of the application.
 _Specifies or constraints the features inherent to the interaction of the
 system being developed with other external systems._
 
-The JaCoCo plugin should be used
-to generate the coverage report.
+1. The JaCoCo plugin should be used to generate the coverage report.
 
 ### Physical Constraints
 
 _Specifies a limitation or physical requirement regarding the hardware used to house the system, as for example: material, shape, size or weight._
 
-• All the images/figures produced during the software development process should
-be recorded in SVG format.
+1. All the images/figures produced during the software development process should be recorded in SVG format.
