@@ -1,11 +1,11 @@
-# US007 - Register the check-up of a vehicle 
+# US007 - Register a vehicle's check-up
 
 
 ## 1. Requirements Engineering
 
 ### 1.1. User Story Description
 
-The VPM wants to register a vehicles check-up.
+The FM wants to register a vehicles check-up.
 
 ### 1.2. Customer Specifications and Clarifications 
 

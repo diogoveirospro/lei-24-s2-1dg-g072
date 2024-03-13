@@ -1,4 +1,4 @@
-# US007 - Register the inspection of a vehicle
+# US007 - Register a vehicle's check-up
 
 [Requirements Engineering](01.requirements-engineering/Readme.md)
 
