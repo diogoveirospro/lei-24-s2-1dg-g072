@@ -1,29 +1,38 @@
 # US003 - Registration of an employee
 
-
 ## 1. Requirements Engineering
 
 ### 1.1. User Story Description
 
-As an organization employee, I want to create a new task in order to be further published.
+As an HRM, I want to register a collaborator with a job and fundamental characteristics.
 
-### 1.2. Customer Specifications and Clarifications 
+### 1.2. Customer Specifications and Clarifications
 
 **From the specifications document:**
 
->	Each task is characterized by having a unique reference per organization, a designation, an informal and a technical description, an estimated duration and cost, as well as a task category. 
-
->	As long as it is not published, access to the task is exclusive to the employees of the respective organization. 
+> ...
 
 **From the client clarifications:**
 
-> **Question:** Which is the unit of measurement used to estimate duration?
+> **Question:** Na User Story 03 é mencionado o termo 'características fundamentais'. A minha questão é, precisamente, quais são estas características.
 >
-> **Answer:** Duration is estimated in days.
-
-> **Question:** Monetary data is expressed in any particular currency?
+> **Answer:** Os dados essenciais do colaborador mínimos serão nome, data de nascimento, data de admissão, morada, contacto (telefonico e email), documento de identificação e o seu número. Podem considerar outros que entendam ser relevantes.
 >
-> **Answer:** Monetary data (e.g. estimated cost of a task) is indicated in POT (virtual currency internal to the platform).
+> **Question:** When creating a collaborator with an existing name ... What the system do? What characteristics are important to success the register?
+>
+> **Answer:**
+It's not common and most improbable to have different individual with same name in the same context, however it’s ID documentation number should be unique for sure.
+I believe that question was already answered, name, birthdate, admission date, id doc type, id doc number, contact info (email, mobile), address.
+> 
+> **Question:** Which information is mandatory to insert a collaborator in the program (fundamental characteristics)?
+> **Question:** Which information is mandatory to insert a collaborator in the program (fundamental characteristics)?
+> 
+> **Question:** I would like to clarify what the output data of successfully registering a collaborator would be?
+> 
+> **Question:** Esse número tem algum formato em particular?
+> Como é que é suposto esse ser criado? Automaticamente pelo sistema ou manualmente pelo HRM?
+>
+>**Question:** Relativamente ao documento de identificação, é apenas necessária a introdução dos 8 primeiros dígitos, ou é necessária a introdução de tudo, incluindo os 8 dígitos mais os 4 restantes elementos que podem variar entre números e letras? 
 
 ### 1.3. Acceptance Criteria
 
