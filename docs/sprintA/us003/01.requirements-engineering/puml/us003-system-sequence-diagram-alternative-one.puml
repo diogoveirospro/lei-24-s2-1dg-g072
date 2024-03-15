@@ -1,0 +1,51 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD) - Alternative One
+
+autonumber
+
+actor "Human Resources\nManager" as HRM
+participant ":System" as System
+
+activate HRM
+
+    HRM -> System : asks to register a collaborator with a job and fundamental characteristics
+    activate System
+
+        System --> HRM : requests collaborator data (name, contact information, job position, skills)
+    deactivate System
+
+    HRM -> System : inputs collaborator data
+    activate System
+
+        System --> HRM : shows a list of available job positions and asks to select one
+    deactivate System
+
+    HRM -> System : selects a job position
+    activate System
+
+        System --> HRM : shows a list of available skills and asks to select relevant ones
+    deactivate System
+
+    HRM -> System : selects relevant skills
+    activate System
+
+        System --> HRM : presents a list of sectors of activity and asks to select one
+    deactivate System
+
+    HRM -> System : selects a sector of activity
+    activate System
+
+        System --> HRM : shows all data and requests confirmation
+    deactivate System
+
+    HRM -> System : confirms data
+    activate System
+
+        System --> HRM : displays operation success
+    deactivate System
+
+@enduml
