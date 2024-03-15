@@ -36,33 +36,33 @@ I believe that question was already answered, name, birthdate, admission date, i
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** All required fields must be filled in.
-* **AC2:** The task reference must have at least 5 alphanumeric characters.
-* **AC3:** When creating a task with an existing reference, the system must reject such operation and the user must be able to modify the typed reference.
+* **AC1:** All mandatory fields for the collaborator registration must be completed, including name, date of birth, date of admission, address, contact information (phone and email), identification document, and document number.
+* **AC2:** AC2: The collaborator's reference must contain at least 5 alphanumeric characters and be unique within the system.
+* **AC3:** If a collaborator with an existing name is being registered, the system should handle this scenario by prompting the user to modify the name to ensure uniqueness.
+* **AC4:** Upon successful registration, the system should provide a confirmation message indicating the success of the operation.
+* **AC5:** In case of failure during registration due to missing or invalid data, the system should display appropriate error messages indicating the specific issues that need to be addressed.
 
 ### 1.4. Found out Dependencies
 
-* There is a dependency on "US003 - Create a task category" as there must be at least one task category to classify the task being created.
+* Dependency on US001: Requires at least one competence to assign to the collaborator's job.
+* Dependency on US002: Relies on predefined jobs within the system to assign to collaborators.
 
 ### 1.5 Input and Output Data
 
 **Input Data:**
 
 * Typed data:
-    * a reference
-    * a designation 
-    * an informal description
-    * a technical description
-    * an estimated duration
-    * an estimated cost
-	
+    * Collaborator's personal information (e.g., name, email, phone number).
+    * Job-related information (e.g., job title, department).
+    * Fundamental characteristics (e.g., skills, competences).
+
 * Selected data:
-    * a task category 
+    * Job selection from predefined options.
 
 **Output Data:**
 
-* List of existing task categories
-* (In)Success of the operation
+* Success/Failure Confirmation: Indicates whether the registration operation was successful or not.
+* Updated Collaborator Database: Includes the newly registered collaborator's information.
 
 ### 1.6. System Sequence Diagram (SSD)
 
