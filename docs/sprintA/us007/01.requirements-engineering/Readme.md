@@ -30,7 +30,7 @@ The FM wants to register a vehicles check-up.
 **Input Data:**
 
 * Typed data:
-    * a designation of the registered vehicle
+    * a designation (plate id) of the registered vehicle
 
 **Output Data:**
 
@@ -47,7 +47,3 @@ The FM wants to register a vehicles check-up.
 #### Alternative Two
 
 ![System Sequence Diagram - Alternative Two](svg/us007-system-sequence-diagram-alternative-two.svg)
-
-### 1.7 Other Relevant Remarks
-
-* The created task stays in a "not published" state in order to distinguish from "published" tasks.

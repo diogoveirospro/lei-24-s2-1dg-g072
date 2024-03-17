@@ -15,6 +15,7 @@ class FleetManager{
 }
 
 class Vehicle{
+    plate id
     brand
     model
     type
