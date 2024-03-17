@@ -1,4 +1,4 @@
-# US001 - Register competences
+# US001 - Register skills
 
 
 ## 1. Requirements Engineering

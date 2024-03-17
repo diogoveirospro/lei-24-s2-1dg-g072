@@ -15,18 +15,21 @@ As GRH I want to automatically generate a team proposal.
 
 **From the client clarifications:**
 
-> **Question:** 
+> **Question:** How does it generate the team if there are not enough employees?
 >
-> **Answer:** 
+> **Answer:** The system should provide information why it can't generate a team.
 
-> **Question:** 
+> **Question:** How does he purpose a team, for what purpose? (Is there any default)?
 >
-> **Answer:** 
+> **Answer:** There is no purpose, at least in this sprint.
+
+> **Question:** What are the input data to automatically generate a team?
+>
+> **Answer:** The max size of the team (for instance 4); The skill needed: 4 tree pruner and 1 light vehicle driver (meaning that one team member have 2 skills).
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** The desired number of employees must be provided by the GRH.
-* **AC2:** The desired set of competences must be provided by the GRH.
+* **AC1:** The maximum team size and the set of skills need to be supplied by the HRM.
 
 ### 1.4. Found out Dependencies
 
@@ -38,14 +41,11 @@ As GRH I want to automatically generate a team proposal.
 **Input Data:**
 
 * Typed data:
-    * a designation
-    * a detailed task description
-    * an estimated duration
-    * a deadline
+    * a maximum team size
 	
 * Selected data:
-    * a task category
-    * task requirements
+    * a task to be assigned
+    * the necessary skills
 
 **Output Data:**
 

@@ -12,49 +12,31 @@ participant ":System" as System
 
 activate GRH
 
-    GRH -> System : asks to create a new profession
+    GRH -> System : asks to create a new job
         activate System
 
-            System --> GRH : requests data (i.e. designation, descriptions,\nmedium salary)
+            System --> GRH : requests the designation
         deactivate System
 
-        GRH -> System : types requested data
+        GRH -> System : types requested the designation
         activate System
 
-            System --> GRH : shows a list of required education levels and\nasks to select one
+            System --> GRH : requests confirmation
         deactivate System
 
-        GRH -> System : selects a required level of education
+        GRH -> System : not confirm
         activate System
 
-                System --> GRH : shows a list of competences and asks you\nto select all the ones you need
+            System --> GRH : returns the designation and asks for revision
         deactivate System
 
-        GRH -> System : selects all the necessary competences
+        GRH -> System : review and change (or not)
         activate System
 
-                System --> GRH : presents a list of sectors of activity\nand asks you to select one
+            System --> GRH : requests confirmation
         deactivate System
 
-        GRH -> System : selects a sector of activity
-        activate System
-
-            System --> GRH : shows all data and requests confirmation
-        deactivate System
-
-        GRH -> System : not confirm data
-        activate System
-
-            System --> GRH : returns the data and asks for revision
-        deactivate System
-
-        GRH -> System : review and change the desired data
-        activate System
-
-            System --> GRH : shows all data and requests confirmation
-        deactivate System
-
-        GRH -> System : confirms data
+        GRH -> System : confirms
         activate System
 
             System --> GRH : displays operation success

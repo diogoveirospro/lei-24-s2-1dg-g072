@@ -1,4 +1,4 @@
-# US001 - Register Competences
+# US001 - Register Skills
 
 [Requirements Engineering](01.requirements-engineering/Readme.md)
 

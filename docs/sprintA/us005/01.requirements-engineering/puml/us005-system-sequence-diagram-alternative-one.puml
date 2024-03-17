@@ -12,25 +12,25 @@ participant ":System" as System
 
 activate GRH
 
-    GRH -> System : asks to create a new task
+    GRH -> System : asks to create a new team
     activate System
 
-        System --> GRH : requests data (i.e. designation, detailed task\ndescription, duration, deadline)
+        System --> GRH : request the maximum team size
     deactivate System
 
-    GRH -> System : types requested data
+    GRH -> System : types requested size
     activate System
 
-        System --> GRH : shows task category list and asks to select one
+        System --> GRH : shows the list of tasks and asks you to select one
     deactivate System
 
-    GRH -> System : selects a task category
+    GRH -> System : selects a task
     activate System
 
-        System --> GRH : shows the list of task requirements and asks\nyou to select all the necessary ones
+        System --> GRH : shows the list of skills and asks you to select\nall the ones needed for that task
     deactivate System
 
-    GRH -> System : selects the requirements for the task
+    GRH -> System : select the skills
     activate System
 
         System --> GRH : shows all data and requests confirmation
