@@ -28,7 +28,7 @@ The FM wants to register a vehicle.
 **Input Data:**
 
 * Typed data:
-    * a designation for the vehicle
+    * a designation for the vehicle (plate id)
     * the attributes of the vehicle
 	
 * Selected data:
