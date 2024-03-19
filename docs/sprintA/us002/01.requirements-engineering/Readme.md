@@ -38,8 +38,6 @@ As an HRM I want to register a profession.
 ### 1.3. Acceptance Criteria
 
 * **AC1:** It should not be possible to register a new profession if it already exists in the system.
-* **AC2:** 
-* **AC3:** 
 
 ### 1.4. Found out Dependencies
 

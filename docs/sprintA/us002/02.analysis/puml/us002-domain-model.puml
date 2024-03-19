@@ -1,0 +1,39 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+'title Domain Model
+
+'class Platform {
+'  -description
+'}
+
+
+class Job {
+    description
+}
+
+
+class HRM {
+    name
+    email
+    phone
+}
+
+'class User {
+'    name
+'    email
+'    password
+'}
+
+
+HRM "1" -- "*" Job : creates >
+@enduml
