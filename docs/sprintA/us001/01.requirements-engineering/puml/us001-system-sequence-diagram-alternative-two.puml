@@ -3,7 +3,7 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title System Sequence Diagram (SSD) - Alternative One
+title System Sequence Diagram (SSD) - Alternative Two
 
 autonumber
 
@@ -18,11 +18,12 @@ activate Employee
         System --> Employee : Asks the HRM to write the competences
     deactivate System
 
-    Employee -> System : types not requested data (Not a String)
+    Employee -> System : types not requested data (doesn't write the competence name)
     activate System
+
         System --> Employee : shows a error and asks to write the competences
     deactivate System
-        Employee --> System : writes the requested data
+        Employee --> System : writes the requested data (competence name)
     activate System
 
         System --> Employee : shows all data and requests confirmation

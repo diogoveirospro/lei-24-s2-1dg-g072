@@ -18,7 +18,7 @@ activate Employee
         System --> Employee : Asks the HRM to write the competences
     deactivate System
 
-    Employee -> System : types requested data
+    Employee -> System : types requested data (name of the competence)
     activate System
 
         System --> Employee : shows all data and requests confirmation
