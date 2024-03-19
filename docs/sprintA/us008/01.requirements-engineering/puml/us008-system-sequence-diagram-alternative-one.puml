@@ -17,7 +17,11 @@ activate Employee
 
         System --> Employee : shows the list of all vehicles that need a check-up
     deactivate System
+    Employee -> System : Confirms that he wants to create the list
+        activate System
 
+            System --> Employee : shows the list of all vehicles that need a check-up
+        deactivate System
     Employee -> System : confirms the list
     activate System
 
