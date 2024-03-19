@@ -1,0 +1,22 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD) - US004: Assign Competences to a Collaborator
+
+actor "Human Resources\nManager" as HRM
+participant ":System" as System
+
+activate HRM
+
+HRM -> System: Request to assign competences to a collaborator
+activate System
+
+System -> HRM: Displays a list of available competences
+HRM -> System: Selects one or more competences
+System -> HRM: Confirms the selected competences
+HRM -> System: Confirms the competence assignment
+deactivate System
+
+@enduml
