@@ -17,7 +17,7 @@ As an FM, I want to list the vehicles needing the check-up.
 
 **From the client clarifications:**
 
-> **Question:** Which is the unit of measurement used to estimate duration?
+> **Question:** Can the vehicles get placed automatically on a list or the one listing has to be the FM?
 >
 > **Answer:** Duration is estimated in days.
 
