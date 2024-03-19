@@ -21,12 +21,6 @@ activate GRH
     GRH -> System : types requested size
     activate System
 
-        System --> GRH : shows the list of tasks and asks you to select one
-    deactivate System
-
-    GRH -> System : selects a task
-    activate System
-
         System --> GRH : shows the list of skills and asks you to select\nall the ones needed for that task
     deactivate System
 
