@@ -5,7 +5,7 @@
 
 ### 1.1. User Story Description
 
-The FM wants to register a vehicle.
+The VFM wants to register a vehicle.
 
 ### 1.2. Customer Specifications and Clarifications 
 
