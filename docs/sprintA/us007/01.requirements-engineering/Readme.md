@@ -11,10 +11,13 @@ The FM wants to register a vehicles check-up.
 
 **From the specifications document:**
 
->	Each task is characterized by having a unique reference per organization, a designation, an informal and a technical description, an estimated duration and cost, as well as a task category. 
+>
 
->	As long as it is not published, access to the task is exclusive to the employees of the respective organization. 
+**From the client clarifications:**
 
+> **Question:** Which attributes are needed for the vehicles check-up?
+> 
+> **Answer:** Plate number, date, kms at check-up.
 
 ### 1.3. Acceptance Criteria
 
@@ -30,7 +33,9 @@ The FM wants to register a vehicles check-up.
 **Input Data:**
 
 * Typed data:
-    * a designation (plate id) of the registered vehicle
+    * Plate number of teh vehicle
+    * Date 
+    * Kms on check-up
 
 **Output Data:**
 

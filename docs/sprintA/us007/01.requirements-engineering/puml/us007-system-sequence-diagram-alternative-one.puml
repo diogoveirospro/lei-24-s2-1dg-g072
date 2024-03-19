@@ -15,7 +15,7 @@ activate Employee
     Employee -> System : asks to register a vehicle for check-up
     activate System
 
-        System --> Employee : requests data (i.e. designation of the vehicle, cost)
+        System --> Employee : requests data (i.e. Plate number, date, kms at check-up)
     deactivate System
 
     Employee -> System : types requested data

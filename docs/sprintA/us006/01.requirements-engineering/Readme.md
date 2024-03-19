@@ -11,12 +11,12 @@ The FM wants to register a vehicle.
 
 **From the project statement document:**
 
->	The vehicle as the following attributes: Brand, Model, Type, Tare, Gross weight, Current Kms, Registration Date, Acquisition Date and Service Frequency (in Kms). 
+>	The vehicle as the following attributes: Plate number, Brand, Model, Type, Tare, Gross weight, Current Kms, Registration Date, Acquisition Date and Service Frequency (in Kms). 
 
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** The attributes used to describe a vehicle are: Brand, Model, Type, Tare, Gross weight, Current Kms, Registration Date, Acquisition Date and Service Frequency (in Kms).
+* **AC1:** The attributes used to describe a vehicle are: Plate number, Brand, Model, Type, Tare, Gross weight, Current Kms, Registration Date, Acquisition Date and Service Frequency (in Kms).
 * **AC2:** All required fields must be filled.
 
 ### 1.4. Found out Dependencies
@@ -28,10 +28,8 @@ The FM wants to register a vehicle.
 **Input Data:**
 
 * Typed data:
-    * a designation for the vehicle (plate id)
+    * a designation for the vehicle (plate number)
     * the attributes of the vehicle
-	
-* Selected data:
 
 **Output Data:**
 
