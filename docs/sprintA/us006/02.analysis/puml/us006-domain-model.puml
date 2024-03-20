@@ -28,6 +28,6 @@ class Vehicle{
 }
 
 
-FleetManager "1"-"   1" Vehicle: registers >
+FleetManager "1"-"   1..*" Vehicle: registers >
 
 @enduml
