@@ -3,28 +3,27 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title System Sequence Diagram (SSD) - Alternative Two
+title System Sequence Diagram (SSD) - Alternative Three
 
 autonumber
 
-actor "Organization\nEmployee" as Employee
+actor "Human\nResources\nManager\n(HRM)" as Employee
 participant ":System" as System
 
 activate Employee
 
-    Employee -> System : asks to create a new task
+    Employee -> System : Asks to add some competences
     activate System
 
-        System --> Employee : shows task category list and asks to select one
+        System --> Employee : Asks the HRM to write the competences
     deactivate System
 
-    Employee -> System : selects a task category
+    Employee -> System : types requested data with special characters or algarisms
     activate System
 
-        System --> Employee : requests data (i.e. reference, designation, informal\ndescription, technical description, duration, cost)
+        System --> Employee : shows a error and asks to write the competences
     deactivate System
-
-    Employee -> System : types requested data
+        Employee --> System : writes the requested data (competence name)
     activate System
 
         System --> Employee : shows all data and requests confirmation
@@ -35,4 +34,5 @@ activate Employee
 
         System --> Employee : displays operation success
     deactivate System
+
 @enduml

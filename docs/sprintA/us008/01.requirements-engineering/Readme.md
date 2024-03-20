@@ -17,17 +17,17 @@ As an FM, I want to list the vehicles needing the check-up.
 
 **From the client clarifications:**
 
-> **Question:** Which is the unit of measurement used to estimate duration?
+> **Question:** Can the vehicles get placed automatically on a list or the one listing has to be the FM?
 >
-> **Answer:** Duration is estimated in days.
+> **Answer:** The list of vehicles is automatically created but the creation is triggered by the FM.
 
-> **Question:** Monetary data is expressed in any particular currency?
+> **Question:** What information will appear on the final list regarding the vehicle,besides the needing for check-up?
 >
-> **Answer:** Monetary data (e.g. estimated cost of a task) is indicated in POT (virtual currency internal to the platform).
+> **Answer:** Data that allow to identify the vehicle like Plate, brand and module, as well as, the data that allowed to select/insert te vehicle in the list, number of kms, frequency of checkup and the last checkup.
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** There must be atleast one vehicle that is listed to do a check-up.
+* **AC1:** There must be at least one vehicle that is listed to do a check-up.
 
 
 ### 1.4. Found out Dependencies
@@ -39,9 +39,9 @@ As an FM, I want to list the vehicles needing the check-up.
 **Input Data:**
 
 * Typed data:
-    
-  
+    * Some mention of a confirmation to create the list
 	
+
 * Selected data:
     * Vehicles that need a check-up. 
 
@@ -58,3 +58,5 @@ As an FM, I want to list the vehicles needing the check-up.
 ![System Sequence Diagram - Alternative One](svg/us008-system-sequence-diagram-alternative-one.svg)
 
 ### 1.7 Other Relevant Remarks
+
+* The data that allow to identify the vehicle like Plate, brand and module, as well as, the data that allowed to select/insert te vehicle in the list, number of kms, frequency of checkup and the last checkup, are necessary to put in the list.

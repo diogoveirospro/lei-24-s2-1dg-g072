@@ -44,7 +44,6 @@ As GRH I want to automatically generate a team proposal.
     * a maximum team size
 	
 * Selected data:
-    * a task to be assigned
     * the necessary skills
 
 **Output Data:**

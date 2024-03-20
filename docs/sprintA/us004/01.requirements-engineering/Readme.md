@@ -41,33 +41,31 @@ As an HRM, I want to assign one or more skills to a collaborator.
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** All required fields must be filled in.
-* **AC2:** The task reference must have at least 5 alphanumeric characters.
-* **AC3:** When creating a task with an existing reference, the system must reject such operation and the user must be able to modify the typed reference.
+* **AC1:** The system should display a list of available competences for selection.
+* **AC2:** HRM should be able to select one or more competences from the list and assign them to the collaborator.
+* **AC3:** HRM should have the ability to remove assigned competences from the collaborator's profile if necessary.
+* **AC4:** Once competences are assigned or removed, the system should update the collaborator's profile with the changes.
+* **AC5:** The system should provide feedback to HRM confirming the success or failure of the competence assignment operation
 
 ### 1.4. Found out Dependencies
 
-* There is a dependency on "US003 - Create a task category" as there must be at least one task category to classify the task being created.
+* Dependency on US001: Requires competences to be previously registered in the system to be available for assignment.
+* Dependency on US003: Collaborator must be registered in the system before competences can be assigned to them.
 
 ### 1.5 Input and Output Data
 
 **Input Data:**
 
 * Typed data:
-    * a reference
-    * a designation 
-    * an informal description
-    * a technical description
-    * an estimated duration
-    * an estimated cost
+ 
 	
 * Selected data:
-    * a task category 
+    * Competences to be assigned to the collaborator.
 
 **Output Data:**
 
-* List of existing task categories
-* (In)Success of the operation
+* Success/Failure Confirmation: Indicates whether the competence assignment operation was successful or not.
+* Updated Collaborator Profile: Includes the collaborator's information with the newly assigned competences.
 
 ### 1.6. System Sequence Diagram (SSD)
 
@@ -75,11 +73,11 @@ As an HRM, I want to assign one or more skills to a collaborator.
 
 #### Alternative One
 
-![System Sequence Diagram - Alternative One](svg/us006-system-sequence-diagram-alternative-one.svg)
+![System Sequence Diagram - Alternative One](svg/us004-system-sequence-diagram-alternative-one.svg)
 
 #### Alternative Two
 
-![System Sequence Diagram - Alternative Two](svg/us006-system-sequence-diagram-alternative-two.svg)
+![System Sequence Diagram - Alternative Two](svg/us004-system-sequence-diagram-alternative-two.svg)
 
 ### 1.7 Other Relevant Remarks
 

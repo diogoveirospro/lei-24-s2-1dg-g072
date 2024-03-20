@@ -23,9 +23,14 @@ class Job {
 
 
 class HRM {
-    name
-    email
-    phone
+   name
+   birthdate
+   admission date
+   address
+   phone number
+   email
+   identification document
+   number
 }
 
 'class User {
@@ -35,5 +40,5 @@ class HRM {
 '}
 
 
-HRM "1" -- "*" Job : creates >
+HRM "1" -- "1..*" Job : creates >
 @enduml
