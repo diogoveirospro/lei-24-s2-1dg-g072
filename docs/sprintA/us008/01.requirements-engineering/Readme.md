@@ -11,10 +11,8 @@ As an FM, I want to list the vehicles needing the check-up.
 
 **From the specifications document:**
 
->	Each task is characterized by having a unique reference per organization, a designation, an informal and a technical description, an estimated duration and cost, as well as a task category. 
-
->	As long as it is not published, access to the task is exclusive to the employees of the respective organization. 
-
+>
+> 
 **From the client clarifications:**
 
 > **Question:** Can the vehicles get placed automatically on a list or the one listing has to be the FM?
