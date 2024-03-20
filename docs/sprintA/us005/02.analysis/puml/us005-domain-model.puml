@@ -44,18 +44,33 @@ class Collaborator {
     number
 }
 
-class Employee {
+class GreenSpace {
     name
-    email
-    position
-    phone
+    address
+    type
+}
+
+class Garden {
+    name
+    address
+}
+
+class MediumSizedPark {
+    name
+    address
+}
+
+class LargeSizedPark {
+    name
+    address
 }
 
 
 HRM "1" - "1..*" Team : creates >
 Team "1" - "1..*" Collaborator: has >
-'Task "*" -- "1" Employee: created by >
-Employee "1" -- "*" Task : creates >
-'Employee "0..1" -- "1" User: acts as >
-Task "*" - "1" Category: cataloged as >
+GreenSpace "1" -- "1..*" Collaborator: contains >
+GreenSpace <|-- Garden
+GreenSpace <|-- MediumSizedPark
+GreenSpace <|-- LargeSizedPark
+
 @enduml
