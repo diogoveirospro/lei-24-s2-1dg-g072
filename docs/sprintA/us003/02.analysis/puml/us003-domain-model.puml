@@ -1,0 +1,28 @@
+@startuml
+
+class Collaborator {
+    - name: String
+    - birthdate: Date
+    - admissionDate: Date
+    - address: String
+    - contactInfo: String
+    - idDocumentType: String
+    - idDocumentNumber: String
+}
+
+class Organization {
+    - name: String
+    - vatNumber: String
+    - website: String
+    - phone: String
+    - email: String
+    - collaborators: List<Collaborator>
+
+    + addCollaborator(collaborator: Collaborator)
+    + validateCollaborator(collaborator: Collaborator): boolean
+    + anyCollaboratorHasEmail(email: String): boolean
+}
+
+Organization "1" --> "*" Collaborator : contains
+
+@enduml
