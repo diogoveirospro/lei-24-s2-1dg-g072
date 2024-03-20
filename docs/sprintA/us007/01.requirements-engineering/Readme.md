@@ -18,6 +18,10 @@ The VFM wants to register a vehicles check-up.
 > **Question:** Which attributes are needed for the vehicles check-up?
 > 
 > **Answer:** Plate number, date, kms at check-up.
+> 
+> **Question:** What is the unit of measurement used to estimate the check-up frequency?
+> 
+> **Answer:** In the scope of the project only kms will be considered.
 
 ### 1.3. Acceptance Criteria
 
