@@ -44,6 +44,14 @@ class Collaborator {
     number
 }
 
+class Skills {
+    name
+}
+
+class Job {
+    name
+}
+
 class GreenSpace {
     name
     address
@@ -53,21 +61,27 @@ class GreenSpace {
 class Garden {
     name
     address
+    dimension
 }
 
 class MediumSizedPark {
     name
     address
+    dimension
 }
 
 class LargeSizedPark {
     name
     address
+    dimension
 }
 
 
 HRM "1" - "1..*" Team : creates >
-Team "1" - "1..*" Collaborator: has >
+Collaborator <|-- HRM
+Collaborator "1" - "1..*" Skills: has
+Collaborator "1" -- "1" Job: has
+Team "1" -- "1..*" Collaborator: has >
 GreenSpace "1" -- "1..*" Collaborator: contains >
 GreenSpace <|-- Garden
 GreenSpace <|-- MediumSizedPark

@@ -37,7 +37,7 @@ As an HRM, I want to register a job that a collaborator need to have.
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** It should not be possible to register a new profession if it already exists in the system.
+* **AC1:** It should not be possible to register a new job if it already exists in the system.
 
 ### 1.4. Found out Dependencies
 

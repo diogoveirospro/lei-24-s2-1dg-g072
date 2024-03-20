@@ -33,8 +33,8 @@ As a HRM, I want to generate a team proposal automatically.
 
 ### 1.4. Found out Dependencies
 
-* There is a dependency on **"US003 - Registration of an employee with profession and attributes"** since it needs information about the employees, such as experience and skills. This allows the system to select the appropriate employees to form the team.
-* There is a dependency on **"US004 - Assigning competences to an employee"** since competences need to be assigned to employees in the system. The system will have to take the relevant competences into account when forming teams.
+* There is a dependency on **"US003 - Registration of an employee"** since it needs information about the employees, such as experience and skills. This allows the system to select the appropriate employees to form the team.
+* There is a dependency on **"US004 - Assigning skills to an employee"** since skills need to be assigned to employees in the system. The system will have to take the relevant competences into account when forming teams.
 
 ### 1.5 Input and Output Data
 
