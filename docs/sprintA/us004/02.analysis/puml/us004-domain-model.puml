@@ -1,61 +1,31 @@
 @startuml
-skinparam monochrome true
-skinparam packageStyle rectangle
-skinparam shadowing false
 
-'left to right direction
-
-skinparam classAttributeIconSize 0
-
-hide circle
-hide methods
-
-'title Domain Model
-
-'class Platform {
-'  -description
-'}
-
-class Organization {
-    name
-    vatNumber
-    website
-    phoneNumber
-    email
-}
-
-class Task {
-    reference
-    description
-    informalDesc
-    technicalDesc
-    duration
-    cost
-}
-
-class Category {
-    description
+class Competence {
+    - id: String
+    - description: String
+    - level: String
 }
 
 class Employee {
-    name
-    email
-    position
-    phone
+    - id: String
+    - name: String
+    - competences: List<Competence>
+
+    + addCompetence(competence: Competence)
+    + removeCompetence(competenceId: String)
+    + getCompetences(): List<Competence>
 }
 
-'class User {
-'    name
-'    email
-'    password
-'}
+class Organization {
+    - name: String
+    - employees: List<Employee>
 
-'Platform "1" -- "*" Organization : has registered >
-'Platform "1" -- "*" Category : defines >
-Organization "1" - "0..*" Employee : has >
-Organization "1" - "0..*" Task: owns >
-'Task "*" -- "1" Employee: created by >
-Employee "1" -- "*" Task : creates >
-'Employee "0..1" -- "1" User: acts as >
-Task "*" - "1" Category: cataloged as >
+    + addEmployee(employee: Employee)
+    + removeEmployee(employeeId: String)
+    + getEmployee(employeeId: String): Employee
+}
+
+Employee "1" --> "*" Competence : possesses
+Organization "1" --> "*" Employee : employs
+
 @enduml
