@@ -15,7 +15,7 @@ activate GRH
     GRH -> System : asks to create a new team
     activate System
 
-        System --> GRH : request the maximum team size
+        System --> GRH : request the maximum and minimum team size
         deactivate System
 
         GRH -> System : types requested size
