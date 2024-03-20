@@ -5,7 +5,7 @@
 
 ### 1.1. User Story Description
 
-As GRH I want to automatically generate a team proposal.
+As a HRM, I want to generate a team proposal automatically.
 
 ### 1.2. Customer Specifications and Clarifications 
 
@@ -69,4 +69,4 @@ As GRH I want to automatically generate a team proposal.
 
 ### 1.7 Other Relevant Remarks
 
-* The GRH can change the team's recommendation and will be notified if none of the members have the necessary skills to carry out the task.
+* The HRM can change the team's recommendation and will be notified if none of the members have the necessary skills to carry out the task.

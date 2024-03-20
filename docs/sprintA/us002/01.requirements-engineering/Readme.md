@@ -5,7 +5,7 @@
 
 ### 1.1. User Story Description
 
-As an HRM I want to register a profession.
+As an HRM, I want to register a job that a collaborator need to have.
 
 ### 1.2. Customer Specifications and Clarifications 
 
