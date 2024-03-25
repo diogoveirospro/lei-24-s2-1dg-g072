@@ -31,6 +31,10 @@ As a HRM, I want to generate a team proposal automatically.
 > 
 > **Answer:** Yes.
 
+> **Question:** I would also like to know if a collaborator can be in more than one team at the same time?
+> 
+> **Answer:** No.
+
 
 ### 1.3. Acceptance Criteria
 
