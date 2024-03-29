@@ -80,6 +80,7 @@ To identify domain conceptual classes, start by making a list of candidate conce
 **Containers**
 
 * Team
+* Vehicles Check-Up
 
 ---
 
@@ -133,13 +134,27 @@ An association is a relationship between instances of objects that indicates a r
 - etc.
 
 
-| Concept (A) 		 | Association   	 | Concept (B) |
-|----------------|:---------------:|------------:|
-| Skill          |  is created by  |         HRM |
-| Job            |  is created by  |         HRM |
-| Collaborator   | is register by  |         HRM |
-| Job            |  is assign by   |         HRM |
-|                |                 |             |
+| Concept (A) 		                            | Association   	 |       Concept (B) |
+|-------------------------------------------|:---------------:|------------------:|
+| Human Resources Manager (HRM)             |      is a       |      Collaborator |
+| Human Resources Manager (HRM)             |    create a     |             Skill |
+| Human Resources Manager (HRM)             |    create a     |               Job |
+| Human Resources Manager (HRM)             |    create a     |      Collaborator |
+| Human Resources Manager (HRM)             |     assigns     |             Skill |
+| Collaborator                              |      has a      |             Skill |
+| Human Resources Manager (HRM)             |    create a     |              Team |
+| Collaborator                              |      has a      |               Job |
+| Team                                      |       has       |     Collaborators |
+| Green Space                               |    contains     |     Collaborators |
+| Garden                                    |      is a       |       Green Space |
+| Medium-sized park                         |      is a       |       Green Space |
+| Large-sized park                          |      is a       |       Green Space |
+| Vehicle and Equipment Fleet Manager (VFM) |      is a       |      Collaborator |
+| Vehicle and Equipment Fleet Manager (VFM) |   register a    |           Vehicle |
+| Vehicle and Equipment Fleet Manager (VFM) |     chooses     |          Vehicles |
+| Vehicle and Equipment Fleet Manager (VFM) |      lists      | Vehicles Check-Up |
+| Green Spaces Manager (GSM)                |      is a       |      Collaborator |
+| Green Spaces User (GSU)                   |      is a       |      Collaborator |
 
 
 
