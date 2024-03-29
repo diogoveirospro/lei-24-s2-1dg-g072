@@ -10,34 +10,47 @@ skinparam classAttributeIconSize 0
 hide circle
 hide methods
 
+'class Platform {
+'  -description
+'}
 
-
-class Organization {
+class Job {
     name
-    vatNumber
-    website
-    phoneNumber
-    email
 }
 
-class Task {
-    reference
-    description
-    informalDesc
-    technicalDesc
-    duration
-    cost
+class Collaborator {
+   name
+   birthdate
+   admission date
+   address
+   phone number
+   email
+   identification document
+   number
 }
 
-class Category {
-    description
-}
-
-class Employee {
+class Competence {
     name
-    email
-    position
-    phone
+}
+
+class SkillLevel {
+    level
+}
+
+class AssignedCompetence {
+    startDate
+    endDate
+}
+
+class HRM {
+   name
+   birthdate
+   admission date
+   address
+   phone number
+   email
+   identification document
+   number
 }
 
 'class User {
@@ -46,12 +59,12 @@ class Employee {
 '    password
 '}
 
-'Platform "1" -- "*" Organization : has registered >
-'Platform "1" -- "*" Category : defines >
-Organization "1" - "0..*" Employee : has >
-Organization "1" - "0..*" Task: owns >
-'Task "*" -- "1" Employee: created by >
-Employee "1" -- "*" Task : creates >
-'Employee "0..1" -- "1" User: acts as >
-Task "*" - "1" Category: cataloged as >
+
+HRM "1" -- "1..*" Job : assigns >
+Collaborator <|-- HRM
+Competence "*" - "1..*" SkillLevel : has >
+Collaborator "1" -- "*" AssignedCompetence : has >
+Job "*" -- "*" AssignedCompetence : has >
+AssignedCompetence "*" -- "1" Competence : is for >
+
 @enduml
