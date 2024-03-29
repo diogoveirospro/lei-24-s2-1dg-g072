@@ -1,31 +1,70 @@
 @startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+'class Platform {
+'  -description
+'}
+
+class Job {
+    name
+}
+
+class Collaborator {
+   name
+   birthdate
+   admission date
+   address
+   phone number
+   email
+   identification document
+   number
+}
 
 class Competence {
-    - id: String
-    - description: String
-    - level: String
+    name
 }
 
-class Employee {
-    - id: String
-    - name: String
-    - competences: List<Competence>
-
-    + addCompetence(competence: Competence)
-    + removeCompetence(competenceId: String)
-    + getCompetences(): List<Competence>
+class SkillLevel {
+    level
 }
 
-class Organization {
-    - name: String
-    - employees: List<Employee>
-
-    + addEmployee(employee: Employee)
-    + removeEmployee(employeeId: String)
-    + getEmployee(employeeId: String): Employee
+class AssignedCompetence {
+    startDate
+    endDate
 }
 
-Employee "1" --> "*" Competence : possesses
-Organization "1" --> "*" Employee : employs
+class HRM {
+   name
+   birthdate
+   admission date
+   address
+   phone number
+   email
+   identification document
+   number
+}
+
+'class User {
+'    name
+'    email
+'    password
+'}
+
+
+HRM "1" -- "1..*" Job : assigns >
+Collaborator <|-- HRM
+Competence "*" - "1..*" SkillLevel : has >
+Collaborator "1" -- "*" AssignedCompetence : has >
+Job "*" -- "*" AssignedCompetence : has >
+AssignedCompetence "*" -- "1" Competence : is for >
 
 @enduml
