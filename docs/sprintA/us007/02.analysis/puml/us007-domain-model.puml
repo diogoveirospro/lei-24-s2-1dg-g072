@@ -9,15 +9,24 @@ skinparam classAttributeIconSize 0
 hide circles
 hide methods
 
+class Collaborator {
+    name
+    birthdate
+    admissionDate
+    address
+    contactInfo
+    idDocumentType
+    idDocumentNumber
+}
+
 class VFM{
     name
     birthdate
-    admission date
+    admissionDate
     address
-    phone number
-    email
-    identification document
-    number
+    contactInfo
+    idDocumentType
+    idDocumentNumber
 }
 
 class Vehicle{
@@ -33,6 +42,6 @@ class Vehicle{
     maintenance/check-up frequency
 }
 
-
+Collaborator <|-- VFM
 VFM "1"-"   1..*" Vehicle: chooses >
 @enduml

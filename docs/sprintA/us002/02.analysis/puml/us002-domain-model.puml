@@ -18,23 +18,21 @@ class Job {
 class Collaborator {
    name
    birthdate
-   admission date
+   admissionDate
    address
-   phone number
-   email
-   identification document
-   number
+   contactInfo
+   idDocumentType
+   idDocumentNumber
 }
 
 class HRM {
    name
    birthdate
-   admission date
+   admissionDate
    address
-   phone number
-   email
-   identification document
-   number
+   contactInfo
+   idDocumentType
+   idDocumentNumber
 }
 
 

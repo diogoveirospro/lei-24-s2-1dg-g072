@@ -21,13 +21,15 @@ class Collaborator {
 
 class HRM {
     name
-    vatNumber
-    website
-    phone
-    email
-    jobs
+    birthdate
+    admissionDate
+    address
+    contactInfo
+    idDocumentType
+    idDocumentNumber
 }
 
 HRM "1" --> "*" Collaborator : registers
+Collaborator <|-- HRM
 
 @enduml

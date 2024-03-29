@@ -10,7 +10,7 @@ To identify domain conceptual classes, start by making a list of candidate conce
 
 **Business Transactions**
 
-* Jobs
+* Job
 
 ---
 
@@ -22,7 +22,7 @@ To identify domain conceptual classes, start by making a list of candidate conce
 
 **Product/Service related to a Transaction or Transaction Line Item**
 
-* Skills
+* Skill
 
 ---
 
@@ -35,7 +35,7 @@ To identify domain conceptual classes, start by making a list of candidate conce
 **Roles of People or Organizations**
 
 * Collaborator
-* Fleet Manager (FM)
+* Vehicle and Equipment Fleet Manager (VFM)
 * Green Spaces Manager (GSM)
 * Green Spaces User (GSU)
 * Human Resources Manager (HRM)
@@ -59,8 +59,8 @@ To identify domain conceptual classes, start by making a list of candidate conce
 
 **Physical Objects**
 
-* Vehicles
-* Machines
+* Vehicle
+* Machine
 * Equipment
 
 ---
@@ -133,10 +133,13 @@ An association is a relationship between instances of objects that indicates a r
 - etc.
 
 
-| Concept (A) 		|  Association   	|  Concept (B) |
-|----------	   		|:-------------:		|------:       |
-| C1  	| verb1    		 	| C2  |
-| ...  	| ...    		 	| ...  |
+| Concept (A) 		 | Association   	 | Concept (B) |
+|----------------|:---------------:|------------:|
+| Skill          |  is created by  |         HRM |
+| Job            |  is created by  |         HRM |
+| Collaborator   | is register by  |         HRM |
+| Job            |  is assign by   |         HRM |
+|                |                 |             |
 
 
 

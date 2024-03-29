@@ -11,17 +11,14 @@ hide methods
 class HRM {
     name
     birthdate
-    admission date
+    admissionDate
     address
-    phone number
-    email
-    identification document
-    number
-    collaborators
-    vatNumber
+    contactInfo
+    idDocumentType
+    idDocumentNumber
 }
 
-class Skills {
+class Skill {
     name
 }
 class Job {
@@ -100,42 +97,41 @@ class VehiclesCheckUp {
     plate id
 }
 
-class Competence {
-    name
-}
 
-class SkillLevel {
-    level
-}
+Collaborator <|-- HRM
 
-class AssignedCompetence {
-    startDate
-    endDate
-}
+'US001
+HRM "1" -- "1..*" Skill: creates >
 
+'US002
+HRM "1" -- "1..*" Job : creates >
 
+'US003
+HRM "1" --> "*" Collaborator : registers
 
+'US004
+HRM "1" -- "1..*" Skill : assigns >
+Collaborator "1" -- "1..*" Skill : has >
 
-
-HRM "1" -- "1..*" Job : assigns >
-Competence "*" - "1..*" SkillLevel : has >
-Collaborator "1" -- "*" AssignedCompetence : has >
-Job "*" -- "*" AssignedCompetence : has >
-AssignedCompetence "*" -- "1" Competence : is for >
-VFM "1" --  "1..*" Vehicle: chooses >
-VFM "1" --  "1..*" Vehicle: registers >
-HRM "1" -- "1..*" Team : creates >
-Collaborator "1" - "1..*" Skills: has >
+'US005
+HRM "1" - "1..*" Team : creates >
 Collaborator "1" -- "1" Job: has >
 Team "1" -- "1..*" Collaborator: has >
 GreenSpace "1" -- "1..*" Collaborator: contains >
 GreenSpace <|-- Garden
 GreenSpace <|-- MediumSizedPark
 GreenSpace <|-- LargeSizedPark
-HRM "1" --> "*" Collaborator : registers
-HRM "1" -- "1..*" Job : creates >
-Collaborator <|-- HRM
-HRM "1" -- "1..*" Skills: creates >
+
 Collaborator <|-- VFM
+
+'US006
+VFM "1"-"   1..*" Vehicle: registers >
+
+'US007
+VFM "1"-"   1..*" Vehicle: chooses >
+
+'US008
 VFM "1" -- "1..*" VehiclesCheckUp: lists >
+
+
 @enduml

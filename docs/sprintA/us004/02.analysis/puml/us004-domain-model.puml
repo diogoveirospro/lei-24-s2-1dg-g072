@@ -14,52 +14,33 @@ hide methods
 '  -description
 '}
 
-class Job {
-    name
-}
-
 class Collaborator {
    name
    birthdate
-   admission date
+   admissionDate
    address
-   phone number
-   email
-   identification document
-   number
+   contactInfo
+   idDocumentType
+   idDocumentNumber
 }
 
-class Competence {
+class Skill {
     name
-}
-
-class SkillLevel {
-    level
-}
-
-class AssignedCompetence {
-    startDate
-    endDate
 }
 
 class HRM {
    name
    birthdate
-   admission date
+   admissionDate
    address
-   phone number
-   email
-   identification document
-   number
+   contactInfo
+   idDocumentType
+   idDocumentNumber
 }
 
 
-
-HRM "1" -- "1..*" Job : assigns >
 Collaborator <|-- HRM
-Competence "*" - "1..*" SkillLevel : has >
-Collaborator "1" -- "*" AssignedCompetence : has >
-Job "*" -- "*" AssignedCompetence : has >
-AssignedCompetence "*" -- "1" Competence : is for >
+HRM "1" -- "1..*" Skill : assigns >
+Collaborator "1" -- "1..*" Skill : has >
 
 @enduml
