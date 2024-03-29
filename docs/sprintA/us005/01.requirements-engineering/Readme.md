@@ -5,7 +5,7 @@
 
 ### 1.1. User Story Description
 
-As a HRM, I want to generate a team proposal automatically.
+As an HRM, I want to generate a team proposal automatically.
 
 ### 1.2. Customer Specifications and Clarifications 
 
@@ -34,6 +34,17 @@ As a HRM, I want to generate a team proposal automatically.
 > **Question:** I would also like to know if a collaborator can be in more than one team at the same time?
 > 
 > **Answer:** No.
+
+> **Question:** Are the skills(input) typed or selected? Does the output show the team members with or without their skills?
+>
+> **Answer:** The ux/ui is up to the dev team.
+
+> **Question:** What business rules apply to the input data to generate a team proposal?
+> 
+> **Answer:** Max and Min team size, and a list of skills needed.
+For instance:
+min: 3
+max: 4
 
 
 ### 1.3. Acceptance Criteria
