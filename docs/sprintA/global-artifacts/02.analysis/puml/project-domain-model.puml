@@ -100,11 +100,31 @@ class VehiclesCheckUp {
     plate id
 }
 
+class Competence {
+    name
+}
+
+class SkillLevel {
+    level
+}
+
+class AssignedCompetence {
+    startDate
+    endDate
+}
 
 
+
+
+
+HRM "1" -- "1..*" Job : assigns >
+Competence "*" - "1..*" SkillLevel : has >
+Collaborator "1" -- "*" AssignedCompetence : has >
+Job "*" -- "*" AssignedCompetence : has >
+AssignedCompetence "*" -- "1" Competence : is for >
 VFM "1" --  "1..*" Vehicle: chooses >
 VFM "1" --  "1..*" Vehicle: registers >
-HRM "1" - "1..*" Team : creates >
+HRM "1" -- "1..*" Team : creates >
 Collaborator "1" - "1..*" Skills: has >
 Collaborator "1" -- "1" Job: has >
 Team "1" -- "1..*" Collaborator: has >
