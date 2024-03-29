@@ -1,26 +1,32 @@
 @startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
 
+'left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+'José não é como em PPROG ainda
 class Collaborator {
-    - name: String
-    - birthdate: Date
-    - admissionDate: Date
-    - address: String
-    - contactInfo: String
-    - idDocumentType: String
-    - idDocumentNumber: String
+     name
+     birthdate
+     admissionDate
+     address
+     contactInfo
+     idDocumentType
+     idDocumentNumber
 }
 
 class Organization {
-    - name: String
-    - vatNumber: String
-    - website: String
-    - phone: String
-    - email: String
-    - collaborators: List<Collaborator>
-
-    + addCollaborator(collaborator: Collaborator)
-    + validateCollaborator(collaborator: Collaborator): boolean
-    + anyCollaboratorHasEmail(email: String): boolean
+    name
+    vatNumber
+    website
+    phone
+    email
+    collaborators
 }
 
 Organization "1" --> "*" Collaborator : contains

@@ -1,4 +1,4 @@
-# US004 - Assigning competences to an employee 
+# US004 - Assigning skills to an employee 
 
 
 ## 1. Requirements Engineering
@@ -22,7 +22,7 @@ As an HRM, I want to assign one or more skills to a collaborator.
 >
 > **Answer:** 1. Não; 2. Não.
 
-> **Question:* *1 -Is there a maximum number of skills a collaborator can be added to?
+> **Question:** 1 -Is there a maximum number of skills a collaborator can be added to?
 2- Can more skills be added over time?
 3- Can there be collaborators without associated skills?
 >

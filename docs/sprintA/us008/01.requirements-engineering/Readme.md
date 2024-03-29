@@ -11,10 +11,8 @@ As an FM, I want to list the vehicles needing the check-up.
 
 **From the specifications document:**
 
->	Each task is characterized by having a unique reference per organization, a designation, an informal and a technical description, an estimated duration and cost, as well as a task category. 
-
->	As long as it is not published, access to the task is exclusive to the employees of the respective organization. 
-
+>
+> 
 **From the client clarifications:**
 
 > **Question:** Can the vehicles get placed automatically on a list or the one listing has to be the FM?
@@ -24,6 +22,10 @@ As an FM, I want to list the vehicles needing the check-up.
 > **Question:** What information will appear on the final list regarding the vehicle,besides the needing for check-up?
 >
 > **Answer:** Data that allow to identify the vehicle like Plate, brand and module, as well as, the data that allowed to select/insert te vehicle in the list, number of kms, frequency of checkup and the last checkup.
+
+> **Question:** In this US we should only list the vehicles that need a check up (surpass the check up frequency in KM) or that will shortly need a check up (5% to the check up frequency *already said in another post*), correct?
+> 
+> **Answer:** No; the Maintenance/Check-up Frequency (in km) is registered in US06.
 
 ### 1.3. Acceptance Criteria
 

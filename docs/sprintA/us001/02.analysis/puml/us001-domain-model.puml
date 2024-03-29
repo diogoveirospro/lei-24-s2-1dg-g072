@@ -1,0 +1,46 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+'title Domain Model
+
+'class Platform {
+'  -description
+'}
+
+class HRM {
+    name
+    birthdate
+    admission date
+    address
+    phone number
+    email
+    identification document
+    number
+}
+
+class Skills {
+    name
+}
+
+
+'class User {
+'    name
+'    email
+'    password
+'}
+
+
+
+HRM "1" -- "1..*" Skills: creates >
+
+
+@enduml

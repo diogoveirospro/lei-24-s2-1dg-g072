@@ -5,15 +5,16 @@
 
 ### 1.1. User Story Description
 
-As a HRM I want to record competences that can be attributed to an employee.
+As a Human Resources Manager (HRM), I want to register skills that a
+collaborator may have.
+
 
 ### 1.2. Customer Specifications and Clarifications 
 
 **From the specifications document:**
 
->	Each task is characterized by having a unique reference per organization, a designation, an informal and a technical description, an estimated duration and cost, as well as a task category. 
-
->	As long as it is not published, access to the task is exclusive to the employees of the respective organization. 
+>
+ 
 
 **From the client clarifications:**
 
@@ -43,12 +44,25 @@ As a HRM I want to record competences that can be attributed to an employee.
 > 
 > **Answer:** All, it's up to HRM to decide. (special characters or algarisms should not be allowed in the skill name)
 
+> **Question:** The indentificator of the skill will be the name, or the system will generate authomatically and Id when the manager insert the name? 
+> 
+> **Answer:** A skill is just a name, can be a composition os words like "Light Vehicle Driving Licence".
+> 
+> I have no knowledge about systems IDs.
+
+> **Question:** Dear client, which is the difference between collaborator and employee?
+> 
+> **Answer:** Employee and collaborator are synonyms.
+
+> **Question:** Should the system able the HRM to introduce multiple skills in one interaction before saving all of them?
+> 
+> **Answer:** it's not required to do so.
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** The HRM needs to write at least one competence.
+* **AC1:** The HRM needs to write at least one skill.
 * **AC2:** It must not have any special character or algarisms.
-* **AC3:** If the competence is not as asked, it must be asked again.
+* **AC3:** If the skill is not correctly created, it must be asked to the HRM to create again.
 ### 1.4. Found out Dependencies
 
 * There are no dependencies in other US.
@@ -58,15 +72,15 @@ As a HRM I want to record competences that can be attributed to an employee.
 **Input Data:**
 
 * Typed data:
-    * a competence (The name of the competence)
+    * a skill (The name of the skill)
   
 	
 * Selected data:
-    * array with the information of the competences
+    * array with the information of the skills
 
 **Output Data:**
 
-* Information of the competences that were recorded!
+* Information of the skills that were recorded!
 * (In)Success of the operation
 
 ### 1.6. System Sequence Diagram (SSD)

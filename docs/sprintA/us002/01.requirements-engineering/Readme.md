@@ -29,15 +29,43 @@ As an HRM, I want to register a job that a collaborator need to have.
 
 > **Question:** What are the acceptance criteria? When are creating a job that already exit, what the system do?
 >
-> **Answer:** By definition a set can´t have duplicates. Assuring no duplicates is not a business rule is a tecnichal issue.
+> **Answer:** By definition a set can´t have duplicates. Assuring no duplicates is not a business rule is a technical issue.
 
 > **Question:** What are the inputs for creating a job?
 >
 > **Answer:** The name of job: gardener; cobbler; electrician; driver; ...
 
+> **Question:** After register a job/vehicle's checkup should a message (success or failure) or a resume of the register appear?
+> 
+> **Answer:** The UX/UI is up to dev teams.
+
+> **Question:** Should we add a description or anything attribute for the Job registration?
+> 
+> **Answer:** Not need to, job is just a name.
+
+> **Question:** The id of Job is generated automatically by the system?
+> 
+> **Answer:** Don't know what is job id, job is just a name.
+
+> **Question:** I guess a job can be assigned to a collaborator if he has the skills require for this job. How do we manage this relation. Does he HRM do it manually, or should we have an attribute in job specifying the skills needed?
+>
+> **Answer:** No; a collaborator is hired for a job and can have skills or not.
+
+> **Question:** Do the job has to be registered before registering a collaborator?
+> 
+> **Answer:** A collaborator is hired for a (valid) job.
+
+> **Question:** When we register a team, the collaborators has to have a job?
+> 
+> **Answer:** See 3 and 4.
+
+> **Question:** What do you want to see as an output?
+> 
+> **Answer:** The UX/UI is to be decided by dev team.
+
 ### 1.3. Acceptance Criteria
 
-* **AC1:** It should not be possible to register a new profession if it already exists in the system.
+* **AC1:** It should not be possible to register a new job if it already exists in the system.
 
 ### 1.4. Found out Dependencies
 

@@ -12,13 +12,13 @@ participant ":System" as System
 
 activate Employee
 
-    Employee -> System : Asks to add some competences
+    Employee -> System : Asks to add some skills
     activate System
 
-        System --> Employee : Asks the HRM to write the competences
+        System --> Employee : Asks the HRM to write the skills
     deactivate System
 
-    Employee -> System : types requested data (name of the competence)
+    Employee -> System : types requested data (name of the skill)
     activate System
 
         System --> Employee : shows all data and requests confirmation

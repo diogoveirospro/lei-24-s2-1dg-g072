@@ -7,7 +7,7 @@ title System Sequence Diagram (SSD) - Alternative One
 
 autonumber
 
-actor "Fleet\nManager\n(FM)" as Employee
+actor "Vehicle\nFleet\nManager\n(VFM)" as Employee
 participant ":System" as System
 
 activate Employee
