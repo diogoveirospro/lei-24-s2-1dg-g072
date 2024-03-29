@@ -9,7 +9,6 @@ skinparam classAttributeIconSize 0
 
 hide circle
 hide methods
-'José não é como em PPROG ainda
 class Collaborator {
      name
      birthdate
@@ -20,15 +19,15 @@ class Collaborator {
      idDocumentNumber
 }
 
-class Organization {
+class HRM {
     name
     vatNumber
     website
     phone
     email
-    collaborators
+    jobs
 }
 
-Organization "1" --> "*" Collaborator : contains
+HRM "1" --> "*" Collaborator : registers
 
 @enduml

@@ -28,17 +28,8 @@ class VehiclesCheckUp {
 }
 
 
-'class User {
-'    name
-'    email
-'    password
-'}
 
-'Platform "1" -- "*" Organization : has registered >
-'Platform "1" -- "*" Category : defines >
 VFM "1" -- "1..*" VehiclesCheckUp: lists >
-'Task "*" -- "1" Employee: created by >
 
-'Employee "0..1" -- "1" User: acts as >
 
 @enduml

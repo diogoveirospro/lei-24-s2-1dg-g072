@@ -1,9 +1,15 @@
 @startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
 
+'left to right direction
+
+skinparam classAttributeIconSize 0
 hide circles
 hide methods
 
-class FleetManager{
+class VFM{
     name
     birthdate
     admission date
@@ -28,5 +34,5 @@ class Vehicle{
 }
 
 
-FleetManager "1"-"   1..*" Vehicle: chooses >
+VFM "1"-"   1..*" Vehicle: chooses >
 @enduml
