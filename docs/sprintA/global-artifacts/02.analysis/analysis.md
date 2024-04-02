@@ -137,12 +137,12 @@ An association is a relationship between instances of objects that indicates a r
 | Concept (A) 		                            | Association   	 |       Concept (B) |
 |-------------------------------------------|:---------------:|------------------:|
 | Human Resources Manager (HRM)             |      is a       |      Collaborator |
-| Human Resources Manager (HRM)             |    create a     |             Skill |
-| Human Resources Manager (HRM)             |    create a     |               Job |
-| Human Resources Manager (HRM)             |    create a     |      Collaborator |
+| Human Resources Manager (HRM)             |    creates a    |             Skill |
+| Human Resources Manager (HRM)             |    creates a    |               Job |
+| Human Resources Manager (HRM)             |    creates a    |      Collaborator |
 | Human Resources Manager (HRM)             |     assigns     |             Skill |
 | Collaborator                              |      has a      |             Skill |
-| Human Resources Manager (HRM)             |    create a     |              Team |
+| Human Resources Manager (HRM)             |    creates a    |              Team |
 | Collaborator                              |      has a      |               Job |
 | Team                                      |       has       |     Collaborators |
 | Green Space                               |    contains     |     Collaborators |
