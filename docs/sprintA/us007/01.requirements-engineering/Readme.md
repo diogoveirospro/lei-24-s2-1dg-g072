@@ -7,11 +7,7 @@
 
 The VFM wants to register a vehicles check-up.
 
-### 1.2. Customer Specifications and Clarifications 
-
-**From the specifications document:**
-
->
+### 1.2. Customer Specifications and Clarifications
 
 **From the client clarifications:**
 
@@ -53,6 +49,3 @@ The VFM wants to register a vehicles check-up.
 
 ![System Sequence Diagram - Alternative One](svg/us007-system-sequence-diagram-alternative-one.svg)
 
-#### Alternative Two
-
-![System Sequence Diagram - Alternative Two](svg/us007-system-sequence-diagram-alternative-two.svg)
