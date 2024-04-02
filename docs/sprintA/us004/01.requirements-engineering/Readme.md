@@ -17,26 +17,17 @@ As an HRM, I want to assign one or more skills to a collaborator.
 
 **From the client clarifications:**
 
-> **Question:** Na US04 é relativa à associação de skills a um colaborador. A minha questão é: 1. se há um número mínimo e máximo de número de skills; 2. se há alguma característica especial que seja necessária o colaborar ter para que lhe sejam adicionadas estas skills.
+> **Question:** Número de respostas: Can a collaborator have no skills assigned?
+>
+> **Answer:** yes
 
+> **Question:** - Can any skill be registered to any collaborator/job? Or should they be associated in categories in association with a specific job - Should it be possible to add the same skill to a collaborator multiple times? - Is there any certification/proof needed to register a skill to a colaborator?
+>
+> **Answer:** -There is no association, it totally depends of the CV of the collaborator. -That does not make sense  -no. 
+
+> **Question:** 1. se há um número mínimo e máximo de número de skills; 2. se há alguma característica especial que seja necessária o colaborar ter para que lhe sejam adicionadas estas skills.
 >
 > **Answer:** 1. Não; 2. Não.
-
-> **Question:** 1 -Is there a maximum number of skills a collaborator can be added to?
-2- Can more skills be added over time?
-3- Can there be collaborators without associated skills?
->
-> **Answer:** 
-
-> **Question:** Regarding registering a skill, we have a couple of questions: Can any skill be registered to any collaborator/job? Or should they be associated in categories in association with a specific job; Should it be possible to add the same skill to a collaborator multiple times?; Is there any certification/proof needed to register a skill to a colaborator?
->
-> **Answer:** -There is no association, it totally depends of the CV of the collaborator.
--That does not make sense -no.
-
-> **Question:**
->
-> **Answer:**
-
 
 
 ### 1.3. Acceptance Criteria
