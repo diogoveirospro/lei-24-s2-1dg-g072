@@ -27,9 +27,39 @@ As an FM, I want to list the vehicles needing the check-up.
 > 
 > **Answer:** No; the Maintenance/Check-up Frequency (in km) is registered in US06.
 
+> **Question:** What are the requests/ input data to list the vehicles needing the check-up? 
+> 
+> **Answer:** The list must contain all vehicles that have already exceeded the number of km required for the inspection or those that are close to it.
+>
+> For example:
+> 
+> a vehicle that made the checkup at 23500 and has a checkup frequency of 10000km.
+> 
+> a) If it currently has 33600 (exceeded) or
+> 
+> b) 33480 (there is a difference minor than 5% of the number of kms of the checkup frequency).
+
+> **Question:** Type of vehicle, Current Km and Maintenance/Check-up Frequency (in Kms) are sufficient?
+> 
+> **Answer:** Current Km and Maintenance/Check-up Frequency (in Kms) are sufficient, yes;
+
+> **Question:** Are there acceptance criteria when asking for the list?
+> 
+> **Answer:** The list must clearly identify the vehicles through: plate number, brand, model and the that justified the checkup need.
+
+> **Question:** "The list must clearly identify the vehicles through: plate number, brand, model and the [?] that justified the checkup need."
+> 
+> Did you mean the reason for the check-up need?
+> 
+> **Answer:** [?] DATA
+> 
+> current kms, frequency, last checkup kms, next checkup (optimal) kms
+
+
 ### 1.3. Acceptance Criteria
 
 * **AC1:** There must be at least one vehicle that is listed to do a check-up.
+* **AC2:** The list must clearly identify the vehicles through: plate number, brand, model and the that justified the checkup need.
 
 
 ### 1.4. Found out Dependencies

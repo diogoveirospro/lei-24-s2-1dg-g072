@@ -63,6 +63,7 @@ collaborator may have.
 * **AC1:** The HRM needs to write at least one skill.
 * **AC2:** It must not have any special character or algarisms.
 * **AC3:** If the skill is not correctly created, it must be asked to the HRM to create again.
+
 ### 1.4. Found out Dependencies
 
 * There are no dependencies in other US.
