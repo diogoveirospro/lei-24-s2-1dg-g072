@@ -18,21 +18,37 @@ As an HRM, I want to register a collaborator with a job and fundamental characte
 >
 > **Answer:** Os dados essenciais do colaborador mínimos serão nome, data de nascimento, data de admissão, morada, contacto (telefonico e email), documento de identificação e o seu número. Podem considerar outros que entendam ser relevantes.
 >
-> **Question:** When creating a collaborator with an existing name ... What the system do? What characteristics are important to success the register?
+> **Question:** 1. Esse número tem algum formato em particular? 2. Como é que é suposto esse ser criado? Automaticamente pelo sistema ou manualmente pelo HRM?
+>
+> **Answer:** Não faz sentido gerar um número que representa a identificação de uma pessoa. As pessoas têm documentos de identificação (CC, BI, Passaporte) cujos números já foram atribuidos.
+>
+> **Question:** What is needed for the adress ?  Street, zipcode and a city?
+>
+> **Answer:**
+That would be enough.
+> 
+> **Question:** Should the system able the HRM to insert multiple collaborators in one interaction before saving them.
+>
+> **Answer:** it's not required to do so.
+> 
+> **Question:** I have some questions regarding the business rules of this US: - Is there any limitation regarding the length of the name of the collaborator? - Should we consider valid only the birthdates in which the collaborator has more than 18 years? - What should be the format for the phone number? 9 numbers? - What is the format for the numbers from the id doc types? - Are there any other business rules
+>
+> **Answer:**
+According to the Portuguese law a name should contain at maximum six words;
+yes; validating 9 digits will be acceptable; validating with international format would be excelent;
+each doc type has specific formats like taxpayer number, Citizen Card ou passport.
+> 
+> **Question:** Which information is mandatory to insert a collaborator in the program (fundamental characteristics)? Does the HRM select the job from a list that we display?
+>
+> **Answer:** - name, birth date, admission date, address, contact info (mobile and email), taxpayer number, ID doc type and respective number - displaying or not, It's a matter of UX, the dev team should decide about it, but the valid jobs are the ones created within the US02.
+>
+> **Question:** When creating a collaborator with an existing name ... What the system do?
+What characteristics are important to success the register?
 >
 > **Answer:**
 It's not common and most improbable to have different individual with same name in the same context, however it’s ID documentation number should be unique for sure.
 I believe that question was already answered, name, birthdate, admission date, id doc type, id doc number, contact info (email, mobile), address.
-> 
-> **Question:** Which information is mandatory to insert a collaborator in the program (fundamental characteristics)?
-> **Question:** Which information is mandatory to insert a collaborator in the program (fundamental characteristics)?
-> 
-> **Question:** I would like to clarify what the output data of successfully registering a collaborator would be?
-> 
-> **Question:** Esse número tem algum formato em particular?
-> Como é que é suposto esse ser criado? Automaticamente pelo sistema ou manualmente pelo HRM?
->
->**Question:** Relativamente ao documento de identificação, é apenas necessária a introdução dos 8 primeiros dígitos, ou é necessária a introdução de tudo, incluindo os 8 dígitos mais os 4 restantes elementos que podem variar entre números e letras? 
+
 
 ### 1.3. Acceptance Criteria
 
