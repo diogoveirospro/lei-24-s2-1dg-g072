@@ -37,14 +37,6 @@ class Collaborator {
     idDocumentNumber
 }
 
-class Skills {
-    name
-}
-
-class Job {
-    name
-}
-
 class GreenSpace {
     name
     address
@@ -72,8 +64,6 @@ class LargeSizedPark {
 
 HRM "1" - "1..*" Team : creates >
 Collaborator <|-- HRM
-Collaborator "1" - "1..*" Skills: has >
-Collaborator "1" -- "1" Job: has >
 Team "1" -- "1..*" Collaborator: has >
 GreenSpace "1" -- "1..*" Collaborator: contains >
 GreenSpace <|-- Garden
