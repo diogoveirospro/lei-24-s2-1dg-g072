@@ -7,39 +7,39 @@ title System Sequence Diagram (SSD) - Alternative Three
 
 autonumber
 
-actor "Human Resources\nManager" as GRH
+actor "Human Resources\nManager" as HRM
 participant ":System" as System
 
-activate GRH
+activate HRM
 
-    GRH -> System : asks to create a new job
-        activate System
+    HRM -> System : asks to create a new job
+    activate System
 
-            System --> GRH : requests the designation
-        deactivate System
+        System --> HRM : requests the designation
+    deactivate System
 
-        GRH -> System : types requested the designation
-        activate System
+    HRM -> System : types requested the designation
+    activate System
 
-            System --> GRH : requests confirmation
-        deactivate System
+        System --> HRM : requests confirmation
+    deactivate System
 
-        GRH -> System : not confirm
-        activate System
+    HRM -> System : not confirm
+    activate System
 
-            System --> GRH : returns the designation and asks for revision
-        deactivate System
+        System --> HRM : returns the designation and asks for revision
+    deactivate System
 
-        GRH -> System : review and change (or not)
-        activate System
+    HRM -> System : review and change (or not)
+    activate System
 
-            System --> GRH : requests confirmation
-        deactivate System
+        System --> HRM : requests confirmation
+    deactivate System
 
-        GRH -> System : confirms
-        activate System
+    HRM -> System : confirms
+    activate System
 
-            System --> GRH : displays operation success
-        deactivate System
+        System --> HRM : displays operation success
+    deactivate System
 
 @enduml

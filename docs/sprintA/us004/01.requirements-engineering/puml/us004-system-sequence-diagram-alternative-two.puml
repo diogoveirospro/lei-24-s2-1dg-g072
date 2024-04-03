@@ -5,18 +5,41 @@ skinparam shadowing false
 
 title System Sequence Diagram (SSD) - Alternative Two
 
+autonumber
+
 actor "Human Resources\nManager" as HRM
 participant ":System" as System
 
 activate HRM
 
-HRM -> System: Request to assign competences to a collaborator
-activate System
+    HRM -> System : request to assign skills to a collaborator
+    activate System
 
-System -> HRM: Displays a list of competences
-HRM -> System: Selects one or more competences
-System -> HRM: Confirms the selected competences
-HRM -> System: Confirms the competence assignment
-deactivate System
+        System --> HRM : displays a list of available skills
+    deactivate System
+
+    HRM -> System : selects collaborator skills
+    activate System
+
+        System --> HRM : requests confirmation
+    deactivate System
+
+    HRM -> System : not confirm
+    activate System
+
+        System --> HRM : returns the list of skills (selected and not only) \n and asks for a review
+    deactivate System
+
+    HRM -> System : review and change (or not)
+    activate System
+
+        System --> HRM : requests confirmation
+    deactivate System
+
+    HRM -> System : confirms
+    activate System
+
+        System --> HRM : displays operation success
+    deactivate System
 
 @enduml

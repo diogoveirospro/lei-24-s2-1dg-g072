@@ -3,22 +3,37 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title System Sequence Diagram (SSD) - Alternative One
+title System Sequence Diagram (SSD) - Alternative Two
+
+autonumber
 
 actor "Human Resources\nManager" as HRM
 participant ":System" as System
 
 activate HRM
 
-HRM -> System: Request to assign competences to a collaborator
-activate System
+    HRM -> System : asks to create a new job
+    activate System
 
-System -> HRM: Displays a list of competences categories
-HRM -> System: Selects a competence category
-System -> HRM: Displays competences within the selected category
-HRM -> System: Selects one or more competences
-System -> HRM: Confirms the selected competences
-HRM -> System: Confirms the competence assignment
-deactivate System
+        System --> HRM : requests the designation
+    deactivate System
+
+    HRM -> System : types requested the designation
+    activate System
+
+        System --> HRM : displays error message and requests\n designation correction
+    deactivate System
+
+    HRM -> System : checks and corrects the designation
+    activate System
+
+        System --> HRM : requests confirmation
+    deactivate System
+
+    HRM -> System : confirms data
+    activate System
+
+        System --> HRM : displays operation success
+    deactivate System
 
 @enduml
