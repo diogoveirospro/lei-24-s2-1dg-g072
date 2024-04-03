@@ -35,8 +35,35 @@ class HRM {
    idDocumentNumber
 }
 
+class GreenSpace {
+    name
+    address
+    type
+}
 
+class Garden {
+    name
+    address
+    dimension
+}
+
+class MediumSizedPark {
+    name
+    address
+    dimension
+}
+
+class LargeSizedPark {
+    name
+    address
+    dimension
+}
 
 HRM "1" -- "1..*" Job : creates >
+Collaborator "1" - "1..*" Job : has >
 Collaborator <|-- HRM
+GreenSpace "1" -- "1..*" Collaborator: contains >
+GreenSpace <|-- Garden
+GreenSpace <|-- MediumSizedPark
+GreenSpace <|-- LargeSizedPark
 @enduml
