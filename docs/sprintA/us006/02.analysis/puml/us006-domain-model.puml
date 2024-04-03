@@ -69,6 +69,7 @@ class LargeSizedPark {
 Collaborator <|-- VFM
 VFM "1"-"   1..*" Vehicle: registers >
 GreenSpace "1" -- "1..*" Collaborator: contains >
+GreenSpace "1" -- "1..*" Vehicle: has >
 GreenSpace <|-- Garden
 GreenSpace <|-- MediumSizedPark
 GreenSpace <|-- LargeSizedPark
