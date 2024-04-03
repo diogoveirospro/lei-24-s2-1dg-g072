@@ -10,10 +10,6 @@ skinparam classAttributeIconSize 0
 hide circle
 hide methods
 
-'class Platform {
-'  -description
-'}
-
 class Collaborator {
    name
    birthdate
@@ -37,10 +33,36 @@ class HRM {
    idDocumentType
    idDocumentNumber
 }
+class GreenSpace {
+    name
+    address
+    type
+}
 
+class Garden {
+    name
+    address
+    dimension
+}
 
+class MediumSizedPark {
+    name
+    address
+    dimension
+}
+
+class LargeSizedPark {
+    name
+    address
+    dimension
+}
+
+GreenSpace <|-- Garden
+GreenSpace <|-- MediumSizedPark
+GreenSpace <|-- LargeSizedPark
 Collaborator <|-- HRM
-HRM "1" -- "1..*" Skill : assigns >
+HRM "1" - "1..*" Skill : assigns >
 Collaborator "1" -- "1..*" Skill : has >
+GreenSpace "1" -- "1..*" Collaborator: contains >
 
 @enduml
