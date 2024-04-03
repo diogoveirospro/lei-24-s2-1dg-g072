@@ -9,10 +9,6 @@ As an HRM, I want to register a job that a collaborator needs to have.
 
 ### 1.2. Customer Specifications and Clarifications 
 
-**From the specifications document:**
-
->
-
 **From the client clarifications:**
 
 > **Question:** Is it relevant to associate a specific area or sector with each Job? (For example, "Gardener" would be inserted in the "Maintenance" sector).
@@ -85,8 +81,6 @@ As an HRM, I want to register a job that a collaborator needs to have.
 
 * Typed data:
     * a designation
-	
-* Selected data:
 
 
 **Output Data:**
