@@ -9,10 +9,6 @@ As an FM, I want to list the vehicles needing the check-up.
 
 ### 1.2. Customer Specifications and Clarifications 
 
-**From the specifications document:**
-
->
-> 
 **From the client clarifications:**
 
 > **Question:** Can the vehicles get placed automatically on a list or the one listing has to be the FM?

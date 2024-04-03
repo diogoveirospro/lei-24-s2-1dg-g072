@@ -33,11 +33,37 @@ class HRM {
 class Skill {
     name
 }
+class GreenSpace {
+    name
+    address
+    type
+}
+
+class Garden {
+    name
+    address
+    dimension
+}
+
+class MediumSizedPark {
+    name
+    address
+    dimension
+}
+
+class LargeSizedPark {
+    name
+    address
+    dimension
+}
 
 
 
-
-HRM "1" -- "1..*" Skill: creates >
+GreenSpace "1" -- "1..*" Collaborator: contains >
+Skill "1..*" - "1..*" Collaborator: has <
+HRM "1  " -- "1..*" Skill: creates >
 Collaborator <|-- HRM
-
+GreenSpace <|-- Garden
+GreenSpace <|-- MediumSizedPark
+GreenSpace <|-- LargeSizedPark
 @enduml
