@@ -28,8 +28,35 @@ class HRM {
     idDocumentType
     idDocumentNumber
 }
+class GreenSpace {
+    name
+    address
+    type
+}
 
-HRM "1" --> "*" Collaborator : registers
-Collaborator <|-- HRM
+class Garden {
+    name
+    address
+    dimension
+}
+
+class MediumSizedPark {
+    name
+    address
+    dimension
+}
+
+class LargeSizedPark {
+    name
+    address
+    dimension
+}
+
+GreenSpace "1" -- "1..*" Collaborator: contains >
+GreenSpace <|-- Garden
+GreenSpace <|-- MediumSizedPark
+GreenSpace <|-- LargeSizedPark
+HRM "1" ----- "*" Collaborator : registers >
+Collaborator <|---- HRM
 
 @enduml
