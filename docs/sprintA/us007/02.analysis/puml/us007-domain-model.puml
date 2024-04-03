@@ -42,6 +42,34 @@ class Vehicle{
     maintenance/check-up frequency
 }
 
+class GreenSpace {
+    name
+    address
+    type
+}
+
+class Garden {
+    name
+    address
+    dimension
+}
+
+class MediumSizedPark {
+    name
+    address
+    dimension
+}
+
+class LargeSizedPark {
+    name
+    address
+    dimension
+}
+
 Collaborator <|-- VFM
 VFM "1"-"   1..*" Vehicle: chooses >
+GreenSpace "1" -- "1..*" Collaborator: contains >
+GreenSpace <|-- Garden
+GreenSpace <|-- MediumSizedPark
+GreenSpace <|-- LargeSizedPark
 @enduml
