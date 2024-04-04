@@ -56,6 +56,18 @@ class LargeSizedPark {
     address
     dimension
 }
+class Vehicle{
+    plate id
+    brand
+    model
+    type
+    tare
+    gross weight
+    current kms
+    registration date
+    acquisition date
+    maintenance/check-up frequency
+}
 
 
 
@@ -66,4 +78,7 @@ GreenSpace <|-- MediumSizedPark
 GreenSpace <|-- LargeSizedPark
 GreenSpace "1" -- "1..*" Collaborator: contains >
 VehiclesCheckUp "1..*" -- "1  " GreenSpace: has <
+Vehicle "1..*" -- "1" VehiclesCheckUp: has <
+GreenSpace "1" -- "1..*" Vehicle: has >
+
 @enduml

@@ -134,6 +134,7 @@ Vehicle "1..*" -- "1  " GreenSpace: has <
 'US008
 VFM "1" -- "1..*" VehiclesCheckUp: lists >
 VehiclesCheckUp "1..*" -- "1  " GreenSpace: has <
+Vehicle "1..*" -- "1" VehiclesCheckUp: has <
 
 
 @enduml
