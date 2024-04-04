@@ -155,6 +155,7 @@ An association is a relationship between instances of objects that indicates a r
 | Vehicle and Equipment Fleet Manager (VFM) |      lists      | Vehicles Check-Up |
 | Green Spaces Manager (GSM)                |      is a       |      Collaborator |
 | Green Spaces User (GSU)                   |      is a       |      Collaborator |
+| VehiclesCheckUp                           |      has a      |           Vehicle |
 
 
 
