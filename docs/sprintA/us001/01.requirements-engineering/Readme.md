@@ -8,13 +8,7 @@
 As a Human Resources Manager (HRM), I want to register skills that a
 collaborator may have.
 
-
 ### 1.2. Customer Specifications and Clarifications 
-
-**From the specifications document:**
-
->
- 
 
 **From the client clarifications:**
 
@@ -26,27 +20,27 @@ collaborator may have.
 
 > **Question:** When you create a skill that already exists, what should the system do?
 >
-> **Answer:** By definition it is not possible to have duplicate values in a set. Checking for duplicates is not a business rule, it's at the technological level.
+> **Answer:** By definition, it is not possible to have duplicate values in a set. Checking for duplicates is not a business rule, it's at the technological level.
  
-> **Question:** Do I need to add skills  by writing them or can I just give a file with all of the skills?
+> **Question:** Do I need to add skills by writing them or can I just give a file with all the skills?
 > 
 > **Answer:** Both are acceptable since the business the same the crucial difference resides in the UX.
 
-> **Question:** Does the HRM need to see the confirmation of the sucess of the operation and the skills added or just the sucess of the operation?
+> **Question:** Does the HRM need to see the confirmation of the success of the operation and the skills added or just the success of the operation?
 > 
-> **Answer:** It will depend on if you opt to insert one skil or a set of skils in a batch. Maybe some adaptation needed.
+> **Answer:** It will depend on if you opt to insert one skill or a set of skills in a batch. Maybe some adaptation needed.
 
-> **Question:** Is there any other possible outcome like if the HMR does not put the requested data, do I need to ask the user to to register a diferent competence?
+> **Question:** Is there any other possible outcome like if the HMR does not put the requested data, do I need to ask the user to register a different competence?
 > 
 > **Answer:** This US is quite simple, atm a skill is simply a name.
  
 > **Question:** Which are the skills accepted? Or should we enable the HRM to introduce anything as a skill?
 > 
-> **Answer:** All, it's up to HRM to decide. (special characters or algarisms should not be allowed in the skill name)
+> **Answer:** All, it's up to HRM to decide. (special characters or digits should not be allowed in the skill name)
 
-> **Question:** The indentificator of the skill will be the name, or the system will generate authomatically and Id when the manager insert the name? 
+> **Question:** The identifier of the skill will be the name, or the system will generate automatically and ID when the manager inserts the name? 
 > 
-> **Answer:** A skill is just a name, can be a composition os words like "Light Vehicle Driving Licence".
+> **Answer:** A skill is just a name, can be a composition of words like "Light Vehicle Driving Licence".
 > 
 > I have no knowledge about systems IDs.
 
@@ -61,7 +55,7 @@ collaborator may have.
 ### 1.3. Acceptance Criteria
 
 * **AC1:** The HRM needs to write at least one skill.
-* **AC2:** It must not have any special character or algarisms.
+* **AC2:** It must not have any special character or digits.
 * **AC3:** If the skill is not correctly created, it must be asked to the HRM to create again.
 
 ### 1.4. Found out Dependencies
@@ -74,8 +68,7 @@ collaborator may have.
 
 * Typed data:
     * a skill (The name of the skill)
-  
-	
+
 * Selected data:
     * array with the information of the skills
 
@@ -102,4 +95,4 @@ collaborator may have.
 
 ### 1.7 Other Relevant Remarks
 
-* The data acquired in this US (competences), will be saved in an array so then it can be used later in  other US.
+* The data acquired in this US (skills) will be saved in an array, so then it can be used later in other US.

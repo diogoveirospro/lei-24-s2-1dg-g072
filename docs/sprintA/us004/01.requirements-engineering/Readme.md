@@ -7,34 +7,40 @@
 
 As an HRM, I want to assign one or more skills to a collaborator.
 
-### 1.2. Customer Specifications and Clarifications 
-
-**From the specifications document:**
-
->	
-
->	
+### 1.2. Customer Specifications and Clarifications
 
 **From the client clarifications:**
 
-> **Question:** Número de respostas: Can a collaborator have no skills assigned?
+> **Question:** Can a collaborator have no skills assigned?
 >
-> **Answer:** yes
+> **Answer:** Yes.
 
-> **Question:** - Can any skill be registered to any collaborator/job? Or should they be associated in categories in association with a specific job - Should it be possible to add the same skill to a collaborator multiple times? - Is there any certification/proof needed to register a skill to a colaborator?
+> **Question:** Can any skill be registered to any collaborator/job? Or should they be associated in categories in association with a specific job?
 >
-> **Answer:** -There is no association, it totally depends of the CV of the collaborator. -That does not make sense  -no. 
+> **Answer:** There is no association, it totally depends on the CV of the collaborator.
 
-> **Question:** 1. se há um número mínimo e máximo de número de skills; 2. se há alguma característica especial que seja necessária o colaborar ter para que lhe sejam adicionadas estas skills.
+> **Question:** Should it be possible to add the same skill to a collaborator multiple times?
+> 
+> **Answer:** That does not make sense.
+
+> **Question:** Is there any certification/proof needed to register a skill to a collaborator?
+> 
+> **Answer:** No.
+
+> **Question:** Is there a minimum and maximum number of skills?
 >
-> **Answer:** 1. Não; 2. Não.
+> **Answer:** No.
+
+> **Question:** Are there any special characteristics that collaborators need to have to be given these skills?
+>
+> **Answer:** No 
 
 
 ### 1.3. Acceptance Criteria
 
 * **AC1:** The system should display a list of available competences for selection.
 * **AC2:** HRM should be able to select one or more competences from the list and assign them to the collaborator.
-* **AC3:** HRM should have the ability to remove assigned competences from the collaborator's profile if necessary.
+* **AC3:** HRM should be able to remove assigned competences from the collaborator's profile if necessary.
 * **AC4:** Once competences are assigned or removed, the system should update the collaborator's profile with the changes.
 * **AC5:** The system should provide feedback to HRM confirming the success or failure of the competence assignment operation
 
@@ -47,16 +53,13 @@ As an HRM, I want to assign one or more skills to a collaborator.
 
 **Input Data:**
 
-* Typed data:
- 
-	
 * Selected data:
-    * Competences to be assigned to the collaborator.
+    * skills to be assigned to the collaborator
 
 **Output Data:**
 
-* Success/Failure Confirmation: Indicates whether the competence assignment operation was successful or not.
-* Updated Collaborator Profile: Includes the collaborator's information with the newly assigned competences.
+* Updated collaborator profile
+* (In)Success of the operation
 
 ### 1.6. System Sequence Diagram (SSD)
 
@@ -71,5 +74,3 @@ As an HRM, I want to assign one or more skills to a collaborator.
 ![System Sequence Diagram - Alternative Two](svg/us004-system-sequence-diagram-alternative-two.svg)
 
 ### 1.7 Other Relevant Remarks
-
-* The created task stays in a "not published" state in order to distinguish from "published" tasks.

@@ -99,6 +99,10 @@ class VehiclesCheckUp {
 
 
 Collaborator <|-- HRM
+GreenSpace "1" -- "1..*" Collaborator: contains >
+GreenSpace <|-- Garden
+GreenSpace <|-- MediumSizedPark
+GreenSpace <|-- LargeSizedPark
 
 'US001
 HRM "1" -- "1..*" Skill: creates >
@@ -117,21 +121,19 @@ Collaborator "1" -- "1..*" Skill : has >
 HRM "1" - "1..*" Team : creates >
 Collaborator "1" -- "1" Job: has >
 Team "1" -- "1..*" Collaborator: has >
-GreenSpace "1" -- "1..*" Collaborator: contains >
-GreenSpace <|-- Garden
-GreenSpace <|-- MediumSizedPark
-GreenSpace <|-- LargeSizedPark
 
 Collaborator <|-- VFM
 
 'US006
-VFM "1"-"   1..*" Vehicle: registers >
+VFM "1"--"   1..*" Vehicle: registers >
 
 'US007
 VFM "1"-"   1..*" Vehicle: chooses >
+Vehicle "1..*" -- "1  " GreenSpace: has <
 
 'US008
 VFM "1" -- "1..*" VehiclesCheckUp: lists >
+VehiclesCheckUp "1..*" -- "1  " GreenSpace: has <
 
 
 @enduml

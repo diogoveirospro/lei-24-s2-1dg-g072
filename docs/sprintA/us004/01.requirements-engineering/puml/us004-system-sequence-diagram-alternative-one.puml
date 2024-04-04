@@ -3,20 +3,31 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title System Sequence Diagram (SSD) - US004: Assign Competences to a Collaborator
+title System Sequence Diagram (SSD) - Alternative One
+
+autonumber
 
 actor "Human Resources\nManager" as HRM
 participant ":System" as System
 
 activate HRM
 
-HRM -> System: Request to assign competences to a collaborator
-activate System
+    HRM -> System : request to assign skills to a collaborator
+    activate System
 
-System -> HRM: Displays a list of available competences
-HRM -> System: Selects one or more competences
-System -> HRM: Confirms the selected competences
-HRM -> System: Confirms the competence assignment
-deactivate System
+        System --> HRM : displays a list of available skills
+    deactivate System
+
+    HRM -> System : selects collaborator skills
+    activate System
+
+        System --> HRM : requests confirmation
+    deactivate System
+
+    HRM -> System : confirms
+    activate System
+
+        System --> HRM : displays operation success
+    deactivate System
 
 @enduml

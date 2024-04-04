@@ -33,7 +33,7 @@ The VFM wants to register a vehicles check-up.
 **Input Data:**
 
 * Typed data:
-    * Plate number of teh vehicle
+    * Plate number of the vehicle
     * Date 
     * Kms on check-up
 

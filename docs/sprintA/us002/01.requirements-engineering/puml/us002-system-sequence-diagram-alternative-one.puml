@@ -7,27 +7,27 @@ title System Sequence Diagram (SSD) - Alternative One
 
 autonumber
 
-actor "Human Resources\nManager" as GRH
+actor "Human Resources\nManager" as HRM
 participant ":System" as System
 
-activate GRH
+activate HRM
 
-    GRH -> System : asks to create a new job
+    HRM -> System : asks to create a new job
     activate System
 
-        System --> GRH : requests the designation
+        System --> HRM : requests the designation
     deactivate System
 
-    GRH -> System : types requested the designation
+    HRM -> System : types requested the designation
     activate System
 
-        System --> GRH : requests confirmation
+        System --> HRM : requests confirmation
     deactivate System
 
-    GRH -> System : confirms
+    HRM -> System : confirms
     activate System
 
-        System --> GRH : displays operation success
+        System --> HRM : displays operation success
     deactivate System
 
 @enduml

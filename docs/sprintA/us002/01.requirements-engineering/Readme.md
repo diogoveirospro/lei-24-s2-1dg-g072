@@ -31,7 +31,7 @@ As an HRM, I want to register a job that a collaborator needs to have.
 >
 > **Answer:** The name of job: gardener; cobbler; electrician; driver; ...
 
-> **Question:** After registering a job/vehicle's checkup, should a message (success or failure) or a resume of the register appear?
+> **Question:** After registering a job/vehicle's checkup, should a message (success or failure) or a summary of the register appear?
 > 
 > **Answer:** The UX/UI is up to dev teams.
 
