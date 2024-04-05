@@ -19,42 +19,30 @@ class Collaborator {
     idDocumentType
     idDocumentNumber
 }
+class Organization{
+    name
+    address
+}
 
 class VFM {
-    name
-    birthdate
-    admissionDate
-    address
-    contactInfo
-    idDocumentType
-    idDocumentNumber
+
 }
 
-class VehiclesCheckUp {
-    plate id
-}
+
 class GreenSpace {
-    name
-    address
-    type
+    dimension
 }
 
 class Garden {
-    name
-    address
-    dimension
+
 }
 
 class MediumSizedPark {
-    name
-    address
-    dimension
+
 }
 
 class LargeSizedPark {
-    name
-    address
-    dimension
+
 }
 class Vehicle{
     plate id
@@ -71,14 +59,14 @@ class Vehicle{
 
 
 
-Collaborator <|-- VFM
-VFM "1" -- "1..*" VehiclesCheckUp: lists >
+Collaborator <|- VFM
+VFM "1" -- "1..*" Vehicle: lists >
 GreenSpace <|-- Garden
 GreenSpace <|-- MediumSizedPark
 GreenSpace <|-- LargeSizedPark
 GreenSpace "1" -- "1..*" Collaborator: contains >
-VehiclesCheckUp "1..*" -- "1  " GreenSpace: has <
-Vehicle "1..*" -- "1" VehiclesCheckUp: has <
-GreenSpace "1" -- "1..*" Vehicle: has >
 
+GreenSpace "1  " - "1..*" Vehicle: has >
+Organization "1" -- "1..*" GreenSpace: owns >
+Organization "1" -- "1..*" Collaborator: works for <
 @enduml
