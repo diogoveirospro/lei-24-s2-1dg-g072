@@ -93,6 +93,10 @@ collaborator may have.
 
 ![System Sequence Diagram - Alternative Three](svg/us001-system-sequence-diagram-alternative-three.svg)
 
+#### Alternative Three
+
+![System Sequence Diagram - Alternative Four](svg/us001-system-sequence-diagram-alternative-four.svg)
+
 ### 1.7 Other Relevant Remarks
 
-* The data acquired in this US (skills) will be saved in an array, so then it can be used later in other US.
+* The data acquired in this US (skills) will be saved, so it can be used later in other US, that require skills.

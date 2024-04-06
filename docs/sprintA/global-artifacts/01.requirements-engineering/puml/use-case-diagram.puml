@@ -10,7 +10,7 @@ left to right direction
 
 rectangle "System Actors" as actors {
     actor "Human Resources\nManager" as HRM
-    actor "Fleet Manager" as FM
+    actor "Vehicle Fleet\nManager" as FM
 }
 
 
