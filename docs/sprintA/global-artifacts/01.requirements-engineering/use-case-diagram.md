@@ -13,10 +13,10 @@ However, be aware, this is a pedagogical simplification. On further projects and
 
 | UC/US | Description                                                     |                   
 |:------|:----------------------------------------------------------------|
-| US001 | [Register Competences](../../us001/Readme.md)                   |
+| US001 | [Register Skills](../../us001/Readme.md)                        |
 | US002 | [Register a Job](../../us002/Readme.md)                         |
 | US003 | [Registration of an employee](../../us003/Readme.md)            |
-| US004 | [Assigning competences to an employee](../../us004/Readme.md)   |
+| US004 | [Assigning skills to an employee](../../us004/Readme.md)        |
 | US005 | [Generate a Team Proposal](../../us005/Readme.md)               |
 | US006 | [Register a vehicle](../../us006/Readme.md)                     |
 | US007 | [Register the inspection of a vehicle](../../us007/Readme.md)   |
