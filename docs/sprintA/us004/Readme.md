@@ -1,4 +1,4 @@
-# US004 - Assigning competences to an employee
+# US004 - Assigning skills to an employee
 
 [Requirements Engineering](01.requirements-engineering/Readme.md)
 
