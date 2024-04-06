@@ -50,7 +50,7 @@ collaborator may have.
 
 > **Question:** Should the system able the HRM to introduce multiple skills in one interaction before saving all of them?
 > 
-> **Answer:** it's not required to do so.
+> **Answer:** It's not required to do so.
 
 ### 1.3. Acceptance Criteria
 
