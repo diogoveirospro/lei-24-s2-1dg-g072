@@ -28,6 +28,8 @@ class Skill {
     name
 }
 class GreenSpace {
+    name
+    adress
     dimension
 }
 
