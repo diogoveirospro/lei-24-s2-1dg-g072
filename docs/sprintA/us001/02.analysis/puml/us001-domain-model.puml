@@ -29,7 +29,7 @@ class Skill {
 }
 class GreenSpace {
     name
-    adress
+    address
     dimension
 }
 
@@ -44,10 +44,10 @@ class MediumSizedPark {
 class LargeSizedPark {
 
 }
+
 class Organization{
     name
     address
-
 }
 
 

@@ -12,13 +12,7 @@ hide methods
 
 
 class HRM {
-     name
-     birthdate
-     admissionDate
-     address
-     contactInfo
-     idDocumentType
-     idDocumentNumber
+
  }
 
 class Team {
@@ -40,34 +34,30 @@ class Collaborator {
 class GreenSpace {
     name
     address
-    type
+    dimension
 }
 
 class Garden {
-    name
-    address
-    dimension
 }
 
 class MediumSizedPark {
-    name
-    address
-    dimension
 }
 
 class LargeSizedPark {
-    name
-    address
-    dimension
 }
 
+class Organization{
+    name
+    address
+}
 
 HRM "1" - "1..*" Team : creates >
 Collaborator <|-- HRM
 Team "1" -- "1..*" Collaborator: has >
-GreenSpace "1" -- "1..*" Collaborator: contains >
+GreenSpace "1" -- "1..*" Collaborator: has >
 GreenSpace <|-- Garden
 GreenSpace <|-- MediumSizedPark
 GreenSpace <|-- LargeSizedPark
-
+Organization "1" -- "1..*" GreenSpace: owns >
+Organization "1   " -- "1..*" Collaborator: works for <
 @enduml
