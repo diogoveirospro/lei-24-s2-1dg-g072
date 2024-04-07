@@ -47,12 +47,34 @@ different components of the system, offering a clear view of its structure and i
 
 
 ## Features
-### 1. Register skills | HRM
-### 2. Register a Profession | HRM
-### 3. Registration of an employee | HRM
-### 4. Assigning skills to an employee | HRM
-### 5. Generate a Team Proposal | HRM
-### 6. Register a vehicle | VFM
-### 7. Register a vehicle's check-up | VFM
-### 8. List vehicles that need to be serviced | VFM
- 
+> ### 1. Register skills | HRM
+> 
+
+> ### 2. Register a Profession | HRM
+> 
+
+> ### 3. Registration of an employee | HRM
+> 
+
+> ### 4. Assigning skills to an employee | HRM
+>
+
+> ### 5. Generate a Team Proposal | HRM
+> **Purpose:** To enable the Human Resources Manager (HRM) to automatically generate a team proposal based on the 
+minimum and maximum size of the team and the set of skills required for a given task.
+> 
+> **Instructions**:
+> - Log in to your Human Resources Manager account;
+> - Navigate to the section where you can create a team;
+> - Enter the desired minimum and maximum team size;
+> - Select the necessary skills from the available list (skills already registered by an HRM);
+> - Click on "Generate Team" or a similar option to automatically create a team proposal based on the criteria specified.
+
+> ### 6. Register a vehicle | VFM
+>
+
+> ### 7. Register a vehicle's check-up | VFM
+>
+
+> ### 8. List vehicles that need to be serviced | VFM
+> 
