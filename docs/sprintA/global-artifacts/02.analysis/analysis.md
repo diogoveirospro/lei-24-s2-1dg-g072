@@ -92,7 +92,7 @@ To identify domain conceptual classes, start by making a list of candidate conce
 
 **Organizations**
 
-* 
+* Organization
 
 ---
 
@@ -141,21 +141,25 @@ An association is a relationship between instances of objects that indicates a r
 | Human Resources Manager (HRM)             |    creates a    |               Job |
 | Human Resources Manager (HRM)             |    creates a    |      Collaborator |
 | Human Resources Manager (HRM)             |     assigns     |             Skill |
-| Collaborator                              |      has a      |             Skill |
+| Collaborator                              |       has       |            Skills |
 | Human Resources Manager (HRM)             |    creates a    |              Team |
 | Collaborator                              |      has a      |               Job |
+| Collaborator                              |    works for    |      Organization |
 | Team                                      |       has       |     Collaborators |
-| Green Space                               |    contains     |     Collaborators |
+| Green Space                               |       has       |     Collaborators |
+| Organization                              |      owns       |       Green Space |
 | Garden                                    |      is a       |       Green Space |
 | Medium-sized park                         |      is a       |       Green Space |
 | Large-sized park                          |      is a       |       Green Space |
 | Vehicle and Equipment Fleet Manager (VFM) |      is a       |      Collaborator |
 | Vehicle and Equipment Fleet Manager (VFM) |   register a    |           Vehicle |
+| Organization                              |      owns       |          Vehicles |
+| Green Space                               |       has       |          Vehicles |
 | Vehicle and Equipment Fleet Manager (VFM) |     chooses     |          Vehicles |
 | Vehicle and Equipment Fleet Manager (VFM) |      lists      | Vehicles Check-Up |
+| Vehicles Check-Up                         |       has       |          Vehicles |
 | Green Spaces Manager (GSM)                |      is a       |      Collaborator |
 | Green Spaces User (GSU)                   |      is a       |      Collaborator |
-| VehiclesCheckUp                           |      has a      |           Vehicle |
 
 
 

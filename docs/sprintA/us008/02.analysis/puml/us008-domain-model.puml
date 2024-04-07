@@ -48,6 +48,8 @@ class LargeSizedPark {
 }
 class Vehicle{
     plate id
+    brand
+    model
     type
     tare
     gross weight
@@ -61,14 +63,6 @@ class VehiclesCheckUp {
     plate id
 }
 
-class Brand{
-name
-}
-
-class Model{
-name
-}
-
 Collaborator <|- VFM
 VFM "1" -- "1..*" VehiclesCheckUp: lists >
 GreenSpace <|-- Garden
@@ -80,7 +74,5 @@ GreenSpace "1" - "1..*" Vehicle: has >
 Organization "1" - "1..*" GreenSpace: owns >
 Organization "1" -- "1..*" Collaborator: works for <
 GreenSpace "1" - "1" VehiclesCheckUp: has >
-Vehicle "1" - "1" Brand: has >
-Brand "1" - "1..*" Model: has >
 Organization "1" - "1..*" Vehicle: owns >
 @enduml

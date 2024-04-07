@@ -1,7 +1,10 @@
 # Green Space Management Application User Manual
 
 
-## [Glossary](01.requirements-engineering/glossary.md)
+## Glossary
+
+To access the glossary, click [here](01.requirements-engineering/glossary.md).
+
 ## Introduction
 ## System Overview
 
