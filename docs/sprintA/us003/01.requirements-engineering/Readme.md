@@ -83,8 +83,8 @@ For example, in the address example@mail.com, "example" is the email prefix, and
 **Input Data:**
 
 * Typed data:
-    * Collaborator's personal information (e.g., name, email, phone number)
-    * Job-related information (e.g., job title, department)
+    * Collaborator's personal information (e.g. name, email, phone number)
+    * Job-related information (e.g. job title, department)
     * Fundamental characteristics (e.g., skills, competences)
 
 * Selected data:
