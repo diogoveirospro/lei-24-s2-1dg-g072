@@ -73,7 +73,7 @@ As an HRM, I want to register a job that a collaborator needs to have.
 
 ### 1.4. Found out Dependencies
 
-* There is a dependency on **"US001 - Register Competences"** since there must be at least one competence to assign to the profession being created.
+* There are no dependencies in other US.
 
 ### 1.5 Input and Output Data
 
