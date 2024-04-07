@@ -1,0 +1,29 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD) - Alternative Two
+
+autonumber
+
+actor "Vehicle\nFleet\nManager\n(VFM)" as Employee
+participant ":System" as System
+
+activate Employee
+
+    Employee -> System : asks to list all the vehicles that need a check-up
+    activate System
+
+            System --> Employee : asks for confirmation
+    deactivate System
+    Employee -> System : doesn't confirm the list
+        activate System
+
+            System --> Employee : returns to the section area
+        deactivate System
+
+
+
+
+@enduml

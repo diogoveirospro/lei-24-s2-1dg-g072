@@ -84,6 +84,10 @@ As an FM, I want to list the vehicles needing the check-up.
 
 ![System Sequence Diagram - Alternative One](svg/us008-system-sequence-diagram-alternative-one.svg)
 
+#### Alternative Two
+
+![System Sequence Diagram - Alternative One](svg/us008-system-sequence-diagram-alternative-two.svg)
+
 ### 1.7 Other Relevant Remarks
 
 * The data that allow to identify the vehicle like Plate, brand and module, as well as the data that allowed to select/insert the vehicle in the list, number of kms, frequency of checkup and the last checkup, are necessary to put in the list.
