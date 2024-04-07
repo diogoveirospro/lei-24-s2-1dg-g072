@@ -76,14 +76,7 @@ class Vehicle{
 }
 
 class VFM {
-    name
-    birthdate
-    admission date
-    address
-    phone number
-    email
-    identification document
-    number
+
 }
 
 class VehiclesCheckUp {
@@ -105,7 +98,7 @@ HRM "1" -- "1..*" Skill: creates >
 HRM "1" -- "1..*" Job : creates >
 
 'US003
-HRM "1" --> "*" Collaborator : registers
+HRM "1" --> "1..*" Collaborator : registers
 
 'US004
 HRM "1" -- "1..*" Skill : assigns >
@@ -119,10 +112,10 @@ Team "1" -- "1..*" Collaborator: has >
 Collaborator <|-- VFM
 
 'US006
-VFM "1"--"   1..*" Vehicle: registers >
+VFM "1" -- "1..*" Vehicle: registers >
 
 'US007
-VFM "1"-"   1..*" Vehicle: chooses >
+VFM "1"-- "1..*" Vehicle: chooses >
 Vehicle "1..*" -- "1  " GreenSpace: has <
 
 'US008
