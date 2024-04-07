@@ -13,6 +13,16 @@ The VFM wants to register a vehicle.
 
 >	The vehicle as the following attributes: Plate number, Brand, Model, Type, Tare, Gross weight, Current Kms, Registration Date, Acquisition Date and Service Frequency (in Kms). 
 
+**From the client clarifications:**
+
+> **Question:** When a vehicle is registered, are there specific requirements for accepting the brand? For example, does the system need to check if the brand is on a predetermined list? Does this also apply to the model or any other characteristics?
+> 
+> **Answer:** No; one can consider a list os brands and a list of models previsously inserted in the system, no need to go through validations.
+> 
+> **Question:** For the application to work does the FM need to fill all the attributes of the vehicle?
+> 
+> **Answer:** Yes
+
 
 ### 1.3. Acceptance Criteria
 
