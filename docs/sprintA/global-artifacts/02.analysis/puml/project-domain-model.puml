@@ -8,14 +8,13 @@ skinparam classAttributeIconSize 0
 hide circle
 hide methods
 
-class HRM {
+class Organization{
     name
-    birthdate
-    admissionDate
     address
-    contactInfo
-    idDocumentType
-    idDocumentNumber
+}
+
+class HRM {
+
 }
 
 class Skill {
@@ -47,25 +46,19 @@ class Collaborator {
 class GreenSpace {
     name
     address
-    type
+    dimension
 }
 
 class Garden {
-    name
-    address
-    dimension
+
 }
 
 class MediumSizedPark {
-    name
-    address
-    dimension
+
 }
 
 class LargeSizedPark {
-    name
-    address
-    dimension
+
 }
 
 
@@ -97,9 +90,10 @@ class VehiclesCheckUp {
     plate id
 }
 
-
+Organization "1   " -- "1..*" Collaborator: works for <
 Collaborator <|-- HRM
-GreenSpace "1" -- "1..*" Collaborator: contains >
+Organization "1" -- "1..*" GreenSpace: owns >
+GreenSpace "1" -- "1..*" Collaborator: has >
 GreenSpace <|-- Garden
 GreenSpace <|-- MediumSizedPark
 GreenSpace <|-- LargeSizedPark
@@ -135,6 +129,7 @@ Vehicle "1..*" -- "1  " GreenSpace: has <
 VFM "1" -- "1..*" VehiclesCheckUp: lists >
 VehiclesCheckUp "1..*" -- "1  " GreenSpace: has <
 Vehicle "1..*" -- "1" VehiclesCheckUp: has <
+Organization "1" -- "1..*" Vehicle: owns >
 
 
 @enduml
