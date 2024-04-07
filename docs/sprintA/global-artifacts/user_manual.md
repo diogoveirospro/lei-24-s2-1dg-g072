@@ -48,10 +48,23 @@ different components of the system, offering a clear view of its structure and i
 
 ## Features
 > ### 1. Register skills | HRM
-> 
+> **Purpose:** To enable the Human Resources Manager (HRM) to create a skill or set of skills to later be added to a Collaborator/Employee.
+>
+> **Instructions**:
+> - Log in to your Human Resources Manager account;
+> - Navigate to the section where you can add skills;
+> - Write the skill or set of skills to be added;
+> - Click on "Add skill" or a similar option to automatically add the skill to the program, after you confirm it.
+
 
 > ### 2. Register a Profession | HRM
-> 
+> **Purpose:** To enable the Human Resources Manager (HRM) to create a skill or set of skills to later be added to a Collaborator/Employee.
+>
+> **Instructions**:
+> - Log in to your Human Resources Manager account;
+> - Navigate to the section where you can assign a job to a collaborator;
+> - Write the job to be added, and the name of the person who will do that job;
+> - Click on "Add Job" or a similar option to automatically add the job to the employee, after you confirm it.
 
 > ### 3. Registration of an employee | HRM
 > 
@@ -77,4 +90,9 @@ minimum and maximum size of the team and the set of skills required for a given 
 >
 
 > ### 8. List vehicles that need to be serviced | VFM
+> **Purpose:** To enable the Vehicle Fleet Manager (VFM) to automatically generate a list of all vehicles that need a check-up.
 > 
+> **Instructions**:
+> - Log in to your Vehicle Fleet Manager account;
+> - Navigate to the section where you can list all vehicles that need a check-up;
+> - Click on "Generate list" or a similar option to automatically create a list of all vehicles that need a check-up, after you confirm it.

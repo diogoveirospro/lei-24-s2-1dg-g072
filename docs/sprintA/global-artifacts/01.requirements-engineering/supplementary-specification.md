@@ -6,7 +6,7 @@ _Specifies functionalities that:
 &nbsp; &nbsp; (i) are common across several US/UC;  
 &nbsp; &nbsp; (ii) are not related to US/UC, namely: Audit, Reporting and Security._
 
-&nbsp; &nbsp; (1)  Skills registered on US01 are used in US02, US03 and US04;
+&nbsp; &nbsp; (1)  Skills registered on US01 are used in US03 and US04;
 
 &nbsp; &nbsp; (2)  Vehicles registered on US06 are used in US07 and US08.
 
