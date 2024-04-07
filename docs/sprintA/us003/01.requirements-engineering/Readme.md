@@ -10,6 +10,12 @@ As an HRM, I want to register a collaborator with a job and fundamental characte
 
 **From the client clarifications:**
 
+> **Question:** What should be the accepted format for the emails? Should only specific email services be accepted?
+> 
+> **Answer:** A valid email address consists of an email prefix and an email domain, both in acceptable formats.
+The prefix appears to the left of the @ symbol. The domain appears to the right of the @ symbol.
+For example, in the address example@mail.com, "example" is the email prefix, and "mail.com" is the email domain.
+
 > **Question:** User Story 03 mentions the term 'fundamental characteristics'. My question is precisely what are these characteristics?
 >
 > **Answer:** The minimum essential employee data will name, date of birth, date of employment, address, contact details (telephone and email), ID card and its number. You can consider any others you feel are relevant.
