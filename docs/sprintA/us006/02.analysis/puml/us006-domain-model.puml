@@ -25,13 +25,7 @@ class Organization{
 }
 
 class VFM{
-    name
-    birthdate
-    admissionDate
-    address
-    contactInfo
-    idDocumentType
-    idDocumentNumber
+
 }
 
 class Vehicle{
