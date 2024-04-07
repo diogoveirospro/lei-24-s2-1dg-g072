@@ -45,32 +45,30 @@ class Vehicle{
 class GreenSpace {
     name
     address
-    type
+    dimension
 }
 
 class Garden {
-    name
-    address
-    dimension
 }
 
 class MediumSizedPark {
-    name
-    address
-    dimension
 }
 
 class LargeSizedPark {
+}
+
+class Organization{
     name
     address
-    dimension
 }
 
 Collaborator <|-- VFM
 VFM "1"-"   1..*" Vehicle: chooses >
-GreenSpace "1" -- "1..*" Collaborator: contains >
+Collaborator "1..*" - "1" GreenSpace: has <
 GreenSpace "1" -- "1..*" Vehicle: has >
 GreenSpace <|-- Garden
 GreenSpace <|-- MediumSizedPark
 GreenSpace <|-- LargeSizedPark
+Organization "1" -- "1..*" GreenSpace: owns >
+Organization "1   " -- "1..*" Collaborator: works for <
 @enduml
