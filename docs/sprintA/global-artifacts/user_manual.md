@@ -95,7 +95,7 @@ minimum and maximum size of the team and the set of skills required for a given 
 > 
 > **Instructions:**
 > - Log in to your Vehicle Fleet Manager account;
-> - Navigate to the section were you can register a new vehicle;
+> - Navigate to the section where you can register a new vehicle;
 > - Write the attributes of the vehicle;
 > - Click on "Register vehicle" or a similar option to add the vehicle, after you confirm.
 
