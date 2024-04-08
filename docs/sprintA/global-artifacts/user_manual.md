@@ -6,6 +6,13 @@
 To access the glossary, click [here](01.requirements-engineering/glossary.md).
 
 ## Introduction
+
+This document as the purpose to explain the app and give instructions on how to use it. 
+In this manual its possible to find the system structure along with the system overview, 
+the main features of the product, a structure diagram and features of the app. 
+This manual is addressed to the users of the product, specifically the green spaces managers and administrators. 
+
+
 ## System Overview
 
 The main goal of the system developed under this project is to offer an integrated solution for the effective 
@@ -84,7 +91,13 @@ minimum and maximum size of the team and the set of skills required for a given 
 > - Click on "Generate Team" or a similar option to automatically create a team proposal based on the criteria specified.
 
 > ### 6. Register a vehicle | VFM
->
+> **Purpose:** To enable the Vehicle Fleet Manager (VFM) to register a new vehicle.
+> 
+> **Instructions:**
+> - Log in to your Vehicle Fleet Manager account;
+> - Navigate to the section were you can register a new vehicle;
+> - Write the attributes of the vehicle;
+> - Click on "Register vehicle" or a similar option to add the vehicle, after you confirm.
 
 > ### 7. Register a vehicle's check-up | VFM
 >
