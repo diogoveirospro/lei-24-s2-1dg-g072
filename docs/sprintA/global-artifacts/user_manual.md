@@ -76,6 +76,14 @@ different components of the system, offering a clear view of its structure and i
 
 > ### 3. Registration of an employee | HRM
 > **Purpose:** To facilitate the Human Resources Manager (HRM) in the process of registering new employees in the system, ensuring that all necessary personal and professional information is accurately captured.
+> 
+> **Instructions**:
+> - Log in to your Human Resources Manager account;
+> - Navigate to the "Employee Management" or a similar section;
+> - Choose the option to register a new employee;
+> - Enter the required employee details, such as name, birth date, admission date, address, contact info (phone number and email), taxpayer number, ID document type, and ID document number;
+> - Review the entered information for accuracy;
+> - Click on "Register Employee" or a similar option to complete the registration process, after confirming the accuracy of the information provided.
 
 > ### 4. Assigning skills to an employee | HRM
 >
