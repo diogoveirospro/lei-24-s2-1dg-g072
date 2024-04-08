@@ -8,7 +8,7 @@ To access the glossary, click [here](01.requirements-engineering/glossary.md).
 ## Introduction
 
 This document as the purpose to explain the app and give instructions on how to use it. 
-In this manual its possible to find the system structure along with the system overview, 
+In this manual, it is possible to find the system structure along with the system overview, 
 the main features of the product, a structure diagram and features of the app. 
 This manual is addressed to the users of the product, specifically the green spaces managers and administrators. 
 
@@ -95,7 +95,7 @@ minimum and maximum size of the team and the set of skills required for a given 
 > 
 > **Instructions:**
 > - Log in to your Vehicle Fleet Manager account;
-> - Navigate to the section were you can register a new vehicle;
+> - Navigate to the section where you can register a new vehicle;
 > - Write the attributes of the vehicle;
 > - Click on "Register vehicle" or a similar option to add the vehicle, after you confirm.
 
