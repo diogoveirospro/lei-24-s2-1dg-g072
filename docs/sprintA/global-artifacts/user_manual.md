@@ -75,7 +75,7 @@ different components of the system, offering a clear view of its structure and i
 > - Click on "Add Job" or a similar option to automatically add the job to the employee, after you confirm it.
 
 > ### 3. Registration of an employee | HRM
-> 
+> **Purpose:** To facilitate the Human Resources Manager (HRM) in the process of registering new employees in the system, ensuring that all necessary personal and professional information is accurately captured.
 
 > ### 4. Assigning skills to an employee | HRM
 >
