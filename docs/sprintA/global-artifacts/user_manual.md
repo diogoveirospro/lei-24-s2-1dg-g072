@@ -7,10 +7,10 @@ To access the glossary, click [here](01.requirements-engineering/glossary.md).
 
 ## Introduction
 
-This document as the purpose to explain the app and give instructions on how to use it. 
+This document as the purpose of explaining the app we developed to help managing green spaces and give instructions to the user on how to use it. 
 In this manual its possible to find the system structure along with the system overview, 
-the main features of the product, a structure diagram and features of the app. 
-This manual is addressed to the users of the product, specifically the green spaces managers and administrators. 
+the main features of the product, a structure diagram and features of the product. 
+This manual is addressed to the users of the product, more specifically to the green spaces managers and administrators. 
 
 
 ## System Overview
