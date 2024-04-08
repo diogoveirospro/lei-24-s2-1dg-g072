@@ -117,7 +117,16 @@ minimum and maximum size of the team and the set of skills required for a given 
 > - Click on "Register vehicle" or a similar option to add the vehicle, after you confirm.
 
 > ### 7. Register a vehicle's check-up | VFM
->
+> **Purpose:** This feature enables the Vehicle Fleet Manager (VFM) to systematically record and manage the check-up details of vehicles within the organization's fleet, ensuring timely maintenance and service for optimal performance and safety.
+> 
+> **Instructions:** 
+> - Log in to your Vehicle Fleet Manager account;
+> - Navigate to the "Vehicle Maintenance" or a similar section;
+> - Select the option to register a check-up for a vehicle;
+> - Choose the vehicle from the fleet list that requires a check-up;
+> - Enter the details of the check-up, including the date, service provider, type of service performed, and any notes on repairs or maintenance issues identified during the check-up;
+> - Review the entered information for accuracy;
+> - Click on "Register Check-up" or a similar option to record the check-up details for the selected vehicle, after confirming the accuracy of the information provided.
 
 > ### 8. List vehicles that need to be serviced | VFM
 > **Purpose:** To enable the Vehicle Fleet Manager (VFM) to automatically generate a list of all vehicles that need a check-up.
