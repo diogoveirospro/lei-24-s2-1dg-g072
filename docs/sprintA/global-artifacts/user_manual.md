@@ -86,7 +86,10 @@ different components of the system, offering a clear view of its structure and i
 > - Click on "Register Employee" or a similar option to complete the registration process, after confirming the accuracy of the information provided.
 
 > ### 4. Assigning skills to an employee | HRM
->
+> **Purpose:** This feature is designed to enable the Human Resources Manager (HRM) to assign specific skills to employees, thereby facilitating better job-role alignment and enhancing the organization's talent management process.
+> 
+> **Instructions**:
+> 
 
 > ### 5. Generate a Team Proposal | HRM
 > **Purpose:** To enable the Human Resources Manager (HRM) to automatically generate a team proposal based on the 
