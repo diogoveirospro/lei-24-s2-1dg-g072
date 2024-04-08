@@ -89,7 +89,12 @@ different components of the system, offering a clear view of its structure and i
 > **Purpose:** This feature is designed to enable the Human Resources Manager (HRM) to assign specific skills to employees, thereby facilitating better job-role alignment and enhancing the organization's talent management process.
 > 
 > **Instructions**:
-> 
+> - Log in to your Human Resources Manager account;
+> - Navigate to the "Skill Management" or a similar section;
+> - Select the employee to whom you wish to assign skills;
+> - Search or browse through the list of available skills;
+> - Select one or more skills that match the employee's qualifications and job requirements;
+> - Click on "Assign Skills" or a similar option to finalize the assignment of selected skills to the employee, after you confirm the selection.
 
 > ### 5. Generate a Team Proposal | HRM
 > **Purpose:** To enable the Human Resources Manager (HRM) to automatically generate a team proposal based on the 
