@@ -99,4 +99,4 @@ collaborator may have.
 
 ### 1.7 Other Relevant Remarks
 
-* The data acquired in this US (skills) will be saved, so it can be used later in other US, that require skills.
+* The data acquired in this US (skills) will be saved, so it can be used later in other US that requires skills.
