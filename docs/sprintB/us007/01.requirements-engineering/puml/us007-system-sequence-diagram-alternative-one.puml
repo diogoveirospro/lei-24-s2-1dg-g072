@@ -15,13 +15,13 @@ activate Employee
     Employee -> System : asks to register a vehicle for check-up
     activate System
 
-        System --> Employee : requests data (i.e. Plate number, date, kms at check-up)
+        System --> Employee : shows list of registered vehicles
     deactivate System
 
-    Employee -> System : types requested data
+    Employee -> System : choses vehicle for check-up
     activate System
 
-        System --> Employee : shows data and requests confirmation
+        System --> Employee : requests confirmation
     deactivate System
 
     Employee -> System : confirms data

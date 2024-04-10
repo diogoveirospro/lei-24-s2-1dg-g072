@@ -9,15 +9,7 @@ skinparam classAttributeIconSize 0
 hide circles
 hide methods
 
-class Collaborator {
-    name
-    birthdate
-    admissionDate
-    address
-    contactInfo
-    idDocumentType
-    idDocumentNumber
-}
+
 
 class VFM{
     
@@ -35,34 +27,18 @@ class Vehicle{
     acquisition date
     maintenance/check-up frequency
 }
-
-class GreenSpace {
-    name
-    address
-    dimension
-}
-
-class Garden {
-}
-
-class MediumSizedPark {
-}
-
-class LargeSizedPark {
-}
-
 class Organization{
     name
     address
 }
 
-Collaborator <|-- VFM
+class CheckUp{
+    date
+    Km at check-up
+}
+
+Organization "1" --"1..*" Vehicle: owns >
 VFM "1"-"   1..*" Vehicle: chooses >
-Collaborator "1..*" - "1" GreenSpace: has <
-GreenSpace "1" -- "1..*" Vehicle: has >
-GreenSpace <|-- Garden
-GreenSpace <|-- MediumSizedPark
-GreenSpace <|-- LargeSizedPark
-Organization "1" -- "1..*" GreenSpace: owns >
-Organization "1   " -- "1..*" Collaborator: works for <
+Vehicle "1" - "1..*" CheckUp: has >
+
 @enduml
