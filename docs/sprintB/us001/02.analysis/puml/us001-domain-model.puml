@@ -10,15 +10,7 @@ skinparam classAttributeIconSize 0
 hide circle
 hide methods
 
-class Collaborator {
-   name
-   birthdate
-   admissionDate
-   address
-   contactInfo
-   idDocumentType
-   idDocumentNumber
-}
+
 
 class HRM {
 
@@ -27,23 +19,7 @@ class HRM {
 class Skill {
     name
 }
-class GreenSpace {
-    name
-    address
-    dimension
-}
 
-class Garden {
-
-}
-
-class MediumSizedPark {
-
-}
-
-class LargeSizedPark {
-
-}
 
 class Organization{
     name
@@ -52,13 +28,9 @@ class Organization{
 
 
 
-Collaborator "1..*" - "1" GreenSpace: has <
-Skill "1..*" - "1..*" Collaborator: has <
+
 HRM "1  " -- "1..*" Skill: creates >
-Collaborator <|-- HRM
-GreenSpace <|-- Garden
-GreenSpace <|-- MediumSizedPark
-GreenSpace <|-- LargeSizedPark
-Organization "1" -- "1..*" GreenSpace: owns >
-Organization "1   " -- "1..*" Collaborator: works for <
+Organization "1" -- "1..*" Skill
+
+
 @enduml

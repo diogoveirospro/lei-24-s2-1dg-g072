@@ -79,24 +79,7 @@ collaborator may have.
 
 ### 1.6. System Sequence Diagram (SSD)
 
-
-
 #### Alternative One
 
 ![System Sequence Diagram - Alternative One](svg/us001-system-sequence-diagram-alternative-one.svg)
 
-#### Alternative Two
-
-![System Sequence Diagram - Alternative Two](svg/us001-system-sequence-diagram-alternative-two.svg)
-
-#### Alternative Three
-
-![System Sequence Diagram - Alternative Three](svg/us001-system-sequence-diagram-alternative-three.svg)
-
-#### Alternative Three
-
-![System Sequence Diagram - Alternative Four](svg/us001-system-sequence-diagram-alternative-four.svg)
-
-### 1.7 Other Relevant Remarks
-
-* The data acquired in this US (skills) will be saved, so it can be used later in other US that requires skills.
