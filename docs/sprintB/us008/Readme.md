@@ -1,4 +1,4 @@
-# US008 - List vehicles that need to be serviced
+# US008 - List Vehicles that need Maintenance
 
 [Requirements Engineering](01.requirements-engineering/Readme.md)
 

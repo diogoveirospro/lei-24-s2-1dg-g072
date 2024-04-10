@@ -1,4 +1,4 @@
-# US002 - Register a Profession
+# US002 - Register a Job
 
 [Requirements Engineering](01.requirements-engineering/Readme.md)
 

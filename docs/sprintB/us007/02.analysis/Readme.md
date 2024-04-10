@@ -1,4 +1,4 @@
-# US007 - Register a vehicle's check-up
+# US007 - Register a Vehicle’s Maintenance
 
 ## 2. Analysis
 

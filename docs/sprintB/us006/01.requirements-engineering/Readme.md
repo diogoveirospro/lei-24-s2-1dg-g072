@@ -1,4 +1,4 @@
-# US006 - Register a vehicle 
+# US006 - Register a Vehicle 
 
 
 ## 1. Requirements Engineering

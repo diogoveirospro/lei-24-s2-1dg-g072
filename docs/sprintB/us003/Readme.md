@@ -1,4 +1,4 @@
-# US003 - Registration of an employee
+# US003 - Register a Collaborator
 
 [Requirements Engineering](01.requirements-engineering/Readme.md)
 

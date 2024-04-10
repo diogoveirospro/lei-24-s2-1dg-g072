@@ -1,4 +1,4 @@
-# US004 - Assigning skills to an employee 
+# US004 - Assign one or more Skills to a Collaborator 
 
 
 ## 1. Requirements Engineering

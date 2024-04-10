@@ -1,4 +1,4 @@
-# US001 - Register skills 
+# US001 - Register Skills 
 
 ## 2. Analysis
 
