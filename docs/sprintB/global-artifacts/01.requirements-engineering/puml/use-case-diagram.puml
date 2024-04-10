@@ -1,0 +1,44 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+'skinparam shadowing false
+
+
+'title Use Case Diagram Example
+
+left to right direction
+
+rectangle "System Actors" as actors {
+    actor "Human Resources\nManager" as HRM
+    actor "Vehicle Fleet\nManager" as FM
+}
+
+
+rectangle "Use Cases" as usecases{
+    usecase "UC1 - Register Competences" as UC1
+    HRM --> UC1
+
+    usecase "UC2 - Register a Job" as UC2
+    HRM --> UC2
+
+    usecase "UC3 - Registration of an employee" as UC3
+    HRM --> UC3
+
+    usecase "UC4 - Assigning competences to an employee" as UC4
+    HRM --> UC4
+
+    usecase "UC5 - Generate a Team Proposal" as UC5
+    HRM --> UC5
+
+    usecase "UC6 - Register a vehicle" as UC6
+    FM --> UC6
+
+    usecase "UC7 - Register the inspection of a vehicle" as UC7
+    FM --> UC7
+
+    usecase "UC8 - List vehicles that need to be serviced" as UC8
+    FM --> UC8
+}
+
+
+@enduml

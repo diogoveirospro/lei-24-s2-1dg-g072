@@ -1,0 +1,63 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+
+class HRM {
+
+ }
+
+class Team {
+    size
+    members
+
+}
+
+class Collaborator {
+    name
+    birthdate
+    admissionDate
+    address
+    contactInfo
+    idDocumentType
+    idDocumentNumber
+}
+
+class GreenSpace {
+    name
+    address
+    dimension
+}
+
+class Garden {
+}
+
+class MediumSizedPark {
+}
+
+class LargeSizedPark {
+}
+
+class Organization{
+    name
+    address
+}
+
+HRM "1" - "1..*" Team : creates >
+Collaborator <|-- HRM
+Team "1" -- "1..*" Collaborator: has >
+GreenSpace "1" -- "1..*" Collaborator: has >
+GreenSpace <|-- Garden
+GreenSpace <|-- MediumSizedPark
+GreenSpace <|-- LargeSizedPark
+Organization "1" -- "1..*" GreenSpace: owns >
+Organization "1   " -- "1..*" Collaborator: works for <
+@enduml
