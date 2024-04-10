@@ -29,8 +29,8 @@ class Organization{
 
 
 
-HRM "1  " -- "1..*" Skill: creates >
-Organization "1" -- "1..*" Skill
+HRM "1  " - "*" Skill: creates >
+Organization "1" -- "*" Skill: has >
 
 
 @enduml

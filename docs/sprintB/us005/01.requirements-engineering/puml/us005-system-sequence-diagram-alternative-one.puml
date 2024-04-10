@@ -21,7 +21,7 @@ activate GRH
     GRH -> System : types requested size
     activate System
 loop
-        System --> GRH : shows the list of skills and asks you to select\none needed for that task
+        System --> GRH : shows the list of skills and asks you to \nselect one that you need for that task
     deactivate System
 
     GRH -> System : select the skill

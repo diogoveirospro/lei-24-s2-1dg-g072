@@ -18,7 +18,6 @@ class HRM {
 class Team {
     size
     members
-
 }
 
 class Collaborator {
@@ -31,33 +30,24 @@ class Collaborator {
     idDocumentNumber
 }
 
-class GreenSpace {
-    name
-    address
-    dimension
-}
-
-class Garden {
-}
-
-class MediumSizedPark {
-}
-
-class LargeSizedPark {
-}
-
 class Organization{
     name
     address
 }
 
-HRM "1" - "1..*" Team : creates >
-Collaborator <|-- HRM
+class Skill{
+    name
+}
+
+class Job{
+    name
+}
+
+HRM "1" -- "*" Team : creates >
 Team "1" -- "1..*" Collaborator: has >
-GreenSpace "1" -- "1..*" Collaborator: has >
-GreenSpace <|-- Garden
-GreenSpace <|-- MediumSizedPark
-GreenSpace <|-- LargeSizedPark
-Organization "1" -- "1..*" GreenSpace: owns >
-Organization "1   " -- "1..*" Collaborator: works for <
+Collaborator "1" -- "*" Skill: has >
+Collaborator "1" -- "*" Job: has >
+Organization "1" -- "1..*" Collaborator: works for <
+Organization "1" -- "*" Skill: has >
+Organization "1" -- "*" Job: has >
 @enduml
