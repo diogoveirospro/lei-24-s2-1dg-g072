@@ -1,0 +1,45 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD) - Alternative One
+
+autonumber
+
+actor "Human Resources\nManager" as GRH
+participant ":System" as System
+
+activate GRH
+
+    GRH -> System : asks to create a new team
+    activate System
+
+        System --> GRH : request the maximum and minimum team size
+    deactivate System
+
+    GRH -> System : types requested size
+    activate System
+
+        System --> GRH : shows the list of skills and asks you to select\nall the ones needed for that task
+    deactivate System
+
+    GRH -> System : select the skills
+    activate System
+
+        System --> GRH : shows all data and requests confirmation
+    deactivate System
+
+    GRH -> System : confirms data
+    activate System
+
+        System --> GRH : show the team recommendation
+    deactivate System
+
+    GRH -> System : accepts team recommendation
+    activate System
+
+        System --> GRH : displays operation success
+    deactivate System
+
+@enduml

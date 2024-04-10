@@ -1,0 +1,23 @@
+# Use Case Diagram (UCD)
+
+**In the scope of this project, there is a direct relationship of _1 to 1_ between Use Cases (UC) and User Stories (US).**
+
+However, be aware, this is a pedagogical simplification. On further projects and course units there may also exist _1 to N **and/or** N to 1_ relationships between UC and US.
+
+**Insert below the Use Case Diagram in a SVG format**
+
+![Use Case Diagram](svg/use-case-diagram.svg)
+
+
+# Use Cases / User Stories
+
+| UC/US | Description                                                     |                   
+|:------|:----------------------------------------------------------------|
+| US001 | [Register Skills](../../us001/Readme.md)                        |
+| US002 | [Register a Job](../../us002/Readme.md)                         |
+| US003 | [Registration of an employee](../../us003/Readme.md)            |
+| US004 | [Assigning skills to an employee](../../us004/Readme.md)        |
+| US005 | [Generate a Team Proposal](../../us005/Readme.md)               |
+| US006 | [Register a vehicle](../../us006/Readme.md)                     |
+| US007 | [Register the inspection of a vehicle](../../us007/Readme.md)   |
+| US008 | [List vehicles that need to be serviced](../../us008/Readme.md) |

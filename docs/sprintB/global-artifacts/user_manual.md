@@ -7,7 +7,8 @@ To access the glossary, click [here](01.requirements-engineering/glossary.md).
 
 ## Introduction
 
-This document as the purpose to explain the app and give instructions on how to use it. 
+This document as the purpose to explain the app being developed with the idea of showing his purposes and objectives,
+and give instructions on how to use it. 
 In this manual, it is possible to find the system structure along with the system overview, 
 the main features of the product, a structure diagram and features of the app. 
 This manual is addressed to the users of the product, specifically the green spaces managers and administrators. 
@@ -74,10 +75,26 @@ different components of the system, offering a clear view of its structure and i
 > - Click on "Add Job" or a similar option to automatically add the job to the employee, after you confirm it.
 
 > ### 3. Registration of an employee | HRM
+> **Purpose:** To facilitate the Human Resources Manager (HRM) in the process of registering new employees in the system, ensuring that all necessary personal and professional information is accurately captured.
 > 
+> **Instructions**:
+> - Log in to your Human Resources Manager account;
+> - Navigate to the "Employee Management" or a similar section;
+> - Choose the option to register a new employee;
+> - Enter the required employee details, such as name, birth date, admission date, address, contact info (phone number and email), taxpayer number, ID document type, and ID document number;
+> - Review the entered information for accuracy;
+> - Click on "Register Employee" or a similar option to complete the registration process, after confirming the accuracy of the information provided.
 
 > ### 4. Assigning skills to an employee | HRM
->
+> **Purpose:** This feature is designed to enable the Human Resources Manager (HRM) to assign specific skills to employees, thereby facilitating better job-role alignment and enhancing the organization's talent management process.
+> 
+> **Instructions**:
+> - Log in to your Human Resources Manager account;
+> - Navigate to the "Skill Management" or a similar section;
+> - Select the employee to whom you wish to assign skills;
+> - Search or browse through the list of available skills;
+> - Select one or more skills that match the employee's qualifications and job requirements;
+> - Click on "Assign Skills" or a similar option to finalize the assignment of selected skills to the employee, after you confirm the selection.
 
 > ### 5. Generate a Team Proposal | HRM
 > **Purpose:** To enable the Human Resources Manager (HRM) to automatically generate a team proposal based on the 
@@ -100,7 +117,16 @@ minimum and maximum size of the team and the set of skills required for a given 
 > - Click on "Register vehicle" or a similar option to add the vehicle, after you confirm.
 
 > ### 7. Register a vehicle's check-up | VFM
->
+> **Purpose:** This feature enables the Vehicle Fleet Manager (VFM) to systematically record and manage the check-up details of vehicles within the organization's fleet, ensuring timely maintenance and service for optimal performance and safety.
+> 
+> **Instructions:** 
+> - Log in to your Vehicle Fleet Manager account;
+> - Navigate to the "Vehicle Maintenance" or a similar section;
+> - Select the option to register a check-up for a vehicle;
+> - Choose the vehicle from the fleet list that requires a check-up;
+> - Enter the details of the check-up, including the date, service provider, type of service performed, and any notes on repairs or maintenance issues identified during the check-up;
+> - Review the entered information for accuracy;
+> - Click on "Register Check-up" or a similar option to record the check-up details for the selected vehicle, after confirming the accuracy of the information provided.
 
 > ### 8. List vehicles that need to be serviced | VFM
 > **Purpose:** To enable the Vehicle Fleet Manager (VFM) to automatically generate a list of all vehicles that need a check-up.

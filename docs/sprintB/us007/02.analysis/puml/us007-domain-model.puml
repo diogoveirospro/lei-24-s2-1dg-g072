@@ -1,0 +1,68 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+hide circles
+hide methods
+
+class Collaborator {
+    name
+    birthdate
+    admissionDate
+    address
+    contactInfo
+    idDocumentType
+    idDocumentNumber
+}
+
+class VFM{
+    
+}
+
+class Vehicle{
+    plate id
+    brand
+    model
+    type
+    tare
+    gross weight
+    current kms
+    registration date
+    acquisition date
+    maintenance/check-up frequency
+}
+
+class GreenSpace {
+    name
+    address
+    dimension
+}
+
+class Garden {
+}
+
+class MediumSizedPark {
+}
+
+class LargeSizedPark {
+}
+
+class Organization{
+    name
+    address
+}
+
+Collaborator <|-- VFM
+VFM "1"-"   1..*" Vehicle: chooses >
+Collaborator "1..*" - "1" GreenSpace: has <
+GreenSpace "1" -- "1..*" Vehicle: has >
+GreenSpace <|-- Garden
+GreenSpace <|-- MediumSizedPark
+GreenSpace <|-- LargeSizedPark
+Organization "1" -- "1..*" GreenSpace: owns >
+Organization "1   " -- "1..*" Collaborator: works for <
+@enduml

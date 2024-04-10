@@ -1,0 +1,128 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+'skinparam linetype ortho
+'left to right direction
+skinparam classAttributeIconSize 0
+hide circle
+hide methods
+
+class Organization{
+    name
+    address
+}
+
+class HRM {
+
+}
+
+class Skill {
+    name
+}
+class Job {
+    name
+}
+
+
+class Team {
+    size
+    members
+
+}
+
+class Collaborator {
+    name
+    birthdate
+    admissionDate
+    address
+    contactInfo
+    idDocumentType
+    idDocumentNumber
+}
+
+
+
+class GreenSpace {
+    name
+    address
+    dimension
+}
+
+class Garden {
+
+}
+
+class MediumSizedPark {
+
+}
+
+class LargeSizedPark {
+
+}
+
+
+class Vehicle{
+    plate id
+    brand
+    model
+    type
+    tare
+    gross weight
+    current kms
+    registration date
+    acquisition date
+    maintenance/check-up frequency
+}
+
+class VFM {
+
+}
+
+class VehiclesCheckUp {
+    plate id
+}
+
+Organization "1   " -- "1..*" Collaborator: works for <
+Collaborator <|-- HRM
+Organization "1" -- "1..*" GreenSpace: owns >
+GreenSpace "1" -- "1..*" Collaborator: has >
+GreenSpace <|-- Garden
+GreenSpace <|-- MediumSizedPark
+GreenSpace <|-- LargeSizedPark
+
+'US001
+HRM "1" -- "1..*" Skill: creates >
+
+'US002
+HRM "1" -- "1..*" Job : creates >
+
+'US003
+HRM "1" --> "1..*" Collaborator : registers
+
+'US004
+HRM "1" -- "1..*" Skill : assigns >
+Collaborator "1" -- "1..*" Skill : has >
+
+'US005
+HRM "1" - "1..*" Team : creates >
+Collaborator "1" -- "1" Job: has >
+Team "1" -- "1..*" Collaborator: has >
+
+Collaborator <|-- VFM
+
+'US006
+VFM "1" -- "1..*" Vehicle: registers >
+
+'US007
+VFM "1"-- "1..*" Vehicle: chooses >
+Vehicle "1..*" -- "1  " GreenSpace: has <
+
+'US008
+VFM "1" -- "1..*" VehiclesCheckUp: lists >
+VehiclesCheckUp "1..*" -- "1  " GreenSpace: has <
+Vehicle "1..*" -- "1" VehiclesCheckUp: has <
+Organization "1" -- "1..*" Vehicle: owns >
+
+
+@enduml
