@@ -20,13 +20,13 @@ activate GRH
 
     GRH -> System : types requested size
     activate System
-
-        System --> GRH : shows the list of skills and asks you to select\nall the ones needed for that task
+loop
+        System --> GRH : shows the list of skills and asks you to select\none needed for that task
     deactivate System
 
-    GRH -> System : select the skills
+    GRH -> System : select the skill
     activate System
-
+end
         System --> GRH : shows all data and requests confirmation
     deactivate System
 

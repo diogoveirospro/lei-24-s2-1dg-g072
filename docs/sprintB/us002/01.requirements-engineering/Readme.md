@@ -86,7 +86,7 @@ As an HRM, I want to register a job that a collaborator needs to have.
 
 **Output Data:**
 
-* List of all registered professions
+* List of all registered jobs
 * (In)Success of the operation
 
 ### 1.6. System Sequence Diagram (SSD)
@@ -97,13 +97,6 @@ As an HRM, I want to register a job that a collaborator needs to have.
 
 ![System Sequence Diagram - Alternative One](svg/us002-system-sequence-diagram-alternative-one.svg)
 
-#### Alternative Two
-
-![System Sequence Diagram - Alternative Two](svg/us002-system-sequence-diagram-alternative-two.svg)
-
-#### Alternative Three
-
-![System Sequence Diagram - Alternative Three](svg/us002-system-sequence-diagram-alternative-three.svg)
 
 ### 1.7 Other Relevant Remarks
 

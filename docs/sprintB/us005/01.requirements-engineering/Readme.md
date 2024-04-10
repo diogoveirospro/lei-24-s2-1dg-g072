@@ -77,14 +77,6 @@ max: 4
 
 ![System Sequence Diagram - Alternative One](svg/us005-system-sequence-diagram-alternative-one.svg)
 
-#### Alternative Two
-
-![System Sequence Diagram - Alternative Two](svg/us005-system-sequence-diagram-alternative-two.svg)
-
-#### Alternative Three
-
-![System Sequence Diagram - Alternative Three](svg/us005-system-sequence-diagram-alternative-three.svg)
-
 ### 1.7 Other Relevant Remarks
 
 * The HRM can change the team's recommendation and will be notified if none of the members have the necessary skills to carry out the task.
