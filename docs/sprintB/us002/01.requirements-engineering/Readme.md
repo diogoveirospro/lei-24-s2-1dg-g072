@@ -70,6 +70,7 @@ As an HRM, I want to register a job that a collaborator needs to have.
 ### 1.3. Acceptance Criteria
 
 * **AC1:** It should not be possible to register a new job if it already exists in the system.
+* **AC2:** A job name can’t have special characters or digits.
 
 ### 1.4. Found out Dependencies
 

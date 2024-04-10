@@ -45,8 +45,8 @@ max: 4
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** The maximum team size and the set of skills need to be supplied by the HRM.
-* **AC2:** HRM should also provide the minimum team size.
+* **AC1:** The max and minimum team size and the set of skills must be supplied by the HRM, like in the following example: 
+**_4; 3; <tree pruner; tree pruner; tree pruner; light vehicle licence>_**
 
 ### 1.4. Found out Dependencies
 
