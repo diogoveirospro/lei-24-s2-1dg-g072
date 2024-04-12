@@ -26,6 +26,7 @@ class Vehicle{
     registration date
     acquisition date
     maintenance/check-up frequency
+    km at last check-up
 }
 class Organization{
     name
@@ -33,7 +34,7 @@ class Organization{
 }
 
 class CheckUp{
-    Km at check-up
+    km at check-up
 }
 
 Organization "1" --"1..*" Vehicle: owns >
