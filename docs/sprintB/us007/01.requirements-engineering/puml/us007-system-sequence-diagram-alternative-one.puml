@@ -14,13 +14,14 @@ activate Employee
 
     Employee -> System : asks to register a vehicle for check-up
     activate System
+    loop
 
         System --> Employee : shows list of registered vehicles
     deactivate System
 
     Employee -> System : choses vehicle for check-up
     activate System
-
+    end
         System --> Employee : requests confirmation
     deactivate System
 
