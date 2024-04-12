@@ -51,6 +51,12 @@ As an FM, I want to list the vehicles needing the check-up.
 > 
 > current kms, frequency, last checkup kms, next checkup (optimal) kms
 
+> **Question:** In US 08 how should the vehicles be sorted in the list and does the user have any control over what determines what is used to sort the vehicles? For example, the vehicles licence plate, its gross weight or km driven over the check-up limit.
+> 
+> **Answer:** No specific order is required; each dev team can decide about UX aspects.
+
+
+
 
 ### 1.3. Acceptance Criteria
 
