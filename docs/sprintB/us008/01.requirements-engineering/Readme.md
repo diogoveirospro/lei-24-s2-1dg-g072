@@ -5,7 +5,7 @@
 
 ### 1.1. User Story Description
 
-As an FM, I want to list the vehicles needing the check-up.
+As an FM, I want to list the vehicles needing Maintenance.
 
 ### 1.2. Customer Specifications and Clarifications 
 
@@ -55,13 +55,21 @@ As an FM, I want to list the vehicles needing the check-up.
 > 
 > **Answer:** No specific order is required; each dev team can decide about UX aspects.
 
-
+> **Question:** Should the list include all vehicles or only those assigned to a specific location?
+>
+> **Answer:** all.
 
 
 ### 1.3. Acceptance Criteria
 
 * **AC1:** There must be at least one vehicle that is listed to do a check-up.
-* **AC2:** The list must clearly identify the vehicles through: plate number, brand, model and the that justified the checkup need.
+* **AC2:** : The report should have the data concerning the vehicle description (Plate, Brand, Model and Current Kms) and the Checkup
+  related data, like the following example:
+
+| **_Plate_**        | **_Brand_** | **_Model_** | **_Curr.kms_** | **_Freq_** | **_Last_** | **_Next_** |                                       
+|:-------------------|:------------|:------------|:---------------|:-----------|:-----------|:-----------|
+| 10-10-QR           | Ford        | Focus       | 43124          | 15000      | 41152      | 56152      |
+
 
 
 ### 1.4. Found out Dependencies

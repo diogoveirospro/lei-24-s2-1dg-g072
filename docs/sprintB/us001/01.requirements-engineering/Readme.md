@@ -55,7 +55,7 @@ collaborator may have.
 ### 1.3. Acceptance Criteria
 
 * **AC1:** The HRM needs to write at least one skill.
-* **AC2:** It must not have any special character or digits.
+* **AC2:** A skill name can’t have special characters or digits.
 
 ### 1.4. Found out Dependencies
 
