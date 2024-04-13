@@ -46,7 +46,7 @@ As an FM, I want to list the vehicles needing Maintenance.
 > **Question:** "The list must clearly identify the vehicles through: plate number, brand, model and the [?] that justified the checkup need."
 > 
 > Did you mean the reason for the check-up need?
-> 
+>
 > **Answer:** [?] DATA
 > 
 > current kms, frequency, last checkup kms, next checkup (optimal) kms

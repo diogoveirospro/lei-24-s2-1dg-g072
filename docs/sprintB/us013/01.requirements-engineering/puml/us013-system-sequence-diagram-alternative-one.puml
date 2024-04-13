@@ -12,18 +12,17 @@ participant ":System" as System
 
 activate Employee
 
-    Employee -> System : asks to list all the vehicles that need maintenance
+    Employee -> System : asks to create a topographic survey, of the pipelines between water points
+
     activate System
 
         System --> Employee : asks for confirmation
     deactivate System
-    Employee -> System : Confirms that he wants to create the list
+    Employee -> System : Confirms that he wants to create the topographic survey
         activate System
 
-            System --> Employee : shows the list of all vehicles that need maintenance
+            System --> Employee : shows a topographic survey, of the pipelines between water points
         deactivate System
-
-
 
 
 @enduml
