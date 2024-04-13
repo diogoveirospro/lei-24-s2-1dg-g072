@@ -30,10 +30,11 @@ cost, ensuring that all points are adequately supplied.
 
 ### 1.5 Input and Output Data
 
-* Input data:	
+* Input data:
+  * File with all possible routes that can be
+      opened to lay pipes between each pair of water points, and their respective installation costs. 
 * Selected data:
-    * All possible routes that can be
-      opened to lay pipes between each pair of water points, and their respective installation costs
+
 
 **Output Data:**
 

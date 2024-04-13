@@ -22,6 +22,6 @@ class TopographicSurvey{
 coordinates of the water points
 distance between water points
 }
-GSM "1" -- "1" TopographicSurvey: creates >
-Organization "1" - "1" TopographicSurvey: owns >
+GSM "1" -- "1..*" TopographicSurvey: creates >
+Organization "1" - "1..*" TopographicSurvey: owns >
 @enduml
