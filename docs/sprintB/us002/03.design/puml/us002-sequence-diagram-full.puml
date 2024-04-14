@@ -6,175 +6,52 @@ skinparam shadowing false
 autonumber
 
 'hide footbox
-actor "Organization Employee" as ADM
+actor "Human Resources\n Manager" as HRM
 participant ":RegisterJobUI" as UI
-participant ":CreateTaskController" as CTRL
-participant ":Repositories" as RepositorySingleton
-participant "repositories\n:Repositories" as PLAT
-participant "taskCategoryRepository:\nTaskCategoryRepository" as TaskCategoryRepository
-participant ":ApplicationSession" as _APP
-participant "appSession\n:ApplicationSession" as APP
-participant "currentSession\n:UserSession" as SESSAO
-participant "organizationRepository:\nOrganizationRepository" as OrganizationRepository
+participant ":RegisterJobController" as CTRL
 participant "organization\n:Organization" as ORG
-participant "task\n:Task" as TAREFA
+participant "job\n:Job" as Job
 
-activate ADM
+activate HRM
 
-        ADM -> UI : asks to create a new task
+    HRM -> UI : asks to create a new job
 
-        activate UI
-
-'            UI --> ADM : requests data (reference, description,  informal \n description, technical description, duration, cost)
-            'create CTRL
-            UI -> CTRL** : create
-
-            UI -> CTRL : getTaskCategories()
-            activate CTRL
-
-                CTRL -> RepositorySingleton : getInstance()
-                activate RepositorySingleton
-
-                    RepositorySingleton --> CTRL: repositories
-                deactivate RepositorySingleton
-
-                CTRL -> PLAT : getTaskCategoryRepository()
-                activate PLAT
-
-                    PLAT --> CTRL: taskCategoryRepository
-                deactivate PLAT
-
-                CTRL -> TaskCategoryRepository : getTaskCategories()
-                activate TaskCategoryRepository
-
-                    TaskCategoryRepository --> CTRL : taskCategoryList
-                deactivate TaskCategoryRepository
-
-                CTRL --> UI : taskCategoryList
-            deactivate CTRL
-
-            UI --> ADM : shows task category list\n and asks to sleect one
-        deactivate UI
-
-    ADM -> UI : selects a task category
     activate UI
 
-        UI --> ADM : requests data
+        UI --> HRM : requests the designation
     deactivate UI
 
-    ADM -> UI : types requested data (reference, description, \ninformal description, technical description,\nduration, cost)
+    HRM -> UI : types requested the designation
     activate UI
 
-        UI --> ADM : shows selected category and requested data
+        UI --> HRM : requests confirmation
     deactivate UI
 
-    ADM -> UI : submits data
+    HRM -> UI : confirms
     activate UI
 
-        UI -> CTRL : createTask(reference,\ndescription,\ninformalDescription,\ntechnicalDescription,\nduration, cost,\ntaskCategoryDescription)
+        UI -> CTRL : registerJob(designation)
         activate CTRL
 
-            CTRL -> CTRL : getTaskCategoryByDescription(taskCategoryDescription)
-            activate CTRL
-
-                CTRL -> RepositorySingleton : getInstance()
-                activate RepositorySingleton
-
-                    RepositorySingleton --> CTRL: repositories
-                deactivate RepositorySingleton
-
-                CTRL -> PLAT : getTaskCategoryRepository()
-                activate PLAT
-
-                    PLAT -> CTRL : taskCategoryRepository
-                deactivate PLAT
-
-                CTRL -> TaskCategoryRepository : getTaskCategoryByDescription(taskCategoryDescription)
-                activate TaskCategoryRepository
-
-                    TaskCategoryRepository --> CTRL : taskCategory
-                deactivate TaskCategoryRepository
-                    CTRL --> CTRL : taskCategory
-            deactivate CTRL
-
-            |||
-            CTRL -> CTRL : getEmployeeFromSession()
-            activate CTRL
-
-                CTRL -> _APP: getInstance()
-                activate _APP
-                    _APP -> CTRL: appSession
-                deactivate _APP
-
-
-                CTRL -> APP: getCurrentSession()
-                activate APP
-
-                    APP --> CTRL: currentSession
-                deactivate APP
-
-                CTRL -> SESSAO: email = getUserEmail()
-                activate SESSAO
-
-                    SESSAO --> CTRL: email
-                deactivate SESSAO
-
-
-                CTRL -> PLAT: getOrganizationRepository(email)
-                activate PLAT
-
-                    PLAT --> CTRL: organizationRepository
-                deactivate PLAT
-
-
-                CTRL -> OrganizationRepository: getOrganizationByEmployeeEmail(email)
-                activate OrganizationRepository
-
-                    loop [for each organization
-                        OrganizationRepository -> ORG : anyEmployeeHasEmail(email)
-                        activate ORG
-
-                             ORG --> OrganizationRepository : true/false
-                        deactivate ORG
-                    end
-                    OrganizationRepository --> CTRL : organization
-                deactivate OrganizationRepository
-
-                CTRL -> ORG: getEmployeeByEmail(email)
-                activate ORG
-
-                    ORG --> CTRL : employee
-                deactivate ORG
-
-                CTRL --> CTRL : employee
-            deactivate CTRL
-
-            |||
-            CTRL -> ORG: createTask(employee, reference, description,\ninformalDescription, technicalDescription,\nduration, cost, , taskCategory, employee)
+            CTRL -> ORG : registerJob(designation)
             activate ORG
 
-                ORG -> TAREFA**: create(employee, reference, description,\ninformalDescription, technicalDescription,\nduration, cost, taskCategory, employee)
-                ORG -> ORG: addTask (task)
-
-
+            ORG -> Job**: register(designation)
+                ORG -> ORG: addJob(job)
                 activate ORG
-                    ORG -> ORG: validateTask(task)
-                    activate ORG
-                        ORG --> ORG
-                    deactivate ORG
 
-                    ORG --> ORG
-                deactivate ORG
+                ORG -> ORG: validateJob(job)
+                activate ORG
 
-                ORG --> CTRL : task
-
+            ORG --> CTRL : job
             deactivate ORG
 
-            CTRL --> UI: task
-            deactivate CTRL
-            UI --> ADM: displays operation success
+            CTRL --> UI : job
+        deactivate CTRL
+
+        UI --> HRM: displays operation success
     deactivate UI
 
-deactivate ADM
+deactivate HRM
 
 @enduml

@@ -1,0 +1,30 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+participant "organization\n:Organization" as ORG
+participant "job\n:Job" as Job
+
+autonumber 7
+-> ORG: registerJob(designation)
+
+autonumber 7.1
+activate ORG
+    group Register Job
+
+        ORG -> Job**: register(designation)
+        ORG -> ORG: addJob(job)
+        activate ORG
+
+            ORG -> ORG: validateJob(job)
+            activate ORG
+
+    end
+
+    autonumber 8
+    <-- ORG : job
+deactivate ORG
+
+
+@enduml

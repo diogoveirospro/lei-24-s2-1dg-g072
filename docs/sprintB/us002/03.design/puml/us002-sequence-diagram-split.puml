@@ -32,41 +32,21 @@ activate HRM
         UI -> CTRL : registerJob(designation)
         activate CTRL
 
-            CTRL -> CTRL : getTaskCategoryByDescription(taskCategoryDescription)
-            activate CTRL
-
-                ref over CTRL
-                    Get Task Category Object
-
-                end ref
-
-                CTRL --> CTRL : taskCategory
-            deactivate CTRL
-
-            CTRL -> CTRL : getEmployeeFromSession()
-            activate CTRL
-
-                ref over CTRL
-                    Get Employee
-
-                end ref
-                CTRL -> CTRL : employee
-            deactivate CTRL
-
-            CTRL -> ORG: createTask(reference, description, informalDescription,\ntechnicalDescription, duration, cost, taskCategory, employee)
+            CTRL -> ORG : registerJob(designation)
             activate ORG
 
-                ref over ORG
-                    Create Task
+            ref over ORG
+                Register Job
 
-                end
+            end
 
-                ORG --> CTRL : task
+            ORG --> CTRL : job
             deactivate ORG
 
-            CTRL --> UI: task
-            deactivate CTRL
-            UI --> HRM: displays operation success
+            CTRL --> UI : job
+        deactivate CTRL
+
+        UI --> HRM: displays operation success
     deactivate UI
 
 deactivate HRM
