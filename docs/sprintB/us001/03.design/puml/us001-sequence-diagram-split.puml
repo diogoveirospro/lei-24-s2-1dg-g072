@@ -1,0 +1,50 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "Human\nResources\nManager\n(HRM)" as HRM
+participant ":AddSkillsUI" as UI
+participant ":RegisterSkillsController" as CTRL
+participant "organization\n:Organization" as ORG
+activate HRM
+
+
+        HRM -> UI : asks to add some skills
+        activate UI
+
+                UI -> HRM : requests the skill name
+        deactivate UI
+        HRM -> UI: Types requested data
+        activate UI
+
+                UI -> HRM : Shows the skills and asks for confirmation
+        deactivate UI
+        HRM -> UI : Confirms skills.
+        activate UI
+
+                UI -> CTRL: registerSkills(name)
+                activate CTRL
+
+                        CTRL -> ORG: registerSkills(name)
+                        activate ORG
+
+                                ref over ORG
+                                        Register Skills
+
+                                end
+
+                                ORG -> CTRL: skills
+                        deactivate ORG
+
+                        CTRL -> UI: skills
+                deactivate CTRL
+
+                UI -> HRM: Displays Operation Success
+        deactivate UI
+deactivate HRM
+
+@enduml
