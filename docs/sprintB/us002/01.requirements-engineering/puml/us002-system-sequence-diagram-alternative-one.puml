@@ -15,10 +15,10 @@ activate HRM
     HRM -> System : asks to create a new job
     activate System
 
-        System --> HRM : requests the designation
+        System --> HRM : requests the name
     deactivate System
 
-    HRM -> System : types requested the designation
+    HRM -> System : types requested the name
     activate System
 
         System --> HRM : requests confirmation

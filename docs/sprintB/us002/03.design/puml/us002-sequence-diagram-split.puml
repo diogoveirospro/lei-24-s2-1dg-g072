@@ -29,10 +29,10 @@ activate HRM
     HRM -> UI : confirms
     activate UI
 
-        UI -> CTRL : registerJob(designation)
+        UI -> CTRL : registerJob(name)
         activate CTRL
 
-            CTRL -> ORG : registerJob(designation)
+            CTRL -> ORG : registerJob(name)
             activate ORG
 
             ref over ORG

@@ -81,7 +81,7 @@ As an HRM, I want to register a job that a collaborator needs to have.
 **Input Data:**
 
 * Typed data:
-    * a designation
+    * a name
 
 
 **Output Data:**

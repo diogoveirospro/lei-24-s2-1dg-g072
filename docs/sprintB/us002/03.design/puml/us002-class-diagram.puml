@@ -11,6 +11,8 @@ skinparam classAttributeIconSize 0
 
 class Job {
     - name: String
+
+    + Job(name)
 }
 
 class HRM {
@@ -19,9 +21,23 @@ class HRM {
 class Organization {
     - name: String
     - address: String
+
+    + register(name)
+    + addJob(job)
+    + validateJob(job)
+}
+
+class RegisterJobUI {
+
+}
+
+class RegisterJobController {
+    + registerJob(name)
 }
 
 HRM "1" --> "*" Job
-Organization "1" -- "*" Job
+Organization "1" --> "*" Job
+RegisterJobUI .> RegisterJobController
+RegisterJobController .> Organization
 
 @enduml

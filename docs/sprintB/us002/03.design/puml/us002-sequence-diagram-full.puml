@@ -18,10 +18,10 @@ activate HRM
 
     activate UI
 
-        UI --> HRM : requests the designation
+        UI --> HRM : requests the name
     deactivate UI
 
-    HRM -> UI : types requested the designation
+    HRM -> UI : types requested the name
     activate UI
 
         UI --> HRM : requests confirmation
@@ -30,13 +30,13 @@ activate HRM
     HRM -> UI : confirms
     activate UI
 
-        UI -> CTRL : registerJob(designation)
+        UI -> CTRL : registerJob(name)
         activate CTRL
 
-            CTRL -> ORG : registerJob(designation)
+            CTRL -> ORG : registerJob(name)
             activate ORG
 
-            ORG -> Job**: register(designation)
+            ORG -> Job**: register(name)
                 ORG -> ORG: addJob(job)
                 activate ORG
 

@@ -7,13 +7,13 @@ participant "organization\n:Organization" as ORG
 participant "job\n:Job" as Job
 
 autonumber 7
--> ORG: registerJob(designation)
+-> ORG: registerJob(name)
 
 autonumber 7.1
 activate ORG
     group Register Job
 
-        ORG -> Job**: register(designation)
+        ORG -> Job**: register(name)
         ORG -> ORG: addJob(job)
         activate ORG
 
