@@ -5,69 +5,102 @@
 
 ### 1.1. User Story Description
 
-As an HRM, I want to generate a team proposal automatically.
+As a GSM, I want to know the exact costs referring to water consumption of specific green space so that I may manage these expenses efficiently.
 
 ### 1.2. Customer Specifications and Clarifications 
 
+**From the specification document:**
+
+> Within this US, the aim is to carry out a statistical analysis concerning the water consumption costs in all parks.
+
+> The "WaterUsed.csv" file provides the necessary data to carry out the study. This file's recorded daily water consumption (in m3) since the day each park opened. The amount paid for water is 0.7 AC/m3, up to consumption of 50 m3, with a fee of 15% added for higher consumption levels.
+
+> The data file contains records of the following information: “Park Identification”, “Year”, “Month”, “Day”, “Consumption”.
+
+>  Results to be obtained:
+> 
+> * Barplot represents monthly water consumption, as a result of the following specifications given by the user: time period (StartMonth, EndMonth) and park identification.
+>
+> * Average of monthly costs related to water consumption as a result of the following specifications given by the user: number of parks to be analysed, and park identification.
+>
+> * Consider the water consumption of every day that is recorded. The aim is to analyse and compare statistical indicators between the park with the highest and lowest water consumption. For these two parks, perform the following tasks and compare results:
+>   
+>   * Calculate the mean, median, standard deviation, and the coefficient of skewness;
+>
+>   * Build relative and absolute frequency tables (classified data), considering 5 classes;
+>
+>   * Check if the data has outliers, using the outlier definition as values that deviate from the median by more than 1.5 times the interquartile range;
+>
+>   * Graphically represents data through histograms with 10 classes.
+
 **From the client clarifications:**
 
-> **Question:** How does it generate the team if there are not enough employees?
+> **Question:** Is the 15 per cent tax when consumption exceeds 50 m^3 applied to the entire volume of water or only to the volume that has been exceeded?
 >
-> **Answer:** The system should provide information why it can't generate a team.
+> **Answer:** The volume exceeded.
 
-> **Question:** How does he purpose a team, for what purpose? (Is there any default)?
+> **Question:** Is the consumption limit of 50m^3 calculated per day or per month?
 >
-> **Answer:** There is no purpose, at least in this sprint.
+> **Answer:** Per month.
 
-> **Question:** What are the input data to automatically generate a team?
+> **Question:** Regarding the third "task", the park with the highest and the lowest water consumption, does it refer to the total consumption (sum of the consumptions for each park or simply from a day that is recorded)?
 >
-> **Answer:** The max size of the team (for instance, 4); The skill needed: Four tree pruner and one light vehicle driver (meaning that one team member has two skills).
+> **Answer:** You're going to choose two parks. The one that had a day with higher consumption than all those recorded (from all parks) and another park that had a day with lower consumption than all those recorded (from all parks).
 
-> **Question:** Is it necessary for the user to enter the minimum number of members required for a team?
+> **Question:** Also, to calculate the mean, median, standard deviation and coefficient of skewness, is it from the daily data (days that are recorded)?
 > 
-> **Answer:** Yes.
+> **Answer:** The calculations are made for all the records of the selected parks.
 
-> **Question:** I would also like to know if a collaborator can be in more than one team at the same time?
+> **Question:** How will the average monthly water consumption costs be displayed? Will the value be saved in a specific file or simply displayed to the user?
 > 
-> **Answer:** No.
+> **Answer:** It will be presented to the user/client.
 
-> **Question:** Are the skills(input) typed or selected? Does the output show the team members with or without their skills?
+> **Question:** What information do you want displayed on the histograms?
 >
-> **Answer:** The ux/ui is up to the dev team.
+> **Answer:** As the statement indicates, all water consumption is recorded for the two selected parks.
 
-> **Question:** What business rules apply to the input data to generate a team proposal?
+> **Question:** What do you mean by "classified data" when it comes to constructing relative and absolute frequency tables?
 > 
-> **Answer:** Max and Min team size, and a list of skills needed.
-For instance:
-min: 3
-max: 4
+> **Answer:** As for the classified data, you'll find the answer in the slides in Chapter 2.
+
+> **Question:** When the user enters the park identification, should this be by name or through an ID?
+> 
+> **Answer:** Name.
+
+> **Question:** On creating the barplot, what's the reason behind asking for the time period (StartMonth, EndMonth) since the barplot is a monthly based graph? Wouldn't it make more sense just to have the name of the desired month instead?
+>
+> **Answer:** The barplot shows one bar for each month requested. For example, I may only be interested in knowing the consumption in the summer months.
+
+> **Question:** When comparing the park with the highest and lowest water consumption, is it possible that the day of the highest value is not the same as the day of the lowest value? (In this case we will be comparing two parks' data from two different days, am I right?)
+>
+> **Answer:** You will choose two parks. The one that had a day (it doesn't matter which day) with higher consumption than all those registered (from all the parks) and another park that had a day with lower consumption than all those registered (from all the parks).
 
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** The maximum team size and the set of skills need to be supplied by the HRM.
-* **AC2:** HRM should also provide the minimum team size.
+
 
 ### 1.4. Found out Dependencies
 
-* There is a dependency on **"US003 - Registration of an employee"** since it needs information about the employees, such as experience and skills. This allows the system to select the appropriate employees to form the team.
-* There is a dependency on **"US004 - Assigning skills to an employee"** since skills need to be assigned to employees in the system. The system will have to take the relevant competences into account when forming teams.
+* There are no dependencies in other US.
 
 ### 1.5 Input and Output Data
 
 **Input Data:**
 
 * Typed data:
-    * a maximum team size
-    * a minimum team size
+  * time period (StartMonth, EndMonth)
+  * number of parks to be analysed
 	
 * Selected data:
-    * the necessary skills
+  * park identification
 
 **Output Data:**
 
 * (In)Success of the operation
-* A team recommendation
+* Barplot representing monthly water consumption
+* Average of monthly costs related to water consumption
+* Comparative statistical analysis
 
 ### 1.6. System Sequence Diagram (SSD)
 
@@ -75,16 +108,7 @@ max: 4
 
 #### Alternative One
 
-![System Sequence Diagram - Alternative One](svg/us005-system-sequence-diagram-alternative-one.svg)
-
-#### Alternative Two
-
-![System Sequence Diagram - Alternative Two](svg/us005-system-sequence-diagram-alternative-two.svg)
-
-#### Alternative Three
-
-![System Sequence Diagram - Alternative Three](svg/us005-system-sequence-diagram-alternative-three.svg)
+![System Sequence Diagram - Alternative One](svg/us009-system-sequence-diagram-alternative-one.svg)
 
 ### 1.7 Other Relevant Remarks
 
-* The HRM can change the team's recommendation and will be notified if none of the members have the necessary skills to carry out the task.
