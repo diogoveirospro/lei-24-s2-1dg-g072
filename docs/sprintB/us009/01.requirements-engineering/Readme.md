@@ -110,5 +110,6 @@ As a GSM, I want to know the exact costs referring to water consumption of speci
 
 ![System Sequence Diagram - Alternative One](svg/us009-system-sequence-diagram-alternative-one.svg)
 
+
 ### 1.7 Other Relevant Remarks
 

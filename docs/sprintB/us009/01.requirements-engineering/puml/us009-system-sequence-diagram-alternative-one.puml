@@ -15,6 +15,12 @@ activate GSM
     GSM -> System : asks for a cost analysis of a park's water consumption
     activate System
 
+        System --> GSM : requests the file with water consumption since the opening day of each park
+    deactivate System
+
+    GSM -> System : uploads the "WaterUsed.csv" file
+    activate System
+
         System --> GSM : request the time period (StartMonth, EndMonth)
     deactivate System
 
