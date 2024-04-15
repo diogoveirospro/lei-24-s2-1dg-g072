@@ -25,9 +25,8 @@ As a GSM (Garden Services Manager), I want to import a .csv file containing line
 ### 1.3. Acceptance Criteria
 
 * **AC1:** The system must be able to import a CSV file with the specified format.
-* **AC2:** The data must be validated for correctness and completeness.
-* **AC3:** Any duplicate or malformed entries should be reported to the user.
-* **AC4:** Valid entries should be stored in a unique data structure optimized for further operations like calculating the optimal routing..
+* **AC2:** Any duplicate or malformed entries should be reported to the user.
+* **AC3:** Valid entries should be stored in a unique data structure optimized for further operations like calculating the optimal routing
 
 ### 1.4. Found out Dependencies
 

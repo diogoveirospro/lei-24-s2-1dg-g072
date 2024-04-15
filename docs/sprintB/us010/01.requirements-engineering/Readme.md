@@ -30,9 +30,9 @@ As a GSM (Garden Services Manager), I want to know which piece(s) of equipment a
 
 ### 1.4. Found Dependencies
 
-* **US09 - Water Consumption Analysis:** Understanding water consumption patterns in the park can provide context for equipment usage analysis in US10. For instance, high water consumption might indicate frequent use of equipment like water features or irrigation systems, while low consumption might suggest less usage overall.
-* **US12 - Importing Route Data:** US10 might require importing route data between water points, especially if the analysis involves considering the efficiency of water distribution to different park areas based on equipment usage.
-* **US13 - Optimal Route Calculation:** If US10 aims to optimize water distribution routes based on equipment usage patterns, it may depend on the implementation of an algorithm (US13) that calculates the most efficient routes with minimum accumulated cost.
+* **US09** - Provides context for understanding water usage patterns, which may influence equipment usage analysis in US10
+* **US12** - Necessary if analyzing water distribution routes based on equipment usage patterns.  
+* **US13** - Required for optimizing water distribution routes, ensuring efficient resource allocation based on equipment usage.   
 
 ### 1.5. Input and Output Data
 
