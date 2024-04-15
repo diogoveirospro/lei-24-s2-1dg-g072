@@ -1,73 +1,52 @@
-# US010 - Find which peace of equipment is used each day 
-
+# US010 - Find which piece of equipment is used each day
 
 ## 1. Requirements Engineering
 
 ### 1.1. User Story Description
 
-As an HRM, I want to generate a team proposal automatically.
+As a GSM (Garden Services Manager), I want to know which piece(s) of equipment are used each day so that I can understand the users’ preferences.
 
-### 1.2. Customer Specifications and Clarifications 
+### 1.2. Customer Specifications and Clarifications
 
 **From the client clarifications:**
 
-> **Question:** How does it generate the team if there are not enough employees?
+> **Question:** What happens if the equipment is not operational?
 >
-> **Answer:** The system should provide information why it can't generate a team.
+> **Answer:** The equipment will not be listed on the electronic device at the park exit.
 
-> **Question:** How does he purpose a team, for what purpose? (Is there any default)?
+> **Question:** How will the data be collected?
 >
-> **Answer:** There is no purpose, at least in this sprint.
+> **Answer:** Users will select the equipment they used that day on an electronic device at the park exit.
 
-> **Question:** What are the input data to automatically generate a team?
+> **Question:** What if a user forgets to log the equipment they used?
 >
-> **Answer:** The max size of the team (for instance, 4); The skill needed: Four tree pruner and one light vehicle driver (meaning that one team member has two skills).
-
-> **Question:** Is it necessary for the user to enter the minimum number of members required for a team?
-> 
-> **Answer:** Yes.
-
-> **Question:** I would also like to know if a collaborator can be in more than one team at the same time?
-> 
-> **Answer:** No.
-
-> **Question:** Are the skills(input) typed or selected? Does the output show the team members with or without their skills?
->
-> **Answer:** The ux/ui is up to the dev team.
-
-> **Question:** What business rules apply to the input data to generate a team proposal?
-> 
-> **Answer:** Max and Min team size, and a list of skills needed.
-For instance:
-min: 3
-max: 4
-
+> **Answer:** The system relies on user input, so any equipment not logged will not be recorded for that day.
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** The maximum team size and the set of skills need to be supplied by the HRM.
-* **AC2:** HRM should also provide the minimum team size.
+* **AC1:** The system must allow users to select the equipment they used from a list on an electronic device at the park exit.
+* **AC2:** The system must be able to record and store these selections in a file named "EquipmentUsed.csv".
+* **AC3:** The system should be able to generate a pie chart from "EquipmentUsed.csv" showing the percentage usage of each piece of equipment.
 
 ### 1.4. Found out Dependencies
 
-* There is a dependency on **"US003 - Registration of an employee"** since it needs information about the employees, such as experience and skills. This allows the system to select the appropriate employees to form the team.
-* There is a dependency on **"US004 - Assigning skills to an employee"** since skills need to be assigned to employees in the system. The system will have to take the relevant competences into account when forming teams.
+* This feature depends on the functionality of the electronic device used at the park's exit to accurately display all operational equipment and record user selections.
 
-### 1.5 Input and Output Data
+### 1.5. Input and Output Data
 
 **Input Data:**
 
-* Typed data:
-    * a maximum team size
-    * a minimum team size
-	
-* Selected data:
-    * the necessary skills
+* Selections by users from the electronic device:
+  * Walking paths
+  * Children’s playground
+  * Picnic area
+  * Exercise machines (gymnastics equipment)
 
 **Output Data:**
 
-* (In)Success of the operation
-* A team recommendation
+* Updated records in "EquipmentUsed.csv".
+* A pie chart representing the usage percentages for each piece of equipment.
+
 
 ### 1.6. System Sequence Diagram (SSD)
 
@@ -87,4 +66,5 @@ max: 4
 
 ### 1.7 Other Relevant Remarks
 
-* The HRM can change the team's recommendation and will be notified if none of the members have the necessary skills to carry out the task.
+* Ensuring the accuracy and reliability of the data collection via the electronic device is crucial for generating meaningful analytics.
+* The system might need to handle instances where the device is offline or malfunctioning, possibly queueing data to be sent when connectivity is restored.
