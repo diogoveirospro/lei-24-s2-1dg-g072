@@ -5,69 +5,45 @@
 
 ### 1.1. User Story Description
 
-As an HRM, I want to generate a team proposal automatically.
+The GSM wants to collect data from the user portal about the use of the park, in order to 
+understand the use of the park by different age groups.
 
 ### 1.2. Customer Specifications and Clarifications 
 
+**From the project statement document:**
+
+>   There's three age groups, child (up to 15 years old), adult (between 16 and 65 years old), senior (over 65 years old).
+>   There's three questions, age range, would the user recommend the park to others and how many times does the user visit the park per month.
+
+
 **From the client clarifications:**
 
-> **Question:** How does it generate the team if there are not enough employees?
->
-> **Answer:** The system should provide information why it can't generate a team.
-
-> **Question:** How does he purpose a team, for what purpose? (Is there any default)?
->
-> **Answer:** There is no purpose, at least in this sprint.
-
-> **Question:** What are the input data to automatically generate a team?
->
-> **Answer:** The max size of the team (for instance, 4); The skill needed: Four tree pruner and one light vehicle driver (meaning that one team member has two skills).
-
-> **Question:** Is it necessary for the user to enter the minimum number of members required for a team?
-> 
-> **Answer:** Yes.
-
-> **Question:** I would also like to know if a collaborator can be in more than one team at the same time?
-> 
-> **Answer:** No.
-
-> **Question:** Are the skills(input) typed or selected? Does the output show the team members with or without their skills?
->
-> **Answer:** The ux/ui is up to the dev team.
-
-> **Question:** What business rules apply to the input data to generate a team proposal?
-> 
-> **Answer:** Max and Min team size, and a list of skills needed.
-For instance:
-min: 3
-max: 4
 
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** The maximum team size and the set of skills need to be supplied by the HRM.
-* **AC2:** HRM should also provide the minimum team size.
+* **AC1:** 
+* **AC2:** 
 
 ### 1.4. Found out Dependencies
 
-* There is a dependency on **"US003 - Registration of an employee"** since it needs information about the employees, such as experience and skills. This allows the system to select the appropriate employees to form the team.
-* There is a dependency on **"US004 - Assigning skills to an employee"** since skills need to be assigned to employees in the system. The system will have to take the relevant competences into account when forming teams.
+* No dependencies were found. 
 
 ### 1.5 Input and Output Data
 
 **Input Data:**
 
 * Typed data:
-    * a maximum team size
-    * a minimum team size
-	
+    * Number of times that the user visits the park per month.
+    * The answer to age range (1 to 3)
+    * If the user recommends the park to others (Y/N)
 * Selected data:
-    * the necessary skills
+    
 
 **Output Data:**
 
 * (In)Success of the operation
-* A team recommendation
+* Inquiry.csv file with the responses
 
 ### 1.6. System Sequence Diagram (SSD)
 
@@ -75,15 +51,7 @@ max: 4
 
 #### Alternative One
 
-![System Sequence Diagram - Alternative One](svg/us005-system-sequence-diagram-alternative-one.svg)
-
-#### Alternative Two
-
-![System Sequence Diagram - Alternative Two](svg/us005-system-sequence-diagram-alternative-two.svg)
-
-#### Alternative Three
-
-![System Sequence Diagram - Alternative Three](svg/us005-system-sequence-diagram-alternative-three.svg)
+![System Sequence Diagram - Alternative One](svg/us011-system-sequence-diagram-alternative-one.svg)
 
 ### 1.7 Other Relevant Remarks
 
