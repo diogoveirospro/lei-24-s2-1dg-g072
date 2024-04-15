@@ -27,6 +27,7 @@ class Skill {
 class HRM {
 
 }
+
 class GreenSpace {
     name
     address
@@ -56,8 +57,6 @@ GreenSpace <|-- LargeSizedPark
 Collaborator <|-- HRM
 HRM "1" - "1..*" Skill : assigns >
 Collaborator "1" -- "1..*" Skill : has >
-GreenSpace "1" -- "1..*" Collaborator: has >
-Organization "1" -- "1..*" GreenSpace: owns >
-Organization "1   " -- "1..*" Collaborator: works for <
-
+Organization "1" -- "1..*" Collaborator: manages >
+GreenSpace "1" -- "1..*" Collaborator: responsible for >
 @enduml
