@@ -1,73 +1,51 @@
 # US012 - Import .csv file  
 
-
 ## 1. Requirements Engineering
 
 ### 1.1. User Story Description
 
-As an HRM, I want to generate a team proposal automatically.
+As a Facilities Manager, I want to efficiently schedule resources to ensure optimal use and minimize downtime.
 
-### 1.2. Customer Specifications and Clarifications 
+### 1.2. Customer Specifications and Clarifications
 
 **From the client clarifications:**
 
-> **Question:** How does it generate the team if there are not enough employees?
+> **Question:** What types of resources need scheduling?
 >
-> **Answer:** The system should provide information why it can't generate a team.
+> **Answer:** Meeting rooms, projectors, and company vehicles.
 
-> **Question:** How does he purpose a team, for what purpose? (Is there any default)?
+> **Question:** What are the peak times for resource use?
 >
-> **Answer:** There is no purpose, at least in this sprint.
+> **Answer:** Peak times are generally from 9 AM to 2 PM on weekdays.
 
-> **Question:** What are the input data to automatically generate a team?
+> **Question:** Are there any preferences for certain departments or teams regarding resource allocation?
 >
-> **Answer:** The max size of the team (for instance, 4); The skill needed: Four tree pruner and one light vehicle driver (meaning that one team member has two skills).
-
-> **Question:** Is it necessary for the user to enter the minimum number of members required for a team?
-> 
-> **Answer:** Yes.
-
-> **Question:** I would also like to know if a collaborator can be in more than one team at the same time?
-> 
-> **Answer:** No.
-
-> **Question:** Are the skills(input) typed or selected? Does the output show the team members with or without their skills?
->
-> **Answer:** The ux/ui is up to the dev team.
-
-> **Question:** What business rules apply to the input data to generate a team proposal?
-> 
-> **Answer:** Max and Min team size, and a list of skills needed.
-For instance:
-min: 3
-max: 4
-
+> **Answer:** Yes, the sales department has priority on the first Monday of every month for meeting rooms and projectors.
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** The maximum team size and the set of skills need to be supplied by the HRM.
-* **AC2:** HRM should also provide the minimum team size.
+* **AC1:** The system must allow the scheduling of specified resources: meeting rooms, projectors, and vehicles.
+* **AC2:** The system must prioritize resource requests based on departmental needs as specified.
+* **AC3:** The system should provide a visual calendar view of resource schedules.
 
 ### 1.4. Found out Dependencies
 
-* There is a dependency on **"US003 - Registration of an employee"** since it needs information about the employees, such as experience and skills. This allows the system to select the appropriate employees to form the team.
-* There is a dependency on **"US004 - Assigning skills to an employee"** since skills need to be assigned to employees in the system. The system will have to take the relevant competences into account when forming teams.
+* This feature relies on the availability of an accurate database of resources including their status (available or booked).
+* Integration with a departmental hierarchy system is needed to manage priority rules effectively.
 
-### 1.5 Input and Output Data
+### 1.5. Input and Output Data
 
 **Input Data:**
 
-* Typed data:
-    * a maximum team size
-    * a minimum team size
-	
-* Selected data:
-    * the necessary skills
+* Resource type (meeting room, projector, vehicle)
+* Desired date and time for booking
+* Department making the booking
 
 **Output Data:**
 
-* (In)Success of the operation
-* A team recommendation
+* Booking confirmation
+* Updated resource schedule in visual calendar format
+
 
 ### 1.6. System Sequence Diagram (SSD)
 
