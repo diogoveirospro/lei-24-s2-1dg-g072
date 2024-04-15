@@ -13,7 +13,7 @@ As a GSM, I want to know the exact costs referring to water consumption of speci
 
 > Within this US, the aim is to carry out a statistical analysis concerning the water consumption costs in all parks.
 
-> The "WaterUsed.csv" file provides the necessary data to carry out the study. This file's recorded daily water consumption (in m3) since the day each park opened. The amount paid for water is 0.7 AC/m3, up to consumption of 50 m3, with a fee of 15% added for higher consumption levels.
+> The "WaterUsed.csv" file provides the necessary data to carry out the study. This file's recorded daily water consumption (in m3) since the day each park opened. The amount paid for water is 0.7 €/m3, up to consumption of 50 m3, with a fee of 15% added for higher consumption levels.
 
 > The data file contains records of the following information: “Park Identification”, “Year”, “Month”, “Day”, “Consumption”.
 
@@ -89,6 +89,7 @@ As a GSM, I want to know the exact costs referring to water consumption of speci
 **Input Data:**
 
 * Typed data:
+  * "WaterUsed.csv" file
   * time period (StartMonth, EndMonth)
   * number of parks to be analysed
 	
@@ -97,7 +98,6 @@ As a GSM, I want to know the exact costs referring to water consumption of speci
 
 **Output Data:**
 
-* (In)Success of the operation
 * Barplot representing monthly water consumption
 * Average of monthly costs related to water consumption
 * Comparative statistical analysis
