@@ -4,48 +4,47 @@
 
 ### 1.1. User Story Description
 
-As a Facilities Manager, I want to efficiently schedule resources to ensure optimal use and minimize downtime.
+As a GSM (Garden Services Manager), I want to import a .csv file containing lines with Water Point X, Water Point Y, and Distance so that I can have all possible routes that can be opened to lay pipes between each pair of water points, including their respective installation costs.
 
 ### 1.2. Customer Specifications and Clarifications
 
 **From the client clarifications:**
 
-> **Question:** What types of resources need scheduling?
+> **Question:**  
 >
-> **Answer:** Meeting rooms, projectors, and company vehicles.
+> **Answer:**  
 
-> **Question:** What are the peak times for resource use?
+> **Question:**  
 >
-> **Answer:** Peak times are generally from 9 AM to 2 PM on weekdays.
+> **Answer:** 
 
-> **Question:** Are there any preferences for certain departments or teams regarding resource allocation?
+> **Question:**  
 >
-> **Answer:** Yes, the sales department has priority on the first Monday of every month for meeting rooms and projectors.
+> **Answer:**  
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** The system must allow the scheduling of specified resources: meeting rooms, projectors, and vehicles.
-* **AC2:** The system must prioritize resource requests based on departmental needs as specified.
-* **AC3:** The system should provide a visual calendar view of resource schedules.
+* **AC1:** The system must be able to import a CSV file with the specified format.
+* **AC2:** The data must be validated for correctness and completeness.
+* **AC3:** Any duplicate or malformed entries should be reported to the user.
+* **AC4:** Valid entries should be stored in a unique data structure optimized for further operations like calculating the optimal routing..
 
 ### 1.4. Found out Dependencies
 
-* This feature relies on the availability of an accurate database of resources including their status (available or booked).
-* Integration with a departmental hierarchy system is needed to manage priority rules effectively.
+* US010 - Equipment Usage Analysis: Provides insights into the usage patterns of different equipment in the park, influencing decisions related to water consumption and irrigation system installation.
+* US011 - Park Use Data Collection: Collects demographic data about park users, including age groups and visit frequency, which can be correlated with water consumption data to identify usage trends and preferences.
 
 ### 1.5. Input and Output Data
 
 **Input Data:**
 
-* Resource type (meeting room, projector, vehicle)
-* Desired date and time for booking
-* Department making the booking
+* A CSV file with entries formatted as:
+    * Water Point X, Water Point Y, Distance
 
 **Output Data:**
 
-* Booking confirmation
-* Updated resource schedule in visual calendar format
-
+* A confirmation message about the successful import or details about any issues encountered during the process.
+* A data structure containing all validated routes and their associated costs.
 
 ### 1.6. System Sequence Diagram (SSD)
 
