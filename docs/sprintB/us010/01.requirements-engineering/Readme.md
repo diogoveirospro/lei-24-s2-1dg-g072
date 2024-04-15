@@ -28,9 +28,11 @@ As a GSM (Garden Services Manager), I want to know which piece(s) of equipment a
 * **AC2:** The system must be able to record and store these selections in a file named "EquipmentUsed.csv".
 * **AC3:** The system should be able to generate a pie chart from "EquipmentUsed.csv" showing the percentage usage of each piece of equipment.
 
-### 1.4. Found out Dependencies
+### 1.4. Found Dependencies
 
-* This feature depends on the functionality of the electronic device used at the park's exit to accurately display all operational equipment and record user selections.
+* **US09 - Water Consumption Analysis:** Understanding water consumption patterns in the park can provide context for equipment usage analysis in US10. For instance, high water consumption might indicate frequent use of equipment like water features or irrigation systems, while low consumption might suggest less usage overall.
+* **US12 - Importing Route Data:** US10 might require importing route data between water points, especially if the analysis involves considering the efficiency of water distribution to different park areas based on equipment usage.
+* **US13 - Optimal Route Calculation:** If US10 aims to optimize water distribution routes based on equipment usage patterns, it may depend on the implementation of an algorithm (US13) that calculates the most efficient routes with minimum accumulated cost.
 
 ### 1.5. Input and Output Data
 
