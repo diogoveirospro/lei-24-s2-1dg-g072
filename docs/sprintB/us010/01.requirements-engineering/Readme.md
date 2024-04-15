@@ -10,17 +10,17 @@ As a GSM (Garden Services Manager), I want to know which piece(s) of equipment a
 
 **From the client clarifications:**
 
-> **Question:** What happens if the equipment is not operational?
+> **Question:** 
 >
-> **Answer:** The equipment will not be listed on the electronic device at the park exit.
+> **Answer:**  
 
-> **Question:** How will the data be collected?
+> **Question:** 
 >
-> **Answer:** Users will select the equipment they used that day on an electronic device at the park exit.
+> **Answer:** 
 
-> **Question:** What if a user forgets to log the equipment they used?
+> **Question:** 
 >
-> **Answer:** The system relies on user input, so any equipment not logged will not be recorded for that day.
+> **Answer:** 
 
 ### 1.3. Acceptance Criteria
 
