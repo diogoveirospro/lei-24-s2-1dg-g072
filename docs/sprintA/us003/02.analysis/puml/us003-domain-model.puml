@@ -9,23 +9,29 @@ skinparam classAttributeIconSize 0
 
 hide circle
 hide methods
+
 class Collaborator {
-     name
-     birthdate
-     admissionDate
-     address
-     contactInfo
-     idDocumentType
-     idDocumentNumber
+    name
+    birthdate
+    admissionDate
+    address
+    contactInfo
+    idDocumentType
+    idDocumentNumber
 }
 
 class HRM {
 
 }
+
+class Skill {
+    name
+}
+
 class GreenSpace {
     name
     address
-    type
+    dimension
 }
 
 class Garden {
@@ -45,18 +51,18 @@ class LargeSizedPark {
     address
     dimension
 }
-class Organization{
+
+class Organization {
     name
     address
 }
 
-Organization "1" -- "1..*" GreenSpace: owns >
-Organization "1   " -- "1..*" Collaborator: works for <
-GreenSpace "1" -- "1..*" Collaborator: contains >
+HRM "1" -- "1..*" Skill: creates >
+Collaborator "1" - "1..*" Skill: has >
+Collaborator <|-- HRM
 GreenSpace <|-- Garden
 GreenSpace <|-- MediumSizedPark
 GreenSpace <|-- LargeSizedPark
-HRM "1" ----- "*" Collaborator : registers >
-Collaborator <|---- HRM
-
+Organization "1" -- "1..*" GreenSpace: owns >
+Organization "1   " -- "1..*" Collaborator: works for <
 @enduml
