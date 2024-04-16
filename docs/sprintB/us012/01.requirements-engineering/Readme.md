@@ -51,7 +51,7 @@ As a GSM (Garden Services Manager), I want to import a .csv file containing line
 
 #### Alternative One
 
-![System Sequence Diagram - Alternative One](svg/us005-system-sequence-diagram-alternative-one.svg)
+![System Sequence Diagram - Alternative One](svg/us0012-system-sequence-diagram-alternative-one.svg)
 
 #### Alternative Two
 

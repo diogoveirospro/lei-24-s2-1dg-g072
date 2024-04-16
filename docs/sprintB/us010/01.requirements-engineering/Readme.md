@@ -56,7 +56,7 @@ As a GSM (Garden Services Manager), I want to know which piece(s) of equipment a
 
 #### Alternative One
 
-![System Sequence Diagram - Alternative One](svg/us005-system-sequence-diagram-alternative-one.svg)
+![System Sequence Diagram - Alternative One](svg/us010-system-sequence-diagram-alternative-one.svg)
 
 #### Alternative Two
 

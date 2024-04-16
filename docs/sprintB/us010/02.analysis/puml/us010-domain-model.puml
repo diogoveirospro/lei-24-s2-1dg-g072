@@ -1,0 +1,34 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+
+class GSM {
+    name
+ }
+
+class Park {
+    name
+}
+
+class EquipmentUsage {
+    date
+    equipmentUsed
+}
+
+class Organization {
+    name
+    address
+}
+
+GSM "1" -- "1" Park: manages >
+Park "1" -- "0..*" EquipmentUsage: records >
+@enduml
