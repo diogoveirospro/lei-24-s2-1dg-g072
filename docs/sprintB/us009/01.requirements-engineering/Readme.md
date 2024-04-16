@@ -75,6 +75,9 @@ As a GSM, I want to know the exact costs referring to water consumption of speci
 >
 > **Answer:** You will choose two parks. The one that had a day (it doesn't matter which day) with higher consumption than all those registered (from all the parks) and another park that had a day with lower consumption than all those registered (from all the parks).
 
+> **Question:** What happens if the days with the highest and lowest consumption are associated with the same car park?
+> 
+> **Answer:** Present the analysis just for this park.
 
 ### 1.3. Acceptance Criteria
 
