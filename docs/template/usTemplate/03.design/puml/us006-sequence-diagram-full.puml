@@ -6,9 +6,9 @@ skinparam shadowing false
 autonumber
 
 'hide footbox
-actor "Vehicle Fleet Manager" as ADM
-participant ":RegisterVehicleUI" as UI
-participant ":RegisterVehicleController" as CTRL
+actor "Organization Employee" as ADM
+participant ":CreateTaskUI" as UI
+participant ":CreateTaskController" as CTRL
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as PLAT
 participant "taskCategoryRepository:\nTaskCategoryRepository" as TaskCategoryRepository
@@ -17,21 +17,19 @@ participant "appSession\n:ApplicationSession" as APP
 participant "currentSession\n:UserSession" as SESSAO
 participant "organizationRepository:\nOrganizationRepository" as OrganizationRepository
 participant "organization\n:Organization" as ORG
-participant "vehicle\n:Vehicle" as VEHICLE
+participant "task\n:Task" as TAREFA
 
 activate ADM
 
-        ADM -> UI : asks to register a new vehicle
+        ADM -> UI : asks to create a new task
 
         activate UI
 
-            UI --> ADM : requests data (plateNumber, brand,\n model,type, tare, grossWeight,\n currentKms,registrationDate,\nacquisitionDate, serviceFrequency)
+'            UI --> ADM : requests data (reference, description,  informal \n description, technical description, duration, cost)
+            'create CTRL
+            UI -> CTRL** : create
 
-            ADM -> UI : types requested data
-            create CTRL
-            UI -> CTRL** : register
-
-            UI -> CTRL : registerVehicle()
+            UI -> CTRL : getTaskCategories()
             activate CTRL
 
                 CTRL -> RepositorySingleton : getInstance()
@@ -46,7 +44,7 @@ activate ADM
                     PLAT --> CTRL: taskCategoryRepository
                 deactivate PLAT
 
-                CTRL -> TaskCategoryRepository : registerVehicle()
+                CTRL -> TaskCategoryRepository : getTaskCategories()
                 activate TaskCategoryRepository
 
                     TaskCategoryRepository --> CTRL : taskCategoryList
@@ -155,7 +153,7 @@ activate ADM
             CTRL -> ORG: createTask(employee, reference, description,\ninformalDescription, technicalDescription,\nduration, cost, , taskCategory, employee)
             activate ORG
 
-                ORG -> VEHICLE**: create(employee, reference, description,\ninformalDescription, technicalDescription,\nduration, cost, taskCategory, employee)
+                ORG -> TAREFA**: create(employee, reference, description,\ninformalDescription, technicalDescription,\nduration, cost, taskCategory, employee)
                 ORG -> ORG: addTask (task)
 
 

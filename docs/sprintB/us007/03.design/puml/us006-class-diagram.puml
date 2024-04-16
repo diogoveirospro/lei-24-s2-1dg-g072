@@ -27,23 +27,6 @@ class Employee {
     - phone
 }
 
-class Task {
-    - String reference
-    - String description
-    - String informalDescription
-    - String technicalDescription
-    - Integer duration
-    - Double cost
-
-    + Task(reference, description,\ninformalDescription, technicalDescription,\nduration, cost, createdBy, taskCategory)
-}
-
-class TaskCategory {
-    - String description
-
-    + TaskCategory(description)
-}
-
 class Organization {
     - String name
     - String vatNumber
@@ -51,14 +34,10 @@ class Organization {
     - String phone
     - String email
 
-    - addTask(task)
-    - validateTask(task)
     + anyEmployeeHasEmail(email)
     + Organization(name, vatNumber, webSite, phone, email, postalAddress, manager)
-    + createTask(reference, description, informalDesccription,\ntechnicalDescription, duration, cost, taskCategoryDescription)
     - getEmployeeByEmail(email)
 
-'  +saveTask(task)
 }
 
 class TaskCategoryRepository {
@@ -76,55 +55,39 @@ class Repositories {
     + getOrganizationRepository()
 }
 
-class CreateTaskController {
-    + CreateTaskController(organizationRepository, taskCategoryRepository)
-    + getTaskCategories()
-    + createTask(userEmail, reference, description,\ninformalDescription, technicalDescription,\nduration, cost, categoryDescription)
-    - getTaskCategoryByDescription(taskCategoryDescription)
-    - getEmployeeFromSession()
+class RegisterVehicleController {
+    + RegisterVehicleController(organizationRepository, taskCategoryRepository)
+    + registerVehicle(plateNumber, brand, model, type, tare, grossWeight, currentKms, registrationDate, acquisitionDate, serviceFrequency)
 }
-
-note right of CreateTaskController
-    - userEmail is obtained
-    from the user session
-    - categoryDescription
-    is retrieved from selected data
-end note
 
 note bottom of TaskCategoryRepository
     - used for displaying
     the category list
 end note
 
-class CreateTaskUI {
+class RegisterVehicleUI {
 }
 
 Repositories -> Repositories : instance
 ApplicationSession -> ApplicationSession : instance
 
-CreateTaskUI .> CreateTaskController
+RegisterVehicleUI .> RegisterVehicleController
 
-CreateTaskController .> Repositories : repositories
+RegisterVehicleController .> Repositories : repositories
 
 Repositories -> "1" TaskCategoryRepository
 
-CreateTaskController ..> TaskCategory
-CreateTaskController ..> OrganizationRepository : organizationRepository
-CreateTaskController ..> TaskCategoryRepository : TaskCategoryRepository
+RegisterVehicleController ..> OrganizationRepository : organizationRepository
+RegisterVehicleController ..> TaskCategoryRepository : TaskCategoryRepository
 
 Repositories --> "1" OrganizationRepository
 
 OrganizationRepository --> "*" Organization
 ApplicationSession --> "1" UserSession : userSession
 
-CreateTaskController ..> "1" Organization : organization
-CreateTaskController ..> ApplicationSession
-CreateTaskController ..> UserSession
-Task "*" --> "1" TaskCategory : taskCategory
-TaskCategoryRepository "1" --> "*" TaskCategory : taskCategory
-Organization "1" --> "*" Task : tasks
-Task --> Employee : createdBy
-
+RegisterVehicleController ..> "1" Organization : organization
+RegisterVehicleController ..> ApplicationSession
+RegisterVehicleController ..> UserSession
 Organization --> "*" Employee : employs
 
 @enduml

@@ -1,0 +1,39 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+hide circles
+hide methods
+
+
+class Organization{
+    name
+    address
+}
+
+class VFM{
+
+}
+
+class Vehicle{
+    plate id
+    brand
+    model
+    type
+    tare
+    gross weight
+    current kms
+    registration date
+    acquisition date
+    maintenance frequency
+    km at last maintenance
+}
+
+VFM "1"-"   1..*" Vehicle: registers >
+Organization "1" -- "1..*" Vehicle: owns >
+
+@enduml
