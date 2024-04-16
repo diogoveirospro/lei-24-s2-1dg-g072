@@ -25,20 +25,20 @@ class Vehicle{
     current kms
     registration date
     acquisition date
-    maintenance/check-up frequency
-    km at last check-up
+    maintenance frequency
+    km at last maintenance
 }
 class Organization{
     name
     address
 }
 
-class CheckUp{
-    km at check-up
+class Maintenance{
+
 }
 
 Organization "1" --"1..*" Vehicle: owns >
 VFM "1"-"   1..*" Vehicle: chooses >
-Vehicle "1" - "1..*" CheckUp: has >
+Vehicle "1" - "1..*" Maintenance: has >
 
 @enduml

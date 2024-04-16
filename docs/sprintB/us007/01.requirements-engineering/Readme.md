@@ -5,17 +5,17 @@
 
 ### 1.1. User Story Description
 
-The VFM wants to register a vehicles check-up.
+The VFM wants to register a vehicles maintenance.
 
 ### 1.2. Customer Specifications and Clarifications
 
 **From the client clarifications:**
 
-> **Question:** Which attributes are needed for the vehicles check-up?
+> **Question:** Which attributes are needed for the vehicles maintenance?
 > 
-> **Answer:** Plate number, date, kms at check-up.
+> **Answer:** Plate number, date, kms at maintenance.
  
-> **Question:** What is the unit of measurement used to estimate the check-up frequency?
+> **Question:** What is the unit of measurement used to estimate the maintenance frequency?
 > 
 > **Answer:** In the scope of the project only kms will be considered.
 
@@ -35,7 +35,7 @@ The VFM wants to register a vehicles check-up.
 * Typed data:
     * Plate number of the vehicle
     * Date 
-    * Kms on check-up
+    * Kms on maintenance
 
 **Output Data:**
 
