@@ -1,73 +1,49 @@
 # US012 - Import .csv file  
 
-
 ## 1. Requirements Engineering
 
 ### 1.1. User Story Description
 
-As an HRM, I want to generate a team proposal automatically.
+As a GSM (Garden Services Manager), I want to import a .csv file containing lines with Water Point X, Water Point Y, and Distance so that I can have all possible routes that can be opened to lay pipes between each pair of water points, including their respective installation costs.
 
-### 1.2. Customer Specifications and Clarifications 
+### 1.2. Customer Specifications and Clarifications
 
 **From the client clarifications:**
 
-> **Question:** How does it generate the team if there are not enough employees?
+> **Question:**  
 >
-> **Answer:** The system should provide information why it can't generate a team.
+> **Answer:**  
 
-> **Question:** How does he purpose a team, for what purpose? (Is there any default)?
+> **Question:**  
 >
-> **Answer:** There is no purpose, at least in this sprint.
+> **Answer:** 
 
-> **Question:** What are the input data to automatically generate a team?
+> **Question:**  
 >
-> **Answer:** The max size of the team (for instance, 4); The skill needed: Four tree pruner and one light vehicle driver (meaning that one team member has two skills).
-
-> **Question:** Is it necessary for the user to enter the minimum number of members required for a team?
-> 
-> **Answer:** Yes.
-
-> **Question:** I would also like to know if a collaborator can be in more than one team at the same time?
-> 
-> **Answer:** No.
-
-> **Question:** Are the skills(input) typed or selected? Does the output show the team members with or without their skills?
->
-> **Answer:** The ux/ui is up to the dev team.
-
-> **Question:** What business rules apply to the input data to generate a team proposal?
-> 
-> **Answer:** Max and Min team size, and a list of skills needed.
-For instance:
-min: 3
-max: 4
-
+> **Answer:**  
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** The maximum team size and the set of skills need to be supplied by the HRM.
-* **AC2:** HRM should also provide the minimum team size.
+* **AC1:** The system must be able to import a CSV file with the specified format.
+* **AC2:** Any duplicate or malformed entries should be reported to the user.
+* **AC3:** Valid entries should be stored in a unique data structure optimized for further operations like calculating the optimal routing
 
 ### 1.4. Found out Dependencies
 
-* There is a dependency on **"US003 - Registration of an employee"** since it needs information about the employees, such as experience and skills. This allows the system to select the appropriate employees to form the team.
-* There is a dependency on **"US004 - Assigning skills to an employee"** since skills need to be assigned to employees in the system. The system will have to take the relevant competences into account when forming teams.
+* US010 - Equipment Usage Analysis: Provides insights into the usage patterns of different equipment in the park, influencing decisions related to water consumption and irrigation system installation.
+* US011 - Park Use Data Collection: Collects demographic data about park users, including age groups and visit frequency, which can be correlated with water consumption data to identify usage trends and preferences.
 
-### 1.5 Input and Output Data
+### 1.5. Input and Output Data
 
 **Input Data:**
 
-* Typed data:
-    * a maximum team size
-    * a minimum team size
-	
-* Selected data:
-    * the necessary skills
+* A CSV file with entries formatted as:
+    * Water Point X, Water Point Y, Distance
 
 **Output Data:**
 
-* (In)Success of the operation
-* A team recommendation
+* A confirmation message about the successful import or details about any issues encountered during the process.
+* A data structure containing all validated routes and their associated costs.
 
 ### 1.6. System Sequence Diagram (SSD)
 
