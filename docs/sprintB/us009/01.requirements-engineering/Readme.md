@@ -81,7 +81,12 @@ As a GSM, I want to know the exact costs referring to water consumption of speci
 
 ### 1.3. Acceptance Criteria
 
-
+* **AC1:** The programming language must be **Python**.
+* **AC2:** The development environment must be **Jupyter Notebook**.
+* **AC3:** The format for submitting the work must be a single **Jupyter Notebook file** containing all the work carried out.
+* **AC4:** This US must consist of **(1) an introduction (succinct and objective)**; **(2) code and results**, and **(3) analysis and interpretation of the results**.
+* **AC5:** Formulas must be written in **LaTeX**.
+* **AC6:** At the end of the dossier, **the contribution (in %)** of each member of the group to the development of the work must be indicated (the sum of all percentages must be 100 per cent).
 
 ### 1.4. Found out Dependencies
 
