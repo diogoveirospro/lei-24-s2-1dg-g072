@@ -26,7 +26,7 @@ class Organization {
     address
 }
 
-GSM "1" - GreenSpace
+GSM "1" -- "1"GreenSpace: analyses >
 
 
 @enduml
