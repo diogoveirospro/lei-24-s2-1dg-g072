@@ -19,7 +19,7 @@ activate Employee
         System --> Employee : shows list of registered vehicles
     deactivate System
 
-    Employee -> System : choses vehicle for check-up
+    Employee -> System : chooses vehicle for maintenance
     activate System
     end
         System --> Employee : requests confirmation
