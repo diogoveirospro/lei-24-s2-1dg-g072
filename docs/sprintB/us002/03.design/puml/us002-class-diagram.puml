@@ -18,26 +18,34 @@ class Job {
 class HRM {
 }
 
-class Organization {
-    - name: String
-    - address: String
-
-    + register(name)
-    + addJob(job)
-    + validateJob(job)
-}
-
 class RegisterJobUI {
 
 }
 
 class RegisterJobController {
+    + CreateJobController(jobRepository)
     + registerJob(name)
 }
 
+class Repositories {
+    - Repositories : Repositories
+    + getInstance() : Repositories
+    + getJobRepository() : Repositories
+}
+
+class JobRepository {
+    + register()
+}
+
+
 HRM "1" --> "*" Job
-Organization "1" --> "*" Job
+Repositories "1" --> "*" Job
 RegisterJobUI .> RegisterJobController
-RegisterJobController .> Organization
+RegisterJobController .> Repositories : repositories
+Repositories --> Repositories : instance
+Repositories --> "1" JobRepository
+JobRepository --> "1" Job
+RegisterJobController .> JobRepository : jobRepository
+RegisterJobController .> Job : job
 
 @enduml
