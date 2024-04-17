@@ -11,7 +11,7 @@ participant ":RegisterVehicleUI" as UI
 participant ":RegisterVehicleController" as CTRL
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as PLAT
-participant "registerVehicleRepository:\nRegisterVehicleRepository" as RegisterVehicleRepository
+participant "registerVehicleRepository\n:RegisterVehicleRepository" as RegisterVehicleRepository
 activate ADM
 
         ADM -> UI : asks to register a new vehicle

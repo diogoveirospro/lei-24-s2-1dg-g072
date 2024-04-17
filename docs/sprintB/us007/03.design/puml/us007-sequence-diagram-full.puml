@@ -7,21 +7,20 @@ autonumber
 
 'hide footbox
 actor "Vehicle Fleet Manager" as ADM
-participant ":RegisterVehicleUI" as UI
-participant ":RegisterVehicleController" as CTRL
+participant ":RegisterVehicleMaintenanceUI" as UI
+participant ":RegisterVehicleMaintenanceController" as CTRL
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as PLAT
-participant "vehicleRepository\n:VehicleRepository" as VehicleRepository
 participant "registerVehicleRepository\n:RegisterVehicleRepository" as RegisterVehicleRepository
 participant "vehicle\n:Vehicle" as VEHICLE
 
 activate ADM
 
-        ADM -> UI : asks to register a new vehicle
+        ADM -> UI : asks to register a vehicle maintenance
 
         activate UI
 
-            UI --> ADM : requests data (plateNumber, brand,\n model,type, tare, grossWeight,\n currentKms,registrationDate,\nacquisitionDate, serviceFrequency)
+            UI --> ADM : shows list of registered vehicles
 
             ADM -> UI : types requested data
 
@@ -59,10 +58,8 @@ activate ADM
                      RegisterVehicleRepository --> RegisterVehicleRepository
                  deactivate RegisterVehicleRepository
 
-                                RegisterVehicleRepository --> VehicleRepository : vehicle
-                 activate VehicleRepository
-                                VehicleRepository --> CTRL : vehicle
-                                deactivate VehicleRepository
+                                RegisterVehicleRepository --> CTRL : vehicle
+
                             deactivate RegisterVehicleRepository
 
             CTRL --> UI: vehicle

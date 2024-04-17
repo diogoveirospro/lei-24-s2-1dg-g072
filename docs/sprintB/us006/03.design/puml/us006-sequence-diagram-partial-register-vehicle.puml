@@ -3,7 +3,7 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-participant "organization\n:Organization" as ORG
+participant "registerVehicleRepository\n:RegisterVehicleRepository" as ORG
 participant "vehicle\n:Vehicle" as VEHICLE
 
 autonumber 16
