@@ -79,6 +79,14 @@ As a GSM, I want to know the exact costs referring to water consumption of speci
 > 
 > **Answer:** Present the analysis just for this park.
 
+> **Question:** The file ”WaterUsed.csv” should be given by the user?
+> 
+> **Answer:** Yes, the .csv file will be available in the next few days.
+
+> **Question:** When the user enters the park identification, should this be by name or through an ID?
+> 
+> **Answer:** Users will answer the survey but anonymously.
+
 ### 1.3. Acceptance Criteria
 
 * **AC1:** The programming language must be **Python**.
