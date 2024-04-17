@@ -18,26 +18,34 @@ class Skill {
 class HRM {
 }
 
-class Organization {
-    - name: String
-    - address: String
-
-    + register(name)
-    + addJob(skills)
-    + validateSkills(skills)
-}
-
-class RegisterSkillsUI {
+class RegisterSkillUI {
 
 }
 
-class RegisterSkillsController {
-    + registerSkills(name)
+class RegisterSkillController {
+    + CreateSkillController(jobRepository)
+    + registerSkill(name)
 }
+
+class Repositories {
+    - Repositories : Repositories
+    + getInstance() : Repositories
+    + getSkillRepository() : Repositories
+}
+
+class SkillRepository {
+    + register()
+}
+
 
 HRM "1" --> "*" Skill
-Organization "1" --> "*" Skill
-RegisterSkillsUI .> RegisterSkillsController
-RegisterSkillsController .> Organization
+Repositories "1" --> "*" Skill
+RegisterSkillUI .> RegisterSkillController
+RegisterSkillController .> Repositories : repositories
+Repositories --> Repositories : instance
+Repositories --> "1" SkillRepository
+SkillRepository --> "1" Skill
+RegisterSkillController .> SkillRepository : skillRepository
+RegisterSkillController .> Skill : skill
 
 @enduml
