@@ -11,7 +11,7 @@ participant ":RegisterVehicleUI" as UI
 participant ":RegisterVehicleController" as CTRL
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as PLAT
-participant "registerVehicleRepository\n:RegisterVehicleRepository" as RegisterVehicleRepository
+participant "vehicleRepository\n:VehicleRepository" as VehicleRepository
 activate ADM
 
         ADM -> UI : asks to register a new vehicle
@@ -35,21 +35,21 @@ activate ADM
                     RepositorySingleton --> CTRL: repositories
                 deactivate RepositorySingleton
 
-                CTRL -> PLAT : getRegisterVehicleRepository()
+                CTRL -> PLAT : getVehicleRepository()
                 activate PLAT
 
-                    PLAT --> CTRL: registerVehicleRepository
+                    PLAT --> CTRL: vehicleRepository
                 deactivate PLAT
 
-                CTRL -> RegisterVehicleRepository : registerVehicle(plateNumber, brand,\n model,type, tare, grossWeight,\n currentKms,registrationDate,\nacquisitionDate, serviceFrequency)
-                activate RegisterVehicleRepository
-                ref over RegisterVehicleRepository
+                CTRL -> VehicleRepository : registerVehicle(plateNumber, brand,\n model,type, tare, grossWeight,\n currentKms,registrationDate,\nacquisitionDate, serviceFrequency)
+                activate VehicleRepository
+                ref over VehicleRepository
                     Register Vehicle
 
                 end ref
-                                RegisterVehicleRepository --> CTRL : vehicle
+                                VehicleRepository --> CTRL : vehicle
 
-                            deactivate RegisterVehicleRepository
+                            deactivate VehicleRepository
 
             CTRL --> UI: vehicle
             deactivate CTRL

@@ -9,43 +9,31 @@ skinparam classAttributeIconSize 0
 
 'left to right direction
 
-class ApplicationSession
-{
-    + static getInstance()
-    + getCurrentSession()
-}
-
-class UserSession
-{
-    + getUserEmail()
-}
-
-
 class Repositories {
     - Repositories()
     + getInstance() : Repositories
-    + getOrganizationRepository()
+    + getVehicleRepository()
 }
 
 class RegisterVehicleController {
-    + RegisterVehicleController(organizationRepository)
+    + RegisterVehicleController(vehicleRepository)
     + registerVehicle(plateNumber, brand, model, type, tare, grossWeight, currentKms, registrationDate, acquisitionDate, serviceFrequency)
+}
+
+class vehicleRepository{
+    + registerVehicle(plateNumber, brand, model, type, tare, grossWeight, currentKms, registrationDate, acquisitionDate, serviceFrequency)
+    + addVehicle(vehicle)
+    + validateVehicle(vehicle)
 }
 
 class RegisterVehicleUI {
 }
 
 Repositories -> Repositories : instance
-ApplicationSession -> ApplicationSession : instance
 
 RegisterVehicleUI .> RegisterVehicleController
 
 RegisterVehicleController .> Repositories : repositories
 
-
-ApplicationSession --> "1" UserSession : userSession
-
-RegisterVehicleController ..> ApplicationSession
-RegisterVehicleController ..> UserSession
 
 @enduml

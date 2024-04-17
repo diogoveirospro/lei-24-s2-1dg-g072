@@ -3,7 +3,7 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-participant "registerVehicleRepository\n:RegisterVehicleRepository" as ORG
+participant "vehicleRepository\n:VehicleRepository" as ORG
 participant "vehicle\n:Vehicle" as VEHICLE
 
 autonumber 16
@@ -19,15 +19,11 @@ activate ORG
         activate ORG
             ORG -> ORG: validateVehicle(vehicle)
             activate ORG
-                ORG --> ORG
-            deactivate ORG
 
-            ORG --> ORG
-        deactivate ORG
     end
 
     autonumber 17
-    <-- ORG : task
+    <-- ORG : vehicle
 deactivate ORG
 
 
