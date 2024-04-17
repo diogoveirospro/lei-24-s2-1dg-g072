@@ -12,11 +12,6 @@ participant ":RegisterVehicleController" as CTRL
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as PLAT
 participant "registerVehicleRepository:\nRegisterVehicleRepository" as RegisterVehicleRepository
-participant ":ApplicationSession" as _APP
-participant "appSession\n:ApplicationSession" as APP
-participant "currentSession\n:UserSession" as SESSAO
-participant "organizationRepository:\nOrganizationRepository" as OrganizationRepository
-participant "organization\n:Organization" as ORG
 participant "vehicle\n:Vehicle" as VEHICLE
 
 activate ADM
@@ -32,8 +27,6 @@ activate ADM
             UI --> ADM : shows all data and requests confirmation
 
             ADM -> UI : confirms data
-            create CTRL
-            UI -> CTRL** : register
 
             UI -> CTRL : registerVehicle(plateNumber, brand,\n model,type, tare, grossWeight,\n currentKms,registrationDate,\nacquisitionDate, serviceFrequency)
             activate CTRL
@@ -50,24 +43,24 @@ activate ADM
                     PLAT --> CTRL: registerVehicleRepository
                 deactivate PLAT
 
-                CTRL -> ORG : registerVehicle(plateNumber, brand,\n model,type, tare, grossWeight,\n currentKms,registrationDate,\nacquisitionDate, serviceFrequency)
-                activate ORG
+                CTRL -> RegisterVehicleRepository : registerVehicle(plateNumber, brand,\n model,type, tare, grossWeight,\n currentKms,registrationDate,\nacquisitionDate, serviceFrequency)
+                activate RegisterVehicleRepository
 
-                 ORG -> VEHICLE**: registerVehicle(plateNumber, brand,\n model,type, tare, grossWeight,\n currentKms,registrationDate,\nacquisitionDate, serviceFrequency)
-                 ORG -> ORG: addVehicle (vehicle)
+                RegisterVehicleRepository -> VEHICLE**: registerVehicle(plateNumber, brand,\n model,type, tare, grossWeight,\n currentKms,registrationDate,\nacquisitionDate, serviceFrequency)
+                RegisterVehicleRepository -> RegisterVehicleRepository: addVehicle (vehicle)
 
-                 activate ORG
-                     ORG -> ORG: validateVehicle(vehicle)
-                     activate ORG
-                         ORG --> ORG
-                     deactivate ORG
+                 activate RegisterVehicleRepository
+                     RegisterVehicleRepository -> RegisterVehicleRepository: validateVehicle(vehicle)
+                     activate RegisterVehicleRepository
+                         RegisterVehicleRepository --> RegisterVehicleRepository
+                     deactivate RegisterVehicleRepository
 
-                     ORG --> ORG
-                 deactivate ORG
+                     RegisterVehicleRepository --> RegisterVehicleRepository
+                 deactivate RegisterVehicleRepository
 
-                                ORG --> CTRL : vehicle
+                                RegisterVehicleRepository --> CTRL : vehicle
 
-                            deactivate ORG
+                            deactivate RegisterVehicleRepository
 
             CTRL --> UI: vehicle
             deactivate CTRL
