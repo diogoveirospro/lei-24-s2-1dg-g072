@@ -9,7 +9,9 @@ autonumber
 actor "Human Resources\n Manager" as HRM
 participant ":RegisterJobUI" as UI
 participant ":RegisterJobController" as CTRL
-participant "organization\n:Organization" as ORG
+participant Repositories
+participant "repositories:Repositories" as REP
+participant "jobRepository" as JREP
 participant "job\n:Job" as Job
 
 activate HRM
@@ -32,6 +34,18 @@ activate HRM
 
         UI -> CTRL : registerJob(name)
         activate CTRL
+
+            CTRL -> Repositories: getInstance()
+            activate Repositories
+
+            Repositories --> CTRL: repositories
+            deactivate Repositories
+
+            CTRL -> REP: getSkillsRepository()
+            activate REP
+
+            REP --> CTRL: jobRepository
+            deactivate REP
 
             CTRL -> ORG : registerJob(name)
             activate ORG

@@ -7,17 +7,17 @@ autonumber
 
 'hide footbox
 actor "Human\nResources\nManager\n(HRM)" as HRM
-participant ":RegisterSkillsUI" as UI
-participant ":RegisterSkillsController" as CTRL
+participant ":RegisterSkillUI" as UI
+participant ":RegisterSkillController" as CTRL
 participant Repositories
 participant "repositories:Repositories" as REP
-participant "skillsRepositories" as SREP
-participant "skill:Skill" as SKILL
+participant "skillRepository" as SREP
+participant "skill:Skill" as skill
 
 activate HRM
 
 
-        HRM -> UI : asks to register some SKILL
+        HRM -> UI : asks to register some skill
         activate UI
 
                 UI -> HRM : requests the skill name
@@ -25,12 +25,12 @@ activate HRM
         HRM -> UI: Types requested data
         activate UI
 
-                UI -> HRM : Shows the SKILL and asks for confirmation
+                UI -> HRM : Shows the skill and asks for confirmation
         deactivate UI
-        HRM -> UI : Confirms SKILL.
+        HRM -> UI : Confirms skill
         activate UI
 
-                UI -> CTRL: registerSkills(name)
+                UI -> CTRL: registerSkill(name)
 
                 activate CTRL
 
@@ -46,10 +46,10 @@ activate HRM
 
                                 REP -> CTRL: skillsRepository
                         deactivate REP
-                        CTRL -> SREP: registerSkills(name)
+                        CTRL -> SREP: registerSkill(name)
                         activate SREP
 
-                                SREP -> SKILL**: register(name)
+                                SREP -> skill**: register(name)
                                 activate SREP
 
                                 SREP -> SREP: addSkill(skill)
@@ -61,8 +61,11 @@ activate HRM
 
 
                                 SREP -> CTRL: skill
+
                                         deactivate SREP
+
                                 deactivate SREP
+
                         deactivate SREP
 
                         CTRL -> UI: skill

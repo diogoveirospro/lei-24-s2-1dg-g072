@@ -79,7 +79,7 @@ As a GSM, I want to know the exact costs referring to water consumption of speci
 > 
 > **Answer:** Present the analysis just for this park.
 
-> **Question:** The file ”WaterUsed.csv” should be given by the user?
+> **Question:** The file "WaterUsed.csv" should be given by the user?
 > 
 > **Answer:** Yes, the .csv file will be available in the next few days.
 
