@@ -3,28 +3,28 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-participant "organization\n:Organization" as ORG
+participant "jobRepository" as JOBREP
 participant "job\n:Job" as Job
 
-autonumber 7
--> ORG: registerJob(name)
+autonumber 11
+-> JOBREP: registerJob(name)
 
 autonumber 7.1
-activate ORG
+activate JOBREP
     group Register Job
 
-        ORG -> Job**: register(name)
-        ORG -> ORG: addJob(job)
-        activate ORG
+        JOBREP -> Job**: register(name)
+        JOBREP -> JOBREP: addJob(job)
+        activate JOBREP
 
-            ORG -> ORG: validateJob(job)
-            activate ORG
+            JOBREP -> JOBREP: validateJob(job)
+            activate JOBREP
 
     end
 
     autonumber 8
-    <-- ORG : job
-deactivate ORG
+    <-- JOBREP : job
+deactivate JOBREP
 
 
 @enduml

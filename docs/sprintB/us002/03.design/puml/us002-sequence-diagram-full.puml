@@ -11,7 +11,7 @@ participant ":RegisterJobUI" as UI
 participant ":RegisterJobController" as CTRL
 participant Repositories
 participant "repositories:Repositories" as REP
-participant "jobRepository" as JREP
+participant "jobRepository" as JOBREP
 participant "job\n:Job" as Job
 
 activate HRM
@@ -41,24 +41,28 @@ activate HRM
             Repositories --> CTRL: repositories
             deactivate Repositories
 
-            CTRL -> REP: getSkillsRepository()
+            CTRL -> REP: getJobRepository()
             activate REP
 
             REP --> CTRL: jobRepository
             deactivate REP
 
-            CTRL -> ORG : registerJob(name)
-            activate ORG
+            CTRL -> JOBREP : registerJob(name)
+            activate JOBREP
 
-            ORG -> Job**: register(name)
-                ORG -> ORG: addJob(job)
-                activate ORG
+            JOBREP -> Job**: register(name)
+                JOBREP -> JOBREP: addJob(job)
+                activate JOBREP
 
-                ORG -> ORG: validateJob(job)
-                activate ORG
+                JOBREP -> JOBREP: validateJob(job)
+                activate JOBREP
 
-            ORG --> CTRL : job
-            deactivate ORG
+            JOBREP --> CTRL : job
+                deactivate JOBREP
+
+                deactivate JOBREP
+
+            deactivate JOBREP
 
             CTRL --> UI : job
         deactivate CTRL
