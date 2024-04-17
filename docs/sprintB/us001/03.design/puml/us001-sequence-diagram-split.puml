@@ -7,43 +7,58 @@ autonumber
 
 'hide footbox
 actor "Human\nResources\nManager\n(HRM)" as HRM
-participant ":AddSkillsUI" as UI
-participant ":RegisterSkillsController" as CTRL
-participant "organization\n:Organization" as ORG
+participant ":RegisterSkillUI" as UI
+participant ":RegisterSkillController" as CTRL
+participant Repositories
+participant "repositories:Repositories" as REP
+participant "skillRepository" as SREP
+
 activate HRM
 
 
-        HRM -> UI : asks to add some skills
+        HRM -> UI : asks to register some skill
         activate UI
 
-                UI -> HRM : requests the skill name
+                UI --> HRM : requests the skill name
         deactivate UI
         HRM -> UI: Types requested data
         activate UI
 
-                UI -> HRM : Shows the skills and asks for confirmation
+                UI --> HRM : Shows the skill and asks for confirmation
         deactivate UI
-        HRM -> UI : Confirms skills.
+        HRM -> UI : Confirms skill
         activate UI
 
-                UI -> CTRL: registerSkills(name)
+                UI -> CTRL: registerSkill(name)
+
                 activate CTRL
 
-                        CTRL -> ORG: registerSkills(name)
-                        activate ORG
+                        CTRL -> Repositories: getInstance()
 
-                                ref over ORG
-                                        Register Skills
+                        activate Repositories
+
+                                Repositories --> CTRL: repositories
+                        deactivate Repositories
+
+                        CTRL -> REP: getSkillsRepository()
+                        activate REP
+
+                                REP --> CTRL: skillsRepository
+                        deactivate REP
+                        CTRL -> SREP: registerSkill(name)
+                        activate SREP
+
+                                ref over SREP
+                                        Register Skill
 
                                 end
+                                SREP --> CTRL: skill
+                        deactivate SREP
 
-                                ORG -> CTRL: skills
-                        deactivate ORG
-
-                        CTRL -> UI: skills
+                        CTRL --> UI: skill
                 deactivate CTRL
 
-                UI -> HRM: Displays Operation Success
+                UI --> HRM: displays operation success
         deactivate UI
 deactivate HRM
 

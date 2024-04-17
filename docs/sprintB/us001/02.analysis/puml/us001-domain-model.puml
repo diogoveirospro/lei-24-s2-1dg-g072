@@ -21,16 +21,11 @@ class Skill {
 }
 
 
-class Organization{
-    name
-    address
-}
 
 
 
 
 HRM "1  " - "*" Skill: creates >
-Organization "1" -- "*" Skill: has >
 
 
 @enduml

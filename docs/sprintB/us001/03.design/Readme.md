@@ -1,4 +1,4 @@
-# US006 - Create a Task 
+# US001 - Register Skills
 
 ## 3. Design - User Story Realization 
 
@@ -10,24 +10,24 @@ _**Note that SSD - Alternative One is adopted.**_
 |:---------------|:--------------------------------------------|:------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Step 1         | ... interacting with the actor?             | RegisterSkillUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model.                                              |
 |                | ... coordinating the US?                    | RegisterSkillController | Controller: coordinates the interactions related to registering skills in the user interface (UI) and executes the logic needed to process these requests. |
-|                | ... instantiating a new Skill?              | Organization            | Creator (Rule 2): the Organisation registers a skill instance.                                                                                             |
+|                | ... instantiating a new Skill?              | SkillsRepository        | Creator (Rule 2): the SkillsRepository registers a skill instance.                                                                                         |
 | Step 2         | ... saving the inputted data?               | Skill                   | IE: object created in step 1 has its own data.                                                                                                             |
 | Step 3         | ... validating all data (local validation)? | Skill                   | IE: owns its data.                                                                                                                                         |
-|                | ... validate all data (global validation)?  | Organization            | IE: knows all its skills.                                                                                                                                  |
-|                | ... saving the created skill?               | Organization            | IE: owns all its skills.                                                                                                                                   |
+|                | ... validate all data (global validation)?  | SkillsRepository        | IE: knows all its skills.                                                                                                                                  |
+|                | ... saving the created skill?               | SkillsRepository        | IE: owns all its skills.                                                                                                                                   |
 | Step 4         | ... informing operation success?            | RegisterSkillUI         | IE: is responsible for user interactions.                                                                                                                  |
 
 ### Systematization ##
 
 According to the taken rationale, the conceptual classes promoted to software classes are: 
 
-* Organization
+* SkillsRepository
 * Skill
 
 Other software classes (i.e. Pure Fabrication) identified: 
 
-* CreateTaskUI  
-* CreateTaskController
+* RegisterSkillsUI  
+* RegisterSkillsController
 
 
 ## 3.2. Sequence Diagram (SD)

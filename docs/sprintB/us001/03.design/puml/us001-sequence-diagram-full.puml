@@ -20,12 +20,12 @@ activate HRM
         HRM -> UI : asks to register some skill
         activate UI
 
-                UI -> HRM : requests the skill name
+                UI --> HRM : requests the skill name
         deactivate UI
         HRM -> UI: Types requested data
         activate UI
 
-                UI -> HRM : Shows the skill and asks for confirmation
+                UI --> HRM : Shows the skill and asks for confirmation
         deactivate UI
         HRM -> UI : Confirms skill
         activate UI
@@ -38,13 +38,13 @@ activate HRM
 
                         activate Repositories
 
-                                Repositories -> CTRL: repositories
+                                Repositories --> CTRL: repositories
                         deactivate Repositories
 
                         CTRL -> REP: getSkillsRepository()
                         activate REP
 
-                                REP -> CTRL: skillsRepository
+                                REP --> CTRL: skillsRepository
                         deactivate REP
                         CTRL -> SREP: registerSkill(name)
                         activate SREP
@@ -60,7 +60,7 @@ activate HRM
 
 
 
-                                SREP -> CTRL: skill
+                                SREP --> CTRL: skill
 
                                         deactivate SREP
 
@@ -68,10 +68,10 @@ activate HRM
 
                         deactivate SREP
 
-                        CTRL -> UI: skill
+                        CTRL --> UI: skill
                 deactivate CTRL
 
-                UI -> HRM: displays operation success
+                UI --> HRM: displays operation success
         deactivate UI
 deactivate HRM
 
