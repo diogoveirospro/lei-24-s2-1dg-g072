@@ -28,16 +28,11 @@ class Vehicle{
     maintenance frequency
     km at last maintenance
 }
-class Organization{
-    name
-    address
-}
 
 class Maintenance{
 
 }
 
-Organization "1" --"1..*" Vehicle: owns >
 VFM "1"-"   1..*" Vehicle: chooses >
 Vehicle "1" - "1..*" Maintenance: has >
 
