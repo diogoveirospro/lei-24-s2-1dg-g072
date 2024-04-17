@@ -38,7 +38,7 @@ class JobRepository {
 }
 
 
-HRM "1" --> "*" Job
+HRM "1" --> "*" Job : creates
 Repositories "1" --> "*" Job
 RegisterJobUI .> RegisterJobController
 RegisterJobController .> Repositories : repositories
