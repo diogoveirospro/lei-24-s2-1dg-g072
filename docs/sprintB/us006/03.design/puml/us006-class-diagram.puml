@@ -20,29 +20,6 @@ class UserSession
     + getUserEmail()
 }
 
-class Employee {
-    - name
-    - email
-    - position
-    - phone
-}
-
-class Organization {
-    - String name
-    - String vatNumber
-    - String website
-    - String phone
-    - String email
-
-    + anyEmployeeHasEmail(email)
-    + Organization(name, vatNumber, webSite, phone, email, postalAddress, manager)
-    - getEmployeeByEmail(email)
-
-}
-
-class OrganizationRepository {
-    + getOrganizationByEmployeeEmail(email)
-}
 
 class Repositories {
     - Repositories()
@@ -65,16 +42,10 @@ RegisterVehicleUI .> RegisterVehicleController
 
 RegisterVehicleController .> Repositories : repositories
 
-RegisterVehicleController ..> OrganizationRepository : organizationRepository
 
-Repositories --> "1" OrganizationRepository
-
-OrganizationRepository --> "*" Organization
 ApplicationSession --> "1" UserSession : userSession
 
-RegisterVehicleController ..> "1" Organization : organization
 RegisterVehicleController ..> ApplicationSession
 RegisterVehicleController ..> UserSession
-Organization --> "*" Employee : employs
 
 @enduml

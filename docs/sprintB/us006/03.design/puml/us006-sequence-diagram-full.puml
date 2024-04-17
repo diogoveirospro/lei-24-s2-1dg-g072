@@ -37,7 +37,7 @@ activate ADM
                     RepositorySingleton --> CTRL: repositories
                 deactivate RepositorySingleton
 
-                CTRL -> PLAT : registerVehicleRepository()
+                CTRL -> PLAT : getRegisterVehicleRepository()
                 activate PLAT
 
                     PLAT --> CTRL: registerVehicleRepository
