@@ -9,7 +9,7 @@ participant "job\n:Job" as Job
 autonumber 11
 -> JOBREP: registerJob(name)
 
-autonumber 7.1
+autonumber 11.1
 activate JOBREP
     group Register Job
 
@@ -22,7 +22,7 @@ activate JOBREP
 
     end
 
-    autonumber 8
+    autonumber 12
     <-- JOBREP : job
 deactivate JOBREP
 
