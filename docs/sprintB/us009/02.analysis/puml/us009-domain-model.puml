@@ -10,11 +10,6 @@ skinparam classAttributeIconSize 0
 hide circle
 hide methods
 
-class Organization {
-    name
-    address
-}
-
 class GSM {
 
 }
@@ -64,7 +59,7 @@ class Histogram {
     data
 }
 
-Organization "1" --> "*" WaterUsageData : owns >
+
 GSM "1" -> "*" WaterUsageData : uses >
 WaterUsageData "1" --> "*" BarplotMonthlyWaterConsumption : generates >
 WaterUsageData "1" --> "*" AverageMonthlyCostsWaterConsumption : calculates >

@@ -18,10 +18,10 @@ activate HRM
 
     activate UI
 
-        UI --> HRM : requests the name
+        UI --> HRM : requests name
     deactivate UI
 
-    HRM -> UI : types requested the name
+    HRM -> UI : types requested name
     activate UI
 
         UI --> HRM : requests confirmation

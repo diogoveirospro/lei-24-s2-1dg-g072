@@ -30,11 +30,6 @@ class Collaborator {
     idDocumentNumber
 }
 
-class Organization{
-    name
-    address
-}
-
 class Skill{
     name
 }
@@ -47,7 +42,4 @@ HRM "1" -- "*" Team : creates >
 Team "1" -- "1..*" Collaborator: has >
 Collaborator "1" -- "*" Skill: has >
 Collaborator "1" -- "*" Job: has >
-Organization "1" -- "1..*" Collaborator: works for <
-Organization "1" -- "*" Skill: has >
-Organization "1" -- "*" Job: has >
 @enduml
