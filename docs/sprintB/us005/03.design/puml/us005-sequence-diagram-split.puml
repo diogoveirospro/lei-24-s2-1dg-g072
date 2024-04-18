@@ -79,10 +79,10 @@ activate HRM
     HRM -> UI: accepts team recommendation
     activate UI
 
-        UI -> CTRL: createTeam(skills, members)
+        UI -> CTRL: createTeam(teamProposal)
         activate CTRL
 
-            CTRL -> TEAMREP: createTeam(skills, members)
+            CTRL -> TEAMREP: createTeam(teamProposal)
             activate TEAMREP
 
                 ref over TEAMREP

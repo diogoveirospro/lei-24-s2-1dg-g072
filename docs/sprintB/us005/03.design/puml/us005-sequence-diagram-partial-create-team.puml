@@ -1,0 +1,37 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+
+participant "teamRepository" as TEAMREP
+participant "team:\nTeam" as team
+
+autonumber 18
+
+ -> TEAMREP : createTeam(teamProposal)
+autonumber 18.1
+activate TEAMREP
+    group Create Team
+
+        TEAMREP -> team**: create(teamProposal)
+
+            TEAMREP -> TEAMREP: addTeam(team)
+            activate TEAMREP
+
+            TEAMREP -> TEAMREP: validateTeam(team)
+            activate TEAMREP
+
+            deactivate TEAMREP
+
+            deactivate TEAMREP
+    end
+    autonumber 19
+    <-- TEAMREP  : team
+deactivate TEAMREP
+
+
+@enduml

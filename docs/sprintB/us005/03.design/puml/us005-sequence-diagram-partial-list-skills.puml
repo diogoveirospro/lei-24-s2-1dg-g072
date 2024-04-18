@@ -1,0 +1,43 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+participant ":GenerateTeamProposalController" as CTRL
+participant Repositories
+participant "repositories:Repositories" as REP
+participant "skillRepository" as SKILLREP
+
+autonumber 5
+-> CTRL: listSkills()
+
+autonumber 5.1
+activate CTRL
+    group List Skills
+
+        CTRL -> Repositories: getInstance()
+        activate Repositories
+
+            Repositories --> CTRL: repositories
+        deactivate Repositories
+
+        CTRL -> REP: getSkillRepository()
+        activate REP
+
+            REP --> CTRL: skillRepository
+        deactivate REP
+
+        CTRL -> SKILLREP : listSkills()
+        activate SKILLREP
+
+            SKILLREP --> CTRL : skills
+        deactivate SKILLREP
+
+    end
+
+    autonumber 6
+    <-- CTRL : skills
+deactivate CTRL
+
+
+@enduml
