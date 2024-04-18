@@ -23,7 +23,7 @@ class RegisterSkillUI {
 }
 
 class RegisterSkillController {
-    + CreateSkillController(jobRepository)
+    + CreateSkillController(skillRepository)
     + registerSkill(name)
 }
 

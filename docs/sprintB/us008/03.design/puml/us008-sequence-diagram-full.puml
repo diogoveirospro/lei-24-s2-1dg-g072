@@ -7,8 +7,8 @@ autonumber
 
 'hide footbox
 actor "Vehicle and Equipment\nFleet Manager\n(VFM)" as VFM
-participant ":ListVehicleUI" as UI
-participant ":ListVehicleController" as CTRL
+participant ":ListMaintenanceUI" as UI
+participant ":ListMaintenanceController" as CTRL
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as REP
 participant "maintenanceRepository\n:MaintenanceRepository" as maintenanceRepository
