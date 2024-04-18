@@ -12,7 +12,7 @@ participant ":System" as System
 
 activate Employee
 
-    Employee -> System : Asks to add some skills
+    Employee -> System : Asks to register some skills
     activate System
 
         System --> Employee : Asks the HRM to write the skills

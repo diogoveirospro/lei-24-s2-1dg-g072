@@ -6,18 +6,55 @@ skinparam shadowing false
 autonumber
 
 'hide footbox
-actor "Vehicle and Equipment\nFleet Manager\n(VFM)" as ADM
-participant ":CreateTaskUI" as UI
-participant ":CreateTaskController" as CTRL
+actor "Vehicle and Equipment\nFleet Manager\n(VFM)" as VFM
+participant ":ListVehicleUI" as UI
+participant ":ListVehicleController" as CTRL
 participant ":Repositories" as RepositorySingleton
-participant "repositories\n:Repositories" as PLAT
-participant "taskCategoryRepository:\nTaskCategoryRepository" as TaskCategoryRepository
-participant ":ApplicationSession" as _APP
-participant "appSession\n:ApplicationSession" as APP
-participant "currentSession\n:UserSession" as SESSAO
-participant "organizationRepository:\nOrganizationRepository" as OrganizationRepository
-participant "organization\n:Organization" as ORG
-participant "task\n:Task" as TAREFA
+participant "repositories\n:Repositories" as REP
+participant "maintenanceRepository\n:MaintenanceRepository" as maintenanceRepository
+
+
+activate VFM
+
+        VFM -> UI : asks to list the vehicles that need maintenance
+
+        activate UI
+
+            UI --> VFM : asks for confirmation
+
+            VFM -> UI : confirms that he wants to create the list
+            UI -> CTRL** : create
+            UI -> CTRL : getMaintenanceList()
+            activate CTRL
+
+                CTRL -> RepositorySingleton : getInstance()
+                activate RepositorySingleton
+
+                    RepositorySingleton --> CTRL: repositories
+                deactivate RepositorySingleton
+
+                CTRL -> REP : getMaintenanceRepository()
+                activate REP
+
+                    REP --> CTRL: maintenanceRepository
+                deactivate REP
+
+                CTRL -> maintenanceRepository : getMaintenance()
+
+                activate maintenanceRepository
+
+                        maintenanceRepository --> CTRL : maintenanceList
+                deactivate maintenanceRepository
+
+            deactivate maintenanceRepository
+
+            CTRL --> UI: maintenanceList
+            deactivate CTRL
+            UI --> VFM: shows the list
+    deactivate UI
+
+deactivate VFM
+
 
 
 @enduml
