@@ -11,10 +11,7 @@ hide circle
 hide methods
 
 
-class Organization{
-    name
-    address
-}
+
 
 class VFM {
 
@@ -30,11 +27,11 @@ class Vehicle{
     current kms
     registration date
     acquisition date
-    maintenance/check-up frequency
+    maintenance frequency
+    km at last maintenance
 }
 
 
 VFM "1" -- "1..*" Vehicle: lists >
 
-Organization "1" - "1..*" Vehicle: owns >
 @enduml
