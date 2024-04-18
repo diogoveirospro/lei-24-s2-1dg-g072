@@ -34,12 +34,7 @@ class Skill{
     name
 }
 
-class Job{
-    name
-}
-
 HRM "1" -- "*" Team : creates >
 Team "1" -- "1..*" Collaborator: has >
 Collaborator "1" -- "*" Skill: has >
-Collaborator "1" -- "*" Job: has >
 @enduml
