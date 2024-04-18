@@ -67,6 +67,11 @@ As an HRM, I want to register a job that a collaborator needs to have.
 > 
 > **Answer:** That's right.
 
+> **Question:** When generating a team automatically, if, for example, one of the skills is driving a car and there are 3 employees who fulfil it, which one will the system introduce faster? One who also fulfils another requested skill, or does it choose which one? How does he choose collaborators more precisely?
+> 
+> **Answer:** At the moment there are no restrictions on the ranking of teams, so you can choose any algorithm that produces a solution (if there is one) that meets the requirements; if there isn't one, you should report it.
+
+
 ### 1.3. Acceptance Criteria
 
 * **AC1:** It should not be possible to register a new job if it already exists in the system.

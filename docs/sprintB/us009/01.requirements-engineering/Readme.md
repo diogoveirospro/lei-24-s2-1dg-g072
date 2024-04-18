@@ -21,17 +21,17 @@ As a GSM, I want to know the exact costs referring to water consumption of speci
 > 
 > * Barplot represents monthly water consumption, as a result of the following specifications given by the user: time period (StartMonth, EndMonth) and park identification.
 >
-> * Average of monthly costs related to water consumption as a result of the following specifications given by the user: number of parks to be analysed, and park identification.
+> * Average of monthly costs related to water consumption for each park, as a result of the following specifications given by the user: number of parks to be analyzed, and park identification.
 >
-> * Consider the water consumption of every day that is recorded. The aim is to analyse and compare statistical indicators between the park with the highest and lowest water consumption. For these two parks, perform the following tasks and compare results:
+> * Consider the water consumption of every day that is recorded. The aim is to analyze and compare statistical indicators between the park with the highest and lowest (not null) water consumption. For these two parks, perform the following tasks and compare results:
 >   
 >   * Calculate the mean, median, standard deviation, and the coefficient of skewness;
 >
 >   * Build relative and absolute frequency tables (classified data), considering 5 classes;
 >
->   * Check if the data has outliers, using the outlier definition as values that deviate from the median by more than 1.5 times the interquartile range;
+>   * For each park, check if the data has outliers, using the outlier definition as values that deviate from the median by more than 1.5 times the interquartile range;
 >
->   * Graphically represents data through histograms with 10 classes.
+>   * Graphically represents data through histograms with 10 and 100 classes.
 
 **From the client clarifications:**
 
@@ -86,6 +86,10 @@ As a GSM, I want to know the exact costs referring to water consumption of speci
 > **Question:** When the user enters the park identification, should this be by name or through an ID?
 > 
 > **Answer:** Users will answer the survey but anonymously.
+
+> **Question:** Will we do the calculations for each of the parks identified by the day with the highest and lowest consumption, or will we add the values for the two parks and do the calculations together?
+> 
+> **Answer:** The calculations are made for each park separately.
 
 ### 1.3. Acceptance Criteria
 

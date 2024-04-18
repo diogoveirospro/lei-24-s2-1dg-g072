@@ -42,6 +42,15 @@ For instance:
 min: 3
 max: 4
 
+> **Question:** Can the team's maxSize be smaller than the number of Skills that are chosen?
+>
+> **Answer:** maxSize is the maximum number of team members and can be smaller than the number of skills required.
+ 
+> **Question:** Can a collaborator have a Status? Like Activate and Not Activate? Can't they be in more than two teams? If so, is that what the Status is for?
+>
+>**Answer:** I don't know what a Status is, is it mentioned anywhere in the statement?
+A collaborator cannot be in more than one team. 
+
 
 ### 1.3. Acceptance Criteria
 
