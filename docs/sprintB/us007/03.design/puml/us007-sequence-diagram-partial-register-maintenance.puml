@@ -1,0 +1,32 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+participant "maintenanceRepository\n:MaintenanceRepository" as MAINREP
+participant "maintenance\n:Maintenance" as MAINTENANCE
+
+autonumber 16
+-> MAINREP: registerMaintenance(plateNumber, date, kmOnMaintenance)
+
+autonumber 16.1
+activate MAINREP
+    group Register Maintenance
+
+        MAINREP -> MAINTENANCE**: registerMaintenance(plateNumber, date, kmOnMaintenance)
+        MAINREP -> MAINREP: addVehicleMaintenance (maintenance)
+
+        activate MAINREP
+            MAINREP -> MAINREP: validateMaintenance(maintenance)
+            activate MAINREP
+            deactivate MAINREP
+
+        deactivate MAINREP
+        end
+    <-- MAINREP : maintenance
+        deactivate MAINREP
+
+    autonumber 17
+
+
+@enduml

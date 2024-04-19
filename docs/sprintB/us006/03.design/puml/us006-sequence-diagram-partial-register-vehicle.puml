@@ -7,7 +7,7 @@ participant "vehicleRepository\n:VehicleRepository" as ORG
 participant "vehicle\n:Vehicle" as VEHICLE
 
 autonumber 16
--> ORG: registerVehicle(plateNumber, brand,\n model,type, tare, grossWeight,\n currentKms,registrationDate,\nacquisitionDate, serviceFrequency)
+-> ORG: registerVehicle(plateNumber, brand,\n model, type, tare, grossWeight,\n currentKms,registrationDate,\nacquisitionDate, serviceFrequency)
 
 autonumber 16.1
 activate ORG

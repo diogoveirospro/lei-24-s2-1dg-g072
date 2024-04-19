@@ -29,11 +29,31 @@ class vehicleRepository{
 class RegisterVehicleUI {
 }
 
+class Vehicle{
+    - String plateNumber
+    - String brand
+    - String model
+    - String type
+    - Double tare
+    - Double grossWeight
+    - Double currentKms
+    - String registrationDate
+    - String acquisitionDate
+    - Double serviceFrequency
+    - Double kmAtLastMaintenance
+
+}
+
 Repositories -> Repositories : instance
 
 RegisterVehicleUI .> RegisterVehicleController
+RegisterVehicleController .> "1" vehicleRepository : vehicleRepository
+
+
+Repositories --> "1" vehicleRepository
 
 RegisterVehicleController .> Repositories : repositories
 
+vehicleRepository "1" ---> "1..*"Vehicle
 
 @enduml
