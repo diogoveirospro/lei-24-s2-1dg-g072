@@ -9,7 +9,6 @@ autonumber
 actor "Human Resources\n Manager" as HRM
 participant ":GenerateTeamProposalUI" as UI
 participant ":GenerateTeamProposalController" as CTRL
-participant "teamRepository" as TEAMREP
 
 activate HRM
 
@@ -82,20 +81,10 @@ activate HRM
         UI -> CTRL: createTeam(teamProposal)
         activate CTRL
 
-            CTRL -> TEAMREP: createTeam(teamProposal)
-            activate TEAMREP
+            ref over CTRL
+                Create Team
 
-                ref over TEAMREP
-                    Create Team
-
-                end
-
-                TEAMREP --> CTRL: team
-            deactivate TEAMREP
-
-                    deactivate TEAMREP
-
-                    deactivate TEAMREP
+            end
 
             CTRL --> UI: team
         deactivate CTRL

@@ -6,7 +6,8 @@ skinparam shadowing false
 participant ":GenerateTeamProposalController" as CTRL
 participant Repositories
 participant "repositories:Repositories" as REP
-participant "teamRepository" as TEAMREP
+participant "teamProposalRepository" as TEAMPROREP
+participant "teamProposal:\nTeamProposal" as teamProposal
 
 autonumber 13
 -> CTRL : generateTeamProposal(size, members)
@@ -22,17 +23,30 @@ activate CTRL
             Repositories --> CTRL: repositories
         deactivate Repositories
 
-        CTRL -> REP: getTeamRepository()
+        CTRL -> REP: getTeamProposalRepository()
         activate REP
 
-            REP --> CTRL: teamRepository
+            REP --> CTRL: teamProposalRepository
         deactivate REP
 
-        CTRL -> TEAMREP: generateTeamProposal(size, members)
-        activate TEAMREP
+        CTRL -> TEAMPROREP: generateTeamProposal(size, members)
+        activate TEAMPROREP
 
-            TEAMREP --> CTRL: teamProposal
-        deactivate TEAMREP
+            TEAMPROREP -> teamProposal**: generateTeamProposal(size, members)
+
+                TEAMPROREP -> TEAMPROREP : addTeamProposal(teamProposal)
+                activate TEAMPROREP
+
+                TEAMPROREP -> TEAMPROREP : validateTeamProposal(teamProposal)
+                activate TEAMPROREP
+
+            TEAMPROREP --> CTRL: teamProposal
+
+            deactivate TEAMPROREP
+
+            deactivate TEAMPROREP
+
+        deactivate TEAMPROREP
 
     end group
 

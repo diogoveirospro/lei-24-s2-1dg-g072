@@ -6,32 +6,55 @@ skinparam shadowing false
 autonumber
 
 'hide footbox
-
+participant ":GenerateTeamProposalController" as CTRL
+participant "teamRepository" as TEAMREP
+participant Repositories
+participant "repositories:Repositories" as REP
 participant "teamRepository" as TEAMREP
 participant "team:\nTeam" as team
 
-autonumber 18
+autonumber 17
+-> CTRL : createTeam(teamProposal)
 
- -> TEAMREP : createTeam(teamProposal)
-autonumber 18.1
-activate TEAMREP
+autonumber 17.1
+
+activate CTRL
     group Create Team
 
-        TEAMREP -> team**: create(teamProposal)
+        CTRL -> Repositories: getInstance()
+        activate Repositories
 
-            TEAMREP -> TEAMREP: addTeam(team)
-            activate TEAMREP
+            Repositories --> CTRL: repositories
+        deactivate Repositories
 
-            TEAMREP -> TEAMREP: validateTeam(team)
-            activate TEAMREP
+        CTRL -> REP: getTeamRepository()
+        activate REP
+
+            REP --> CTRL: teamRepository
+        deactivate REP
+
+        CTRL -> TEAMREP: createTeam(teamProposal)
+        activate TEAMREP
+
+            TEAMREP -> team**: create(teamProposal)
+
+                TEAMREP -> TEAMREP : addTeam(team)
+                activate TEAMREP
+
+                TEAMREP -> TEAMREP : validateTeam(team)
+                activate TEAMREP
+
+            TEAMREP --> CTRL: team
 
             deactivate TEAMREP
 
             deactivate TEAMREP
-    end
-    autonumber 19
-    <-- TEAMREP  : team
-deactivate TEAMREP
 
+        deactivate TEAMREP
+
+    end group
+
+    autonumber 18
+    <-- CTRL : team
 
 @enduml
