@@ -35,21 +35,21 @@ class Repositories {
 
 }
 
-class skillRepository {
+class SkillRepository {
 
 }
 
-class collaboratorRepository {
+class CollaboratorRepository {
 
 }
 
-class teamProposalRepository {
+class TeamProposalRepository {
     - generateTeamProposal(size, members)
     - validateTeamProposal(teamProposal)
     - addTeamProposal(teamProposal)
 }
 
-class teamRepository {
+class TeamRepository {
     - addTeam(team)
     - validateTeam(team)
     - create(teamProposal)
@@ -104,6 +104,8 @@ GenerateTeamProposalController .> TeamProposal : teamProposal
 GenerateTeamProposalController .> Team : team
 skillRepository --> Skill : has
 collaboratorRepository --> Collaborator : has
+teamRepository --> Team : has
+TeamProposalRepository --> TeamProposal : has
 
 
 @enduml
