@@ -11,24 +11,47 @@ participant ":RegisterVehicleMaintenanceUI" as UI
 participant ":RegisterVehicleMaintenanceController" as CTRL
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as PLAT
+participant "vehicleRepository\n:VehicleRepository" as VREP
 participant "registerVehicleRepository\n:RegisterVehicleRepository" as RegisterVehicleRepository
-participant "vehicle\n:Vehicle" as VEHICLE
+participant "maintenance\n:Maintenance" as MAINTENANCE
 
 activate ADM
 
         ADM -> UI : asks to register a vehicle maintenance
 
         activate UI
+        UI -> CTRL : getVehicleList()
+            activate CTRL
+            CTRL -> RepositorySingleton : getInstance()
+            activate RepositorySingleton
 
+                RepositorySingleton -> CTRL : repositories
+            deactivate RepositorySingleton
+            CTRL -> PLAT : getVehicleRepository()
+            activate PLAT
+            PLAT -> CTRL : vehicleRepository
+            deactivate PLAT
+
+            CTRL -> VREP : getVehicleList()
+            activate VREP
+            VREP -> CTRL : vehicleList
+            deactivate VREP
+
+            CTRL -> UI : vehicleList
+            deactivate CTRL
+
+            loop
             UI --> ADM : shows list of registered vehicles
+            deactivate UI
 
-            ADM -> UI : types requested data
-
+            ADM -> UI : chooses vehicle for maintenance
+            activate UI
+            end
             UI --> ADM : shows all data and requests confirmation
-
+            deactivate UI
             ADM -> UI : confirms data
-
-            UI -> CTRL : registerVehicle(plateNumber, brand,\n model,type, tare, grossWeight,\n currentKms,registrationDate,\nacquisitionDate, serviceFrequency)
+            activate UI
+            UI -> CTRL : registerVehicleMaintenance(vehicleList, date)
             activate CTRL
 
                 CTRL -> RepositorySingleton : getInstance()
@@ -43,26 +66,23 @@ activate ADM
                     PLAT --> CTRL: registerVehicleRepository
                 deactivate PLAT
 
-                CTRL -> RegisterVehicleRepository : registerVehicle(plateNumber, brand,\n model,type, tare, grossWeight,\n currentKms,registrationDate,\nacquisitionDate, serviceFrequency)
+                CTRL -> RegisterVehicleRepository : registerVehicleMaintenance(vehicleList, date)
                 activate RegisterVehicleRepository
 
-                RegisterVehicleRepository -> VEHICLE**: registerVehicle(plateNumber, brand,\n model,type, tare, grossWeight,\n currentKms,registrationDate,\nacquisitionDate, serviceFrequency)
+                RegisterVehicleRepository -> MAINTENANCE**: registerVehicleMaintenance(vehicleList, date)
+
+                loop
                 RegisterVehicleRepository -> RegisterVehicleRepository: addVehicle (vehicle)
 
                  activate RegisterVehicleRepository
                      RegisterVehicleRepository -> RegisterVehicleRepository: validateVehicle(vehicle)
-                     activate RegisterVehicleRepository
-                         RegisterVehicleRepository --> RegisterVehicleRepository
-                     deactivate RegisterVehicleRepository
-
-                     RegisterVehicleRepository --> RegisterVehicleRepository
+                 end
                  deactivate RegisterVehicleRepository
-
-                                RegisterVehicleRepository --> CTRL : vehicle
-
+                                RegisterVehicleRepository --> CTRL : maintenance
                             deactivate RegisterVehicleRepository
 
-            CTRL --> UI: vehicle
+
+            CTRL --> UI: maintenance
             deactivate CTRL
             UI --> ADM: displays operation success
     deactivate UI

@@ -24,7 +24,6 @@ class vehicleRepository{
     + registerVehicle(plateNumber, brand, model, type, tare, grossWeight, currentKms, registrationDate, acquisitionDate, serviceFrequency)
     + addVehicle(vehicle)
     + validateVehicle(vehicle)
-    + getVehicleList()
 }
 
 class RegisterVehicleUI {
@@ -42,6 +41,9 @@ class Vehicle{
     - String acquisitionDate
     - Double serviceFrequency
     - Double kmAtLastMaintenance
+}
+
+class Maintenance{
 
 }
 
@@ -56,5 +58,7 @@ Repositories --> "1" vehicleRepository
 RegisterVehicleController .> Repositories : repositories
 
 vehicleRepository "1" ---> "1..*"Vehicle
+
+Vehicle -> Maintenance
 
 @enduml

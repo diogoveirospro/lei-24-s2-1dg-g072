@@ -1,0 +1,78 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "Vehicle Fleet Manager" as ADM
+participant ":RegisterVehicleMaintenanceUI" as UI
+participant ":RegisterVehicleMaintenanceController" as CTRL
+participant ":Repositories" as RepositorySingleton
+participant "repositories\n:Repositories" as PLAT
+participant "registerVehicleRepository\n:RegisterVehicleRepository" as RegisterVehicleRepository
+
+activate ADM
+
+        ADM -> UI : asks to register a vehicle maintenance
+
+        activate UI
+        UI -> CTRL : getVehicleList()
+            activate CTRL
+            ref over CTRL
+                Get Registered Vehicles List
+
+            end ref
+            CTRL -> UI : vehicleList
+            deactivate CTRL
+
+            loop
+            UI --> ADM : shows list of registered vehicles
+            deactivate UI
+
+            ADM -> UI : chooses vehicle for maintenance
+            activate UI
+            end
+            UI --> ADM : shows all data and requests confirmation
+            deactivate UI
+            ADM -> UI : confirms data
+            activate UI
+            UI -> CTRL : registerVehicleMaintenance(vehicleList)
+
+            activate CTRL
+
+                            CTRL -> RepositorySingleton : getInstance()
+                            activate RepositorySingleton
+
+                                RepositorySingleton --> CTRL: repositories
+                            deactivate RepositorySingleton
+
+                            CTRL -> PLAT : getRegisterVehicleRepository()
+                            activate PLAT
+
+                                PLAT --> CTRL: registerVehicleRepository
+                            deactivate PLAT
+
+                            CTRL -> RegisterVehicleRepository : registerVehicleMaintenance(vehicleList)
+                            activate RegisterVehicleRepository
+
+                            ref over RegisterVehicleRepository
+                                Register Vehicle Maintenance
+
+                            end ref
+
+                             RegisterVehicleRepository -> CTRL : maintenance
+
+                            deactivate RegisterVehicleRepository
+                            deactivate RegisterVehicleRepository
+
+
+            CTRL --> UI: maintenance
+            deactivate CTRL
+            UI --> ADM: displays operation success
+    deactivate UI
+
+deactivate ADM
+
+@enduml
