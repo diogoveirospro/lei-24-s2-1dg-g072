@@ -41,7 +41,7 @@ class JobRepository {
 }
 
 
-HRM  o-- "*" Job : creates
+HRM  --> "*" Job : creates
 RegisterJobUI .> RegisterJobController
 RegisterJobController .> Repositories : repositories
 Repositories --> Repositories : instance
