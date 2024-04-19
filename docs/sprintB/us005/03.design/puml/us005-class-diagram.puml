@@ -86,15 +86,15 @@ GenerateTeamProposalUI .> GenerateTeamProposalController
 GenerateTeamProposalController .> Repositories : repositories
 Repositories --> Repositories : instance
 
-Repositories ---> "1" skillRepository
-Repositories ---> "1" collaboratorRepository
-Repositories ---> "1" teamProposalRepository
-Repositories ---> "1" teamRepository
+Repositories ---> "1" SkillRepository
+Repositories ---> "1" CollaboratorRepository
+Repositories ---> "1" TeamProposalRepository
+Repositories ---> "1" TeamRepository
 
-GenerateTeamProposalController .> skillRepository : skillRepository
-GenerateTeamProposalController .> collaboratorRepository : collaboratorRepository
-GenerateTeamProposalController .> teamRepository : teamRepository
-GenerateTeamProposalController .> teamProposalRepository : teamProposalRepository
+GenerateTeamProposalController .> SkillRepository : skillRepository
+GenerateTeamProposalController .> CollaboratorRepository : collaboratorRepository
+GenerateTeamProposalController .> TeamRepository : teamRepository
+GenerateTeamProposalController .> TeamProposalRepository : teamProposalRepository
 
 HRM "1" --> "*" Team : creates
 Team "1" --> "1..*" Collaborator : has
@@ -102,9 +102,9 @@ Collaborator "1" --> "*" Skill : has
 
 GenerateTeamProposalController .> TeamProposal : teamProposal
 GenerateTeamProposalController .> Team : team
-skillRepository --> Skill : has
-collaboratorRepository --> Collaborator : has
-teamRepository --> Team : has
+SkillRepository --> Skill : has
+CollaboratorRepository --> Collaborator : has
+TeamRepository --> Team : has
 TeamProposalRepository --> TeamProposal : has
 
 
