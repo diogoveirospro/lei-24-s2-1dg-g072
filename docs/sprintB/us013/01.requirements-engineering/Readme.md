@@ -13,10 +13,24 @@ cost, ensuring that all points are adequately supplied.
 
 **From the client clarifications:**
 
-> **Question:** 
+> **Question:** Do the vertices mentioned in the statement have coordinates? For example : (41.1496 , -8.6112) (Latitude, Longitude)
 >
-> **Answer:** 
+> If we're going to be correct, as in the case of the Porto city park example, we have to use coordinates to represent a specific point in the park!
+>
+> **Answer:** The csv files that we will make available for US13 do not provide the coordinates of the vertices, only the information mentioned in US12.
+>
+> If we want to faithfully draw the map of the watering points, we do need the coordinates. As computer scientists/mathematicians, to solve the problem in question, this is unnecessary information/noise.
 
+> **Question:** So how will the vertice be identified? Can you give me an example (Letter, Number,...)?
+> 
+> **Answer:** 3 examples:
+(1,2,10)
+(a,b,10)
+(camelia,33,10)
+
+> **Question:** Should we show the algorithm's execution time?
+> 
+> **Answer:** It's not required, but they can. Just the execution time of the US13 procedure, which only involves primitive operations.
 
 ### 1.3. Acceptance Criteria
 

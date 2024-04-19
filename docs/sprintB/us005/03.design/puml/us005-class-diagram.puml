@@ -43,16 +43,27 @@ class collaboratorRepository {
 
 }
 
+class teamProposalRepository {
+    - generateTeamProposal(size, members)
+    - validateTeamProposal(teamProposal)
+    - addTeamProposal(teamProposal)
+}
+
 class teamRepository {
     - addTeam(team)
     - validateTeam(team)
     - create(teamProposal)
 }
 
-class Team {
+class TeamProposal {
     - size : int
     - members : ArrayList<Collaborator>
-    + Team(size, members)
+    + TeamProposal(size, members)
+}
+
+class Team {
+    - teamProposal : teamProposal
+    + Team(teamProposal)
 }
 
 class Collaborator {
@@ -75,18 +86,21 @@ GenerateTeamProposalUI .> GenerateTeamProposalController
 GenerateTeamProposalController .> Repositories : repositories
 Repositories --> Repositories : instance
 
-Repositories --> "1" skillRepository
-Repositories --> "1" collaboratorRepository
-Repositories --> "1" teamRepository
+Repositories ---> "1" skillRepository
+Repositories ---> "1" collaboratorRepository
+Repositories ---> "1" teamProposalRepository
+Repositories ---> "1" teamRepository
 
 GenerateTeamProposalController .> skillRepository : skillRepository
 GenerateTeamProposalController .> collaboratorRepository : collaboratorRepository
 GenerateTeamProposalController .> teamRepository : teamRepository
+GenerateTeamProposalController .> teamProposalRepository : teamProposalRepository
 
 HRM "1" --> "*" Team : creates
 Team "1" --> "1..*" Collaborator : has
 Collaborator "1" --> "*" Skill : has
 
+GenerateTeamProposalController .> TeamProposal : teamProposal
 GenerateTeamProposalController .> Team : team
 skillRepository --> Skill : has
 collaboratorRepository --> Collaborator : has
