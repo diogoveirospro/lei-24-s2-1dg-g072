@@ -15,8 +15,6 @@ class Skill {
     + Skill(name)
 }
 
-class HRM {
-}
 
 class RegisterSkillUI {
 
@@ -28,7 +26,7 @@ class RegisterSkillController {
 }
 
 class Repositories {
-    - Repositories : Repositories
+    - Repositories()
     + getInstance() : Repositories
     + getSkillRepository() : Repositories
 }
@@ -38,13 +36,11 @@ class SkillRepository {
 }
 
 
-HRM "1" --> "*" Skill
-Repositories "1" --> "*" Skill
 RegisterSkillUI .> RegisterSkillController
 RegisterSkillController .> Repositories : repositories
 Repositories --> Repositories : instance
-Repositories --> "1" SkillRepository
-SkillRepository --> "1" Skill
+Repositories "1" --> "1" SkillRepository
+SkillRepository o-- "*" Skill : has
 RegisterSkillController .> SkillRepository : skillRepository
 RegisterSkillController .> Skill : skill
 

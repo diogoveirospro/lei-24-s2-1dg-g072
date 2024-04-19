@@ -41,12 +41,12 @@ class JobRepository {
 }
 
 
-HRM "1" --> "*" Job : creates
+HRM  o-- "*" Job : creates
 RegisterJobUI .> RegisterJobController
 RegisterJobController .> Repositories : repositories
 Repositories --> Repositories : instance
 Repositories --> "1" JobRepository
-JobRepository --> "1" Job : has
+JobRepository o-- "1" Job : has
 RegisterJobController .> JobRepository : jobRepository
 RegisterJobController .> Job : job
 
