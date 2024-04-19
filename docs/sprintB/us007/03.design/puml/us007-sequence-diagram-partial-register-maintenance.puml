@@ -6,14 +6,14 @@ skinparam shadowing false
 participant "maintenanceRepository\n:MaintenanceRepository" as MAINREP
 participant "maintenance\n:Maintenance" as MAINTENANCE
 
-autonumber 16
--> MAINREP: registerMaintenance(plateNumber, date, kmOnMaintenance)
+autonumber 19
+-> MAINREP: registerVehicleMaintenance(vehicleList, date)
 
-autonumber 16.1
+autonumber 19.1
 activate MAINREP
     group Register Maintenance
 
-        MAINREP -> MAINTENANCE**: registerMaintenance(plateNumber, date, kmOnMaintenance)
+        MAINREP -> MAINTENANCE**: registerVehicleMaintenance(vehicleList, date)
         MAINREP -> MAINREP: addVehicleMaintenance (maintenance)
 
         activate MAINREP
@@ -23,10 +23,10 @@ activate MAINREP
 
         deactivate MAINREP
         end
+    autonumber 20
     <-- MAINREP : maintenance
         deactivate MAINREP
 
-    autonumber 17
 
 
 @enduml
