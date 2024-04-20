@@ -6,41 +6,39 @@
 
 _**Note that SSD - Alternative One is adopted.**_
 
-| Interaction ID | Question: Which class is responsible for...    | Answer                         | Justification (with patterns)                                                                                                                                      |
-|:---------------|:-----------------------------------------------|:-------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Step 1         | ... interacting with the actor?                | GenerateTeamProposalUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model.                                                      |
-|                | ... coordinating the US?                       | GenerateTeamProposalController | Controller: coordinates the interactions related to generating a team proposal in the user interface (UI) and executes the logic needed to process these requests. |
-|                | ... instantiating a new team?                  | TeamRepository                 | Creator (Rule 2): the Organisation registers a Job instance.                                                                                                       |
-| Step 2         | ... saving the inputted data?                  | Team                           | IE: processes user input and generates a team proposal based on this information.                                                                                  |
-| Step 3         | ... listing available skills for selection?    | GenerateTeamProposalController | Controller: The Controller manages the logic for listing the available competences, coordinating between the UI and the Repositories.                              |
-|                | ... choosing members based on selected skills? | GenerateTeamProposalController | Controller: The Controller handles the logic of selecting team members based on the chosen skills and other criteria.                                              |
-| Step 4         | ... generating the actual team proposal?       | GenerateTeamProposalController | Controller: The Controller is responsible for generating the team proposal based on the selected members and team size.                                            |
-|                |                                                |                                |                                                                                                                                                                    |
-|                |                                                |                                |                                                                                                                                                                    |
-|                |                                                |                                |                                                                                                                                                                    |
-|                |                                                |                                |                                                                                                                                                                    |
-|                |                                                |                                |                                                                                                                                                                    |
-| Step 2  		     | 							                                        |                                |                                                                                                                                                                    |
-| Step 3  		     | 	...saving the inputted data?                  | Task                           | IE: object created in step 1 has its own data.                                                                                                                     |
-| Step 4  		     | 	...knowing the task categories to show?       | System                         | IE: Task Categories are defined by the Administrators.                                                                                                             |
-| Step 5  		     | 	... saving the selected category?             | Task                           | IE: object created in step 1 is classified in one Category.                                                                                                        |
-| Step 6  		     | 							                                        |                                |                                                                                                                                                                    |              
-| Step 7  		     | 	... validating all data (local validation)?   | Task                           | IE: owns its data.                                                                                                                                                 | 
-| 			  		        | 	... validating all data (global validation)?  | Organization                   | IE: knows all its tasks.                                                                                                                                           | 
-| 			  		        | 	... saving the created task?                  | Organization                   | IE: owns all its tasks.                                                                                                                                            | 
-| Step 8  		     | 	... informing operation success?              | CreateTaskUI                   | IE: is responsible for user interactions.                                                                                                                          | 
+| Interaction ID | Question: Which class is responsible for...  | Answer                         | Justification (with patterns)                                                                                                                                      |
+|:---------------|:---------------------------------------------|:-------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Step 1         | ... interacting with the actor?              | GenerateTeamProposalUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model.                                                      |
+|                | ... coordinating the US?                     | GenerateTeamProposalController | Controller: coordinates the interactions related to generating a team proposal in the user interface (UI) and executes the logic needed to process these requests. |
+|                | ... instantiating a new team proposal?       | TeamProposalRepository         | Creator (Rule 2): the TeamProposalRepository registers a TeamProposal instance.                                                                                    |
+| Step 2         |                                              |                                |                                                                                                                                                                    |
+| Step 3         | ... saving the inputted data?                | TeamProposal                   | IE: processes user input and generates a team proposal based on this information.                                                                                  |
+| Step 4         | ... knowing the list of skills to present?   | System                         | IE: Skills are recorded by HRM.                                                                                                                                    |
+| Step 5         | ... saving the select skills?                | TeamProposal                   | IE: TeamProposal manages the selected skills data.                                                                                                                 |
+| Step 6         |                                              |                                |                                                                                                                                                                    |
+| Step 7         | ... validating all data (local validation)?  | TeamProposal                   | IE: owns its data.                                                                                                                                                 |
+|                | ... validating all data (global validation)? | TeamProposalRepository         | IE: knows all its teams proposal.                                                                                                                                  |
+|                | ... saving the creates team proposal?        | TeamProposalRepository         | IE: owns all its teams proposal.                                                                                                                                   |
+| Step 8         |                                              |                                |                                                                                                                                                                    |
+| Step 9         | ... instantiating a new team?                | TeamRepository                 | Creator (Rule 2): the TeamRepository registers a Team instance.                                                                                                    |
+|                | ... validating all data (local validation)?  | Team                           | IE: owns its data.                                                                                                                                                 |
+|                | ... validating all data (global validation)? | TeamRepository                 | IE: knows all its teams.                                                                                                                                           |
+|                | ... saving the created team?                 | TeamRepository                 | IE: owns all its teams.                                                                                                                                            |
+| Step 10        | ... informating operation success?           | GenerateTeamProposalUI         | IE: is responsible for user interactions.                                                                                                                          |
 
 ### Systematization ##
 
 According to the taken rationale, the conceptual classes promoted to software classes are: 
 
-* Organization
-* Task
+* TeamProposalRepository
+* TeamProposal
+* TeamRepository
+* Team
 
 Other software classes (i.e. Pure Fabrication) identified: 
 
-* CreateTaskUI  
-* CreateTaskController
+* GenerateTeamProposalUI  
+* GenerateTeamProposalController
 
 
 ## 3.2. Sequence Diagram (SD)
