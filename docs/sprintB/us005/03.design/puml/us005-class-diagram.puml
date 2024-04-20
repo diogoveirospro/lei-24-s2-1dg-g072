@@ -97,8 +97,8 @@ GenerateTeamProposalController .> TeamRepository : teamRepository
 GenerateTeamProposalController .> TeamProposalRepository : teamProposalRepository
 
 HRM "1" --> "*" Team : creates
-Team "1" --> "1..*" Collaborator : has
-Collaborator "1" --> "*" Skill : has
+Team  o-- "*" Collaborator : has
+Collaborator  o-- "*" Skill : has
 
 GenerateTeamProposalController .> TeamProposal : teamProposal
 GenerateTeamProposalController .> Team : team
