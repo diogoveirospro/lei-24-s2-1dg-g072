@@ -24,7 +24,7 @@ _**Note that SSD - Alternative One is adopted.**_
 |                | ... validating all data (local validation)?  | Team                           | IE: owns its data.                                                                                                                                                 |
 |                | ... validating all data (global validation)? | TeamRepository                 | IE: knows all its teams.                                                                                                                                           |
 |                | ... saving the created team?                 | TeamRepository                 | IE: owns all its teams.                                                                                                                                            |
-| Step 10        | ... informating operation success?           | GenerateTeamProposalUI         | IE: is responsible for user interactions.                                                                                                                          |
+| Step 10        | ... informing operation success?             | GenerateTeamProposalUI         | IE: is responsible for user interactions.                                                                                                                          |
 
 ### Systematization ##
 
