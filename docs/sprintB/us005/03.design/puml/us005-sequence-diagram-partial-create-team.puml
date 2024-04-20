@@ -7,11 +7,10 @@ autonumber
 
 'hide footbox
 participant ":GenerateTeamProposalController" as CTRL
-participant "teamRepository" as TEAMREP
 participant Repositories
-participant "repositories:Repositories" as REP
-participant "teamRepository" as TEAMREP
-participant "team:\nTeam" as team
+participant "repositories\n:Repositories" as REP
+participant "teamRepository\n:TeamRepository" as TEAMREP
+participant "team\n:Team" as team
 
 autonumber 17
 -> CTRL : createTeam(teamProposal)

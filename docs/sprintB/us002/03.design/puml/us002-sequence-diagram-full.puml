@@ -10,8 +10,8 @@ actor "Human Resources\n Manager" as HRM
 participant ":RegisterJobUI" as UI
 participant ":RegisterJobController" as CTRL
 participant Repositories
-participant "repositories:Repositories" as REP
-participant "jobRepository" as JOBREP
+participant "repositories\n:Repositories" as REP
+participant "jobRepository\n:JobRepository" as JOBREP
 participant "job\n:Job" as Job
 
 activate HRM

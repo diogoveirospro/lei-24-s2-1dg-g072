@@ -3,7 +3,7 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-participant "skillRepository" as SREP
+participant "skillRepository\n:SkillRepository" as SREP
 participant "skill\n:Skill" as SKILL
 
 autonumber 11

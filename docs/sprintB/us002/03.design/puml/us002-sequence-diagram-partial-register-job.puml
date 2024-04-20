@@ -3,7 +3,7 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-participant "jobRepository" as JOBREP
+participant "jobRepository\n:JobRepository" as JOBREP
 participant "job\n:Job" as Job
 
 autonumber 11

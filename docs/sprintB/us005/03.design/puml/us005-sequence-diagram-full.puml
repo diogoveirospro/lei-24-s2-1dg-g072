@@ -10,17 +10,17 @@ actor "Human Resources\n Manager" as HRM
 participant ":GenerateTeamProposalUI" as UI
 participant ":GenerateTeamProposalController" as CTRL
 participant Repositories
-participant "repositories:Repositories" as REP
-participant "skillRepository" as SKILLREP
-participant "collaboratorRepository" as COLREP
-participant "teamProposalRepository" as TEAMPROREP
-participant "teamProposal:\nTeamProposal" as teamProposal
-participant "teamRepository" as TEAMREP
-participant "team:\nTeam" as team
+participant "repositories\n:Repositories" as REP
+participant "skillRepository\n:SkillRepository" as SKILLREP
+participant "collaboratorRepository\n:CollaboratorRepository" as COLREP
+participant "teamProposalRepository\n:TeamProposalRepository" as TEAMPROREP
+participant "teamProposal\n:TeamProposal" as teamProposal
+participant "teamRepository\n:TeamRepository" as TEAMREP
+participant "team\n:Team" as team
 
 activate HRM
 
-    HRM -> UI : asks to create a new team
+    HRM -> UI : asks to create a new team proposal
     activate UI
 
         UI --> HRM : request the maximum and minimum team size

@@ -10,8 +10,8 @@ actor "Human\nResources\nManager\n(HRM)" as HRM
 participant ":RegisterSkillUI" as UI
 participant ":RegisterSkillController" as CTRL
 participant Repositories
-participant "repositories:Repositories" as REP
-participant "skillRepository" as SREP
+participant "repositories\n:Repositories" as REP
+participant "skillRepository\n:SkillRepository" as SREP
 
 activate HRM
 

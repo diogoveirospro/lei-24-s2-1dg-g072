@@ -12,7 +12,7 @@ participant ":System" as System
 
 activate HRM
 
-    HRM -> System : asks to create a new team
+    HRM -> System : asks to create a new team proposal
     activate System
 
         System --> HRM : request the maximum and minimum team size

@@ -10,7 +10,7 @@ autonumber
 participant ":MaintenanceController" as CTRL
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as REP
-participant "maintenanceRepository:\nMaintenanceRepository" as MaintenanceRepository
+participant "maintenanceRepository\n:MaintenanceRepository" as MaintenanceRepository
 
 autonumber 5
 

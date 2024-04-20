@@ -5,9 +5,9 @@ skinparam shadowing false
 
 participant ":GenerateTeamProposalController" as CTRL
 participant Repositories
-participant "repositories:Repositories" as REP
-participant "teamProposalRepository" as TEAMPROREP
-participant "teamProposal:\nTeamProposal" as teamProposal
+participant "repositories\n:Repositories" as REP
+participant "teamProposalRepository\n:TeamProposalRepository" as TEAMPROREP
+participant "teamProposal\n:TeamProposal" as teamProposal
 
 autonumber 13
 -> CTRL : generateTeamProposal(size, members)

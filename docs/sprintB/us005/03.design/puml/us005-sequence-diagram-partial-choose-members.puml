@@ -8,8 +8,8 @@ skinparam shadowing false
 'hide footbox
 participant ":GenerateTeamProposalController" as CTRL
 participant Repositories
-participant "repositories:Repositories" as REP
-participant "collaboratorRepository" as COLREP
+participant "repositories\n:Repositories" as REP
+participant "collaboratorRepository\n:CollaboratorRepository" as COLREP
 
 autonumber 11
 -> CTRL : chooseMembers(skills)

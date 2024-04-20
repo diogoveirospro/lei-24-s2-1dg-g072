@@ -5,8 +5,8 @@ skinparam shadowing false
 
 participant ":GenerateTeamProposalController" as CTRL
 participant Repositories
-participant "repositories:Repositories" as REP
-participant "skillRepository" as SKILLREP
+participant "repositories\n:Repositories" as REP
+participant "skillRepository\n:SkillRepository" as SKILLREP
 
 autonumber 5
 -> CTRL: listSkills()
