@@ -10,24 +10,27 @@ _**Note that SSD - Alternative One is adopted.**_
 |:---------------|:--------------------------------------------|:------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Step 1         | ... interacting with the actor?             | RegisterSkillUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model.                                              |
 |                | ... coordinating the US?                    | RegisterSkillController | Controller: coordinates the interactions related to registering skills in the user interface (UI) and executes the logic needed to process these requests. |
-|                | ... instantiating a new Skill?              | SkillsRepository        | Creator (Rule 2): the SkillsRepository registers a skill instance.                                                                                         |
-| Step 2         | ... saving the inputted data?               | Skill                   | IE: object created in step 1 has its own data.                                                                                                             |
-| Step 3         | ... validating all data (local validation)? | Skill                   | IE: owns its data.                                                                                                                                         |
-|                | ... validate all data (global validation)?  | SkillsRepository        | IE: knows all its skills.                                                                                                                                  |
-|                | ... saving the created skill?               | SkillsRepository        | IE: owns all its skills.                                                                                                                                   |
-| Step 4         | ... informing operation success?            | RegisterSkillUI         | IE: is responsible for user interactions.                                                                                                                  |
+|                | ... instantiating a new Job?                | SkillRepository         | Creator (Rule 2): the Organisation registers a Skill instance.                                                                                             |
+| Step 2         |                                             |                         |                                                                                                                                                            |
+| Step 3         | ... saving the inputted data?               | Skill                   | IE: object created in step 1 has its own data.                                                                                                             |
+| Step 4         |                                             |                         |                                                                                                                                                            |
+| Step 5         | ... validating all data (local validation)? | Skill                   | IE: owns its data.                                                                                                                                         |
+|                | ... validate all data (global validation)?  | SkillRepository         | IE: knows all its skills.                                                                                                                                  |
+|                | ... saving the created job?                 | SkillRepository         | IE: owns all its skills.                                                                                                                                   |
+| Step 6         | ... informing operation success?            | RegisterSkillUI         | IE: is responsible for user interactions.                                                                                                                  |
 
 ### Systematization ##
 
-According to the taken rationale, the conceptual classes promoted to software classes are: 
+According to the taken rationale, the conceptual classes promoted to software classes are:
 
-* SkillsRepository
+* SkillRepository
 * Skill
 
-Other software classes (i.e. Pure Fabrication) identified: 
+Other software classes (i.e. Pure Fabrication) identified:
 
-* RegisterSkillsUI  
-* RegisterSkillsController
+* RegisterSkillUI
+* RegisterSkillController
+
 
 
 ## 3.2. Sequence Diagram (SD)

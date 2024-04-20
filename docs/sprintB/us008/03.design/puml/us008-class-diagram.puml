@@ -13,12 +13,16 @@ class ListMaintenanceUI{
 
 }
 class ListMaintenanceController{
+    + getMaintenanceList()
+    + createMaintenanceController()
 }
 class MaintenanceRepository{
 }
-class VFM{
-}
+
 class Repositories{
+ - Repositories()
+ + getMaintenanceRepositories(): Repositories
+ + getInstance(): Repositories
 }
 
 ListMaintenanceUI .> ListMaintenanceController
@@ -26,5 +30,4 @@ ListMaintenanceController ..> Repositories : repositories
 Repositories -> Repositories : instance
 ListMaintenanceController .> MaintenanceRepository: maintenanceRepository
 Repositories ---> MaintenanceRepository
-ListMaintenanceUI ..> VFM : list
 @enduml
