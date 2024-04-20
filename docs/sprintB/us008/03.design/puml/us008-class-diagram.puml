@@ -17,6 +17,7 @@ class ListMaintenanceController{
     + createMaintenanceController()
 }
 class MaintenanceRepository{
+    + getMaintenanceList()
 }
 
 class Repositories{
@@ -29,5 +30,5 @@ ListMaintenanceUI .> ListMaintenanceController
 ListMaintenanceController ..> Repositories : repositories
 Repositories -> Repositories : instance
 ListMaintenanceController .> MaintenanceRepository: maintenanceRepository
-Repositories ---> MaintenanceRepository
+Repositories "1" ---> "1" MaintenanceRepository
 @enduml
