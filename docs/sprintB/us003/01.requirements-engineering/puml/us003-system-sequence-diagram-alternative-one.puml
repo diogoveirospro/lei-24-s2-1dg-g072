@@ -26,7 +26,6 @@ activate HRM
 
     HRM -> System : selects a job position
     activate System
-
         System --> HRM : shows a list of available skills and \n asks to select relevant ones
     deactivate System
 

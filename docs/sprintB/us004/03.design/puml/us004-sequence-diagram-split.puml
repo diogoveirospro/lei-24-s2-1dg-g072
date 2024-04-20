@@ -3,90 +3,29 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-autonumber
+participant "skillRepository" as SREP
+participant "skill\n:Skill" as SKILL
 
-'hide footbox
-actor "Organization Employee" as ADM
-participant ":CreateTaskUI" as UI
-participant ":CreateTaskController" as CTRL
-participant "organization\n:Organization" as ORG
+autonumber 11
+-> SREP: registerSkill(name)
 
-activate ADM
+autonumber 11.1
+activate SREP
+    group Register Skills
 
-    ADM -> UI : asks to create a new task
+        SREP -> SKILL**: registers(name)
+        SREP -> SREP: addSkill(skill)
+        activate SREP
+                SREP -> SREP: validateSkill(skill)
+                activate SREP
 
-    activate UI
+    end
 
-        UI -> CTRL** : create
-        UI -> CTRL : getTaskCategories()
-        ref over CTRL
-            Get Task Category List
+    autonumber 12
+    <-- SREP : skill
+                deactivate SREP
 
-        end ref
+       deactivate SREP
 
-        activate CTRL
-
-            CTRL --> UI : taskCategoryList
-        deactivate CTRL
-
-        UI --> ADM : shows task category list and asks to sleect one
-    deactivate UI
-
-    ADM -> UI : selects a task category
-    activate UI
-
-        UI --> ADM : requests data
-    deactivate UI
-
-    ADM -> UI : types requested data (reference, description,\ninformal description, technical description,\nduration, cost)
-    activate UI
-
-        UI --> ADM : shows selected category and requested data
-    deactivate UI
-
-    ADM -> UI : submits data
-    activate UI
-
-        UI -> CTRL : createTask(reference, description, informalDescription,\ntechnicalDescription,duration, cost, taskCategoryDescription)
-        activate CTRL
-
-            CTRL -> CTRL : getTaskCategoryByDescription(taskCategoryDescription)
-            activate CTRL
-
-                ref over CTRL
-                    Get Task Category Object
-
-                end ref
-
-                CTRL --> CTRL : taskCategory
-            deactivate CTRL
-
-            CTRL -> CTRL : getEmployeeFromSession()
-            activate CTRL
-
-                ref over CTRL
-                    Get Employee
-
-                end ref
-                CTRL -> CTRL : employee
-            deactivate CTRL
-
-            CTRL -> ORG: createTask(reference, description, informalDescription,\ntechnicalDescription, duration, cost, taskCategory, employee)
-            activate ORG
-
-                ref over ORG
-                    Create Task
-
-                end
-
-                ORG --> CTRL : task
-            deactivate ORG
-
-            CTRL --> UI: task
-            deactivate CTRL
-            UI --> ADM: displays operation success
-    deactivate UI
-
-deactivate ADM
-
+deactivate SREP
 @enduml
