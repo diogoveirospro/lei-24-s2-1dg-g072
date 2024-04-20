@@ -91,6 +91,10 @@ As a GSM, I want to know the exact costs referring to water consumption of speci
 > 
 > **Answer:** The calculations are made for each park separately.
 
+> **Question:** Is the documentation they request for each of US in Portuguese or English?
+> 
+> **Answer:** Portuguese.
+
 ### 1.3. Acceptance Criteria
 
 * **AC1:** The programming language must be **Python**.
@@ -120,7 +124,7 @@ As a GSM, I want to know the exact costs referring to water consumption of speci
 
 * Barplot representing monthly water consumption
 * Average of monthly costs related to water consumption
-* Comparative statistical analysis
+* Statistical analysis comparing the park with the highest and lowest water consumption
 
 ### 1.6. System Sequence Diagram (SSD)
 
