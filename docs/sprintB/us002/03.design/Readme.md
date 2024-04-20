@@ -11,11 +11,13 @@ _**Note that SSD - Alternative One is adopted.**_
 | Step 1         | ... interacting with the actor?             | RegisterJobUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model.                                            |
 |                | ... coordinating the US?                    | RegisterJobController | Controller: coordinates the interactions related to registering jobs in the user interface (UI) and executes the logic needed to process these requests. |
 |                | ... instantiating a new Job?                | JobRepository         | Creator (Rule 2): the Organisation registers a Job instance.                                                                                             |
-| Step 2         | ... saving the inputted data?               | Job                   | IE: object created in step 1 has its own data.                                                                                                           |
-| Step 3         | ... validating all data (local validation)? | Job                   | IE: owns its data.                                                                                                                                       |
+| Step 2         |                                             |                       |                                                                                                                                                          |
+| Step 3         | ... saving the inputted data?               | Job                   | IE: object created in step 1 has its own data.                                                                                                           |
+| Step 4         |                                             |                       |                                                                                                                                                          |
+| Step 5         | ... validating all data (local validation)? | Job                   | IE: owns its data.                                                                                                                                       |
 |                | ... validate all data (global validation)?  | JobRepository         | IE: knows all its jobs.                                                                                                                                  |
 |                | ... saving the created job?                 | JobRepository         | IE: owns all its jobs.                                                                                                                                   |
-| Step 4         | ... informing operation success?            | RegisterJobUI         | IE: is responsible for user interactions.                                                                                                                |
+| Step 6         | ... informing operation success?            | RegisterJobUI         | IE: is responsible for user interactions.                                                                                                                |
 
 ### Systematization ##
 
