@@ -55,6 +55,8 @@ Repositories --> "1" vehicleRepository
 
 RegisterVehicleController .> Repositories : repositories
 
-vehicleRepository "1" ---> "1..*"Vehicle
+vehicleRepository "1" o--- "1..*"Vehicle : has
+
+RegisterVehicleController .> Vehicle : vehicle
 
 @enduml
