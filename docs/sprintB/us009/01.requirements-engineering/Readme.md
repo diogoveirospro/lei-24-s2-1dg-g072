@@ -95,6 +95,15 @@ As a GSM, I want to know the exact costs referring to water consumption of speci
 > 
 > **Answer:** Portuguese.
 
+> **Question:** What happens if there are several parks with equally high water consumption and equally low?
+Do we choose two at our discretion? Or do we study all the parks in question?
+> 
+> **Answer:** They do the study for all the parks.
+
+>**Question:** Should we output all the information to a file or show it on the screen and offer that option to the user?
+> 
+> **Answer:** The output should be displayed.
+
 ### 1.3. Acceptance Criteria
 
 * **AC1:** The programming language must be **Python**.
