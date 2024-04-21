@@ -95,7 +95,7 @@ activate HRM
             CTRL --> UI: members
         deactivate CTRL
 
-        UI -> CTRL: generateTeamProposal(size, members)
+        UI -> CTRL: generateTeamProposal(minimumSize, maximumSize, members)
         activate CTRL
 
             CTRL -> Repositories: getInstance()
@@ -110,10 +110,10 @@ activate HRM
                 REP --> CTRL: teamProposalRepository
             deactivate REP
 
-            CTRL -> TEAMPROREP: generateTeamProposal(size, members)
+            CTRL -> TEAMPROREP: generateTeamProposal(minimumSize, maximumSize, members)
             activate TEAMPROREP
 
-                TEAMPROREP -> teamProposal**: generateTeamProposal(size, members)
+                TEAMPROREP -> teamProposal**: generateTeamProposal(minimumSize, maximumSize, members)
 
                     TEAMPROREP -> TEAMPROREP : addTeamProposal(teamProposal)
                     activate TEAMPROREP

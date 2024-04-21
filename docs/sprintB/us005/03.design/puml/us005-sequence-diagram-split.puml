@@ -61,7 +61,7 @@ activate HRM
             CTRL --> UI: members
         deactivate CTRL
 
-        UI -> CTRL: generateTeamProposal(size, members)
+        UI -> CTRL: generateTeamProposal(minimumSize, maximumSize, members)
         activate CTRL
 
             ref over CTRL

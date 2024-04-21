@@ -11,14 +11,14 @@ skinparam classAttributeIconSize 0
 
 class HRM {
     + HRM()
-    + generateTeamProposal(size, members)
+    + generateTeamProposal(minimumSize, maximumSize, members)
 }
 
 class GenerateTeamProposalController {
     + GenerateTeamProposalController(skillRepository, collaboratorRepository, teamRepository)
     + listSkills()
     + chooseMembers(skills)
-    + generateTeamProposal(size, members)
+    + generateTeamProposal(minimumSize, maximumSize, members)
     + createTeam(teamProposal)
 }
 
@@ -44,7 +44,7 @@ class CollaboratorRepository {
 }
 
 class TeamProposalRepository {
-    - generateTeamProposal(size, members)
+    - generateTeamProposal(minimumSize, maximumSize, members)
     - validateTeamProposal(teamProposal)
     - addTeamProposal(teamProposal)
 }
@@ -56,9 +56,10 @@ class TeamRepository {
 }
 
 class TeamProposal {
-    - size : int
+    - minimumSize : int
+    - maximumSize : int
     - members : ArrayList<Collaborator>
-    + TeamProposal(size, members)
+    + TeamProposal(minimumSize, maximumSize, members)
 }
 
 class Team {
