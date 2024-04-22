@@ -18,7 +18,7 @@ activate CollaboratorRepository
             CollaboratorRepository -> CollaboratorRepository: validateCollaborator(collaborator)
         deactivate CollaboratorRepository
     end
-end
+
 
 autonumber 12
 <-- CollaboratorRepository: collaborator

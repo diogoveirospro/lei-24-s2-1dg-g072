@@ -7,60 +7,63 @@ autonumber
 
 'hide footbox
 actor "Human Resources\n Manager" as HRM
-participant ":RegisterSkillUI" as UI
-participant ":RegisterSkillController" as CTRL
+participant ":AssignSkillController" as CTRL
 participant Repositories
-participant "repositories:Repositories" as REP
-participant "skillRepository" as SREP
-participant "skill\n:Skill" as skill
+participant "repositories\n:Repositories" as REP
+participant "collaboratorRepository\n:CollaboratorRepository" as COLREP
+participant "skillRepository\n:SkillRepository" as SKILLREP
 
 activate HRM
 
+    HRM -> CTRL : assigns a skill to a collaborator
+    activate CTRL
 
-        HRM -> UI : asks to register some skill
-        activate UI
+        CTRL -> Repositories: getInstance()
+        activate Repositories
 
-                UI --> HRM : requests the skill name
-        deactivate UI
-        HRM -> UI: Types requested data
-        activate UI
+            Repositories --> CTRL: repositories
+        deactivate Repositories
 
-                UI --> HRM : Shows the skill and asks for confirmation
-        deactivate UI
-        HRM -> UI : Confirms skill
-        activate UI
+        CTRL -> REP: getCollaboratorRepository()
+        activate REP
 
-                UI -> CTRL: registerSkill(name)
+            REP --> CTRL: collaboratorRepository
+        deactivate REP
 
-                activate CTRL
+        CTRL -> SKILLREP : getSkillRepository()
+        activate SKILLREP
 
-                        CTRL -> Repositories: getInstance()
+            SKILLREP --> CTRL: skillRepository
+        deactivate SKILLREP
 
-                        activate Repositories
+        CTRL -> CTRL: assignSkill(collaboratorId, skillName)
 
-                                Repositories --> CTRL: repositories
-                        deactivate Repositories
+            alt Skill and collaborator exist
+                CTRL -> COLREP: getCollaborator(collaboratorId)
+                activate COLREP
 
-                        CTRL -> REP: getSkillsRepository()
-                        activate REP
+                    COLREP --> CTRL: collaborator
+                deactivate COLREP
 
-                                REP --> CTRL: skillsRepository
-                        deactivate REP
-                        CTRL -> SREP: registerSkill(name)
-                        activate SREP
+                CTRL -> SKILLREP: getSkill(skillName)
+                activate SKILLREP
 
-                                ref over SREP
-                                        Register Skill
+                    SKILLREP --> CTRL: skill
+                deactivate SKILLREP
 
-                                end
-                                SREP --> CTRL: skill
-                        deactivate SREP
+                CTRL -> collaborator: assignSkill(skill)
+                activate collaborator
 
-                        CTRL --> UI: skill
-                deactivate CTRL
+                    collaborator --> CTRL: assigned skill
+                deactivate collaborator
 
-                UI --> HRM: displays operation success
-        deactivate UI
+                CTRL --> HRM: success
+            else Skill or collaborator does not exist
+                CTRL --> HRM: failure
+            end
+
+    deactivate CTRL
+
 deactivate HRM
 
 @enduml

@@ -3,32 +3,38 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-participant "organization\n:Organization" as ORG
-participant "task\n:Task" as TAREFA
+participant "collaboratorRepository\n:CollaboratorRepository" as COLREP
+participant "skillRepository\n:SkillRepository" as SKILLREP
+participant "collaborator" as collaborator
 
-autonumber 16
--> ORG: createTask(reference, description,\ninformalDescription, technicalDescription,\nduration, cost, taskCategory, employee )
+autonumber 11
+-> COLREP : getCollaborator(collaboratorId)
 
-autonumber 16.1
-activate ORG
-    group Create Task
+autonumber 11.1
+activate COLREP
 
-        ORG -> TAREFA**: create(reference, description,\ninformalDescription, technicalDescription,\nduration, cost, taskCategory, employee)
-        ORG -> ORG: addTask (task)
+    COLREP --> collaborator: collaborator
 
-        activate ORG
-            ORG -> ORG: validateTask(task)
-            activate ORG
-                ORG --> ORG
-            deactivate ORG
+autonumber 12
+--> SKILLREP : getSkill(skillName)
 
-            ORG --> ORG
-        deactivate ORG
-    end
+autonumber 12.1
+activate SKILLREP
 
-    autonumber 17
-    <-- ORG : task
-deactivate ORG
+    SKILLREP --> SKILLREP: skill
 
+    SKILLREP --> collaborator: skill
+
+autonumber 12.2
+activate collaborator
+
+    collaborator --> SKILLREP: assigned skill
+
+autonumber 12.3
+deactivate collaborator
+
+deactivate SKILLREP
+
+deactivate COLREP
 
 @enduml
