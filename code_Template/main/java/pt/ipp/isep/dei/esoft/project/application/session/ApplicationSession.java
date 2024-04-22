@@ -1,8 +1,5 @@
 package pt.ipp.isep.dei.esoft.project.application.session;
 
-import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
-import pt.ipp.isep.dei.esoft.project.repository.Repositories;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
