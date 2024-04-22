@@ -50,21 +50,22 @@ activate HRM
                         activate SREP
 
                                 SREP -> skill**: register(name)
-                                activate SREP
+
 
                                 SREP -> SREP: addSkill(skill)
                                         activate SREP
                                         SREP -> SREP: validateSkill(skill)
 
+                                                activate SREP
 
 
 
 
                                 SREP --> CTRL: skill
+                                                deactivate SREP
 
                                         deactivate SREP
 
-                                deactivate SREP
 
                         deactivate SREP
 
