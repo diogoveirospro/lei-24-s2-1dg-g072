@@ -22,41 +22,8 @@ class Collaborator {
 class HRM {
 
 }
-class GreenSpace {
-    name
-    address
-    type
-}
 
-class Garden {
-    name
-    address
-    dimension
-}
 
-class MediumSizedPark {
-    name
-    address
-    dimension
-}
-
-class LargeSizedPark {
-    name
-    address
-    dimension
-}
-class Organization{
-    name
-    address
-}
-
-Organization "1" -- "1..*" GreenSpace: owns >
-Organization "1   " -- "1..*" Collaborator: works for <
-GreenSpace "1" -- "1..*" Collaborator: contains >
-GreenSpace <|-- Garden
-GreenSpace <|-- MediumSizedPark
-GreenSpace <|-- LargeSizedPark
-HRM "1" ----- "*" Collaborator : registers >
-Collaborator <|---- HRM
+HRM "1" - "*" Collaborator : registers >
 
 @enduml
