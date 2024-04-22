@@ -3,6 +3,7 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
+autonumber
 actor HRM
 participant RegisterCollaboratorUI
 participant RegisterCollaboratorController

@@ -16,11 +16,13 @@ activate CollaboratorRepository
         CollaboratorRepository -> CollaboratorRepository: addCollaborator(collaborator)
         activate CollaboratorRepository
             CollaboratorRepository -> CollaboratorRepository: validateCollaborator(collaborator)
-        deactivate CollaboratorRepository
+                activate CollaboratorRepository
     end
 
 
 autonumber 12
 <-- CollaboratorRepository: collaborator
+deactivate CollaboratorRepository
+deactivate CollaboratorRepository
 deactivate CollaboratorRepository
 @enduml
