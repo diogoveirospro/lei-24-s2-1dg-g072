@@ -66,6 +66,8 @@ RegisterVehicleController .> Repositories : repositories
 
 vehicleRepository "1" o--- "1..*"Vehicle : has
 
+vehicleMaintenanceRepository o-- Vehicle : has
+
 Vehicle -> Maintenance
 
 @enduml
