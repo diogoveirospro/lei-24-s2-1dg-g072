@@ -85,11 +85,180 @@ public class Vehicle {
         this.kmAtLastMaintenance = kmAtLastMaintenance;
     }
 
-    public boolean validateVehicle(Vehicle vehicle){
-
+    /**
+     * Gets plate number of vehicle
+     * @return plate number
+     */
+    public String getPlateNumber() {
+        return plateNumber;
     }
 
+    /**
+     * Gets current kms of vehicle
+     * @return current kms
+     */
+    public Double getCurrentKms() {
+        return currentKms;
+    }
 
+    /**
+     * Gets gross weight of vehicle
+     * @return gross weight
+     */
+    public Double getGrossWeight() {
+        return grossWeight;
+    }
 
+    /**
+     * Gets Km at last maintenance of vehicle
+     * @return km at last maintenance
+     */
+    public Double getKmAtLastMaintenance() {
+        return kmAtLastMaintenance;
+    }
+
+    /**
+     * Gets service frequency of vehicle
+     * @return service frequency
+     */
+    public Double getServiceFrequency() {
+        return serviceFrequency;
+    }
+
+    /**
+     * Gets tare of vehicle
+     * @return tare
+     */
+    public Double getTare() {
+        return tare;
+    }
+
+    /**
+     * Gets acquisition date of vehicle
+     * @return acquisitions date
+     */
+    public String getAcquisitionDate() {
+        return acquisitionDate;
+    }
+
+    /**
+     * Gets brand of vehicle
+     * @return brand of vehicle
+     */
+    public String getBrand() {
+        return brand;
+    }
+
+    /**
+     * Gets model of vehicle
+     * @return model of vehicle
+     */
+    public String getModel() {
+        return model;
+    }
+
+    /**
+     * Get registration date of vehicle
+     * @return registration date of vehicle
+     */
+    public String getRegistrationDate() {
+        return registrationDate;
+    }
+
+    /**
+     * Gets type of vehicle
+     * @return type
+     */
+    public String getType() {
+        return type;
+    }
+
+    /**
+     * Set acquisition date of vehicle
+     * @param acquisitionDate
+     */
+    public void setAcquisitionDate(String acquisitionDate) {
+        this.acquisitionDate = acquisitionDate;
+    }
+
+    /**
+     * Set brand of vehicle
+     * @param brand
+     */
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    /**
+     * Set current kms of vehicle
+     * @param currentKms
+     */
+    public void setCurrentKms(Double currentKms) {
+        this.currentKms = currentKms;
+    }
+
+    /**
+     * Set km at last maintenance of vehicle
+     * @param kmAtLastMaintenance
+     */
+    public void setKmAtLastMaintenance(Double kmAtLastMaintenance) {
+        this.kmAtLastMaintenance = kmAtLastMaintenance;
+    }
+
+    /**
+     * Set gross weight of vehicle
+     * @param grossWeight
+     */
+    public void setGrossWeight(Double grossWeight) {
+        this.grossWeight = grossWeight;
+    }
+
+    /**
+     * Set model of vehicle
+     * @param model
+     */
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    /**
+     * Set plate number of vehicle
+     * @param plateNumber
+     */
+    public void setPlateNumber(String plateNumber) {
+        this.plateNumber = plateNumber;
+    }
+
+    /**
+     * Set registration date of vehicle
+     * @param registrationDate
+     */
+    public void setRegistrationDate(String registrationDate) {
+        this.registrationDate = registrationDate;
+    }
+
+    /**
+     * Set service frequency of vehicle
+     * @param serviceFrequency
+     */
+    public void setServiceFrequency(Double serviceFrequency) {
+        this.serviceFrequency = serviceFrequency;
+    }
+
+    /**
+     * Set tare of vehicle
+     * @param tare
+     */
+    public void setTare(Double tare) {
+        this.tare = tare;
+    }
+
+    /**
+     * Set type of vehicle
+     * @param type
+     */
+    public void setType(String type) {
+        this.type = type;
+    }
 
 }
