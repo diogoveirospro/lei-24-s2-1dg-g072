@@ -11,7 +11,7 @@ participant "collaborator\n:Collaborator" as COLLAB
 participant "team\n:Team" as team
 
 autonumber 13
--> CTRL : generateTeamProposal(minimumSize, maximumSize, members)
+-> CTRL : generateTeamProposal(minimumSize, maximumSize, skills, collaborators)
 
 autonumber 13.1
 
