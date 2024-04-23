@@ -137,12 +137,13 @@ minimum and maximum size of the team and the set of skills required for a given 
 > - Click on "Generate list" or a similar option to automatically create a list of all vehicles that need a check-up, after you confirm it.
 
 > ### 9. Costs of water consumption | GSM
-> **Purpose:** To enable the Vehicle Fleet Manager (VFM) to automatically generate a list of all vehicles that need a check-up.
+> **Purpose:** This feature allows the Green Spaces Manager to analyse the costs associated with water consumption in specific parks, facilitating the efficient management of water resources.
 >
 > **Instructions**:
-> - Log in to your Vehicle Fleet Manager account;
-> - Navigate to the section where you can list all vehicles that need a check-up;
-> - Click on "Generate list" or a similar option to automatically create a list of all vehicles that need a check-up, after you confirm it.
+> - From the main menu, select "Water Consumption Cost Analysis".
+> - Choose the park you want to analyse from the available list. 
+> - Select the time period (month/year) for which you want to visualize the data. 
+> - Click on "Visualize" to obtain the results of the analysis.
 
 
 > ### 10. Find which piece of equipment is used each day | GSM
