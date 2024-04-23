@@ -13,9 +13,8 @@ participant Repositories
 participant "repositories\n:Repositories" as REP
 participant "skillRepository\n:SkillRepository" as SKILLREP
 participant "collaboratorRepository\n:CollaboratorRepository" as COLREP
-participant "teamProposalRepository\n:TeamProposalRepository" as TEAMPROREP
-participant "teamProposal\n:TeamProposal" as teamProposal
 participant "teamRepository\n:TeamRepository" as TEAMREP
+participant "collaborator\n:Collaborator" as COLLAB
 participant "team\n:Team" as team
 
 activate HRM
@@ -71,7 +70,7 @@ activate HRM
     HRM -> UI: confirms data
     activate UI
 
-        UI -> CTRL: chooseMembers(skills)
+        UI -> CTRL: getCollaborators()
         activate CTRL
 
             CTRL -> Repositories: getInstance()
@@ -86,60 +85,16 @@ activate HRM
                 REP --> CTRL: collaboratorRepository
             deactivate REP
 
-            CTRL -> COLREP: chooseMembers(skills)
+            CTRL -> COLREP: getCollaborators()
             activate COLREP
 
-                COLREP --> CTRL: members
+                COLREP --> CTRL: collaborators
             deactivate COLREP
 
-            CTRL --> UI: members
+            CTRL --> UI: collaborators
         deactivate CTRL
 
-        UI -> CTRL: generateTeamProposal(minimumSize, maximumSize, members)
-        activate CTRL
-
-            CTRL -> Repositories: getInstance()
-            activate Repositories
-
-                Repositories --> CTRL: repositories
-            deactivate Repositories
-
-            CTRL -> REP: getTeamProposalRepository()
-            activate REP
-
-                REP --> CTRL: teamProposalRepository
-            deactivate REP
-
-            CTRL -> TEAMPROREP: generateTeamProposal(minimumSize, maximumSize, members)
-            activate TEAMPROREP
-
-                TEAMPROREP -> teamProposal**: generateTeamProposal(minimumSize, maximumSize, members)
-
-                    TEAMPROREP -> TEAMPROREP : addTeamProposal(teamProposal)
-                    activate TEAMPROREP
-
-                    TEAMPROREP -> TEAMPROREP : validateTeamProposal(teamProposal)
-                    activate TEAMPROREP
-
-                TEAMPROREP --> CTRL: teamProposal
-
-                deactivate TEAMPROREP
-
-                deactivate TEAMPROREP
-
-                
-            deactivate TEAMPROREP
-
-            CTRL --> UI: teamProposal
-        deactivate CTRL
-
-        UI --> HRM: show the team recommendation
-    deactivate UI
-
-    HRM -> UI: accepts team recommendation
-    activate UI
-
-        UI -> CTRL: createTeam(teamProposal)
+        UI -> CTRL: generateTeamProposal(minimumSize, maximumSize, skills, collaborators)
         activate CTRL
 
             CTRL -> Repositories: getInstance()
@@ -154,26 +109,48 @@ activate HRM
                 REP --> CTRL: teamRepository
             deactivate REP
 
-            CTRL -> TEAMREP: createTeam(teamProposal)
+            CTRL -> TEAMREP: generateTeamProposal(minimumSize, maximumSize, skills, collaborators)
             activate TEAMREP
 
-                TEAMREP -> team**: create(teamProposal)
+                TEAMREP -> COLLAB**: chooseMembers(collaborators, skills)
+                activate COLLAB
+                loop
+                    COLLAB -> COLLAB: analyseCollaborator(skills)
+                    activate COLLAB
+                end
+                    COLLAB --> TEAMREP: members
 
-                    TEAMREP -> TEAMREP: addTeam(team)
+                    deactivate COLLAB
+
+                deactivate COLLAB
+
+
+
+                TEAMREP -> team**: generateTeamProposal(minimumSize, maximumSize, members)
+
+                    TEAMREP -> TEAMREP : addTeam(team)
                     activate TEAMREP
 
-                    TEAMREP -> TEAMREP: validateTeam(team)
+                    TEAMREP -> TEAMREP : validateTeam(team)
                     activate TEAMREP
 
                 TEAMREP --> CTRL: team
+
+                deactivate TEAMREP
+
+                deactivate TEAMREP
+
+                
             deactivate TEAMREP
-
-                    deactivate TEAMREP
-
-                    deactivate TEAMREP
 
             CTRL --> UI: team
         deactivate CTRL
+
+        UI --> HRM: show the team recommendation
+    deactivate UI
+
+    HRM -> UI: accepts team recommendation
+    activate UI
 
         UI --> HRM: displays operation success
     deactivate UI
