@@ -11,15 +11,14 @@ skinparam classAttributeIconSize 0
 
 class HRM {
     + HRM()
-    + generateTeamProposal(minimumSize, maximumSize, members)
+    + generateTeamProposal(minimumSize, maximumSize, skills, collaborators)
 }
 
 class GenerateTeamProposalController {
     + GenerateTeamProposalController(skillRepository, collaboratorRepository, teamRepository)
     + listSkills()
-    + chooseMembers(skills)
-    + generateTeamProposal(minimumSize, maximumSize, members)
-    + createTeam(teamProposal)
+    + getCollaborators()
+    + generateTeamProposal(minimumSize, maximumSize, skills, collaborators)
 }
 
 
@@ -43,28 +42,17 @@ class CollaboratorRepository {
 
 }
 
-class TeamProposalRepository {
-    - generateTeamProposal(minimumSize, maximumSize, members)
-    - validateTeamProposal(teamProposal)
-    - addTeamProposal(teamProposal)
-}
-
 class TeamRepository {
-    - addTeam(team)
-    - validateTeam(team)
-    - create(teamProposal)
-}
-
-class TeamProposal {
-    - minimumSize : int
-    - maximumSize : int
-    - members : ArrayList<Collaborator>
-    + TeamProposal(minimumSize, maximumSize, members)
+    + generateTeamProposal(minimumSize, maximumSize, collaborators, skills)
+    + validateTeam(team)
+    + addTeam(team)
 }
 
 class Team {
-    - teamProposal : teamProposal
-    + Team(teamProposal)
+    - minimumSize : int
+    - maximumSize : int
+    - members : ArrayList<Collaborator>
+    + Team(minimumSize, maximumSize, members)
 }
 
 class Collaborator {
@@ -89,24 +77,20 @@ Repositories --> Repositories : instance
 
 Repositories ---> "1" SkillRepository
 Repositories ---> "1" CollaboratorRepository
-Repositories ---> "1" TeamProposalRepository
 Repositories ---> "1" TeamRepository
 
 GenerateTeamProposalController .> SkillRepository : skillRepository
 GenerateTeamProposalController .> CollaboratorRepository : collaboratorRepository
 GenerateTeamProposalController .> TeamRepository : teamRepository
-GenerateTeamProposalController .> TeamProposalRepository : teamProposalRepository
 
 HRM "1" --> "*" Team : creates
 Team  o-- "*" Collaborator : has
 Collaborator  o-- "*" Skill : has
 
-GenerateTeamProposalController .> TeamProposal : teamProposal
 GenerateTeamProposalController .> Team : team
 SkillRepository --> Skill : has
 CollaboratorRepository --> Collaborator : has
 TeamRepository --> Team : has
-TeamProposalRepository --> TeamProposal : has
 
 
 @enduml
