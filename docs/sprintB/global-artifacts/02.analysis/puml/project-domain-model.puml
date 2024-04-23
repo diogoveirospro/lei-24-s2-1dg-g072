@@ -8,10 +8,6 @@ skinparam classAttributeIconSize 0
 hide circle
 hide methods
 
-class Organization{
-    name
-    address
-}
 
 class HRM {
 
@@ -43,25 +39,6 @@ class Collaborator {
 
 
 
-class GreenSpace {
-    name
-    address
-    dimension
-}
-
-class Garden {
-
-}
-
-class MediumSizedPark {
-
-}
-
-class LargeSizedPark {
-
-}
-
-
 class Vehicle{
     plate id
     brand
@@ -83,13 +60,6 @@ class VehiclesCheckUp {
     plate id
 }
 
-Organization "1   " -- "1..*" Collaborator: works for <
-Collaborator <|-- HRM
-Organization "1" -- "1..*" GreenSpace: owns >
-GreenSpace "1" -- "1..*" Collaborator: has >
-GreenSpace <|-- Garden
-GreenSpace <|-- MediumSizedPark
-GreenSpace <|-- LargeSizedPark
 
 'US001
 HRM "1" -- "1..*" Skill: creates >
@@ -116,13 +86,10 @@ VFM "1" -- "1..*" Vehicle: registers >
 
 'US007
 VFM "1"-- "1..*" Vehicle: chooses >
-Vehicle "1..*" -- "1  " GreenSpace: has <
 
 'US008
 VFM "1" -- "1..*" VehiclesCheckUp: lists >
-VehiclesCheckUp "1..*" -- "1  " GreenSpace: has <
 Vehicle "1..*" -- "1" VehiclesCheckUp: has <
-Organization "1" -- "1..*" Vehicle: owns >
 
 
 @enduml

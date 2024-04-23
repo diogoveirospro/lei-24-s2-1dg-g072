@@ -11,6 +11,7 @@ left to right direction
 rectangle "System Actors" as actors {
     actor "Human Resources\nManager" as HRM
     actor "Vehicle and Equipment\nFleet Manager" as VFM
+    actor "Green Spaces\nManager" as GSM
 }
 
 
@@ -38,6 +39,24 @@ rectangle "Use Cases" as usecases{
 
     usecase "UC8 - List Vehicles that need Maintenance" as UC8
     VFM --> UC8
+
+    usecase "UC9 - Costs of water consumption" as UC9
+    GSM --> UC9
+
+    usecase "UC10 - Find which piece of equipment is used each day" as UC10
+    GSM --> UC10
+
+    usecase "UC11 - Collect data from user portal" as UC11
+    GSM --> UC11
+
+    usecase "UC12 - Import .csv file" as UC12
+    GSM --> UC12
+
+    usecase "UC13 - Algorithm that returns routes to be opened" as UC13
+    GSM --> UC13
+
+    usecase "UC14 - Run tests for the inputs of variable size" as UC14
+    GSM --> UC14
 }
 
 
