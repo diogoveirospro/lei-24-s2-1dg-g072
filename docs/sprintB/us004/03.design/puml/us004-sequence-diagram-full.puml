@@ -3,67 +3,66 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
+title System Sequence Diagram (SSD) - US004
+
 autonumber
 
-'hide footbox
-actor "Human Resources\n Manager" as HRM
-participant ":AssignSkillController" as CTRL
-participant Repositories
-participant "repositories\n:Repositories" as REP
-participant "collaboratorRepository\n:CollaboratorRepository" as COLREP
-participant "skillRepository\n:SkillRepository" as SKILLREP
+actor "Human Resources Manager" as HRM
+participant ":AssignSkillsUI" as UI
+participant ":AssignSkillsController" as CTRL
+participant ":Repositories" as RepositorySingleton
+participant "repositories\n:Repositories" as PLAT
+participant "collaboratorRepository\n:CollaboratorRepository" as CollaboratorRepository
+participant "skillRepository\n:SkillRepository" as SkillRepository
 
 activate HRM
 
-    HRM -> CTRL : assigns a skill to a collaborator
-    activate CTRL
+HRM -> UI : request to assign skills to a collaborator
+activate UI
+UI -> CTRL : getAvailableSkills()
+activate CTRL
+CTRL -> RepositorySingleton : getInstance()
+activate RepositorySingleton
+RepositorySingleton -> CTRL : repositories
+deactivate RepositorySingleton
+CTRL -> PLAT : getSkillRepository()
+activate PLAT
+PLAT -> CTRL : skillRepository
+deactivate PLAT
+CTRL -> SkillRepository : getAvailableSkills()
+activate SkillRepository
+SkillRepository --> CTRL : availableSkills
+deactivate SkillRepository
+CTRL --> UI : availableSkills
+deactivate CTRL
+UI --> HRM : displays a list of available skills
+deactivate UI
 
-        CTRL -> Repositories: getInstance()
-        activate Repositories
+HRM -> UI : select collaborator skills
+activate UI
+UI -> CTRL : confirmSkills(selectedSkills)
+activate CTRL
+CTRL -> UI : requests confirmation
+deactivate CTRL
+UI --> HRM : confirms
+deactivate UI
 
-            Repositories --> CTRL: repositories
-        deactivate Repositories
-
-        CTRL -> REP: getCollaboratorRepository()
-        activate REP
-
-            REP --> CTRL: collaboratorRepository
-        deactivate REP
-
-        CTRL -> SKILLREP : getSkillRepository()
-        activate SKILLREP
-
-            SKILLREP --> CTRL: skillRepository
-        deactivate SKILLREP
-
-        CTRL -> CTRL: assignSkill(collaboratorId, skillName)
-
-            alt Skill and collaborator exist
-                CTRL -> COLREP: getCollaborator(collaboratorId)
-                activate COLREP
-
-                    COLREP --> CTRL: collaborator
-                deactivate COLREP
-
-                CTRL -> SKILLREP: getSkill(skillName)
-                activate SKILLREP
-
-                    SKILLREP --> CTRL: skill
-                deactivate SKILLREP
-
-                CTRL -> collaborator: assignSkill(skill)
-                activate collaborator
-
-                    collaborator --> CTRL: assigned skill
-                deactivate collaborator
-
-                CTRL --> HRM: success
-            else Skill or collaborator does not exist
-                CTRL --> HRM: failure
-            end
-
-    deactivate CTRL
-
-deactivate HRM
+HRM -> CTRL : assignSkillsToCollaborator(selectedSkills, collaborator)
+activate CTRL
+CTRL -> RepositorySingleton : getInstance()
+activate RepositorySingleton
+RepositorySingleton --> CTRL: repositories
+deactivate RepositorySingleton
+CTRL -> CollaboratorRepository : getCollaboratorRepository()
+activate CollaboratorRepository
+CollaboratorRepository --> CTRL : collaboratorRepository
+deactivate CollaboratorRepository
+CTRL -> CollaboratorRepository : assignSkillsToCollaborator(selectedSkills, collaborator)
+activate CollaboratorRepository
+CollaboratorRepository --> CTRL : assignedSkills
+deactivate CollaboratorRepository
+CTRL --> HRM : displays operation success
+deactivate CTRL
 
 @enduml
+
