@@ -4,7 +4,7 @@
 
 ### 1.1. User Story Description
 
-As a GSM (Garden Services Manager), I want to import a .csv file containing lines with Water Point X, Water Point Y, and Distance so that I can have all possible routes that can be opened to lay pipes between each pair of water points, including their respective installation costs.
+As a GSM, I want to import a .csv file containing lines with Water Point X, Water Point Y, and Distance so that I can have all possible routes that can be opened to lay pipes between each pair of water points, including their respective installation costs.
 
 ### 1.2. Customer Specifications and Clarifications
 

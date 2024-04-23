@@ -3,15 +3,15 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
+autonumber
 actor HRM
 participant RegisterCollaboratorUI
 participant RegisterCollaboratorController
 participant Repositories
 participant CollaboratorRepository
-participant Collaborator
-participant JobRepository
-participant Job
+participant "collaborator:\nCollaborator" as collaborator
 
+activate HRM
 HRM -> RegisterCollaboratorUI: Request to register a collaborator
 activate RegisterCollaboratorUI
 RegisterCollaboratorUI -> HRM: Requests collaborator details
@@ -34,12 +34,23 @@ CollaboratorRepository -> RegisterCollaboratorController: collaboratorRepository
 deactivate CollaboratorRepository
 RegisterCollaboratorController -> CollaboratorRepository: registerCollaborator(details)
 activate CollaboratorRepository
-CollaboratorRepository -> Collaborator: create(details)
-activate Collaborator
+CollaboratorRepository -> collaborator**: create(details)
 CollaboratorRepository -> CollaboratorRepository: addCollaborator(collaborator)
+
+activate CollaboratorRepository
 CollaboratorRepository -> CollaboratorRepository: validateCollaborator(collaborator)
-deactivate Collaborator
+
+activate CollaboratorRepository
+
+
+
+CollaboratorRepository --> RegisterCollaboratorController: collaborator
 deactivate CollaboratorRepository
-RegisterCollaboratorController --> HRM: Success message
+deactivate CollaboratorRepository
+deactivate CollaboratorRepository
+RegisterCollaboratorController --> RegisterCollaboratorUI: collaborator
 deactivate RegisterCollaboratorController
+RegisterCollaboratorUI --> HRM: display operation success
+deactivate RegisterCollaboratorUI
+deactivate HRM
 @enduml

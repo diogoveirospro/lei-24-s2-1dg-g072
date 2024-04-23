@@ -3,45 +3,45 @@
 skinparam packageStyle rectangle
 skinparam shadowing false
 skinparam linetype polyline
+'skinparam linetype orto
 
 skinparam classAttributeIconSize 0
 
-class HRManager {
-    - name: String
-    - birthDate: Date
-    - admissionDate: Date
-    - address: String
-    - mobile: String
-    - email: String
-    - taxpayerNumber: String
-    - idDocType: String
-    - idNumber: String
-
-    + HRManager(name, birthDate, admissionDate, address, mobile, email, taxpayerNumber, idDocType, idNumber)
-    + registerCollaborator()
-}
-
-class Job {
-    - name: String
-
-    + Job(name)
-}
+'left to right direction
 
 class Collaborator {
-    - name: String
-    - birthDate: Date
-    - admissionDate: Date
-    - address: String
-    - mobile: String
-    - email: String
-    - taxpayerNumber: String
-    - idDocType: String
-    - idNumber: String
+    - details: String
 
-    + Collaborator(name, birthDate, admissionDate, address, mobile, email, taxpayerNumber, idDocType, idNumber)
+    + Collaborator(details)
 }
 
-HRManager -- Collaborator : registers
-HRManager -- Job : creates
+
+class RegisterCollaboratorUI {
+
+}
+
+class RegisterCollaboratorController {
+    + CreateCollaboratorController(collaboratorRepository)
+    + registerCollaborator(details)
+}
+
+class Repositories {
+    - Repositories()
+    + getInstance() : Repositories
+    + getCollaboratorRepository() : Repositories
+}
+
+class CollaboratorRepository {
+    + register()
+}
+
+
+RegisterCollaboratorUI .> RegisterCollaboratorController
+RegisterCollaboratorController .> Repositories : repositories
+Repositories --> Repositories : instance
+Repositories "1" --> "1" CollaboratorRepository
+CollaboratorRepository o-- "*" Collaborator : has
+RegisterCollaboratorController .> CollaboratorRepository : collaboratorRepository
+RegisterCollaboratorController .> Collaborator : collaborator
 
 @enduml

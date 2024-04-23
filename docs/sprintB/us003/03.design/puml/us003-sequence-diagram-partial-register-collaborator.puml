@@ -1,0 +1,28 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+participant CollaboratorRepository
+participant Collaborator
+
+autonumber 11
+-> CollaboratorRepository: registerCollaborator(details)
+
+autonumber 11.1
+activate CollaboratorRepository
+    group Register Collaborator
+        CollaboratorRepository -> Collaborator: create(details)
+        CollaboratorRepository -> CollaboratorRepository: addCollaborator(collaborator)
+        activate CollaboratorRepository
+            CollaboratorRepository -> CollaboratorRepository: validateCollaborator(collaborator)
+                activate CollaboratorRepository
+    end
+
+
+autonumber 12
+<-- CollaboratorRepository: collaborator
+deactivate CollaboratorRepository
+deactivate CollaboratorRepository
+deactivate CollaboratorRepository
+@enduml

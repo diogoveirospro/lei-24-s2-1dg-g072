@@ -9,39 +9,48 @@ skinparam classAttributeIconSize 0
 
 'left to right direction
 
+class Collaborator {
+    - name: String
+    - birthdate: String
+    - admissionDate: String
+    - address: String
+    - contactInfo: String
+    - taxpayerNumber: String
+    - idDocumentType: String
+    - idDocumentNumber: String
+    + Collaborator(name, birthdate, admissionDate, address, contactInfo, taxpayerNumber, idDocumentType, idDocumentNumber)
+    + assignSkill(skill)
+}
+
 class Skill {
     - name: String
-
     + Skill(name)
 }
 
-
-class RegisterSkillUI {
-
-}
-
-class RegisterSkillController {
-    + CreateSkillController(skillRepository)
-    + registerSkill(name)
+class AssignSkillController {
+    + AssignSkillController(collaboratorRepository, skillRepository)
+    + assignSkill(collaboratorId, skillName)
 }
 
 class Repositories {
     - Repositories()
     + getInstance() : Repositories
+    + getCollaboratorRepository() : Repositories
     + getSkillRepository() : Repositories
 }
 
-class SkillRepository {
-    + register()
+class CollaboratorRepository {
+    + addCollaborator(collaborator)
+    + getCollaborator(collaboratorId)
 }
 
+class SkillRepository {
+    + addSkill(skill)
+    + getSkill(skillName)
+}
 
-RegisterSkillUI .> RegisterSkillController
-RegisterSkillController .> Repositories : repositories
-Repositories --> Repositories : instance
-Repositories "1" --> "1" SkillRepository
-SkillRepository o-- "*" Skill : has
-RegisterSkillController .> SkillRepository : skillRepository
-RegisterSkillController .> Skill : skill
+Collaborator "1" --> "*" Skill : has
+AssignSkillController .> CollaboratorRepository : collaboratorRepository
+AssignSkillController .> SkillRepository : skillRepository
 
 @enduml

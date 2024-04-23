@@ -4,7 +4,7 @@
 
 ### 1.1. User Story Description
 
-As a GSM (Garden Services Manager), I want to know which piece(s) of equipment are used each day so that I can understand the users’ preferences.
+As a GSM, I want to know which piece(s) of equipment are used each day so that I can understand the users’ preferences.
 
 ### 1.2. Customer Specifications and Clarifications
 
