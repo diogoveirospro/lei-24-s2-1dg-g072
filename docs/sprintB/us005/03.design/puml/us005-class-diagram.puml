@@ -60,7 +60,8 @@ class Collaborator {
     - birthdate : String
     - admissionData : String
     - address : String
-    - contactInfo : int
+    - mobileNumber : int
+    - email : String
     - idDocumentType : String
     - idDocumentNumber : int
     + Collaborator(name, birthdate, admissionData, address, \ncontactInfo, idDocumentType, idDocumentNumber)

@@ -26,7 +26,8 @@ class Collaborator {
     birthdate
     admissionDate
     address
-    contactInfo
+    mobileNumber
+    email
     idDocumentType
     idDocumentNumber
 }
