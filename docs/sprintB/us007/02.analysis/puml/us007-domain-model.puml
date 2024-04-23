@@ -30,7 +30,7 @@ class Vehicle{
 }
 
 class Maintenance{
-
+    km at maintenance
 }
 
 VFM "1"-"   1..*" Vehicle: chooses >

@@ -13,7 +13,7 @@ class Repositories {
     - Repositories()
     + getInstance() : Repositories
     + getVehicleRepository()
-    + getRegisterVehicleRepository()
+    + getVehicleMaintenanceRepository()
 }
 
 class RegisterVehicleController {
@@ -21,7 +21,7 @@ class RegisterVehicleController {
     + registerVehicle(plateNumber, brand, model, type, tare, grossWeight, currentKms, registrationDate, acquisitionDate, serviceFrequency)
 }
 
-class RegisterVehicleRepository{
+class vehicleMaintenanceRepository{
     + registerVehicleMaintenance(vehicleList, date)
     + addVehicle()
     + validateVehicle(vehicle)
@@ -51,7 +51,7 @@ class Vehicle{
 }
 
 class Maintenance{
-
+    - Double km at maintenance
 }
 
 Repositories -> Repositories : instance
