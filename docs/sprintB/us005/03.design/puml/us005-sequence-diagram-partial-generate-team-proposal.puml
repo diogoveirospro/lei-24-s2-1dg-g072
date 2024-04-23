@@ -6,11 +6,12 @@ skinparam shadowing false
 participant ":GenerateTeamProposalController" as CTRL
 participant Repositories
 participant "repositories\n:Repositories" as REP
-participant "teamProposalRepository\n:TeamProposalRepository" as TEAMPROREP
-participant "teamProposal\n:TeamProposal" as teamProposal
+participant "teamRepository\n:TeamRepository" as TEAMREP
+participant "collaborator\n:Collaborator" as COLLAB
+participant "team\n:Team" as team
 
 autonumber 13
--> CTRL : generateTeamProposal(minimumSize, maximumSize, members)
+-> CTRL : generateTeamProposal(minimumSize, maximumSize, skills, collaborators)
 
 autonumber 13.1
 
@@ -29,29 +30,40 @@ activate CTRL
             REP --> CTRL: teamProposalRepository
         deactivate REP
 
-        CTRL -> TEAMPROREP: generateTeamProposal(minimumSize, maximumSize, members)
-        activate TEAMPROREP
+        CTRL -> TEAMREP: generateTeamProposal(minimumSize, maximumSize, skills, collaborators)
+        activate TEAMREP
 
-            TEAMPROREP -> teamProposal**: generateTeamProposal(minimumSize, maximumSize, members)
+            TEAMREP -> COLLAB**: chooseMembers(collaborators, skills)
+            activate COLLAB
 
-                TEAMPROREP -> TEAMPROREP : addTeamProposal(teamProposal)
-                activate TEAMPROREP
+            loop
 
-                TEAMPROREP -> TEAMPROREP : validateTeamProposal(teamProposal)
-                activate TEAMPROREP
+                COLLAB -> COLLAB: analyseCollaborator(skills)
+                activate COLLAB
 
-            TEAMPROREP --> CTRL: teamProposal
+            end
+                COLLAB --> TEAMREP: members
+                deactivate COLLAB
 
-            deactivate TEAMPROREP
+            deactivate COLLAB
 
-            deactivate TEAMPROREP
+            TEAMREP -> team**: generateTeamProposal(minimumSize, maximumSize, members)
 
-        deactivate TEAMPROREP
+                TEAMREP -> TEAMREP : addTeam(team)
+                activate TEAMREP
 
+                TEAMREP -> TEAMREP : validateTeam(team)
+                activate TEAMREP
+
+            TEAMREP --> CTRL: team
+
+                deactivate TEAMREP
+
+                deactivate TEAMREP
     end group
 
     autonumber 14
-    <-- CTRL : teamProposal
+    <-- CTRL : team
 
 deactivate CTRL
 

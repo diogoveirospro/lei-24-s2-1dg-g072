@@ -63,17 +63,13 @@ It uses Interaction Occurrence (a.k.a. Interaction Use).
 
 ![Sequence Diagram - Partial - List Skills](svg/us005-sequence-diagram-partial-list-skills.svg)
 
-**Choose Team Members**
+**Get Collaborators**
 
-![Sequence Diagram - Partial - Choose Members](svg/us005-sequence-diagram-partial-choose-members.svg)
+![Sequence Diagram - Partial - Get Collaborators](svg/us005-sequence-diagram-partial-get-collaborators.svg)
 
 **Generate Team Proposal**
 
 ![Sequence Diagram - Partial - Generate Proposal](svg/us005-sequence-diagram-partial-generate-team-proposal.svg)
-
-**Create Team**
-
-![Sequence Diagram - Partial - Create Team](svg/us005-sequence-diagram-partial-create-team.svg)
 
 ## 3.3. Class Diagram (CD)
 

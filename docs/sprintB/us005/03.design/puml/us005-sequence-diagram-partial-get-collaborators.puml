@@ -12,11 +12,11 @@ participant "repositories\n:Repositories" as REP
 participant "collaboratorRepository\n:CollaboratorRepository" as COLREP
 
 autonumber 11
--> CTRL : chooseMembers(skills)
+-> CTRL : getCollaborators()
 autonumber 11.1
 activate CTRL
 
-    group Choose Members
+    group Get Collaborators
 
         CTRL -> Repositories: getInstance()
         activate Repositories
@@ -30,15 +30,15 @@ activate CTRL
             REP --> CTRL: collaboratorRepository
         deactivate REP
 
-        CTRL -> COLREP: chooseMembers(skills)
+        CTRL -> COLREP: getCollaborators()
         activate COLREP
 
-            COLREP --> CTRL: members
+            COLREP --> CTRL: collaborators
         deactivate COLREP
     end
 
     autonumber 12
-    <-- CTRL : members
+    <-- CTRL : collaborators
 deactivate CTRL
 
 @enduml

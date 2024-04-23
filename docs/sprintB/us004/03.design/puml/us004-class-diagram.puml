@@ -3,54 +3,63 @@
 skinparam packageStyle rectangle
 skinparam shadowing false
 skinparam linetype polyline
-'skinparam linetype orto
 
 skinparam classAttributeIconSize 0
-
-'left to right direction
-
-class Collaborator {
-    - name: String
-    - birthdate: String
-    - admissionDate: String
-    - address: String
-    - contactInfo: String
-    - taxpayerNumber: String
-    - idDocumentType: String
-    - idDocumentNumber: String
-    + Collaborator(name, birthdate, admissionDate, address, contactInfo, taxpayerNumber, idDocumentType, idDocumentNumber)
-    + assignSkill(skill)
-}
-
-class Skill {
-    - name: String
-    + Skill(name)
-}
-
-class AssignSkillController {
-    + AssignSkillController(collaboratorRepository, skillRepository)
-    + assignSkill(collaboratorId, skillName)
-}
 
 class Repositories {
     - Repositories()
     + getInstance() : Repositories
-    + getCollaboratorRepository() : Repositories
-    + getSkillRepository() : Repositories
+    + getCollaboratorRepository()
+    + getSkillRepository()
+}
+
+class AssignSkillsController {
+    + AssignSkillsController(collaboratorRepository, skillRepository)
+    + assignSkills(collaborator, skills)
 }
 
 class CollaboratorRepository {
+    + registerCollaborator(name, birthdate, admissionDate, address, contactInfo, idDocumentType, idDocumentNumber)
     + addCollaborator(collaborator)
-    + getCollaborator(collaboratorId)
+    + validateCollaborator(collaborator)
 }
 
 class SkillRepository {
+    + registerSkill(name)
     + addSkill(skill)
-    + getSkill(skillName)
+    + validateSkill(skill)
 }
 
-Collaborator "1" --> "*" Skill : has
-AssignSkillController .> CollaboratorRepository : collaboratorRepository
-AssignSkillController .> SkillRepository : skillRepository
+class AssignSkillsUI {
+}
+
+class Collaborator {
+    - String name
+    - String birthdate
+    - String admissionDate
+    - String address
+    - String contactInfo
+    - String idDocumentType
+    - String idDocumentNumber
+}
+
+class Skill {
+    - String name
+}
+
+Repositories -> Repositories : instance
+
+AssignSkillsUI .> AssignSkillsController
+AssignSkillsController .> "1" CollaboratorRepository : collaboratorRepository
+AssignSkillsController .> "1" SkillRepository : skillRepository
+
+Repositories --> "1" CollaboratorRepository
+Repositories --> "1" SkillRepository
+
+AssignSkillsController .> Repositories : repositories
+
+CollaboratorRepository "1" o--- "1..*" Collaborator : has
+
+SkillRepository "1" o--- "1..*" Skill : has
 
 @enduml

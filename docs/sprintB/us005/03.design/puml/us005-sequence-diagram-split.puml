@@ -50,18 +50,18 @@ activate HRM
     HRM -> UI: confirms data
     activate UI
 
-        UI -> CTRL: chooseMembers(skills)
+        UI -> CTRL: getCollaborators()
         activate CTRL
 
             ref over CTRL
-                Choose Members
+                Get Collaborators
 
             end
 
-            CTRL --> UI: members
+            CTRL --> UI: collaborators
         deactivate CTRL
 
-        UI -> CTRL: generateTeamProposal(minimumSize, maximumSize, members)
+        UI -> CTRL: generateTeamProposal(minimumSize, maximumSize, skills, collaborators)
         activate CTRL
 
             ref over CTRL
@@ -69,7 +69,7 @@ activate HRM
 
             end
 
-            CTRL --> UI: teamProposal
+            CTRL --> UI: team
         deactivate CTRL
 
         UI --> HRM: show the team recommendation
@@ -77,17 +77,6 @@ activate HRM
 
     HRM -> UI: accepts team recommendation
     activate UI
-
-        UI -> CTRL: createTeam(teamProposal)
-        activate CTRL
-
-            ref over CTRL
-                Create Team
-
-            end
-
-            CTRL --> UI: team
-        deactivate CTRL
 
         UI --> HRM: displays operation success
     deactivate UI
