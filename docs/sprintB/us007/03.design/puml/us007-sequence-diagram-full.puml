@@ -12,7 +12,7 @@ participant ":RegisterVehicleMaintenanceController" as CTRL
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as PLAT
 participant "vehicleRepository\n:VehicleRepository" as VREP
-participant "registerVehicleRepository\n:RegisterVehicleRepository" as RegisterVehicleRepository
+participant "vehicleMaintenanceRepository\n:VehicleMaintenanceRepository" as RegisterVehicleRepository
 participant "maintenance\n:Maintenance" as MAINTENANCE
 
 activate ADM
