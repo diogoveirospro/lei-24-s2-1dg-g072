@@ -116,7 +116,7 @@ minimum and maximum size of the team and the set of skills required for a given 
 > - Write the attributes of the vehicle;
 > - Click on "Register vehicle" or a similar option to add the vehicle, after you confirm.
 
-> ### 7. Register a vehicle's check-up | VFM
+> ### 7. Register a vehicle's maintenance | VFM
 > **Purpose:** This feature enables the Vehicle Fleet Manager (VFM) to systematically record and manage the check-up details of vehicles within the organization's fleet, ensuring timely maintenance and service for optimal performance and safety.
 > 
 > **Instructions:** 
@@ -128,10 +128,65 @@ minimum and maximum size of the team and the set of skills required for a given 
 > - Review the entered information for accuracy;
 > - Click on "Register Check-up" or a similar option to record the check-up details for the selected vehicle, after confirming the accuracy of the information provided.
 
-> ### 8. List vehicles that need to be serviced | VFM
+> ### 8. List vehicles that need maintenance | VFM
 > **Purpose:** To enable the Vehicle Fleet Manager (VFM) to automatically generate a list of all vehicles that need a check-up.
 > 
 > **Instructions**:
 > - Log in to your Vehicle Fleet Manager account;
 > - Navigate to the section where you can list all vehicles that need a check-up;
 > - Click on "Generate list" or a similar option to automatically create a list of all vehicles that need a check-up, after you confirm it.
+
+> ### 9. Costs of water consumption | GSM
+> **Purpose:** To enable the Vehicle Fleet Manager (VFM) to automatically generate a list of all vehicles that need a check-up.
+>
+> **Instructions**:
+> - Log in to your Vehicle Fleet Manager account;
+> - Navigate to the section where you can list all vehicles that need a check-up;
+> - Click on "Generate list" or a similar option to automatically create a list of all vehicles that need a check-up, after you confirm it.
+
+
+> ### 10. Find which piece of equipment is used each day | GSM
+> **Purpose:** To enable the Vehicle Fleet Manager (VFM) to automatically generate a list of all vehicles that need a check-up.
+>
+> **Instructions**:
+> - Log in to your Vehicle Fleet Manager account;
+> - Navigate to the section where you can list all vehicles that need a check-up;
+> - Click on "Generate list" or a similar option to automatically create a list of all vehicles that need a check-up, after you confirm it.
+
+
+> ### 11. Collect data from user portal | GSM
+> **Purpose:** To enable the Vehicle Fleet Manager (VFM) to automatically generate a list of all vehicles that need a check-up.
+>
+> **Instructions**:
+> - Log in to your Vehicle Fleet Manager account;
+> - Navigate to the section where you can list all vehicles that need a check-up;
+> - Click on "Generate list" or a similar option to automatically create a list of all vehicles that need a check-up, after you confirm it.
+
+
+> ### 12. Import .csv file | GSM
+> **Purpose:** To enable the Vehicle Fleet Manager (VFM) to automatically generate a list of all vehicles that need a check-up.
+>
+> **Instructions**:
+> - Log in to your Vehicle Fleet Manager account;
+> - Navigate to the section where you can list all vehicles that need a check-up;
+> - Click on "Generate list" or a similar option to automatically create a list of all vehicles that need a check-up, after you confirm it.
+
+
+> ### 13. Algorithm that returns routes to be opened | GSM
+> **Purpose:** To enable the Vehicle Fleet Manager (VFM) to automatically generate a list of all vehicles that need a check-up.
+>
+> **Instructions**:
+> - Log in to your Vehicle Fleet Manager account;
+> - Navigate to the section where you can list all vehicles that need a check-up;
+> - Click on "Generate list" or a similar option to automatically create a list of all vehicles that need a check-up, after you confirm it.
+
+
+> ### 14. Run tests for the inputs of variable size | GSM
+> **Purpose:** To enable the Vehicle Fleet Manager (VFM) to automatically generate a list of all vehicles that need a check-up.
+>
+> **Instructions**:
+> - Log in to your Vehicle Fleet Manager account;
+> - Navigate to the section where you can list all vehicles that need a check-up;
+> - Click on "Generate list" or a similar option to automatically create a list of all vehicles that need a check-up, after you confirm it.
+
+
