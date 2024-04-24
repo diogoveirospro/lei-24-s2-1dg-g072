@@ -261,4 +261,8 @@ public class Vehicle {
         this.type = type;
     }
 
+    public boolean validateVehicle(){
+
+    }
+
 }
