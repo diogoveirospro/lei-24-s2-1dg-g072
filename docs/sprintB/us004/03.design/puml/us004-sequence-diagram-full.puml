@@ -6,34 +6,60 @@ skinparam shadowing false
 autonumber
 
 actor HRM
-participant AssignSkillUI
-participant AssignSkillController
-participant Repositories
-participant CollaboratorRepository
+participant ":AssignSkillUI" as UI
+participant ":AssignSkillController" as CTRL
+participant ":Repositories" as REP
+participant "repositories\n:Repositories" as repositories
+participant "skillRepository\n:SkillRepository" as SREP
+participant "collaboratorRepository\n:CollaboratorRepository" as CREP
 participant "collaborator:\nCollaborator" as collaborator
 
 activate HRM
 
-HRM -> AssignSkillUI : Request to assign one or more skills to a collaborator
-activate AssignSkillUI
+HRM -> UI : Request to assign one or more skills to a collaborator
+activate UI
 
-AssignSkillUI -> HRM: Requests collaborator details
-deactivate AssignSkillUI
+        UI -> CTRL: getSkill()
+activate CTRL
 
-HRM -> AssignSkillUI : Provides collaborator details
-activate AssignSkillUI
+                        CTRL -> REP: getInstance()
 
-AssignSkillUI -> HRM : Shows details and requests confirmation
-deactivate AssignSkillUI
+                        activate REP
+
+                                REP --> CTRL: repositories
+                        deactivate REP
+
+                        CTRL -> repositories: getSkillsRepository()
+                        activate repositories
+
+                                repositories --> CTRL: skillsRepository
+                        deactivate repositories
+                        CTRL -> SREP: getSkill()
+                        activate SREP
+
+                                SREP --> CTRL: skill
+
+                        deactivate SREP
+
+                        CTRL --> UI: skill
+                deactivate CTRL
+UI -> HRM: Displays a list of available skills
+deactivate UI
+
+HRM -> UI : Provides collaborator details
+activate UI
+
+UI -> HRM : Shows details and requests confirmation
+deactivate UI
 
 HRM -> AssignSkillController : Confirms details
 activate AssignSkillController
 
-AssignSkillController -> Repositories: getInstance()
-activate Repositories
+AssignSkillController -> REP: getInstance()
+activate REP
 
-Repositories --> AssignSkillController: repositories
-deactivate Repositories
+REP --> AssignSkillController: repositories
+deactivate REP
 
 AssignSkillController -> CollaboratorRepository: getCollaboratorRepository()
 activate CollaboratorRepository
