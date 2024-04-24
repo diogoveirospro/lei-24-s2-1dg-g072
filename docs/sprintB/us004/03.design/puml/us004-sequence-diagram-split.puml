@@ -1,94 +1,53 @@
 @startuml
-skinparam monochrome true
+'skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-autonumber
-
-'hide footbox
-actor "Human Resources\n Manager" as HRM
-participant ":AssignSkillController" as CTRL
+actor "Human Resources Manager (HRM)" as HRM
+participant AssignSkillUI
+participant AssignSkillController
 participant Repositories
-participant "repositories\n:Repositories" as REP
-participant "collaboratorRepository\n:CollaboratorRepository" as COLREP
-participant "skillRepository\n:SkillRepository" as SKILLREP
+participant CollaboratorRepository
+participant "collaborator: Collaborator" as collaborator
 
 activate HRM
 
-    HRM -> CTRL : assigns a skill to a collaborator
-    activate CTRL
+HRM -> AssignSkillUI : Request to assign skills to a collaborator
+activate AssignSkillUI
 
-        CTRL -> Repositories: getInstance()
-        activate Repositories
+AssignSkillUI -> HRM: Requests collaborator details
+deactivate AssignSkillUI
 
-            Repositories --> CTRL: repositories
-        deactivate Repositories
+HRM -> AssignSkillUI : Provides collaborator details
+activate AssignSkillUI
 
-        CTRL -> REP: getCollaboratorRepository()
-        activate REP
+AssignSkillUI -> HRM : Shows details and requests confirmation
+deactivate AssignSkillUI
 
-            REP --> CTRL: collaboratorRepository
-        deactivate REP
+HRM -> AssignSkillController : Confirms details
+activate AssignSkillController
 
-        CTRL -> SKILLREP : getSkillRepository()
-        activate SKILLREP
+AssignSkillController -> Repositories: getInstance()
+activate Repositories
 
-            SKILLREP --> CTRL: skillRepository
-        deactivate SKILLREP
+Repositories --> AssignSkillController: repositories
+deactivate Repositories
 
-        CTRL -> CTRL: assignSkill(collaboratorId, skillName)
+AssignSkillController -> CollaboratorRepository: getCollaboratorRepository()
+activate CollaboratorRepository
 
-    deactivate CTRL
+CollaboratorRepository --> AssignSkillController: collaboratorRepository
+deactivate CollaboratorRepository
 
-    HRM -> CTRL : assigns a skill to a collaborator
-    activate CTRL
+AssignSkillController -> AssignSkillController : assignSkills(collaboratorId, skills)
+AssignSkillController -> CollaboratorRepository: updateCollaborator(collaborator)
+activate CollaboratorRepository
 
-        CTRL -> Repositories: getInstance()
-        activate Repositories
+CollaboratorRepository --> AssignSkillController: Updated collaborator
+deactivate CollaboratorRepository
 
-            Repositories --> CTRL: repositories
-        deactivate Repositories
-
-        CTRL -> REP: getCollaboratorRepository()
-        activate REP
-
-            REP --> CTRL: collaboratorRepository
-        deactivate REP
-
-        CTRL -> SKILLREP : getSkillRepository()
-        activate SKILLREP
-
-            SKILLREP --> CTRL: skillRepository
-        deactivate SKILLREP
-
-        CTRL -> CTRL: assignSkill(collaboratorId, skillName)
-
-        alt Skill and collaborator exist
-            CTRL -> COLREP: getCollaborator(collaboratorId)
-            activate COLREP
-
-                COLREP --> CTRL: collaborator
-            deactivate COLREP
-
-            CTRL -> SKILLREP: getSkill(skillName)
-            activate SKILLREP
-
-                SKILLREP --> CTRL: skill
-            deactivate SKILLREP
-
-            CTRL -> collaborator: assignSkill(skill)
-            activate collaborator
-
-                collaborator --> CTRL: assigned skill
-            deactivate collaborator
-
-            CTRL --> HRM: success
-        else Skill or collaborator does not exist
-            CTRL --> HRM: failure
-        end
-
-    deactivate CTRL
+AssignSkillController --> HRM: success
+deactivate AssignSkillController
 
 deactivate HRM
-
 @enduml
