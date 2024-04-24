@@ -104,6 +104,10 @@ Do we choose two at our discretion? Or do we study all the parks in question?
 > 
 > **Answer:** The output should be displayed.
 
+> **Question:** And the histograms of all the parks too, right?
+> 
+> **Answer:** Right.
+
 ### 1.3. Acceptance Criteria
 
 * **AC1:** The programming language must be **Python**.
