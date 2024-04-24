@@ -5,64 +5,52 @@ skinparam shadowing false
 
 autonumber
 
-'hide footbox
-actor "Human Resources\n Manager" as HRM
-participant ":AssignSkillController" as CTRL
+actor HRM
+participant AssignSkillUI
+participant AssignSkillController
 participant Repositories
-participant "repositories\n:Repositories" as REP
-participant "collaboratorRepository\n:CollaboratorRepository" as COLREP
-participant "skillRepository\n:SkillRepository" as SKILLREP
+participant CollaboratorRepository
+participant "collaborator:\nCollaborator" as collaborator
 
 activate HRM
 
-    HRM -> CTRL : assigns a skill to a collaborator
-    activate CTRL
+HRM -> AssignSkillUI : Request to assign one or more skills to a collaborator
+activate AssignSkillUI
 
-        CTRL -> Repositories: getInstance()
-        activate Repositories
+AssignSkillUI -> HRM: Requests collaborator details
+deactivate AssignSkillUI
 
-            Repositories --> CTRL: repositories
-        deactivate Repositories
+HRM -> AssignSkillUI : Provides collaborator details
+activate AssignSkillUI
 
-        CTRL -> REP: getCollaboratorRepository()
-        activate REP
+AssignSkillUI -> HRM : Shows details and requests confirmation
+deactivate AssignSkillUI
 
-            REP --> CTRL: collaboratorRepository
-        deactivate REP
+HRM -> AssignSkillController : Confirms details
+activate AssignSkillController
 
-        CTRL -> SKILLREP : getSkillRepository()
-        activate SKILLREP
+AssignSkillController -> Repositories: getInstance()
+activate Repositories
 
-            SKILLREP --> CTRL: skillRepository
-        deactivate SKILLREP
+Repositories --> AssignSkillController: repositories
+deactivate Repositories
 
-        CTRL -> CTRL: assignSkill(collaboratorId, skillName)
+AssignSkillController -> CollaboratorRepository: getCollaboratorRepository()
+activate CollaboratorRepository
 
-            alt Skill and collaborator exist
-                CTRL -> COLREP: getCollaborator(collaboratorId)
-                activate COLREP
+CollaboratorRepository --> AssignSkillController: collaboratorRepository
+deactivate CollaboratorRepository
 
-                    COLREP --> CTRL: collaborator
-                deactivate COLREP
+AssignSkillController --> AssignSkillController : assignSkills(collaboratorId, skills)
+AssignSkillController -> CollaboratorRepository: updateCollaborator(collaborator)
+activate CollaboratorRepository
 
-                CTRL -> SKILLREP: getSkill(skillName)
-                activate SKILLREP
+CollaboratorRepository --> AssignSkillController: Updated collaborator
+deactivate CollaboratorRepository
 
-                    SKILLREP --> CTRL: skill
-                deactivate SKILLREP
+deactivate AssignSkillController
 
-                CTRL -> collaborator: assignSkill(skill)
-                activate collaborator
-
-                    collaborator --> CTRL: assigned skill
-                deactivate collaborator
-
-                CTRL --> HRM: success
-            else Skill or collaborator does not exist
-                CTRL --> HRM: failure
-            end
-
-    deactivate CTRL
+AssignSkillController --> HRM: success
 
 deactivate HRM
 
