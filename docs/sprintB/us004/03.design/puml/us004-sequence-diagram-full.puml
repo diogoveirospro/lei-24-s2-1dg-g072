@@ -3,66 +3,55 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title System Sequence Diagram (SSD) - US004
-
 autonumber
 
-actor "Human Resources Manager" as HRM
-participant ":AssignSkillsUI" as UI
-participant ":AssignSkillsController" as CTRL
-participant ":Repositories" as RepositorySingleton
-participant "repositories\n:Repositories" as PLAT
-participant "collaboratorRepository\n:CollaboratorRepository" as CollaboratorRepository
-participant "skillRepository\n:SkillRepository" as SkillRepository
+actor HRM
+participant AssignSkillUI
+participant AssignSkillController
+participant Repositories
+participant CollaboratorRepository
+participant "collaborator:\nCollaborator" as collaborator
 
 activate HRM
 
-HRM -> UI : request to assign skills to a collaborator
-activate UI
-UI -> CTRL : getAvailableSkills()
-activate CTRL
-CTRL -> RepositorySingleton : getInstance()
-activate RepositorySingleton
-RepositorySingleton -> CTRL : repositories
-deactivate RepositorySingleton
-CTRL -> PLAT : getSkillRepository()
-activate PLAT
-PLAT -> CTRL : skillRepository
-deactivate PLAT
-CTRL -> SkillRepository : getAvailableSkills()
-activate SkillRepository
-SkillRepository --> CTRL : availableSkills
-deactivate SkillRepository
-CTRL --> UI : availableSkills
-deactivate CTRL
-UI --> HRM : displays a list of available skills
-deactivate UI
+HRM -> AssignSkillUI : Request to assign one or more skills to a collaborator
+activate AssignSkillUI
 
-HRM -> UI : select collaborator skills
-activate UI
-UI -> CTRL : confirmSkills(selectedSkills)
-activate CTRL
-CTRL -> UI : requests confirmation
-deactivate CTRL
-UI --> HRM : confirms
-deactivate UI
+AssignSkillUI -> HRM: Requests collaborator details
+deactivate AssignSkillUI
 
-HRM -> CTRL : assignSkillsToCollaborator(selectedSkills, collaborator)
-activate CTRL
-CTRL -> RepositorySingleton : getInstance()
-activate RepositorySingleton
-RepositorySingleton --> CTRL: repositories
-deactivate RepositorySingleton
-CTRL -> CollaboratorRepository : getCollaboratorRepository()
+HRM -> AssignSkillUI : Provides collaborator details
+activate AssignSkillUI
+
+AssignSkillUI -> HRM : Shows details and requests confirmation
+deactivate AssignSkillUI
+
+HRM -> AssignSkillController : Confirms details
+activate AssignSkillController
+
+AssignSkillController -> Repositories: getInstance()
+activate Repositories
+
+Repositories --> AssignSkillController: repositories
+deactivate Repositories
+
+AssignSkillController -> CollaboratorRepository: getCollaboratorRepository()
 activate CollaboratorRepository
-CollaboratorRepository --> CTRL : collaboratorRepository
+
+CollaboratorRepository --> AssignSkillController: collaboratorRepository
 deactivate CollaboratorRepository
-CTRL -> CollaboratorRepository : assignSkillsToCollaborator(selectedSkills, collaborator)
+
+AssignSkillController --> AssignSkillController : assignSkills(collaboratorId, skills)
+AssignSkillController -> CollaboratorRepository: updateCollaborator(collaborator)
 activate CollaboratorRepository
-CollaboratorRepository --> CTRL : assignedSkills
+
+CollaboratorRepository --> AssignSkillController: Updated collaborator
 deactivate CollaboratorRepository
-CTRL --> HRM : displays operation success
-deactivate CTRL
+
+deactivate AssignSkillController
+
+AssignSkillController --> HRM: success
+
+deactivate HRM
 
 @enduml
-
