@@ -8,7 +8,6 @@ However, be aware, this is a pedagogical simplification. On further projects and
 
 ![Use Case Diagram](svg/use-case-diagram.svg)
 
-
 # Use Cases / User Stories
 
 | UC/US | Description                                                             |                   
