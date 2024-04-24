@@ -174,20 +174,21 @@ minimum and maximum size of the team and the set of skills required for a given 
 
 
 > ### 13. Algorithm that returns routes to be opened | GSM
-> **Purpose:** To enable the Vehicle Fleet Manager (VFM) to automatically generate a list of all vehicles that need a check-up.
+> **Purpose:** This feature allows the Green Spaces Manager to apply an algorithm that returns the routes to be opened and pipes needed to be laid with a minimum accumulated cost, ensuring that all points are adequately supplied.
+> 
+> **Instructions**:
+> - Log in to your Green Spaces Manager account;
+> - From the main menu, select "Topographic Survey" or a similar option.
+> - Choose the park you want to create a Topographic Survey from the available list.
+> - Click on "Visualize" to obtain the Topographic Survey
+
+
+> ### 14. Run tests for the inputs of variable size | QAM
+> **Purpose:** This feature allows the Software Quality Assessment Team Manager to run tests for inputs of variable size, to observe the asymptotic behavior of the execution time of the US13 algorithm.
 >
 > **Instructions**:
-> - Log in to your Vehicle Fleet Manager account;
-> - Navigate to the section where you can list all vehicles that need a check-up;
-> - Click on "Generate list" or a similar option to automatically create a list of all vehicles that need a check-up, after you confirm it.
-
-
-> ### 14. Run tests for the inputs of variable size | GSM
-> **Purpose:** To enable the Vehicle Fleet Manager (VFM) to automatically generate a list of all vehicles that need a check-up.
->
-> **Instructions**:
-> - Log in to your Vehicle Fleet Manager account;
-> - Navigate to the section where you can list all vehicles that need a check-up;
-> - Click on "Generate list" or a similar option to automatically create a list of all vehicles that need a check-up, after you confirm it.
-
+> - Log in to your Software Quality Assessment Team Manager account;
+> - From the main menu, select "Asymptotic Behavior" or a similar option.
+> - Run the algorithm of US13 for all the files that you want.
+> - Click on "Visualize" to obtain the Asymptotic Behavior graph.
 
