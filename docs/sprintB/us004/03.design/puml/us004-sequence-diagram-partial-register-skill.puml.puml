@@ -1,40 +1,28 @@
 @startuml
-skinparam monochrome true
+'skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-participant "collaboratorRepository\n:CollaboratorRepository" as COLREP
-participant "skillRepository\n:SkillRepository" as SKILLREP
-participant "collaborator" as collaborator
+participant "skillRepository\n:SkillRepository" as SREP
+participant "skill\n:Skill" as SKILL
 
 autonumber 11
--> COLREP : getCollaborator(collaboratorId)
+-> SREP: registerSkill(name)
 
 autonumber 11.1
-activate COLREP
+activate SREP
+    group Register Skills
 
-    COLREP --> collaborator: collaborator
+        SREP -> SKILL**: registers(name)
+        SREP -> SREP: addSkill(skill)
+        activate SREP
+                SREP -> SREP: validateSkill(skill)
+                activate SREP
+    end
 
-autonumber 12
---> SKILLREP : getSkill(skillName)
+    autonumber 12
+    <-- SREP : skill
+    deactivate SREP
 
-autonumber 12.1
-activate SKILLREP
-
-    SKILLREP --> SKILLREP: skill
-
-    SKILLREP --> collaborator: skill
-
-autonumber 12.2
-activate collaborator
-
-    collaborator --> SKILLREP: assigned skill
-
-autonumber 12.3
-deactivate collaborator
-
-deactivate SKILLREP
-
-deactivate COLREP
-
+deactivate SREP
 @enduml
