@@ -112,7 +112,7 @@ activate HRM
             CTRL -> TEAMREP: generateTeamProposal(minimumSize, maximumSize, skills, collaborators)
             activate TEAMREP
 
-                TEAMREP -> COLLAB**: chooseMembers(collaborators, skills)
+                TEAMREP -> COLLAB**: chooseMembers(minimumSize, maximumSize, collaborators, skills)
                 activate COLLAB
                 loop
                     COLLAB -> COLLAB: analyseCollaborator(skills)
@@ -124,26 +124,10 @@ activate HRM
 
                 deactivate COLLAB
 
-
-
-                TEAMREP -> team**: generateTeamProposal(minimumSize, maximumSize, members)
-
-                    TEAMREP -> TEAMREP : addTeam(team)
-                    activate TEAMREP
-
-                    TEAMREP -> TEAMREP : validateTeam(team)
-                    activate TEAMREP
-
-                TEAMREP --> CTRL: team
-
-                deactivate TEAMREP
-
-                deactivate TEAMREP
-
-                
+                TEAMREP --> CTRL: members
             deactivate TEAMREP
 
-            CTRL --> UI: team
+            CTRL --> UI: members
         deactivate CTRL
 
         UI --> HRM: show the team recommendation
@@ -151,6 +135,32 @@ activate HRM
 
     HRM -> UI: accepts team recommendation
     activate UI
+
+        UI -> CTRL: createTeam(members)
+        activate CTRL
+
+            CTRL -> TEAMREP: createTeam(members)
+        activate TEAMREP
+
+        TEAMREP -> team**: Team(members)
+
+            TEAMREP -> TEAMREP : addTeam(team)
+            activate TEAMREP
+
+            TEAMREP -> TEAMREP : validateTeam(team)
+            activate TEAMREP
+
+                TEAMREP --> CTRL: team
+
+            deactivate TEAMREP
+
+            deactivate TEAMREP
+
+
+        deactivate TEAMREP
+
+                CTRL --> UI: team
+            deactivate CTRL
 
         UI --> HRM: displays operation success
     deactivate UI

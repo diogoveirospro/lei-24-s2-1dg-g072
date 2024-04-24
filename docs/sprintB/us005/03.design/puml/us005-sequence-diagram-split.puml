@@ -65,18 +65,29 @@ activate HRM
         activate CTRL
 
             ref over CTRL
-                Generate Team Proposal
+                Get Members
+
+            end
+
+            CTRL --> UI: members
+        deactivate CTRL
+
+    UI --> HRM: show the team recommendation
+    deactivate UI
+
+    HRM -> UI: accepts team recommendation
+    activate UI
+
+        UI -> CTRL: createTeam(members)
+        activate CTRL
+
+            ref over CTRL
+                Create Team
 
             end
 
             CTRL --> UI: team
         deactivate CTRL
-
-        UI --> HRM: show the team recommendation
-    deactivate UI
-
-    HRM -> UI: accepts team recommendation
-    activate UI
 
         UI --> HRM: displays operation success
     deactivate UI
