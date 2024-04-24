@@ -41,7 +41,7 @@ public class Date implements Comparable<Date> {
             31, 30, 31};
 
     /**
-     * Nomes dos meses do ano.
+     * Names of the months of the year.
      */
     private static String[] monthName = {"Invalid", "January", "February",
             "March", "April", "May", "June", "July", "August", "September",
@@ -61,7 +61,7 @@ public class Date implements Comparable<Date> {
     }
 
     /**
-     * Constrói uma instância de Data com a data por omissão.
+     * Creates an instance of Date with default values.
      */
     public Date() {
         year = DEFAULT_YEAR;
@@ -70,109 +70,94 @@ public class Date implements Comparable<Date> {
     }
 
     /**
-     * Constrói uma instância de Data com as mesmas caraterísticas da data
-     * recebida por parâmetro.
+     * Creates an instance of Date with the same characteristics of the date received by parameter.
      *
-     * @param outraData a data com as características a copiar.
+     * @param otherDate date with characteristics to copy.
      */
-    public Date(Date outraData) {
-        year = outraData.year;
-        month = outraData.month;
-        day = outraData.day;
+    public Date(Date otherDate) {
+        year = otherDate.year;
+        month = otherDate.month;
+        day = otherDate.day;
     }
 
     /**
-     * Devolve o ano da data.
+     * Returns the date year.
      *
-     * @return ano da data
+     * @return date year
      */
     public int getYear() {
         return year;
     }
 
     /**
-     * Devolve o mês da data.
+     * Returns the date month.
      *
-     * @return mês da data.
+     * @return date month.
      */
     public int getMonth() {
         return month;
     }
 
     /**
-     * Devolve o dia da data.
+     * Returns the date day.
      *
-     * @return dia da data.
+     * @return date day.
      */
     public int getDay() {
         return day;
     }
 
     /**
-     * Modifica o ano, o mês e o dia da data.
+     * Changes the date year, month and day.
      *
-     * @param ano o novo ano da data.
-     * @param mes o novo mês da data.
-     * @param dia o novo dia da data.
+     * @param year the new date year.
+     * @param month the new date month,
+     * @param day the new date day.
      */
-    public void setDate(int ano, int mes, int dia) {
-        this.year = ano;
-        this.month = mes;
-        this.day = dia;
+    public void setDate(int year, int month, int day) {
+        this.year = year;
+        this.month = month;
+        this.day = day;
     }
 
     /**
-     * Devolve a descrição textual da data no formato: diaDaSemana, dia de mês
-     * de ano.
+     * Returns the date in format:%04d/%02d/%02d.
      *
-     * @return caraterísticas da data.
-     */
-    @Override
-    public String toString() {
-        return String.format("%s, %d de %s de %d", diaDaSemana(), day,
-                monthName[month], year);
-    }
-
-    /**
-     * Devolve a data no formato:%04d/%02d/%02d.
-     *
-     * @return caraterísticas da data.
+     * @return date characteristics.
      */
     public String toYearMonthDayString() {
         return String.format("%04d/%02d/%02d", year, month, day);
     }
 
     /**
-     * Compara a data com o objeto recebido.
+     * Compare the date with the received object.
      *
-     * @param outroObjeto o objeto a comparar com a data.
-     * @return true se o objeto recebido representar uma data equivalente à
-     * data. Caso contrário, retorna false.
+     * @param otherObject the object to compare with date.
+     * @return true if received object represents a equivalent date to date, else returns false
      */
     @Override
-    public boolean equals(Object outroObjeto) {
-        if (this == outroObjeto) {
+    public boolean equals(Object otherObject) {
+        if (this == otherObject) {
             return true;
         }
-        if (outroObjeto == null || getClass() != outroObjeto.getClass()) {
+        if (otherObject == null || getClass() != otherObject.getClass()) {
             return false;
         }
-        Date outraData = (Date) outroObjeto;
-        return year == outraData.year && month == outraData.month
-                && day == outraData.day;
+        Date otherDate = (Date) otherObject;
+        return year == otherDate.year && month == otherDate.month
+                && day == otherDate.day;
     }
 
     /**
-     * Compara a data com a outra data recebida por parâmetro.
+     * Compares the date with another received by parameter.
      *
-     * @param outraData a data a ser comparada.
-     * @return o valor 0 se a outraData recebida é igual à data; o valor -1 se
-     * a outraData for posterior à data; o valor 1 se a outraData for
-     * anterior à data.
+     * @param otherDate date to be compared.
+     * @return value 0 if otherDate received is equal to date; value -1 if
+     * otherDate is later than date; value 1 if otherDate is before the date
      */
     @Override
-    public int compareTo(Date outraData) {
-        return (outraData.isMaior(this)) ? -1 : (isMaior(outraData)) ? 1 : 0;
+    public int compareTo(Date otherDate) {
+        return (otherDate.isMaior(this)) ? -1 : (isMaior(otherDate)) ? 1 : 0;
     }
 
     /**
@@ -191,37 +176,33 @@ public class Date implements Comparable<Date> {
     }
 
     /**
-     * Devolve a diferença em número de dias entre a data e a data recebida por
-     * parâmetro.
+     * Returns the difference in number of days between the date and the date received by parameter
      *
-     * @param outraData a outra data com a qual se compara a data para calcular
-     *                  a diferença do número de dias.
-     * @return diferença em número de dias entre a data e a data recebida por
-     * parâmetro.
+     * @param otherDate the other date that will be compared to the date to calculate the difference
+     *                 in number of days.
+     * @return difference in number of days between date and the date received by parameter
      */
-    public int diference(Date outraData) {
-        int totalDias = countDays();
-        int totalDias1 = outraData.countDays();
+    public int difference(Date otherDate) {
+        int totalDays = countDays();
+        int totalDays1 = otherDate.countDays();
 
-        return Math.abs(totalDias - totalDias1);
+        return Math.abs(totalDays - totalDays1);
     }
 
     /**
-     * Devolve true se o ano passado por parâmetro for bissexto. Se o ano
-     * passado por parâmetro não for bissexto, devolve false.
+     * Return true if the year received by parameter is a leap year. If the year is not a leap year, return false.
      *
-     * @param ano o ano a validar.
-     * @return true se o ano passado por parâmetro for bissexto, caso contrário
-     * devolve false.
+     * @param year the year to be validated.
+     * @return true if the year received by parameter is a leap year, if not return false
      */
-    public static boolean isAnoBissexto(int ano) {
-        return ano % 4 == 0 && ano % 100 != 0 || ano % 400 == 0;
+    public static boolean isLeapYear(int year) {
+        return year % 4 == 0 && year % 100 != 0 || year % 400 == 0;
     }
 
     /**
-     * Devolve a data atual do sistema.
+     * Returns the current system date.
      *
-     * @return a data atual do sistema.
+     * @return the current system date.
      */
     public static Date currentDate() {
         Calendar today = Calendar.getInstance();
@@ -232,23 +213,23 @@ public class Date implements Comparable<Date> {
     }
 
     /**
-     * Devolve o número de dias desde o dia 1/1/1 até à data.
+     * Return the number of days since 1/1/1 till date.
      *
-     * @return número de dias desde o dia 1/1/1 até à data.
+     * @return number of days since 1/1/1 till date.
      */
     private int countDays() {
-        int totalDias = 0;
+        int totalDays = 0;
 
         for (int i = 1; i < year; i++) {
-            totalDias += isAnoBissexto(i) ? 366 : 365;
+            totalDays += isLeapYear(i) ? 366 : 365;
         }
         for (int i = 1; i < month; i++) {
-            totalDias += monthDay[i];
+            totalDays += monthDay[i];
         }
-        totalDias += (isAnoBissexto(year) && month > 2) ? 1 : 0;
-        totalDias += day;
+        totalDays += (isLeapYear(year) && month > 2) ? 1 : 0;
+        totalDays += day;
 
-        return totalDias;
+        return totalDays;
     }
 }
 
