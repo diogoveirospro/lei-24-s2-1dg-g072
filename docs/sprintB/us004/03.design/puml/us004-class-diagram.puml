@@ -19,15 +19,12 @@ class AssignSkillsController {
 }
 
 class CollaboratorRepository {
-    + registerCollaborator(name, birthdate, admissionDate, address, contactInfo, idDocumentType, idDocumentNumber)
     + addCollaborator(collaborator)
     + validateCollaborator(collaborator)
 }
 
 class SkillRepository {
-    + registerSkill(name)
-    + addSkill(skill)
-    + validateSkill(skill)
+    + getSkill(name)
 }
 
 class AssignSkillsUI {
@@ -38,7 +35,7 @@ class Collaborator {
     - String birthdate
     - String admissionDate
     - String address
-    - String contactInfo
+    - String mobileNumber
     - String idDocumentType
     - String idDocumentNumber
 }
@@ -58,8 +55,9 @@ Repositories --> "1" SkillRepository
 
 AssignSkillsController .> Repositories : repositories
 
-CollaboratorRepository "1" o--- "1..*" Collaborator : has
+CollaboratorRepository  o-- "*" Collaborator
 
-SkillRepository "1" o--- "1..*" Skill : has
-
+SkillRepository  o- "*" Skill
+SkillRepository ..> CollaboratorRepository: assignSkills(Skills)
+Collaborator o-- "*" Skill
 @enduml
