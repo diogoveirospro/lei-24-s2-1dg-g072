@@ -44,7 +44,7 @@ class CollaboratorRepository {
 }
 
 class TeamRepository {
-    + generateTeamProposal(minimumSize, maximumSize, collaborators, skills)
+    + generateTeamProposal(minimumSize, maximumSize, skills, collaborators)
     + createTeam(members)
     + validateTeam(team)
     + addTeam(team)

@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
+import pt.ipp.isep.dei.esoft.project.domain.Skill;
 import pt.ipp.isep.dei.esoft.project.domain.Team;
 
 import java.util.ArrayList;
@@ -29,8 +30,39 @@ public class TeamRepository {
         return team;
     }
 
-    public Team generateTeamProposal(int minimumSize, int maximumSize, ArrayList<Collaborator> members){
+    public ArrayList<Collaborator> generateTeamProposal(int minimumSize, int maximumSize, ArrayList<Skill> skills,
+                                     ArrayList<Collaborator> collaborators){
+
+        ArrayList<Collaborator> members = new ArrayList<>();
+        ArrayList<Collaborator> collaboratorsClone = new ArrayList<>(collaborators);
 
 
+        for (Skill skill : skills){
+
+            for (Collaborator collaborator : collaboratorsClone){
+                if (collaborator.analyseCollaborator(skill)){
+                    members.add(collaborator);
+                    collaboratorsClone.remove(collaborator);
+                    if (members.size() == maximumSize){
+                        return members;
+                    }
+                }
+                break;
+            }
+
+            break;
+        }
+
+        if (members.size() < minimumSize){
+            throw new IllegalArgumentException("There aren't enough collaborators with the specified skills to create a team!");
+        }
+
+        return members;
+    }
+
+    public Team createTeam(ArrayList<Collaborator> members){
+        Team team = new Team(members);
+        teams.add(team);
+        return team;
     }
 }

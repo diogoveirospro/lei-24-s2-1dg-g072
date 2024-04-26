@@ -88,12 +88,10 @@ public class Collaborator {
         this.idDocumentNumber = idDocumentNumber;
     }
 
-    public boolean analyseCollaborator(ArrayList<Skill> skills){
-        for (Skill s1 : this.skills){
-            if (skills.contains(s1)){
+    public boolean analyseCollaborator(Skill skill){
+            if (skills.contains(skill)){
                 return true;
             }
-        }
         return false;
     }
 
