@@ -12,7 +12,7 @@ participant ":RegisterVehicleMaintenanceController" as CTRL
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as PLAT
 participant "vehicleRepository\n:VehicleRepository" as VREP
-participant "vehicleMaintenanceRepository\n:VehicleMaintenanceRepository" as RegisterVehicleRepository
+participant "MaintenanceRepository\n:MaintenanceRepository" as MREP
 participant "maintenance\n:Maintenance" as MAINTENANCE
 
 activate ADM
@@ -20,8 +20,10 @@ activate ADM
         ADM -> UI : asks to register a vehicle maintenance
 
         activate UI
+
         UI -> CTRL : getVehicleList()
             activate CTRL
+
             CTRL -> RepositorySingleton : getInstance()
             activate RepositorySingleton
 
@@ -29,11 +31,13 @@ activate ADM
             deactivate RepositorySingleton
             CTRL -> PLAT : getVehicleRepository()
             activate PLAT
+
             PLAT -> CTRL : vehicleRepository
             deactivate PLAT
 
             CTRL -> VREP : getVehicleList()
             activate VREP
+
             VREP -> CTRL : vehicleList
             deactivate VREP
 
@@ -66,20 +70,20 @@ activate ADM
                     PLAT --> CTRL: registerVehicleRepository
                 deactivate PLAT
 
-                CTRL -> RegisterVehicleRepository : registerVehicleMaintenance(vehicleList, date)
-                activate RegisterVehicleRepository
+                CTRL -> MREP : registerVehicleMaintenance(vehicleList, date)
+                activate MREP
 
-                RegisterVehicleRepository -> MAINTENANCE**: registerVehicleMaintenance(vehicleList, date)
+                MREP -> MAINTENANCE**: registerVehicleMaintenance(vehicleList, date)
 
                 loop
-                RegisterVehicleRepository -> RegisterVehicleRepository: addVehicle (vehicle)
+                MREP -> MREP: addVehicle (vehicle)
 
-                 activate RegisterVehicleRepository
-                     RegisterVehicleRepository -> RegisterVehicleRepository: validateVehicle(vehicle)
+                 activate MREP
+                     MREP -> MREP: validateVehicle(vehicle)
                  end
-                 deactivate RegisterVehicleRepository
-                                RegisterVehicleRepository --> CTRL : maintenance
-                            deactivate RegisterVehicleRepository
+                 deactivate MREP
+                                MREP --> CTRL : maintenance
+                            deactivate MREP
 
 
             CTRL --> UI: maintenance
