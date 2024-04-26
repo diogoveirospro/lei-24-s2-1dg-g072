@@ -3,32 +3,49 @@ package pt.ipp.isep.dei.esoft.project.domain;
 import java.util.ArrayList;
 
 public class Graph {
-    private ArrayList<Edge> grafo;
+    /**
+     * A list containing all the edges(the origin and destiny points and cost of making them)
+     */
+    private ArrayList<Edge> graph;
 
+    /**
+     * A constructor of Graph that initiates the instance graph
+     */
     public Graph() {
-        grafo = new ArrayList<>();
+        graph = new ArrayList<>();
     }
 
-    public ArrayList<Vertice> getVertices() {
-        ArrayList<Vertice> vertices = new ArrayList<>();
-        for (Edge graph : grafo) {
-            if (!vertices.contains(graph.getOrigem())) {
-                vertices.add(graph.getOrigem());
+    /**
+     * A function that adds new vertices that exist in the graph
+     *
+     * @return vertices
+     */
+    public ArrayList<Vertex> getVertices() {
+        ArrayList<Vertex> vertices = new ArrayList<>();
+        for (Edge graph : graph) {
+            if (!vertices.contains(graph.getOrigin())) {
+                vertices.add(graph.getOrigin());
             }
-            if (!vertices.contains(graph.getDestino())) {
-                vertices.add(graph.getDestino());
+            if (!vertices.contains(graph.getDestiny())) {
+                vertices.add(graph.getDestiny());
             }
         }
         return vertices;
     }
 
-    public ArrayList<Vertice> getVerticesConnectedTo(Vertice v) {
-        ArrayList<Vertice> vertices = new ArrayList<>();
-        for (Edge graph : grafo) {
-            if (graph.getOrigem().equals(v)) {
+    /**
+     * This function will get vertices that are equal to the vertex v, and will return an array with all those vertices.
+     *
+     * @param v a vertex
+     * @return vertices
+     */
+    public ArrayList<Vertex> getVerticesConnectedTo(Vertex v) {
+        ArrayList<Vertex> vertices = new ArrayList<>();
+        for (Edge graph : graph) {
+            if (graph.getOrigin().equals(v)) {
                 return vertices;
             }
-            if (graph.getDestino().equals(v)) {
+            if (graph.getDestiny().equals(v)) {
                 return vertices;
             }
         }
