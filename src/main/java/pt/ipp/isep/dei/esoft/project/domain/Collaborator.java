@@ -1,20 +1,25 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.util.ArrayList;
+
 public class Collaborator {
     private String name;
     private String birthday;
     private String admissionDate;
     private String address;
-    private int contactInfo;
+    private int mobileNumber;
+    private String email;
     private String idDocumentType;
     private int idDocumentNumber;
+    private ArrayList<Skill> skills;
 
-    public Collaborator(String name, String birthday, String admissionDate, String address, int contactInfo, String idDocumentType, int idDocumentNumber) {
+    public Collaborator(String name, String birthday, String admissionDate, String address, int mobileNumber, String email, String idDocumentType, int idDocumentNumber) {
         this.name = name;
         this.birthday = birthday;
         this.admissionDate = admissionDate;
         this.address = address;
-        this.contactInfo = contactInfo;
+        this.mobileNumber = mobileNumber;
+        this.email = email;
         this.idDocumentType = idDocumentType;
         this.idDocumentNumber = idDocumentNumber;
     }
@@ -35,9 +40,14 @@ public class Collaborator {
         return address;
     }
 
-    public int getContactInfo() {
-        return contactInfo;
+    public int getMobileNumber() {
+        return mobileNumber;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
     public String getIdDocumentType(){
         return idDocumentType;
     }
@@ -62,8 +72,12 @@ public class Collaborator {
         this.address = address;
     }
 
-    public void setContactInfo(int contactInfo) {
-        this.contactInfo = contactInfo;
+    public void setMobileNumber(int mobileNumber) {
+        this.mobileNumber = mobileNumber;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public void setIdDocumentType(String idDocumentType) {
@@ -72,6 +86,15 @@ public class Collaborator {
 
     public void setIdDocumentNumber(int idDocumentNumber) {
         this.idDocumentNumber = idDocumentNumber;
+    }
+
+    public boolean analyseCollaborator(ArrayList<Skill> skills){
+        for (Skill s1 : this.skills){
+            if (skills.contains(s1)){
+                return true;
+            }
+        }
+        return false;
     }
 
 }

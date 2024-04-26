@@ -37,7 +37,9 @@ class Repositories {
 }
 
 class JobRepository {
-    + register()
+    + register(name)
+    + addJob(job)
+    + validate(job)
 }
 
 

@@ -51,7 +51,6 @@ class TeamRepository {
 }
 
 class Team {
-    - members : ArrayList<Collaborator>
     + Team(members)
 }
 

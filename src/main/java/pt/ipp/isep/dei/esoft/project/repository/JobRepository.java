@@ -42,7 +42,7 @@ public class JobRepository {
      * Add a job to the repository.
      * @param newJob: new job.
      */
-    public void add(Job newJob){
+    public void addJob(Job newJob){
         if (!validateJob(newJob)) {
             throw new IllegalArgumentException("Invalid job to add");
         }
