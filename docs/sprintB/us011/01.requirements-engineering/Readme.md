@@ -18,6 +18,9 @@ understand the use of the park by different age groups.
 
 **From the client clarifications:**
 
+> **Question:** Vai nos ser fornecido algum ficheiro por exemplo Inquiry.csv com os dados do inquérito e apartir daí fazer o que está no enunciado. Ou é suposto também o programa coletar a informação (os dados do inquérito)?
+>
+> **Answer:** Os resultados do inquérito já estão registados num ficheiro .csv.
 
 
 ### 1.3. Acceptance Criteria
