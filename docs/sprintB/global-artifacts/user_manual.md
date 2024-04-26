@@ -147,12 +147,14 @@ minimum and maximum size of the team and the set of skills required for a given 
 
 
 > ### 10. Find which piece of equipment is used each day | GSM
-> **Purpose:** To enable the Vehicle Fleet Manager (VFM) to automatically generate a list of all vehicles that need a check-up.
+> **Purpose:** To enable the Green Spaces Manager (GSM) to analyze which pieces of equipment are most frequently used by park visitors each day, helping to inform maintenance schedules and future park enhancements.
 >
 > **Instructions**:
-> - Log in to your Vehicle Fleet Manager account;
-> - Navigate to the section where you can list all vehicles that need a check-up;
-> - Click on "Generate list" or a similar option to automatically create a list of all vehicles that need a check-up, after you confirm it.
+> - Log in to your Green Spaces Manager account;
+> - Navigate to the section where you can analyze equipment usage;
+> - Load the data from the "EquipmentUsed.csv" file to review user inputs;
+> - Click on "Generate chart" or a similar option to create a pie chart displaying the usage percentage for each piece of equipment, such as walking paths, children’s playground, picnic areas, and exercise machines;
+> - Use the insights gained from the chart to make informed decisions about equipment maintenance and upgrades.
 
 
 > ### 11. Collect data from user portal | GSM
