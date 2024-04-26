@@ -167,12 +167,16 @@ minimum and maximum size of the team and the set of skills required for a given 
 
 
 > ### 12. Import .csv file | GSM
-> **Purpose:** To enable the Vehicle Fleet Manager (VFM) to automatically generate a list of all vehicles that need a check-up.
+> **Purpose:**  To enable the Green Spaces Manager (GSM) to import route data between different water points from a .csv file into the system. This data will assist in planning and costing the installation of pipes between water points based on distance or other cost parameters.
 >
 > **Instructions**:
-> - Log in to your Vehicle Fleet Manager account;
-> - Navigate to the section where you can list all vehicles that need a check-up;
-> - Click on "Generate list" or a similar option to automatically create a list of all vehicles that need a check-up, after you confirm it.
+> - Log in to your Green Spaces Manager account;
+> - Navigate to the section for "Water Supply Management" or a similar section;
+> - Choose the option to import route data;
+> - Select the .csv file containing lines with "Water Point X, Water Point Y, Distance" from your device;
+> - Click on "Import" or a similar option to upload the file and integrate the data into the application’s unique data structure;
+> - Review the imported routes to ensure accuracy and completeness of the data;
+> - Use the imported data to plan efficient and cost-effective pipe installations across the surveyed green areas
 
 
 > ### 13. Algorithm that returns routes to be opened | GSM
