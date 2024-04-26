@@ -108,6 +108,10 @@ Do we choose two at our discretion? Or do we study all the parks in question?
 > 
 > **Answer:** Right.
 
+> **Question:** When it comes to creating the Barplot with the monthly water consumption of the selected park, do the start and end months belong to the same year or can the year change? Example: start month 12 2023 and go to month 3 2024.
+> 
+> **Answer:** They belong to the same year.
+
 ### 1.3. Acceptance Criteria
 
 * **AC1:** The programming language must be **Python**.
