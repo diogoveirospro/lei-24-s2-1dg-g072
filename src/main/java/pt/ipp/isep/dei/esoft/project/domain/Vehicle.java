@@ -3,6 +3,21 @@ package pt.ipp.isep.dei.esoft.project.domain;
 public class Vehicle {
 
     /**
+     * Max year for the vehicle.
+     */
+    private final int MAX_YEAR_ID = 2020;
+
+    /**
+     * Middle year of the vehicle.
+     */
+    private final int HALF_YEAR_ID = 2005;
+
+    /**
+     * Minimum year of the vehicle.
+     */
+    private final int MIN_YEAR_ID = 1992;
+
+    /**
      * The vehicle plate number
      */
     private String plateNumber;
@@ -40,12 +55,12 @@ public class Vehicle {
     /**
      * Date when the vehicle is being registered
      */
-    private String registrationDate;
+    private Date registrationDate;
 
     /**
      * Date when the vehicle was bought
      */
-    private String acquisitionDate;
+    private Date acquisitionDate;
 
     /**
      * The frequency of the vehicle maintenance
@@ -59,19 +74,20 @@ public class Vehicle {
 
     /**
      * Creates an instance of vehicle
-     * @param plateNumber Vehicle plate number
-     * @param brand Vehicle brand
-     * @param model Vehicle model
-     * @param type Vehicle type
-     * @param tare Vehicle tare
-     * @param grossWeight Vehicle gross weight
-     * @param currentKms Kms of the vehicle when registered
-     * @param registrationDate Date when the vehicle was bought
-     * @param acquisitionDate Date when the vehicle was bought
-     * @param serviceFrequency The frequency of the vehicle maintenance
+     *
+     * @param plateNumber         Vehicle plate number
+     * @param brand               Vehicle brand
+     * @param model               Vehicle model
+     * @param type                Vehicle type
+     * @param tare                Vehicle tare
+     * @param grossWeight         Vehicle gross weight
+     * @param currentKms          Kms of the vehicle when registered
+     * @param registrationDate    Date when the vehicle was bought
+     * @param acquisitionDate     Date when the vehicle was bought
+     * @param serviceFrequency    The frequency of the vehicle maintenance
      * @param kmAtLastMaintenance The kms the vehicle had at the last maintenance
      */
-    public Vehicle(String plateNumber, String brand, String model, String type, Double tare, Double grossWeight, Double currentKms, String registrationDate, String acquisitionDate, Double serviceFrequency, Double kmAtLastMaintenance){
+    public Vehicle(String plateNumber, String brand, String model, String type, Double tare, Double grossWeight, Double currentKms, Date registrationDate, Date acquisitionDate, Double serviceFrequency, Double kmAtLastMaintenance) {
         this.plateNumber = plateNumber;
         this.brand = brand;
         this.model = model;
@@ -87,6 +103,7 @@ public class Vehicle {
 
     /**
      * Gets plate number of vehicle
+     *
      * @return plate number
      */
     public String getPlateNumber() {
@@ -95,6 +112,7 @@ public class Vehicle {
 
     /**
      * Gets current kms of vehicle
+     *
      * @return current kms
      */
     public Double getCurrentKms() {
@@ -103,6 +121,7 @@ public class Vehicle {
 
     /**
      * Gets gross weight of vehicle
+     *
      * @return gross weight
      */
     public Double getGrossWeight() {
@@ -111,6 +130,7 @@ public class Vehicle {
 
     /**
      * Gets Km at last maintenance of vehicle
+     *
      * @return km at last maintenance
      */
     public Double getKmAtLastMaintenance() {
@@ -119,6 +139,7 @@ public class Vehicle {
 
     /**
      * Gets service frequency of vehicle
+     *
      * @return service frequency
      */
     public Double getServiceFrequency() {
@@ -127,6 +148,7 @@ public class Vehicle {
 
     /**
      * Gets tare of vehicle
+     *
      * @return tare
      */
     public Double getTare() {
@@ -135,14 +157,16 @@ public class Vehicle {
 
     /**
      * Gets acquisition date of vehicle
+     *
      * @return acquisitions date
      */
-    public String getAcquisitionDate() {
+    public Date getAcquisitionDate() {
         return acquisitionDate;
     }
 
     /**
      * Gets brand of vehicle
+     *
      * @return brand of vehicle
      */
     public String getBrand() {
@@ -151,6 +175,7 @@ public class Vehicle {
 
     /**
      * Gets model of vehicle
+     *
      * @return model of vehicle
      */
     public String getModel() {
@@ -159,14 +184,16 @@ public class Vehicle {
 
     /**
      * Get registration date of vehicle
+     *
      * @return registration date of vehicle
      */
-    public String getRegistrationDate() {
+    public Date getRegistrationDate() {
         return registrationDate;
     }
 
     /**
      * Gets type of vehicle
+     *
      * @return type
      */
     public String getType() {
@@ -175,14 +202,16 @@ public class Vehicle {
 
     /**
      * Set acquisition date of vehicle
+     *
      * @param acquisitionDate
      */
-    public void setAcquisitionDate(String acquisitionDate) {
+    public void setAcquisitionDate(Date acquisitionDate) {
         this.acquisitionDate = acquisitionDate;
     }
 
     /**
      * Set brand of vehicle
+     *
      * @param brand
      */
     public void setBrand(String brand) {
@@ -191,6 +220,7 @@ public class Vehicle {
 
     /**
      * Set current kms of vehicle
+     *
      * @param currentKms
      */
     public void setCurrentKms(Double currentKms) {
@@ -199,6 +229,7 @@ public class Vehicle {
 
     /**
      * Set km at last maintenance of vehicle
+     *
      * @param kmAtLastMaintenance
      */
     public void setKmAtLastMaintenance(Double kmAtLastMaintenance) {
@@ -207,6 +238,7 @@ public class Vehicle {
 
     /**
      * Set gross weight of vehicle
+     *
      * @param grossWeight
      */
     public void setGrossWeight(Double grossWeight) {
@@ -215,6 +247,7 @@ public class Vehicle {
 
     /**
      * Set model of vehicle
+     *
      * @param model
      */
     public void setModel(String model) {
@@ -223,6 +256,7 @@ public class Vehicle {
 
     /**
      * Set plate number of vehicle
+     *
      * @param plateNumber
      */
     public void setPlateNumber(String plateNumber) {
@@ -231,14 +265,16 @@ public class Vehicle {
 
     /**
      * Set registration date of vehicle
+     *
      * @param registrationDate
      */
-    public void setRegistrationDate(String registrationDate) {
+    public void setRegistrationDate(Date registrationDate) {
         this.registrationDate = registrationDate;
     }
 
     /**
      * Set service frequency of vehicle
+     *
      * @param serviceFrequency
      */
     public void setServiceFrequency(Double serviceFrequency) {
@@ -247,6 +283,7 @@ public class Vehicle {
 
     /**
      * Set tare of vehicle
+     *
      * @param tare
      */
     public void setTare(Double tare) {
@@ -255,14 +292,79 @@ public class Vehicle {
 
     /**
      * Set type of vehicle
+     *
      * @param type
      */
     public void setType(String type) {
         this.type = type;
     }
 
-    public boolean validateVehicle(){
+    /**
+     * Checks if the vehicle is valid.
+     * @return true if the vehicle is valid, else return false
+     */
+    public boolean validateVehicle() {
+        boolean validate = true;
 
+        if (this.getVehicleYear() > MAX_YEAR_ID) {
+            if (!validatePlate(1)) {
+                validate = false;
+            }
+
+        } else if (this.getVehicleYear() > HALF_YEAR_ID) {
+            if (!validatePlate(2)) {
+                validate = false;
+            }
+
+        } else if (this.getVehicleYear() > MIN_YEAR_ID) {
+            if (!validatePlate(3)) {
+                validate = false;
+            }
+        }
+
+        return validate;
+    }
+
+    /**
+     * Checks if the plate number of the vehicle is valid according to the year of registration of the vehicle.
+     * @param validationProcess process used to validate the plate number according to year of registration.
+     * @return true if plate number is valid, else return false.
+     */
+    private boolean validatePlate(int validationProcess) {
+        boolean validate = true;
+        String[] plateId;
+        plateId = plateNumber.split("-");
+
+        if (validationProcess == 1) {
+            if (!plateId[0].matches("[A-Z]*") || !plateId[2].matches("[A-Z]*"))
+                validate = false;
+
+            if (!plateId[1].matches("[0-9]*"))
+                validate = false;
+
+        } else if (validationProcess == 2) {
+            if (!plateId[0].matches("[0-9]*") || !plateId[2].matches("[0-9]*"))
+                validate = false;
+
+            if (!plateId[1].matches("[A-Z]*"))
+                validate = false;
+        } else {
+            if(!plateId[0].matches("[0-9]*") || !plateId[1].matches("[0-9]*"))
+                validate = false;
+
+            if(!plateId[2].matches("[A-Z]*"))
+                validate = false;
+        }
+
+        return validate;
+    }
+
+    /**
+     * Get the acquisition year of the vehicle.
+     * @return the acquisition year of the vehicle.
+     */
+    public int getVehicleYear() {
+        return this.acquisitionDate.getYear();
     }
 
 }

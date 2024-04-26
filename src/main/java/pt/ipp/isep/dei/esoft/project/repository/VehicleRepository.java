@@ -21,10 +21,10 @@ public class VehicleRepository {
 
     /**
      * Add new vehicle to list
-     * @param newVehicle
+     * @param newVehicle vehicle to be added to the list
      */
     public void addVehicle(Vehicle newVehicle){
-        if (!validateVehicle(newVehicle)){
+        if (!checkVehicleInList(newVehicle) || (!newVehicle.validateVehicle())){
             throw new IllegalArgumentException("Invalid vehicle to add");
         }
 
@@ -37,7 +37,7 @@ public class VehicleRepository {
      * @param vehicle
      * @return True if the vehicle isn't on the list and false if it is
      */
-    private boolean validateVehicle(Vehicle vehicle){
+    private boolean checkVehicleInList(Vehicle vehicle){
         return !vehicleList.contains(vehicle);
     }
 
