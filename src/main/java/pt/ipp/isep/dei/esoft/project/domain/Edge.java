@@ -1,43 +1,99 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
 public class Edge {
-    private Vertice destino;
-    private Vertice origem;
-    private int distancia;
 
-    public Edge(Vertice origem, Vertice destino, int distancia) {
-        this.destino = destino;
-        this.origem = origem;
-        this.distancia = distancia;
+    /**
+     * Arrival point of the pipeline
+     *
+     */
+    private Vertex destiny;
+    /**
+     * Origin point of the pipeline
+     *
+     */
+    private Vertex origin;
+    /**
+     * Cost of making the Pipeline
+     *
+     */
+    private int cost;
+
+    /**
+     * Constructor of Edge with the instances origin, destiny and cost.
+     *
+     * @param origin point of the pipeline
+     * @param destiny point of the pipeline
+     * @param cost of making the pipeline
+     */
+    public Edge(Vertex origin, Vertex destiny, int cost) {
+        this.destiny = destiny;
+        this.origin = origin;
+        this.cost = cost;
     }
 
-    public Vertice getDestino() {
-        return destino;
+    /**
+     * Lets the user get the destiny of the pipeline
+     *
+     * @return destiny
+     */
+    public Vertex getDestiny() {
+        return destiny;
     }
 
-    public Vertice getOrigem() {
-        return origem;
+    /**
+     * Lets the user get the origin of the pipeline
+     *
+     * @return origin
+     */
+    public Vertex getOrigin() {
+        return origin;
     }
 
-    public int getDistancia() {
-        return distancia;
+    /**
+     * Lets the user get the cost of making the pipeline
+     *
+     * @return cost
+     */
+    public int getCost() {
+        return cost;
     }
 
-    public void setDistancia(int distancia) {
-        this.distancia = distancia;
+    /**
+     * Lets the user change the value of making a pipeline
+     *
+     * @param cost of making a pipeline
+     */
+    public void setCost(int cost) {
+        this.cost = cost;
     }
 
-    public void setDestino(Vertice destino) {
-        this.destino = destino;
+    /**
+     * Lets the user change the destiny point of a pipeline
+     *
+     * @param destiny of the pipeline
+     */
+    public void setDestiny(Vertex destiny) {
+        this.destiny = destiny;
     }
 
-    public void setOrigem(Vertice origem) {
-        this.origem = origem;
+    /**
+     * Lets the user change the origin point of a pipeline
+     *
+     * @param origin of the pipeline
+     */
+    public void setOrigin(Vertex origin) {
+        this.origin = origin;
     }
 
+    /**
+     * Compares two different edges
+     *
+     * @param otherObject Another edge
+     * @return the comparison between two edges
+     */
     @Override
-    public boolean equals(Object outroObject) {
-        Edge outroEdge = (Edge) outroObject;
-        return this.getOrigem().equals(outroEdge.getOrigem()) && this.getDestino().equals(outroEdge.getDestino());
+    public boolean equals(Object otherObject) {
+        Edge otherEdge = (Edge) otherObject;
+        return this.getOrigin().equals(otherEdge.getOrigin()) && this.getDestiny().equals(otherEdge.getDestiny());
     }
 }
