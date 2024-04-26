@@ -52,6 +52,7 @@ It uses Interaction Occurrence (a.k.a. Interaction Use).
 
 **Register Maintenance**
 
+
 ![Sequence Diagram - Partial - Register Maintenance](svg/us007-sequence-diagram-partial-register-maintenance.svg)
 
 ## 3.3. Class Diagram (CD)
