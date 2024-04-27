@@ -73,7 +73,7 @@ activate ADM
                 CTRL -> MREP : registerVehicleMaintenance(vehicleList, date)
                 activate MREP
 
-                MREP -> MAINTENANCE**: Maintenance(vehicleList, date)
+                MREP -> MAINTENANCE**: Maintenance(vehicle, date)
 
                 loop
                 MREP -> MREP: addVehicle (vehicle)

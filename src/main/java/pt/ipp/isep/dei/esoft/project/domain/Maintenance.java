@@ -1,33 +1,49 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Maintenance {
-    private double kmAtMaintenance;
 
     /**
-     * A constructor of Maintenance that creates an object that initiates the instance kmAtMaintenance
+     * Vehicle that needs maintenance
      *
-     * @param kmAtMaintenance km at the vehicle maintenance
      */
-    public Maintenance(double kmAtMaintenance){
-        this.kmAtMaintenance = kmAtMaintenance;
+    private Vehicle vehicle;
+    /**
+     * A constructor of Maintenance that creates an object that initiates the instance kmAtMaintenance, and the list vehicles
+     *
+     * @param vehicle that needs maintenance
+     */
+    public Maintenance(Vehicle vehicle){
+        this.vehicle = vehicle;
+    }
+    /**
+     * Lets the user get the Vehicle list
+     *
+     * @return vehicle
+     */
+    public Vehicle getVehicleList() {
+        return vehicle;
     }
 
     /**
-     * Lets the user get the value of kmAtMaintenance
+     * Lets the user change the Vehicle list
      *
-     * @return kmAtMaintenance
+     * @param vehicle A vehicle that needs maintenance
      */
-    public double getKmAtMaintenance() {
-        return kmAtMaintenance;
+    public void setVehicleList(Vehicle vehicle) {
+        this.vehicle = vehicle;
     }
 
     /**
-     * Lets the user change the value of kmAtMaintenance
+     * Changes the data of the vehicle, so it updates the data to their new maintenance
      *
-     * @param kmAtMaintenance km at the vehicle maintenance
+     * @param vehicle that needs maintenance
      */
+    public void setVehicleMaintenance(Vehicle vehicle){
+        vehicle.setKmAtLastMaintenance(vehicle.getCurrentKms());
 
-    public void setKmAtMaintenance(double kmAtMaintenance) {
-        this.kmAtMaintenance = kmAtMaintenance;
     }
+
 }
