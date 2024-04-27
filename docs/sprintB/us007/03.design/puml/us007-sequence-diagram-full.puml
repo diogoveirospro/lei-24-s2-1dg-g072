@@ -55,7 +55,7 @@ activate ADM
             deactivate UI
             ADM -> UI : confirms data
             activate UI
-            UI -> CTRL : registerVehicleMaintenance(vehicleList, date)
+            UI -> CTRL : registerVehicleMaintenance(vehicleList)
             activate CTRL
 
                 CTRL -> RepositorySingleton : getInstance()
@@ -70,16 +70,16 @@ activate ADM
                     PLAT --> CTRL: registerVehicleRepository
                 deactivate PLAT
 
-                CTRL -> MREP : registerVehicleMaintenance(vehicleList, date)
+                CTRL -> MREP : registerVehicleMaintenance(vehicleList)
                 activate MREP
 
-                MREP -> MAINTENANCE**: Maintenance(vehicle, date)
+                MREP -> MAINTENANCE**: Maintenance(vehicle)
 
                 loop
-                MREP -> MREP: addVehicle (vehicle)
+                MREP -> MREP: addVehicleMaintenance(vehicle)
 
                  activate MREP
-                     MREP -> MREP: validateVehicle(vehicle)
+                     MREP -> MREP: validateVehicleMaintenance(vehicle)
                  end
                  deactivate MREP
                                 MREP --> CTRL : maintenance
