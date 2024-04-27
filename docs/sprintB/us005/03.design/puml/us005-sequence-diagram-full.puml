@@ -115,7 +115,7 @@ activate HRM
                 TEAMREP -> COLLAB**: chooseMembers(minimumSize, maximumSize, collaborators, skills)
                 activate COLLAB
                 loop
-                    COLLAB -> COLLAB: analyseCollaborator(skills)
+                    COLLAB -> COLLAB: analyseCollaborator(skill)
                     activate COLLAB
                 end
                     COLLAB --> TEAMREP: members

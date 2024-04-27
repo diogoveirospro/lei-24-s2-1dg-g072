@@ -61,8 +61,20 @@ public class TeamRepository {
     }
 
     public Team createTeam(ArrayList<Collaborator> members){
-        Team team = new Team(members);
-        teams.add(team);
-        return team;
+        return new Team(members);
+    }
+
+    public void addTeam(Team team) {
+        if (validateTeam(team)) {
+            teams.add(team);
+        }
+    }
+
+    public boolean validateTeam(Team team){
+        if (team == null){
+            return false;
+        }
+        return true;
+
     }
 }
