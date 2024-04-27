@@ -21,6 +21,7 @@ _**Note that SSD - Alternative One is adopted.**_
 
 ### Systematization ##
 
+
 According to the taken rationale, the conceptual classes promoted to software classes are:
 
 * CollaboratorRepository
@@ -31,8 +32,8 @@ Other software classes (i.e. Pure Fabrication) identified:
 * RegisterCollaboratorUI
 * RegisterCollaboratorController
 
-
 ## 3.2. Sequence Diagram (SD)
+
 
 _**Note that SSD - Alternative Two is adopted.**_
 

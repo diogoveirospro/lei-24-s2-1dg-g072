@@ -3,26 +3,26 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-participant CollaboratorRepository
-participant Collaborator
+participant "collaboratorRepository\n:CollaboratorRepository" as collaboratorRepository
+participant ":Collaborator" as Collaborator
 
 autonumber 11
--> CollaboratorRepository: registerCollaborator(details)
+-> collaboratorRepository: registerCollaborator(name, birthdate,\n admissionDate, address, mobile phone,\n email, taxpayer number, idDocumentType,\n idDocumentNumber)
 
 autonumber 11.1
-activate CollaboratorRepository
+activate collaboratorRepository
     group Register Collaborator
-        CollaboratorRepository -> Collaborator: create(details)
-        CollaboratorRepository -> CollaboratorRepository: addCollaborator(collaborator)
-        activate CollaboratorRepository
-            CollaboratorRepository -> CollaboratorRepository: validateCollaborator(collaborator)
-                activate CollaboratorRepository
+        collaboratorRepository -> Collaborator** : create(name, birthdate,\n admissionDate, address, mobile phone,\n email, taxpayer number, idDocumentType,\n idDocumentNumber)
+        collaboratorRepository -> collaboratorRepository: addCollaborator(collaborator)
+        activate collaboratorRepository
+            collaboratorRepository -> collaboratorRepository: validateCollaborator(collaborator)
+                activate collaboratorRepository
     end
 
 
 autonumber 12
-<-- CollaboratorRepository: collaborator
-deactivate CollaboratorRepository
-deactivate CollaboratorRepository
-deactivate CollaboratorRepository
+<-- collaboratorRepository: collaborator
+deactivate collaboratorRepository
+deactivate collaboratorRepository
+deactivate collaboratorRepository
 @enduml

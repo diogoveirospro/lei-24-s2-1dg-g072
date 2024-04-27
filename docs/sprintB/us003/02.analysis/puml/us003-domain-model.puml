@@ -14,7 +14,9 @@ class Collaborator {
      birthdate
      admissionDate
      address
-     contactInfo
+     mobile phone
+     email
+     taxpayer number
      idDocumentType
      idDocumentNumber
 }
