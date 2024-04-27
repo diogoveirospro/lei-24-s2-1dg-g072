@@ -5,10 +5,11 @@ skinparam shadowing false
 
 autonumber
 actor HRM
-participant RegisterCollaboratorUI
-participant RegisterCollaboratorController
-participant Repositories
-participant CollaboratorRepository
+participant ":RegisterCollaboratorUI" as RegisterCollaboratorUI
+participant ":RegisterCollaboratorController" as RegisterCollaboratorController
+participant ":Repositories" as REP
+participant "repositories:Repositories" as repositories
+participant "collaboratorRepository\n:CollaboratorRepository" as CollaboratorRepository
 participant "collaborator:\nCollaborator" as collaborator
 
 activate HRM
@@ -22,19 +23,19 @@ RegisterCollaboratorUI -> HRM: Shows details and requests confirmation
 deactivate RegisterCollaboratorUI
 HRM -> RegisterCollaboratorUI: Confirms details
 activate RegisterCollaboratorUI
-RegisterCollaboratorUI -> RegisterCollaboratorController: RegisterCollaborator(details)
+RegisterCollaboratorUI -> RegisterCollaboratorController: RegisterCollaborator(name, birthdate,\n admissionDate, address, mobile phone,\n email, taxpayer number, idDocumentType,\n idDocumentNumber)
 activate RegisterCollaboratorController
-RegisterCollaboratorController -> Repositories: getInstance()
-activate Repositories
-Repositories -> RegisterCollaboratorController: repositories
-deactivate Repositories
-RegisterCollaboratorController -> CollaboratorRepository: getCollaboratorRepository()
+RegisterCollaboratorController -> REP: getInstance()
+activate REP
+REP -> RegisterCollaboratorController: repositories
+deactivate REP
+RegisterCollaboratorController -> repositories: getCollaboratorRepository()
+activate repositories
+repositories -> RegisterCollaboratorController: collaboratorRepository
+deactivate repositories
+RegisterCollaboratorController -> CollaboratorRepository: registerCollaborator(name, birthdate,\n admissionDate, address, mobile phone,\n email, taxpayer number, idDocumentType,\n idDocumentNumber)
 activate CollaboratorRepository
-CollaboratorRepository -> RegisterCollaboratorController: collaboratorRepository
-deactivate CollaboratorRepository
-RegisterCollaboratorController -> CollaboratorRepository: registerCollaborator(details)
-activate CollaboratorRepository
-CollaboratorRepository -> collaborator**: create(details)
+CollaboratorRepository -> collaborator**: Collaborator(name, birthdate, admissionDate,\n address, mobile phone, email,\n taxpayer number, idDocumentType,\n idDocumentNumber)
 CollaboratorRepository -> CollaboratorRepository: addCollaborator(collaborator)
 
 activate CollaboratorRepository

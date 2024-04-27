@@ -37,13 +37,12 @@ public class Maintenance {
     }
 
     /**
-     * Changes the data of the vehicle, so it updates the data to their new maintenance
+     * Changes the data of the vehicle, so it updates the data to their new maintenance, last maintenance km.
      *
      * @param vehicle that needs maintenance
      */
     public void setVehicleMaintenance(Vehicle vehicle){
         vehicle.setKmAtLastMaintenance(vehicle.getCurrentKms());
-
     }
 
 }
