@@ -62,8 +62,7 @@ public class CollaboratorRepository {
      *
      * @return: The collaborator list.
      */
-    public List
-            <Collaborator> getCollaborators() {
+    public List<Collaborator> getCollaborators() {
         return List.copyOf(collaborators);
     }
 }

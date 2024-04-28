@@ -4,40 +4,41 @@ import pt.ipp.isep.dei.esoft.project.domain.Job;
 import pt.ipp.isep.dei.esoft.project.repository.JobRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 
+/**
+ * RegisterJobController is a class responsible for making requests related to the registration of jobs, requested by the UI.
+ *
+ * @author Group 072 - Byte Masters - ISEP
+ */
 public class RegisterJobController {
-
+    /**
+     * Repository containing the jobs.
+     */
     private JobRepository jobRepository;
 
+    /**
+     * Empty RegisterJobController builder.
+     */
     public RegisterJobController(){
-        getJobRepository();
+        this.jobRepository = Repositories.getInstance().getJobRepository();
     }
 
+    /**
+     * RegisterJobController builder.
+     * @param jobRepository job repository
+     */
     public RegisterJobController(JobRepository jobRepository){
 
         this.jobRepository = jobRepository;
     }
 
-    private JobRepository getJobRepository() {
-        if (jobRepository == null) {
-            Repositories repositories = Repositories.getInstance();
+    /**
+     * Register a job
+     * @param name job name
+     */
+    public void registerJob(String name) {
 
-            //Get the TaskCategoryRepository
-            jobRepository = repositories.getJobRepository();
-        }
-        return jobRepository;
+        Job job = new Job(name);
+        jobRepository.addJob(job);
     }
-
-    public Job registerJob(String name) {
-
-        if (!validateJob(newJob)) {
-            throw new IllegalArgumentException("Invalid job to add");
-        }
-    }
-
-    private validateRegisterJob(String name){
-        return;
-    }
-
-
 
 }

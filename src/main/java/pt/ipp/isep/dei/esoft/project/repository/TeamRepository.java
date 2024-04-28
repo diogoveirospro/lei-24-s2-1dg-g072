@@ -26,11 +26,11 @@ public class TeamRepository {
     }
 
     /**
-     * Get the teams from the TeamRepository.
-     * @return team repository
+     * This method returns a defensive (immutable) copy of the team list.
+     * @return the team list.
      */
     public List<Team> getTeams() {
-        return teams;
+        return List.copyOf(teams);
     }
 
     /**
@@ -61,8 +61,8 @@ public class TeamRepository {
      * @param collaborators list of all collaborators.
      * @return members of the team proposal.
      */
-    public ArrayList<Collaborator> generateTeamProposal(int minimumSize, int maximumSize, ArrayList<Skill> skills,
-                                     ArrayList<Collaborator> collaborators){
+    public List<Collaborator> generateTeamProposal(int minimumSize, int maximumSize, List<Skill> skills,
+                                     List<Collaborator> collaborators){
 
         ArrayList<Collaborator> members = new ArrayList<>();
         ArrayList<Collaborator> collaboratorsClone = new ArrayList<>(collaborators);

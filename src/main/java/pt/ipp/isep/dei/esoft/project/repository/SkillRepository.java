@@ -2,6 +2,8 @@ package pt.ipp.isep.dei.esoft.project.repository;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
 
 public class SkillRepository {
@@ -16,6 +18,15 @@ public class SkillRepository {
         }
         skills.add(skill);
         System.out.println("Skill:"+ skill.getName());
+    }
+
+    /**
+     * This method returns a defensive (immutable) copy of the skill list.
+     *
+     * @return: The skill list.
+     */
+    public List<Skill> listSkills() {
+        return List.copyOf(skills);
     }
 
 }

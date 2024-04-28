@@ -36,11 +36,11 @@ class Repositories {
 }
 
 class SkillRepository {
-
+    + listSkills()
 }
 
 class CollaboratorRepository {
-
+    + getCollaborators()
 }
 
 class TeamRepository {
