@@ -50,12 +50,15 @@ It uses Interaction Occurrence (a.k.a. Interaction Use).
 
 ![Sequence Diagram - split](svg/us007-sequence-diagram-split.svg)
 
+**Get Vehicle List**
+
+![Sequence Diagram - Partial - Register Maintenance](svg/us007-sequence-diagram-partial-get-vehicles-list.svg)
 
 **Register Maintenance**
-
 
 ![Sequence Diagram - Partial - Register Maintenance](svg/us007-sequence-diagram-partial-register-maintenance.svg)
 
 ## 3.3. Class Diagram (CD)
 
 ![Class Diagram](svg/us007-class-diagram.svg)
+

@@ -76,10 +76,10 @@ activate ADM
                 MREP -> MAINTENANCE**: Maintenance(vehicle)
 
                 loop
-                MREP -> MREP: addVehicleMaintenance(vehicle)
+                MREP -> MREP: addVehicleMaintenance(vehicleList)
 
                  activate MREP
-                     MREP -> MREP: validateVehicleMaintenance(vehicle)
+                     MREP -> MREP: validateVehicleMaintenance(maintenance)
                  end
                  deactivate MREP
                                 MREP --> CTRL : maintenance

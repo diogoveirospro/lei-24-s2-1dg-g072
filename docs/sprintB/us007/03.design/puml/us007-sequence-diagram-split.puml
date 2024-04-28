@@ -21,7 +21,7 @@ activate ADM
         UI -> CTRL : getVehicleList()
             activate CTRL
             ref over CTRL
-                Get Registered Vehicles List
+                Get Vehicles List
 
             end ref
             CTRL -> UI : vehicleList
@@ -58,7 +58,7 @@ activate ADM
                             activate RegisterVehicleRepository
 
                             ref over RegisterVehicleRepository
-                                Register Vehicle Maintenance
+                                Register Maintenance
 
                             end ref
 

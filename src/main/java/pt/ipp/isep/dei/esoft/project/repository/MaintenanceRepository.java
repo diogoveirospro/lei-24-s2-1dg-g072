@@ -11,54 +11,59 @@ import java.util.List;
 public class MaintenanceRepository {
     /**
      * List of vehicles that will be registered for maintenance.
-     *
      */
     private List<Vehicle> vehicleList;
     /**
      * List of vehicles that need maintenance
-     *
      */
     private List<Maintenance> maintenanceList;
 
     /**
      * Get a vehicle from the repository by its details.
      *
-     * @param vehicle that needs maintenance
+     * @param vehicleList of all vehicles that need maintenance
      * @return maintenance
      */
-    public Maintenance getVehicleMaintenance(Vehicle vehicle){
-        Maintenance newMaintenance = new Maintenance(vehicle);
-        Maintenance maintenance = null;
-        if (maintenanceList.contains(newMaintenance)){
-            maintenance = maintenanceList.get(maintenanceList.indexOf(newMaintenance));
-        }
+    public List<Maintenance> getVehicleMaintenance(List<Vehicle> vehicleList) {
+        List<Maintenance> maintenances = new ArrayList<Maintenance>();
+        for (Vehicle vehicle : vehicleList) {
+            Maintenance newMaintenance = new Maintenance(vehicle);
+            Maintenance aux = null;
+            if (maintenanceList.contains(newMaintenance)) {
+                aux = maintenanceList.get(maintenanceList.indexOf(newMaintenance));
+                maintenances.add(maintenanceList.get(maintenanceList.indexOf(newMaintenance)));
+            }
 
-        if (maintenance == null){
-            throw new IllegalArgumentException("Vehicle " + vehicle + " does not exist.");
+            if (aux == null) {
+                throw new IllegalArgumentException("Vehicle " + vehicle + " does not exist.");
+            }
         }
-
-        return maintenance;
+        return maintenances;
     }
+
     /**
      * Private method to see if a vehicle is already in the repository.
      *
      * @param maintenance: vehicle that needs maintenance to be checked
      * @return if the vehicle is already in the repository or not
      */
-    private  boolean  validateVehicleMaintenance(Maintenance maintenance){
+    private boolean validateVehicleMaintenance(Maintenance maintenance) {
         return !maintenanceList.contains(maintenance);
     }
+
     /**
-     * Add a job to the repository.
-     * @param newMaintenance: new vehicle that needs maintenance.
+     * Add a vehicle that needs maintenance to the maintenance repository.
+     *
+     * @param vehicleList: all new vehicles that need maintenance.
      */
-    public void addVehicleMaintenance(Maintenance newMaintenance){
+    public void addVehicleMaintenance(List<Vehicle> vehicleList) {
 
-        if (!validateVehicleMaintenance(newMaintenance)) {
-            throw new IllegalArgumentException("Invalid vehicle that needs maintenance to add");
+        for (Vehicle vehicle: vehicleList) {
+            Maintenance newMaintenance = new Maintenance(vehicle);
+            if (!validateVehicleMaintenance(newMaintenance)) {
+                throw new IllegalArgumentException("Invalid vehicle that needs maintenance to add");
+            }
+            maintenanceList.add(newMaintenance);
         }
-
-        maintenanceList.add(newMaintenance);
-
     }
 }

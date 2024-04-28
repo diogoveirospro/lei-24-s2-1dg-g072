@@ -21,7 +21,7 @@ class RegisterVehicleController {
     + registerVehicle(plateNumber, brand, model, type, tare, grossWeight, currentKms, registrationDate, acquisitionDate, serviceFrequency)
 }
 
-class vehicleMaintenanceRepository{
+class maintenanceRepository{
     + registerVehicleMaintenance(vehicleList, date)
     + addVehicle()
     + validateVehicle(vehicle)
@@ -64,10 +64,14 @@ Repositories --> "1" vehicleRepository
 
 RegisterVehicleController .> Repositories : repositories
 
-vehicleRepository "1" o--- "1..*"Vehicle : has
+vehicleRepository  o-- "*" Vehicle : has
 
-vehicleMaintenanceRepository o-- Vehicle : has
+maintenanceRepository o- "*" Maintenance : has
 
 Vehicle -> Maintenance
+
+Repositories --> "1" maintenanceRepository
+
+RegisterVehicleController ..> "1" maintenanceRepository: maintenanceRepository
 
 @enduml
