@@ -2,6 +2,11 @@ package pt.ipp.isep.dei.esoft.project.domain;
 
 import java.util.ArrayList;
 
+/**
+ * It represents a collaborator with all its attributes.
+ *
+ * @author Group 072 - Byte Masters - ISEP
+ */
 public class Collaborator {
     private String name;
     private String birthday;

@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Represents a team composed of collaborators.
  *
- * @author Group 072 - Byte Masters
+ * @author Group 072 - Byte Masters - ISEP
  */
 public class Team {
 
@@ -16,7 +16,7 @@ public class Team {
     List<Collaborator> team;
 
     /**
-     * Building a new team.
+     * Team builder.
      * @param members ArrayList of collaborators with the members of the team.
      */
     public Team(ArrayList<Collaborator> members){
@@ -56,6 +56,11 @@ public class Team {
         return team.toString();
     }
 
+    /**
+     * Rewriting the equals method for the team class.
+     * @param obj Another team or object.
+     * @return true if the teams are equal and false if they are not.
+     */
     @Override
     public boolean equals(Object obj) {
 
