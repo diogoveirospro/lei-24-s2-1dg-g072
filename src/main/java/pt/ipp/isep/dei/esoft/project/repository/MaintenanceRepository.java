@@ -66,4 +66,13 @@ public class MaintenanceRepository {
             maintenanceList.add(newMaintenance);
         }
     }
+
+    /**
+     * Lets the user get the list of all vehicles that need maintenance
+     *
+     * @return maintenanceList
+     */
+    public List<Maintenance> getMaintenanceList() {
+        return maintenanceList;
+    }
 }

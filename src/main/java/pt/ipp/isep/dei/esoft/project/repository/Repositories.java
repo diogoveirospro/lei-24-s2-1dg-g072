@@ -7,13 +7,23 @@ public class Repositories {
     private SkillRepository skillRepository;
     private CollaboratorRepository collaboratorRepository;
     private TeamRepository teamRepository;
+    private VehicleRepository vehicleRepository;
+    private MaintenanceRepository maintenanceRepository;
+    // Este está temporariamente no codigo enquanto tentamos perceber o que fazer
+    private AuthenticationRepository authenticationRepository;
 
-
+    /**
+     * Creates an instance of Repositories, by instantiating every repository with no parameters
+     *
+     */
     private Repositories() {
         jobRepository = new JobRepository();
         skillRepository = new SkillRepository();
         collaboratorRepository = new CollaboratorRepository();
         teamRepository = new TeamRepository();
+        maintenanceRepository = new MaintenanceRepository();
+        authenticationRepository = new AuthenticationRepository();
+        vehicleRepository = new VehicleRepository();
     }
 
     public static Repositories getInstance() {
@@ -79,5 +89,32 @@ public class Repositories {
 
         }
         return teamRepository;
+    }
+
+    /**
+     * Get the vehicle repository
+     *
+     * @return vehicleRepository
+     */
+    public VehicleRepository getVehicleRepository() {
+        return vehicleRepository;
+    }
+
+    /**
+     * Get the maintenance repository
+     *
+     * @return maintenanceRepository
+     */
+    public MaintenanceRepository getMaintenanceRepository() {
+        return maintenanceRepository;
+    }
+
+    /**
+     * Get the authentication repository
+     *
+     * @return authenticationRepository
+     */
+    public AuthenticationRepository getAuthenticationRepository() {
+        return authenticationRepository;
     }
 }
