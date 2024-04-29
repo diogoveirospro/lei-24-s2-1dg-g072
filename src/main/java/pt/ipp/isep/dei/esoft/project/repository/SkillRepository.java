@@ -3,7 +3,7 @@ package pt.ipp.isep.dei.esoft.project.repository;
 import java.util.ArrayList;
 import java.util.List;
 
-import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
+
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
 
 public class SkillRepository {
