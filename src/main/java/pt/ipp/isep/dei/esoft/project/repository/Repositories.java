@@ -27,11 +27,6 @@ public class Repositories {
     }
 
     public static Repositories getInstance() {
-        if (instance == null) {
-            synchronized (Repositories.class) {
-                instance = new Repositories();
-            }
-        }
         return instance;
     }
 
@@ -40,12 +35,6 @@ public class Repositories {
      * @return job repository
      */
     public JobRepository getJobRepository() {
-        if (jobRepository == null) {
-
-            Repositories repositories = Repositories.getInstance();
-            jobRepository = repositories.getJobRepository();
-
-        }
         return jobRepository;
     }
 
@@ -54,12 +43,6 @@ public class Repositories {
      * @return skill repository
      */
     public SkillRepository getSkillRepository() {
-        if (skillRepository == null) {
-
-            Repositories repositories = Repositories.getInstance();
-            skillRepository = repositories.getSkillRepository();
-
-        }
         return skillRepository;
     }
 
@@ -68,12 +51,6 @@ public class Repositories {
      * @return collaborator repository
      */
     public CollaboratorRepository getCollaboratorRepository() {
-        if (collaboratorRepository == null) {
-
-            Repositories repositories = Repositories.getInstance();
-            collaboratorRepository = repositories.getCollaboratorRepository();
-
-        }
         return collaboratorRepository;
     }
 
@@ -82,12 +59,6 @@ public class Repositories {
      * @return team repository
      */
     public TeamRepository getTeamRepository() {
-        if (teamRepository == null) {
-
-            Repositories repositories = Repositories.getInstance();
-            teamRepository = repositories.getTeamRepository();
-
-        }
         return teamRepository;
     }
 
