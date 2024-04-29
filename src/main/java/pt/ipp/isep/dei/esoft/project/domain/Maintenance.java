@@ -19,7 +19,7 @@ public class Maintenance {
         this.vehicle = vehicle;
     }
     /**
-     * Lets the user get the Vehicle list
+     * Lets the user get the Vehicle
      *
      * @return vehicle
      */
@@ -28,7 +28,7 @@ public class Maintenance {
     }
 
     /**
-     * Lets the user change the Vehicle list
+     * Lets the user change the Vehicle
      *
      * @param vehicle A vehicle that needs maintenance
      */

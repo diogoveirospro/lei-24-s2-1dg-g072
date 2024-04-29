@@ -7,12 +7,9 @@ import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class MaintenanceRepository {
-    /**
-     * List of vehicles that will be registered for maintenance.
-     */
-    private List<Vehicle> vehicleList;
     /**
      * List of vehicles that need maintenance
      */
@@ -54,19 +51,17 @@ public class MaintenanceRepository {
     /**
      * Add a vehicle that needs maintenance to the maintenance repository.
      *
-     * @param vehicleList: all new vehicles that need maintenance.
+     * @param maintenance: new vehicle that need maintenance.
      */
-    public void addVehicleMaintenance(List<Vehicle> vehicleList) {
-
-        for (Vehicle vehicle: vehicleList) {
-            Maintenance newMaintenance = new Maintenance(vehicle);
-            if (!validateVehicleMaintenance(newMaintenance)) {
-                throw new IllegalArgumentException("Invalid vehicle that needs maintenance to add");
-            }
-            maintenanceList.add(newMaintenance);
+    public void addVehicleMaintenance(Maintenance maintenance) {
+        if (!validateVehicleMaintenance(maintenance)) {
+            throw new IllegalArgumentException("Invalid vehicle that needs maintenance to add");
         }
+        if (maintenanceList == null) {
+            maintenanceList = new ArrayList<>();
+        }
+        maintenanceList.add(maintenance);
     }
-
     /**
      * Lets the user get the list of all vehicles that need maintenance
      *

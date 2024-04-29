@@ -7,7 +7,9 @@ import pt.ipp.isep.dei.esoft.project.repository.MaintenanceRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.repository.VehicleRepository;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class RegisterVehicleMaintenanceController {
     private VehicleRepository vehicleRepository;
@@ -81,8 +83,26 @@ public class RegisterVehicleMaintenanceController {
      * Register vehicle maintenance
      *
      * @param vehicleList list of all vehicles that need maintenance
+     * @return
      */
-    public void registerVehicleMaintenance(List<Vehicle> vehicleList){
+    public List<Maintenance> registerVehicleMaintenance(List<Vehicle> vehicleList) {
+        List<Maintenance> maintenances = new ArrayList<>();
+        for (Vehicle vehicle : vehicleList) {
+            Maintenance maintenance = new Maintenance(vehicle);
+            maintenanceRepository.addVehicleMaintenance(maintenance);
+            maintenances.add(maintenance);
+        }
+        return maintenances;
+    }
 
+
+
+    /**
+     * Lets the controller get access to the vehicleList
+     *
+     * @return vehicleList copy
+     */
+    public List<Vehicle> getVehicleList(){
+        return vehicleRepository.getVehicleList();
     }
 }
