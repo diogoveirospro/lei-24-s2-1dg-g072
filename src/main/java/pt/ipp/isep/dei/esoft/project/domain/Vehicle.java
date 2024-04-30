@@ -352,6 +352,7 @@ public class Vehicle {
             if(!plateId[0].matches("[0-9]*") || !plateId[1].matches("[0-9]*"))
                 validate = false;
 
+
             if(!plateId[2].matches("[A-Z]*"))
                 validate = false;
         }

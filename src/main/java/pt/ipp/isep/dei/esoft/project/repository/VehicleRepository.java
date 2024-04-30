@@ -34,7 +34,7 @@ public class VehicleRepository {
 
     /**
      * Private method to see if the vehicle is already on the list
-     * @param vehicle
+     * @param vehicle vehicle to be checked.
      * @return True if the vehicle isn't on the list and false if it is
      */
     private boolean checkVehicleInList(Vehicle vehicle){

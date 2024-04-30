@@ -27,6 +27,11 @@ public class Repositories {
     }
 
     public static Repositories getInstance() {
+        if (instance == null) {
+            synchronized (Repositories.class) {
+                instance = new Repositories();
+            }
+        }
         return instance;
     }
 
