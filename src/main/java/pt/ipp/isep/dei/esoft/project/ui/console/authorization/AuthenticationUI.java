@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.esoft.project.ui.console.authorization;
 import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
 import pt.ipp.isep.dei.esoft.project.ui.console.menu.HrmUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.menu.MenuItem;
+import pt.ipp.isep.dei.esoft.project.ui.console.menu.VfmUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 import pt.isep.lei.esoft.auth.mappers.dto.UserRoleDTO;
 
@@ -45,8 +46,7 @@ public class AuthenticationUI implements Runnable {
     private List<MenuItem> getMenuItemForRoles() {
         List<MenuItem> rolesUI = new ArrayList<>();
         rolesUI.add(new MenuItem(AuthenticationController.ROLE_HRM, new HrmUI()));
-
-        //TODO: Complete with other user roles and related RoleUI
+        rolesUI.add(new MenuItem(AuthenticationController.ROLE_VFM, new VfmUI()));
         return rolesUI;
     }
 

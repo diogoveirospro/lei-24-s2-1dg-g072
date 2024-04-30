@@ -1,4 +1,8 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
-public class AssignSkillUI {
+public class AssignSkillUI implements Runnable {
+    @Override
+    public void run() {
+
+    }
 }
