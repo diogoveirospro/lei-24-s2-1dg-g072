@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
+import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.repository.SkillRepository;
 
 /**
@@ -9,6 +10,14 @@ import pt.ipp.isep.dei.esoft.project.repository.SkillRepository;
 
 public class RegisterSkillController {
     private SkillRepository skillRepository;
+
+    /**
+     * Empty RegisterJobController builder.
+     */
+    public RegisterSkillController(){
+        this.skillRepository = Repositories.getInstance().getSkillRepository();
+    }
+
 
     /**
      * Constructs a RegisterSkillController with a specified SkillRepository.

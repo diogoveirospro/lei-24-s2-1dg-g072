@@ -1,5 +1,10 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
+/**
+ * It represents a list of all the repositories.
+ *
+ * @author Group 072 - Byte Masters - ISEP
+ */
 public class Repositories {
 
     private static Repositories instance;

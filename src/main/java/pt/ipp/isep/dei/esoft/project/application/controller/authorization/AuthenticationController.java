@@ -11,8 +11,8 @@ import java.util.List;
  */
 public class AuthenticationController {
 
-    public static final String ROLE_ADMIN = "ADMINISTRATOR";
-    public static final String ROLE_EMPLOYEE = "EMPLOYEE";
+    public static final String ROLE_HRM = "HUMAN RESOURCES MANAGER";
+    public static final String ROLE_VFM = "VEHICLE AND EQUIPMENT FLEET MANAGER";
 
     //private final ApplicationSession applicationSession;
     private final AuthenticationRepository authenticationRepository;

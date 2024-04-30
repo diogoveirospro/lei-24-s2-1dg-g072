@@ -13,14 +13,14 @@ public class Bootstrap {
 
     private void addUsers() {
         AuthenticationRepository authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
-        authenticationRepository.addUserRole(AuthenticationController.ROLE_ADMIN, AuthenticationController.ROLE_ADMIN);
-        authenticationRepository.addUserRole(AuthenticationController.ROLE_EMPLOYEE, AuthenticationController.ROLE_EMPLOYEE);
+        authenticationRepository.addUserRole(AuthenticationController.ROLE_HRM, AuthenticationController.ROLE_HRM);
+        authenticationRepository.addUserRole(AuthenticationController.ROLE_VFM, AuthenticationController.ROLE_VFM);
 
         authenticationRepository.addUserWithRole("HRM", "hrm@this.app", "hrm",
-                AuthenticationController.ROLE_ADMIN);
+                AuthenticationController.ROLE_HRM);
 
         authenticationRepository.addUserWithRole("VFM", "vfm@this.app", "vfm",
-                AuthenticationController.ROLE_EMPLOYEE);
+                AuthenticationController.ROLE_VFM);
 
     }
 

@@ -7,18 +7,16 @@ import pt.ipp.isep.dei.esoft.project.application.controller.RegisterSkillControl
  * communicates with the RegisterSkillController to process the registration.
  */
 
-public class RegisterSkillUI {
+public class RegisterSkillUI implements Runnable{
     private final RegisterSkillController controller;
 
     /**
      * Creates an instance of RegisterSkillUI with a specified RegisterSkillController.
      * This constructor allows the UI to delegate skill registration operations to the controller.
-     *
-     * @param controller the RegisterSkillController responsible for handling skill registration logic
      */
 
-    public RegisterSkillUI(RegisterSkillController controller) {
-        this.controller = controller;
+    public RegisterSkillUI() {
+        this.controller = new RegisterSkillController();
     }
 
     /**
@@ -30,5 +28,10 @@ public class RegisterSkillUI {
 
     public void registerSkill(String name) {
         controller.registerSkill(name);
+    }
+
+    @Override
+    public void run() {
+
     }
 }

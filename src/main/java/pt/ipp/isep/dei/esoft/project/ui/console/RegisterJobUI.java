@@ -8,7 +8,7 @@ import pt.ipp.isep.dei.esoft.project.application.controller.RegisterJobControlle
  * to handle the job registration.
  */
 
-public class RegisterJobUI {
+public class RegisterJobUI implements Runnable {
     private RegisterJobController controller;
 
     /**
@@ -30,5 +30,10 @@ public class RegisterJobUI {
 
     public void simulateUserAction (String jobName){
         controller.registerJob(jobName);
+    }
+
+    @Override
+    public void run() {
+
     }
 }

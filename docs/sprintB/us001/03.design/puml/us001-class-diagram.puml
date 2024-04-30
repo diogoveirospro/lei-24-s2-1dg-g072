@@ -14,11 +14,6 @@ class Skill {
 
     + Skill(name)
 }
-
-class HRM{
-    + registerSkill()
-    + HRM()
-}
 class RegisterSkillUI {
 
 }
@@ -46,5 +41,4 @@ Repositories "1" --> "1" SkillRepository
 SkillRepository o-- "*" Skill : has
 RegisterSkillController .> SkillRepository : skillRepository
 RegisterSkillController .> Skill : skill
-HRM "1" -> "*" Skill: register
 @enduml
