@@ -17,6 +17,7 @@ public class Collaborator {
     private String idDocumentType;
     private int idDocumentNumber;
     private ArrayList<Skill> skills;
+    private boolean hasTeam = false;
 
     public Collaborator(String name, String birthday, String admissionDate, String address, int mobileNumber, String email, String idDocumentType, int idDocumentNumber) {
         this.name = name;
@@ -93,8 +94,12 @@ public class Collaborator {
         this.idDocumentNumber = idDocumentNumber;
     }
 
+    public void setHasTeam(boolean hasTeam){
+        this.hasTeam = hasTeam;
+    }
+
     public boolean analyseCollaborator(Skill skill){
-            if (skills.contains(skill)){
+            if (skills.contains(skill) && !hasTeam){
                 return true;
             }
         return false;

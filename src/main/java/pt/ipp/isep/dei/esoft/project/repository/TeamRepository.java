@@ -72,8 +72,11 @@ public class TeamRepository {
 
             for (Collaborator collaborator : collaboratorsClone){
                 if (collaborator.analyseCollaborator(skill)){
+
                     members.add(collaborator);
                     collaboratorsClone.remove(collaborator);
+                    collaborator.setHasTeam(true);
+
                     if (members.size() == maximumSize){
                         return members;
                     }
