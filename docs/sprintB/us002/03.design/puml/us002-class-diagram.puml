@@ -15,12 +15,6 @@ class Job {
     + Job(name)
 }
 
-class HRM {
-    + HRM()
-    + registerJob(name)
-
-}
-
 class RegisterJobUI {
 
 }
@@ -43,7 +37,6 @@ class JobRepository {
 }
 
 
-HRM  --> "*" Job : creates
 RegisterJobUI .> RegisterJobController
 RegisterJobController .> Repositories : repositories
 Repositories --> Repositories : instance

@@ -9,11 +9,6 @@ skinparam classAttributeIconSize 0
 
 'left to right direction
 
-class HRM {
-    + HRM()
-    + generateTeamProposal(minimumSize, maximumSize, skills, collaborators)
-}
-
 class GenerateTeamProposalController {
     + GenerateTeamProposalController(skillRepository, collaboratorRepository, teamRepository)
     + listSkills()
@@ -85,7 +80,6 @@ GenerateTeamProposalController .> SkillRepository : skillRepository
 GenerateTeamProposalController .> CollaboratorRepository : collaboratorRepository
 GenerateTeamProposalController .> TeamRepository : teamRepository
 
-HRM "1" --> "*" Team : creates
 Team  o-- "*" Collaborator : has
 Collaborator  o-- "*" Skill : has
 
