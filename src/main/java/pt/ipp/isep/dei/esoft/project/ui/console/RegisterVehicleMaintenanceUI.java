@@ -67,19 +67,21 @@ public class RegisterVehicleMaintenanceUI implements Runnable {
 
     private List<Vehicle> displayAndSelectVehicles() {
         List<Vehicle> vehicles = controller.getVehicleList();
-        int listSize = vehicleList.size();
+        if (vehicleList!= null){
+            int listSize = vehicleList.size();
 
-        Scanner input = new Scanner(System.in);
-        int answer = -1;
-        System.out.print("If you want to stop selecting vehicles, press any number smaller than 0 or higher than" + listSize + ".");
+            Scanner input = new Scanner(System.in);
+            int answer = -1;
+            System.out.print("If you want to stop selecting vehicles, press any number smaller than 0 or higher than" + listSize + ".");
 
-        while (answer != 1) {
-            displayVehiclesOptions(vehicleList);
-            System.out.print("Select a vehicle: ");
+            while (answer != 1) {
+                displayVehiclesOptions(vehicleList);
+                System.out.print("Select a vehicle: ");
 
-            answer = input.nextInt();
-            if (answer < 1 || answer > listSize) {
-                vehicles.add(vehicleList.get(answer - 1));
+                answer = input.nextInt();
+                if (answer < 1 || answer > listSize) {
+                    vehicles.add(vehicleList.get(answer - 1));
+                }
             }
         }
         return vehicles;

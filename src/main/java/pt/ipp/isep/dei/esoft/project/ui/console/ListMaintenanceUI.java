@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class ListMaintenanceUI implements Runnable {
     private  final ListMaintenanceController controller;
-
+    private List<Maintenance> maintenances;
     /**
      * Constructs a new ListMaintenanceUI object and initializes it with a
      * ListMaintenanceController instance for handling listing maintenance operations.
@@ -20,17 +20,14 @@ public class ListMaintenanceUI implements Runnable {
     public ListMaintenanceUI(){
         this.controller = new ListMaintenanceController();
     }
-
-    private ListMaintenanceController getController() {
-        return controller;
-    }
-
     /**
      * Lets the UI get the controller
      *
      * @return controller
      */
-
+    private ListMaintenanceController getController() {
+        return controller;
+    }
 
     @Override
     public void run() {
@@ -40,7 +37,7 @@ public class ListMaintenanceUI implements Runnable {
     }
 
     private void submitData() {
-        List<Maintenance> maintenances = getController().getMaintenanceList();
+        maintenances = controller.getMaintenanceList();
         if (!maintenances.isEmpty()) {
             System.out.println("\nVehicles in need of maintenance");
             for (Maintenance maintenance : maintenances) {
@@ -50,7 +47,7 @@ public class ListMaintenanceUI implements Runnable {
                 System.out.printf("%n");
             }
         } else {
-            System.out.println("\nNo vehicle maintenance was registered!");
+            System.out.println("\nThere are no vehicles maintenances in the system!");
         }
     }
 

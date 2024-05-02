@@ -68,6 +68,6 @@ public class MaintenanceRepository {
      * @return maintenanceList
      */
     public List<Maintenance> getMaintenanceList() {
-        return maintenanceList;
+        return List.copyOf(maintenanceList);
     }
 }
