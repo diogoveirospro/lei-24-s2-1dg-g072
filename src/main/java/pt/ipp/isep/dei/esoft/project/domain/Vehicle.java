@@ -368,4 +368,12 @@ public class Vehicle {
         return this.acquisitionDate.getYear();
     }
 
+    /**
+     * Clones method
+     * @return A clone of the current instance.
+     */
+    public Vehicle clone(){
+        return new Vehicle(this.plateNumber, this.brand, this.model, this.type, this.tare, this.grossWeight, this.currentKms, this.registrationDate, this.acquisitionDate, this.serviceFrequency, this.kmAtLastMaintenance);
+    }
+
 }

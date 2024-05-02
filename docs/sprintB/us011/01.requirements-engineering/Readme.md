@@ -40,8 +40,7 @@ understand the use of the park by different age groups.
     * Number of times that the user visits the park per month.
     * The answer to age range (1 to 3)
     * If the user recommends the park to others (Y/N)
-* Selected data:
-    
+
 
 **Output Data:**
 
@@ -55,7 +54,3 @@ understand the use of the park by different age groups.
 #### Alternative One
 
 ![System Sequence Diagram - Alternative One](svg/us011-system-sequence-diagram-alternative-one.svg)
-
-### 1.7 Other Relevant Remarks
-
-* The HRM can change the team's recommendation and will be notified if none of the members have the necessary skills to carry out the task.
