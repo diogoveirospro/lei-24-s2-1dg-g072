@@ -48,8 +48,16 @@ max: 4
  
 > **Question:** Can a collaborator have a Status? Like Activate and Not Activate? Can't they be in more than two teams? If so, is that what the Status is for?
 >
->**Answer:** I don't know what a Status is, is it mentioned anywhere in the statement?
+> **Answer:** I don't know what a Status is, is it mentioned anywhere in the statement?
 A collaborator cannot be in more than one team. 
+
+> **Question:** If, hypothetically, we have defined the minSize and maxSize of the team as 3 and 5 respectively and by checking how many employees have the respective skills we come to the conclusion that we have 6 employees with the necessary skills, how are we supposed to know if we need to generate a team with 3, 4 or 5 elements and which element to leave out?
+> 
+> **Answer:** Some keywords that can help:
+Criteria (e.g. minimizing the number of elements)
+Sorting (according to the chosen criteria)
+Algorithms (presenting proposals and interacting with the human resources manager)
+
 
 
 ### 1.3. Acceptance Criteria
