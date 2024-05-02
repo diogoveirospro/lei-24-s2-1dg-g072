@@ -7,9 +7,13 @@ import java.util.List;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
 
 public class SkillRepository {
-    private List<Skill> skills= new ArrayList<>();
+    private List<Skill> skills;
 
-    public void register (Skill skill){
+    SkillRepository(){
+        skills = new ArrayList<>();
+    }
+
+    public void addSkill(Skill skill){
         if(skill == null){
             throw new IllegalArgumentException("Cannot be null");
         }

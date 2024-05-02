@@ -33,7 +33,7 @@ public class RegisterSkillController {
      * Registers a new skill with the specified name in the system. This involves
      * creating a Skill object and adding it to the repository.
      *
-     * @param name The name of the skill to register. It must not be null or empty.
+     * @param name The name of the skill to addSkill. It must not be null or empty.
      */
 
     public void registerSkill (String name){
@@ -42,7 +42,7 @@ public class RegisterSkillController {
         }
         Skill skill = new Skill(name);
         try {
-            skillRepository.register(skill);
+            skillRepository.addSkill(skill);
         }catch (IllegalArgumentException e){
             System.out.println(e.getMessage());
         }

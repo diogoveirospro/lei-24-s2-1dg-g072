@@ -25,7 +25,7 @@ public class HRM {
      * Registers a new job with the specified name into the system.
      * This method creates a new Job instance and adds it to the JobRepository.
      *
-     * @param name the name of the new job to register
+     * @param name the name of the new job to addSkill
      */
 
     public void registerJob (String name){

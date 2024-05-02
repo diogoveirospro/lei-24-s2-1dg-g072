@@ -4,7 +4,7 @@ import pt.ipp.isep.dei.esoft.project.application.controller.RegisterJobControlle
 
 /**
  * The RegisterJobUI class represents a user interface component responsible for
- * interacting with the system to register new jobs. It uses a RegisterJobController
+ * interacting with the system to addSkill new jobs. It uses a RegisterJobController
  * to handle the job registration.
  */
 

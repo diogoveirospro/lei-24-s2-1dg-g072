@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 /**
  * The RegisterVehicleMaintenanceUI class represents a user interface component responsible for
- * interacting with the system to register new maintenances. It uses a RegisterVehicleMaintenanceController
+ * interacting with the system to addSkill new maintenances. It uses a RegisterVehicleMaintenanceController
  * to handle the maintenance registration.
  */
 public class RegisterVehicleMaintenanceUI implements Runnable {
@@ -60,7 +60,7 @@ public class RegisterVehicleMaintenanceUI implements Runnable {
 
     /**
      * This function will display a list of all vehicles registered in the system
-     * and then will ask the user to select which vehicles would he want to register for maintenance
+     * and then will ask the user to select which vehicles would he want to addSkill for maintenance
      *
      * @return vehicles (All selected for maintenance)
      */
