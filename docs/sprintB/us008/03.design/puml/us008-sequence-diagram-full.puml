@@ -39,7 +39,7 @@ activate VFM
                     REP --> CTRL: maintenanceRepository
                 deactivate REP
 
-                CTRL -> maintenanceRepository : getMaintenance()
+                CTRL -> maintenanceRepository : getMaintenanceList()
 
                 activate maintenanceRepository
 

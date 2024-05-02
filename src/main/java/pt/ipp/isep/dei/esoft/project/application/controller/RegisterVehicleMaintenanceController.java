@@ -83,7 +83,7 @@ public class RegisterVehicleMaintenanceController {
      * Register vehicle maintenance
      *
      * @param vehicleList list of all vehicles that need maintenance
-     * @return
+     * @return maintenance
      */
     public List<Maintenance> registerVehicleMaintenance(List<Vehicle> vehicleList) {
         List<Maintenance> maintenances = new ArrayList<>();

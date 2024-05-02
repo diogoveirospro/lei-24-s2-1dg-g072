@@ -20,7 +20,7 @@ public class RegisterVehicleMaintenanceUI implements Runnable {
 
     /**
      * Constructs a new RegisterVehicleMaintenanceUI object and initializes it with a
-     * RegisterJobController instance for handling job registration operations.
+     * RegisterVehicleMaintenanceController instance for handling vehicle maintenance registration operations.
      */
     public RegisterVehicleMaintenanceUI() {
         this.controller = new RegisterVehicleMaintenanceController();
