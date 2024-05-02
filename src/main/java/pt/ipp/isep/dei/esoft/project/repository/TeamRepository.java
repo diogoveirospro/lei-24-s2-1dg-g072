@@ -107,7 +107,7 @@ public class TeamRepository {
      * @param members team members.
      * @return new team.
      */
-    public Team createTeam(ArrayList<Collaborator> members){
+    public Team createTeam(List<Collaborator> members){
         return new Team(members);
     }
 

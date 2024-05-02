@@ -92,7 +92,7 @@ public class GenerateTeamProposalController {
      * @param members team members.
      * @return team
      */
-    public Team createTeam(ArrayList<Collaborator> members){
+    public Team createTeam(List<Collaborator> members){
         return teamRepository.createTeam(members);
     }
 }

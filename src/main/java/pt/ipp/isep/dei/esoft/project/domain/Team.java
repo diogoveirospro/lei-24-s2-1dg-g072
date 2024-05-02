@@ -19,7 +19,7 @@ public class Team {
      * Team builder.
      * @param members ArrayList of collaborators with the members of the team.
      */
-    public Team(ArrayList<Collaborator> members){
+    public Team(List<Collaborator> members){
         team = members;
     }
 
