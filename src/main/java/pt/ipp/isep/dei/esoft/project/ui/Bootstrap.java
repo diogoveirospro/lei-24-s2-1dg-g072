@@ -1,7 +1,10 @@
 package pt.ipp.isep.dei.esoft.project.ui;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
-import pt.ipp.isep.dei.esoft.project.domain.*;
+import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
+import pt.ipp.isep.dei.esoft.project.domain.Job;
+import pt.ipp.isep.dei.esoft.project.domain.Skill;
+import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 
 public class Bootstrap {
@@ -103,32 +106,8 @@ public class Bootstrap {
     }
 
     private void addVehicle() {
-        /*
         VehicleRepository vehicleRepository = Repositories.getInstance().getVehicleRepository();
-        Date date1 = new Date(2014,10,15);
-        Date date2 = new Date(2015,1,15);
 
-        Vehicle vehicle1 = new Vehicle("AA-01-BB", "John Deere", "Gator", "Electric", 1200.0, 20.0, 25000.0, date1, date2, 5000.0, 20000.0);
-        Vehicle vehicle2 = new Vehicle("CC-02-DD", "Husqvarna", "Rider", "Gasoline", 1100.0, 25.0, 28000.0, date1, date2, 4500.0, 25000.0);
-        Vehicle vehicle3 = new Vehicle("EE-03-FF", "Kubota", "Tractor", "Diesel", 1500.0, 30.0, 30000.0, date2, date1, 6000.0, 28000.0);
-        Vehicle vehicle4 = new Vehicle("GG-04-HH", "Toyota", "Pickup", "Hybrid", 1400.0, 22.0, 27000.0, date2, date1, 5500.0, 22000.0);
-        Vehicle vehicle5 = new Vehicle("II-05-JJ", "Honda", "ATV", "Gasoline", 1000.0, 18.0, 20000.0, date2, date1, 4000.0, 18000.0);
-        Vehicle vehicle6 = new Vehicle("KK-06-LL", "Ford", "Truck", "Diesel", 1800.0, 35.0, 35000.0, date2, date1, 7000.0, 32000.0);
-        Vehicle vehicle7 = new Vehicle("MM-07-NN", "John Deere", "Mower", "Electric", 900.0, 15.0, 18000.0, date2, date1, 3500.0, 15000.0);
-        Vehicle vehicle8 = new Vehicle("OO-08-PP", "Kawasaki", "UTV", "Gasoline", 1300.0, 25.0, 26000.0, date1, date2, 4800.0, 24000.0);
-        Vehicle vehicle9 = new Vehicle("QQ-09-RR", "Yamaha", "Trimmer", "Electric", 800.0, 12.0, 15000.0, date1, date2, 3000.0, 13000.0);
-        Vehicle vehicle10 = new Vehicle("SS-10-TT", "Chevrolet", "Van", "Gasoline", 1600.0, 28.0, 32000.0, date1, date2, 6500.0, 30000.0);
-        vehicleRepository.addVehicle(vehicle1);
-        vehicleRepository.addVehicle(vehicle2);
-        vehicleRepository.addVehicle(vehicle3);
-        vehicleRepository.addVehicle(vehicle4);
-        vehicleRepository.addVehicle(vehicle5);
-        vehicleRepository.addVehicle(vehicle6);
-        vehicleRepository.addVehicle(vehicle7);
-        vehicleRepository.addVehicle(vehicle8);
-        vehicleRepository.addVehicle(vehicle9);
-        vehicleRepository.addVehicle(vehicle10);
-        */
     }
     private void addVehicleMaintenance(){
 

@@ -1,9 +1,11 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
+import pt.ipp.isep.dei.esoft.project.domain.Date;
 import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class VehicleRepository {
 
@@ -19,17 +21,28 @@ public class VehicleRepository {
         vehicleList = new ArrayList<Vehicle>();
     }
 
+    public Optional<Vehicle> registerVehicle(String plate, String model,String brand, String type, Double tare, Double grossWeight, Double currentKms, Date registrationDate, Date acquisitionDate, Double serviceFrequency, Double kmAtLastMaintenance){
+
+        Optional<Vehicle> vehicle = Optional.empty();
+        Vehicle newVehicle = new Vehicle(plate, brand, model, type, tare, grossWeight, currentKms, registrationDate, acquisitionDate, serviceFrequency, kmAtLastMaintenance);
+        if (addVehicle(newVehicle)){
+            vehicle = Optional.of(newVehicle);
+        }
+        return vehicle;
+    }
+
     /**
      * Add new vehicle to list
      * @param newVehicle vehicle to be added to the list
      */
-    public void addVehicle(Vehicle newVehicle){
-        if (!checkVehicleInList(newVehicle) || (!newVehicle.validateVehicle())){
+    public boolean addVehicle(Vehicle newVehicle){
+        boolean success = false;
+        if (checkVehicleInList(newVehicle) || (newVehicle.validateVehicle())){
+            success = vehicleList.add(newVehicle.clone());
+        }else {
             throw new IllegalArgumentException("Invalid vehicle to add");
         }
-
-        vehicleList.add(newVehicle);
-
+        return success;
     }
 
     /**
