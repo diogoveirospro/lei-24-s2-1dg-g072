@@ -62,33 +62,41 @@ public class TeamRepository {
      * @return members of the team proposal.
      */
     public List<Collaborator> generateTeamProposal(int minimumSize, int maximumSize, List<Skill> skills,
-                                     List<Collaborator> collaborators){
+                                                   List<Collaborator> collaborators) {
 
-        ArrayList<Collaborator> members = new ArrayList<>();
-        ArrayList<Collaborator> collaboratorsClone = new ArrayList<>(collaborators);
+        List<Collaborator> members = new ArrayList<>();
+        List<Collaborator> collaboratorsClone = new ArrayList<>(collaborators);
 
+        for (Skill skill : skills) {
+            List<Collaborator> qualifiedCollaborators = new ArrayList<>();
 
-        for (Skill skill : skills){
-
-            for (Collaborator collaborator : collaboratorsClone){
-                if (collaborator.analyseCollaborator(skill)){
-
-                    members.add(collaborator);
-                    collaboratorsClone.remove(collaborator);
-                    collaborator.setHasTeam(true);
-
-                    if (members.size() == maximumSize){
-                        return members;
-                    }
+            for (Collaborator collaborator : collaboratorsClone) {
+                if (collaborator.analyseCollaborator(skill)) {
+                    qualifiedCollaborators.add(collaborator);
                 }
-                break;
             }
 
-            break;
+            if (qualifiedCollaborators.isEmpty()) {
+                throw new IllegalArgumentException("There are no collaborators with the specified skill: " + skill);
+            }
+
+            members.add(qualifiedCollaborators.get(0));
+            qualifiedCollaborators.get(0).setHasTeam(true);
+            collaboratorsClone.remove(qualifiedCollaborators.get(0));
+
+            if (members.size() == minimumSize) {
+                break;
+            }
         }
 
-        if (members.size() < minimumSize){
+        if (members.size() < minimumSize) {
             throw new IllegalArgumentException("There aren't enough collaborators with the specified skills to create a team!");
+        }
+
+        while (members.size() < maximumSize && !collaboratorsClone.isEmpty()) {
+            Collaborator additionalCollaborator = collaboratorsClone.get(0);
+            members.add(additionalCollaborator);
+            collaboratorsClone.remove(0);
         }
 
         return members;
@@ -119,10 +127,7 @@ public class TeamRepository {
      * @return true if the team is valid and false otherwise.
      */
     public boolean validateTeam(Team team){
-        if (team == null){
-            return false;
-        }
-        return true;
+        return team != null;
 
     }
 }

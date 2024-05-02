@@ -146,6 +146,14 @@ public class Collaborator {
     }
 
     /**
+     * Get the collaborator's skills
+     * @return collaborator's skills
+     */
+    public ArrayList<Skill> getSkills() {
+        return skills;
+    }
+
+    /**
      * Change the collaborator's name
      * @param name new name
      */
