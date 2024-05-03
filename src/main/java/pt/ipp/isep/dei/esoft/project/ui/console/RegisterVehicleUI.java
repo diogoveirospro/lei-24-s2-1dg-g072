@@ -50,7 +50,7 @@ public class RegisterVehicleUI implements Runnable {
     }
     @Override
     public void run() {
-        System.out.println("\n\n--- Register Vehicle Maintenance ------------------------");
+        System.out.println("\n\n--- Register Vehicle ------------------------");
 
         requestData();
 
