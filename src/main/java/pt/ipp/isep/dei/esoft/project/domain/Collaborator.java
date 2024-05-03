@@ -22,12 +22,12 @@ public class Collaborator {
     /**
      * Collaborator's birthday.
      */
-    private Date birthday;
+    private String birthday;
 
     /**
      * Collaborator's admission date.
      */
-    private Date admissionDate;
+    private String admissionDate;
 
     /**
      * Collaborator's address.
@@ -37,7 +37,7 @@ public class Collaborator {
     /**
      * Collaborator's mobile number.
      */
-    private int mobileNumber;
+    private String mobileNumber;
 
     /**
      * Collaborator's email.
@@ -52,7 +52,7 @@ public class Collaborator {
     /**
      * Collaborator's ID document number.
      */
-    private int idDocumentNumber;
+    private String idDocumentNumber;
 
     /**
      * Collaborator's skills.
@@ -77,7 +77,7 @@ public class Collaborator {
      * @param idDocumentType collaborator's ID document type
      * @param idDocumentNumber collaborator's ID document number
      */
-    public Collaborator(String name, Date birthday, Date admissionDate, String address, int mobileNumber, String email, String idDocumentType, int idDocumentNumber) {
+    public Collaborator(String name, String birthday, String admissionDate, String address, String mobileNumber, String email, String idDocumentType, String idDocumentNumber) {
         this.name = name;
         this.birthday = birthday;
         this.admissionDate = admissionDate;
@@ -101,7 +101,7 @@ public class Collaborator {
      * Get the collaborator's birthday
      * @return collaborator's birthday
      */
-    public Date getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
@@ -109,7 +109,7 @@ public class Collaborator {
      * Get the collaborator's admission date
      * @return collaborator's admission date
      */
-    public Date getAdmissionDate() {
+    public String getAdmissionDate() {
         return admissionDate;
     }
 
@@ -125,7 +125,7 @@ public class Collaborator {
      * Get the collaborator's mobile number
      * @return collaborator's mobile number
      */
-    public int getMobileNumber() {
+    public String getMobileNumber() {
         return mobileNumber;
     }
 
@@ -149,7 +149,7 @@ public class Collaborator {
      * Get the collaborator's ID document number
      * @return collaborator's ID document number
      */
-    public int getIdDocumentNumber() {
+    public String getIdDocumentNumber() {
         return idDocumentNumber;
     }
 
@@ -173,7 +173,7 @@ public class Collaborator {
      * Change the collaborator's birthday
      * @param birthday new birthday
      */
-    public void setBirthday(Date birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 
@@ -181,7 +181,7 @@ public class Collaborator {
      * Change the collaborator's admission date
      * @param admissionDate new admission date
      */
-    public void setAdmissionDate(Date admissionDate) {
+    public void setAdmissionDate(String admissionDate) {
         this.admissionDate = admissionDate;
     }
 
@@ -197,7 +197,7 @@ public class Collaborator {
      * Change the collaborator's mobile number
      * @param mobileNumber new mobile number
      */
-    public void setMobileNumber(int mobileNumber) {
+    public void setMobileNumber(String mobileNumber) {
         this.mobileNumber = mobileNumber;
     }
 
@@ -221,7 +221,7 @@ public class Collaborator {
      * Change the collaborator's ID document number
      * @param idDocumentNumber new ID document number
      */
-    public void setIdDocumentNumber(int idDocumentNumber) {
+    public void setIdDocumentNumber(String idDocumentNumber) {
         this.idDocumentNumber = idDocumentNumber;
     }
 
@@ -246,6 +246,9 @@ public class Collaborator {
             return skills.contains(skill) && !hasTeam;
         }
 
+    }
+
+    public void setJob(Job job) {
     }
 
     /*public ArrayList<Skill> addSkill(){

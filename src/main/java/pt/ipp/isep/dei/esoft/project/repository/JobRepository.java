@@ -4,6 +4,7 @@ import pt.ipp.isep.dei.esoft.project.domain.Job;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Represents a list of all jobs already created.
@@ -71,5 +72,9 @@ public class JobRepository {
      */
     public List<Job> getJobs(){
         return List.copyOf(jobs);
+    }
+
+    public Optional<Job> findJobByName(String jobName) {
+        return null;
     }
 }
