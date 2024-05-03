@@ -3,8 +3,9 @@ package pt.ipp.isep.dei.esoft.project.domain;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.repository.SkillRepository;
 
+
 import java.util.ArrayList;
-import java.util.List;
+
 
 /**
  * It represents a collaborator with all its attributes.
@@ -21,12 +22,12 @@ public class Collaborator {
     /**
      * Collaborator's birthday.
      */
-    private String birthday;
+    private Date birthday;
 
     /**
      * Collaborator's admission date.
      */
-    private String admissionDate;
+    private Date admissionDate;
 
     /**
      * Collaborator's address.
@@ -76,7 +77,7 @@ public class Collaborator {
      * @param idDocumentType collaborator's ID document type
      * @param idDocumentNumber collaborator's ID document number
      */
-    public Collaborator(String name, String birthday, String admissionDate, String address, int mobileNumber, String email, String idDocumentType, int idDocumentNumber) {
+    public Collaborator(String name, Date birthday, Date admissionDate, String address, int mobileNumber, String email, String idDocumentType, int idDocumentNumber) {
         this.name = name;
         this.birthday = birthday;
         this.admissionDate = admissionDate;
@@ -100,7 +101,7 @@ public class Collaborator {
      * Get the collaborator's birthday
      * @return collaborator's birthday
      */
-    public String getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
 
@@ -108,7 +109,7 @@ public class Collaborator {
      * Get the collaborator's admission date
      * @return collaborator's admission date
      */
-    public String getAdmissionDate() {
+    public Date getAdmissionDate() {
         return admissionDate;
     }
 
@@ -172,7 +173,7 @@ public class Collaborator {
      * Change the collaborator's birthday
      * @param birthday new birthday
      */
-    public void setBirthday(String birthday) {
+    public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 
@@ -180,7 +181,7 @@ public class Collaborator {
      * Change the collaborator's admission date
      * @param admissionDate new admission date
      */
-    public void setAdmissionDate(String admissionDate) {
+    public void setAdmissionDate(Date admissionDate) {
         this.admissionDate = admissionDate;
     }
 
