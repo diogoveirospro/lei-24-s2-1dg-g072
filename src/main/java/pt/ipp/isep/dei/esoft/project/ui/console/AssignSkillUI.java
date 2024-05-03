@@ -1,9 +1,8 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.AssignSkillController;
+import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
-import pt.ipp.isep.dei.esoft.project.repository.Repositories;
-import pt.ipp.isep.dei.esoft.project.repository.SkillRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,12 +14,12 @@ public class AssignSkillUI implements Runnable {
 
     private List<Skill> selectedSkills;
 
+    private Collaborator selectedCollaborator;
+
     Scanner scanner = new Scanner(System.in);
 
 
-
-
-    public AssignSkillUI(){
+    public AssignSkillUI() {
         this.controller = new AssignSkillController();
     }
 
@@ -28,7 +27,7 @@ public class AssignSkillUI implements Runnable {
     @Override
     public void run() {
 
-        chooseCollaborator();
+        selectedCollaborator = displayAndSelectCollaborator();
 
         selectedSkills = displayAndSelectSkills();
 
@@ -37,14 +36,44 @@ public class AssignSkillUI implements Runnable {
         System.out.println("Is everything correct? [Y/N]");
         String confirmation = scanner.nextLine();
 
-        while(confirmation.equalsIgnoreCase("N")) {
+        while (confirmation.equalsIgnoreCase("N")) {
             changeData();
             System.out.println("Is everything correct? [Y/N]");
             confirmation = scanner.nextLine();
         }
     }
 
-    private void chooseCollaborator() {
+    private Collaborator displayAndSelectCollaborator() {
+        List<Collaborator> collaborators = controller.getCollaborators();
+        System.out.println("\nAvailable Collaborators:");
+        displayCollaborators(collaborators);
+
+        Collaborator collaborator = null;
+        String answer;
+
+        do {
+            System.out.print("Enter the name of the collaborator to select (or type 'done' to finish): ");
+            answer = scanner.nextLine().trim();
+
+
+                Collaborator selectedCollaborator = findCollaboratorName(collaborators, answer);
+                if (selectedCollaborator != null) {
+                    collaborator = selectedCollaborator;
+                    System.out.println("'" + answer + "' selected.");
+
+                } else{
+                    System.out.println("Collaborator not found. Try again");
+                }
+
+        } while (collaborator == null);
+        return collaborator;
+    }
+
+
+    private void displayCollaborators(List<Collaborator> collaborators) {
+        for (Collaborator collaborator : collaborators) {
+            System.out.println("- " + collaborator.getName());
+        }
     }
 
     private List<Skill> displayAndSelectSkills() {
@@ -83,35 +112,49 @@ public class AssignSkillUI implements Runnable {
         return null;
     }
 
+    private Collaborator findCollaboratorName(List<Collaborator> collaborators, String name) {
+        for (Collaborator collaborator : collaborators) {
+            if (collaborator.getName().equalsIgnoreCase(name)) {
+                return collaborator;
+            }
+        }
+        return null;
+    }
+
     private void displaySkillsOptions(List<Skill> skills) {
         for (Skill skill : skills) {
             System.out.println("- " + skill.getName());
         }
     }
 
-    private void showData(){
+    private void showData() {
+        System.out.println("Chosen collaborator: ");
+
+        selectedCollaborator.getName();
+
         System.out.println("Chosen skills: ");
 
         showSkillsSelected();
     }
 
-    private void showSkillsSelected(){
+    private void showSkillsSelected() {
 
         System.out.println("The selected skills were the following: ");
 
-        for (Skill skillSelected : selectedSkills){
+        for (Skill skillSelected : selectedSkills) {
             System.out.println(skillSelected.getName());
         }
 
     }
 
-    private void changeData(){
+    private void changeData() {
 
         changeSkillSelected();
+
         showData();
     }
 
-    private void changeSkillSelected(){
+    private void changeSkillSelected() {
 
         List<Skill> skills = controller.listSkills();
 
