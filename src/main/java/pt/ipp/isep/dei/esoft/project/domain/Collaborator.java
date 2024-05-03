@@ -1,6 +1,10 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import pt.ipp.isep.dei.esoft.project.repository.Repositories;
+import pt.ipp.isep.dei.esoft.project.repository.SkillRepository;
+
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * It represents a collaborator with all its attributes.
@@ -54,6 +58,8 @@ public class Collaborator {
      */
     private ArrayList<Skill> skills;
 
+    private final SkillRepository skillRepository;
+
     /**
      * It lets you know if an employee already has a team.
      */
@@ -79,6 +85,7 @@ public class Collaborator {
         this.email = email;
         this.idDocumentType = idDocumentType;
         this.idDocumentNumber = idDocumentNumber;
+        skillRepository = Repositories.getInstance().getSkillRepository();
     }
 
     /**
@@ -239,6 +246,11 @@ public class Collaborator {
         }
 
     }
+
+    /*public ArrayList<Skill> addSkill(){
+        ArrayList<Skill> skills = new ArrayList<Skill>();
+
+    }*/
 
 }
 
