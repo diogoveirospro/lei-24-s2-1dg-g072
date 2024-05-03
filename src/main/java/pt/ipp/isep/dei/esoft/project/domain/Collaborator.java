@@ -231,7 +231,13 @@ public class Collaborator {
      * @return true if the collaborator can join the team and false otherwise
      */
     public boolean analyseCollaborator(Skill skill){
-        return skills.contains(skill) && !hasTeam;
+
+        if (skills.isEmpty()){
+            return false;
+        }else {
+            return skills.contains(skill) && !hasTeam;
+        }
+
     }
 
 }

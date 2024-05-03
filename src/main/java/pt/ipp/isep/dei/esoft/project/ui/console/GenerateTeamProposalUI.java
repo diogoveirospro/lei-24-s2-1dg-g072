@@ -66,12 +66,12 @@ public class GenerateTeamProposalUI implements Runnable {
 
         showData();
 
-        System.out.println("Is everything correct? [Y/N]");
+        System.out.println("\nIs everything correct? [Y/N]");
         String confirmation = scanner.nextLine();
 
         while(confirmation.equalsIgnoreCase("N")) {
             changeData();
-            System.out.println("Is everything correct? [Y/N]");
+            System.out.println("\nIs everything correct? [Y/N]");
             confirmation = scanner.nextLine();
         }
 
@@ -84,17 +84,17 @@ public class GenerateTeamProposalUI implements Runnable {
             System.out.println("- " + member.getName() + " - " + member.getIdDocumentNumber());
         }
 
-        System.out.println("Do you agree with this team proposal? [Y/N]");
+        System.out.println("\nDo you agree with this team proposal? [Y/N]");
         confirmation = scanner.nextLine();
 
         while (confirmation.equalsIgnoreCase("N")){
             changeMember();
-            System.out.println("Do you agree with this team proposal? [Y/N]");
+            System.out.println("\nDo you agree with this team proposal? [Y/N]");
             confirmation = scanner.nextLine();
         }
 
         controller.createTeam(members);
-        System.out.println("Team successfully created!");
+        System.out.println("\nTeam successfully created!");
 
 
     }
@@ -113,7 +113,7 @@ public class GenerateTeamProposalUI implements Runnable {
         String answer;
 
         do {
-            System.out.print("Enter the name of a skill to select (or type 'done' to finish): ");
+            System.out.print("\nEnter the name of a skill to select (or type 'done' to finish): ");
             answer = scanner.nextLine().trim();
 
             if (!answer.equalsIgnoreCase("done")) {
@@ -200,7 +200,7 @@ public class GenerateTeamProposalUI implements Runnable {
      */
     private void showSkillsSelected(){
 
-        System.out.println("The skills he selected were the following: ");
+        System.out.println("\nThe skills he selected were the following: ");
 
         for (Skill skillSelected : selectedSkills){
             System.out.println(skillSelected.getName());
@@ -215,7 +215,7 @@ public class GenerateTeamProposalUI implements Runnable {
 
         List<Skill> skills = controller.listSkills();
 
-        System.out.println("Enter the name of the skill to change: ");
+        System.out.println("\nEnter the name of the skill to change: ");
         String skillName = scanner.nextLine().trim();
         Skill skillToChange = findSkillByName(skills, skillName);
 
@@ -233,7 +233,7 @@ public class GenerateTeamProposalUI implements Runnable {
         displaySkillsOptions(skills);
         String answer;
         do {
-            System.out.print("Enter the name of a skill to select (or type 'done' to finish): ");
+            System.out.print("\nEnter the name of a skill to select (or type 'done' to finish): ");
             answer = scanner.nextLine().trim();
 
             if (!answer.equalsIgnoreCase("done")) {
@@ -253,7 +253,7 @@ public class GenerateTeamProposalUI implements Runnable {
      * Show all data.
      */
     private void showData(){
-        System.out.println("He typed the following: ");
+        System.out.println("\nHe typed the following: ");
         System.out.println("Minimum team size - " + minimumSize);
         System.out.println("Maximum team size - " + maximumSize);
         showSkillsSelected();
@@ -264,7 +264,7 @@ public class GenerateTeamProposalUI implements Runnable {
      */
     private void changeData(){
 
-            System.out.println("What do you want to change (enter the corresponding number)?");
+            System.out.println("\nWhat do you want to change (enter the corresponding number)?");
             System.out.println("1 - Minimum team size\n2 - Maximum team size\n3 - Skills\nAnother number to cancel");
             int answer = scanner.nextInt();
 
@@ -295,7 +295,7 @@ public class GenerateTeamProposalUI implements Runnable {
 
         List<Collaborator> collaborators = controller.getCollaborators();
 
-            System.out.println("Enter the ID Number of the member you want to remove (or 0 to cancel): ");
+            System.out.println("\nEnter the ID Number of the member you want to remove (or 0 to cancel): ");
             int ID = scanner.nextInt();
             Collaborator memberToChange = findCollaboratorByIDNumber(collaborators, ID);
 
@@ -315,7 +315,7 @@ public class GenerateTeamProposalUI implements Runnable {
         int answer;
 
         do {
-            System.out.print("Enter the ID Number of the collaborator you want to select (or 0 to cancel): ");
+            System.out.print("\nEnter the ID Number of the collaborator you want to select (or 0 to cancel): ");
             answer = scanner.nextInt();
 
             if (answer != 0) {
@@ -338,7 +338,7 @@ public class GenerateTeamProposalUI implements Runnable {
                     }
 
                     if (!hasAllSkills){
-                        System.out.println("The team members don't have all the necessary skills, do you want to continue? [Y/N]");
+                        System.out.println("\nThe team members don't have all the necessary skills, do you want to continue? [Y/N]");
                         String answer2 = scanner.nextLine().trim();
 
                         if (answer2.equalsIgnoreCase("N")){
