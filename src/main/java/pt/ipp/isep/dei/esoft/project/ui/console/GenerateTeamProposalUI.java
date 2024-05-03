@@ -8,19 +8,53 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * UI for generating team proposals.
+ *
+ * @author Group 072 - Byte Masters - ISEP
+ */
 public class GenerateTeamProposalUI implements Runnable {
 
+    /**
+     * Generate team proposal controller
+     */
     private final GenerateTeamProposalController controller;
-    private List<Skill> selectedSkills;
-    List<Collaborator> members;
+
+    /**
+     * Minimum team size
+     */
     private int minimumSize;
+
+    /**
+     * Maximum team size
+     */
     private int maximumSize;
+
+    /**
+     * Skills selected by HRM
+     */
+    private List<Skill> selectedSkills;
+
+    /**
+     * Team proposal members
+     */
+    List<Collaborator> members;
+
+    /**
+     * Scanner
+     */
     Scanner scanner = new Scanner(System.in);
 
+    /**
+     * Generate Team Proposal UI builder.
+     */
     public GenerateTeamProposalUI() {
         this.controller = new GenerateTeamProposalController();
     }
 
+    /**
+     * Rewriting the run method so that it is possible to run the UI that allows a team proposal to be generated.
+     */
     @Override
     public void run() {
         System.out.println("\n\n--- Generate Team Proposal ------------------------");
@@ -65,6 +99,10 @@ public class GenerateTeamProposalUI implements Runnable {
 
     }
 
+    /**
+     * Presentation of the list of skills to the user and their subsequent selection.
+     * @return skills selected by the user.
+     */
     private List<Skill> displayAndSelectSkills() {
         List<Skill> skills = controller.listSkills();
 
@@ -92,18 +130,32 @@ public class GenerateTeamProposalUI implements Runnable {
         return selectedSkills;
     }
 
+    /**
+     * Presentation of the list of skills.
+     * @param skills skill repository.
+     */
     private void displaySkillsOptions(List<Skill> skills) {
         for (Skill skill : skills) {
             System.out.println("- " + skill.getName());
         }
     }
 
+    /**
+     * Presentation of the list of collaborators.
+     * @param collaborators collaborators repository.
+     */
     private void displayCollaborators(List<Collaborator> collaborators){
         for (Collaborator collaborator : collaborators){
             System.out.println("- " + collaborator.getName() + " - " + collaborator.getIdDocumentNumber());
         }
     }
 
+    /**
+     * Find a skill by its name.
+     * @param skills skill repository
+     * @param name skill's name
+     * @return skill
+     */
     private Skill findSkillByName(List<Skill> skills, String name) {
         for (Skill skill : skills) {
             if (skill.getName().equalsIgnoreCase(name)) {
@@ -113,6 +165,12 @@ public class GenerateTeamProposalUI implements Runnable {
         return null;
     }
 
+    /**
+     * Find a collaborator by its ID number.
+     * @param collaborators collaborator repository
+     * @param idNumber ID number's collaborator
+     * @return collaborator
+     */
     private Collaborator findCollaboratorByIDNumber(List<Collaborator> collaborators, int idNumber) {
         for (Collaborator collaborator : collaborators) {
             if (collaborator.getIdDocumentNumber() == idNumber) {
@@ -122,8 +180,13 @@ public class GenerateTeamProposalUI implements Runnable {
         return null;
     }
 
+    /**
+     * Prompts the user for an integer input and returns the entered value.
+     * @param message message to be displayed to the user
+     * @return value entered
+     */
     private int promptUserForInteger(String message) {
-        Scanner scanner = new Scanner(System.in);
+
         System.out.print(message);
         while (!scanner.hasNextInt()) {
             System.out.print("Invalid input. " + message);
@@ -132,6 +195,9 @@ public class GenerateTeamProposalUI implements Runnable {
         return scanner.nextInt();
     }
 
+    /**
+     * Presentation of the list of selected skills.
+     */
     private void showSkillsSelected(){
 
         System.out.println("The skills he selected were the following: ");
@@ -142,6 +208,9 @@ public class GenerateTeamProposalUI implements Runnable {
 
     }
 
+    /**
+     * Change an already selected skill.
+     */
     private void changeSkillSelected(){
 
         List<Skill> skills = controller.listSkills();
@@ -180,6 +249,9 @@ public class GenerateTeamProposalUI implements Runnable {
 
     }
 
+    /**
+     * Show all data.
+     */
     private void showData(){
         System.out.println("He typed the following: ");
         System.out.println("Minimum team size - " + minimumSize);
@@ -187,6 +259,9 @@ public class GenerateTeamProposalUI implements Runnable {
         showSkillsSelected();
     }
 
+    /**
+     * Change the data entered.
+     */
     private void changeData(){
 
             System.out.println("What do you want to change (enter the corresponding number)?");
@@ -213,6 +288,9 @@ public class GenerateTeamProposalUI implements Runnable {
 
     }
 
+    /**
+     * Change a member of the proposed team.
+     */
     private void changeMember(){
 
         List<Collaborator> collaborators = controller.getCollaborators();
@@ -281,6 +359,10 @@ public class GenerateTeamProposalUI implements Runnable {
 
     }
 
+    /**
+     * Obtain the skills of team members
+     * @return skill's members
+     */
     private List<Skill> getMembersSkills(){
 
         List<Skill> membersSkills = new ArrayList<>();
