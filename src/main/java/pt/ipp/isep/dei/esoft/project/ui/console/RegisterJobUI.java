@@ -2,6 +2,8 @@ package pt.ipp.isep.dei.esoft.project.ui.console;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.RegisterJobController;
 
+import java.util.Scanner;
+
 /**
  * The RegisterJobUI class represents a user interface component responsible for
  * interacting with the system to addSkill new jobs. It uses a RegisterJobController
@@ -10,6 +12,7 @@ import pt.ipp.isep.dei.esoft.project.application.controller.RegisterJobControlle
 
 public class RegisterJobUI implements Runnable {
     private RegisterJobController controller;
+    private Scanner scanner;
 
     /**
      * Constructs a new RegisterJobUI object and initializes it with a
@@ -18,6 +21,7 @@ public class RegisterJobUI implements Runnable {
 
     public RegisterJobUI (){
         this.controller = new RegisterJobController();
+        this.scanner = new Scanner (System.in);
     }
 
     /**
@@ -34,6 +38,13 @@ public class RegisterJobUI implements Runnable {
 
     @Override
     public void run() {
+        System.out.println("\n\n--- Job Resgistration -----------------");
+
+        System.out.print("Enter the name of the job to be registered");
+
+        String jobName = scanner.nextLine();
+
+        System.out.println("\nThe Job" + jobName + " has been successfully registered.");
 
     }
 }
