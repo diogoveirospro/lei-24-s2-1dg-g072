@@ -1,6 +1,8 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 import pt.ipp.isep.dei.esoft.project.application.controller.RegisterSkillController;
 
+import java.util.Scanner;
+
 /**
  * The RegisterSkillUI class provides a user interface to interact with the system
  * for registering new skills. It facilitates the input of new skill names and
@@ -9,6 +11,7 @@ import pt.ipp.isep.dei.esoft.project.application.controller.RegisterSkillControl
 
 public class RegisterSkillUI implements Runnable{
     private final RegisterSkillController controller;
+    private Scanner scanner;
 
     /**
      * Creates an instance of RegisterSkillUI with a specified RegisterSkillController.
@@ -17,6 +20,7 @@ public class RegisterSkillUI implements Runnable{
 
     public RegisterSkillUI() {
         this.controller = new RegisterSkillController();
+        this.scanner = new Scanner(System.in);
     }
 
     /**
@@ -32,6 +36,29 @@ public class RegisterSkillUI implements Runnable{
 
     @Override
     public void run() {
+        System.out.println("\n\n---- Skill Registration---------------");
 
+        while(true){
+            System.out.print("Enter the name of the skill to regist (or exit to leave)");
+            String skillName = scanner.nextLine();
+
+            if ("exit".equalsIgnoreCase(skillName)){
+                break;
+            }
+            if (skillName.isEmpty()){
+                System.out.println("Skill can not be empty. Please try again");
+                continue;
+            }
+
+            registerSkill(skillName);
+            System.out.println(skillName + "has been sucessfully registered");
+
+            System.out.println("\nDo you want to regist another skill? [Yes|No]:");
+            String answer = scanner.nextLine();
+            if("N".equalsIgnoreCase(answer)){
+                break;
+            }
+        }
+        System.out.println("Skill registration is over");
     }
 }
