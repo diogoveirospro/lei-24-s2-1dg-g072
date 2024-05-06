@@ -55,6 +55,8 @@ public class Collaborator {
 
     private List<Skill> skillSet;
 
+    private final boolean hasTeam = false;
+
     /**
      * Constructor for Collaborator class.
      * @param name Collaborator name.
@@ -263,7 +265,7 @@ public class Collaborator {
     }
 
     public boolean analyseCollaborator(Skill skill) {
-        return true;
+        return skillSet.contains(skill);
     }
 
     public void setHasTeam(boolean b) {
@@ -271,6 +273,13 @@ public class Collaborator {
     }
 
     public void setJob(Job job) {
+    }
+
+    public void assignSkill(Skill skill) {
+    }
+
+    public boolean hasTeam() {
+        return hasTeam;
     }
 }
 

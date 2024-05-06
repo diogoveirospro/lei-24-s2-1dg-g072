@@ -1,8 +1,10 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
 import org.junit.jupiter.api.Test;
+import pt.ipp.isep.dei.esoft.project.application.controller.GenerateTeamProposalController;
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import pt.ipp.isep.dei.esoft.project.domain.Date;
+import pt.ipp.isep.dei.esoft.project.domain.Skill;
 import pt.ipp.isep.dei.esoft.project.domain.Team;
 
 import java.util.ArrayList;
@@ -55,4 +57,68 @@ public class TeamRepositoryTest {
         assertEquals(expectedTeam, team);
 
     }
+
+    @Test
+    void testGenerateTeamProposal(){
+
+        GenerateTeamProposalController controller = new GenerateTeamProposalController();
+        CollaboratorRepository collaboratorsRepository = new CollaboratorRepository();
+        SkillRepository skillRepository = new SkillRepository();
+
+        collaboratorsRepository.addCollaborator(c1);
+        collaboratorsRepository.addCollaborator(c2);
+        collaboratorsRepository.addCollaborator(c3);
+        collaboratorsRepository.addCollaborator(c4);
+
+        List<Collaborator> collaborators = collaboratorsRepository.getCollaborators();
+
+        Skill skill1 = new Skill("Landscape Design");
+        Skill skill2 = new Skill("Gardening");
+        Skill skill3 = new Skill("Agriculture");
+        Skill skill4 = new Skill("Sustainable Land Management");
+        Skill skill5 = new Skill("Ecological Restoration");
+
+        skillRepository.addSkill(skill1);
+        skillRepository.addSkill(skill2);
+        skillRepository.addSkill(skill3);
+        skillRepository.addSkill(skill4);
+        skillRepository.addSkill(skill5);
+
+        List<Skill> skills = new ArrayList<>();
+        skills.add(skill1);
+        skills.add(skill2);
+        skills.add(skill1);
+
+        c1.assignSkill(skill1);
+        c1.assignSkill(skill2);
+        c2.assignSkill(skill3);
+        c2.assignSkill(skill4);
+        c3.assignSkill(skill1);
+        c4.assignSkill(skill5);
+        c4.assignSkill(skill2);
+        c4.assignSkill(skill5);
+
+
+        int minimumSize = 2;
+        int maximumSize = 3;
+
+        List<Collaborator> teamMembers = controller.generateTeamProposal(minimumSize, maximumSize, skills, collaborators);
+
+
+        assertTrue(teamMembers.size() >= minimumSize && teamMembers.size() <= maximumSize);
+
+
+        for (Collaborator member : teamMembers) {
+            assertTrue(member.analyseCollaborator(skill1) || member.analyseCollaborator(skill2));
+        }
+
+        for (Collaborator collaborator : collaborators) {
+            if (teamMembers.contains(collaborator)) {
+                assertTrue(collaborator.hasTeam());
+            } else {
+                assertFalse(collaborator.hasTeam());
+            }
+        }
+    }
+
 }

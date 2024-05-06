@@ -96,6 +96,7 @@ public class TeamRepository {
         while (members.size() < maximumSize && !collaboratorsClone.isEmpty()) {
             Collaborator additionalCollaborator = collaboratorsClone.get(0);
             members.add(additionalCollaborator);
+            additionalCollaborator.setHasTeam(true);
             collaboratorsClone.remove(0);
         }
 
