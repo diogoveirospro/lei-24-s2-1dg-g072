@@ -13,4 +13,10 @@ public class Collaborator {
         this.name = name;
     }
 
+    public boolean analyseCollaborator(Skill skill) {
+        
+    }
+
+    public void setHasTeam(boolean b) {
+    }
 }

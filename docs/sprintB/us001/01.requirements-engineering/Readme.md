@@ -52,6 +52,7 @@ collaborator may have.
 > 
 > **Answer:** It's not required to do so.
 
+
 ### 1.3. Acceptance Criteria
 
 * **AC1:** The HRM needs to write at least one skill.
