@@ -38,7 +38,7 @@ public class TeamRepository {
      * @param members team members.
      * @return team made up of the members passed in by parameter.
      */
-    public Team getTeam(ArrayList<Collaborator> members){
+    public Team getTeam(List<Collaborator> members){
         Team newTeam = new Team(members);
         Team team = null;
 

@@ -81,7 +81,7 @@ public class GenerateTeamProposalUI implements Runnable {
 
         System.out.println("\nTeam Members:");
         for (Collaborator member : members) {
-            System.out.println("- " + member.getName() + " - " + member.getIdDocumentNumber());
+            System.out.println("- " + member.getName() + " - " + member.getIdDocNumber());
         }
 
         System.out.println("\nDo you agree with this team proposal? [Y/N]");
@@ -146,7 +146,7 @@ public class GenerateTeamProposalUI implements Runnable {
      */
     private void displayCollaborators(List<Collaborator> collaborators){
         for (Collaborator collaborator : collaborators){
-            System.out.println("- " + collaborator.getName() + " - " + collaborator.getIdDocumentNumber());
+            System.out.println("- " + collaborator.getName() + " - " + collaborator.getIdDocNumber());
         }
     }
 
@@ -173,7 +173,7 @@ public class GenerateTeamProposalUI implements Runnable {
      */
     private Collaborator findCollaboratorByIDNumber(List<Collaborator> collaborators, int idNumber) {
         for (Collaborator collaborator : collaborators) {
-            if (collaborator.getIdDocumentNumber() == idNumber) {
+            if (collaborator.getIdDocNumber() == idNumber) {
                 return collaborator;
             }
         }
@@ -368,7 +368,7 @@ public class GenerateTeamProposalUI implements Runnable {
         List<Skill> membersSkills = new ArrayList<>();
 
         for (Collaborator member : members){
-            membersSkills.addAll(member.getSkills());
+            membersSkills.addAll(member.getSkillSet());
         }
 
         return membersSkills;

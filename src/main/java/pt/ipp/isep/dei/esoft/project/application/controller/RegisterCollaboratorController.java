@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
+import pt.ipp.isep.dei.esoft.project.domain.Date;
 import pt.ipp.isep.dei.esoft.project.domain.Job;
 import pt.ipp.isep.dei.esoft.project.repository.CollaboratorRepository;
 import pt.ipp.isep.dei.esoft.project.repository.JobRepository;
@@ -23,23 +24,10 @@ public class RegisterCollaboratorController {
         this.jobRepository = jobRepository;
     }
 
-    public boolean registerCollaborator(String name, String birthDate, String admissionDate, String address,
-                                        String contactInfo, String taxpayerNumber, String idDocType, String idDocNumber,
-                                        String jobName) {
-        // Check if the job exists
-        Optional<Job> optionalJob = jobRepository.findJobByName(jobName);
-        if (optionalJob.isEmpty()) {
-            System.out.println("Job with name " + jobName + " does not exist.");
-            return false;
-        }
+    public void registerCollaborator(String name, Date birthDate, Date admissionDate, String address,
+                                        int mobile, String email, int taxpayerNumber, String idDocType, int idDocNumber, String jobName) {
 
-        // Create a new collaborator
-        Collaborator collaborator = new Collaborator(name, birthDate, admissionDate, address, contactInfo,
-                taxpayerNumber, idDocType, idDocNumber);
-        collaborator.setJob(optionalJob.get()); // Assign the job to the collaborator
-
-        // Add the collaborator to the repository
-        collaboratorRepository.addCollaborator(collaborator);
-        return true;
+        this.collaboratorRepository.addCollaborator(new Collaborator(name, birthDate, admissionDate, address, mobile,
+                email, taxpayerNumber, idDocType, idDocNumber, jobName));
     }
 }
