@@ -1,290 +1,79 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
-import pt.ipp.isep.dei.esoft.project.repository.Repositories;
-import pt.ipp.isep.dei.esoft.project.repository.SkillRepository;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 
 /**
  * Represents a collaborator with all its attributes.
  */
 public class Collaborator {
+
     /**
-     * Collaborator's name.
+     * Collaborator name.
      */
     private String name;
 
     /**
-     * Collaborator's birthday.
+     * Collaborator birth date.
      */
-    private String birthday;
+    private Date birthDate;
 
     /**
-     * Collaborator's admission date.
+     * Collaborator admission date.
      */
-    private String admissionDate;
+    private Date admissionDate;
 
     /**
-     * Collaborator's address.
+     * Collaborator address.
      */
     private String address;
 
     /**
-     * Collaborator's mobile number.
+     * Collaborator mobile number.
      */
-    private String mobileNumber;
+    private String mobile;
 
     /**
-     * Collaborator's email.
+     * Collaborator email.
      */
     private String email;
 
     /**
-     * Collaborator's ID document type.
+     * Collaborator taxpayer number.
      */
-    private String idDocumentType;
+    private String taxpayerNumber;
 
     /**
-     * Collaborator's ID document number.
+     * Collaborator ID document type.
      */
-    private String idDocumentNumber;
+    private String idDocType;
 
     /**
-     * Collaborator's skills.
+     * Collaborator ID document number.
      */
-    private ArrayList<Skill> skills;
-
-    private SkillRepository skillRepository;
-
-    /**
-     * It lets you know if an employee already has a team.
-     */
-    private boolean hasTeam = false;
-
-    /**
-     * Collaborator builder.
-     * @param name collaborator's name
-     * @param birthday collaborator's birthday
-     * @param admissionDate collaborator's admission date
-     * @param address collaborator's address
-     * @param mobileNumber collaborator's mobile number
-     * @param email collaborator's email
-     * @param idDocumentType collaborator's ID document type
-     * @param idDocumentNumber collaborator's ID document number
-     */
-    public Collaborator(String name, String birthday, String admissionDate, String address, String mobileNumber, String email, String idDocumentType, String idDocumentNumber) {
-        this.name = name;
-        this.birthday = birthday;
-        this.admissionDate = admissionDate;
-        this.address = address;
-        this.mobileNumber = mobileNumber;
-        this.email = email;
-        this.idDocumentType = idDocumentType;
-        this.idDocumentNumber = idDocumentNumber;
-        skillRepository = Repositories.getInstance().getSkillRepository();
-    }
-
-    /**
-     * Get the collaborator's name
-     * @return collaborator's name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Get the collaborator's birthday
-     * @return collaborator's birthday
-     */
-    public String getBirthday() {
-        return birthday;
-    }
-
-    /**
-     * Get the collaborator's admission date
-     * @return collaborator's admission date
-     */
-    public String getAdmissionDate() {
-        return admissionDate;
-    }
-
-    /**
-     * Get the collaborator's address
-     * @return collaborator's address
-     */
-    public String getAddress() {
-        return address;
-    }
-
-    /**
-     * Get the collaborator's mobile number
-     * @return collaborator's mobile number
-     */
-    public String getMobileNumber() {
-        return mobileNumber;
-    }
-
-    /**
-     * Get the collaborator's email
-     * @return collaborator's email
-     */
-    public String getEmail() {
-        return email;
-    }
-
-    /**
-     * Get the collaborator's ID document type
-     * @return collaborator's ID document type
-     */
-    public String getIdDocumentType(){
-        return idDocumentType;
-    }
-
-    /**
-     * Get the collaborator's ID document number
-     * @return collaborator's ID document number
-     */
-    public String getIdDocumentNumber() {
-        return idDocumentNumber;
-    }
-
-    /**
-     * Get the collaborator's skills
-     * @return collaborator's skills
-     */
-    public ArrayList<Skill> getSkills() {
-        return skills;
-    }
-
-    /**
-     * Change the collaborator's name
-     * @param name new name
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * Change the collaborator's birthday
-     * @param birthday new birthday
-     */
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
-    }
-
-    /**
-     * Change the collaborator's admission date
-     * @param admissionDate new admission date
-     */
-    public void setAdmissionDate(String admissionDate) {
-        this.admissionDate = admissionDate;
-    }
-
-    /**
-     * Change the collaborator's address
-     * @param address new address
-     */
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    /**
-     * Change the collaborator's mobile number
-     * @param mobileNumber new mobile number
-     */
-    public void setMobileNumber(String mobileNumber) {
-        this.mobileNumber = mobileNumber;
-    }
-
-    /**
-     * Change the collaborator's email
-     * @param email new email
-     */
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    /**
-     * Change the collaborator's ID document type
-     * @param idDocumentType new ID document type
-     */
-    public void setIdDocumentType(String idDocumentType) {
-        this.idDocumentType = idDocumentType;
-    }
-
-    /**
-     * Change the collaborator's ID document number
-     * @param idDocumentNumber new ID document number
-     */
-    public void setIdDocumentNumber(String idDocumentNumber) {
-        this.idDocumentNumber = idDocumentNumber;
-    }
-
-    /**
-     * Changes the status indicating whether the collaborator has a team
-     * @param hasTeam true if the collaborator has a team, false otherwise
-     */
-    public void setHasTeam(boolean hasTeam){
-        this.hasTeam = hasTeam;
-    }
-
-    /**
-     * Analyses an employee to see if they can join a particular team
-     * @param skill necessary skill
-     * @return true if the collaborator can join the team and false otherwise
-     */
-    public boolean analyseCollaborator(Skill skill){
-
-        if (skills.isEmpty()){
-            return false;
-        }else {
-            return skills.contains(skill) && !hasTeam;
-        }
-
-    }
-
-    public void setJob(Job job) {
-    }
-
-    /*public ArrayList<Skill> addSkill(){
-        ArrayList<Skill> skills = new ArrayList<Skill>();
-
-    }*/
-
-    /**
-     * Collaborator skills.
-     */
-    private List<Skill> skills;
-
-    /**
-     * Collaborator team.
-     */
-    private Team team;
-
-    /**
-     * Collaborator job.
-     */
-    private Job job;
-
-    /**
-     * Collaborator vehicle.
-     */
-    private Vehicle vehicle;
+    private String idDocNumber;
 
     /**
      * Constructor for Collaborator class.
      * @param name Collaborator name.
+     * @param birthDate Collaborator birth date.
+     * @param admissionDate Collaborator admission date.
+     * @param address Collaborator address.
+     * @param mobile Collaborator mobile number.
      * @param email Collaborator email.
-     * @param job Collaborator job.
+     * @param taxpayerNumber Collaborator taxpayer number.
+     * @param idDocType Collaborator ID document type.
+     * @param idDocNumber Collaborator ID document number.
      */
-    public Collaborator(String name, String email, Job job) {
+    public Collaborator(String name, Date birthDate, Date admissionDate, String address, String mobile, String email, String taxpayerNumber, String idDocType, String idDocNumber) {
         this.name = name;
+        this.birthDate = birthDate;
+        this.admissionDate = admissionDate;
+        this.address = address;
+        this.mobile = mobile;
         this.email = email;
-        this.skills = new ArrayList<>();
-        this.team = null; // Collaborator is not assigned to any team initially
-        this.job = job;
-        this.vehicle = null; // Collaborator does not have a vehicle initially
+        this.taxpayerNumber = taxpayerNumber;
+        this.idDocType = idDocType;
+        this.idDocNumber = idDocNumber;
     }
 
     /**
@@ -296,6 +85,38 @@ public class Collaborator {
     }
 
     /**
+     * Get collaborator birth date.
+     * @return Collaborator birth date.
+     */
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    /**
+     * Get collaborator admission date.
+     * @return Collaborator admission date.
+     */
+    public Date getAdmissionDate() {
+        return admissionDate;
+    }
+
+    /**
+     * Get collaborator address.
+     * @return Collaborator address.
+     */
+    public String getAddress() {
+        return address;
+    }
+
+    /**
+     * Get collaborator mobile number.
+     * @return Collaborator mobile number.
+     */
+    public String getMobile() {
+        return mobile;
+    }
+
+    /**
      * Get collaborator email.
      * @return Collaborator email.
      */
@@ -304,75 +125,27 @@ public class Collaborator {
     }
 
     /**
-     * Get collaborator skills.
-     * @return Collaborator skills.
+     * Get collaborator taxpayer number.
+     * @return Collaborator taxpayer number.
      */
-    public List<Skill> getSkills() {
-        return skills;
+    public String getTaxpayerNumber() {
+        return taxpayerNumber;
     }
 
     /**
-     * Add a skill to the collaborator.
-     * @param skill Skill to add.
+     * Get collaborator ID document type.
+     * @return Collaborator ID document type.
      */
-    public void addSkill(Skill skill) {
-        skills.add(skill);
+    public String getIdDocType() {
+        return idDocType;
     }
 
     /**
-     * Remove a skill from the collaborator.
-     * @param skill Skill to remove.
+     * Get collaborator ID document number.
+     * @return Collaborator ID document number.
      */
-    public void removeSkill(Skill skill) {
-        skills.remove(skill);
-    }
-
-    /**
-     * Get collaborator team.
-     * @return Collaborator team.
-     */
-    public Team getTeam() {
-        return team;
-    }
-
-    /**
-     * Set collaborator team.
-     * @param team Team to set.
-     */
-    public void setTeam(Team team) {
-        this.team = team;
-    }
-
-    /**
-     * Get collaborator job.
-     * @return Collaborator job.
-     */
-    public Job getJob() {
-        return job;
-    }
-
-    /**
-     * Set collaborator job.
-     * @param job Job to set.
-     */
-    public void setJob(Job job) {
-        this.job = job;
-    }
-
-    /**
-     * Get collaborator vehicle.
-     * @return Collaborator vehicle.
-     */
-    public Vehicle getVehicle() {
-        return vehicle;
-    }
-
-    /**
-     * Set collaborator vehicle.
-     * @param vehicle Vehicle to set.
-     */
-    public void setVehicle(Vehicle vehicle) {
-        this.vehicle = vehicle;
+    public String getIdDocNumber() {
+        return idDocNumber;
     }
 
     /**
@@ -383,9 +156,15 @@ public class Collaborator {
     public String toString() {
         return "Collaborator{" +
                 "name='" + name + '\'' +
+                ", birthDate=" + birthDate +
+                ", admissionDate=" + admissionDate +
+                ", address='" + address + '\'' +
+                ", mobile='" + mobile + '\'' +
                 ", email='" + email + '\'' +
-                ", job=" + job.getName() +
+                ", taxpayerNumber='" + taxpayerNumber + '\'' +
+                ", idDocType='" + idDocType + '\'' +
+                ", idDocNumber='" + idDocNumber + '\'' +
                 '}';
     }
-
 }
+
