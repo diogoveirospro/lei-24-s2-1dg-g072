@@ -12,15 +12,15 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TeamRepositoryTest {
 
-    Collaborator c1 = new Collaborator("Ana", new Date(1990, 2, 3), new Date(2010, 3, 1), "Rua1", 912345669, "ana@gmail.com", "CC", 234564321);
-    Collaborator c2 = new Collaborator("João", new Date(1980, 2, 3), new Date(2010, 3, 1), "Rua2", 912345669, "joao@gmail.com", "CC", 234564321);
-    Collaborator c3 = new Collaborator("André", new Date(1970, 2, 3), new Date(2010, 3, 1), "Rua3", 912345669, "andre@gmail.com", "CC", 234564321);
-    Collaborator c4 = new Collaborator("Manuel", new Date(1999, 2, 3), new Date(2015, 3, 1), "Rua4", 912345669, "manuel@gmail.com", "CC", 234564321);
+    Collaborator c1 = new Collaborator("Ana", new Date(1990, 2, 3), new Date(2010, 3, 1), "Rua1", 912345669, "ana@gmail.com", 12345678, "CC", 234564321);
+    Collaborator c2 = new Collaborator("João", new Date(1980, 2, 3), new Date(2010, 3, 1), "Rua2", 912345669, "joao@gmail.com", 12345678, "CC", 234564321);
+    Collaborator c3 = new Collaborator("André", new Date(1970, 2, 3), new Date(2010, 3, 1), "Rua3", 912345669, "andre@gmail.com", 12345678, "CC", 234564321);
+    Collaborator c4 = new Collaborator("Manuel", new Date(1999, 2, 3), new Date(2015, 3, 1), "Rua4", 912345669, "manuel@gmail.com", 12345678, "CC", 234564321);
     List<Collaborator> members1 = new ArrayList<>();
     List<Collaborator> members2 = new ArrayList<>();
 
     @Test
-    void testGetTeam(){
+    void testGetTeams(){
 
         members1.add(c1);
         members1.add(c2);
@@ -39,5 +39,10 @@ public class TeamRepositoryTest {
 
         assertEquals(2, retrievedTeams.size());
         assertTrue(retrievedTeams.containsAll(teams));
+    }
+
+    @Test
+    void testGetTeam(){
+
     }
 }

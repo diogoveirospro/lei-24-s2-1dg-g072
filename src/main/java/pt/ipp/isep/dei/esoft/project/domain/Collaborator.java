@@ -1,7 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -47,7 +46,7 @@ public class Collaborator {
     /**
      * Collaborator ID document type.
      */
-    private int idDocType;
+    private String idDocType;
 
     /**
      * Collaborator ID document number.
@@ -68,7 +67,7 @@ public class Collaborator {
      * @param idDocType Collaborator ID document type.
      * @param idDocNumber Collaborator ID document number.
      */
-    public Collaborator(String name, Date birthDate, Date admissionDate, String address, int mobile, String email, int taxpayerNumber, int idDocType, int idDocNumber) {
+    public Collaborator(String name, Date birthDate, Date admissionDate, String address, int mobile, String email, int taxpayerNumber, String idDocType, int idDocNumber) {
         this.name = name;
         this.birthDate = birthDate;
         this.admissionDate = admissionDate;
@@ -143,7 +142,7 @@ public class Collaborator {
      *
      * @return Collaborator ID document type.
      */
-    public int getIdDocType() {
+    public String getIdDocType() {
         return idDocType;
     }
 
@@ -207,7 +206,7 @@ public class Collaborator {
      * Change collaborator identification document type
      * @param idDocType of the collaborator
      */
-    public void setIdDocType(int idDocType) {
+    public void setIdDocType(String idDocType) {
         this.idDocType = idDocType;
     }
 
