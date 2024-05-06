@@ -64,7 +64,6 @@ For example, in the address example@mail.com, "example" is the email prefix, and
 >
 > **Answer:** I believe that question was already answered, name, birthdate, admission date, id doc type, id doc number, contact info (email, mobile), address.
 
-
 ### 1.3. Acceptance Criteria
 
 * **AC1:** All mandatory fields for the collaborator registration must be completed, including name, date of birth, date of admission, address, contact information (phone and email), identification document, and document number.
