@@ -1,6 +1,8 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Represents a collaborator with all its attributes.
@@ -13,7 +15,7 @@ public class Collaborator {
     private String name;
 
     /**
-     * Collaborator birth date.
+     * Collaborator birthdate.
      */
     private Date birthDate;
 
@@ -30,7 +32,7 @@ public class Collaborator {
     /**
      * Collaborator mobile number.
      */
-    private String mobile;
+    private int mobile;
 
     /**
      * Collaborator email.
@@ -40,22 +42,24 @@ public class Collaborator {
     /**
      * Collaborator taxpayer number.
      */
-    private String taxpayerNumber;
+    private int taxpayerNumber;
 
     /**
      * Collaborator ID document type.
      */
-    private String idDocType;
+    private int idDocType;
 
     /**
      * Collaborator ID document number.
      */
-    private String idDocNumber;
+    private int idDocNumber;
+
+    private List<Skill> skillSet;
 
     /**
      * Constructor for Collaborator class.
      * @param name Collaborator name.
-     * @param birthDate Collaborator birth date.
+     * @param birthDate Collaborator birthdate.
      * @param admissionDate Collaborator admission date.
      * @param address Collaborator address.
      * @param mobile Collaborator mobile number.
@@ -64,7 +68,7 @@ public class Collaborator {
      * @param idDocType Collaborator ID document type.
      * @param idDocNumber Collaborator ID document number.
      */
-    public Collaborator(String name, Date birthDate, Date admissionDate, String address, String mobile, String email, String taxpayerNumber, String idDocType, String idDocNumber) {
+    public Collaborator(String name, Date birthDate, Date admissionDate, String address, int mobile, String email, int taxpayerNumber, int idDocType, int idDocNumber) {
         this.name = name;
         this.birthDate = birthDate;
         this.admissionDate = admissionDate;
@@ -74,6 +78,7 @@ public class Collaborator {
         this.taxpayerNumber = taxpayerNumber;
         this.idDocType = idDocType;
         this.idDocNumber = idDocNumber;
+        skillSet = new ArrayList<>();
     }
 
     /**
@@ -85,8 +90,8 @@ public class Collaborator {
     }
 
     /**
-     * Get collaborator birth date.
-     * @return Collaborator birth date.
+     * Get collaborator birthdate.
+     * @return Collaborator birthdate.
      */
     public Date getBirthDate() {
         return birthDate;
@@ -112,7 +117,7 @@ public class Collaborator {
      * Get collaborator mobile number.
      * @return Collaborator mobile number.
      */
-    public String getMobile() {
+    public int getMobile() {
         return mobile;
     }
 
@@ -126,26 +131,117 @@ public class Collaborator {
 
     /**
      * Get collaborator taxpayer number.
+     *
      * @return Collaborator taxpayer number.
      */
-    public String getTaxpayerNumber() {
+    public int getTaxpayerNumber() {
         return taxpayerNumber;
     }
 
     /**
      * Get collaborator ID document type.
+     *
      * @return Collaborator ID document type.
      */
-    public String getIdDocType() {
+    public int getIdDocType() {
         return idDocType;
     }
 
     /**
      * Get collaborator ID document number.
+     *
      * @return Collaborator ID document number.
      */
-    public String getIdDocNumber() {
+    public int getIdDocNumber() {
         return idDocNumber;
+    }
+
+    /**
+     * Get collaborator skill set.
+     * @return All collaborator skills.
+     */
+    public List<Skill> getSkillSet() {
+        return skillSet;
+    }
+
+    /**
+     * Change collaborator address
+     * @param address of the collaborator
+     */
+    public void setAddress(String address) {
+        this.address = address;
+    }
+    /**
+     * Change collaborator admission date on the enterprise
+     * @param admissionDate of the collaborator
+     */
+    public void setAdmissionDate(Date admissionDate) {
+        this.admissionDate = admissionDate;
+    }
+
+    /**
+     * Change collaborator birthdate
+     * @param birthDate of the collaborator
+     */
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    /**
+     * Change collaborator email
+     * @param email of the collaborator
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    /**
+     * Change collaborator identification document number
+     * @param idDocNumber of the collaborator
+     */
+    public void setIdDocNumber(int idDocNumber) {
+        this.idDocNumber = idDocNumber;
+    }
+
+    /**
+     * Change collaborator identification document type
+     * @param idDocType of the collaborator
+     */
+    public void setIdDocType(int idDocType) {
+        this.idDocType = idDocType;
+    }
+
+    /**
+     * Change collaborator mobile phone
+     * @param mobile number of the collaborator
+     */
+    public void setMobile(int mobile) {
+        this.mobile = mobile;
+    }
+
+    /**
+     * Change collaborator name
+     * @param name of the collaborator
+     */
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * Change collaborator skill set
+     * @param skillSet of the collaborator
+     */
+    public void setSkillSet(List<Skill> skillSet) {
+        this.skillSet = skillSet;
+    }
+
+    /**
+     * Change collaborator taxpayer number
+     * @param taxpayerNumber of the collaborator
+     */
+    public void setTaxpayerNumber(int taxpayerNumber) {
+        this.taxpayerNumber = taxpayerNumber;
     }
 
     /**
@@ -165,6 +261,14 @@ public class Collaborator {
                 ", idDocType='" + idDocType + '\'' +
                 ", idDocNumber='" + idDocNumber + '\'' +
                 '}';
+    }
+
+    public boolean analyseCollaborator(Skill skill) {
+        return true;
+    }
+
+    public void setHasTeam(boolean b) {
+
     }
 }
 
