@@ -269,5 +269,8 @@ public class Collaborator {
     public void setHasTeam(boolean b) {
 
     }
+
+    public void setJob(Job job) {
+    }
 }
 

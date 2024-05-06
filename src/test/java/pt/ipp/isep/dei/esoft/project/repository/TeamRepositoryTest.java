@@ -44,5 +44,15 @@ public class TeamRepositoryTest {
     @Test
     void testGetTeam(){
 
+        members1.add(c1);
+        members1.add(c2);
+
+        TeamRepository teamRepository = new TeamRepository();
+        teamRepository.addTeam(new Team(members1));
+        Team team = teamRepository.getTeam(members1);
+        Team expectedTeam = new Team(members1);
+
+        assertEquals(expectedTeam, team);
+
     }
 }
