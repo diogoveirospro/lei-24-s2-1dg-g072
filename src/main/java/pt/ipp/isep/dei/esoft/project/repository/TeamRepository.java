@@ -128,7 +128,7 @@ public class TeamRepository {
      * @return true if the team is valid and false otherwise.
      */
     public boolean validateTeam(Team team){
-        return team != null;
+        return team != null && !team.getTeam().isEmpty();
 
     }
 }

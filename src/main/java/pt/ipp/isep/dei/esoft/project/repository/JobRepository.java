@@ -74,7 +74,16 @@ public class JobRepository {
         return List.copyOf(jobs);
     }
 
-    public Optional<Job> findJobByName(String jobName) {
-        return null;
+    /**
+     * Checks that the job exists in the repository.
+     * @param jobName name of the job to be searched.
+     * @return true if it exists in the repository and false otherwise.
+     */
+    public boolean exists(String jobName){
+
+        Job job = this.getJob(jobName);
+
+        return job != null;
+
     }
 }

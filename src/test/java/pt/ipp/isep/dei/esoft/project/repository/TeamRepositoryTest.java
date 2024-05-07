@@ -2,10 +2,7 @@ package pt.ipp.isep.dei.esoft.project.repository;
 
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.esoft.project.application.controller.GenerateTeamProposalController;
-import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
-import pt.ipp.isep.dei.esoft.project.domain.Date;
-import pt.ipp.isep.dei.esoft.project.domain.Skill;
-import pt.ipp.isep.dei.esoft.project.domain.Team;
+import pt.ipp.isep.dei.esoft.project.domain.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,15 +11,22 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TeamRepositoryTest {
 
-    Collaborator c1 = new Collaborator("Ana", new Date(1990, 2, 3), new Date(2010, 3, 1), "Rua1", 912345669, "ana@gmail.com", 12345678, "CC", 234564321);
-    Collaborator c2 = new Collaborator("João", new Date(1980, 2, 3), new Date(2010, 3, 1), "Rua2", 912345669, "joao@gmail.com", 12345678, "CC", 234564321);
-    Collaborator c3 = new Collaborator("André", new Date(1970, 2, 3), new Date(2010, 3, 1), "Rua3", 912345669, "andre@gmail.com", 12345678, "CC", 234564321);
-    Collaborator c4 = new Collaborator("Manuel", new Date(1999, 2, 3), new Date(2015, 3, 1), "Rua4", 912345669, "manuel@gmail.com", 12345678, "CC", 234564321);
-    List<Collaborator> members1 = new ArrayList<>();
-    List<Collaborator> members2 = new ArrayList<>();
+    JobRepository jobRepository = new JobRepository();
+
+    Collaborator c1 = new Collaborator("Ana", new Date(1990, 2, 3), new Date(2010, 3, 1), "Rua1", 912345669, "ana@gmail.com", 12345678, "CC", 234564321, "Gardener");
+    Collaborator c2 = new Collaborator("João", new Date(1980, 2, 3), new Date(2010, 3, 1), "Rua2", 912345669, "joao@gmail.com", 12345678, "CC", 234564321, "Farmer");
+    Collaborator c3 = new Collaborator("André", new Date(1970, 2, 3), new Date(2010, 3, 1), "Rua3", 912345669, "andre@gmail.com", 12345678, "CC", 234564321, "Gardener");
+    Collaborator c4 = new Collaborator("Manuel", new Date(1999, 2, 3), new Date(2015, 3, 1), "Rua4", 912345669, "manuel@gmail.com", 12345678, "CC", 234564321, "Gardener");
+
 
     @Test
     void testGetTeams(){
+
+        jobRepository.addJob(new Job("Gardener"));
+        jobRepository.addJob(new Job("Farmer"));
+
+        List<Collaborator> members1 = new ArrayList<>();
+        List<Collaborator> members2 = new ArrayList<>();
 
         members1.add(c1);
         members1.add(c2);
@@ -46,13 +50,15 @@ public class TeamRepositoryTest {
     @Test
     void testGetTeam(){
 
-        members1.add(c1);
-        members1.add(c2);
+        List<Collaborator> members = new ArrayList<>();
+
+        members.add(c1);
+        members.add(c2);
 
         TeamRepository teamRepository = new TeamRepository();
-        teamRepository.addTeam(new Team(members1));
-        Team team = teamRepository.getTeam(members1);
-        Team expectedTeam = new Team(members1);
+        teamRepository.addTeam(new Team(members));
+        Team team = teamRepository.getTeam(members);
+        Team expectedTeam = new Team(members);
 
         assertEquals(expectedTeam, team);
 
@@ -121,4 +127,54 @@ public class TeamRepositoryTest {
         }
     }
 
+    @Test
+    void testCreateTeam(){
+
+        TeamRepository teamRepository = new TeamRepository();
+        List<Collaborator> members = new ArrayList<>();
+
+        members.add(c1);
+        members.add(c2);
+
+        Team team = teamRepository.createTeam(members);
+        Team expectedTeam = new Team(members);
+
+        assertEquals(expectedTeam, team);
+
+    }
+
+    @Test
+    void testAddTeam1(){
+
+        TeamRepository teamRepository = new TeamRepository();
+        List<Collaborator> members = new ArrayList<>();
+
+        members.add(c1);
+        members.add(c2);
+
+        Team team = new Team(members);
+
+        teamRepository.addTeam(team);
+
+        List<Team> teams = teamRepository.getTeams();
+
+        assertTrue(teams.contains(team));
+
+    }
+
+    @Test
+    void testAddTeam2(){
+
+        TeamRepository teamRepository = new TeamRepository();
+        List<Collaborator> members = new ArrayList<>();
+
+        Team team = new Team(members);
+
+        teamRepository.addTeam(team);
+
+        List<Team> teams = teamRepository.getTeams();
+
+        assertFalse(teams.contains(team));
+
+    }
 }
