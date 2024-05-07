@@ -1,10 +1,14 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import pt.ipp.isep.dei.esoft.project.repository.JobRepository;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Represents a collaborator with all its attributes.
+ *
+ * @author Group 072 - Byte Masters - ISEP
  */
 public class Collaborator {
 
@@ -53,9 +57,51 @@ public class Collaborator {
      */
     private int idDocNumber;
 
+    /**
+     * Collaborator's job.
+     */
+    private Job job;
+
+    /**
+     * Collaborator's skill set.
+     */
     private List<Skill> skillSet;
 
-    private final boolean hasTeam = false;
+    /**
+     * Variable that lets you know if a collaborator has a team.
+     */
+    private boolean hasTeam = false;
+
+    /**
+     * Constructor for Collaborator class.
+     * @param name Collaborator name.
+     * @param birthDate Collaborator birthdate.
+     * @param admissionDate Collaborator admission date.
+     * @param address Collaborator address.
+     * @param mobile Collaborator mobile number.
+     * @param email Collaborator email.
+     * @param taxpayerNumber Collaborator taxpayer number.
+     * @param idDocType Collaborator ID document type.
+     * @param idDocNumber Collaborator ID document number.
+     * @param jobName Collaborator's Job Name.
+     */
+    public Collaborator(String name, Date birthDate, Date admissionDate, String address, int mobile, String email,
+                        int taxpayerNumber, String idDocType, int idDocNumber, String jobName) {
+        this.name = name;
+        this.birthDate = birthDate;
+        this.admissionDate = admissionDate;
+        this.address = address;
+        this.mobile = mobile;
+        this.email = email;
+        this.taxpayerNumber = taxpayerNumber;
+        this.idDocType = idDocType;
+        this.idDocNumber = idDocNumber;
+
+        JobRepository jobRepository = new JobRepository();
+        this.job = jobRepository.getJob(jobName);
+
+        skillSet = new ArrayList<>();
+    }
 
     /**
      * Constructor for Collaborator class.
@@ -69,7 +115,8 @@ public class Collaborator {
      * @param idDocType Collaborator ID document type.
      * @param idDocNumber Collaborator ID document number.
      */
-    public Collaborator(String name, Date birthDate, Date admissionDate, String address, int mobile, String email, int taxpayerNumber, String idDocType, int idDocNumber) {
+    public Collaborator(String name, Date birthDate, Date admissionDate, String address, int mobile, String email,
+                        int taxpayerNumber, String idDocType, int idDocNumber) {
         this.name = name;
         this.birthDate = birthDate;
         this.admissionDate = admissionDate;
@@ -155,6 +202,14 @@ public class Collaborator {
      */
     public int getIdDocNumber() {
         return idDocNumber;
+    }
+
+    /**
+     * Get the collaborator job.
+     * @return collaborator job
+     */
+    public Job getJob() {
+        return job;
     }
 
     /**
@@ -246,6 +301,38 @@ public class Collaborator {
     }
 
     /**
+     * Change a collaborator's job.
+     * @param job new collaborator job
+     */
+    public void setJob(Job job) {
+        this.job = job;
+    }
+
+    /**
+     * Assigns a skill to the collaborator.
+     * @param skill skill to be assigned.
+     */
+    public void assignSkill(Skill skill) {
+        this.skillSet.add(skill);
+    }
+
+    /**
+     * Analyses whether a collaborator has a team.
+     * @return True if the collaborator has a team and false otherwise.
+     */
+    public boolean hasTeam() {
+        return hasTeam;
+    }
+
+    /**
+     * Changes the value of the variable that lets you know if the collaborator has a team.
+     * @param b True if the collaborator has a team and false otherwise.
+     */
+    public void setHasTeam(boolean b) {
+        this.hasTeam = b;
+    }
+
+    /**
      * String representation of collaborator.
      * @return String representation.
      */
@@ -261,25 +348,18 @@ public class Collaborator {
                 ", taxpayerNumber='" + taxpayerNumber + '\'' +
                 ", idDocType='" + idDocType + '\'' +
                 ", idDocNumber='" + idDocNumber + '\'' +
+                ", job='" + job + '\'' +
                 '}';
     }
 
+    /**
+     * Analyses whether a collaborator has a skill.
+     * @param skill skill to be analysed.
+     * @return True if the collaborator has the skill and false otherwise.
+     */
     public boolean analyseCollaborator(Skill skill) {
-        return skillSet.contains(skill);
+        return this.skillSet.contains(skill);
     }
 
-    public void setHasTeam(boolean b) {
-
-    }
-
-    public void setJob(Job job) {
-    }
-
-    public void assignSkill(Skill skill) {
-    }
-
-    public boolean hasTeam() {
-        return hasTeam;
-    }
 }
 

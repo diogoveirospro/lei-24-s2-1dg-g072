@@ -3,6 +3,11 @@ package pt.ipp.isep.dei.esoft.project.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ *
+ * @author Group 072 - Byte Masters - ISEP
+ */
 public class Maintenance {
 
     /**

@@ -8,6 +8,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ *
+ *
+ * @author Group 072 - Byte Masters - ISEP
+ */
 public class ApplicationSession {
     private final AuthenticationRepository authenticationRepository;
     private static final String CONFIGURATION_FILENAME = "src/main/resources/config.properties";

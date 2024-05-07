@@ -6,6 +6,11 @@ import java.util.List;
 
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
 
+/**
+ *
+ *
+ * @author Group 072 - Byte Masters - ISEP
+ */
 public class SkillRepository {
     private List<Skill> skills;
 

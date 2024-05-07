@@ -8,6 +8,11 @@ import pt.ipp.isep.dei.esoft.project.repository.VehicleRepository;
 
 import java.util.Optional;
 
+/**
+ *
+ *
+ * @author Group 072 - Byte Masters - ISEP
+ */
 public class RegisterVehicleController {
     private AuthenticationRepository authenticationRepository;
 

@@ -9,6 +9,11 @@ import pt.ipp.isep.dei.esoft.project.repository.TeamRepository;
 
 import java.util.List;
 
+/**
+ *
+ *
+ * @author Group 072 - Byte Masters - ISEP
+ */
 public class AssignSkillController {
 
     private final SkillRepository skillRepository;

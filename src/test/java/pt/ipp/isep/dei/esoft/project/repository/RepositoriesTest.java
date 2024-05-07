@@ -4,6 +4,14 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * The RepositoriesTest class contains unit tests for repository classes within the application.
+ * It ensures that the repository classes behave as expected by testing various methods
+ * for adding, retrieving, and managing data related to domain entities.
+ * This class tests the functionality of CollaboratorRepository, SkillRepository, and other repositories.
+ *
+ * @author Group 072 - Byte Masters - ISEP
+ */
 class RepositoriesTest {
 
     @Test

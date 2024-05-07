@@ -38,7 +38,7 @@ public class JobRepository {
         }
 
         if (job == null){
-            throw new IllegalArgumentException("Job " + name + "does not exist.");
+            throw new IllegalArgumentException("Job " + name + " does not exist.");
         }
 
         return job;
@@ -74,7 +74,16 @@ public class JobRepository {
         return List.copyOf(jobs);
     }
 
-    public Optional<Job> findJobByName(String jobName) {
-        return null;
+    /**
+     * Checks that the job exists in the repository.
+     * @param jobName name of the job to be searched.
+     * @return true if it exists in the repository and false otherwise.
+     */
+    public boolean exists(String jobName){
+
+        Job job = this.getJob(jobName);
+
+        return job != null;
+
     }
 }

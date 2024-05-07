@@ -7,6 +7,8 @@ import java.util.Scanner;
  * The RegisterSkillUI class provides a user interface to interact with the system
  * for registering new skills. It facilitates the input of new skill names and
  * communicates with the RegisterSkillController to process the registration.
+ *
+ * @author Group 072 - Byte Masters - ISEP
  */
 
 public class RegisterSkillUI implements Runnable{

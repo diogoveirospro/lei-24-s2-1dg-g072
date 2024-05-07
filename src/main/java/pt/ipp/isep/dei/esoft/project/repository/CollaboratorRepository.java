@@ -5,6 +5,11 @@ import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ *
+ * @author Group 072 - Byte Masters - ISEP
+ */
 public class CollaboratorRepository {
 
     /**

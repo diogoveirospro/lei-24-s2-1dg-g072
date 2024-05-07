@@ -9,9 +9,15 @@ import pt.ipp.isep.dei.esoft.project.repository.VehicleRepository;
 
 import java.util.List;
 
+/**
+ *
+ *
+ * @author Group 072 - Byte Masters - ISEP
+ */
 public class ListMaintenanceController {
     private MaintenanceRepository maintenanceRepository;
     private AuthenticationRepository authenticationRepository;
+
     /**
      * Empty ListMaintenanceController builder.
      *

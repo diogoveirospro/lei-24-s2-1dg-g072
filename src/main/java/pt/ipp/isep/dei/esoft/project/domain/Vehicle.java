@@ -1,5 +1,10 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+/**
+ *
+ *
+ * @author Group 072 - Byte Masters - ISEP
+ */
 public class Vehicle {
 
     /**

@@ -8,7 +8,6 @@ import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.repository.SkillRepository;
 import pt.ipp.isep.dei.esoft.project.repository.TeamRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

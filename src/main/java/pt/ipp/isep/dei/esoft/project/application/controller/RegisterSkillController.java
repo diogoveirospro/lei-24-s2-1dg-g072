@@ -6,6 +6,8 @@ import pt.ipp.isep.dei.esoft.project.repository.SkillRepository;
 /**
  * The RegisterSkillController class is responsible for managing the registration
  * of new skills within the system. It utilizes a SkillRepository to persist skills.
+ *
+ * @author Group 072 - Byte Masters - ISEP
  */
 
 public class RegisterSkillController {

@@ -2,6 +2,11 @@ package pt.ipp.isep.dei.esoft.project.ui;
 
 import pt.ipp.isep.dei.esoft.project.ui.console.menu.MainMenuUI;
 
+/**
+ *
+ *
+ * @author Group 072 - Byte Masters - ISEP
+ */
 public class Main {
 
     public static void main(String[] args) {

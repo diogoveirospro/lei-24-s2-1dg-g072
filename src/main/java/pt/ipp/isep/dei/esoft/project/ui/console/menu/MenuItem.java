@@ -5,7 +5,9 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.Objects;
 
 /**
- * @author Paulo Maio pam@isep.ipp.pt
+ *
+ *
+ * @author Group 072 - Byte Masters - ISEP
  */
 
 public class MenuItem {
