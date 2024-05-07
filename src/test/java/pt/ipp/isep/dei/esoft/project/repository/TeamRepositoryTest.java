@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
+
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.esoft.project.application.controller.GenerateTeamProposalController;
 import pt.ipp.isep.dei.esoft.project.domain.*;
@@ -11,19 +12,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TeamRepositoryTest {
 
-    JobRepository jobRepository = new JobRepository();
-
-    Collaborator c1 = new Collaborator("Ana", new Date(1990, 2, 3), new Date(2010, 3, 1), "Rua1", 912345669, "ana@gmail.com", 12345678, "CC", 234564321, "Gardener");
-    Collaborator c2 = new Collaborator("João", new Date(1980, 2, 3), new Date(2010, 3, 1), "Rua2", 912345669, "joao@gmail.com", 12345678, "CC", 234564321, "Farmer");
-    Collaborator c3 = new Collaborator("André", new Date(1970, 2, 3), new Date(2010, 3, 1), "Rua3", 912345669, "andre@gmail.com", 12345678, "CC", 234564321, "Gardener");
-    Collaborator c4 = new Collaborator("Manuel", new Date(1999, 2, 3), new Date(2015, 3, 1), "Rua4", 912345669, "manuel@gmail.com", 12345678, "CC", 234564321, "Gardener");
+    Collaborator c1 = new Collaborator("Ana", new Date(1990, 2, 3), new Date(2010, 3, 1), "Rua1", 912345669, "ana@gmail.com", 12345678, "CC", 234564321);
+    Collaborator c2 = new Collaborator("João", new Date(1980, 2, 3), new Date(2010, 3, 1), "Rua2", 912345669, "joao@gmail.com", 12345678, "CC", 234564321);
+    Collaborator c3 = new Collaborator("André", new Date(1970, 2, 3), new Date(2010, 3, 1), "Rua3", 912345669, "andre@gmail.com", 12345678, "CC", 234564321);
+    Collaborator c4 = new Collaborator("Manuel", new Date(1999, 2, 3), new Date(2015, 3, 1), "Rua4", 912345669, "manuel@gmail.com", 12345678, "CC", 234564321);
 
 
     @Test
     void testGetTeams(){
-
-        jobRepository.addJob(new Job("Gardener"));
-        jobRepository.addJob(new Job("Farmer"));
 
         List<Collaborator> members1 = new ArrayList<>();
         List<Collaborator> members2 = new ArrayList<>();

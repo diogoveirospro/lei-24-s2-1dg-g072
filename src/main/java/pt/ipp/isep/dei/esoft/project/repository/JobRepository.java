@@ -38,7 +38,7 @@ public class JobRepository {
         }
 
         if (job == null){
-            throw new IllegalArgumentException("Job " + name + "does not exist.");
+            throw new IllegalArgumentException("Job " + name + " does not exist.");
         }
 
         return job;

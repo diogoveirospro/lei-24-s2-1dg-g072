@@ -67,7 +67,10 @@ public class TeamRepository {
         List<Collaborator> members = new ArrayList<>();
         List<Collaborator> collaboratorsClone = new ArrayList<>(collaborators);
 
-        for (Skill skill : skills) {
+        List<Skill> remainingSkills = new ArrayList<>(skills);
+
+        while (!remainingSkills.isEmpty() && members.size() < maximumSize && !collaboratorsClone.isEmpty()) {
+            Skill skill = remainingSkills.get(0);
             List<Collaborator> qualifiedCollaborators = new ArrayList<>();
 
             for (Collaborator collaborator : collaboratorsClone) {
@@ -80,13 +83,11 @@ public class TeamRepository {
                 throw new IllegalArgumentException("There are no collaborators with the specified skill: " + skill);
             }
 
-            members.add(qualifiedCollaborators.get(0));
-            qualifiedCollaborators.get(0).setHasTeam(true);
-            collaboratorsClone.remove(qualifiedCollaborators.get(0));
-
-            if (members.size() == minimumSize) {
-                break;
-            }
+            Collaborator selectedCollaborator = qualifiedCollaborators.get(0);
+            members.add(selectedCollaborator);
+            selectedCollaborator.setHasTeam(true);
+            collaboratorsClone.remove(selectedCollaborator);
+            remainingSkills.remove(skill);
         }
 
         if (members.size() < minimumSize) {

@@ -102,6 +102,32 @@ public class Collaborator {
     }
 
     /**
+     * Constructor for Collaborator class.
+     * @param name Collaborator name.
+     * @param birthDate Collaborator birthdate.
+     * @param admissionDate Collaborator admission date.
+     * @param address Collaborator address.
+     * @param mobile Collaborator mobile number.
+     * @param email Collaborator email.
+     * @param taxpayerNumber Collaborator taxpayer number.
+     * @param idDocType Collaborator ID document type.
+     * @param idDocNumber Collaborator ID document number.
+     */
+    public Collaborator(String name, Date birthDate, Date admissionDate, String address, int mobile, String email,
+                        int taxpayerNumber, String idDocType, int idDocNumber) {
+        this.name = name;
+        this.birthDate = birthDate;
+        this.admissionDate = admissionDate;
+        this.address = address;
+        this.mobile = mobile;
+        this.email = email;
+        this.taxpayerNumber = taxpayerNumber;
+        this.idDocType = idDocType;
+        this.idDocNumber = idDocNumber;
+        skillSet = new ArrayList<>();
+    }
+
+    /**
      * Get collaborator name.
      * @return Collaborator name.
      */
@@ -330,7 +356,7 @@ public class Collaborator {
      * @return True if the collaborator has the skill and false otherwise.
      */
     public boolean analyseCollaborator(Skill skill) {
-        return skillSet.contains(skill);
+        return this.skillSet.contains(skill);
     }
 
 }
