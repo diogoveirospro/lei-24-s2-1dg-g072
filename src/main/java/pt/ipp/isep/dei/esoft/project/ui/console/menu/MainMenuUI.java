@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Paulo Maio pam@isep.ipp.pt
+ *
+ *
+ * @author Group 072 - Byte Masters - ISEP
  */
 public class MainMenuUI implements Runnable {
 

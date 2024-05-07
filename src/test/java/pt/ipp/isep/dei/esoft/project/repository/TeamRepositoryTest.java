@@ -10,6 +10,13 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * This class contains unit tests for the TeamRepository class. It ensures that
+ * the TeamRepository behaves as expected by testing various methods such as
+ * adding teams, retrieving teams, and generating team proposals.
+ *
+ * @author Group 072 - Byte Masters - ISEP
+ */
 public class TeamRepositoryTest {
 
     Collaborator c1 = new Collaborator("Ana", new Date(1990, 2, 3), new Date(2010, 3, 1), "Rua1", 912345669, "ana@gmail.com", 12345678, "CC", 234564321);

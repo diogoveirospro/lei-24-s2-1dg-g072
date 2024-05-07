@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -46,7 +45,7 @@ public class Team {
     @Override
     public String toString() {
 
-        StringBuilder team = new StringBuilder("The team members are:\n");
+        StringBuilder team = new StringBuilder("The team members are: \n");
 
         for (Collaborator member : this.team){
             team.append(member);

@@ -1,7 +1,9 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
 /**
- * @author Paulo Maio pam@isep.ipp.pt
+ *
+ *
+ * @author Group 072 - Byte Masters - ISEP
  */
 public class DevTeamUI implements Runnable {
 

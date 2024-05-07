@@ -7,6 +7,8 @@ import java.util.List;
 
 /**
  * Represents a collaborator with all its attributes.
+ *
+ * @author Group 072 - Byte Masters - ISEP
  */
 public class Collaborator {
 

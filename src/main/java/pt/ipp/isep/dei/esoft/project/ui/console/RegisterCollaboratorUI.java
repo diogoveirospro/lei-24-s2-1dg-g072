@@ -8,6 +8,8 @@ import java.util.Scanner;
 
 /**
  * Console-based user interface for registering a new collaborator.
+ *
+ * @author Group 072 - Byte Masters - ISEP
  */
 public class RegisterCollaboratorUI implements Runnable {
     private final RegisterCollaboratorController controller;
@@ -27,14 +29,8 @@ public class RegisterCollaboratorUI implements Runnable {
         String name = scanner.nextLine();
 
         Date birthDate = promptForDate(scanner, "Enter birthdate (YYYY-MM-DD): ");
-        if (birthDate == null) {
-            return;
-        }
 
         Date admissionDate = promptForDate(scanner, "Enter admission date (YYYY-MM-DD): ");
-        if (admissionDate == null) {
-            return;
-        }
 
         System.out.print("Enter address: ");
         String address = scanner.nextLine();

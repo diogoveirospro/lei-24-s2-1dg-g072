@@ -7,8 +7,11 @@ import pt.ipp.isep.dei.esoft.project.repository.CollaboratorRepository;
 import pt.ipp.isep.dei.esoft.project.repository.JobRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 
-import java.util.Optional;
-
+/**
+ *
+ *
+ * @author Group 072 - Byte Masters - ISEP
+ */
 public class RegisterCollaboratorController {
 
     private final CollaboratorRepository collaboratorRepository;

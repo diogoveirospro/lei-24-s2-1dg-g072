@@ -12,6 +12,8 @@ import java.util.Scanner;
  * The RegisterVehicleMaintenanceUI class represents a user interface component responsible for
  * interacting with the system to addSkill new maintenances. It uses a RegisterVehicleMaintenanceController
  * to handle the maintenance registration.
+ *
+ * @author Group 072 - Byte Masters - ISEP
  */
 public class RegisterVehicleMaintenanceUI implements Runnable {
 

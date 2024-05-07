@@ -7,6 +7,11 @@ import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
 import java.util.Optional;
 import java.util.Scanner;
 
+/**
+ *
+ *
+ * @author Group 072 - Byte Masters - ISEP
+ */
 public class RegisterVehicleUI implements Runnable {
 
     private final RegisterVehicleController controller;

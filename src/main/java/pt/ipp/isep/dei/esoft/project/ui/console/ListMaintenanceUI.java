@@ -9,6 +9,8 @@ import java.util.List;
  * The ListMaintenanceUI class represents a user interface component responsible for
  * interacting with the system to show the maintenance list. It uses a ListMaintenanceController
  * to handle the showing of the maintenance list.
+ *
+ * @author Group 072 - Byte Masters - ISEP
  */
 public class ListMaintenanceUI implements Runnable {
     private  final ListMaintenanceController controller;

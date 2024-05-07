@@ -3,6 +3,11 @@ package pt.ipp.isep.dei.esoft.project.repository;
 import pt.isep.lei.esoft.auth.AuthFacade;
 import pt.isep.lei.esoft.auth.UserSession;
 
+/**
+ *
+ *
+ * @author Group 072 - Byte Masters - ISEP
+ */
 public class AuthenticationRepository {
     private final AuthFacade authenticationFacade;
 

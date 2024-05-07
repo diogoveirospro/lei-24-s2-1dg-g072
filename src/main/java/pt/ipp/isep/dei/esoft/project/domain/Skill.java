@@ -3,6 +3,8 @@ package pt.ipp.isep.dei.esoft.project.domain;
 /**
  * The Skill class represents a skill with a unique name that can be registered
  * in the HR management system. It enforces that the skill name must not be null or empty.
+ *
+ * @author Group 072 - Byte Masters - ISEP
  */
 
 public class Skill {
@@ -43,6 +45,11 @@ public class Skill {
         this.name = name;
     }
 
+    /**
+     * Rewriting the equals method for the skill class.
+     * @param obj another skill to compare.
+     * @return true if they are equally false, otherwise.
+     */
     @Override
     public boolean equals(Object obj) {
 
@@ -57,5 +64,14 @@ public class Skill {
         Skill anotherSkill = (Skill) obj;
 
         return this.getName().equals(anotherSkill.getName()) ;
+    }
+
+    /**
+     * Rewriting the toString method for the skill class.
+     * @return String representing a skill.
+     */
+    @Override
+    public String toString(){
+        return this.name;
     }
 }

@@ -4,6 +4,12 @@ import pt.ipp.isep.dei.esoft.project.application.controller.authorization.Authen
 import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 import pt.ipp.isep.dei.esoft.project.domain.Date;
+
+/**
+ *
+ *
+ * @author Group 072 - Byte Masters - ISEP
+ */
 public class Bootstrap {
     public void run() {
         addSkill();

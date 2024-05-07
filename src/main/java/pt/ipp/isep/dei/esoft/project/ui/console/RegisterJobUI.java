@@ -8,6 +8,8 @@ import java.util.Scanner;
  * The RegisterJobUI class represents a user interface component responsible for
  * interacting with the system to addSkill new jobs. It uses a RegisterJobController
  * to handle the job registration.
+ *
+ * @author Group 072 - Byte Masters - ISEP
  */
 
 public class RegisterJobUI implements Runnable {
