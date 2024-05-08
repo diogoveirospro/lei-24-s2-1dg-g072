@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.util.Objects;
+
 /**
  *
  *
@@ -34,7 +36,7 @@ public class Maintenance {
      *
      * @param vehicle A vehicle that needs maintenance
      */
-    public void setVehicleList(Vehicle vehicle) {
+    public void setVehicle(Vehicle vehicle) {
         this.vehicle = vehicle;
     }
 
@@ -45,6 +47,24 @@ public class Maintenance {
      */
     public void setVehicleMaintenance(Vehicle vehicle){
         vehicle.setKmAtLastMaintenance(vehicle.getCurrentKms());
+    }
+
+    /**
+     * It will compare two Maintenance vehicles
+     * @param vehicleMaintenance
+     * @return
+     */
+    @Override
+    public boolean equals(Object vehicleMaintenance) {
+        if (this == vehicleMaintenance) return true;
+        if (vehicleMaintenance == null || getClass() != vehicleMaintenance.getClass()) return false;
+        Maintenance that = (Maintenance) vehicleMaintenance;
+        return Objects.equals(vehicle, that.vehicle);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(vehicle);
     }
 
 }

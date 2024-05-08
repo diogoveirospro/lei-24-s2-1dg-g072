@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.util.Objects;
+
 /**
  *
  *
@@ -76,10 +78,7 @@ public class Vehicle {
      * The kms the vehicle had at the last maintenance
      */
     private Double kmAtLastMaintenance;
-    /**
-     * An already existing vehicle
-     */
-    private Vehicle vehicle;
+
 
     /**
      * Creates an instance of vehicle
@@ -108,14 +107,6 @@ public class Vehicle {
         this.acquisitionDate = acquisitionDate;
         this.serviceFrequency = serviceFrequency;
         this.kmAtLastMaintenance = kmAtLastMaintenance;
-    }
-
-    /**
-     * Constructor that creates an instance of vehicle with an already existing vehicle
-     * @param vehicle that already exists
-     */
-    public Vehicle(Vehicle vehicle) {
-        this.vehicle = vehicle;
     }
 
     /**
@@ -391,6 +382,29 @@ public class Vehicle {
      */
     public Vehicle clone(){
         return new Vehicle(this.plateNumber, this.brand, this.model, this.type, this.tare, this.grossWeight, this.currentKms, this.registrationDate, this.acquisitionDate, this.serviceFrequency, this.kmAtLastMaintenance);
+    }
+
+    @Override
+    public boolean equals(Object vehicleObject) {
+        if (this == vehicleObject) return true;
+        if (vehicleObject == null || getClass() != vehicleObject.getClass()) return false;
+        Vehicle vehicle = (Vehicle) vehicleObject;
+        return Objects.equals(plateNumber, vehicle.plateNumber) &&
+                Objects.equals(brand, vehicle.brand) &&
+                Objects.equals(model, vehicle.model) &&
+                Objects.equals(type, vehicle.type) &&
+                Objects.equals(tare, vehicle.tare) &&
+                Objects.equals(grossWeight, vehicle.grossWeight) &&
+                Objects.equals(currentKms, vehicle.currentKms) &&
+                Objects.equals(registrationDate, vehicle.registrationDate) &&
+                Objects.equals(acquisitionDate, vehicle.acquisitionDate) &&
+                Objects.equals(serviceFrequency, vehicle.serviceFrequency) &&
+                Objects.equals(kmAtLastMaintenance, vehicle.kmAtLastMaintenance);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(plateNumber, brand, model, type, tare, grossWeight, currentKms, registrationDate, acquisitionDate, serviceFrequency, kmAtLastMaintenance);
     }
 
 }

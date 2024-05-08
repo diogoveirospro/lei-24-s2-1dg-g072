@@ -26,19 +26,30 @@ class MaintenanceRepositoryTest {
     @Test
     void testGetVehicleMaintenance() {
         MaintenanceRepository maintenanceRepository = new MaintenanceRepository();
-        List<Vehicle> vehicleList = new ArrayList<Vehicle>();
-        Vehicle v1 = new Vehicle(m1.getVehicle());
-        Vehicle v2 = new Vehicle(m2.getVehicle());
-        Vehicle v3 = new Vehicle(m3.getVehicle());
-        vehicleList.add(v1);
-        vehicleList.add(v2);
-        vehicleList.add(v3);
-        List<Maintenance> maintenances = maintenanceRepository.getVehicleMaintenance(vehicleList);
         maintenanceRepository.addVehicleMaintenance(m1);
         maintenanceRepository.addVehicleMaintenance(m2);
         maintenanceRepository.addVehicleMaintenance(m3);
-        assertSame(maintenances,maintenanceRepository.getMaintenanceList());
+
+        List<Vehicle> vehicleList = new ArrayList<Vehicle>();
+        vehicleList.add(m1.getVehicle().clone());
+        vehicleList.add(m2.getVehicle().clone());
+        vehicleList.add(m3.getVehicle().clone());
+
+        List<Maintenance> maintenances = maintenanceRepository.getVehicleMaintenance(vehicleList);
+        List<Maintenance> expectedList = new ArrayList<>(maintenanceRepository.getVehicleMaintenance(vehicleList));
+        assertArrayEquals(expectedList,maintenances);
     }
+
+    private void assertArrayEquals(List<Maintenance> expectedList, List<Maintenance> maintenances) {
+        assertEquals(expectedList.size(), maintenances.size());
+        for (int i = 0; i < expectedList.size(); i++) {
+            Maintenance expected = expectedList.get(i);
+            Maintenance actual = maintenances.get(i);
+            assertEquals(expected, actual);
+        }
+    }
+
+
 
     @Test
     void testGetMaintenanceList() {
