@@ -51,8 +51,8 @@ public class Maintenance {
 
     /**
      * It will compare two Maintenance vehicles
-     * @param vehicleMaintenance
-     * @return
+     * @param vehicleMaintenance a vehicle that needs maintenance
+     * @return the equality between two vehicles
      */
     @Override
     public boolean equals(Object vehicleMaintenance) {

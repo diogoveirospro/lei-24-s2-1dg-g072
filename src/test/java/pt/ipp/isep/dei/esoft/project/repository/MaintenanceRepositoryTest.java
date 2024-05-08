@@ -40,11 +40,11 @@ class MaintenanceRepositoryTest {
         assertArrayEquals(expectedList,maintenances);
     }
 
-    private void assertArrayEquals(List<Maintenance> expectedList, List<Maintenance> maintenances) {
-        assertEquals(expectedList.size(), maintenances.size());
+    private void assertArrayEquals(List<Maintenance> expectedList, List<Maintenance> testList) {
+        assertEquals(expectedList.size(), testList.size());
         for (int i = 0; i < expectedList.size(); i++) {
             Maintenance expected = expectedList.get(i);
-            Maintenance actual = maintenances.get(i);
+            Maintenance actual = testList.get(i);
             assertEquals(expected, actual);
         }
     }
@@ -53,5 +53,15 @@ class MaintenanceRepositoryTest {
 
     @Test
     void testGetMaintenanceList() {
+        MaintenanceRepository maintenanceRepository = new MaintenanceRepository();
+        maintenanceRepository.addVehicleMaintenance(m1);
+        maintenanceRepository.addVehicleMaintenance(m2);
+        maintenanceRepository.addVehicleMaintenance(m3);
+        List<Maintenance> maintenances = maintenanceRepository.getMaintenanceList();
+        List<Maintenance> expected = new ArrayList<>();
+        expected.add(m1);
+        expected.add(m2);
+        expected.add(m3);
+        assertArrayEquals(expected,maintenances);
     }
 }
