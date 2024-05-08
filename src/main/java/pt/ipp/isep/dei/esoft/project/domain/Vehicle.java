@@ -76,6 +76,10 @@ public class Vehicle {
      * The kms the vehicle had at the last maintenance
      */
     private Double kmAtLastMaintenance;
+    /**
+     * An already existing vehicle
+     */
+    private Vehicle vehicle;
 
     /**
      * Creates an instance of vehicle
@@ -104,6 +108,14 @@ public class Vehicle {
         this.acquisitionDate = acquisitionDate;
         this.serviceFrequency = serviceFrequency;
         this.kmAtLastMaintenance = kmAtLastMaintenance;
+    }
+
+    /**
+     * Constructor that creates an instance of vehicle with an already existing vehicle
+     * @param vehicle that already exists
+     */
+    public Vehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
     }
 
     /**

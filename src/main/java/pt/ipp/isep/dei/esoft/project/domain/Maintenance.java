@@ -1,8 +1,5 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  *
  *
@@ -28,7 +25,7 @@ public class Maintenance {
      *
      * @return vehicle
      */
-    public Vehicle getVehicleList() {
+    public Vehicle getVehicle() {
         return vehicle;
     }
 

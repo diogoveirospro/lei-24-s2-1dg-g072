@@ -1,13 +1,10 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
-import org.w3c.dom.ls.LSException;
-import pt.ipp.isep.dei.esoft.project.domain.Job;
 import pt.ipp.isep.dei.esoft.project.domain.Maintenance;
 import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 /**
  *
@@ -21,6 +18,13 @@ public class MaintenanceRepository {
     private List<Maintenance> maintenanceList;
 
     /**
+     * Initiates the maintenanceList
+     *
+     */
+    public MaintenanceRepository(){
+        maintenanceList = new ArrayList<>();
+    }
+    /**
      * Get a vehicle from the repository by its details.
      *
      * @param vehicleList of all vehicles that need maintenance
@@ -29,18 +33,51 @@ public class MaintenanceRepository {
     public List<Maintenance> getVehicleMaintenance(List<Vehicle> vehicleList) {
         List<Maintenance> maintenances = new ArrayList<Maintenance>();
         for (Vehicle vehicle : vehicleList) {
-            Maintenance newMaintenance = new Maintenance(vehicle);
-            Maintenance aux = null;
-            if (maintenanceList.contains(newMaintenance)) {
-                aux = maintenanceList.get(maintenanceList.indexOf(newMaintenance));
-                maintenances.add(maintenanceList.get(maintenanceList.indexOf(newMaintenance)));
-            }
-
-            if (aux == null) {
-                throw new IllegalArgumentException("Vehicle " + vehicle + " does not exist.");
-            }
+            getMaintenance(vehicle, maintenances);
         }
         return maintenances;
+    }
+
+    /**
+     * Lets the user get the maintenance of a specific vehicle
+     *
+     * @param vehicle that we want to get
+     * @param maintenances list of all vehicles registered for maintenance
+     */
+    private void getMaintenance(Vehicle vehicle, List<Maintenance> maintenances) {
+        Maintenance newMaintenance = new Maintenance(vehicle);
+        Maintenance aux = null;
+        aux = getMaintenanceOfVehicle(newMaintenance, aux, maintenances);
+
+        checkIfMaintenanceNotNull(aux == null, "Vehicle " + vehicle + " does not exist.");
+    }
+
+    /**
+     * Checks if vehicle exists or not
+     *
+     * @param aux if true the vehicle doesn't exist else it exists
+     * @param vehicle message of the vehicle status
+     */
+    private static void checkIfMaintenanceNotNull(boolean aux, String vehicle) {
+        if (aux) {
+            throw new IllegalArgumentException(vehicle);
+        }
+    }
+
+    /**
+     * Lets the user get the maintenance of a specific vehicle if it exists
+     *
+     * @param newMaintenance the maintenance of the vehicle we want to get
+     * @param aux lets the program save the info of the new maintenance
+     * @param maintenances adds a new entry to the maintenance
+     * @return aux
+     */
+    private Maintenance getMaintenanceOfVehicle(Maintenance newMaintenance, Maintenance aux, List<Maintenance> maintenances) {
+        if (maintenanceList.contains(newMaintenance)) {
+            aux = maintenanceList.get(maintenanceList.indexOf(newMaintenance));
+            maintenances.add(maintenanceList.get(maintenanceList.indexOf(newMaintenance)));
+        }
+        return aux;
     }
 
     /**
@@ -59,9 +96,7 @@ public class MaintenanceRepository {
      * @param maintenance: new vehicle that need maintenance.
      */
     public void addVehicleMaintenance(Maintenance maintenance) {
-        if (!validateVehicleMaintenance(maintenance)) {
-            throw new IllegalArgumentException("Invalid vehicle that needs maintenance to add");
-        }
+        checkIfMaintenanceNotNull(!validateVehicleMaintenance(maintenance), "Invalid vehicle that needs maintenance to add");
         if (maintenanceList == null) {
             maintenanceList = new ArrayList<>();
         }

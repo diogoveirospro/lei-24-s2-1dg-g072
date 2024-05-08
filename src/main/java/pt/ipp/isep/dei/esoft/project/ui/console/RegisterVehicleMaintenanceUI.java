@@ -5,7 +5,6 @@ import pt.ipp.isep.dei.esoft.project.domain.Maintenance;
 import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Scanner;
 
 /**
@@ -52,7 +51,7 @@ public class RegisterVehicleMaintenanceUI implements Runnable {
         if (!maintenances.isEmpty()) {
             System.out.println("\nVehicle maintenance successfully registered for the following vehicles:");
             for (Maintenance maintenance : maintenances) {
-                System.out.println("- Vehicle: " + maintenance.getVehicleList().getPlateNumber());
+                System.out.println("- Vehicle: " + maintenance.getVehicle().getPlateNumber());
             }
         } else {
             System.out.println("\nNo vehicle maintenance was registered!");
