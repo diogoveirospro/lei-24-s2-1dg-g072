@@ -105,6 +105,7 @@ public class MaintenanceRepository {
      * @return maintenanceList
      */
     public List<Maintenance> getMaintenanceList() {
+        checkIfMaintenanceNotNull(maintenanceList.isEmpty(),"List has no Vehicles registered!!");
         return List.copyOf(maintenanceList);
     }
 }

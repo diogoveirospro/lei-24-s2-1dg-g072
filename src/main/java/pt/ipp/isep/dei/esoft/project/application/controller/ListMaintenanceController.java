@@ -67,7 +67,7 @@ public class ListMaintenanceController {
         return authenticationRepository;
     }
     /**
-     * Lets the controller get access to the vehicleList
+     * Lets the controller get access to the maintenanceList
      *
      * @return vehicleList copy
      */

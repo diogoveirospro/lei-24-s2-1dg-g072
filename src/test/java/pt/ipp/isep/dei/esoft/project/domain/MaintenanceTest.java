@@ -43,7 +43,7 @@ class MaintenanceTest {
      * Test for setting a new vehicle check up but for the case where it did pass the frequency
      */
     @Test
-    void serVehicleMaintenance2(){
+    void setVehicleMaintenance2(){
         Vehicle v3 = m3.getVehicle();
         m3.setVehicleMaintenance(v3);
         assertEquals(40000,m3.getVehicle().getKmAtLastMaintenance());

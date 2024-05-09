@@ -81,13 +81,22 @@ class MaintenanceRepositoryTest {
      * Will check if the argument is thrown when trying to get a list of vehicles that are not present in the maintenance list
      */
     @Test
-    void testCheckIfMaintenanceNotNull() {
+    void testCheckIfMaintenanceNotNull1() {
         MaintenanceRepository maintenanceRepository = new MaintenanceRepository();
         List<Vehicle> vehicleList = new ArrayList<Vehicle>();
         vehicleList.add(m1.getVehicle().clone());
         vehicleList.add(m2.getVehicle().clone());
         vehicleList.add(m3.getVehicle().clone());
         assertThrows(IllegalArgumentException.class, () -> maintenanceRepository.getVehicleMaintenance(vehicleList));
+    }
+
+    /**
+     * Will check if the argument is thrown when trying to get all the vehicles registered (if there are none).
+     */
+    @Test
+    void testCheckIfMaintenanceNotNull2() {
+        MaintenanceRepository maintenanceRepository = new MaintenanceRepository();
+        assertThrows(IllegalArgumentException.class, maintenanceRepository::getMaintenanceList);
     }
 
 }
