@@ -11,17 +11,18 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MaintenanceRepositoryTest {
-    Maintenance m1 = new Maintenance(new Vehicle("11-AA-22","toyota","avensis","combust",4000.0,3000.0,30000.0 ,new Date(2020,4,19),new Date(2020,5,20),10000.0,25000.0));
-    Maintenance m2 = new Maintenance(new Vehicle("ZA-38-UI","toyota","corolla","combust",4000.0,3000.0,30000.0 ,new Date(2014,7,15),new Date(2014,8,20),10000.0,25000.0));
-    Maintenance m3 = new Maintenance(new Vehicle("BB-AA-22","ferrary","aviento","combust",4000.0,3000.0,30000.0 ,new Date(2000,4,19),new Date(2001,5,20),10000.0,25000.0));
+    Maintenance m1 = new Maintenance(new Vehicle("11-AA-22", "toyota", "avensis", "combust", 4000.0, 3000.0, 30000.0, new Date(2020, 4, 19), new Date(2020, 5, 20), 10000.0, 25000.0));
+    Maintenance m2 = new Maintenance(new Vehicle("ZA-38-UI", "toyota", "corolla", "combust", 4000.0, 3000.0, 30000.0, new Date(2014, 7, 15), new Date(2014, 8, 20), 10000.0, 25000.0));
+    Maintenance m3 = new Maintenance(new Vehicle("BB-AA-22", "ferrary", "aviento", "combust", 4000.0, 3000.0, 30000.0, new Date(2000, 4, 19), new Date(2001, 5, 20), 10000.0, 25000.0));
 
     @Test
-    void testAddVehicleMaintenance1() {
+    void testAddVehicleMaintenance() {
         MaintenanceRepository maintenanceRepository = new MaintenanceRepository();
         maintenanceRepository.addVehicleMaintenance(m1);
         List<Maintenance> maintenances = maintenanceRepository.getMaintenanceList();
         assertTrue(maintenances.contains(m1));
     }
+
 
     @Test
     void testGetVehicleMaintenance() {
@@ -37,7 +38,7 @@ class MaintenanceRepositoryTest {
 
         List<Maintenance> maintenances = maintenanceRepository.getVehicleMaintenance(vehicleList);
         List<Maintenance> expectedList = new ArrayList<>(maintenanceRepository.getVehicleMaintenance(vehicleList));
-        assertArrayEquals(expectedList,maintenances);
+        assertArrayEquals(expectedList, maintenances);
     }
 
     private void assertArrayEquals(List<Maintenance> expectedList, List<Maintenance> testList) {
@@ -48,7 +49,6 @@ class MaintenanceRepositoryTest {
             assertEquals(expected, actual);
         }
     }
-
 
 
     @Test
@@ -62,6 +62,17 @@ class MaintenanceRepositoryTest {
         expected.add(m1);
         expected.add(m2);
         expected.add(m3);
-        assertArrayEquals(expected,maintenances);
+        assertArrayEquals(expected, maintenances);
     }
+
+    @Test
+    void testCheckIfMaintenanceNotNull() {
+        MaintenanceRepository maintenanceRepository = new MaintenanceRepository();
+        List<Vehicle> vehicleList = new ArrayList<Vehicle>();
+        vehicleList.add(m1.getVehicle().clone());
+        vehicleList.add(m2.getVehicle().clone());
+        vehicleList.add(m3.getVehicle().clone());
+        assertThrows(IllegalArgumentException.class, () -> maintenanceRepository.getVehicleMaintenance(vehicleList));
+    }
+
 }

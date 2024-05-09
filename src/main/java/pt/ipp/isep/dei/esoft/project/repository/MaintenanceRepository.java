@@ -97,9 +97,6 @@ public class MaintenanceRepository {
      */
     public void addVehicleMaintenance(Maintenance maintenance) {
         checkIfMaintenanceNotNull(!validateVehicleMaintenance(maintenance), "Invalid vehicle that needs maintenance to add");
-        if (maintenanceList == null) {
-            maintenanceList = new ArrayList<>();
-        }
         maintenanceList.add(maintenance);
     }
     /**
