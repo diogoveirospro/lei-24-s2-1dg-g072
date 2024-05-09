@@ -3,7 +3,7 @@ package pt.ipp.isep.dei.esoft.project.domain;
 import java.util.Objects;
 
 /**
- *
+ * It represents the maintenance of one vehicle
  *
  * @author Group 072 - Byte Masters - ISEP
  */

@@ -39,9 +39,6 @@ public class RegisterSkillController {
      */
 
     public void registerSkill (String name){
-        if(name == null || name.trim().isEmpty()){
-            throw new IllegalArgumentException("Cannot be null or empty");
-        }
         Skill skill = new Skill(name);
         try {
             skillRepository.addSkill(skill);
