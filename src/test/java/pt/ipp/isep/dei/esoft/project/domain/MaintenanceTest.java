@@ -4,6 +4,18 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * This class contains unit tests for the Maintenance class, checking the behaviour
+ * of the getVehicle, setVehicle, setVehicleMaintenance, equals and hashCode methods.
+ * The tests cover different scenarios to ensure the correct functioning of the functionalities
+ * implemented in the Maintenance class.
+ * <p>
+ * The tests include cases of obtaining and defining vehicles, configuring vehicle maintenance
+ * with different pass and fail frequency scenarios, comparing equality between objects and
+ * verifying the hash code.
+ *
+ * @author Group 072 - Byte Masters - ISEP
+ */
 class MaintenanceTest {
     Maintenance m1 = new Maintenance(new Vehicle("11-AA-22", "toyota", "avensis", "combust", 4000.0, 3000.0, 30000.0, new Date(2020, 4, 19), new Date(2020, 5, 20), 10000.0, 25000.0));
     Maintenance m2 = new Maintenance(new Vehicle("ZA-38-UI", "toyota", "corolla", "combust", 4000.0, 3000.0, 30000.0, new Date(2014, 7, 15), new Date(2014, 8, 20), 10000.0, 25000.0));
