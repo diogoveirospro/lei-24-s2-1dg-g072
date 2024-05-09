@@ -10,7 +10,8 @@ import pt.ipp.isep.dei.esoft.project.repository.VehicleRepository;
 import java.util.List;
 
 /**
- *
+ * This class serves as the controller for the functionality of listing all the vehicles
+ * that need maintenance.
  *
  * @author Group 072 - Byte Masters - ISEP
  */

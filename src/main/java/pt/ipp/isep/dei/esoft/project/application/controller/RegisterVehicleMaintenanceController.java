@@ -12,7 +12,8 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- *
+ * This class is the controller for the functionality to register
+ * a vehicle maintenance, ot a list of vehicles maintenances.
  *
  * @author Group 072 - Byte Masters - ISEP
  */

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * This class contains all the existent vehicles that need maintenance.
  *
  * @author Group 072 - Byte Masters - ISEP
  */

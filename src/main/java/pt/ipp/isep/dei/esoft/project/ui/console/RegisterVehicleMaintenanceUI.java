@@ -45,6 +45,10 @@ public class RegisterVehicleMaintenanceUI implements Runnable {
         submitData();
     }
 
+    /**
+     * Shows the user all the vehicles that were registered successfully.
+     *
+     */
     private void submitData() {
         List<Maintenance> maintenances = getController().registerVehicleMaintenance(vehicleList);
 
