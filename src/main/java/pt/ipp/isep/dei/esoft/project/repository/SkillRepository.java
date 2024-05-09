@@ -26,7 +26,6 @@ public class SkillRepository {
             throw new IllegalArgumentException("This skill already exists"+skill.getName());
         }
         skills.add(skill);
-        System.out.println("Skill:"+ skill.getName());
     }
 
     /**

@@ -51,7 +51,7 @@ public class TeamRepositoryTest {
     }
 
     @Test
-    void testGetTeam(){
+    void testGetTeam1(){
 
         List<Collaborator> members = new ArrayList<>();
 
@@ -68,7 +68,25 @@ public class TeamRepositoryTest {
     }
 
     @Test
-    void testGenerateTeamProposal(){
+    void testGetTeam2(){
+        List<Collaborator> members = new ArrayList<>();
+
+        members.add(c1);
+        members.add(c2);
+
+        TeamRepository teamRepository = new TeamRepository();
+
+        try {
+            teamRepository.getTeam(members);
+            fail("The method should throw an IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            assertEquals("The team composed of the members provided does not exist.", e.getMessage());
+        }
+
+    }
+
+    @Test
+    public void testGenerateTeamProposal1() {
 
         GenerateTeamProposalController controller = new GenerateTeamProposalController();
         CollaboratorRepository collaboratorsRepository = new CollaboratorRepository();
@@ -108,25 +126,70 @@ public class TeamRepositoryTest {
         c4.assignSkill(skill5);
 
 
-        int minimumSize = 2;
-        int maximumSize = 3;
+        List<Collaborator> teamMembers = controller.generateTeamProposal(2, 3, skills, collaborators);
 
-        List<Collaborator> teamMembers = controller.generateTeamProposal(minimumSize, maximumSize, skills, collaborators);
+        assertEquals(3, teamMembers.size());
+        assertTrue(teamMembers.contains(collaborators.get(0)));
+        assertTrue(teamMembers.contains(collaborators.get(2)));
+        assertTrue(teamMembers.contains(collaborators.get(3)));
+    }
 
+    @Test
+    public void testGenerateTeamProposal2() {
+        GenerateTeamProposalController controller = new GenerateTeamProposalController();
+        CollaboratorRepository collaboratorsRepository = new CollaboratorRepository();
+        SkillRepository skillRepository = new SkillRepository();
 
-        assertTrue(teamMembers.size() >= minimumSize && teamMembers.size() <= maximumSize);
+        collaboratorsRepository.addCollaborator(c1);
+        collaboratorsRepository.addCollaborator(c2);
 
+        List<Collaborator> collaborators = collaboratorsRepository.getCollaborators();
 
-        for (Collaborator member : teamMembers) {
-            assertTrue(member.analyseCollaborator(skill1) || member.analyseCollaborator(skill2));
+        Skill skill1 = new Skill("Landscape Design");
+        Skill skill2 = new Skill("Gardening");
+
+        skillRepository.addSkill(skill1);
+        skillRepository.addSkill(skill2);
+
+        List<Skill> skills = new ArrayList<>();
+        skills.add(skill1);
+        skills.add(skill2);
+
+        c1.assignSkill(skill1);
+
+        try {
+            controller.generateTeamProposal(2, 5, skills, collaborators);
+            fail("The method should throw an IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            assertTrue(e.getMessage().contains("There are no collaborators with the specified skill: "));
         }
+    }
 
-        for (Collaborator collaborator : collaborators) {
-            if (teamMembers.contains(collaborator)) {
-                assertTrue(collaborator.hasTeam());
-            } else {
-                assertFalse(collaborator.hasTeam());
-            }
+    @Test
+    public void testGenerateTeamProposal3() {
+        GenerateTeamProposalController controller = new GenerateTeamProposalController();
+        CollaboratorRepository collaboratorsRepository = new CollaboratorRepository();
+        SkillRepository skillRepository = new SkillRepository();
+
+        collaboratorsRepository.addCollaborator(c1);
+
+        List<Collaborator> collaborators = collaboratorsRepository.getCollaborators();
+
+        Skill skill1 = new Skill("Landscape Design");
+        Skill skill2 = new Skill("Gardening");
+
+        skillRepository.addSkill(skill1);
+        skillRepository.addSkill(skill2);
+
+        List<Skill> skills = new ArrayList<>();
+
+        c1.assignSkill(skill1);
+
+        try {
+            controller.generateTeamProposal(2, 5, skills, collaborators);
+            fail("The method should throw an IllegalArgumentException");
+        }catch (IllegalArgumentException e){
+            assertEquals("There aren't enough collaborators with the specified skills to create a team!", e.getMessage());
         }
     }
 
@@ -179,5 +242,24 @@ public class TeamRepositoryTest {
 
         assertFalse(teams.contains(team));
 
+    }
+
+    @Test
+    void testValidateTeam1(){
+
+        TeamRepository teamRepository = new TeamRepository();
+        List<Collaborator> members = new ArrayList<>();
+
+        Team team = new Team(members);
+
+        assertFalse(teamRepository.validateTeam(team));
+    }
+
+    @Test
+    void testValidateTeam2(){
+
+        TeamRepository teamRepository = new TeamRepository();
+
+        assertFalse(teamRepository.validateTeam(null));
     }
 }

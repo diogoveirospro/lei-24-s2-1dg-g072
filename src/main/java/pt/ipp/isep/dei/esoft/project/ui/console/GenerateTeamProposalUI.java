@@ -138,6 +138,7 @@ public class GenerateTeamProposalUI implements Runnable {
         for (Skill skill : skills) {
             System.out.println("- " + skill.getName());
         }
+        scanner.nextLine();
     }
 
     /**
@@ -188,7 +189,7 @@ public class GenerateTeamProposalUI implements Runnable {
     private int promptUserForInteger(String message) {
 
         System.out.print(message);
-        while (!scanner.hasNextInt()) {
+        while (!scanner.hasNextInt() || scanner.nextInt() <= 0) {
             System.out.print("Invalid input. " + message);
             scanner.next();
         }
