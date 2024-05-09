@@ -24,7 +24,10 @@ public class TeamRepositoryTest {
     Collaborator c3 = new Collaborator("André", new Date(1970, 2, 3), new Date(2010, 3, 1), "Rua3", 912345669, "andre@gmail.com", 12345678, "CC", 234564321);
     Collaborator c4 = new Collaborator("Manuel", new Date(1999, 2, 3), new Date(2015, 3, 1), "Rua4", 912345669, "manuel@gmail.com", 12345678, "CC", 234564321);
 
-
+    /**
+     * Test to verify the behavior of getTeams method in TeamRepository.
+     * Retrieves teams from TeamRepository and verifies the retrieved teams.
+     */
     @Test
     void testGetTeams(){
 
@@ -50,6 +53,11 @@ public class TeamRepositoryTest {
         assertTrue(retrievedTeams.containsAll(teams));
     }
 
+    /**
+     * Test to verify the behavior of getTeam method in TeamRepository.
+     * Adds a team to TeamRepository and retrieves the team using getTeam method.
+     * Verifies if the retrieved team matches the expected team.
+     */
     @Test
     void testGetTeam1(){
 
@@ -67,6 +75,10 @@ public class TeamRepositoryTest {
 
     }
 
+    /**
+     * Test to verify the behavior of getTeam method in TeamRepository when attempting to retrieve a non-existent team.
+     * Verifies that an IllegalArgumentException is thrown with the correct error message.
+     */
     @Test
     void testGetTeam2(){
         List<Collaborator> members = new ArrayList<>();
@@ -85,6 +97,11 @@ public class TeamRepositoryTest {
 
     }
 
+    /**
+     * Test to verify the behavior of generateTeamProposal method in GenerateTeamProposalController.
+     * Generates a team proposal with specified skills and collaborators and verifies the generated team members.
+     * Ensures that the generated team meets the criteria of having a specific number of members with required skills.
+     */
     @Test
     public void testGenerateTeamProposal1() {
 
@@ -134,6 +151,11 @@ public class TeamRepositoryTest {
         assertTrue(teamMembers.contains(collaborators.get(3)));
     }
 
+    /**
+     * Test to verify the behavior of generateTeamProposal method in GenerateTeamProposalController when no collaborators have the required skills.
+     * Adds collaborators with specific skills to the repository, attempts to generate a team proposal with specified skills,
+     * and expects an IllegalArgumentException to be thrown with a message indicating the lack of collaborators with the required skill.
+     */
     @Test
     public void testGenerateTeamProposal2() {
         GenerateTeamProposalController controller = new GenerateTeamProposalController();
@@ -165,6 +187,11 @@ public class TeamRepositoryTest {
         }
     }
 
+    /**
+     * Test to verify the behavior of generateTeamProposal method in GenerateTeamProposalController when there are not enough collaborators with required skills.
+     * Adds a single collaborator with a specific skill to the repository, attempts to generate a team proposal with specified skills,
+     * and expects an IllegalArgumentException to be thrown with a message indicating the lack of sufficient collaborators with required skills.
+     */
     @Test
     public void testGenerateTeamProposal3() {
         GenerateTeamProposalController controller = new GenerateTeamProposalController();
@@ -193,6 +220,11 @@ public class TeamRepositoryTest {
         }
     }
 
+    /**
+     * Test to verify the behavior of createTeam method in TeamRepository.
+     * Creates a team with a list of members, retrieves the created team,
+     * and verifies that the retrieved team matches the expected team with the same members.
+     */
     @Test
     void testCreateTeam(){
 
@@ -209,6 +241,11 @@ public class TeamRepositoryTest {
 
     }
 
+    /**
+     * Test to verify the behavior of addTeam method in TeamRepository when adding a new team.
+     * Creates a team with a list of members, adds the team to the repository,
+     * retrieves all teams from the repository, and verifies that the added team is present in the list of teams.
+     */
     @Test
     void testAddTeam1(){
 
@@ -228,6 +265,11 @@ public class TeamRepositoryTest {
 
     }
 
+    /**
+     * Test to verify the behavior of addTeam method in TeamRepository when adding an empty team.
+     * Creates an empty team, adds the team to the repository,
+     * retrieves all teams from the repository, and verifies that the empty team is not present in the list of teams.
+     */
     @Test
     void testAddTeam2(){
 
@@ -244,6 +286,10 @@ public class TeamRepositoryTest {
 
     }
 
+    /**
+     * Test to verify the behavior of validateTeam method in TeamRepository with an empty team.
+     * Creates an empty team and checks if the repository correctly validates that the team is invalid.
+     */
     @Test
     void testValidateTeam1(){
 
@@ -255,6 +301,10 @@ public class TeamRepositoryTest {
         assertFalse(teamRepository.validateTeam(team));
     }
 
+    /**
+     * Test to verify the behavior of validateTeam method in TeamRepository with a null team.
+     * Checks if the repository correctly validates that a null team is invalid.
+     */
     @Test
     void testValidateTeam2(){
 
