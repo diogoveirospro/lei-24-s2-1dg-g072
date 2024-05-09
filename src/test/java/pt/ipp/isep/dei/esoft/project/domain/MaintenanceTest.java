@@ -66,7 +66,7 @@ class MaintenanceTest {
      */
     @Test
     void testEquals1() {
-        assertTrue(m1.equals(m1));
+        assertEquals(m1, m1);
     }
 
     /**
@@ -74,7 +74,7 @@ class MaintenanceTest {
      */
     @Test
     void testEquals2() {
-        assertFalse(m1.equals(null));
+        assertNotEquals(null, m1);
     }
 
     /**
@@ -82,7 +82,7 @@ class MaintenanceTest {
      */
     @Test
     void testEquals3() {
-        assertFalse(m1.equals(m2.getVehicle()));
+        assertNotEquals(m1, m2.getVehicle());
     }
 
 
