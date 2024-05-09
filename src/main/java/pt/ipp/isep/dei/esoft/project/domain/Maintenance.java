@@ -46,7 +46,9 @@ public class Maintenance {
      * @param vehicle that needs maintenance
      */
     public void setVehicleMaintenance(Vehicle vehicle){
-        vehicle.setKmAtLastMaintenance(vehicle.getCurrentKms());
+        if((getVehicle().getCurrentKms() - vehicle.getKmAtLastMaintenance()) >= vehicle.getServiceFrequency()){
+            vehicle.setKmAtLastMaintenance(vehicle.getCurrentKms());
+        }
     }
 
     /**

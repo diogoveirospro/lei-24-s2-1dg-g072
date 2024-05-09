@@ -75,4 +75,13 @@ public class ListMaintenanceController {
         return maintenanceRepository.getMaintenanceList();
 
     }
+
+    /**
+     * Changes the value of the last maintenance if the difference between the current kms and the last maintenance is greater than the service frequency
+     *
+     * @param maintenance of the vehicle
+     */
+    public void checkLastMaintenance(Maintenance maintenance) {
+        maintenance.setVehicleMaintenance(maintenance.getVehicle());
+    }
 }

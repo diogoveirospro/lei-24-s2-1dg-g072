@@ -15,6 +15,9 @@ class MaintenanceRepositoryTest {
     Maintenance m2 = new Maintenance(new Vehicle("ZA-38-UI", "toyota", "corolla", "combust", 4000.0, 3000.0, 30000.0, new Date(2014, 7, 15), new Date(2014, 8, 20), 10000.0, 25000.0));
     Maintenance m3 = new Maintenance(new Vehicle("BB-AA-22", "ferrary", "aviento", "combust", 4000.0, 3000.0, 30000.0, new Date(2000, 4, 19), new Date(2001, 5, 20), 10000.0, 25000.0));
 
+    /**
+     * Test for adding a new vehicle to the maintenance
+     */
     @Test
     void testAddVehicleMaintenance() {
         MaintenanceRepository maintenanceRepository = new MaintenanceRepository();
@@ -23,7 +26,9 @@ class MaintenanceRepositoryTest {
         assertTrue(maintenances.contains(m1));
     }
 
-
+    /**
+     * Test for getting specific vehicles maintenance
+     */
     @Test
     void testGetVehicleMaintenance() {
         MaintenanceRepository maintenanceRepository = new MaintenanceRepository();
@@ -41,6 +46,11 @@ class MaintenanceRepositoryTest {
         assertArrayEquals(expectedList, maintenances);
     }
 
+    /**
+     * It will check if the list is or not equal to the expected list
+     * @param expectedList the supposed list
+     * @param testList the list to be tested
+     */
     private void assertArrayEquals(List<Maintenance> expectedList, List<Maintenance> testList) {
         assertEquals(expectedList.size(), testList.size());
         for (int i = 0; i < expectedList.size(); i++) {
@@ -50,7 +60,9 @@ class MaintenanceRepositoryTest {
         }
     }
 
-
+    /**
+     * Method will get all the vehicles already registered for maintenance
+     */
     @Test
     void testGetMaintenanceList() {
         MaintenanceRepository maintenanceRepository = new MaintenanceRepository();
@@ -65,6 +77,9 @@ class MaintenanceRepositoryTest {
         assertArrayEquals(expected, maintenances);
     }
 
+    /**
+     * Will check if the argument is thrown when trying to get a list of vehicles that are not present in the maintenance list
+     */
     @Test
     void testCheckIfMaintenanceNotNull() {
         MaintenanceRepository maintenanceRepository = new MaintenanceRepository();

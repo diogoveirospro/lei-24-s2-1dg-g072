@@ -395,12 +395,13 @@ public class Vehicle {
                 Objects.equals(type, vehicle.type) &&
                 Objects.equals(tare, vehicle.tare) &&
                 Objects.equals(grossWeight, vehicle.grossWeight) &&
-                Objects.equals(currentKms, vehicle.currentKms) &&
+                Double.compare(currentKms, vehicle.currentKms) == 0 && // Use Double.compare() for comparing Double values
                 Objects.equals(registrationDate, vehicle.registrationDate) &&
                 Objects.equals(acquisitionDate, vehicle.acquisitionDate) &&
                 Objects.equals(serviceFrequency, vehicle.serviceFrequency) &&
                 Objects.equals(kmAtLastMaintenance, vehicle.kmAtLastMaintenance);
     }
+
 
     @Override
     public int hashCode() {

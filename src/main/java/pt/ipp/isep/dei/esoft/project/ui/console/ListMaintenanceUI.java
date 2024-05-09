@@ -31,6 +31,10 @@ public class ListMaintenanceUI implements Runnable {
         return controller;
     }
 
+    /**
+     * Runs the program
+     *
+     */
     @Override
     public void run() {
         System.out.println("\n\n--- List Maintenance ------------------------");
@@ -38,11 +42,16 @@ public class ListMaintenanceUI implements Runnable {
         submitData();
     }
 
+    /**
+     * Shows the list of all vehicles that need maintenance
+     *
+     */
     private void submitData() {
         maintenances = controller.getMaintenanceList();
         if (!maintenances.isEmpty()) {
             System.out.println("\nVehicles in need of maintenance");
             for (Maintenance maintenance : maintenances) {
+                controller.checkLastMaintenance(maintenance);
                 System.out.println("|  Plate  |  Brand  |  Model  | Curr.Kms |  Freq  |  Last  |  Next  |" );
                 System.out.printf("| %10s | %10s | %10s | %10f | %10f | %10f | %10f |", maintenance.getVehicle().getPlateNumber(), maintenance.getVehicle().getBrand(), maintenance.getVehicle().getModel(),maintenance.getVehicle().getCurrentKms(),maintenance.getVehicle().getServiceFrequency(),maintenance.getVehicle().getKmAtLastMaintenance(),maintenance.getVehicle().getKmAtLastMaintenance() + maintenance.getVehicle().getServiceFrequency());
                 System.out.printf("%n");
@@ -52,5 +61,6 @@ public class ListMaintenanceUI implements Runnable {
             System.out.println("\nThere are no vehicles maintenances in the system!");
         }
     }
+
 
 }
