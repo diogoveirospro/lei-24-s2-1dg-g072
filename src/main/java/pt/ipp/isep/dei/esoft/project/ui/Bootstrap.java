@@ -21,7 +21,9 @@ public class Bootstrap {
     }
 
     private void addCollaborator() {
-
+        Collaborator c1 = new Collaborator("Ana", new Date(1990, 2, 3), new Date(2010, 3, 1), "Rua1", 912345669, "ana@gmail.com", 1644122, "CC", 234564321);
+        CollaboratorRepository collaboratorRepository = Repositories.getInstance().getCollaboratorRepository();
+        collaboratorRepository.addCollaborator(c1);
     }
 
     private void addJob() {

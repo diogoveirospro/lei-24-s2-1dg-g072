@@ -46,6 +46,19 @@ public class AssignSkillUI implements Runnable {
             System.out.println("Is everything correct? [Y/N]");
             confirmation = scanner.nextLine();
         }
+
+        submitData();
+
+        System.out.println(selectedCollaborator.getName() + "was assigned the following skills:");
+        for (Skill selectedSkill : selectedSkills) {
+            System.out.println("-" + selectedSkill.getName());
+        }
+    }
+
+    private void submitData() {
+        for (Skill selectedSkill : selectedSkills) {
+            selectedCollaborator.assignSkill(selectedSkill);
+        }
     }
 
     private Collaborator displayAndSelectCollaborator() {
@@ -57,9 +70,9 @@ public class AssignSkillUI implements Runnable {
         String answer;
 
         do {
-            System.out.print("Enter the name of the collaborator to select (or type 'done' to finish): ");
+            //Only one collaborator must be chosen at the time
+            System.out.print("Enter the name of the collaborator to select: ");
             answer = scanner.nextLine().trim();
-
 
                 Collaborator selectedCollaborator = findCollaboratorName(collaborators, answer);
                 if (selectedCollaborator != null) {
@@ -135,9 +148,7 @@ public class AssignSkillUI implements Runnable {
     private void showData() {
         System.out.println("Chosen collaborator: ");
 
-        selectedCollaborator.getName();
-
-        System.out.println("Chosen skills: ");
+        System.out.println(selectedCollaborator.getName());
 
         showSkillsSelected();
     }
