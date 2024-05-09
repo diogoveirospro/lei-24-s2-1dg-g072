@@ -41,7 +41,7 @@ public class RegisterSkillUI implements Runnable{
         System.out.println("\n\n---- Skill Registration---------------");
 
         while(true){
-            System.out.print("Enter the name of the skill to regist (or exit to leave)");
+            System.out.print("Enter the name of the skill to register (or exit to leave)");
             String skillName = scanner.nextLine();
 
             if ("exit".equalsIgnoreCase(skillName)){
@@ -53,9 +53,9 @@ public class RegisterSkillUI implements Runnable{
             }
 
             registerSkill(skillName);
-            System.out.println(skillName + "has been sucessfully registered");
+            System.out.println(skillName + "has been successfully registered");
 
-            System.out.println("\nDo you want to regist another skill? [Yes|No]:");
+            System.out.println("\nDo you want to register another skill? [Y|N]:");
             String answer = scanner.nextLine();
             if("N".equalsIgnoreCase(answer)){
                 break;
