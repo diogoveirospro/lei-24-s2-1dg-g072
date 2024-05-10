@@ -14,45 +14,104 @@ import java.util.Scanner;
  */
 public class RegisterVehicleUI implements Runnable {
 
+    /**
+     * Register vehicle controller.
+     */
     private final RegisterVehicleController controller;
 
+    /**
+     * Vehicle plate number.
+     */
     private String plate;
 
+    /**
+     * Vehicle model.
+     */
     private String model;
 
+    /**
+     * Vehicle brand.
+     */
     private String brand;
 
+    /**
+     * vehicle type.
+     */
     private String type;
 
+    /**
+     * Vehicle tare.
+     */
     private Double tare;
 
+    /**
+     * Vehicle's current kms.
+     */
     private Double currentKms;
 
+    /**
+     * Vehicle's acquisition date as a String.
+     */
     private String acqDate;
 
+    /**
+     * Vehicle's registration date as a String.
+     */
     private String regDate;
 
+    /**
+     * Vehicle's kms at last maintenance.
+     */
     private Double kmAtLastMaintenance;
 
+    /**
+     * Vehicle's gross weight.
+     */
     private Double grossWeight;
 
+    /**
+     * Vehicle service frequency.
+     */
     private Double serviceFrequency;
 
+    /**
+     * Array containing year month and day of acquisition date.
+     */
     private String[] acqDateSeparated;
 
+    /**
+     * Array containing year month and day of registration date.
+     */
     private String[] regDateSeparated;
 
+    /**
+     * Vehicle's registration date.
+     */
     private Date registrationDate;
 
+    /**
+     * Vehicle's acquisition date.
+     */
     private Date acquisitionDate;
 
+    /**
+     * Register vehicle UI builder.
+     */
     public RegisterVehicleUI() {
         this.controller = new RegisterVehicleController();
     }
 
+    /**
+     * Lets the UI get the register vehicle controller.
+     * @return RegisterVehicleController.
+     */
     private RegisterVehicleController getController(){
         return controller;
     }
+
+    /**
+     * Rewriting the run method so that it is possible to run the UI that allows the VFM to register a vehicle.
+     */
     @Override
     public void run() {
         System.out.println("\n\n--- Register Vehicle ------------------------");
@@ -62,6 +121,9 @@ public class RegisterVehicleUI implements Runnable {
         submitData();
     }
 
+    /**
+     * Request the data for the vehicle.
+     */
     private void requestData() {
         Scanner sc = new Scanner(System.in);
 
@@ -108,55 +170,119 @@ public class RegisterVehicleUI implements Runnable {
         registrationDate = new Date(Integer.parseInt(regDateSeparated[0]), Integer.parseInt(regDateSeparated[1]), Integer.parseInt(regDateSeparated[2]));
     }
 
+    /**
+     * Request plate number.
+     * @param sc scanner.
+     * @return plate number.
+     */
     private String requestPlate(Scanner sc) {
         System.out.println("Insert plate number: ");
         return sc.nextLine();
     }
+
+    /**
+     * Request brand.
+     * @param sc scanner.
+     * @return brand.
+     */
     private String requestBrand(Scanner sc) {
         System.out.println("Insert brand: ");
         return sc.nextLine();
     }
+
+    /**
+     * Request model.
+     * @param sc scanner.
+     * @return model.
+     */
     private String requestModel(Scanner sc) {
         System.out.println("Insert model: ");
         return sc.nextLine();
     }
+
+    /**
+     * Request type.
+     * @param sc scanner.
+     * @return type.
+     */
     private String requestType(Scanner sc) {
         System.out.println("Insert type: ");
         return sc.nextLine();
     }
+
+    /**
+     * Request tare.
+     * @param sc scanner.
+     * @return tare.
+     */
     private Double requestTare(Scanner sc) {
         System.out.println("Insert tare: ");
         return sc.nextDouble();
     }
+
+    /**
+     * Request gross weight.
+     * @param sc scanner.
+     * @return gross weight.
+     */
     private Double requestGrossWeight(Scanner sc) {
         System.out.println("Insert gross weight: ");
         return sc.nextDouble();
     }
+
+    /**
+     * Request current Kms.
+     * @param sc scanner.
+     * @return current Kms.
+     */
     private Double requestCurrentKms(Scanner sc) {
         System.out.println("Insert current Kms: ");
         return sc.nextDouble();
     }
+
+    /**
+     * Request registration date.
+     * @param sc scanner.
+     * @return registration date.
+     */
     private String requestRegistrationDate(Scanner sc) {
         System.out.println("Insert registration date (YYYY-MM-DD): ");
         return sc.nextLine();
     }
 
+    /**
+     * Request acquisition date.
+     * @param sc scanner.
+     * @return acquisition date.
+     */
     private String requestAcquisitionDate(Scanner sc) {
         System.out.println("Insert acquisition date (YYYY-MM-DD): ");
         return sc.nextLine();
     }
 
+    /**
+     * Request service frequency.
+     * @param sc scanner.
+     * @return service frequency.
+     */
     private Double requestServiceFrequency(Scanner sc) {
         System.out.println("Insert service frequency: ");
         return sc.nextDouble();
     }
 
+    /**
+     * Request Km at last maintenance.
+     * @param sc scanner.
+     * @return Km at last maintenance.
+     */
     private Double requestKmAtLastMaintenance(Scanner sc) {
         System.out.println("Insert Km at last maintenance: ");
         return sc.nextDouble();
     }
 
-
+    /**
+     * Register the vehicle.
+     */
     private void submitData() {
         Optional<Vehicle> vehicle = getController().registerVehicle(plate, model, type, brand, tare, grossWeight, currentKms, registrationDate, acquisitionDate, serviceFrequency, kmAtLastMaintenance);
 
@@ -166,6 +292,12 @@ public class RegisterVehicleUI implements Runnable {
         }else
             System.out.println("\nVehicle not registered");
     }
+
+    /**
+     * Separate the date as String in an array.
+     * @param date date as String
+     * @return array containing year month and day of date.
+     */
     private String[] separateDate(String date){
         return date.split("-");
     }

@@ -15,20 +15,36 @@ import java.util.Scanner;
  */
 public class AssignSkillUI implements Runnable {
 
+    /**
+     * Assign skill controller.
+     */
     private AssignSkillController controller;
 
+    /**
+     * Skills selected by the HRM.
+     */
     private List<Skill> selectedSkills;
 
+    /**
+     * Collaborator selected by the HRM.
+     */
     private Collaborator selectedCollaborator;
 
+    /**
+     * Scanner for input.
+     */
     Scanner scanner = new Scanner(System.in);
 
-
+    /**
+     * Assign skill UI builder
+     */
     public AssignSkillUI() {
         this.controller = new AssignSkillController();
     }
 
-
+    /**
+     * Rewriting the run method so that it is possible to run the UI that allows the HRM to assign skills to a collaborator.
+     */
     @Override
     public void run() {
 
@@ -55,12 +71,19 @@ public class AssignSkillUI implements Runnable {
         }
     }
 
+    /**
+     * Assigns the selected skills to the selected collaborator.
+     */
     private void submitData() {
         for (Skill selectedSkill : selectedSkills) {
             selectedCollaborator.assignSkill(selectedSkill);
         }
     }
 
+    /**
+     * Presentation of the list of collaborators to the user and their subsequent selection.
+     * @return selected collaborator.
+     */
     private Collaborator displayAndSelectCollaborator() {
         List<Collaborator> collaborators = controller.getCollaborators();
         System.out.println("\nAvailable Collaborators:");
@@ -88,12 +111,20 @@ public class AssignSkillUI implements Runnable {
     }
 
 
+    /**
+     * Displays the selected collaborator.
+     * @param collaborators collaborator repository.
+     */
     private void displayCollaborators(List<Collaborator> collaborators) {
         for (Collaborator collaborator : collaborators) {
             System.out.println("- " + collaborator.getName());
         }
     }
 
+    /**
+     * Presentation of the list of skills to the user and their subsequent selection.
+     * @return skills selected by the user.
+     */
     private List<Skill> displayAndSelectSkills() {
         List<Skill> skills = controller.listSkills();
 
@@ -121,6 +152,12 @@ public class AssignSkillUI implements Runnable {
         return selectedSkills;
     }
 
+    /**
+     * Find a skill by its name.
+     * @param skills skill repository.
+     * @param name skill's name.
+     * @return skill
+     */
     private Skill findSkillByName(List<Skill> skills, String name) {
         for (Skill skill : skills) {
             if (skill.getName().equalsIgnoreCase(name)) {
@@ -130,6 +167,12 @@ public class AssignSkillUI implements Runnable {
         return null;
     }
 
+    /**
+     * Find collaborator by name.
+     * @param collaborators collaborator repository.
+     * @param name collaborator name.
+     * @return collaborator.
+     */
     private Collaborator findCollaboratorName(List<Collaborator> collaborators, String name) {
         for (Collaborator collaborator : collaborators) {
             if (collaborator.getName().equalsIgnoreCase(name)) {
@@ -139,12 +182,19 @@ public class AssignSkillUI implements Runnable {
         return null;
     }
 
+    /**
+     * Presentation of the list of skills
+     * @param skills skill repository.
+     */
     private void displaySkillsOptions(List<Skill> skills) {
         for (Skill skill : skills) {
             System.out.println("- " + skill.getName());
         }
     }
 
+    /**
+     * Show all data.
+     */
     private void showData() {
         System.out.println("Chosen collaborator: ");
 
@@ -153,6 +203,9 @@ public class AssignSkillUI implements Runnable {
         showSkillsSelected();
     }
 
+    /**
+     * Show the selected skills.
+     */
     private void showSkillsSelected() {
 
         System.out.println("The selected skills were the following: ");
@@ -163,6 +216,9 @@ public class AssignSkillUI implements Runnable {
 
     }
 
+    /**
+     * Change the selected data.
+     */
     private void changeData() {
 
         changeSkillSelected();
@@ -170,6 +226,9 @@ public class AssignSkillUI implements Runnable {
         showData();
     }
 
+    /**
+     * Change the selected skills.
+     */
     private void changeSkillSelected() {
 
         List<Skill> skills = controller.listSkills();
