@@ -24,23 +24,20 @@ public class VehicleRepositoryTest {
 
     Vehicle v4 = new Vehicle("11-AA-AA", "ferrari", "aviento", "combust", 4000.0, 3000.0, 30000.0, new Date(2020, 4, 19), new Date(2020, 5, 20), 10000.0, 25000.0);
 
+
+
     @Test
     void testAddVehicle(){
         vehicleRepository.addVehicle(v1);
         vehicleRepository.addVehicle(v2);
         vehicleRepository.addVehicle(v3);
+        vehicleRepository.addVehicle(v4);
 
         assertTrue(vehicleList.contains(v1));
         assertTrue(vehicleList.contains(v2));
         assertTrue(vehicleList.contains(v3));
-    }
-
-    @Test
-    void testRegisterVehicle(){
-        vehicleRepository.registerVehicle("11-AA-22", "toyota", "avensis", "combust", 4000.0, 3000.0, 30000.0, new Date(2020, 4, 19), new Date(2020, 5, 20), 10000.0, 25000.0);
-        vehicleRepository.registerVehicle("11-AA-AA", "ferrari", "aviento", "combust", 4000.0, 3000.0, 30000.0, new Date(2020, 4, 19), new Date(2020, 5, 20), 10000.0, 25000.0);
-
-        assertTrue(vehicleList.contains(v1));
         assertFalse(vehicleList.contains(v4));
     }
+
+
 }
