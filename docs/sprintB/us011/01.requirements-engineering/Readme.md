@@ -21,12 +21,21 @@ understand the use of the park by different age groups.
 > **Question:** Vai nos ser fornecido algum ficheiro por exemplo Inquiry.csv com os dados do inquérito e apartir daí fazer o que está no enunciado. Ou é suposto também o programa coletar a informação (os dados do inquérito)?
 >
 > **Answer:** Os resultados do inquérito já estão registados num ficheiro .csv.
+>
+> **Question:** Should the program collect the data or just process an CSV file with the information? Should we allow the user to save the values and graphs to an external file or just show them on the screen?
+> 
+> **Answer:** Os dados estão guardados num ficheiro .csv. Os outputs deverão ser mostrados.
 
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** 
-* **AC2:** 
+* **AC1:** The programming language must be **Python**.
+* **AC2:** The development environment must be **Jupyter Notebook**.
+* **AC3:** The format for submitting the work must be a single **Jupyter Notebook file** containing all the work carried out.
+* **AC4:** This US must consist of **(1) an introduction (succinct and objective)**; **(2) code and results**, and **(3) analysis and interpretation of the results**.
+* **AC5:** Formulas must be written in **LaTeX**.
+* **AC6:** At the end of the dossier, **the contribution (in %)** of each member of the group to the development of the work must be indicated (the sum of all percentages must be 100 per cent).
+
 
 ### 1.4. Found out Dependencies
 
