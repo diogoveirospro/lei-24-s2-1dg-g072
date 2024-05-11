@@ -26,7 +26,7 @@ public class VehicleRepository {
         vehicleList = new ArrayList<Vehicle>();
     }
 
-    public Optional<Vehicle> registerVehicle(String plate, String model,String brand, String type, Double tare, Double grossWeight, Double currentKms, Date registrationDate, Date acquisitionDate, Double serviceFrequency, Double kmAtLastMaintenance){
+    public Optional<Vehicle> registerVehicle(String plate, String brand, String model, String type, Double tare, Double grossWeight, Double currentKms, Date registrationDate, Date acquisitionDate, Double serviceFrequency, Double kmAtLastMaintenance){
 
         Optional<Vehicle> vehicle = Optional.empty();
         Vehicle newVehicle = new Vehicle(plate, brand, model, type, tare, grossWeight, currentKms, registrationDate, acquisitionDate, serviceFrequency, kmAtLastMaintenance);

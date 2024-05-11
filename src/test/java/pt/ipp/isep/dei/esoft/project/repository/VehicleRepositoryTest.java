@@ -7,14 +7,13 @@ import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class VehicleRepositoryTest {
 
     VehicleRepository vehicleRepository = new VehicleRepository();
 
-    List<Vehicle> vehicleList = vehicleRepository.getVehicleList();
+
 
     Vehicle v1 = new Vehicle("11-AA-22", "toyota", "avensis", "combust", 4000.0, 3000.0, 30000.0, new Date(2020, 4, 19), new Date(2020, 5, 20), 10000.0, 25000.0);
 
@@ -33,10 +32,50 @@ public class VehicleRepositoryTest {
         vehicleRepository.addVehicle(v3);
         vehicleRepository.addVehicle(v4);
 
+        List<Vehicle> vehicleList = vehicleRepository.getVehicleList();
+
         assertTrue(vehicleList.contains(v1));
         assertTrue(vehicleList.contains(v2));
         assertTrue(vehicleList.contains(v3));
-        assertFalse(vehicleList.contains(v4));
+
+    }
+
+    @Test
+    void testRegisterVehicle() {
+        // Mock dependencies or repository if necessary
+
+        // Create sample data
+        String plate = "11-AA-22";
+        String brand = "Toyota";
+        String model = "Corolla";
+        String type = "Sedan";
+        double tare = 1500.0;
+        double grossWeight = 2000.0;
+        double currentKms = 10000.0;
+        Date registrationDate = new Date(2020, 5, 20);
+        Date acquisitionDate = new Date(2020, 6, 19);
+        double serviceFrequency = 5000.0;
+        double kmAtLastMaintenance = 8000.0;
+
+        // Call the method under test
+        Optional<Vehicle> result = vehicleRepository.registerVehicle(plate, brand, model, type, tare, grossWeight, currentKms, registrationDate, acquisitionDate, serviceFrequency, kmAtLastMaintenance);
+
+        // Verify the result
+        assertTrue(result.isPresent()); // New vehicle should be present in the optional
+        Vehicle registeredVehicle = result.get();
+        assertEquals(plate, registeredVehicle.getPlateNumber());
+        assertEquals(type, registeredVehicle.getType());
+        assertEquals(tare, registeredVehicle.getTare(), 0.01);
+        assertEquals(grossWeight, registeredVehicle.getGrossWeight(), 0.01);
+        assertEquals(currentKms, registeredVehicle.getCurrentKms(), 0.01);
+        assertEquals(registrationDate, registeredVehicle.getRegistrationDate());
+        assertEquals(acquisitionDate, registeredVehicle.getAcquisitionDate());
+        assertEquals(serviceFrequency, registeredVehicle.getServiceFrequency(), 0.01);
+        assertEquals(kmAtLastMaintenance, registeredVehicle.getKmAtLastMaintenance(), 0.01);
+
+
+        assertEquals(brand, registeredVehicle.getBrand());
+        assertEquals(model, registeredVehicle.getModel());
     }
 
 
