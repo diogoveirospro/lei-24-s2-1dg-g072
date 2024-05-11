@@ -13,8 +13,6 @@ public class VehicleRepositoryTest {
 
     VehicleRepository vehicleRepository = new VehicleRepository();
 
-
-
     Vehicle v1 = new Vehicle("11-AA-22", "toyota", "avensis", "combust", 4000.0, 3000.0, 30000.0, new Date(2020, 4, 19), new Date(2020, 5, 20), 10000.0, 25000.0);
 
     Vehicle v2 = new Vehicle("ZA-38-UI", "toyota", "corolla", "combust", 4000.0, 3000.0, 30000.0, new Date(2014, 7, 15), new Date(2014, 8, 20), 10000.0, 25000.0);
@@ -24,7 +22,9 @@ public class VehicleRepositoryTest {
     Vehicle v4 = new Vehicle("11-AA-AA", "ferrari", "aviento", "combust", 4000.0, 3000.0, 30000.0, new Date(2020, 4, 19), new Date(2020, 5, 20), 10000.0, 25000.0);
 
 
-
+    /**
+     * Test to add a vehicle.
+     */
     @Test
     void testAddVehicle(){
         vehicleRepository.addVehicle(v1);
@@ -40,11 +40,12 @@ public class VehicleRepositoryTest {
 
     }
 
+    /**
+     * Test to register a vehicle.
+     */
     @Test
     void testRegisterVehicle() {
-        // Mock dependencies or repository if necessary
 
-        // Create sample data
         String plate = "11-AA-22";
         String brand = "Toyota";
         String model = "Corolla";
@@ -57,13 +58,13 @@ public class VehicleRepositoryTest {
         double serviceFrequency = 5000.0;
         double kmAtLastMaintenance = 8000.0;
 
-        // Call the method under test
         Optional<Vehicle> result = vehicleRepository.registerVehicle(plate, brand, model, type, tare, grossWeight, currentKms, registrationDate, acquisitionDate, serviceFrequency, kmAtLastMaintenance);
 
-        // Verify the result
-        assertTrue(result.isPresent()); // New vehicle should be present in the optional
+        assertTrue(result.isPresent());
         Vehicle registeredVehicle = result.get();
         assertEquals(plate, registeredVehicle.getPlateNumber());
+        assertEquals(brand, registeredVehicle.getBrand());
+        assertEquals(model, registeredVehicle.getModel());
         assertEquals(type, registeredVehicle.getType());
         assertEquals(tare, registeredVehicle.getTare(), 0.01);
         assertEquals(grossWeight, registeredVehicle.getGrossWeight(), 0.01);
@@ -72,10 +73,6 @@ public class VehicleRepositoryTest {
         assertEquals(acquisitionDate, registeredVehicle.getAcquisitionDate());
         assertEquals(serviceFrequency, registeredVehicle.getServiceFrequency(), 0.01);
         assertEquals(kmAtLastMaintenance, registeredVehicle.getKmAtLastMaintenance(), 0.01);
-
-
-        assertEquals(brand, registeredVehicle.getBrand());
-        assertEquals(model, registeredVehicle.getModel());
     }
 
 
