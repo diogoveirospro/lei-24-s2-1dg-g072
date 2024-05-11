@@ -4,78 +4,7 @@
 
 ### Class TeamRepositoryTest 
 
-**Test 1:** Test to verify the behavior of getTeams method in TeamRepository. Retrieves teams from 
-TeamRepository and verifies the retrieved teams.
-
-	@Test
-    void testGetTeams(){
-
-        List<Collaborator> members1 = new ArrayList<>();
-        List<Collaborator> members2 = new ArrayList<>();
-
-        members1.add(c1);
-        members1.add(c2);
-        members2.add(c3);
-        members2.add(c4);
-
-        List<Team> teams = List.of(new Team(members1), new Team(members2));
-
-        TeamRepository teamRepository = new TeamRepository();
-        teamRepository.addTeam(new Team(members1));
-        teamRepository.addTeam(new Team(members2));
-
-        List<Team> retrievedTeams = teamRepository.getTeams();
-
-        assertThrows(UnsupportedOperationException.class, () -> retrievedTeams.add(new Team(members2)));
-
-        assertEquals(2, retrievedTeams.size());
-        assertTrue(retrievedTeams.containsAll(teams));
-    }
-
-
-**Test 2:** Test to verify the behavior of getTeam method in TeamRepository. 
-Adds a team to TeamRepository and retrieves the team using getTeam method. 
-Verifies if the retrieved team matches the expected team.
-
-	@Test
-    void testGetTeam1(){
-
-        List<Collaborator> members = new ArrayList<>();
-
-        members.add(c1);
-        members.add(c2);
-
-        TeamRepository teamRepository = new TeamRepository();
-        teamRepository.addTeam(new Team(members));
-        Team team = teamRepository.getTeam(members);
-        Team expectedTeam = new Team(members);
-
-        assertEquals(expectedTeam, team);
-
-    }
-
-**Test 3:** Test to verify the behavior of getTeam method in TeamRepository when attempting to retrieve a non-existent team. 
-Verifies that an IllegalArgumentException is thrown with the correct error message.
-
-    @Test
-    void testGetTeam2(){
-        List<Collaborator> members = new ArrayList<>();
-
-        members.add(c1);
-        members.add(c2);
-
-        TeamRepository teamRepository = new TeamRepository();
-
-        try {
-            teamRepository.getTeam(members);
-            fail("The method should throw an IllegalArgumentException");
-        } catch (IllegalArgumentException e) {
-            assertEquals("The team composed of the members provided does not exist.", e.getMessage());
-        }
-
-    }
-
-**Test 4:** Test to verify the behavior of generateTeamProposal method in GenerateTeamProposalController. 
+**Test 1:** Test to verify the behavior of generateTeamProposal method in GenerateTeamProposalController. 
 Generates a team proposal with specified skills and collaborators and verifies the generated team members. 
 Ensures that the generated team meets the criteria of having a specific number of members with required skills.
 
@@ -128,7 +57,7 @@ Ensures that the generated team meets the criteria of having a specific number o
         assertTrue(teamMembers.contains(collaborators.get(3)));
     }
 
-**Test 5:** Test to verify the behavior of generateTeamProposal method in GenerateTeamProposalController when no 
+**Test 2:** Test to verify the behavior of generateTeamProposal method in GenerateTeamProposalController when no 
 collaborators have the required skills. Adds collaborators with specific skills to the repository, attempts to generate
 a team proposal with specified skills, and expects an IllegalArgumentException to be thrown with a message indicating 
 the lack of collaborators with the required skill. 
@@ -164,7 +93,7 @@ the lack of collaborators with the required skill.
         }
     }
 
-**Test 6:** Test to verify the behavior of generateTeamProposal method in GenerateTeamProposalController when there are 
+**Test 3:** Test to verify the behavior of generateTeamProposal method in GenerateTeamProposalController when there are 
 not enough collaborators with required skills. Adds a single collaborator with a specific skill to the repository, 
 attempts to generate a team proposal with specified skills, and expects an IllegalArgumentException to be thrown with a 
 message indicating the lack of sufficient collaborators with required skills.
@@ -197,7 +126,7 @@ message indicating the lack of sufficient collaborators with required skills.
         }
     }
 
-**Test 7:** Test to verify the behavior of createTeam method in TeamRepository. 
+**Test 4:** Test to verify the behavior of createTeam method in TeamRepository. 
 Creates a team with a list of members, retrieves the created team, and verifies that the retrieved team matches the 
 expected team with the same members.
 
@@ -217,7 +146,7 @@ expected team with the same members.
 
     }
 
-**Test 8:** Test to verify the behavior of addTeam method in TeamRepository when adding a new team.
+**Test 5:** Test to verify the behavior of addTeam method in TeamRepository when adding a new team.
 Creates a team with a list of members, adds the team to the repository, retrieves all teams from the repository, 
 and verifies that the added team is present in the list of teams.
 
@@ -240,7 +169,7 @@ and verifies that the added team is present in the list of teams.
 
     }
 
-**Test 9:** Test to verify the behavior of addTeam method in TeamRepository when adding an empty team. 
+**Test 6:** Test to verify the behavior of addTeam method in TeamRepository when adding an empty team. 
 Creates an empty team, adds the team to the repository, retrieves all teams from the repository, and verifies 
 that the empty team is not present in the list of teams.
 
@@ -260,7 +189,7 @@ that the empty team is not present in the list of teams.
 
     }
 
-**Test 10:** Test to verify the behavior of validateTeam method in TeamRepository with an empty team. 
+**Test 7:** Test to verify the behavior of validateTeam method in TeamRepository with an empty team. 
 Creates an empty team and checks if the repository correctly validates that the team is invalid.
 
     @Test
@@ -274,7 +203,7 @@ Creates an empty team and checks if the repository correctly validates that the 
         assertFalse(teamRepository.validateTeam(team));
     }
 
-**Test 11:** Test to verify the behavior of validateTeam method in TeamRepository with a null team. 
+**Test 8:** Test to verify the behavior of validateTeam method in TeamRepository with a null team. 
 Checks if the repository correctly validates that a null team is invalid.
 
     @Test
@@ -284,104 +213,6 @@ Checks if the repository correctly validates that a null team is invalid.
 
         assertFalse(teamRepository.validateTeam(null));
     }
-
-### Class TeamTest
-
-**Test 1:** Test to verify the behavior of getTeam method in Team class. 
-Creates a team with a list of members, retrieves the team members using getTeam method, 
-and verifies that the retrieved members match the expected members.
-
-    @Test
-    void getTeamTest(){
-        List<Collaborator> members = new ArrayList<>();
-        members.add(c1);
-        members.add(c2);
-
-        Team team = new Team(members);
-        List<Collaborator> teamMembers = team.getTeam();
-
-        assertEquals(members, teamMembers);
-
-    }
-
-**Test 2:** Test to verify the behavior of setTeam method in Team class. 
-Creates a team with an initial list of members, sets a new list of members using setTeam method, 
-and verifies that the team members have been updated to the new list of members.
-
-    @Test
-    void setTeamTest(){
-        List<Collaborator> members1 = new ArrayList<>();
-        members1.add(c1);
-        members1.add(c2);
-
-        Team team = new Team(members1);
-
-        List<Collaborator> members2 = new ArrayList<>();
-        members2.add(c3);
-        members2.add(c4);
-
-        team.setTeam(members2);
-        List<Collaborator> teamMembers = team.getTeam();
-
-        assertNotSame(teamMembers, members1);
-    }
-
-**Test 3:** Test to verify the behavior of toString method in Team class. 
-Creates a team with a list of members, generates the expected string representation manually, 
-and verifies that the generated string matches the string returned by the team's toString method.
-
-    @Test
-    void toStringTest(){
-        List<Collaborator> members = new ArrayList<>();
-        members.add(c1);
-        members.add(c2);
-
-        Team team = new Team(members);
-
-
-        StringBuilder stringExpected = new StringBuilder("The team members are: \n");
-
-        for (Collaborator member : members){
-            stringExpected.append("Collaborator{" + "name='").append(member.getName()).append('\'').append
-                    (", birthDate=").append(member.getBirthDate()).append(", admissionDate=").
-                    append(member.getAdmissionDate()).append(", address='").append(member.getAddress()).append('\'').
-                    append(", mobile='").append(member.getMobile()).append('\'').append(", email='").append(member.getEmail())
-                    .append('\'').append(", taxpayerNumber='").append(member.getTaxpayerNumber()).append('\'').
-                    append(", idDocType='").append(member.getIdDocType()).append('\'').append(", idDocNumber='").
-                    append(member.getIdDocNumber()).append('\'').append(", job='").append(member.getJob()).append('\'').
-                    append("}\n");
-
-        }
-
-        assertEquals(stringExpected.toString(), team.toString());
-    }
-
-**Test 4:** Test to verify the behavior of equals method in Team class. 
-Creates multiple teams with different lists of members, and performs equality and inequality checks. 
-Verifies that the equals method correctly identifies equality and inequality based on member lists.
-
-    @Test
-    void equalsTest(){
-        List<Collaborator> members1 = new ArrayList<>();
-        List<Collaborator> members2 = new ArrayList<>();
-
-        members1.add(c1);
-        members1.add(c2);
-        members2.add(c3);
-        members2.add(c4);
-
-        Team team1 = new Team(members1);
-        Team team2 = new Team(members2);
-        Team team3 = new Team(members2);
-
-        assertEquals(team1, team1);
-        assertNotEquals(team1, null);
-        assertNotEquals(team1, members1);
-        assertNotEquals(team1, team2);
-        assertEquals(team2, team3);
-    }
-
-_It is also recommended to organize this content by subsections._ 
 
 
 ## 5. Construction (Implementation)
