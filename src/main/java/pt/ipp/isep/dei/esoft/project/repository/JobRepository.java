@@ -50,7 +50,10 @@ public class JobRepository {
      */
     public void addJob(Job newJob){
         if (!validateJob(newJob)) {
-            throw new IllegalArgumentException("Invalid job to add");
+            throw new IllegalArgumentException("Job already exists!");
+        }
+        if (newJob == null) {
+            throw new IllegalArgumentException("Job cannot be null!");
         }
 
         jobs.add(newJob);
@@ -80,10 +83,7 @@ public class JobRepository {
      * @return true if it exists in the repository and false otherwise.
      */
     public boolean exists(String jobName){
-
-        Job job = this.getJob(jobName);
-
-        return job != null;
-
+        Job job = new Job(jobName);
+        return jobs.contains(job);
     }
 }

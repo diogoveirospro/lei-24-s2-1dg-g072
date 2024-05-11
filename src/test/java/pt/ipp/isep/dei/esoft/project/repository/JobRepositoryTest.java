@@ -24,7 +24,7 @@ public class JobRepositoryTest {
     void testAddJob_ThrowsExceptionOnInvalidJob() {
         Job job = null;
         Exception exception = assertThrows(IllegalArgumentException.class, () -> jobRepository.addJob(job));
-        assertEquals("Invalid job to add", exception.getMessage());
+        assertEquals("Job cannot be null!", exception.getMessage());
     }
 
     @Test

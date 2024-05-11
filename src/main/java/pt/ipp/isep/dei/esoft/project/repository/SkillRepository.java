@@ -20,10 +20,10 @@ public class SkillRepository {
 
     public void addSkill(Skill skill){
         if(skill == null){
-            throw new IllegalArgumentException("Cannot be null");
+            throw new IllegalArgumentException("Skill cannot be null");
         }
         if (skills.contains(skill)){
-            throw new IllegalArgumentException("This skill already exists"+skill.getName());
+            throw new IllegalArgumentException("This skill already exists "+skill.getName());
         }
         skills.add(skill);
     }

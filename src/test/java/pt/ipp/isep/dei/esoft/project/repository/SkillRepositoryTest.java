@@ -4,7 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
 import java.util.List;
-import static org.junit.Assert.*;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SkillRepositoryTest {
     private SkillRepository repository;
@@ -33,7 +34,7 @@ public class SkillRepositoryTest {
         Skill skill1 = new Skill("AAA");
         repository.addSkill(skill1);
         Exception exception = assertThrows(IllegalArgumentException.class,()-> repository.addSkill(skill1));
-        assertEquals("AAA",exception.getMessage());
+        assertEquals("This skill already exists " + skill1.getName(),exception.getMessage());
 
     }
     @Test
