@@ -6,7 +6,8 @@ import pt.ipp.isep.dei.esoft.project.repository.*;
 import pt.ipp.isep.dei.esoft.project.domain.Date;
 
 /**
- *
+ * This class serves as a way to add objects to the system so
+ * the program doesn't start without anything.
  *
  * @author Group 072 - Byte Masters - ISEP
  */
