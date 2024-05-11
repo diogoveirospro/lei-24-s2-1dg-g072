@@ -28,6 +28,14 @@ public class JobRepositoryTest {
     }
 
     @Test
+    void testAddJob_ThrowsExceptionOnAlreadyExistingJob() {
+        Job job = new Job("AAA");
+        jobRepository.addJob(job);
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> jobRepository.addJob(job));
+        assertEquals("Job already exists!", exception.getMessage());
+    }
+
+    @Test
     void testGetJob_Success() {
         Job job = new Job("AAA");
         jobRepository.addJob(job);
