@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
+import pt.ipp.isep.dei.esoft.project.domain.Skill;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,9 @@ import java.util.List;
  * @author Group 072 - Byte Masters - ISEP
  */
 public class CollaboratorRepository {
+
+    private SkillRepository skillRepository = new SkillRepository();
+    private List<Skill> skills = skillRepository.listSkills();
 
     /**
      * List containing all collaborators.
@@ -70,4 +74,33 @@ public class CollaboratorRepository {
     public List<Collaborator> getCollaborators() {
         return List.copyOf(collaborators);
     }
+
+    /**
+     * Assigns a skill to a specific collaborator.
+     *
+     * @param collaborator the collaborator to assign the skill to
+     * @param skill        the skill to be assigned
+     */
+    public void assignSkill(Collaborator collaborator, Skill skill) {
+        if (!collaborators.contains(collaborator)) {
+            throw new IllegalArgumentException("Collaborator not found in repository");
+        }
+        if (!validateSkill(skill)) {
+            throw new IllegalArgumentException("Invalid skill");
+        }
+        collaborator.assignSkill(skill);
+    }
+
+    /**
+     * Checks if a skill is valid (e.g., exists in a list of available skills).
+     *
+     * @param skill the skill to validate
+     * @return true if the skill is valid, false otherwise
+     */
+    private boolean validateSkill(Skill skill) {
+
+        return skills.contains(skill);
+    }
+
+
 }

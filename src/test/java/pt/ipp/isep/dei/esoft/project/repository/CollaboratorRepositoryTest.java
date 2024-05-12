@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import pt.ipp.isep.dei.esoft.project.domain.Date;
+import pt.ipp.isep.dei.esoft.project.domain.Skill;
 
 import java.util.List;
 
@@ -16,11 +17,12 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class CollaboratorRepositoryTest {
 
-    private CollaboratorRepository repository;
+    private CollaboratorRepository collaboratorRepository;
+    private List<Collaborator> collaborators;
 
     @BeforeEach
     public void setUp() {
-        repository = new CollaboratorRepository();
+        collaboratorRepository = new CollaboratorRepository();
     }
 
     /**
@@ -34,10 +36,10 @@ public class CollaboratorRepositoryTest {
                 "CC", 234564321);
 
         // Act
-        repository.addCollaborator(collaborator);
+        collaboratorRepository.addCollaborator(collaborator);
 
         // Assert
-        assertTrue(repository.getCollaborators().contains(collaborator));
+        assertTrue(collaboratorRepository.getCollaborators().contains(collaborator));
     }
 
     /**
@@ -49,10 +51,10 @@ public class CollaboratorRepositoryTest {
         Collaborator existingCollaborator = new Collaborator("Ana", new Date(1990, 2, 3), new Date(2010,
                 3, 1), "Rua1", 912345669, "ana@gmail.com", 12345678,
                 "CC", 234564321);
-        repository.addCollaborator(existingCollaborator);
+        collaboratorRepository.addCollaborator(existingCollaborator);
 
         // Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> repository.addCollaborator(existingCollaborator));
+        assertThrows(IllegalArgumentException.class, () -> collaboratorRepository.addCollaborator(existingCollaborator));
     }
 
     /**
@@ -64,10 +66,10 @@ public class CollaboratorRepositoryTest {
         Collaborator collaborator = new Collaborator("Ana", new Date(1990, 2, 3), new Date(2010,
                 3, 1), "Rua1", 912345669, "ana@gmail.com", 12345678,
                 "CC", 234564321);
-        repository.addCollaborator(collaborator);
+        collaboratorRepository.addCollaborator(collaborator);
 
         // Act
-        Collaborator retrievedCollaborator = repository.getCollaborator("Ana");
+        Collaborator retrievedCollaborator = collaboratorRepository.getCollaborator("Ana");
 
         // Assert
         assertNotNull(retrievedCollaborator);
@@ -80,7 +82,7 @@ public class CollaboratorRepositoryTest {
     @Test
     public void testGetNonExistingCollaborator() {
         // Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> repository.getCollaborator("Nonexistent"));
+        assertThrows(IllegalArgumentException.class, () -> collaboratorRepository.getCollaborator("Nonexistent"));
     }
 
     /**
@@ -95,16 +97,37 @@ public class CollaboratorRepositoryTest {
         Collaborator collaborator2 = new Collaborator("João", new Date(1980, 2, 3), new Date(2010,
                 3, 1), "Rua2", 912345669, "joao@gmail.com", 12345678,
                 "CC", 234564321);
-        repository.addCollaborator(collaborator1);
-        repository.addCollaborator(collaborator2);
+        collaboratorRepository.addCollaborator(collaborator1);
+       collaboratorRepository.addCollaborator(collaborator2);
 
         // Act
-        List<Collaborator> collaborators = repository.getCollaborators();
+        List<Collaborator> collaborators = collaboratorRepository.getCollaborators();
 
         // Assert
         assertNotNull(collaborators);
         assertEquals(2, collaborators.size());
         assertTrue(collaborators.contains(collaborator1));
         assertTrue(collaborators.contains(collaborator2));
+    }
+
+    @Test
+    void testAssignSkill_ValidSkill_AssignedSuccessfully() {
+        Collaborator newCollaborator = new Collaborator("João", new Date(1980, 2, 3), new Date(2010,
+                3, 1), "Rua2", 912345669, "joao@gmail.com", 12345678,
+                "CC", 234564321);;
+        Skill skill = new Skill("Programming");
+        collaboratorRepository.addCollaborator(newCollaborator);
+        collaboratorRepository.assignSkill(newCollaborator, skill);
+        assertTrue(newCollaborator.getSkillSet().contains(skill));
+    }
+
+    @Test
+    void testAssignSkill_InvalidSkill_ExceptionThrown() {
+        Collaborator newCollaborator = new Collaborator("João", new Date(1980, 2, 3), new Date(2010,
+                3, 1), "Rua2", 912345669, "joao@gmail.com", 12345678,
+                "CC", 234564321);;
+        Skill skill = new Skill("Invalid Skill");
+        collaboratorRepository.addCollaborator(newCollaborator);
+        assertThrows(IllegalArgumentException.class, () -> collaboratorRepository.assignSkill(newCollaborator, skill));
     }
 }
