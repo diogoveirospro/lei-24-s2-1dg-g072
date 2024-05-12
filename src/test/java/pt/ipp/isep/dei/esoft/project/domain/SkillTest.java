@@ -35,6 +35,12 @@ public class SkillTest {
     }
 
     @Test
+    public void testSpecialCharacters(){
+        Skill skill = new Skill("AA+");
+        assertFalse(skill.validateSkill(skill.getName()));
+    }
+
+    @Test
     public void testSetNameNull (){
         assertThrows(IllegalArgumentException.class,()-> new Skill(null));
     }
