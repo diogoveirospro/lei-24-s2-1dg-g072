@@ -34,6 +34,12 @@ public class TeamRepositoryTest {
     Collaborator c4 = new Collaborator("Manuel", new Date(1999, 2, 3), new Date(2015,
             3, 1), "Rua4", 912345669, "manuel@gmail.com", 12345678,
             "CC", 234564321);
+    Collaborator c5 = new Collaborator("Diego", new Date(2004, 2, 3), new Date(2015,
+            3, 1), "Rua5", 912345669, "diego@gmail.com", 12345678,
+            "CC", 234564321);
+    Collaborator c6 = new Collaborator("Jorge", new Date(2000, 2, 3), new Date(2015,
+            3, 1), "Rua5", 912345669, "jorge@gmail.com", 12345678,
+            "CC", 234564321);
 
     /**
      * Test to verify the behavior of getTeams method in TeamRepository.

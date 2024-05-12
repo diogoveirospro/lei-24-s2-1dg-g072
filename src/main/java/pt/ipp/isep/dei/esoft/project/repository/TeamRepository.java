@@ -132,7 +132,7 @@ public class TeamRepository {
         for (Collaborator collaborator : collaboratorsClone) {
             if (qualifiedCollaborators.size() < maximumSize) {
                 for (Skill skill : skillsRemaining) {
-                    if (collaborator.analyseCollaborator(skill) && !skillsAdded.contains(skill)) {
+                    if (collaborator.analyseCollaborator(skill) && (!skillsAdded.contains(skill))) {
                         skillsAdded.add(skill);
                     }
                 }
