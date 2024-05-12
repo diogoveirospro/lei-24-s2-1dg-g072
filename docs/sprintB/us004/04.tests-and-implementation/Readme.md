@@ -2,22 +2,31 @@
 
 ## 4. Tests 
 
-**Test 1:** Check that it is not possible to create an instance of the Task class with null values. 
+**Test 1:** Test 1: Ensure that it is not possible to assign a skill with a null collaborator.
+
+
 
 	@Test(expected = IllegalArgumentException.class)
-		public void ensureNullIsNotAllowed() {
-		Task instance = new Task(null, null, null, null, null, null, null);
-	}
-	
+        public void testAssignSkillWithNullCollaborator() {
+        RegisterSkillController controller = new RegisterSkillController();
+        controller.assignSkill(null, "Java Programming");
+}
 
-**Test 2:** Check that it is not possible to create an instance of the Task class with a reference containing less than five chars - AC2. 
+
+
+**Test 2:** Check that it is not possible to assign a skill with a null skill name.
+
+java
+
 
 	@Test(expected = IllegalArgumentException.class)
-		public void ensureReferenceMeetsAC2() {
-		Category cat = new Category(10, "Category 10");
-		
-		Task instance = new Task("Ab1", "Task Description", "Informal Data", "Technical Data", 3, 3780, cat);
-	}
+    public void testAssignSkillWithNullSkillName() {
+    Collaborator collaborator = new Collaborator("John Doe", LocalDate.of(1990, 1, 1), LocalDate.of(2020, 1, 1),
+        "Address", "123456789", "john.doe@example.com", "123456789", "IDType", "123456");
+    RegisterSkillController controller = new RegisterSkillController();
+    controller.assignSkill(collaborator, null);
+    }
+
 
 _It is also recommended to organize this content by subsections._ 
 
