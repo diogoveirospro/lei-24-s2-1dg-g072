@@ -230,6 +230,45 @@ public class TeamRepositoryTest {
             assertEquals("There aren't enough collaborators with the specified skills to create a team!", e.getMessage());
         }
     }
+    /**
+     * Test to verify the behavior of generateTeamProposal method in GenerateTeamProposalController when
+     * there are not enough collaborators with required skills but there are still collaborators remaining.
+     * Adds a single collaborator with no skills to the repository while also adding, three more with the wanted skills
+     * attempts to generate a team proposal with specified skills, and expects the program success as it will
+     * get the collaborator with no skills to generate the team.
+     */
+    @Test
+    public void testGenerateTeamProposal4() {
+        GenerateTeamProposalController controller = new GenerateTeamProposalController();
+        CollaboratorRepository collaboratorsRepository = new CollaboratorRepository();
+        SkillRepository skillRepository = new SkillRepository();
+
+        collaboratorsRepository.addCollaborator(c1);
+        collaboratorsRepository.addCollaborator(c2);
+        collaboratorsRepository.addCollaborator(c3);
+        collaboratorsRepository.addCollaborator(c4);
+        List<Collaborator> collaborators = collaboratorsRepository.getCollaborators();
+
+        Skill skill1 = new Skill("Landscape Design");
+        Skill skill2 = new Skill("Gardening");
+
+        skillRepository.addSkill(skill1);
+        skillRepository.addSkill(skill2);
+
+        List<Skill> skills = new ArrayList<>();
+
+        c1.assignSkill(skill1);
+        c2.assignSkill(skill2);
+        c3.assignSkill(skill1);
+        c3.assignSkill(skill2);
+        List<Collaborator> teamMembers = controller.generateTeamProposal(4, 4, skills, collaborators);
+
+        assertEquals(4, teamMembers.size());
+        assertTrue(teamMembers.contains(collaborators.get(0)));
+        assertTrue(teamMembers.contains(collaborators.get(1)));
+        assertTrue(teamMembers.contains(collaborators.get(2)));
+        assertTrue(teamMembers.contains(collaborators.get(3)));
+    }
 
     /**
      * Test to verify the behavior of createTeam method in TeamRepository.
