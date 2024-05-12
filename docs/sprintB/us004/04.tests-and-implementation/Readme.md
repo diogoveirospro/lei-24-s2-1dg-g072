@@ -24,25 +24,21 @@ _It is also recommended to organize this content by subsections._
 
 ## 5. Construction (Implementation)
 
-### Class AssignSkillController 
+### Class CreateTaskController 
 
 ```java
-public AssignSkillController(){
-        this.skillRepository = Repositories.getInstance().getSkillRepository();
-        this.collaboratorRepository = Repositories.getInstance().getCollaboratorRepository();
-}
+public Task createTask(String reference, String description, String informalDescription, String technicalDescription,
+                       Integer duration, Double cost, String taskCategoryDescription) {
 
-public AssignSkillController(SkillRepository skillRepository, CollaboratorRepository collaboratorRepository){
-    this.skillRepository = skillRepository;
-    this.collaboratorRepository = collaboratorRepository;
-}
+	TaskCategory taskCategory = getTaskCategoryByDescription(taskCategoryDescription);
 
-public List<Skill> listSkills(){
-    return skillRepository.listSkills();
-}
+	Employee employee = getEmployeeFromSession();
+	Organization organization = getOrganizationRepository().getOrganizationByEmployee(employee);
 
-public List<Collaborator> getCollaborators(){
-    return collaboratorRepository.getCollaborators();
+	newTask = organization.createTask(reference, description, informalDescription, technicalDescription, duration,
+                                      cost,taskCategory, employee);
+    
+	return newTask;
 }
 ```
 
