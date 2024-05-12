@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static final int QUANTITY_OF_FILES = 30;
+    public static final int QUANTITY_OF_FILES = 5;
 
     public static void main(String[] args) throws IOException, InterruptedException {
         Locale.setDefault(Locale.US);
@@ -399,10 +399,10 @@ public class Main {
     }
 
     public static void createScriptGnuplot() throws FileNotFoundException {
-        File gnuplot = new File("script_Gnuplot.gp");
+        File gnuplot = new File("src/main/java/PI_MDISC_Group_072/Output/script_Gnuplot.gp");
         PrintWriter printWriter = new PrintWriter(gnuplot);
         printWriter.println("set terminal png size 800,600");
-        printWriter.println("set output 'src/src/Output/asymptotic_graph.png'");
+        printWriter.println("set output 'src/main/java/PI_MDISC_Group_072/Output/asymptotic_graph.svg'");
         printWriter.println("set title 'Asymptotic Graph'");
         printWriter.println("set xlabel 'quantity of edges'");
         printWriter.println("set ylabel 'time to create'");
@@ -412,7 +412,7 @@ public class Main {
     }
     public static void createGnuplotGraph() throws IOException, InterruptedException {
         createScriptGnuplot();
-        String caminhoScript = "script_Gnuplot.gp";
+        String caminhoScript = "src/main/java/PI_MDISC_Group_072/Output/script_Gnuplot.gp";
         String comandoGnuplot = "gnuplot " + caminhoScript;
         Process processo = Runtime.getRuntime().exec(comandoGnuplot);
 

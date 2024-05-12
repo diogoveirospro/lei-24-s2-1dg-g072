@@ -39,7 +39,6 @@ public class Graph {
      * @param v a vertex
      * @return vertices
      */
-    // Verificar se isto faz sentido importante!!!(O método tem de ir buscar todos os vertices iguais, e os seus contrapartes)
     public ArrayList<Vertex> getVerticesConnectedTo(Vertex v) {
         ArrayList<Vertex> vertices = new ArrayList<>();
         for (Edge graph : graph) {
