@@ -31,7 +31,8 @@
         assertEquals(mobile, collaborator.getMobile());
         assertEquals(email, collaborator.getEmail());
         assertEquals(taxpayerNumber, collaborator.getTaxpayerNumber());
-        assertEquals(idDocType, collaborator.getIdDocType());
+        ass### Class CreateTaskController 
+ertEquals(idDocType, collaborator.getIdDocType());
         assertEquals(idDocNumber, collaborator.getIdDocNumber());
         assertEquals(jobName, collaborator.getJob().getName());
     }
@@ -77,37 +78,34 @@
 
 ## 5. Construction (Implementation)
 
-### Class CreateTaskController 
+### Class RegisterCollaboratorController
 
 ```java
-public Task createTask(String reference, String description, String informalDescription, String technicalDescription,
-                       Integer duration, Double cost, String taskCategoryDescription) {
-
-	TaskCategory taskCategory = getTaskCategoryByDescription(taskCategoryDescription);
-
-	Employee employee = getEmployeeFromSession();
-	Organization organization = getOrganizationRepository().getOrganizationByEmployee(employee);
-
-	newTask = organization.createTask(reference, description, informalDescription, technicalDescription, duration,
-                                      cost,taskCategory, employee);
-    
-	return newTask;
+public void registerCollaborator(String name, Date birthDate, Date admissionDate, String address, int mobile,
+                                 String email, int taxpayerNumber, String idDocType, int idDocNumber, String jobName) {
+    Collaborator collaborator = new Collaborator(name, birthDate, admissionDate, address, mobile, email,
+            taxpayerNumber, idDocType, idDocNumber, jobName);
+    collaboratorRepository.addCollaborator(collaborator);
 }
+
 ```
 
-### Class Organization
+### Class CollaboratorRepository
 
 ```java
-public Optional<Task> createTask(String reference, String description, String informalDescription,
-                                 String technicalDescription, Integer duration, Double cost, TaskCategory taskCategory,
-                                 Employee employee) {
-    
-    Task task = new Task(reference, description, informalDescription, technicalDescription, duration, cost,
-                         taskCategory, employee);
+public void addCollaborator(Collaborator newCollaborator){
+    if (!validateCollaborator(newCollaborator)) {
+        throw new IllegalArgumentException("Collaborator already exists!");
+    }
+    if (newCollaborator == null) {
+        throw new IllegalArgumentException("Collaborator cannot be null!");
+    }
 
-    addTask(task);
-        
-    return task;
+    collaborators.add(newCollaborator);
+}
+
+private boolean validateCollaborator(Collaborator collaborator){
+    return !collaborators.contains(collaborator);
 }
 ```
 
