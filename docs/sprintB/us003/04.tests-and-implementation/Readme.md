@@ -1,25 +1,78 @@
 # US003 - Registration of an employee
 
-## 4. Tests 
+## 4. Tests
 
-**Test 1:** Check that it is not possible to create an instance of the Task class with null values. 
+**Test 1:** Test of creating a collaborator with valid arguments.
 
-	@Test(expected = IllegalArgumentException.class)
-		public void ensureNullIsNotAllowed() {
-		Task instance = new Task(null, null, null, null, null, null, null);
-	}
-	
+**Test 1.1:** Successful scenario.
 
-**Test 2:** Check that it is not possible to create an instance of the Task class with a reference containing less than five chars - AC2. 
+    @Test
+    public void testConstructorWithValidArguments() {
+        // Arrange
+        String name = "João Silva";
+        Date birthDate = new Date();
+        Date admissionDate = new Date();
+        String address = "Address";
+        int mobile = 123456789;
+        String email = "joao.silva@example.com";
+        int taxpayerNumber = 123456789;
+        String idDocType = "ID";
+        int idDocNumber = 987654321;
+        String jobName = "Gardener";
 
-	@Test(expected = IllegalArgumentException.class)
-		public void ensureReferenceMeetsAC2() {
-		Category cat = new Category(10, "Category 10");
-		
-		Task instance = new Task("Ab1", "Task Description", "Informal Data", "Technical Data", 3, 3780, cat);
-	}
+        // Act
+        Collaborator collaborator = new Collaborator(name, birthDate, admissionDate, address, mobile, email, taxpayerNumber, idDocType, idDocNumber, jobName);
 
-_It is also recommended to organize this content by subsections._ 
+        // Assert
+        assertEquals(name, collaborator.getName());
+        assertEquals(birthDate, collaborator.getBirthDate());
+        assertEquals(admissionDate, collaborator.getAdmissionDate());
+        assertEquals(address, collaborator.getAddress());
+        assertEquals(mobile, collaborator.getMobile());
+        assertEquals(email, collaborator.getEmail());
+        assertEquals(taxpayerNumber, collaborator.getTaxpayerNumber());
+        assertEquals(idDocType, collaborator.getIdDocType());
+        assertEquals(idDocNumber, collaborator.getIdDocNumber());
+        assertEquals(jobName, collaborator.getJob().getName());
+    }
+
+**Test 1.2:** Scenario where an invalid job name is provided - AC01.
+
+    @Test
+    public void testConstructorWithInvalidJobName() {
+        // Arrange
+        String name = "João Silva";
+        Date birthDate = new Date();
+        Date admissionDate = new Date();
+        String address = "Address";
+        int mobile = 123456789;
+        String email = "joao.silva@example.com";
+        int taxpayerNumber = 123456789;
+        String idDocType = "ID";
+        int idDocNumber = 987654321;
+        String invalidJobName = "NonexistentJob";
+
+        // Act & Assert
+        assertThrows(IllegalArgumentException.class, () -> new Collaborator(name, birthDate, admissionDate, address, mobile, email, taxpayerNumber, idDocType, idDocNumber, invalidJobName));
+    }
+
+**Test 2:** Test of assigning a skill to a collaborator.
+
+**Test 2.1:** Successful scenario.
+
+    @Test
+    public void testAssignSkill() {
+        // Arrange
+        Collaborator collaborator = new Collaborator("João Silva", new Date(), new Date(), "Address", 123456789, "joao.silva@example.com", 123456789, "ID", 987654321, "Gardener");
+        Skill skill = new Skill("Java");
+
+        // Act
+        collaborator.assignSkill(skill);
+
+        // Assert
+        assertTrue(collaborator.getSkillSet().contains(skill));
+    }
+
 
 
 ## 5. Construction (Implementation)
