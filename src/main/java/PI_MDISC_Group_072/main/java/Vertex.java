@@ -1,3 +1,5 @@
+package PI_MDISC_Group_072.main.java;
+
 import java.util.Objects;
 
 public class Vertex implements Comparable<Vertex> {

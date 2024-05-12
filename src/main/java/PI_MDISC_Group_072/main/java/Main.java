@@ -1,17 +1,22 @@
+package PI_MDISC_Group_072.main.java;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Locale;
 import java.util.Scanner;
 
-public class SpanningTree {
+public class Main {
     public static final int QUANTITY_OF_FILES = 30;
     public static void main(String[] args) throws IOException, InterruptedException {
         Locale.setDefault(Locale.US);
         Scanner sc = new Scanner(System.in);
         int option;
         do {
-            System.out.println("Choose between option 1:\n Making a Sparing Tree.\nOption 2:\n Making a graph of the time in function of the quantity of vertices.");
+            System.out.println("""
+                    Choose the option you want:\s
+                    Option 1: Make a savings tree.\s
+                    Option 2: Make a graph of time as a function of the number of vertices.""");
             option = sc.nextInt();
             if (option == 1){
                 US13();
@@ -27,7 +32,7 @@ public class SpanningTree {
     private static void US13() throws IOException, InterruptedException {
         Scanner sc = new Scanner(System.in);
         StringBuilder inputFile = new StringBuilder(getFile(sc));
-        StringBuilder file = new StringBuilder("src/src/Input/" + inputFile + ".csv");
+        StringBuilder file = new StringBuilder("src/main/java/PI_MDISC_Group_072/Input/" + inputFile + ".csv");
         ArrayList<Edge> graphEdges = readFile(file);
         Graph graph = addEdges(graphEdges);
         createGraph(graph,inputFile);
@@ -48,7 +53,7 @@ public class SpanningTree {
         for (int i = 0; i <  QUANTITY_OF_FILES; i++) {
             inputFile = aux;
             inputFile = new StringBuilder(inputFile + "_" + (i + 1));
-            StringBuilder file = new StringBuilder("src/src/Input/" + inputFile + ".csv");
+            StringBuilder file = new StringBuilder("src/main/java/PI_MDISC_Group_072/Input/" + inputFile + ".csv");
             ArrayList<Edge> graphEdges = readFile(file);
             Graph graph = addEdges(graphEdges);
             createGraph(graph, inputFile);
@@ -76,7 +81,7 @@ public class SpanningTree {
     }
 
     private static void writeData(double[][] asymptoticGraph) {
-        try (PrintWriter writer = new PrintWriter(new FileWriter( "src/src/Output/AsymptoticData.dat"))) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter( "src/main/java/PI_MDISC_Group_072/Output/AsymptoticData.dat"))) {
             for (int i = 0; i < asymptoticGraph.length; i++) {
                 writer.printf("%d;%f",(int) asymptoticGraph[0][i],asymptoticGraph[1][i]);
             }
@@ -91,8 +96,8 @@ public class SpanningTree {
     }
 
     private static void executeScriptGraph(StringBuilder file) throws IOException, InterruptedException {
-        String caminhoScript = "src/src/Output/Graph_" + file;
-        String commandGraphviz = "dot -Tpng " + caminhoScript + ".dot -o " + caminhoScript + ".png";
+        String caminhoScript = "src/main/java/PI_MDISC_Group_072/Output/Graph_" + file;
+        String commandGraphviz = "dot -Tsvg " + caminhoScript + ".dot -o " + caminhoScript + ".svg";
         Process processo = Runtime.getRuntime().exec(commandGraphviz);
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(processo.getErrorStream()));
@@ -104,14 +109,14 @@ public class SpanningTree {
         int exitCode = processo.waitFor();
 
         if (exitCode == 0) {
-            System.out.println("Gráfico gerado com sucesso!");
+            System.out.println("Graph generated successfully!");
         } else {
-            System.out.println("Erro ao gerar o gráfico. Código de saída: " + exitCode);
+            System.out.println("Error generating the graph. Output code: " + exitCode);
         }
     }
 
     private static void createScriptGraph(Graph graph, StringBuilder file) {
-        try (PrintWriter writer = new PrintWriter(new FileWriter( "src/src/Output/Graph_" + file + ".dot"))) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter( "src/main/java/PI_MDISC_Group_072/Output/Graph_" + file + ".dot"))) {
             writer.println("graph G {");
             writer.println("    fontname=\"Helvetica,Arial,sans-serif\"");
             writer.println("    node [fontname=\"Helvetica,Arial,sans-serif\"]");
@@ -122,7 +127,7 @@ public class SpanningTree {
                 writer.printf("%n");
             }
             writer.print("}");
-            System.out.println("DOT file 'src/src/Output/Graph.dot' has been created successfully.");
+            System.out.println("DOT file 'src/main/java/PI_MDISC_Group_072/Output/Graph.dot' has been created successfully.");
         } catch (IOException e) {
             System.err.println("Error writing to DOT file: " + e.getMessage());
         }
@@ -137,13 +142,13 @@ public class SpanningTree {
     }
 
     private static void graphInfo(int graphDimension, int graphOrder, Graph spanningTree, StringBuilder file) {
-        try (PrintWriter writer = new PrintWriter(new FileWriter( "src/src/Output/SpanningTreeInformation_" + file + ".csv"))) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter( "src/main/java/PI_MDISC_Group_072/Output/SpanningTreeInformation_" + file + ".csv"))) {
             int size = 0;
             for (int i = 0; i < spanningTree.getEdges().size(); i++){
                 size+= spanningTree.getEdges().get(i).getCost();
             }
             writer.print("Graph Dimension = " + graphDimension + " ; Graph Order = " + graphOrder + " ; Cost of a Minimum spanning tree = " + size);
-            System.out.println("CSV file 'src/src/Output/SpanningTreeInformation.csv' has been created successfully.");
+            System.out.println("CSV file 'src/main/java/PI_MDISC_Group_072/Output/SpanningTreeInformation.csv' has been created successfully.");
         } catch (IOException e) {
             System.err.println("Error writing to CSV file: " + e.getMessage());
         }
@@ -155,8 +160,8 @@ public class SpanningTree {
     }
 
     private static void executeScriptTree(StringBuilder file) throws IOException, InterruptedException {
-        String caminhoScript = "src/src/Output/SpanningTreeGraph_" + file;
-        String commandGraphviz = "dot -Tpng " + caminhoScript + ".dot -o " + caminhoScript + ".png";
+        String caminhoScript = "src/main/java/PI_MDISC_Group_072/Output/SpanningTreeGraph_" + file;
+        String commandGraphviz = "dot -Tsvg " + caminhoScript + ".dot -o " + caminhoScript + ".svg";
         Process processo = Runtime.getRuntime().exec(commandGraphviz);
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(processo.getErrorStream()));
@@ -168,16 +173,16 @@ public class SpanningTree {
         int exitCode = processo.waitFor();
 
         if (exitCode == 0) {
-            System.out.println("Gráfico gerado com sucesso!");
+            System.out.println("Spanning Tree Graph successfully generated!");
         } else {
-            System.out.println("Erro ao gerar o gráfico. Código de saída: " + exitCode);
+            System.out.println("Error when generating the Spanning Tree Graph. Output code: " + exitCode);
         }
     }
 
 
 
     private static void createScriptTree(Graph spanningTree,StringBuilder file) {
-        try (PrintWriter writer = new PrintWriter(new FileWriter( "src/src/Output/SpanningTreeGraph_" + file + ".dot"))) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter( "src/main/java/PI_MDISC_Group_072/Output/SpanningTreeGraph_" + file + ".dot"))) {
             writer.println("graph G {");
             writer.println("    fontname=\"Helvetica,Arial,sans-serif\"");
             writer.println("    node [fontname=\"Helvetica,Arial,sans-serif\"]");
@@ -188,7 +193,7 @@ public class SpanningTree {
                 writer.printf("%n");
             }
             writer.print("}");
-            System.out.println("DOT file 'src/src/Output/SpanningTreeGraph.dot' has been created successfully.");
+            System.out.println("DOT file 'src/main/java/PI_MDISC_Group_072/Output/SpanningTreeGraph.dot' has been created successfully.");
         } catch (IOException e) {
             System.err.println("Error writing to DOT file: " + e.getMessage());
         }
@@ -320,7 +325,7 @@ public class SpanningTree {
     }
 
     private static void writeOutput(Graph spanningTree,StringBuilder file) {
-        try (PrintWriter writer = new PrintWriter(new FileWriter( "src/src/Output/SpanningTree_" + file +".csv"))) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter( "src/main/java/PI_MDISC_Group_072/Output/SpanningTree_" + file +".csv"))) {
             writer.println("Vertex1;Vertex2;Cost");
             int totalCost = 0;
             for (Edge edge : spanningTree.getEdges()) {
@@ -329,7 +334,7 @@ public class SpanningTree {
                 totalCost += edge.getCost();
             }
             writer.printf("Total cost of making SpanningTree: %d%n",totalCost);
-            System.out.println("CSV file 'src/src/Output/SpanningTree_" + file + "' has been created successfully.");
+            System.out.println("CSV file 'src/main/java/PI_MDISC_Group_072/Output/SpanningTree_" + file + "' has been created successfully.");
         } catch (IOException e) {
             System.err.println("Error writing to CSV file: " + e.getMessage());
         }
@@ -356,11 +361,11 @@ public class SpanningTree {
 
         if (exitCode == 0) {
 
-            System.out.println("Gráfico gerado com sucesso!");
+            System.out.println("Graph generated successfully!");
 
         } else {
 
-            System.out.println("Erro ao gerar o gráfico. Código de saída: " + exitCode);
+            System.out.println("Error generating the graph. Output code: " + exitCode);
 
         }
     }

@@ -1,3 +1,5 @@
+package PI_MDISC_Group_072.main.java;
+
 public class Edge {
 
     /**
