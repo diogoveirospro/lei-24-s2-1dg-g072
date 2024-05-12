@@ -21,12 +21,13 @@ public class TeamRepository {
     /**
      * Team Repository builder.
      */
-    public TeamRepository(){
-         teams = new ArrayList<>();
+    public TeamRepository() {
+        teams = new ArrayList<>();
     }
 
     /**
      * This method returns a defensive (immutable) copy of the team list.
+     *
      * @return the team list.
      */
     public List<Team> getTeams() {
@@ -35,18 +36,19 @@ public class TeamRepository {
 
     /**
      * Get a team from the repository.
+     *
      * @param members team members.
      * @return team made up of the members passed in by parameter.
      */
-    public Team getTeam(List<Collaborator> members){
+    public Team getTeam(List<Collaborator> members) {
         Team newTeam = new Team(members);
         Team team = null;
 
-        if (teams.contains(newTeam)){
+        if (teams.contains(newTeam)) {
             team = teams.get(teams.indexOf(newTeam));
         }
 
-        if (team == null){
+        if (team == null) {
             throw new IllegalArgumentException("The team composed of the members provided does not exist.");
         }
 
@@ -55,12 +57,13 @@ public class TeamRepository {
 
     /**
      * Generate a team proposal automatically.
-     * @param minimumSize minimum team size.
-     * @param maximumSize maximum team size.
-     * @param skills skills that members must have to be part of that team.
+     *
+     * @param minimumSize   minimum team size.
+     * @param maximumSize   maximum team size.
+     * @param skills        skills that members must have to be part of that team.
      * @param collaborators list of all collaborators.
-     * @throws IllegalArgumentException if there aren't enough collaborators with the specified skills to create a team.
      * @return members of the team proposal.
+     * @throws IllegalArgumentException if there aren't enough collaborators with the specified skills to create a team.
      */
     public List<Collaborator> generateTeamProposal(int minimumSize, int maximumSize, List<Skill> skills, List<Collaborator> collaborators) {
         List<Collaborator> members = new ArrayList<>();
@@ -68,7 +71,7 @@ public class TeamRepository {
         List<Skill> remainingSkills = new ArrayList<>(skills);
 
         selectMembersForSkills(maximumSize, members, collaboratorsClone, remainingSkills);
-        if (members.size() < maximumSize){
+        if (members.size() < maximumSize) {
             fillUpToMaximumSize(maximumSize, members, collaboratorsClone);
         }
         if (members.size() < minimumSize) {
@@ -80,36 +83,44 @@ public class TeamRepository {
 
     /**
      * Selects team members based on required skills until the team is filled to the maximum size or all skills are addressed.
-     * @param maximumSize maximum team size.
-     * @param members the current list of team members
+     *
+     * @param maximumSize        maximum team size.
+     * @param members            the current list of team members
      * @param collaboratorsClone a clone of the list of available collaborators.
-     * @param remainingSkills a list of skills still required in the team.
+     * @param skills    a list of skills still required in the team.
      */
-    private void selectMembersForSkills(int maximumSize, List<Collaborator> members, List<Collaborator> collaboratorsClone, List<Skill> remainingSkills) {
-        while (!remainingSkills.isEmpty() && members.size() < maximumSize && !collaboratorsClone.isEmpty()) {
-            Skill skill = remainingSkills.get(0);
-            List<Collaborator> qualifiedCollaborators = getQualifiedCollaborators(skill, collaboratorsClone);
+    private void selectMembersForSkills(int maximumSize, List<Collaborator> members, List<Collaborator> collaboratorsClone, List<Skill> skills) {
+        List<Skill> skillsPresent = new ArrayList<>();
+        List<Collaborator> qualifiedCollaborators = getQualifiedCollaborators(maximumSize ,skills, collaboratorsClone, skillsPresent);
 
-            if (qualifiedCollaborators.isEmpty()) {
-                throw new IllegalArgumentException("There are no collaborators with the specified skill: " + skill);
-            }
-
-            addCollaboratorToTeam(members, qualifiedCollaborators, collaboratorsClone);
-            remainingSkills.remove(skill);
+        if (skillsPresent == skills) {
+            throw new IllegalArgumentException("There are no collaborators with the remaining skills: ");
         }
+        addCollaboratorToTeam(members, qualifiedCollaborators, collaboratorsClone);
+
     }
+
 
     /**
      * Returns a list of collaborators that possess the given skill.
-     * @param skill the skill to be matched
+     *
+     * @param skillsRemaining    all skills to be matched
      * @param collaboratorsClone the list of available collaborators
      * @return a list of qualified collaborators
      */
-    private List<Collaborator> getQualifiedCollaborators(Skill skill, List<Collaborator> collaboratorsClone) {
+    private List<Collaborator> getQualifiedCollaborators(int maximumSize,List<Skill> skillsRemaining, List<Collaborator> collaboratorsClone, List<Skill> skillsAlreadyAdded) {
         List<Collaborator> qualifiedCollaborators = new ArrayList<>();
+        List<Skill> skillsAdded = new ArrayList<>();
         for (Collaborator collaborator : collaboratorsClone) {
-            if (collaborator.analyseCollaborator(skill)) {
-                qualifiedCollaborators.add(collaborator);
+            if (qualifiedCollaborators.size() < maximumSize) {
+                for (Skill skill : skillsRemaining) {
+                    if (collaborator.analyseCollaborator(skill) && !skillsAdded.contains(skill)) {
+                        qualifiedCollaborators.add(collaborator);
+                        skillsAdded.add(skill);
+                    }
+                }
+                skillsAlreadyAdded.addAll(skillsAdded);
+                skillsAdded = new ArrayList<>();
             }
         }
         return qualifiedCollaborators;
@@ -117,21 +128,24 @@ public class TeamRepository {
 
     /**
      * Adds a collaborator to the team.
-     * @param members the list of selected collaborators
+     *
+     * @param members                the list of selected collaborators
      * @param qualifiedCollaborators the list of qualified collaborators
-     * @param collaboratorsClone the list of available collaborators
+     * @param collaboratorsClone     the list of available collaborators
      */
     private void addCollaboratorToTeam(List<Collaborator> members, List<Collaborator> qualifiedCollaborators, List<Collaborator> collaboratorsClone) {
-        Collaborator selectedCollaborator = qualifiedCollaborators.get(0);
-        members.add(selectedCollaborator);
-        selectedCollaborator.setHasTeam(true);
-        collaboratorsClone.remove(selectedCollaborator);
+        for (Collaborator member : qualifiedCollaborators) {
+            members.add(member);
+            member.setHasTeam(true);
+            collaboratorsClone.remove(member);
+        }
     }
 
     /**
      * Fills the team with additional collaborators until the maximum size is reached.
-     * @param maximumSize the maximum size of the team
-     * @param members the list of selected collaborators
+     *
+     * @param maximumSize        the maximum size of the team
+     * @param members            the list of selected collaborators
      * @param collaboratorsClone the list of available collaborators
      */
     private void fillUpToMaximumSize(int maximumSize, List<Collaborator> members, List<Collaborator> collaboratorsClone) {
@@ -145,15 +159,17 @@ public class TeamRepository {
 
     /**
      * Create a team.
+     *
      * @param members team members.
      * @return new team.
      */
-    public Team createTeam(List<Collaborator> members){
+    public Team createTeam(List<Collaborator> members) {
         return new Team(members);
     }
 
     /**
      * Add a team to the team repository.
+     *
      * @param team team to be added to the repository.
      */
     public void addTeam(Team team) {
@@ -164,10 +180,11 @@ public class TeamRepository {
 
     /**
      * Validate the team.
+     *
      * @param team team to be validated.
      * @return true if the team is valid and false otherwise.
      */
-    public boolean validateTeam(Team team){
+    public boolean validateTeam(Team team) {
         return team != null && !team.getTeam().isEmpty();
 
     }

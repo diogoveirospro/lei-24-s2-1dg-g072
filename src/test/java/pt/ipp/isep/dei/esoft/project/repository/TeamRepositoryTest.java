@@ -158,8 +158,8 @@ public class TeamRepositoryTest {
 
         assertEquals(3, teamMembers.size());
         assertTrue(teamMembers.contains(collaborators.get(0)));
+        assertTrue(teamMembers.contains(collaborators.get(1)));
         assertTrue(teamMembers.contains(collaborators.get(2)));
-        assertTrue(teamMembers.contains(collaborators.get(3)));
     }
 
 
