@@ -2,13 +2,12 @@ package PI_MDISC_Group_072.main.java;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Locale;
 import java.util.Scanner;
 
 public class Main {
 
-    public static final int QUANTITY_OF_FILES = 5;
+    public static final int QUANTITY_OF_FILES = 30;
 
     public static void main(String[] args) throws IOException, InterruptedException {
         Locale.setDefault(Locale.US);
@@ -42,14 +41,14 @@ public class Main {
         Graph graph = addEdges(graphEdges);
         createGraph(graph,inputFile);
 
-        ArrayList<Edge> sortedGraphEdges = sortCost(graphEdges);
-        ArrayList<Vertex> verticesGraph = getVerticesGraph(graphEdges);
-        Collections.sort(verticesGraph);
+        bubbleSort(graphEdges);
 
-        Graph spanningTree = kruskal(sortedGraphEdges, verticesGraph);
+        ArrayList<Vertex> verticesGraph = getVerticesGraph(graphEdges);
+
+        Graph spanningTree = kruskal(graphEdges, verticesGraph);
 
         writeOutput(spanningTree, inputFile);
-        graphInfo(sortedGraphEdges.size(), verticesGraph.size(), spanningTree, inputFile);
+        graphInfo(graphEdges.size(), verticesGraph.size(), spanningTree, inputFile);
         createSpanningTree(spanningTree, inputFile);
     }
 
@@ -59,7 +58,7 @@ public class Main {
         StringBuilder aux = inputFile;
 
         ArrayList<Double> time = new ArrayList<>();
-        ArrayList<Integer> quantityOfEdges = new ArrayList<Integer>();
+        ArrayList<Integer> quantityOfEdges = new ArrayList<>();
 
         for (int i = 0; i <  QUANTITY_OF_FILES; i++) {
 
@@ -67,30 +66,32 @@ public class Main {
             inputFile = new StringBuilder(inputFile + "_" + (i + 1));
             StringBuilder file = new StringBuilder("src/main/java/PI_MDISC_Group_072/Input/" + inputFile + ".csv");
 
+
             ArrayList<Edge> graphEdges = readFile(file);
             Graph graph = addEdges(graphEdges);
             createGraph(graph, inputFile);
             quantityOfEdges.add(graphEdges.size());
 
-            ArrayList<Edge> sortedGraphEdges = sortCost(graphEdges);
+            bubbleSort(graphEdges);
+
             ArrayList<Vertex> verticesGraph = getVerticesGraph(graphEdges);
-            Collections.sort(verticesGraph);
 
-            Graph spanningTree = kruskal(sortedGraphEdges, verticesGraph);
+            Graph spanningTree = kruskal(graphEdges, verticesGraph);
 
-            writeOutput(spanningTree,inputFile);
-            graphInfo(sortedGraphEdges.size(),verticesGraph.size(),spanningTree,inputFile);
-            createSpanningTree(spanningTree,inputFile);
+            writeOutput(spanningTree, inputFile);
+            graphInfo(graphEdges.size(), verticesGraph.size(), spanningTree, inputFile);
+            createSpanningTree(spanningTree, inputFile);
+
             time.add((double) System.currentTimeMillis());
         }
 
-        double [][] asymptoticGraph = new double[2][time.size()];
-        addData(time,quantityOfEdges,asymptoticGraph);
+        double[][] asymptoticGraph = new double[2][time.size()];
+        addData(time, quantityOfEdges, asymptoticGraph);
         writeData(asymptoticGraph);
         createGnuplotGraph();
     }
 
-    private static void addData(ArrayList<Double> time, ArrayList<Integer> quantityOfEdges,double[][] asymptoticGraph) {
+    private static void addData(ArrayList<Double> time, ArrayList<Integer> quantityOfEdges, double[][] asymptoticGraph) {
         for (int i = 0; i < time.size(); i++) {
             asymptoticGraph[0][i] = quantityOfEdges.get(i);
             asymptoticGraph[1][i] = time.get(i);
@@ -98,20 +99,17 @@ public class Main {
     }
 
     private static void writeData(double[][] asymptoticGraph) {
-        try (PrintWriter writer = new PrintWriter(new FileWriter( "src/main/java/PI_MDISC_Group_072/Output/" +
-                "AsymptoticData.dat"))) {
-
-            for (int i = 0; i < asymptoticGraph.length; i++) {
-                writer.printf("%d;%f",(int) asymptoticGraph[0][i],asymptoticGraph[1][i]);
+        try (PrintWriter writer = new PrintWriter(new FileWriter("src/main/java/PI_MDISC_Group_072/Output/AsymptoticData.dat"))) {
+            for (int i = 0; i < asymptoticGraph[0].length; i++) {
+                writer.printf("%d\t%f%n", (int) asymptoticGraph[0][i], asymptoticGraph[1][i]);
             }
-
         } catch (IOException e) {
             System.err.println("Error writing file: " + e.getMessage());
         }
     }
 
     private static void createGraph(Graph graph, StringBuilder file) throws IOException, InterruptedException {
-        createScriptGraph(graph,file);
+        createScriptGraph(graph, file);
         executeScriptGraph(file);
     }
 
@@ -144,13 +142,10 @@ public class Main {
             writer.println("    node [fontname=\"Helvetica,Arial,sans-serif\"]");
             writer.println("    edge [fontname=\"Helvetica,Arial,sans-serif\"]");
 
-
             for (Edge edge : graph.getEdges()) {
-
                 String origin = edge.getOrigin().getV();
                 String destiny = edge.getDestiny().getV();
                 int cost = edge.getCost();
-
                 writer.printf("    %s -- %s [label=\"%d\"];%n", origin, destiny, cost);
             }
 
@@ -163,19 +158,16 @@ public class Main {
 
     private static Graph addEdges(ArrayList<Edge> graphEdges) {
         Graph graph = new Graph();
-        for (Edge edge : graphEdges){
+        for (Edge edge : graphEdges) {
             graph.addEdge(edge);
         }
         return graph;
     }
 
     private static void graphInfo(int graphDimension, int graphOrder, Graph spanningTree, StringBuilder file) {
-        try (PrintWriter writer = new PrintWriter(new FileWriter( "src/main/java/PI_MDISC_Group_072/Output/SpanningTreeInformation_" + file + ".csv"))) {
-            int size = 0;
-            for (int i = 0; i < spanningTree.getEdges().size(); i++){
-                size+= spanningTree.getEdges().get(i).getCost();
-            }
-            writer.print("Graph Dimension = " + graphDimension + " ; Graph Order = " + graphOrder + " ; Cost of a Minimum spanning tree = " + size);
+        try (PrintWriter writer = new PrintWriter(new FileWriter("src/main/java/PI_MDISC_Group_072/Output/SpanningTreeInformation_" + file + ".csv"))) {
+            int totalCost = spanningTree.getEdges().stream().mapToInt(Edge::getCost).sum();
+            writer.printf("Graph Dimension = %d ; Graph Order = %d ; Cost of a Minimum spanning tree = %d%n", graphDimension, graphOrder, totalCost);
             System.out.println("CSV file 'src/main/java/PI_MDISC_Group_072/Output/SpanningTreeInformation.csv' has been created successfully.");
         } catch (IOException e) {
             System.err.println("Error writing to CSV file: " + e.getMessage());
@@ -207,8 +199,6 @@ public class Main {
         }
     }
 
-
-
     private static void createScriptTree(Graph spanningTree, StringBuilder file) {
         try (PrintWriter writer = new PrintWriter(new FileWriter("src/main/java/PI_MDISC_Group_072/Output/SpanningTreeGraph_" + file + ".dot"))) {
             writer.println("graph G {");
@@ -219,11 +209,9 @@ public class Main {
             writer.println("    edge [fontname=\"Helvetica,Arial,sans-serif\"]");
 
             for (Edge edge : spanningTree.getEdges()) {
-
                 String origin = edge.getOrigin().getV();
                 String destiny = edge.getDestiny().getV();
                 int cost = edge.getCost();
-
                 String edgeString = String.format("    %s -- %s [label=\"%d\"];", origin, destiny, cost);
                 writer.println(edgeString);
             }
@@ -234,7 +222,6 @@ public class Main {
             System.err.println("Error writing to DOT file: " + e.getMessage());
         }
     }
-
 
     private static Graph kruskal(ArrayList<Edge> sortedGraphEdges, ArrayList<Vertex> verticesGraph) {
         Graph A = new Graph();
@@ -291,11 +278,9 @@ public class Main {
             i++;
             j++;
 
-
             if (j == S.length) {
                 break;
             }
-
 
             while (S[j][Sp] != null) {
                 j++;
@@ -306,9 +291,8 @@ public class Main {
         }
     }
 
-
     private static String getFile(Scanner sc) {
-        System.out.println("Insert the name of the file with the vertices, costs and connections:");
+        System.out.println("Insert the name of the file with the vertices, costs, and connections:");
         return sc.nextLine();
     }
 
@@ -341,32 +325,6 @@ public class Main {
         return null;
     }
 
-    private static ArrayList<Edge> sortCost(ArrayList<Edge> graphEdges) {
-        int n = graphEdges.size();
-        boolean swapped;
-
-        for (int i = 0; i < n - 1; i++) {
-            swapped = false;
-
-            for (int j = 0; j < n - i - 1; j++) {
-
-                if (graphEdges.get(j).getCost() > graphEdges.get(j + 1).getCost()) {
-
-                    Edge temp = graphEdges.get(j);
-                    graphEdges.set(j, graphEdges.get(j + 1));
-                    graphEdges.set(j + 1, temp);
-                    swapped = true;
-                }
-            }
-
-            if (!swapped) {
-                break;
-            }
-        }
-
-        return graphEdges;
-    }
-
     private static ArrayList<Vertex> getVerticesGraph(ArrayList<Edge> graphEdges) {
         ArrayList<Vertex> verticesGraph = new ArrayList<>();
         for (Edge edge : graphEdges) {
@@ -382,16 +340,14 @@ public class Main {
         return verticesGraph;
     }
 
-    private static void writeOutput(Graph spanningTree,StringBuilder file) {
-        try (PrintWriter writer = new PrintWriter(new FileWriter( "src/main/java/PI_MDISC_Group_072/Output/SpanningTree_" + file +".csv"))) {
+    private static void writeOutput(Graph spanningTree, StringBuilder file) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter("src/main/java/PI_MDISC_Group_072/Output/SpanningTree_" + file + ".csv"))) {
             writer.println("Vertex1;Vertex2;Cost");
-            int totalCost = 0;
+            int totalCost = spanningTree.getEdges().stream().mapToInt(Edge::getCost).sum();
             for (Edge edge : spanningTree.getEdges()) {
-                writer.printf("%s;%s;%d",edge.getOrigin().getV(),edge.getDestiny().getV(),edge.getCost());
-                writer.printf("%n");
-                totalCost += edge.getCost();
+                writer.printf("%s;%s;%d%n", edge.getOrigin().getV(), edge.getDestiny().getV(), edge.getCost());
             }
-            writer.printf("Total cost of making SpanningTree: %d%n",totalCost);
+            writer.printf("Total cost of making SpanningTree: %d%n", totalCost);
             System.out.println("CSV file 'src/main/java/PI_MDISC_Group_072/Output/SpanningTree_" + file + "' has been created successfully.");
         } catch (IOException e) {
             System.err.println("Error writing to CSV file: " + e.getMessage());
@@ -402,14 +358,15 @@ public class Main {
         File gnuplot = new File("src/main/java/PI_MDISC_Group_072/Output/script_Gnuplot.gp");
         PrintWriter printWriter = new PrintWriter(gnuplot);
         printWriter.println("set terminal png size 800,600");
-        printWriter.println("set output 'src/main/java/PI_MDISC_Group_072/Output/asymptotic_graph.svg'");
-        printWriter.println("set title 'Asymptotic Graph'");
-        printWriter.println("set xlabel 'quantity of edges'");
-        printWriter.println("set ylabel 'time to create'");
+        printWriter.println("set output 'src/main/java/PI_MDISC_Group_072/Output/asymptotic_graph.png'");
+        printWriter.println("set title 'Execution Time vs Input Size'");
+        printWriter.println("set xlabel 'Input Size'");
+        printWriter.println("set ylabel 'Time (milliseconds)'");
         printWriter.println("set datafile separator '\\t'");
-        printWriter.println("plot 'src/src/Output/AsymptoticData.dat' using 1:2 with linespoints linewidth 3  title 'Asymptotic Behavior', \\");
+        printWriter.println("plot 'src/main/java/PI_MDISC_Group_072/Output/AsymptoticData.dat' using 1:2 with linespoints linewidth 3  title 'Asymptotic Behavior', \\");
         printWriter.close();
     }
+
     public static void createGnuplotGraph() throws IOException, InterruptedException {
         createScriptGnuplot();
         String caminhoScript = "src/main/java/PI_MDISC_Group_072/Output/script_Gnuplot.gp";
@@ -419,13 +376,23 @@ public class Main {
         int exitCode = processo.waitFor();
 
         if (exitCode == 0) {
-
             System.out.println("Graph generated successfully!");
-
         } else {
-
             System.out.println("Error generating the graph. Output code: " + exitCode);
+        }
+    }
 
+    private static void bubbleSort(ArrayList<Edge> graphEdges) {
+        int n = graphEdges.size();
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (graphEdges.get(j).getCost() > graphEdges.get(j + 1).getCost()) {
+
+                    Edge temp = graphEdges.get(j);
+                    graphEdges.set(j, graphEdges.get(j + 1));
+                    graphEdges.set(j + 1, temp);
+                }
+            }
         }
     }
 }
