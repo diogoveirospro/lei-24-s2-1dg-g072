@@ -7,17 +7,21 @@ import java.util.Locale;
 import java.util.Scanner;
 
 public class Main {
+
     public static final int QUANTITY_OF_FILES = 30;
+
     public static void main(String[] args) throws IOException, InterruptedException {
         Locale.setDefault(Locale.US);
         Scanner sc = new Scanner(System.in);
         int option;
+
         do {
             System.out.println("""
                     Choose the option you want:\s
                     Option 1: Make a savings tree.\s
                     Option 2: Make a graph of time as a function of the number of vertices.""");
             option = sc.nextInt();
+
             if (option == 1){
                 US13();
             } else if (option == 2){
@@ -33,40 +37,53 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         StringBuilder inputFile = new StringBuilder(getFile(sc));
         StringBuilder file = new StringBuilder("src/main/java/PI_MDISC_Group_072/Input/" + inputFile + ".csv");
+
         ArrayList<Edge> graphEdges = readFile(file);
         Graph graph = addEdges(graphEdges);
         createGraph(graph,inputFile);
+
         ArrayList<Edge> sortedGraphEdges = sortCost(graphEdges);
         ArrayList<Vertex> verticesGraph = getVerticesGraph(graphEdges);
         Collections.sort(verticesGraph);
+
         Graph spanningTree = kruskal(sortedGraphEdges, verticesGraph);
+
         writeOutput(spanningTree, inputFile);
-        graphInfo(sortedGraphEdges.size(),verticesGraph.size(),spanningTree,inputFile);
-        createSpanningTree(spanningTree,inputFile);
+        graphInfo(sortedGraphEdges.size(), verticesGraph.size(), spanningTree, inputFile);
+        createSpanningTree(spanningTree, inputFile);
     }
+
     private static void US14() throws IOException, InterruptedException {
         Scanner sc = new Scanner(System.in);
         StringBuilder inputFile = new StringBuilder(getFile(sc));
         StringBuilder aux = inputFile;
+
         ArrayList<Double> time = new ArrayList<>();
         ArrayList<Integer> quantityOfEdges = new ArrayList<Integer>();
+
         for (int i = 0; i <  QUANTITY_OF_FILES; i++) {
+
             inputFile = aux;
             inputFile = new StringBuilder(inputFile + "_" + (i + 1));
             StringBuilder file = new StringBuilder("src/main/java/PI_MDISC_Group_072/Input/" + inputFile + ".csv");
+
             ArrayList<Edge> graphEdges = readFile(file);
             Graph graph = addEdges(graphEdges);
             createGraph(graph, inputFile);
             quantityOfEdges.add(graphEdges.size());
+
             ArrayList<Edge> sortedGraphEdges = sortCost(graphEdges);
             ArrayList<Vertex> verticesGraph = getVerticesGraph(graphEdges);
             Collections.sort(verticesGraph);
+
             Graph spanningTree = kruskal(sortedGraphEdges, verticesGraph);
+
             writeOutput(spanningTree,inputFile);
             graphInfo(sortedGraphEdges.size(),verticesGraph.size(),spanningTree,inputFile);
             createSpanningTree(spanningTree,inputFile);
             time.add((double) System.currentTimeMillis());
         }
+
         double [][] asymptoticGraph = new double[2][time.size()];
         addData(time,quantityOfEdges,asymptoticGraph);
         writeData(asymptoticGraph);
@@ -81,10 +98,13 @@ public class Main {
     }
 
     private static void writeData(double[][] asymptoticGraph) {
-        try (PrintWriter writer = new PrintWriter(new FileWriter( "src/main/java/PI_MDISC_Group_072/Output/AsymptoticData.dat"))) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter( "src/main/java/PI_MDISC_Group_072/Output/" +
+                "AsymptoticData.dat"))) {
+
             for (int i = 0; i < asymptoticGraph.length; i++) {
                 writer.printf("%d;%f",(int) asymptoticGraph[0][i],asymptoticGraph[1][i]);
             }
+
         } catch (IOException e) {
             System.err.println("Error writing file: " + e.getMessage());
         }
@@ -116,17 +136,25 @@ public class Main {
     }
 
     private static void createScriptGraph(Graph graph, StringBuilder file) {
-        try (PrintWriter writer = new PrintWriter(new FileWriter( "src/main/java/PI_MDISC_Group_072/Output/Graph_" + file + ".dot"))) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter("src/main/java/PI_MDISC_Group_072/Output/Graph_" + file + ".dot"))) {
             writer.println("graph G {");
             writer.println("    fontname=\"Helvetica,Arial,sans-serif\"");
+            writer.println("    nodesep=1.0");
+            writer.println("    layout=dot");
             writer.println("    node [fontname=\"Helvetica,Arial,sans-serif\"]");
             writer.println("    edge [fontname=\"Helvetica,Arial,sans-serif\"]");
-            writer.println("    layout=neato");
+
+
             for (Edge edge : graph.getEdges()) {
-                writer.printf("    %s -- %s;",edge.getOrigin().getV(),edge.getDestiny().getV());
-                writer.printf("%n");
+
+                String origin = edge.getOrigin().getV();
+                String destiny = edge.getDestiny().getV();
+                int cost = edge.getCost();
+
+                writer.printf("    %s -- %s [label=\"%d\"];%n", origin, destiny, cost);
             }
-            writer.print("}");
+
+            writer.println("}");
             System.out.println("DOT file 'src/main/java/PI_MDISC_Group_072/Output/Graph.dot' has been created successfully.");
         } catch (IOException e) {
             System.err.println("Error writing to DOT file: " + e.getMessage());
@@ -181,23 +209,32 @@ public class Main {
 
 
 
-    private static void createScriptTree(Graph spanningTree,StringBuilder file) {
-        try (PrintWriter writer = new PrintWriter(new FileWriter( "src/main/java/PI_MDISC_Group_072/Output/SpanningTreeGraph_" + file + ".dot"))) {
+    private static void createScriptTree(Graph spanningTree, StringBuilder file) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter("src/main/java/PI_MDISC_Group_072/Output/SpanningTreeGraph_" + file + ".dot"))) {
             writer.println("graph G {");
             writer.println("    fontname=\"Helvetica,Arial,sans-serif\"");
             writer.println("    node [fontname=\"Helvetica,Arial,sans-serif\"]");
+            writer.println("    nodesep=1.0");
+            writer.println("    layout=dot");
             writer.println("    edge [fontname=\"Helvetica,Arial,sans-serif\"]");
-            writer.println("    layout=neato");
+
             for (Edge edge : spanningTree.getEdges()) {
-                writer.printf("    %s -- %s;",edge.getOrigin().getV(),edge.getDestiny().getV());
-                writer.printf("%n");
+
+                String origin = edge.getOrigin().getV();
+                String destiny = edge.getDestiny().getV();
+                int cost = edge.getCost();
+
+                String edgeString = String.format("    %s -- %s [label=\"%d\"];", origin, destiny, cost);
+                writer.println(edgeString);
             }
-            writer.print("}");
+
+            writer.println("}");
             System.out.println("DOT file 'src/main/java/PI_MDISC_Group_072/Output/SpanningTreeGraph.dot' has been created successfully.");
         } catch (IOException e) {
             System.err.println("Error writing to DOT file: " + e.getMessage());
         }
     }
+
 
     private static Graph kruskal(ArrayList<Edge> sortedGraphEdges, ArrayList<Vertex> verticesGraph) {
         Graph A = new Graph();
@@ -305,7 +342,28 @@ public class Main {
     }
 
     private static ArrayList<Edge> sortCost(ArrayList<Edge> graphEdges) {
-        Collections.sort(graphEdges, (e1, e2) -> Integer.compare(e1.getCost(), e2.getCost()));
+        int n = graphEdges.size();
+        boolean swapped;
+
+        for (int i = 0; i < n - 1; i++) {
+            swapped = false;
+
+            for (int j = 0; j < n - i - 1; j++) {
+
+                if (graphEdges.get(j).getCost() > graphEdges.get(j + 1).getCost()) {
+
+                    Edge temp = graphEdges.get(j);
+                    graphEdges.set(j, graphEdges.get(j + 1));
+                    graphEdges.set(j + 1, temp);
+                    swapped = true;
+                }
+            }
+
+            if (!swapped) {
+                break;
+            }
+        }
+
         return graphEdges;
     }
 
