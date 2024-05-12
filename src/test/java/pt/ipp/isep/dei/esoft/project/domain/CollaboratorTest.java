@@ -2,28 +2,31 @@ package pt.ipp.isep.dei.esoft.project.domain;
 
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class CollaboratorTest {
+class CollaboratorTest {
 
     @Test
-    public void testConstructorWithValidArguments() {
-        String name = "João Silva";
-        Date birthDate = new Date();
-        Date admissionDate = new Date();
-        String address = "Address";
-        int mobile = 123456789;
-        String email = "joao.silva@example.com";
-        int taxpayerNumber = 123456789;
-        String idDocType = "ID";
-        int idDocNumber = 987654321;
-        String jobName = "Gardener";
+    void ensureCollaboratorIsCreatedSuccessfully() {
+        // Arrange
+        String name = "John Doe";
+        LocalDate birthDate = LocalDate.of(1990, 5, 15);
+        LocalDate admissionDate = LocalDate.of(2024, 5, 1);
+        String address = "123 Main St, City, Country";
+        String mobile = "123456789";
+        String email = "john.doe@example.com";
+        String taxpayerNumber = "123456789";
+        String idDocType = "Citizen Card";
+        String idDocNumber = "987654321";
 
+        // Act
+        Collaborator collaborator = new Collaborator(name, birthDate, admissionDate, address, mobile, email,
+                taxpayerNumber, idDocType, idDocNumber);
 
-        Collaborator collaborator = new Collaborator(name, birthDate, admissionDate, address, mobile, email, taxpayerNumber, idDocType, idDocNumber, jobName);
-
-
+        // Assert
+        assertNotNull(collaborator);
         assertEquals(name, collaborator.getName());
         assertEquals(birthDate, collaborator.getBirthDate());
         assertEquals(admissionDate, collaborator.getAdmissionDate());
@@ -33,34 +36,30 @@ public class CollaboratorTest {
         assertEquals(taxpayerNumber, collaborator.getTaxpayerNumber());
         assertEquals(idDocType, collaborator.getIdDocType());
         assertEquals(idDocNumber, collaborator.getIdDocNumber());
-        assertEquals(jobName, collaborator.getJob().getName());
     }
 
     @Test
-    public void testConstructorWithInvalidArguments() {
-        String name = "João Silva";
-        Date birthDate = new Date();
-        Date admissionDate = new Date();
-        String address = "Address";
-        int mobile = 123456789;
-        String email = "joao.silva@example.com";
-        int taxpayerNumber = 123456789;
-        String idDocType = "ID";
-        int idDocNumber = 987654321;
-        String invalidJobName = "NonexistentJob";
+    void ensureCollaboratorTaxpayerNumberIsValid() {
+        // Arrange
+        String invalidTaxpayerNumber = "123";
 
-        assertThrows(IllegalArgumentException.class, () -> new Collaborator(name, birthDate, admissionDate, address, mobile, email, taxpayerNumber, idDocType, idDocNumber, invalidJobName));
+        // Act & Assert
+        assertThrows(IllegalArgumentException.class, () ->
+                new Collaborator("John Doe", LocalDate.of(1990, 5, 15), LocalDate.of(2024, 5, 1),
+                        "123 Main St, City, Country", "123456789", "john.doe@example.com",
+                        invalidTaxpayerNumber, "Citizen Card", "987654321"));
     }
 
     @Test
-    public void testAssignSkill() {
-        Collaborator collaborator = new Collaborator("João Silva", new Date(), new Date(), "Address", 123456789, "joao.silva@example.com", 123456789, "ID", 987654321, "Gardener");
-        Skill skill = new Skill("Java");
+    void ensureCollaboratorIdDocNumberIsValid() {
+        // Arrange
+        String invalidIdDocNumber = "123";
 
-        collaborator.assignSkill(skill);
-
-        assertTrue(collaborator.getSkillSet().contains(skill));
+        // Act & Assert
+        assertThrows(IllegalArgumentException.class, () ->
+                new Collaborator("John Doe", LocalDate.of(1990, 5, 15), LocalDate.of(2024, 5, 1),
+                        "123 Main St, City, Country", "123456789", "john.doe@example.com",
+                        "123456789", "Citizen Card", invalidIdDocNumber));
     }
-
-
 }
+
