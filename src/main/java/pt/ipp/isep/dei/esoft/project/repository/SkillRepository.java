@@ -14,16 +14,28 @@ import pt.ipp.isep.dei.esoft.project.domain.Skill;
 public class SkillRepository {
     private List<Skill> skills;
 
+    /**
+     * A constructor of skillRepository that initiates the skill list
+     *
+     */
     SkillRepository(){
         skills = new ArrayList<>();
     }
 
+    /**
+     * This method adds a skill to the repository
+     *
+     * @param skill to be added
+     */
     public void addSkill(Skill skill){
         if(skill == null){
             throw new IllegalArgumentException("Skill cannot be null");
         }
         if (skills.contains(skill)){
             throw new IllegalArgumentException("This skill already exists "+skill.getName());
+        }
+        if (!skill.validateSkill(skill.getName())){
+            throw new IllegalArgumentException("Skill can't have special characters");
         }
         skills.add(skill);
     }

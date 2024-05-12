@@ -68,6 +68,17 @@ public class Skill {
     }
 
     /**
+     * Checks if the name sent by the user is between the letters specified.
+     *
+     * @param name of the skill
+     * @return the result of the name being or not in accord with the pattern
+     */
+    public boolean validateSkill(String name){
+        String pattern = "^[a-zA-Z0-9 ]+$";
+        return name.matches(pattern);
+    }
+
+    /**
      * Rewriting the toString method for the skill class.
      * @return String representing a skill.
      */
