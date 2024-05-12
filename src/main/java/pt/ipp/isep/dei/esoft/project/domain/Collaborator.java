@@ -3,7 +3,6 @@ package pt.ipp.isep.dei.esoft.project.domain;
 import pt.ipp.isep.dei.esoft.project.repository.JobRepository;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,7 +20,7 @@ public class Collaborator {
     /**
      * Collaborator birthdate.
      */
-    private Date birthDate;
+    private  Date birthDate;
 
     /**
      * Collaborator admission date.

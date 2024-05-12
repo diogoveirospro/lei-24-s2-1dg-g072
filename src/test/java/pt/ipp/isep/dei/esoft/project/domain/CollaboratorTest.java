@@ -2,7 +2,6 @@ package pt.ipp.isep.dei.esoft.project.domain;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
 
