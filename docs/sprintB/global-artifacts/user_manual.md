@@ -41,10 +41,37 @@ teams based on the skills required to carry out the tasks in the various green s
 and control vehicles and equipment, ensuring their proper maintenance and availability for scheduled tasks.
 
 
+4. **Management of consumption level**: This module allows the Green Space Manager (GSM) to get information about the
+consumption levels of a green space as well as the amount to be paid, and multiple comparison involving median and
+other statistical information. 
+
+
+5. **Management of equipment used**: This module allows the Green Space Manager (GSM) to get information about the 
+equipment used in each day by retrieving a pie chart of the usage rate of equipment.
+
+
+7. **Data from user portal**: This module allows the Green Space Manager (GSM) to get information about the
+age, if he recommends the park and times he visits the park during the month. 
+
+
+8. **Lowest cost Spanning tree**: This module allows the Green Space Manager (GSM) to ask the system to make a 
+spanning tree of the lowest cost possible, in the creation of a irrigation system.
+
+
+9. **Asymptotic of the creation of spanning trees** This module allows the Software Quality Assessment Team Manager (QAM)
+to get a graph of the asymptotic behavior, being it a graph of the quantity of edges to the time taken to run the function.
+
+
 ### Main Features
 
 - Flexible Resource Management: The application provides flexible management of collaborators, teams, vehicles, and 
 equipment, adapting to the dynamic needs of green space management.
+- Flexible Statistical Information: The application provides flexible statistical information, on the water consumption,
+usage percentage and user review.
+- Irrigation System Creator: The application provides irrigation system creation, by generating the lowest cost possible 
+to make the system.
+- Behavior Graphical Study: The application provides behavior graphical system to the already mention irrigation system creator
+feature, by making an asymptotic graph of the time taken to create one spanning tree representing the irrigation system.
 
 ### Structural Diagram
 
