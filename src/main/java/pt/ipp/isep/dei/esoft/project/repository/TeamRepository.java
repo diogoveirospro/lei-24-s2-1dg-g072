@@ -71,13 +71,12 @@ public class TeamRepository {
         List<Skill> remainingSkills = new ArrayList<>(skills);
 
         selectMembersForSkills(maximumSize, members, collaboratorsClone, remainingSkills);
-        if (members.size() < maximumSize) {
-            fillUpToMaximumSize(maximumSize, members, collaboratorsClone);
-        }
         if (members.size() < minimumSize) {
             throw new IllegalArgumentException("There aren't enough collaborators with the specified skills to create a team!");
         }
-
+        if (members.size() < maximumSize) {
+            fillUpToMaximumSize(maximumSize, members, collaboratorsClone);
+        }
         return members;
     }
 
@@ -93,7 +92,7 @@ public class TeamRepository {
         List<Skill> skillsPresent = new ArrayList<>();
         List<Collaborator> qualifiedCollaborators = getQualifiedCollaborators(maximumSize ,skills, collaboratorsClone, skillsPresent);
 
-        if (skillsPresent == skills) {
+        if (skillsPresent != skills) {
             throw new IllegalArgumentException("There are no collaborators with the remaining skills: ");
         }
         addCollaboratorToTeam(members, qualifiedCollaborators, collaboratorsClone);
@@ -115,10 +114,10 @@ public class TeamRepository {
             if (qualifiedCollaborators.size() < maximumSize) {
                 for (Skill skill : skillsRemaining) {
                     if (collaborator.analyseCollaborator(skill) && !skillsAdded.contains(skill)) {
-                        qualifiedCollaborators.add(collaborator);
                         skillsAdded.add(skill);
                     }
                 }
+                qualifiedCollaborators.add(collaborator);
                 skillsAlreadyAdded.addAll(skillsAdded);
                 skillsAdded = new ArrayList<>();
             }
