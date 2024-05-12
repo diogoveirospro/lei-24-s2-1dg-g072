@@ -397,6 +397,7 @@ public class Main {
             System.err.println("Error writing to CSV file: " + e.getMessage());
         }
     }
+
     public static void createScriptGnuplot() throws FileNotFoundException {
         File gnuplot = new File("script_Gnuplot.gp");
         PrintWriter printWriter = new PrintWriter(gnuplot);

@@ -74,9 +74,6 @@ public class TeamRepository {
         if (members.size() < minimumSize) {
             throw new IllegalArgumentException("There aren't enough collaborators with the specified skills to create a team!");
         }
-        if (members.size() < maximumSize) {
-            fillUpToMaximumSize(maximumSize, members, collaboratorsClone);
-        }
         return members;
     }
 
@@ -87,6 +84,7 @@ public class TeamRepository {
      * @param members            the current list of team members
      * @param collaboratorsClone a clone of the list of available collaborators.
      * @param skills    a list of skills still required in the team.
+     * @throws IllegalArgumentException if there are no collaborators with the required skills.
      */
     private void selectMembersForSkills(int maximumSize, List<Collaborator> members, List<Collaborator> collaboratorsClone, List<Skill> skills) {
         List<Skill> skillsPresent = new ArrayList<>();
@@ -114,10 +112,16 @@ public class TeamRepository {
             throw new IllegalArgumentException("There are no collaborators with the required skills: " + skills);
         }
 
-        addCollaboratorToTeam(members, qualifiedCollaborators, collaboratorsClone);
-
+        for (Collaborator collaborator : qualifiedCollaborators) {
+            if (members.size() < maximumSize) {
+                members.add(collaborator);
+                collaborator.setHasTeam(true);
+                collaboratorsClone.remove(collaborator);
+            } else {
+                break;
+            }
+        }
     }
-
 
     /**
      * Returns a list of collaborators that possess the given skill.
@@ -142,37 +146,6 @@ public class TeamRepository {
             }
         }
         return qualifiedCollaborators;
-    }
-
-    /**
-     * Adds a collaborator to the team.
-     *
-     * @param members                the list of selected collaborators
-     * @param qualifiedCollaborators the list of qualified collaborators
-     * @param collaboratorsClone     the list of available collaborators
-     */
-    private void addCollaboratorToTeam(List<Collaborator> members, List<Collaborator> qualifiedCollaborators, List<Collaborator> collaboratorsClone) {
-        for (Collaborator member : qualifiedCollaborators) {
-            members.add(member);
-            member.setHasTeam(true);
-            collaboratorsClone.remove(member);
-        }
-    }
-
-    /**
-     * Fills the team with additional collaborators until the maximum size is reached.
-     *
-     * @param maximumSize        the maximum size of the team
-     * @param members            the list of selected collaborators
-     * @param collaboratorsClone the list of available collaborators
-     */
-    private void fillUpToMaximumSize(int maximumSize, List<Collaborator> members, List<Collaborator> collaboratorsClone) {
-        while (members.size() < maximumSize && !collaboratorsClone.isEmpty()) {
-            Collaborator additionalCollaborator = collaboratorsClone.get(0);
-            members.add(additionalCollaborator);
-            additionalCollaborator.setHasTeam(true);
-            collaboratorsClone.remove(0);
-        }
     }
 
     /**
