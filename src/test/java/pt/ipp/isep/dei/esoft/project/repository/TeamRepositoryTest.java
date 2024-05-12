@@ -162,6 +162,7 @@ public class TeamRepositoryTest {
         assertTrue(teamMembers.contains(collaborators.get(3)));
     }
 
+
     /**
      * Test to verify the behavior of generateTeamProposal method in GenerateTeamProposalController when no collaborators have the required skills.
      * Adds collaborators with specific skills to the repository, attempts to generate a team proposal with specified skills,
@@ -268,6 +269,60 @@ public class TeamRepositoryTest {
         assertTrue(teamMembers.contains(collaborators.get(1)));
         assertTrue(teamMembers.contains(collaborators.get(2)));
         assertTrue(teamMembers.contains(collaborators.get(3)));
+    }
+    /**
+     * Test to verify the behavior of generateTeamProposal method in GenerateTeamProposalController.
+     * Generates a team proposal with specified skills and collaborators and verifies the generated team members.
+     * Ensures that the generated team meets the criteria of having a specific number of members with required skills.
+     */
+    @Test
+    public void testGenerateTeamProposal5() {
+
+        GenerateTeamProposalController controller = new GenerateTeamProposalController();
+        CollaboratorRepository collaboratorsRepository = new CollaboratorRepository();
+        SkillRepository skillRepository = new SkillRepository();
+
+        collaboratorsRepository.addCollaborator(c1);
+        collaboratorsRepository.addCollaborator(c2);
+        collaboratorsRepository.addCollaborator(c3);
+        collaboratorsRepository.addCollaborator(c4);
+
+        List<Collaborator> collaborators = collaboratorsRepository.getCollaborators();
+
+        Skill skill1 = new Skill("Landscape Design");
+        Skill skill2 = new Skill("Gardening");
+        Skill skill3 = new Skill("Agriculture");
+        Skill skill4 = new Skill("Sustainable Land Management");
+        Skill skill5 = new Skill("Ecological Restoration");
+
+        skillRepository.addSkill(skill1);
+        skillRepository.addSkill(skill2);
+        skillRepository.addSkill(skill3);
+        skillRepository.addSkill(skill4);
+        skillRepository.addSkill(skill5);
+
+        List<Skill> skills = new ArrayList<>();
+        skills.add(skill1);
+        skills.add(skill2);
+        skills.add(skill3);
+        skills.add(skill4);
+        skills.add(skill5);
+
+
+        c1.assignSkill(skill1);
+        c1.assignSkill(skill2);
+        c2.assignSkill(skill3);
+        c2.assignSkill(skill4);
+        c3.assignSkill(skill5);
+
+
+
+        List<Collaborator> teamMembers = controller.generateTeamProposal(2, 3, skills, collaborators);
+
+        assertEquals(3, teamMembers.size());
+        assertTrue(teamMembers.contains(collaborators.get(0)));
+        assertTrue(teamMembers.contains(collaborators.get(1)));
+        assertTrue(teamMembers.contains(collaborators.get(2)));
     }
 
     /**
