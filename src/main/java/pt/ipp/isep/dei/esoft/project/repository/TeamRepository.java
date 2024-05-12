@@ -68,12 +68,12 @@ public class TeamRepository {
         List<Skill> remainingSkills = new ArrayList<>(skills);
 
         selectMembersForSkills(maximumSize, members, collaboratorsClone, remainingSkills);
-
+        if (members.size() < maximumSize){
+            fillUpToMaximumSize(maximumSize, members, collaboratorsClone);
+        }
         if (members.size() < minimumSize) {
             throw new IllegalArgumentException("There aren't enough collaborators with the specified skills to create a team!");
         }
-
-        fillUpToMaximumSize(maximumSize, members, collaboratorsClone);
 
         return members;
     }
