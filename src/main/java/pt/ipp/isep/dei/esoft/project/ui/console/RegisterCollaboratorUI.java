@@ -8,16 +8,26 @@ import java.util.Scanner;
 
 /**
  * Console-based user interface for registering a new collaborator.
+ * This class provides methods to interact with the user and register a new collaborator.
+ * It delegates the registration operation to the RegisterCollaboratorController.
  *
  * @author Group 072 - Byte Masters - ISEP
  */
 public class RegisterCollaboratorUI implements Runnable {
     private final RegisterCollaboratorController controller;
 
+    /**
+     * Constructs a new RegisterCollaboratorUI object and initializes it with a RegisterCollaboratorController instance.
+     */
     public RegisterCollaboratorUI() {
         this.controller = new RegisterCollaboratorController();
     }
 
+    /**
+     * Runs the collaborator registration process.
+     * Prompts the user for collaborator information and registers the collaborator.
+     * Prints a success message after successful registration.
+     */
     @Override
     public void run() {
         System.out.println("\n--- Register New Collaborator ---\n");
@@ -134,9 +144,15 @@ public class RegisterCollaboratorUI implements Runnable {
                 idDocType, idDocNumber, jobName);
 
         System.out.println("\nCollaborator successfully registered!");
-
     }
 
+    /**
+     * Prompts the user to enter a date and parses it into a Date object.
+     *
+     * @param scanner the Scanner object to read input from the user
+     * @param prompt  the prompt message to display to the user
+     * @return the Date object representing the parsed date
+     */
     private static Date promptForDate(Scanner scanner, String prompt) {
         while (true) {
             System.out.print(prompt);
