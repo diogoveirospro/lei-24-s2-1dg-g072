@@ -16,6 +16,7 @@ public class RegisterSkillController {
     /**
      * Empty RegisterJobController builder.
      */
+
     public RegisterSkillController(){
         this.skillRepository = Repositories.getInstance().getSkillRepository();
     }
