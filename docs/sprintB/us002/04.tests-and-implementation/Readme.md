@@ -2,69 +2,72 @@
 
 ## 4. Tests 
 
-### Class Job
-**Test 1:** Check that it is not possible to create an instance of the Task class with null values. 
+### Class JobRepositoryTest
+**Test 1:** Test adding a job successfully.
 
-	@Test(expected = IllegalArgumentException.class)
-		public void ensureNullIsNotAllowed() {
-		Task instance = new Task(null, null, null, null, null, null, null);
-	}
+	@Test
+    void testAddJob_Successfully() {
+        Job job = new Job("AAA");
+        assertDoesNotThrow(() -> jobRepository.addJob(job));
+        assertTrue(jobRepository.getJobs().contains(job));
+    }
 	
 
-**Test 2:** Check that it is not possible to create an instance of the Task class with a reference containing less than five chars - AC2. 
+**Test 2:** Test adding a job throws an exception on invalid job. 
 
-	@Test(expected = IllegalArgumentException.class)
-		public void ensureReferenceMeetsAC2() {
-		Category cat = new Category(10, "Category 10");
-		
-		Task instance = new Task("Ab1", "Task Description", "Informal Data", "Technical Data", 3, 3780, cat);
-	}
+	@Test
+    void testAddJob_ThrowsExceptionOnInvalidJob() {
+        Job job = null;
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> jobRepository.addJob(job));
+        assertEquals("Job cannot be null!", exception.getMessage());
+    }
 
-_It is also recommended to organize this content by subsections._ 
+**Test 3:** Test adding a job throws an exception if the job already exists.
 
+    @Test
+    void testAddJob_ThrowsExceptionOnAlreadyExistingJob() {
+        Job job = new Job("AAA");
+        jobRepository.addJob(job);
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> jobRepository.addJob(job));
+        assertEquals("Job already exists!", exception.getMessage());
+    }
 
 ## 5. Construction (Implementation)
 
-### Class CreateTaskController 
+### Class RegisterJobController 
 
 ```java
-public Task createTask(String reference, String description, String informalDescription, String technicalDescription,
-                       Integer duration, Double cost, String taskCategoryDescription) {
+public void registerJob(String name) {
 
-	TaskCategory taskCategory = getTaskCategoryByDescription(taskCategoryDescription);
-
-	Employee employee = getEmployeeFromSession();
-	Organization organization = getOrganizationRepository().getOrganizationByEmployee(employee);
-
-	newTask = organization.createTask(reference, description, informalDescription, technicalDescription, duration,
-                                      cost,taskCategory, employee);
-    
-	return newTask;
+    Job job = new Job(name);
+    jobRepository.addJob(job);
 }
 ```
 
-### Class Organization
+### Class JobRepository
 
 ```java
-public Optional<Task> createTask(String reference, String description, String informalDescription,
-                                 String technicalDescription, Integer duration, Double cost, TaskCategory taskCategory,
-                                 Employee employee) {
-    
-    Task task = new Task(reference, description, informalDescription, technicalDescription, duration, cost,
-                         taskCategory, employee);
+public void addJob(Job newJob){
+    if (!validateJob(newJob)) {
+        throw new IllegalArgumentException("Job already exists!");
+    }
+    if (newJob == null) {
+        throw new IllegalArgumentException("Job cannot be null!");
+    }
 
-    addTask(task);
-        
-    return task;
+    jobs.add(newJob);
+
+}
+
+private boolean validateJob(Job job){
+    return !jobs.contains(job);
 }
 ```
 
 
 ## 6. Integration and Demo 
 
-* A new option on the Employee menu options was added.
-
-* For demo purposes some tasks are bootstrapped while system starts.
+* A new option on the HRM menu options was added.
 
 
 ## 7. Observations

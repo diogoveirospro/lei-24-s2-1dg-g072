@@ -304,13 +304,6 @@ public boolean validateTeam(Team team){
 
 }
 ```
-### Team Class
-
-```java
-public Team(List<Collaborator> members){
-        team = members;
-}
-```
 
 
 ## 6. Integration and Demo 
