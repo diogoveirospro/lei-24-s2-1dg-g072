@@ -28,7 +28,26 @@ java
     }
 
 
-_It is also recommended to organize this content by subsections._ 
+**Test 3:** Ensure that it is not possible to assign a skill to a non-existent collaborator.
+
+    @Test(expected = IllegalArgumentException.class)
+        public void testAssignSkillToNonExistentCollaborator() {
+        Collaborator collaborator = new Collaborator("John Doe", LocalDate.of(1990, 1, 1), LocalDate.of(2020, 1, 1),
+        "Address", "123456789", "john.doe@example.com", "123456789", "IDType", "123456");
+        RegisterSkillController controller = new RegisterSkillController();
+    controller.assignSkill(collaborator, "Java Programming");
+    }
+
+**Test 4:** Ensure that it is possible to assign a skill to a valid collaborator.
+
+    @Test
+    public void testAssignSkillToValidCollaborator() {
+        Collaborator collaborator = new Collaborator("John Doe", LocalDate.of(1990, 1, 1), LocalDate.of(2020, 1, 1),
+        "Address", "123456789", "john.doe@example.com", "123456789", "IDType", "123456");
+        RegisterSkillController controller = new RegisterSkillController();
+        controller.assignSkill(collaborator, "Java Programming");
+        assertTrue(collaborator.getSkills().contains("Java Programming"));
+    }
 
 
 ## 5. Construction (Implementation)
