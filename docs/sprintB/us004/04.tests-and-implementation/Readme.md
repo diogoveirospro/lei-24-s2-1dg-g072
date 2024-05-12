@@ -60,9 +60,9 @@ public Optional<Task> createTask(String reference, String description, String in
 
 ## 6. Integration and Demo 
 
-* A new option on the Employee menu options was added.
+* Add a new option to the Employee menu for assigning skills to a collaborator.
 
-* For demo purposes some tasks are bootstrapped while system starts.
+* This option should be accessible by HRM users.
 
 
 ## 7. Observations
