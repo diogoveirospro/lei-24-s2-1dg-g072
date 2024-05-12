@@ -114,7 +114,7 @@ private boolean validateCollaborator(Collaborator collaborator){
 
 * A new option "Register Collaborator" was added to the Employee menu options to facilitate the registration of new collaborators.
 
-During system initialization, a few sample collaborators may be bootstrapped into the system for demonstration purposes.
+* During system initialization, a few sample collaborators may be bootstrapped into the system for demonstration purposes.
 
 
 ## 7. Observations
