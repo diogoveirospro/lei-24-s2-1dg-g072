@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.esoft.project.domain;
 import pt.ipp.isep.dei.esoft.project.repository.JobRepository;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -74,16 +75,18 @@ public class Collaborator {
 
     /**
      * Constructor for Collaborator class.
-     * @param name Collaborator name.
-     * @param birthDate Collaborator birthdate.
-     * @param admissionDate Collaborator admission date.
-     * @param address Collaborator address.
-     * @param mobile Collaborator mobile number.
-     * @param email Collaborator email.
+     * Initializes collaborator attributes based on provided parameters.
+     *
+     * @param name           Collaborator name.
+     * @param birthDate      Collaborator birthdate.
+     * @param admissionDate  Collaborator admission date.
+     * @param address        Collaborator address.
+     * @param mobile         Collaborator mobile number.
+     * @param email          Collaborator email.
      * @param taxpayerNumber Collaborator taxpayer number.
-     * @param idDocType Collaborator ID document type.
-     * @param idDocNumber Collaborator ID document number.
-     * @param jobName Collaborator's Job Name.
+     * @param idDocType      Collaborator ID document type.
+     * @param idDocNumber    Collaborator ID document number.
+     * @param jobName        Collaborator's Job Name.
      */
     public Collaborator(String name, Date birthDate, Date admissionDate, String address, int mobile, String email,
                         int taxpayerNumber, String idDocType, int idDocNumber, String jobName) {
@@ -105,15 +108,17 @@ public class Collaborator {
 
     /**
      * Constructor for Collaborator class.
-     * @param name Collaborator name.
-     * @param birthDate Collaborator birthdate.
-     * @param admissionDate Collaborator admission date.
-     * @param address Collaborator address.
-     * @param mobile Collaborator mobile number.
-     * @param email Collaborator email.
+     * Initializes collaborator attributes based on provided parameters.
+     *
+     * @param name           Collaborator name.
+     * @param birthDate      Collaborator birthdate.
+     * @param admissionDate  Collaborator admission date.
+     * @param address        Collaborator address.
+     * @param mobile         Collaborator mobile number.
+     * @param email          Collaborator email.
      * @param taxpayerNumber Collaborator taxpayer number.
-     * @param idDocType Collaborator ID document type.
-     * @param idDocNumber Collaborator ID document number.
+     * @param idDocType      Collaborator ID document type.
+     * @param idDocNumber    Collaborator ID document number.
      */
     public Collaborator(String name, Date birthDate, Date admissionDate, String address, int mobile, String email,
                         int taxpayerNumber, String idDocType, int idDocNumber) {
@@ -129,8 +134,11 @@ public class Collaborator {
         skillSet = new ArrayList<>();
     }
 
+    // Getters and setters for collaborator attributes
+
     /**
      * Get collaborator name.
+     *
      * @return Collaborator name.
      */
     public String getName() {
@@ -139,6 +147,7 @@ public class Collaborator {
 
     /**
      * Get collaborator birthdate.
+     *
      * @return Collaborator birthdate.
      */
     public Date getBirthDate() {
@@ -147,6 +156,7 @@ public class Collaborator {
 
     /**
      * Get collaborator admission date.
+     *
      * @return Collaborator admission date.
      */
     public Date getAdmissionDate() {
@@ -155,6 +165,7 @@ public class Collaborator {
 
     /**
      * Get collaborator address.
+     *
      * @return Collaborator address.
      */
     public String getAddress() {
@@ -163,6 +174,7 @@ public class Collaborator {
 
     /**
      * Get collaborator mobile number.
+     *
      * @return Collaborator mobile number.
      */
     public int getMobile() {
@@ -171,6 +183,7 @@ public class Collaborator {
 
     /**
      * Get collaborator email.
+     *
      * @return Collaborator email.
      */
     public String getEmail() {
@@ -206,6 +219,7 @@ public class Collaborator {
 
     /**
      * Get the collaborator job.
+     *
      * @return collaborator job
      */
     public Job getJob() {
@@ -214,6 +228,7 @@ public class Collaborator {
 
     /**
      * Get collaborator skill set.
+     *
      * @return All collaborator skills.
      */
     public List<Skill> getSkillSet() {
@@ -222,13 +237,16 @@ public class Collaborator {
 
     /**
      * Change collaborator address
+     *
      * @param address of the collaborator
      */
     public void setAddress(String address) {
         this.address = address;
     }
+
     /**
      * Change collaborator admission date on the enterprise
+     *
      * @param admissionDate of the collaborator
      */
     public void setAdmissionDate(Date admissionDate) {
@@ -237,6 +255,7 @@ public class Collaborator {
 
     /**
      * Change collaborator birthdate
+     *
      * @param birthDate of the collaborator
      */
     public void setBirthDate(Date birthDate) {
@@ -245,6 +264,7 @@ public class Collaborator {
 
     /**
      * Change collaborator email
+     *
      * @param email of the collaborator
      */
     public void setEmail(String email) {
@@ -253,6 +273,7 @@ public class Collaborator {
 
     /**
      * Change collaborator identification document number
+     *
      * @param idDocNumber of the collaborator
      */
     public void setIdDocNumber(int idDocNumber) {
@@ -261,6 +282,7 @@ public class Collaborator {
 
     /**
      * Change collaborator identification document type
+     *
      * @param idDocType of the collaborator
      */
     public void setIdDocType(String idDocType) {
@@ -269,6 +291,7 @@ public class Collaborator {
 
     /**
      * Change collaborator mobile phone
+     *
      * @param mobile number of the collaborator
      */
     public void setMobile(int mobile) {
@@ -277,15 +300,16 @@ public class Collaborator {
 
     /**
      * Change collaborator name
+     *
      * @param name of the collaborator
      */
-
     public void setName(String name) {
         this.name = name;
     }
 
     /**
      * Change collaborator skill set
+     *
      * @param skillSet of the collaborator
      */
     public void setSkillSet(List<Skill> skillSet) {
@@ -294,6 +318,7 @@ public class Collaborator {
 
     /**
      * Change collaborator taxpayer number
+     *
      * @param taxpayerNumber of the collaborator
      */
     public void setTaxpayerNumber(int taxpayerNumber) {
@@ -302,6 +327,7 @@ public class Collaborator {
 
     /**
      * Change a collaborator's job.
+     *
      * @param job new collaborator job
      */
     public void setJob(Job job) {
@@ -310,6 +336,7 @@ public class Collaborator {
 
     /**
      * Assigns a skill to the collaborator.
+     *
      * @param skill skill to be assigned.
      */
     public void assignSkill(Skill skill) {
@@ -318,6 +345,7 @@ public class Collaborator {
 
     /**
      * Analyses whether a collaborator has a team.
+     *
      * @return True if the collaborator has a team and false otherwise.
      */
     public boolean hasTeam() {
@@ -326,6 +354,7 @@ public class Collaborator {
 
     /**
      * Changes the value of the variable that lets you know if the collaborator has a team.
+     *
      * @param b True if the collaborator has a team and false otherwise.
      */
     public void setHasTeam(boolean b) {
@@ -334,6 +363,7 @@ public class Collaborator {
 
     /**
      * String representation of collaborator.
+     *
      * @return String representation.
      */
     @Override
@@ -354,12 +384,12 @@ public class Collaborator {
 
     /**
      * Analyses whether a collaborator has a skill.
+     *
      * @param skill skill to be analysed.
      * @return True if the collaborator has the skill and false otherwise.
      */
     public boolean analyseCollaborator(Skill skill) {
         return this.skillSet.contains(skill);
     }
-
 }
 
