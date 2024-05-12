@@ -151,7 +151,6 @@ public class TeamRepositoryTest {
         c3.assignSkill(skill1);
         c4.assignSkill(skill5);
         c4.assignSkill(skill2);
-        c4.assignSkill(skill5);
 
 
         List<Collaborator> teamMembers = controller.generateTeamProposal(2, 3, skills, collaborators);
@@ -195,7 +194,7 @@ public class TeamRepositoryTest {
             controller.generateTeamProposal(2, 5, skills, collaborators);
             fail("The method should throw an IllegalArgumentException");
         } catch (IllegalArgumentException e) {
-            assertTrue(e.getMessage().contains("There are no collaborators with the specified skill: "));
+            assertTrue(e.getMessage().contains("There are no collaborators with the required skills: "));
         }
     }
 

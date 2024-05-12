@@ -90,11 +90,30 @@ public class TeamRepository {
      */
     private void selectMembersForSkills(int maximumSize, List<Collaborator> members, List<Collaborator> collaboratorsClone, List<Skill> skills) {
         List<Skill> skillsPresent = new ArrayList<>();
-        List<Collaborator> qualifiedCollaborators = getQualifiedCollaborators(maximumSize ,skills, collaboratorsClone, skillsPresent);
+        List<Collaborator> qualifiedCollaborators = getQualifiedCollaborators(maximumSize, skills, collaboratorsClone, skillsPresent);
 
-        if (skillsPresent != skills) {
-            throw new IllegalArgumentException("There are no collaborators with the remaining skills: ");
+        boolean allSkillsPresent = true;
+
+        for (Skill skill : skills) {
+            boolean skillFound = false;
+
+            for (Skill presentSkill : skillsPresent) {
+                if (skill.equals(presentSkill)) {
+                    skillFound = true;
+                    break;
+                }
+            }
+
+            if (!skillFound) {
+                allSkillsPresent = false;
+                break;
+            }
         }
+
+        if (!allSkillsPresent) {
+            throw new IllegalArgumentException("There are no collaborators with the required skills: " + skills);
+        }
+
         addCollaboratorToTeam(members, qualifiedCollaborators, collaboratorsClone);
 
     }
