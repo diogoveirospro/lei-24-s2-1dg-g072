@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.esoft.project.domain;
 
 import pt.ipp.isep.dei.esoft.project.repository.JobRepository;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,12 +21,12 @@ public class Collaborator {
     /**
      * Collaborator birthdate.
      */
-    private  Date birthDate;
+    private LocalDate birthDate;
 
     /**
      * Collaborator admission date.
      */
-    private Date admissionDate;
+    private LocalDate admissionDate;
 
     /**
      * Collaborator address.
@@ -35,7 +36,7 @@ public class Collaborator {
     /**
      * Collaborator mobile number.
      */
-    private int mobile;
+    private String mobile;
 
     /**
      * Collaborator email.
@@ -45,7 +46,7 @@ public class Collaborator {
     /**
      * Collaborator taxpayer number.
      */
-    private int taxpayerNumber;
+    private String taxpayerNumber;
 
     /**
      * Collaborator ID document type.
@@ -55,7 +56,7 @@ public class Collaborator {
     /**
      * Collaborator ID document number.
      */
-    private int idDocNumber;
+    private String idDocNumber;
 
     /**
      * Collaborator's job.
@@ -87,8 +88,8 @@ public class Collaborator {
      * @param idDocNumber    Collaborator ID document number.
      * @param jobName        Collaborator's Job Name.
      */
-    public Collaborator(String name, Date birthDate, Date admissionDate, String address, int mobile, String email,
-                        int taxpayerNumber, String idDocType, int idDocNumber, String jobName) {
+    public Collaborator(String name, LocalDate birthDate, LocalDate admissionDate, String address, String mobile, String email,
+                        String taxpayerNumber, String idDocType, String idDocNumber, String jobName) {
         this.name = name;
         this.birthDate = birthDate;
         this.admissionDate = admissionDate;
@@ -119,8 +120,8 @@ public class Collaborator {
      * @param idDocType      Collaborator ID document type.
      * @param idDocNumber    Collaborator ID document number.
      */
-    public Collaborator(String name, Date birthDate, Date admissionDate, String address, int mobile, String email,
-                        int taxpayerNumber, String idDocType, int idDocNumber) {
+    public Collaborator(String name, LocalDate birthDate, LocalDate admissionDate, String address, String mobile, String email,
+                        String taxpayerNumber, String idDocType, String idDocNumber) {
         this.name = name;
         this.birthDate = birthDate;
         this.admissionDate = admissionDate;
@@ -149,7 +150,7 @@ public class Collaborator {
      *
      * @return Collaborator birthdate.
      */
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
@@ -158,7 +159,7 @@ public class Collaborator {
      *
      * @return Collaborator admission date.
      */
-    public Date getAdmissionDate() {
+    public LocalDate getAdmissionDate() {
         return admissionDate;
     }
 
@@ -176,7 +177,7 @@ public class Collaborator {
      *
      * @return Collaborator mobile number.
      */
-    public int getMobile() {
+    public String getMobile() {
         return mobile;
     }
 
@@ -194,7 +195,7 @@ public class Collaborator {
      *
      * @return Collaborator taxpayer number.
      */
-    public int getTaxpayerNumber() {
+    public String getTaxpayerNumber() {
         return taxpayerNumber;
     }
 
@@ -212,7 +213,7 @@ public class Collaborator {
      *
      * @return Collaborator ID document number.
      */
-    public int getIdDocNumber() {
+    public String getIdDocNumber() {
         return idDocNumber;
     }
 
@@ -248,7 +249,7 @@ public class Collaborator {
      *
      * @param admissionDate of the collaborator
      */
-    public void setAdmissionDate(Date admissionDate) {
+    public void setAdmissionDate(LocalDate admissionDate) {
         this.admissionDate = admissionDate;
     }
 
@@ -257,7 +258,7 @@ public class Collaborator {
      *
      * @param birthDate of the collaborator
      */
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 
@@ -275,7 +276,7 @@ public class Collaborator {
      *
      * @param idDocNumber of the collaborator
      */
-    public void setIdDocNumber(int idDocNumber) {
+    public void setIdDocNumber(String idDocNumber) {
         this.idDocNumber = idDocNumber;
     }
 
@@ -293,7 +294,7 @@ public class Collaborator {
      *
      * @param mobile number of the collaborator
      */
-    public void setMobile(int mobile) {
+    public void setMobile(String mobile) {
         this.mobile = mobile;
     }
 
@@ -320,7 +321,7 @@ public class Collaborator {
      *
      * @param taxpayerNumber of the collaborator
      */
-    public void setTaxpayerNumber(int taxpayerNumber) {
+    public void setTaxpayerNumber(String taxpayerNumber) {
         this.taxpayerNumber = taxpayerNumber;
     }
 
