@@ -24,25 +24,24 @@ _It is also recommended to organize this content by subsections._
 
 ## 5. Construction (Implementation)
 
-### Class CreateTaskController 
+### Class RegisterSkillController
 
 ```java
 public Task createTask(String reference, String description, String informalDescription, String technicalDescription,
                        Integer duration, Double cost, String taskCategoryDescription) {
 
-	TaskCategory taskCategory = getTaskCategoryByDescription(taskCategoryDescription);
+    TaskCategory taskCategory = getTaskCategoryByDescription(taskCategoryDescription);
 
-	Employee employee = getEmployeeFromSession();
-	Organization organization = getOrganizationRepository().getOrganizationByEmployee(employee);
+    Collaborator collaborator = getCollaboratorFromSession();
 
-	newTask = organization.createTask(reference, description, informalDescription, technicalDescription, duration,
-                                      cost,taskCategory, employee);
-    
-	return newTask;
+    Optional<Task> newTask = collaborator.getOrganization().createTask(reference, description, informalDescription,
+            technicalDescription, duration, cost, taskCategory, collaborator.getEmployee());
+
+    return newTask.orElse(null);
 }
 ```
 
-### Class Organization
+### Class SkillRepository
 
 ```java
 public Optional<Task> createTask(String reference, String description, String informalDescription,
