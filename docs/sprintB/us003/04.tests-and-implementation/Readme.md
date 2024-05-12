@@ -112,9 +112,9 @@ private boolean validateCollaborator(Collaborator collaborator){
 
 ## 6. Integration and Demo 
 
-* A new option on the Employee menu options was added.
+* A new option "Register Collaborator" was added to the Employee menu options to facilitate the registration of new collaborators.
 
-* For demo purposes some tasks are bootstrapped while system starts.
+During system initialization, a few sample collaborators may be bootstrapped into the system for demonstration purposes.
 
 
 ## 7. Observations
