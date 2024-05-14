@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
 import pt.ipp.isep.dei.esoft.project.repository.JobRepository;
+import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -99,7 +100,7 @@ public class Collaborator {
         this.idDocType = idDocType;
         this.idDocNumber = idDocNumber;
 
-        JobRepository jobRepository = new JobRepository();
+        JobRepository jobRepository = Repositories.getInstance().getJobRepository();
         this.job = jobRepository.getJob(jobName);
 
         skillSet = new ArrayList<>();

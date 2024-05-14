@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.esoft.project.ui.console;
 import pt.ipp.isep.dei.esoft.project.application.controller.RegisterCollaboratorController;
 import pt.ipp.isep.dei.esoft.project.domain.Date;
 import pt.ipp.isep.dei.esoft.project.repository.JobRepository;
+import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 
 import java.util.Scanner;
 
@@ -67,6 +68,7 @@ public class RegisterCollaboratorUI implements Runnable {
                 System.out.print("Enter contact number: ");
             }
         }
+        scanner.nextLine();
 
         System.out.print("Enter email address: ");
 
@@ -108,6 +110,8 @@ public class RegisterCollaboratorUI implements Runnable {
             }
         }
 
+        scanner.nextLine();
+
         System.out.print("Enter ID document type (e.g., Passport, Driver's License, CC): ");
         String idDocType = scanner.nextLine();
 
@@ -123,8 +127,9 @@ public class RegisterCollaboratorUI implements Runnable {
             System.out.print("Enter ID document number: ");
         }
 
+        scanner.nextLine();
 
-        JobRepository jobRepository = new JobRepository();
+        JobRepository jobRepository = Repositories.getInstance().getJobRepository();
         String jobName = null;
         valid = false;
 

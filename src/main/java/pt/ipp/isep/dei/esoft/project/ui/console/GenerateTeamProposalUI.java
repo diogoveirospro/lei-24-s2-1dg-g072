@@ -189,11 +189,12 @@ public class GenerateTeamProposalUI implements Runnable {
     private int promptUserForInteger(String message) {
 
         System.out.print(message);
-        while (!scanner.hasNextInt() || scanner.nextInt() <= 0) {
+        int input = scanner.nextInt();
+        while (input <= 0) {
             System.out.print("Invalid input. " + message);
-            scanner.next();
+            input = scanner.nextInt();
         }
-        return scanner.nextInt();
+        return input;
     }
 
     /**
