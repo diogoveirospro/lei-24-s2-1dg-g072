@@ -1,0 +1,42 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+
+class HRM {
+
+ }
+
+class Team {
+    maximumSize
+    minimumSize
+    members
+}
+
+class Collaborator {
+    name
+    birthdate
+    admissionDate
+    address
+    mobileNumber
+    email
+    idDocumentType
+    idDocumentNumber
+}
+
+class Skill{
+    name
+}
+
+HRM "1" -- "*" Team : creates >
+Team "1" -- "1..*" Collaborator: has >
+Collaborator "1" -- "*" Skill: has >
+@enduml

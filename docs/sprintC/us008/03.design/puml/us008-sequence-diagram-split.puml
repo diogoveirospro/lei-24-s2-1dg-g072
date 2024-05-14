@@ -1,0 +1,38 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "Vehicle and Equipment\nFleet Manager\n(VFM)" as VFM
+participant ":ListMaintenanceUI" as UI
+participant ":ListMaintenanceController" as CTRL
+
+
+activate VFM
+
+        VFM -> UI : asks to list the vehicles that need maintenance
+
+        activate UI
+
+            UI --> VFM : asks for confirmation
+
+            VFM -> UI : confirms that he wants to create the list
+            UI -> CTRL** : create
+            UI -> CTRL : maintenance()
+            activate CTRL
+                    ref over CTRL
+                            Get Vehicle Maintenance List
+
+                    end
+            CTRL --> UI: maintenanceList
+            deactivate CTRL
+            UI --> VFM: shows the list
+    deactivate UI
+
+deactivate VFM
+
+
+@enduml

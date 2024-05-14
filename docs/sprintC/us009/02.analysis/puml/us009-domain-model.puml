@@ -1,0 +1,76 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+class GSM {
+
+}
+
+class WaterUsageData {
+    parkID
+    year
+    month
+    day
+    consumption
+}
+
+class BarplotMonthlyWaterConsumption {
+    StartMonth
+    EndMonth
+}
+
+class AverageMonthlyCostsWaterConsumption {
+    numberOfParks
+    parkID
+}
+
+class WaterStatisticsComparison {
+    parkID1
+    parkID2
+    mean
+    median
+    standardDeviation
+    coefficientOfSkewness
+}
+
+class FrequencyTable {
+    classBoundaries
+    relativeFrequency
+}
+
+class AbsoluteTable {
+    classBoundaries
+    absoluteFrequency
+}
+
+class Outlier {
+    value
+}
+
+class Histogram {
+    data
+}
+
+
+GSM "1" -> "*" WaterUsageData : uses >
+WaterUsageData "1" --> "*" BarplotMonthlyWaterConsumption : generates >
+WaterUsageData "1" --> "*" AverageMonthlyCostsWaterConsumption : calculates >
+WaterUsageData "1" --> "*" WaterStatisticsComparison : analyses data >
+WaterStatisticsComparison "1" --> "*" FrequencyTable : generates >
+WaterStatisticsComparison "1" --> "*" AbsoluteTable : generates >
+WaterStatisticsComparison "1" --> "*" Outlier : detects >
+WaterStatisticsComparison "1" --> "*" Histogram : generates
+
+@enduml
+
+
+
+@enduml

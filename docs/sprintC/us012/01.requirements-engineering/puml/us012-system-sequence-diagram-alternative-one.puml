@@ -1,0 +1,27 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD) - Alternative One
+
+autonumber
+
+actor "General Park\nManager (GPM)" as GSM
+participant ":System" as System
+
+activate GSM
+
+    GSM -> System : requests to import .csv file
+    activate System
+
+        System --> GSM : prompts for file selection
+    deactivate System
+
+    GSM -> System : selects .csv file
+    activate System
+
+        System --> GSM : verifies and imports data into unique data structure
+    deactivate System
+
+@enduml

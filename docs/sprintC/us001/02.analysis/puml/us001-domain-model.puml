@@ -1,0 +1,31 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+
+
+class HRM {
+
+}
+
+class Skill {
+    name
+}
+
+
+
+
+
+
+HRM "1  " - "*" Skill: register >
+
+
+@enduml

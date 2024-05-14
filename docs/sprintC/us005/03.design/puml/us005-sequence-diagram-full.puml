@@ -1,0 +1,170 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "Human Resources\n Manager" as HRM
+participant ":GenerateTeamProposalUI" as UI
+participant ":GenerateTeamProposalController" as CTRL
+participant Repositories
+participant "repositories\n:Repositories" as REP
+participant "skillRepository\n:SkillRepository" as SKILLREP
+participant "collaboratorRepository\n:CollaboratorRepository" as COLREP
+participant "teamRepository\n:TeamRepository" as TEAMREP
+participant "collaborator\n:Collaborator" as COLLAB
+participant "team\n:Team" as team
+
+activate HRM
+
+    HRM -> UI : asks to create a new team proposal
+    activate UI
+
+        UI --> HRM : request the maximum and minimum team size
+    deactivate UI
+
+    HRM -> UI : types requested size
+    activate UI
+
+        UI -> CTRL** : generate
+
+
+        UI -> CTRL : listSkills()
+        activate CTRL
+
+           CTRL -> Repositories: getInstance()
+           activate Repositories
+
+                Repositories --> CTRL: repositories
+           deactivate Repositories
+
+           CTRL -> REP: getSkillRepository()
+           activate REP
+
+                REP --> CTRL: skillRepository
+           deactivate REP
+
+            CTRL -> SKILLREP : listSkills()
+            activate SKILLREP
+
+                SKILLREP --> CTRL : skills
+            deactivate SKILLREP
+
+            CTRL --> UI : skills
+        deactivate CTRL
+
+    loop
+        UI --> HRM: shows the list of skills and asks you to \nselect one that you need for that task
+    deactivate UI
+
+    HRM -> UI: select the skill
+    activate UI
+
+    end
+
+        UI --> HRM: shows all data and requests confirmation
+    deactivate UI
+
+    HRM -> UI: confirms data
+    activate UI
+
+        UI -> CTRL: getCollaborators()
+        activate CTRL
+
+            CTRL -> Repositories: getInstance()
+            activate Repositories
+
+                Repositories --> CTRL: repositories
+            deactivate Repositories
+
+            CTRL -> REP: getCollaboratorRepository()
+            activate REP
+
+                REP --> CTRL: collaboratorRepository
+            deactivate REP
+
+            CTRL -> COLREP: getCollaborators()
+            activate COLREP
+
+                COLREP --> CTRL: collaborators
+            deactivate COLREP
+
+            CTRL --> UI: collaborators
+        deactivate CTRL
+
+        UI -> CTRL: generateTeamProposal(minimumSize, maximumSize, skills, collaborators)
+        activate CTRL
+
+            CTRL -> Repositories: getInstance()
+            activate Repositories
+
+                Repositories --> CTRL: repositories
+            deactivate Repositories
+
+            CTRL -> REP: getTeamRepository()
+            activate REP
+
+                REP --> CTRL: teamRepository
+            deactivate REP
+
+            CTRL -> TEAMREP: generateTeamProposal(minimumSize, maximumSize, skills, collaborators)
+            activate TEAMREP
+
+                TEAMREP -> COLLAB**: chooseMembers(minimumSize, maximumSize, collaborators, skills)
+                activate COLLAB
+                loop
+                    COLLAB -> COLLAB: analyseCollaborator(skill)
+                    activate COLLAB
+                end
+                    COLLAB --> TEAMREP: members
+
+                    deactivate COLLAB
+
+                deactivate COLLAB
+
+                TEAMREP --> CTRL: members
+            deactivate TEAMREP
+
+            CTRL --> UI: members
+        deactivate CTRL
+
+        UI --> HRM: show the team recommendation
+    deactivate UI
+
+    HRM -> UI: accepts team recommendation
+    activate UI
+
+        UI -> CTRL: createTeam(members)
+        activate CTRL
+
+            CTRL -> TEAMREP: createTeam(members)
+        activate TEAMREP
+
+        TEAMREP -> team**: Team(members)
+
+            TEAMREP -> TEAMREP : addTeam(team)
+            activate TEAMREP
+
+            TEAMREP -> TEAMREP : validateTeam(team)
+            activate TEAMREP
+
+                TEAMREP --> CTRL: team
+
+            deactivate TEAMREP
+
+            deactivate TEAMREP
+
+
+        deactivate TEAMREP
+
+                CTRL --> UI: team
+            deactivate CTRL
+
+        UI --> HRM: displays operation success
+    deactivate UI
+
+deactivate HRM
+
+@enduml

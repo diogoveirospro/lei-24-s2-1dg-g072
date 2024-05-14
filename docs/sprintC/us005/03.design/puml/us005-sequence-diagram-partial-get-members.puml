@@ -1,0 +1,60 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+participant ":GenerateTeamProposalController" as CTRL
+participant Repositories
+participant "repositories\n:Repositories" as REP
+participant "teamRepository\n:TeamRepository" as TEAMREP
+participant "collaborator\n:Collaborator" as COLLAB
+
+autonumber 13
+-> CTRL : generateTeamProposal(minimumSize, maximumSize, skills, collaborators)
+
+autonumber 13.1
+
+activate CTRL
+    group Get Members
+
+    CTRL -> Repositories: getInstance()
+    activate Repositories
+
+        Repositories --> CTRL: repositories
+    deactivate Repositories
+
+    CTRL -> REP: getTeamRepository()
+    activate REP
+
+        REP --> CTRL: teamRepository
+    deactivate REP
+
+    CTRL -> TEAMREP: generateTeamProposal(minimumSize, maximumSize, skills, collaborators)
+    activate TEAMREP
+
+        TEAMREP -> COLLAB**: chooseMembers(minimumSize, maximumSize, collaborators, skills)
+        activate COLLAB
+
+            loop
+
+            COLLAB -> COLLAB: analyseCollaborator(skills)
+            activate COLLAB
+
+            end
+
+                COLLAB --> TEAMREP: members
+            deactivate COLLAB
+
+            deactivate COLLAB
+
+            TEAMREP --> CTRL: members
+            deactivate TEAMREP
+    end group
+
+    autonumber 14
+    <-- CTRL : members
+
+deactivate CTRL
+
+
+@enduml

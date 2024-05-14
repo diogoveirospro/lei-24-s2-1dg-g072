@@ -1,0 +1,89 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "Human Resources\n Manager" as HRM
+participant ":GenerateTeamProposalUI" as UI
+participant ":GenerateTeamProposalController" as CTRL
+
+activate HRM
+
+    HRM -> UI : asks to create a new team proposal
+    activate UI
+
+        UI --> HRM : request the maximum and minimum team size
+    deactivate UI
+
+    HRM -> UI : types requested size
+    activate UI
+
+        UI -> CTRL** : generate
+        activate CTRL
+
+        UI -> CTRL : listSkills()
+
+            ref over CTRL
+                List Skills
+
+            end
+
+            CTRL --> UI : skills
+
+    loop
+        UI --> HRM: shows the list of skills and asks you to \nselect one that you need for that task
+    deactivate UI
+
+    HRM -> UI: select the skill
+    activate UI
+
+    end
+
+        UI --> HRM: shows all data and requests confirmation
+    deactivate UI
+
+    HRM -> UI: confirms data
+    activate UI
+
+        UI -> CTRL: getCollaborators()
+
+            ref over CTRL
+                Get Collaborators
+
+            end
+
+            CTRL --> UI: collaborators
+
+        UI -> CTRL: generateTeamProposal(minimumSize, maximumSize, skills, collaborators)
+
+            ref over CTRL
+                Get Members
+
+            end
+
+            CTRL --> UI: members
+
+    UI --> HRM: show the team recommendation
+    deactivate UI
+
+    HRM -> UI: accepts team recommendation
+    activate UI
+
+        UI -> CTRL: createTeam(members)
+
+            ref over CTRL
+                Create Team
+
+            end
+
+            CTRL --> UI: team
+
+        UI --> HRM: displays operation success
+    deactivate UI
+
+deactivate HRM
+
+@enduml

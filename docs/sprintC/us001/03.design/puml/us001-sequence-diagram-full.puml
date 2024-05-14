@@ -1,0 +1,79 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "Human\nResources\nManager\n(HRM)" as HRM
+participant ":RegisterSkillUI" as UI
+participant ":RegisterSkillController" as CTRL
+participant Repositories
+participant "repositories:\nRepositories" as REP
+participant "skillRepository:\nSkillRepository" as SREP
+participant "skill:Skill" as skill
+
+activate HRM
+
+
+        HRM -> UI : asks to register some skill
+        activate UI
+
+                UI --> HRM : requests the skill name
+        deactivate UI
+        HRM -> UI: Types requested data
+        activate UI
+
+                UI --> HRM : Shows the skill and asks for confirmation
+        deactivate UI
+        HRM -> UI : Confirms skill
+        activate UI
+
+                UI -> CTRL: registerSkill(name)
+
+                activate CTRL
+
+                        CTRL -> Repositories: getInstance()
+
+                        activate Repositories
+
+                                Repositories --> CTRL: repositories
+                        deactivate Repositories
+
+                        CTRL -> REP: getSkillsRepository()
+                        activate REP
+
+                                REP --> CTRL: skillsRepository
+                        deactivate REP
+                        CTRL -> SREP: registerSkill(name)
+                        activate SREP
+
+                                SREP -> skill**: register(name)
+
+
+                                SREP -> SREP: addSkill(skill)
+                                        activate SREP
+                                        SREP -> SREP: validateSkill(skill)
+
+                                                activate SREP
+
+
+
+
+                                SREP --> CTRL: skill
+                                                deactivate SREP
+
+                                        deactivate SREP
+
+
+                        deactivate SREP
+
+                        CTRL --> UI: skill
+                deactivate CTRL
+
+                UI --> HRM: displays operation success
+        deactivate UI
+deactivate HRM
+
+@enduml

@@ -1,0 +1,77 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+
+'left to right direction
+
+class Repositories {
+    - Repositories()
+    + getInstance() : Repositories
+    + getVehicleRepository()
+    + getVehicleMaintenanceRepository()
+}
+
+class RegisterVehicleController {
+    + RegisterVehicleController(vehicleRepository)
+    + registerVehicle(plateNumber, brand, model, type, tare, grossWeight, currentKms, registrationDate, acquisitionDate, serviceFrequency)
+}
+
+class maintenanceRepository{
+    + registerVehicleMaintenance(vehicleList, date)
+    + addVehicle()
+    + validateVehicle(vehicle)
+}
+
+class vehicleRepository{
+    + registerVehicle(plateNumber, brand, model, type, tare, grossWeight, currentKms, registrationDate, acquisitionDate, serviceFrequency)
+    + addVehicle(vehicle)
+    + validateVehicle(vehicle)
+}
+
+class RegisterVehicleUI {
+}
+
+class Vehicle{
+    - String plateNumber
+    - String brand
+    - String model
+    - String type
+    - Double tare
+    - Double grossWeight
+    - Double currentKms
+    - String registrationDate
+    - String acquisitionDate
+    - Double serviceFrequency
+    - Double kmAtLastMaintenance
+}
+
+class Maintenance{
+    - Double km at maintenance
+}
+
+Repositories -> Repositories : instance
+
+RegisterVehicleUI .> RegisterVehicleController
+RegisterVehicleController .> "1" vehicleRepository : vehicleRepository
+
+
+Repositories --> "1" vehicleRepository
+
+RegisterVehicleController .> Repositories : repositories
+
+vehicleRepository  o-- "*" Vehicle : has
+
+maintenanceRepository o- "*" Maintenance : has
+
+Vehicle -> Maintenance
+
+Repositories --> "1" maintenanceRepository
+
+RegisterVehicleController ..> "1" maintenanceRepository: maintenanceRepository
+
+@enduml

@@ -1,0 +1,76 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+actor HRM
+participant ":AssignSkillUI" as UI
+participant ":AssignSkillController" as CTRL
+participant "collaboratorRepository\n:CollaboratorRepository" as CREP
+
+activate HRM
+
+HRM -> UI : Request to assign one or more skills to a collaborator
+activate UI
+
+        UI -> CTRL** : generate
+
+        UI -> CTRL: listSkills()
+                activate CTRL
+                        ref over CTRL
+                                List Skills
+                        end
+                        CTRL --> UI: skills
+                deactivate CTRL
+UI --> HRM: Displays a list of available skills
+deactivate UI
+loop
+HRM -> UI : selects a skills
+activate UI
+
+        UI --> HRM: asks if you want to add more skills\nor continue the program
+deactivate UI
+end
+HRM -> UI : Provides collaborator details
+activate UI
+
+        UI -> CTRL: getCollaborator()
+
+        activate CTRL
+
+                ref over CTRL
+                        Get Collaborator
+                end
+                CTRL --> UI: collaborator
+        deactivate CTRL
+
+UI --> HRM : Shows details and requests confirmation
+deactivate UI
+
+HRM -> UI : Confirms details
+activate UI
+
+        UI -> CTRL: assignSkill(collaborator,skills)
+        activate CTRL
+
+                CTRL -> CREP: assignSkill(collaborator,skills)
+                activate CREP
+
+                        ref over CREP
+                                Assign Skills
+                        end
+
+                        CREP --> CTRL: collaborator
+                deactivate CREP
+                CTRL --> UI: collaborator
+        deactivate CTRL
+        UI --> HRM: success
+
+deactivate UI
+
+
+deactivate HRM
+
+@enduml

@@ -1,0 +1,38 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+participant "collaboratorRepository:CollaboratorRepository" as CREP
+participant "collaborator:Collaborator" as collaborator
+autonumber 14
+-> CREP: assignSkill(collaborator,skills)
+
+autonumber 14.1
+activate CREP
+    group Assign Skills
+
+                        activate CREP
+ CREP -> collaborator** : assignSkill(collaborator,skills)
+                                activate collaborator
+                                                    collaborator -> collaborator: validateSkills(skills)
+                                                    activate collaborator
+
+                                                            collaborator -> collaborator: addCollaboratorSkills(skills)
+
+                                                            activate collaborator
+                    collaborator --> CREP: collaborator
+                                                            deactivate collaborator
+
+                                                deactivate collaborator
+
+                                            deactivate collaborator
+
+    end
+
+    autonumber 15
+    <-- CREP : collaborator
+    deactivate CREP
+
+deactivate CREP
+@enduml

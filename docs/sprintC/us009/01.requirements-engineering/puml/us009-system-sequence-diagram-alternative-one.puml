@@ -1,0 +1,62 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD) - Alternative One
+
+autonumber
+
+actor "Green Spaces\nManager" as GSM
+participant ":System" as System
+
+activate GSM
+
+    GSM -> System : asks for a cost analysis of a park's water consumption
+    activate System
+
+        System --> GSM : requests the file with water consumption since the opening day of each park
+    deactivate System
+
+    GSM -> System : uploads the "WaterUsed.csv" file
+    activate System
+
+        System --> GSM : request the time period (StartMonth, EndMonth)
+    deactivate System
+
+    GSM -> System : enter the time period
+    activate System
+
+        System --> GSM : shows the list of parks and asks you to select the park for which \n you need the analysis
+    deactivate System
+
+    GSM -> System : select park identification
+    activate System
+
+        System --> GSM : shows all data and requests confirmation
+    deactivate System
+
+    GSM -> System : confirms data
+    activate System
+
+        System --> GSM :  Confirm receipt of analysis details
+    deactivate System
+
+    GSM -> System : asks for the monthly water consumption analysis for that park
+    activate System
+
+        System --> GSM : displays barplot of monthly water consumption in that park
+    deactivate System
+
+    GSM -> System : asks for the average monthly water consumption costs for that park
+    activate System
+
+        System --> GSM : displays average monthly water consumption costs for this park
+    deactivate System
+
+    GSM -> System : requests a comparative statistical analysis for the parks with the highest \n and lowest water consumption
+    activate System
+
+        System --> GSM : presents the results of the comparative statistical analysis of water consumption
+    deactivate System
+@enduml

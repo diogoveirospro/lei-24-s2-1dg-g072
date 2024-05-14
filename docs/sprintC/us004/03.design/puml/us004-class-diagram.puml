@@ -1,0 +1,63 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+
+skinparam classAttributeIconSize 0
+
+class Repositories {
+    - Repositories()
+    + getInstance() : Repositories
+    + getCollaboratorRepository()
+    + getSkillRepository()
+}
+
+class AssignSkillsController {
+    + AssignSkillsController(collaboratorRepository, skillRepository)
+    + assignSkills(collaborator, skills)
+}
+
+class CollaboratorRepository {
+    + addCollaborator(collaborator)
+    + validateCollaborator(collaborator)
+}
+
+class SkillRepository {
+    + getSkill(name)
+}
+
+class AssignSkillsUI {
+}
+
+class Collaborator {
+    - String name
+    - String birthdate
+    - String admissionDate
+    - String address
+    - String mobileNumber
+    - String idDocumentType
+    - String idDocumentNumber
+}
+
+class Skill {
+    - String name
+}
+
+Repositories -> Repositories : instance
+
+AssignSkillsUI .> AssignSkillsController
+AssignSkillsController .> "1" CollaboratorRepository : collaboratorRepository
+AssignSkillsController .> "1" SkillRepository : skillRepository
+
+Repositories --> "1" CollaboratorRepository
+Repositories --> "1" SkillRepository
+
+AssignSkillsController .> Repositories : repositories
+
+CollaboratorRepository  o-- "*" Collaborator
+
+SkillRepository  o- "*" Skill
+SkillRepository ..> CollaboratorRepository: assignSkills(Skills)
+Collaborator o-- "*" Skill
+@enduml

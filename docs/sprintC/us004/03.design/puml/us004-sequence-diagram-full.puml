@@ -1,0 +1,125 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+actor HRM
+participant ":AssignSkillUI" as UI
+participant ":AssignSkillController" as CTRL
+participant ":Repositories" as REP
+participant "repositories\n:Repositories" as repositories
+participant "skillRepository\n:SkillRepository" as SREP
+participant "collaboratorRepository\n:CollaboratorRepository" as CREP
+participant "collaborator:\nCollaborator" as collaborator
+
+activate HRM
+
+HRM -> UI : Request to assign one or more skills to a collaborator
+activate UI
+
+        UI -> CTRL** : generate
+
+        UI -> CTRL: listSkills()
+activate CTRL
+
+                        CTRL -> REP: getInstance()
+
+                        activate REP
+
+                                REP --> CTRL: repositories
+                        deactivate REP
+
+                        CTRL -> repositories: getSkillRepository()
+                        activate repositories
+
+                                repositories --> CTRL: skillRepository
+                        deactivate repositories
+                        CTRL -> SREP: listSkills()
+                        activate SREP
+
+                                SREP --> CTRL: skills
+
+                        deactivate SREP
+
+                        CTRL --> UI: skills
+                deactivate CTRL
+UI --> HRM: Displays a list of available skills
+deactivate UI
+loop
+HRM -> UI : selects a skills
+activate UI
+
+        UI --> HRM: asks if you want to add more skills\nor continue the program
+deactivate UI
+end
+HRM -> UI : Provides collaborator details
+activate UI
+
+        UI -> CTRL: getCollaborator()
+
+        activate CTRL
+
+                CTRL -> REP: getInstance()
+                activate REP
+
+                        REP --> CTRL: repositories
+                deactivate REP
+
+                CTRL -> repositories: getCollaboratorRepository()
+
+                activate repositories
+
+                        repositories --> CTRL: collaboratorRepository
+                deactivate repositories
+
+                CTRL -> CREP: getCollaborator()
+
+                activate CREP
+
+                        CREP --> CTRL: collaborator
+                deactivate CREP
+
+                CTRL --> UI: collaborator
+        deactivate CTRL
+
+UI --> HRM : Shows details and requests confirmation
+deactivate UI
+
+HRM -> UI : Confirms details
+activate UI
+
+        UI -> CTRL: assignSkill(collaborator,skills)
+        activate CTRL
+
+                CTRL -> CREP: assignSkill(collaborator,skills)
+                activate CREP
+
+                        CREP -> collaborator** : assignSkill(collaborator,skills)
+                        activate collaborator
+                                collaborator -> collaborator: validateSkills(skills)
+                                activate collaborator
+
+                                        collaborator -> collaborator: addCollaboratorSkills(skills)
+
+                                        activate collaborator
+
+                                                collaborator --> CREP: collaborator
+                                        deactivate collaborator
+
+                            deactivate collaborator
+
+                        deactivate collaborator
+                        CREP --> CTRL: collaborator
+                deactivate CREP
+                CTRL --> UI: collaborator
+        deactivate CTRL
+        UI --> HRM: success
+
+deactivate UI
+
+
+deactivate HRM
+
+@enduml

@@ -1,0 +1,43 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+participant "AssignSkillController" as CTRL
+participant ":Repositories" as REP
+participant "repositories\n:Repositories" as repositories
+participant "collaboratorRepository\n:CollaboratorRepositories" as CREP
+
+autonumber 9
+-> CTRL: getCollaborator()
+
+autonumber 9.1
+activate CTRL
+    group List Skills
+
+        CTRL -> REP: getInstance()
+
+                                activate REP
+
+                                        REP --> CTRL: repositories
+                                deactivate REP
+
+                                CTRL -> repositories: getCollaboratorRepository()
+                                activate repositories
+
+                                        repositories --> CTRL: collaboratorRepository
+                                deactivate repositories
+                                CTRL -> CREP: getCollaborator()
+                                activate CREP
+
+                                        CREP --> CTRL: collaborator
+
+                                deactivate CREP
+    end
+
+    autonumber 10
+    <-- CTRL : collaborator
+    deactivate CTRL
+
+deactivate CTRL
+@enduml

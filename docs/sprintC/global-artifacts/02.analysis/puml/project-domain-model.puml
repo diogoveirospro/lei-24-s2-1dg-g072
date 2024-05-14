@@ -1,0 +1,94 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+'skinparam linetype ortho
+'left to right direction
+skinparam classAttributeIconSize 0
+hide circle
+hide methods
+
+
+class HRM {
+
+}
+
+class Skill {
+    name
+}
+class Job {
+    name
+}
+
+
+class Team {
+    size
+    members
+
+}
+
+class Collaborator {
+    name
+    birthdate
+    admissionDate
+    address
+    contactInfo
+    idDocumentType
+    idDocumentNumber
+}
+
+
+
+class Vehicle{
+    plate id
+    brand
+    model
+    type
+    tare
+    gross weight
+    current kms
+    registration date
+    acquisition date
+    maintenance/check-up frequency
+}
+
+class VFM {
+
+}
+
+class VehiclesCheckUp {
+    plate id
+}
+
+
+'US001
+HRM "1" -- "1..*" Skill: register >
+
+'US002
+HRM "1" - "1..*" Job : register >
+
+'US003
+HRM "1" - "1..*" Collaborator : registers >
+
+'US004
+HRM "1" - "1..*" Skill : assigns >
+Collaborator "1" -- "1..*" Skill : has >
+
+'US005
+HRM "1" - "1..*" Team : creates >
+Collaborator "1" -- "1" Job: has >
+Team "1" -- "1..*" Collaborator: has >
+
+
+'US006
+VFM "1" -- "1..*" Vehicle: registers >
+
+'US007
+VFM "1"-- "1..*" Vehicle: chooses >
+
+'US008
+VFM "1" -- "1..*" VehiclesCheckUp: lists >
+Vehicle "1..*" -- "1" VehiclesCheckUp: has <
+
+
+@enduml

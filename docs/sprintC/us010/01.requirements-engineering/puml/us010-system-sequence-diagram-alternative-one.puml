@@ -1,0 +1,27 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD) - Alternative One
+
+autonumber
+
+actor "General Park\nManager (GPM)" as GSM
+participant ":System" as System
+
+activate GSM
+
+    GSM -> System : requests equipment usage data
+    activate System
+
+        System --> GSM : retrieves data from "EquipmentUsed.csv"
+    deactivate System
+
+    GSM -> System : analyzes equipment usage data
+    activate System
+
+        System --> GSM : provides analyzed data for pie chart generation
+    deactivate System
+
+@enduml

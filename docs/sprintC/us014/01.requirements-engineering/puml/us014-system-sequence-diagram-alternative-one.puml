@@ -1,0 +1,36 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD) - Alternative One
+
+autonumber
+
+actor "Software\nQuality\nAssessment\nTeam\nManager\n(QAM)" as Employee
+participant ":System" as System
+
+activate Employee
+
+    Employee -> System : asks to create an asymptotic behavior graph about the time taken to create the topographic survey
+
+    activate System
+loop
+        System --> Employee : asks for the information necessary to create a topographic survey
+    deactivate System
+
+    Employee -> System : Gives the information
+
+        activate System
+
+            System --> Employee : Asks if he wants to add more information
+        deactivate System
+
+    Employee -> System : yes/no
+        activate System
+end
+            System --> Employee : shows the asymptotic behavior graph about the time taken to create the topographic survey
+        deactivate System
+
+
+@enduml

@@ -1,0 +1,39 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+hide circles
+hide methods
+
+
+
+class VFM{
+    
+}
+
+class Vehicle{
+    plate id
+    brand
+    model
+    type
+    tare
+    gross weight
+    current kms
+    registration date
+    acquisition date
+    maintenance frequency
+    km at last maintenance
+}
+
+class Maintenance{
+    km at maintenance
+}
+
+VFM "1"-"   1..*" Vehicle: chooses >
+Vehicle "1" - "1..*" Maintenance: has >
+
+@enduml

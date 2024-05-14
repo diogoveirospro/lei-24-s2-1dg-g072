@@ -1,0 +1,64 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+'skinparam shadowing false
+
+
+'title Use Case Diagram Example
+
+left to right direction
+
+rectangle "System Actors" as actors {
+    actor "Human Resources\nManager" as HRM
+    actor "Vehicle and Equipment\nFleet Manager" as VFM
+    actor "Green Spaces\nManager" as GSM
+    actor "Software Quality\nAssessment Team \nManager" as QAM
+}
+
+
+rectangle "Use Cases" as usecases{
+    usecase "UC1 - Register Skills" as UC1
+    HRM ----> UC1
+
+    usecase "UC2 - Register a Job" as UC2
+    HRM ----> UC2
+
+    usecase "UC3 - Register a Collaborator" as UC3
+    HRM ----> UC3
+
+    usecase "UC4 - Assign one or more Skills to a Collaborator" as UC4
+    HRM ----> UC4
+
+    usecase "UC5 - Generate a Team Proposal" as UC5
+    HRM ----> UC5
+
+    usecase "UC6 - Register a Vehicle" as UC6
+    VFM ----> UC6
+
+    usecase "UC7 - Register a Vehicle’s Maintenance" as UC7
+    VFM ----> UC7
+
+    usecase "UC8 - List Vehicles that need Maintenance" as UC8
+    VFM ----> UC8
+
+    usecase "UC9 - Costs of water consumption" as UC9
+    GSM ----> UC9
+
+    usecase "UC10 - Find which piece of equipment is used each day" as UC10
+    GSM ----> UC10
+
+    usecase "UC11 - Collect data from user portal" as UC11
+    GSM ----> UC11
+
+    usecase "UC12 - Import .csv file" as UC12
+    GSM ----> UC12
+
+    usecase "UC13 - Algorithm that returns routes to be opened" as UC13
+    GSM ----> UC13
+
+    usecase "UC14 - Run tests for the inputs of variable size" as UC14
+    QAM ----> UC14
+}
+
+
+@enduml

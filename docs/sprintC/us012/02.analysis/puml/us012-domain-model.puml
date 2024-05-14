@@ -1,0 +1,42 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+class GSM {
+    name
+ }
+
+class CSVFile {
+    waterPointX: int
+    waterPointY: int
+    distance: float
+ }
+
+class DataStructure {
+    routes: List<Route>
+}
+
+class Route {
+    startPoint: WaterPoint
+    endPoint: WaterPoint
+    installationCost: float
+}
+
+class WaterPoint {
+    x: int
+    y: int
+}
+
+GSM "1" - "1..*" CSVFile: imports >
+CSVFile "1" - "1" DataStructure: contains >
+DataStructure "1" -- "1..*" Route: needs >
+Route "1" *-- "1" WaterPoint: connects >
+@enduml

@@ -1,0 +1,35 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+
+class QAM {
+
+}
+
+class Organization{
+    name
+    address
+}
+class  AsymptoticBehaviorGraph{
+    time to create a topographic survey
+    size of the sample of the topographic survey created
+}
+class TopographicSurvey{
+coordinates of the water points
+distance between water points
+}
+Organization "1" -- "1..*" TopographicSurvey: owns >
+Organization "1" - "1..*" AsymptoticBehaviorGraph: owns >
+QAM "1" - "1..*" AsymptoticBehaviorGraph: creates >
+QAM "1" - "1..*" TopographicSurvey: creates >
+AsymptoticBehaviorGraph "1" -- "1..*" TopographicSurvey: needs >
+@enduml

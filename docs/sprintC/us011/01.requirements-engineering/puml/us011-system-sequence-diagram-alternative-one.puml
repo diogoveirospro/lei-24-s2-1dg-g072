@@ -1,0 +1,36 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD) - Alternative One
+
+autonumber
+
+actor "Park User" as User
+participant ":System" as System
+
+    activate System
+
+        System --> User : Asks for the age of the user
+    deactivate System
+
+    User -> System : types requested answer
+    activate System
+
+        System --> User : Asks if the user would recommend the park to others
+    deactivate System
+
+    User -> System : types requested answer
+    activate System
+
+        System --> User : asks how many times the user visits the park per month
+    deactivate System
+
+    User -> System : types requested answer
+    activate System
+
+        System --> User : displays operation completed and saves the answers
+    deactivate System
+
+@enduml

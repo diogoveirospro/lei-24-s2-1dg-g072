@@ -1,0 +1,48 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+
+'left to right direction
+
+class Job {
+    - name: String
+
+    + Job(name)
+}
+
+class RegisterJobUI {
+
+}
+
+class RegisterJobController {
+    + CreateJobController(jobRepository)
+    + registerJob(name)
+}
+
+class Repositories {
+    - Repositories()
+    + getInstance() : Repositories
+    + getJobRepository() : Repositories
+}
+
+class JobRepository {
+    + register(name)
+    + addJob(job)
+    + validate(job)
+}
+
+
+RegisterJobUI .> RegisterJobController
+RegisterJobController .> Repositories : repositories
+Repositories --> Repositories : instance
+Repositories --> "1" JobRepository
+JobRepository o-- "1" Job : has
+RegisterJobController .> JobRepository : jobRepository
+RegisterJobController .> Job : job
+
+@enduml

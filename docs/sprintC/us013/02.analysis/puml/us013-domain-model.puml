@@ -1,0 +1,27 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+
+class GSM{
+
+}
+class Organization{
+name
+address
+}
+class TopographicSurvey{
+coordinates of the water points
+distance between water points
+}
+GSM "1" -- "1..*" TopographicSurvey: creates >
+Organization "1" - "1..*" TopographicSurvey: owns >
+@enduml

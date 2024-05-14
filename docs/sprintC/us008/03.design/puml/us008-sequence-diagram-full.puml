@@ -1,0 +1,60 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "Vehicle and Equipment\nFleet Manager\n(VFM)" as VFM
+participant ":ListMaintenanceUI" as UI
+participant ":ListMaintenanceController" as CTRL
+participant ":Repositories" as RepositorySingleton
+participant "repositories\n:Repositories" as REP
+participant "maintenanceRepository\n:MaintenanceRepository" as maintenanceRepository
+
+
+activate VFM
+
+        VFM -> UI : asks to list the vehicles that need maintenance
+
+        activate UI
+
+            UI --> VFM : asks for confirmation
+
+            VFM -> UI : confirms that he wants to create the list
+            UI -> CTRL** : create
+            UI -> CTRL : getMaintenanceList()
+            activate CTRL
+
+                CTRL -> RepositorySingleton : getInstance()
+                activate RepositorySingleton
+
+                    RepositorySingleton --> CTRL: repositories
+                deactivate RepositorySingleton
+
+                CTRL -> REP : getMaintenanceRepository()
+                activate REP
+
+                    REP --> CTRL: maintenanceRepository
+                deactivate REP
+
+                CTRL -> maintenanceRepository : getMaintenanceList()
+
+                activate maintenanceRepository
+
+                        maintenanceRepository --> CTRL : maintenanceList
+                deactivate maintenanceRepository
+
+            deactivate maintenanceRepository
+
+            CTRL --> UI: maintenanceList
+            deactivate CTRL
+            UI --> VFM: shows the list
+    deactivate UI
+
+deactivate VFM
+
+
+
+@enduml
