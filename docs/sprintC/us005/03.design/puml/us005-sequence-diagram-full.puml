@@ -14,8 +14,8 @@ participant "repositories\n:Repositories" as REP
 participant "skillRepository\n:SkillRepository" as SKILLREP
 participant "collaboratorRepository\n:CollaboratorRepository" as COLREP
 participant "teamRepository\n:TeamRepository" as TEAMREP
-participant "collaborator\n:Collaborator" as COLLAB
 participant "team\n:Team" as team
+participant "collaborator\n:Collaborator" as COLLAB
 
 activate HRM
 
@@ -112,22 +112,34 @@ activate HRM
             CTRL -> TEAMREP: generateTeamProposal(minimumSize, maximumSize, skills, collaborators)
             activate TEAMREP
 
-                TEAMREP -> COLLAB**: chooseMembers(minimumSize, maximumSize, collaborators, skills)
-                activate COLLAB
-                loop
-                    COLLAB -> COLLAB: analyseCollaborator(skill)
+                TEAMREP -> team**: Team(minimumSize, maximumSize, collaborators, skills)
+                activate team
+
+                    loop for each collaborator
+                    loop for each skill
+
+                    team -> COLLAB**: addTeam(skill)
                     activate COLLAB
-                end
-                    COLLAB --> TEAMREP: members
 
-                    deactivate COLLAB
+                        COLLAB -> COLLAB: analyseCollaborator(skill)
+                        activate COLLAB
 
-                deactivate COLLAB
+                        COLLAB --> team: canJoinTeam
+                        deactivate COLLAB
 
-                TEAMREP --> CTRL: members
+                        deactivate COLLAB
+
+                    end
+                    end
+
+                    team --> TEAMREP: team
+
+                deactivate team
+
+                TEAMREP --> CTRL: team
             deactivate TEAMREP
 
-            CTRL --> UI: members
+            CTRL --> UI: team
         deactivate CTRL
 
         UI --> HRM: show the team recommendation
@@ -136,31 +148,27 @@ activate HRM
     HRM -> UI: accepts team recommendation
     activate UI
 
-        UI -> CTRL: createTeam(members)
+        UI -> CTRL: addTeam(Team)
         activate CTRL
 
-            CTRL -> TEAMREP: createTeam(members)
-        activate TEAMREP
-
-        TEAMREP -> team**: Team(members)
-
-            TEAMREP -> TEAMREP : addTeam(team)
+            CTRL -> TEAMREP : addTeam(team)
             activate TEAMREP
 
-            TEAMREP -> TEAMREP : validateTeam(team)
-            activate TEAMREP
+                TEAMREP -> TEAMREP : addTeam(team)
+                activate TEAMREP
 
-                TEAMREP --> CTRL: team
+                TEAMREP -> TEAMREP : validateTeam(team)
+                activate TEAMREP
 
+                deactivate TEAMREP
+
+                deactivate TEAMREP
+
+            TEAMREP --> CTRL: ok
             deactivate TEAMREP
 
-            deactivate TEAMREP
-
-
-        deactivate TEAMREP
-
-                CTRL --> UI: team
-            deactivate CTRL
+        CTRL --> UI: ok
+        deactivate CTRL
 
         UI --> HRM: displays operation success
     deactivate UI
