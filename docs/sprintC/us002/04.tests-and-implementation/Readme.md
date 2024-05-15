@@ -37,6 +37,15 @@
 ### Class RegisterJobController 
 
 ```java
+private String name;
+
+public Job(String name){
+    if(name == null || name.trim().isEmpty()){
+        throw new IllegalArgumentException("Name cannot be empty or null");
+    }
+    this.name = name;
+}
+
 public void registerJob(String name) {
 
     Job job = new Job(name);
@@ -47,6 +56,12 @@ public void registerJob(String name) {
 ### Class JobRepository
 
 ```java
+private final List<Job> jobs;
+
+public JobRepository(){
+    jobs = new ArrayList<>();
+}
+
 public void addJob(Job newJob){
     if (!validateJob(newJob)) {
         throw new IllegalArgumentException("Job already exists!");
