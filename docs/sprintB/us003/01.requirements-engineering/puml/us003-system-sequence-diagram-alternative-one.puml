@@ -15,7 +15,7 @@ activate HRM
     HRM -> System : asks to register a collaborator with a job \n and fundamental characteristics
     activate System
 
-        System --> HRM : requests collaborator data (name, \n contact information, job position, skills)
+        System --> HRM : requests collaborator data (name, \n contact information, job position)
     deactivate System
 
     HRM -> System : inputs collaborator data
@@ -26,12 +26,6 @@ activate HRM
 
     HRM -> System : selects a job position
     activate System
-        System --> HRM : shows a list of available skills and \n asks to select relevant ones
-    deactivate System
-
-    HRM -> System : selects relevant skills
-    activate System
-
         System --> HRM : presents a list of sectors of activity and \n asks to select one
     deactivate System
 
