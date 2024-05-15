@@ -43,6 +43,5 @@ Repositories --> Repositories : instance
 Repositories --> "1" JobRepository
 JobRepository o-- "1" Job : has
 RegisterJobController .> JobRepository : jobRepository
-RegisterJobController .> Job : job
 
 @enduml
