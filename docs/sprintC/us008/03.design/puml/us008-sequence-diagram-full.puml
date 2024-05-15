@@ -12,6 +12,7 @@ participant ":ListMaintenanceController" as CTRL
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as REP
 participant "maintenanceRepository\n:MaintenanceRepository" as maintenanceRepository
+participant "vehicleRepository\n:VehicleRepository" as vehicleRepository
 
 
 activate VFM
@@ -21,12 +22,33 @@ activate VFM
         activate UI
 
             UI --> VFM : asks for confirmation
-
+        deactivate UI
             VFM -> UI : confirms that he wants to create the list
+        activate UI
+
             UI -> CTRL** : create
+
             UI -> CTRL : getMaintenanceList()
             activate CTRL
 
+                CTRL -> RepositorySingleton : getInstance()
+
+                activate RepositorySingleton
+
+                    RepositorySingleton --> CTRL : repositories
+                deactivate RepositorySingleton
+
+                CTRL -> REP : getVehicleRepository()
+                activate REP
+
+                    REP --> CTRL : vehicleRepository
+                deactivate REP
+
+                CTRL -> vehicleRepository : getVehicleList()
+                activate vehicleRepository
+
+                    vehicleRepository --> CTRL : vehicleList
+                deactivate vehicleRepository
                 CTRL -> RepositorySingleton : getInstance()
                 activate RepositorySingleton
 
@@ -39,7 +61,7 @@ activate VFM
                     REP --> CTRL: maintenanceRepository
                 deactivate REP
 
-                CTRL -> maintenanceRepository : getMaintenanceList()
+                CTRL -> maintenanceRepository : getMaintenanceList(vehicleList)
 
                 activate maintenanceRepository
 

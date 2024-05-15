@@ -40,5 +40,4 @@ Repositories --> Repositories : instance
 Repositories "1" --> "1" SkillRepository
 SkillRepository o-- "*" Skill : has
 RegisterSkillController .> SkillRepository : skillRepository
-RegisterSkillController .> Skill : skill
 @enduml
