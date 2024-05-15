@@ -13,7 +13,9 @@ participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as REP
 participant "maintenanceRepository\n:MaintenanceRepository" as maintenanceRepository
 participant "vehicleRepository\n:VehicleRepository" as vehicleRepository
-
+participant "maintenance\n:Maintenance" as maintenance
+participant ":vehicleMapper" as Mapper
+participant "vehicleDto\n:VehicleDto" as DTO
 
 activate VFM
 
@@ -62,15 +64,40 @@ activate VFM
                 deactivate REP
 
                 CTRL -> maintenanceRepository : getMaintenanceList(vehicleList)
+                loop for each vehicle in the vehicleList
 
                 activate maintenanceRepository
+                        opt serviceFrequency < currentKms - kmAtLastMaintenance
+                        maintenanceRepository -> maintenance** : validateVehicleMaintenance(vehicle)
+                                maintenanceRepository -> maintenanceRepository : removeVehicle(vehicle)
+                                activate maintenanceRepository
+                        end
 
-                        maintenanceRepository --> CTRL : maintenanceList
+
+
+
+                        end
+                        maintenanceRepository --> CTRL : vehicleList
+                        deactivate maintenanceRepository
+
                 deactivate maintenanceRepository
 
-            deactivate maintenanceRepository
+                deactivate maintenanceRepository
 
-            CTRL --> UI: maintenanceList
+            CTRL -> Mapper : toDTO(vehicleList)
+            activate Mapper
+                    loop for each vehicle in vehicleList
+
+                        Mapper -> DTO** : VehicleDto(vehicle)
+
+                        Mapper -> Mapper : addVehicle(vehicleDto)
+                        activate Mapper
+                    end
+                    Mapper --> CTRL : vehicleListDto
+                    deactivate Mapper
+
+            deactivate Mapper
+            CTRL --> UI: vehicleListDto
             deactivate CTRL
             UI --> VFM: shows the list
     deactivate UI
