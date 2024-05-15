@@ -30,6 +30,8 @@ class Vehicle{
 }
 
 class Maintenance{
+    plate id
+    date of last maintenance
     km at maintenance
 }
 
