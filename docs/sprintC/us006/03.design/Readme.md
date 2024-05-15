@@ -10,12 +10,12 @@ _**Note that SSD - Alternative One is adopted.**_
 |:---------------|:----------------------------------------------|:--------------------------|:--------------------------------------------------------------------------------------------------------------|
 | Step 1  		     | 	... interacting with the actor?              | RegisterVehicleUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |
 | 			  		        | 	... coordinating the US?                     | RegisterVehicleController | Controller                                                                                                    |
-| 			  		        | 	... instantiating a new Vehicle Maintenance? | VehicleRepository         | Creator (Rule 6): the Organization registers the vehicle.                                                     |
 | Step 2  		     | 							                                       |                           |                                                                                                               |
-| Step 3  		     | 	...saving the inputted data?                 | Vehicle                   | IE: object created in step 1 has its own data.                                                                |
+| Step 3			  		  | 	... instantiating a new Vehicle?             | VehicleRepository         | Creator (Rule 6): the Organization registers the vehicle.                                                     |
+|                | 	...saving the inputted data?                 | Vehicle                   | IE: object created in step 3 has its own data.                                                                |
 | Step 4  		     | 	... validating all data (local validation)?  | Vehicle                   | IE: owns its data.                                                                                            | 
 | 			  		        | 	... validating all data (global validation)? | VehicleRepository         | IE: knows all its vehicles.                                                                                   | 
-| 			  		        | 	... saving the vehicle maintenance?          | VehicleRepository         | IE: owns all its vehicles.                                                                                    | 
+| 			  		        | 	... saving the vehicle?                      | VehicleRepository         | IE: owns all its vehicles.                                                                                    | 
 | Step 5  		     | 	... informing operation success?             | RegisterVehicleUI         | IE: is responsible for user interactions.                                                                     | 
 
 ### Systematization ##
