@@ -14,7 +14,7 @@ participant "repositories\n:Repositories" as REP
 participant "maintenanceRepository\n:MaintenanceRepository" as maintenanceRepository
 participant "vehicleRepository\n:VehicleRepository" as vehicleRepository
 participant "maintenance\n:Maintenance" as maintenance
-participant ":vehicleMapper" as Mapper
+participant ":VehicleMapper" as Mapper
 participant "vehicleDto\n:VehicleDto" as DTO
 
 activate VFM
@@ -30,7 +30,7 @@ activate VFM
 
             UI -> CTRL** : create
 
-            UI -> CTRL : getMaintenanceList()
+            UI -> CTRL : getVehicleList()
             activate CTRL
 
                 CTRL -> RepositorySingleton : getInstance()
@@ -63,7 +63,7 @@ activate VFM
                     REP --> CTRL: maintenanceRepository
                 deactivate REP
 
-                CTRL -> maintenanceRepository : getMaintenanceList(vehicleList)
+                CTRL -> maintenanceRepository : getVehicleList(vehicleList)
                 loop for each vehicle in the vehicleList
 
                 activate maintenanceRepository

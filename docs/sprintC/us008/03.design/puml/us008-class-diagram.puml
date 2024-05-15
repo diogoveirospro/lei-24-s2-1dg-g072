@@ -12,14 +12,33 @@ skinparam classAttributeIconSize 0
 class ListMaintenanceUI{
 
 }
-class ListMaintenanceController{
-    + getMaintenanceList()
-    + createMaintenanceController()
+class VehicleMapper{
+    - vehicleList
+    + toDto(vehicleList)
+    + addVehicle(vehicle)
 }
-class VehicleMaintenanceRepository{
-    + getMaintenanceList()
+class VehicleDto{
+    - vehicle
+    vehicleDto(vehicle)
+}
+class ListMaintenanceController{
+    + getVehicleList()
+    + createMaintenanceController()
+    + toDto(vehicleList)
+}
+class MaintenanceRepository{
+    - vehicleList
+    + getVehicleList()
+    + removeVehicle(vehicle)
 }
 
+class Maintenance{
+    - vehicle
+    + validateVehicleMaintenance(vehicle)
+}
+class VehicleRepository{
+    + getVehicleList
+}
 class Repositories{
  - Repositories()
  + getMaintenanceRepositories(): Repositories
@@ -29,6 +48,11 @@ class Repositories{
 ListMaintenanceUI .> ListMaintenanceController
 ListMaintenanceController ..> Repositories : repositories
 Repositories -> Repositories : instance
-ListMaintenanceController .> VehicleMaintenanceRepository: vehicleMaintenanceRepository
-Repositories "1" ---> "1" VehicleMaintenanceRepository
+ListMaintenanceController .> MaintenanceRepository: maintenanceRepository
+Repositories "1" ---> "1" MaintenanceRepository
+Repositories "1" ..> "1" VehicleRepository: vehicleRepository
+ListMaintenanceController "1" -> "1" VehicleRepository
+MaintenanceRepository o- "*" Maintenance : has
+ListMaintenanceController "1" -> "1" VehicleMapper: vehicleList
+VehicleMapper "1" -> "1" VehicleDto: vehicle
 @enduml

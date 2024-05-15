@@ -9,7 +9,7 @@ autonumber
 actor "Vehicle and Equipment\nFleet Manager\n(VFM)" as VFM
 participant ":ListMaintenanceUI" as UI
 participant ":ListMaintenanceController" as CTRL
-
+participant "vehicleMapper" as Mapper
 
 activate VFM
 
@@ -21,13 +21,23 @@ activate VFM
 
             VFM -> UI : confirms that he wants to create the list
             UI -> CTRL** : create
-            UI -> CTRL : maintenance()
+            UI -> CTRL : getMaintenance()
             activate CTRL
                     ref over CTRL
-                            Get Vehicle Maintenance List
+                            Get Vehicle List
 
                     end
-            CTRL --> UI: maintenanceList
+                    CTRL -> Mapper : toDto(vehicleList)
+                    activate Mapper
+                            ref over Mapper
+                                    Create a copy vehicle list
+
+                            end
+                            Mapper -->CTRL : vehicleListDto
+                    deactivate Mapper
+
+            CTRL --> UI: vehicleListDto
+
             deactivate CTRL
             UI --> VFM: shows the list
     deactivate UI

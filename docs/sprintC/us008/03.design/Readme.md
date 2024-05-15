@@ -6,13 +6,17 @@
 
 _**Note that SSD - Alternative One is adopted.**_
 
-| Interaction ID | Question: Which class is responsible for... | Answer                    | Justification (with patterns)                                                                                                                                         |
-|:---------------|:--------------------------------------------|:--------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Step 1  		     | 	... interacting with the actor?            | ListMaintenanceUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model.                                                         |
-| 		             | 	... coordinating the US?                   | ListMaintenanceController | Controller: coordinates the interactions related to creating the maintenance list in the user interface (UI) and executes the logic needed to process these requests. |
-| Step 2  		     | 	 						                                    |                           |                                                                                                                                                                       |
-| Step 3  		     | 	...getting the Maintenance list?           | MaintenanceRepository     | IE: owns all of its Maintenances                                                                                                                                      |
-| Step 4  		     | 	...showing the maintenance list?           | ListMaintenanceUI         | IE: is responsible for user interactions.                                                                                                                             |
+| Interaction ID | Question: Which class is responsible for...         | Answer                    | Justification (with patterns)                                                                                                                                         |
+|:---------------|:----------------------------------------------------|:--------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Step 1  		     | 	... interacting with the actor?                    | ListMaintenanceUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model.                                                         |
+| Step 2  		     | 	 						                                            |                           |                                                                                                                                                                       |
+| Step 3	        | 	... coordinating the US?                           | ListMaintenanceController | Controller: coordinates the interactions related to creating the maintenance list in the user interface (UI) and executes the logic needed to process these requests. |
+| 		             | 	...getting the Vehicle list?                       | VehicleRepository         | IE: owns all of its Vehicles.                                                                                                                                         |
+|                | ... validate all of the vehicles(local validation)? | Maintenance               | IE: knows the last maintenance.                                                                                                                                       |
+|                | ... change the vehicle list?                        | MaintenanceRepository     | IE: knows all the last maintenances.                                                                                                                                  |
+|                | ... create a list with all the data of vehicleList? | vehicleMapper             | IE: Transforms all of its data.                                                                                                                                       |
+|                | ... transform a vehicle into data?                  | vehicleDto                | IE: Transforms all of is data.                                                                                                                                        |
+| Step 4  		     | 	...showing the maintenance list?                   | ListMaintenanceUI         | IE: is responsible for user interactions.                                                                                                                             |
 
 
 ### Systematization ##
@@ -45,11 +49,14 @@ It uses Interaction Occurrence (a.k.a. Interaction Use).
 
 ![Sequence Diagram - split](svg/us008-sequence-diagram-split.svg)
 
-**Get Vehicle Maintenance List Partial SD**
+**Get Vehicle List Partial SD**
 
-![Sequence Diagram - Partial - Get Task Category List](svg/us008-sequence-diagram-partial-get-vehicle-maintenance-list.svg)
+![Sequence Diagram - Partial - Get Vehicle List](svg/us008-sequence-diagram-partial-get-vehicle-list.svg)
 
+**Create a Copy of Vehicle List Partial SD**
 
+![Sequence Diagram - Partial - Create Copy of Vehicle List](svg/us008-sequence-diagram-partial-create-a-copy-of-vehicle-list.svg)
 ## 3.3. Class Diagram (CD)
 
 ![Class Diagram](svg/us008-class-diagram.svg)
+

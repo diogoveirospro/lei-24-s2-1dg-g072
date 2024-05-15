@@ -1,0 +1,42 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+
+participant ":vehicleMapper" as Mapper
+participant "vehicleDto\n:VehicleDto" as DTO
+
+autonumber 6
+
+ -> Mapper : toDto(vehicleList)
+autonumber 6.1
+activate Mapper
+    group Create a copy of vehicle list
+        activate Mapper
+                            loop for each vehicle in vehicleList
+
+                                Mapper -> DTO** : VehicleDto(vehicle)
+
+                                Mapper -> Mapper : addVehicle(vehicleDto)
+                                activate Mapper
+                            end
+
+
+
+
+
+    end
+    autonumber 7
+
+    <-- Mapper  : vehicleListDto
+deactivate Mapper
+
+deactivate Mapper
+
+deactivate Mapper
+
+@enduml

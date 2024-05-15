@@ -1,0 +1,82 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+
+participant ":MaintenanceController" as CTRL
+participant ":Repositories" as RepositorySingleton
+participant "repositories\n:Repositories" as REP
+participant "maintenanceRepository\n:MaintenanceRepository" as MaintenanceRepository
+participant ":vehicleMapper" as Mapper
+
+autonumber 5
+
+ -> CTRL : getVehicleList()
+autonumber 5.1
+activate CTRL
+    group Get Vehicle List
+
+
+                            CTRL -> RepositorySingleton : getInstance()
+
+                            activate RepositorySingleton
+
+                                RepositorySingleton --> CTRL : repositories
+                            deactivate RepositorySingleton
+
+                            CTRL -> REP : getVehicleRepository()
+                            activate REP
+
+                                REP --> CTRL : vehicleRepository
+                            deactivate REP
+
+                            CTRL -> vehicleRepository : getVehicleList()
+                            activate vehicleRepository
+
+                                vehicleRepository --> CTRL : vehicleList
+                            deactivate vehicleRepository
+                            CTRL -> RepositorySingleton : getInstance()
+                            activate RepositorySingleton
+
+                                RepositorySingleton --> CTRL: repositories
+                            deactivate RepositorySingleton
+
+                            CTRL -> REP : getMaintenanceRepository()
+                            activate REP
+
+                                REP --> CTRL: maintenanceRepository
+                            deactivate REP
+
+                            CTRL -> maintenanceRepository : getMaintenanceList(vehicleList)
+                            loop for each vehicle in the vehicleList
+
+                            activate maintenanceRepository
+                                    opt serviceFrequency < currentKms - kmAtLastMaintenance
+                                    maintenanceRepository -> maintenance** : validateVehicleMaintenance(vehicle)
+                                            maintenanceRepository -> maintenanceRepository : removeVehicle(vehicle)
+                                            activate maintenanceRepository
+                                    end
+
+
+
+
+                                    end
+                                    maintenanceRepository --> CTRL : vehicleList
+                                    deactivate maintenanceRepository
+
+                            deactivate maintenanceRepository
+
+                            deactivate maintenanceRepository
+
+
+    end
+    autonumber 6
+    CTRL -> Mapper : toDto(vehicleList)
+        activate Mapper
+
+
+@enduml
