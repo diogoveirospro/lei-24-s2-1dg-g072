@@ -10,14 +10,17 @@ _**Note that SSD - Alternative One is adopted.**_
 | Interaction ID | Question: Which class is responsible for...   | Answer                               | Justification (with patterns)                                                                                 |
 |:---------------|:----------------------------------------------|:-------------------------------------|:--------------------------------------------------------------------------------------------------------------|
 | Step 1  		     | 	... interacting with the actor?              | RegisterVehicleMaintenanceUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |
-| 			  		        | 	... coordinating the US?                     | RegisterVehicleMaintenanceController | Controller                                                                                                    |
+| 		  		         | 	... coordinating the US?                     | RegisterVehicleMaintenanceController | Controller                                                                                                    |
 | Step 2  		     | 	... showing the existing vehicle list?						 | VehicleRepository                    | Repository                                                                                                    |
-| Step 3			  		  | 	... instantiating a new Vehicle Maintenance? | RegisterVehicleMaintenanceRepository | Creator (Rule 7): the Organization registers the maintenance of a vehicle.                                    |
+| Step 3		  		   | 	                     | |                                                                                                     |
+| Step 4		  		   | 	                     | |                                                                                                     |
+| Step 5			  		  | 	... instantiating a new Vehicle Maintenance? | RegisterVehicleMaintenanceRepository | Creator (Rule 7): the Organization registers the maintenance of a vehicle.                                    |
 | 		             | 	...saving the inputted data?                 | Maintenance                          | IE: object created in step 1 has its own data.                                                                |
-| Step 4  		     | 	... validating all data (local validation)?  | Maintenance                          | IE: owns its data.                                                                                            | 
+| 		             | 	... validating all data (local validation)?  | Maintenance                          | IE: owns its data.                                                                                            |
 | 			  		        | 	... validating all data (global validation)? | VehicleMaintenanceRepository         | IE: knows all its vehicles.                                                                                   | 
 | 			  		        | 	... saving the vehicle maintenance?          | VehicleMaintenanceRepository         | IE: owns all its vehicles.                                                                                    | 
-| Step 5  		     | 	... informing operation success?             | RegisterVehicleMaintenanceUI         | IE: is responsible for user interactions.                                                                     | 
+| Step 6 		      | 	... informing operation success?             | RegisterVehicleMaintenanceUI         | IE: is responsible for user interactions.                                                                     |
+
 
 ### Systematization ##
 
