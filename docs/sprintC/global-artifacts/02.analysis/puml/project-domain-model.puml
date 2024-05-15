@@ -56,8 +56,10 @@ class VFM {
 
 }
 
-class VehiclesCheckUp {
+class Maintenance {
     plate id
+    date of last maintenance
+    km at maintenance
 }
 
 
@@ -87,8 +89,8 @@ VFM "1" -- "1..*" Vehicle: registers >
 VFM "1"-- "1..*" Vehicle: chooses >
 
 'US008
-VFM "1" -- "1..*" VehiclesCheckUp: lists >
-Vehicle "1..*" -- "1" VehiclesCheckUp: has <
+VFM "1" -- "1..*" Maintenance: lists >
+Vehicle "1..*" -- "1" Maintenance: has <
 
 
 @enduml
