@@ -19,13 +19,14 @@ class Collaborator {
      taxpayer number
      idDocumentType
      idDocumentNumber
+     job: Job
 }
 
 class HRM {
 
 }
 
-
 HRM "1" - "*" Collaborator : register >
 
 @enduml
+

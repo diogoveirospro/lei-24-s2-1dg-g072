@@ -3,7 +3,7 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title System Sequence Diagram (SSD) - Alternative One
+title System Sequence Diagram (SSD) - Assign Skills to Collaborator
 
 autonumber
 
@@ -17,13 +17,27 @@ activate HRM
 
         System --> HRM : displays a list of available skills
     deactivate System
+
+    HRM -> System : selects collaborator
+    activate System
+
+        System --> HRM: displays list of available collaborators
+    deactivate System
+
+    HRM -> System : selects a collaborator
+    activate System
+
+        System --> HRM: displays list of skills for selected collaborator
+    deactivate System
+
 loop
     HRM -> System : selects collaborator skills
     activate System
 
-            System --> HRM: asks if the user wants to add more skills\n if not asks for collaborator details
+        System --> HRM: asks if the user wants to add more skills\n if not asks for collaborator details
     deactivate System
 end
+
     HRM -> System : Provides collaborator details
     activate System
 
