@@ -18,7 +18,7 @@ public class SkillRepository {
      * A constructor of skillRepository that initiates the skill list
      *
      */
-    SkillRepository(){
+    public SkillRepository(){
         skills = new ArrayList<>();
     }
 

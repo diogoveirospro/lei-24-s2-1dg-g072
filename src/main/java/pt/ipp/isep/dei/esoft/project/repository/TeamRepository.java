@@ -57,105 +57,14 @@ public class TeamRepository {
 
     /**
      * Generate a team proposal automatically.
-     *
-     * @param minimumSize   minimum team size.
-     * @param maximumSize   maximum team size.
-     * @param skills        skills that members must have to be part of that team.
-     * @param collaborators list of all collaborators.
+     * @param minimumSize minimum team size.
+     * @param maximumSize maximum team size.
+     * @param skills skills that members must have to be part of that team.
+     * @param collaborators list of all collaborators
      * @return members of the team proposal.
-     * @throws IllegalArgumentException if there aren't enough collaborators with the specified skills to create a team.
      */
-    public List<Collaborator> generateTeamProposal(int minimumSize, int maximumSize, List<Skill> skills, List<Collaborator> collaborators) {
-        List<Collaborator> members = new ArrayList<>();
-        List<Collaborator> collaboratorsClone = new ArrayList<>(collaborators);
-        List<Skill> remainingSkills = new ArrayList<>(skills);
-
-        selectMembersForSkills(maximumSize, members, collaboratorsClone, remainingSkills);
-        if (members.size() < minimumSize) {
-            throw new IllegalArgumentException("There aren't enough collaborators with the specified skills to create a team!");
-        }
-        return members;
-    }
-
-    /**
-     * Selects team members based on required skills until the team is filled to the maximum size or all skills are addressed.
-     *
-     * @param maximumSize        maximum team size.
-     * @param members            the current list of team members
-     * @param collaboratorsClone a clone of the list of available collaborators.
-     * @param skills    a list of skills still required in the team.
-     * @throws IllegalArgumentException if there are no collaborators with the required skills.
-     */
-    private void selectMembersForSkills(int maximumSize, List<Collaborator> members, List<Collaborator> collaboratorsClone, List<Skill> skills) {
-        List<Skill> skillsPresent = new ArrayList<>();
-        List<Collaborator> qualifiedCollaborators = getQualifiedCollaborators(maximumSize, skills, collaboratorsClone, skillsPresent);
-
-        boolean allSkillsPresent = true;
-
-        for (Skill skill : skills) {
-            boolean skillFound = false;
-
-            for (Skill presentSkill : skillsPresent) {
-                if (skill.equals(presentSkill)) {
-                    skillFound = true;
-                    break;
-                }
-            }
-
-            if (!skillFound) {
-                allSkillsPresent = false;
-                break;
-            }
-        }
-
-        if (!allSkillsPresent) {
-            throw new IllegalArgumentException("There are no collaborators with the required skills: " + skills);
-        }
-
-        for (Collaborator collaborator : qualifiedCollaborators) {
-            if (members.size() < maximumSize) {
-                members.add(collaborator);
-                collaborator.setHasTeam(true);
-                collaboratorsClone.remove(collaborator);
-            } else {
-                break;
-            }
-        }
-    }
-
-    /**
-     * Returns a list of collaborators that possess the given skill.
-     *
-     * @param skillsRemaining    all skills to be matched
-     * @param collaboratorsClone the list of available collaborators
-     * @return a list of qualified collaborators
-     */
-    private List<Collaborator> getQualifiedCollaborators(int maximumSize,List<Skill> skillsRemaining, List<Collaborator> collaboratorsClone, List<Skill> skillsAlreadyAdded) {
-        List<Collaborator> qualifiedCollaborators = new ArrayList<>();
-        List<Skill> skillsAdded = new ArrayList<>();
-        for (Collaborator collaborator : collaboratorsClone) {
-            if (qualifiedCollaborators.size() < maximumSize) {
-                for (Skill skill : skillsRemaining) {
-                    if (collaborator.analyseCollaborator(skill) && (!skillsAdded.contains(skill))) {
-                        skillsAdded.add(skill);
-                    }
-                }
-                qualifiedCollaborators.add(collaborator);
-                skillsAlreadyAdded.addAll(skillsAdded);
-                skillsAdded = new ArrayList<>();
-            }
-        }
-        return qualifiedCollaborators;
-    }
-
-    /**
-     * Create a team.
-     *
-     * @param members team members.
-     * @return new team.
-     */
-    public Team createTeam(List<Collaborator> members) {
-        return new Team(members);
+    public static Team generateTeamProposal(int minimumSize, int maximumSize, List<Skill> skills, List<Collaborator> collaborators) {
+        return new Team(minimumSize, maximumSize, collaborators, skills);
     }
 
     /**
@@ -163,10 +72,12 @@ public class TeamRepository {
      *
      * @param team team to be added to the repository.
      */
-    public void addTeam(Team team) {
+    public boolean addTeam(Team team) {
         if (validateTeam(team)) {
             teams.add(team);
+            return true;
         }
+        return false;
     }
 
     /**

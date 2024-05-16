@@ -81,17 +81,17 @@ public class GenerateTeamProposalController {
      * @param collaborators collaborators list.
      * @return team proposal
      */
-    public List<Collaborator> generateTeamProposal(int minimumSize, int maximumSize, List<Skill> skills,
+    public Team generateTeamProposal(int minimumSize, int maximumSize, List<Skill> skills,
                                                    List<Collaborator> collaborators){
         return teamRepository.generateTeamProposal(minimumSize, maximumSize, skills, collaborators);
     }
 
     /**
-     * Create a team
-     * @param members team members.
-     * @return team
+     * Add the team to the team repository.
+     * @param team team to add.
+     * @return true if added false otherwise
      */
-    public Team createTeam(List<Collaborator> members){
-        return teamRepository.createTeam(members);
+    public boolean addTeam(Team team){
+        return teamRepository.addTeam(team);
     }
 }
