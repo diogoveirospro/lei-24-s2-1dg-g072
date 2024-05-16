@@ -14,7 +14,7 @@ class GenerateTeamProposalController {
     + listSkills()
     + getCollaborators()
     + generateTeamProposal(minimumSize, maximumSize, skills, collaborators)
-    + createTeam(members)
+    + addTeam(team)
 }
 
 
@@ -40,27 +40,28 @@ class CollaboratorRepository {
 
 class TeamRepository {
     + generateTeamProposal(minimumSize, maximumSize, skills, collaborators)
-    + createTeam(members)
-    + validateTeam(team)
     + addTeam(team)
+    + validateTeam(team)
 }
 
 class Team {
-    + Team(members)
+    + Team(minimumSize, maximumSize, collaborators, skills)
 }
 
 class Collaborator {
     - name : String
-    - birthdate : String
-    - admissionData : String
+    - birthdate : Date
+    - admissionData : Date
     - address : String
-    - mobileNumber : int
+    - mobile : int
     - email : String
+    - taxpayerNumber : int
     - idDocumentType : String
     - idDocumentNumber : int
-    + Collaborator(name, birthdate, admissionData, address, \nmobileNumber, email, idDocumentType, idDocumentNumber)
-    + chooseMembers(minimumSize, maximumSize, collaborators, skills)
-    + analyseCollaborator(skills)
+    - jobName : String
+    + Collaborator(name, birthdate, admissionData, address, \nmobile, email, taxpayerNumber, idDocumentType, idDocumentNumber)
+    + addTeam(skill)
+    + analyseCollaborator(skill)
 }
 
 class Skill {
@@ -83,7 +84,6 @@ GenerateTeamProposalController .> TeamRepository : teamRepository
 Team  o-- "*" Collaborator : has
 Collaborator  o-- "*" Skill : has
 
-GenerateTeamProposalController .> Team : team
 GenerateTeamProposalController .> SkillRepository : skills
 GenerateTeamProposalController .> CollaboratorRepository: collaborators
 SkillRepository --> Skill : has

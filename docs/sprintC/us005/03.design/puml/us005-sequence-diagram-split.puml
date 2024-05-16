@@ -10,6 +10,7 @@ actor "Human Resources\n Manager" as HRM
 participant ":GenerateTeamProposalUI" as UI
 participant ":GenerateTeamProposalController" as CTRL
 
+
 activate HRM
 
     HRM -> UI : asks to create a new team proposal
@@ -22,16 +23,18 @@ activate HRM
     activate UI
 
         UI -> CTRL** : generate
-        activate CTRL
+
 
         UI -> CTRL : listSkills()
+        activate CTRL
 
-            ref over CTRL
-                List Skills
+           ref over CTRL
+           List Skills
 
-            end
+           end
 
             CTRL --> UI : skills
+        deactivate CTRL
 
     loop
         UI --> HRM: shows the list of skills and asks you to \nselect one that you need for that task
@@ -49,37 +52,43 @@ activate HRM
     activate UI
 
         UI -> CTRL: getCollaborators()
+        activate CTRL
 
             ref over CTRL
-                Get Collaborators
+            Get Collaborators
 
             end
 
             CTRL --> UI: collaborators
+        deactivate CTRL
 
         UI -> CTRL: generateTeamProposal(minimumSize, maximumSize, skills, collaborators)
+        activate CTRL
 
             ref over CTRL
-                Get Members
+            Generate Team Proposal
 
             end
 
-            CTRL --> UI: members
+            CTRL --> UI: team
+        deactivate CTRL
 
-    UI --> HRM: show the team recommendation
+        UI --> HRM: show the team recommendation
     deactivate UI
 
     HRM -> UI: accepts team recommendation
     activate UI
 
-        UI -> CTRL: createTeam(members)
+        UI -> CTRL: addTeam(Team)
+        activate CTRL
 
             ref over CTRL
-                Create Team
+            Add Team to the Repository
 
             end
 
-            CTRL --> UI: team
+        CTRL --> UI: ok
+        deactivate CTRL
 
         UI --> HRM: displays operation success
     deactivate UI

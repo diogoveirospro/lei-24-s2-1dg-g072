@@ -7,6 +7,7 @@ participant ":GenerateTeamProposalController" as CTRL
 participant Repositories
 participant "repositories\n:Repositories" as REP
 participant "teamRepository\n:TeamRepository" as TEAMREP
+participant "team\n:Team" as TEAM
 participant "collaborator\n:Collaborator" as COLLAB
 
 autonumber 13
@@ -15,7 +16,7 @@ autonumber 13
 autonumber 13.1
 
 activate CTRL
-    group Get Members
+    group Generate Team Proposal
 
     CTRL -> Repositories: getInstance()
     activate Repositories
@@ -32,27 +33,36 @@ activate CTRL
     CTRL -> TEAMREP: generateTeamProposal(minimumSize, maximumSize, skills, collaborators)
     activate TEAMREP
 
-        TEAMREP -> COLLAB**: chooseMembers(minimumSize, maximumSize, collaborators, skills)
-        activate COLLAB
+        TEAMREP -> TEAM**: Team(minimumSize, maximumSize, collaborators, skills)
+        activate TEAM
 
-            loop
+            loop for each collaborator
+            loop for each skill
 
-            COLLAB -> COLLAB: analyseCollaborator(skills)
+            TEAM -> COLLAB**: addTeam(skill)
             activate COLLAB
+
+            COLLAB -> COLLAB: analyseCollaborator(skill)
+            activate COLLAB
+
+            COLLAB --> TEAM: canJoinTeam
+            deactivate COLLAB
+
+            deactivate COLLAB
 
             end
 
-                COLLAB --> TEAMREP: members
-            deactivate COLLAB
+            end
 
-            deactivate COLLAB
+            TEAM --> TEAMREP: team
+            deactivate TEAM
 
-            TEAMREP --> CTRL: members
+            TEAMREP --> CTRL: team
             deactivate TEAMREP
     end group
 
     autonumber 14
-    <-- CTRL : members
+    <-- CTRL : team
 
 deactivate CTRL
 
