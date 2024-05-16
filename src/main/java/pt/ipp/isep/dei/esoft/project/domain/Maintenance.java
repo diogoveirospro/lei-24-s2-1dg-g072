@@ -1,5 +1,8 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import pt.ipp.isep.dei.esoft.project.repository.VehicleRepository;
+
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -9,35 +12,15 @@ import java.util.Objects;
  */
 public class Maintenance {
 
-    /**
-     * Vehicle that needs maintenance
-     *
-     */
-    private Vehicle vehicle;
-    /**
-     * A constructor of Maintenance that creates an object that initiates the instance kmAtMaintenance, and the list vehicles
-     *
-     * @param vehicle that needs maintenance
-     */
-    public Maintenance(Vehicle vehicle){
-        this.vehicle = vehicle;
-    }
-    /**
-     * Lets the user get the Vehicle
-     *
-     * @return vehicle
-     */
-    public Vehicle getVehicle() {
-        return vehicle;
-    }
 
-    /**
-     * Lets the user change the Vehicle
-     *
-     * @param vehicle A vehicle that needs maintenance
-     */
-    public void setVehicle(Vehicle vehicle) {
-        this.vehicle = vehicle;
+    private String plateNumber;
+    private Date dateLastMaintenance;
+    private Double kmAtMaintenance;
+
+    public Maintenance(Vehicle vehicle){
+        plateNumber = vehicle.getPlateNumber();
+        kmAtMaintenance = vehicle.getKmAtLastMaintenance();
+        setDateLastMaintenance(dateLastMaintenance);
     }
 
     /**
@@ -46,27 +29,58 @@ public class Maintenance {
      * @param vehicle that needs maintenance
      */
     public void setVehicleMaintenance(Vehicle vehicle){
-        if((getVehicle().getCurrentKms() - vehicle.getKmAtLastMaintenance()) >= vehicle.getServiceFrequency()){
-            vehicle.setKmAtLastMaintenance(vehicle.getCurrentKms());
+        Date currentDate = new Date();
+        vehicle.setKmAtLastMaintenance(vehicle.getCurrentKms());
+        setDateLastMaintenance(currentDate);
+
+    }
+
+
+    public boolean validateVehicleMaintenance(Vehicle vehicle){
+        return vehicle.getServiceFrequency() < vehicle.getCurrentKms() - vehicle.getKmAtLastMaintenance();
+    }
+
+    public Vehicle getVehicleFromPlate(){
+        VehicleRepository vehicleRepository = new VehicleRepository();
+        List<Vehicle> vehicleList = vehicleRepository.getVehicleList();
+        for (Vehicle vehicle : vehicleList){
+            if (Objects.equals(vehicle.getPlateNumber(), plateNumber)){
+                return vehicle;
+            }
+        }
+        throw new IllegalArgumentException("There is no vehicle with the plate number: " + plateNumber);
+    }
+
+    public void setKmAtMaintenance(Double kmAtMaintenance) {
+
+        this.kmAtMaintenance = kmAtMaintenance;
+    }
+
+    public void setDateLastMaintenance(Date dateLastMaintenance) {
+        Vehicle vehicle = getVehicleFromPlate();
+        if (dateLastMaintenance == null){
+            dateLastMaintenance = vehicle.getRegistrationDate();
+        } else {
+            this.dateLastMaintenance = dateLastMaintenance;
         }
     }
 
     /**
-     * It will compare two Maintenance vehicles
-     * @param vehicleMaintenance a vehicle that needs maintenance
-     * @return the equality between two vehicles
+     * Lets the system get the last maintenance Date
+     *
+     * @return dateLastMaintenance
      */
-    @Override
-    public boolean equals(Object vehicleMaintenance) {
-        if (this == vehicleMaintenance) return true;
-        if (vehicleMaintenance == null || getClass() != vehicleMaintenance.getClass()) return false;
-        Maintenance that = (Maintenance) vehicleMaintenance;
-        return Objects.equals(vehicle, that.vehicle);
+    public Date getDateLastMaintenance() {
+        return dateLastMaintenance;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(vehicle);
-    }
+    /**
+     * Lets the system get the kms at the maintenance
+     *
+     * @return kmAtMaintenance
+     */
 
+    public Double getKmAtMaintenance() {
+        return kmAtMaintenance;
+    }
 }

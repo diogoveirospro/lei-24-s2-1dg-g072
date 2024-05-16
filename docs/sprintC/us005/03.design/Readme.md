@@ -16,12 +16,13 @@ _**Note that SSD - Alternative One is adopted.**_
 | Step 4         |                                              |                                |                                                                                                                                                                    |
 | Step 5         | ... saving the select skills?                | TeamRepository                 | IE: TeamRepository manages the selected skills data.                                                                                                               |
 | Step 6         |                                              |                                |                                                                                                                                                                    |
-| Step 7         | ... instantiating a new team?                | TeamRepository                 | Creator (Rule 2): the TeamRepository registers a Team instance.                                                                                                    |
+| Step 7         | ... knowing the list of collaborators?       | CollaboratorRepository         | IE: knows all its collaborators.                                                                                                                                   |
+|                | ... instantiating a new team?                | TeamRepository                 | Creator (Rule 2): the TeamRepository registers a Team instance.                                                                                                    |
+|                | ... choosing collaborators for the team?     | Team                           | IE: The Team class is responsible for choosing collaborators because it has the necessary information about the team's requirements and the selection criteria.    |
 |                | ... validating all data (local validation)?  | Team                           | IE: owns its data.                                                                                                                                                 |
-|                | ... validating all data (global validation)? | TeamRepository                 | IE: knows all its teams proposal.                                                                                                                                  |
-|                | ... saving the created team?                 | TeamRepository                 | IE: owns all its teams proposal.                                                                                                                                   |
 | Step 8         |                                              |                                |                                                                                                                                                                    |
-| Step 9         |                                              |                                |                                                                                                                                                                    |
+| Step 9         | ... validating all data (global validation)? | TeamRepository                 | IE: knows all its teams proposal.                                                                                                                                  |
+|                | ... saving the created team?                 | TeamRepository                 | IE: owns all its teams proposal.                                                                                                                                   |
 | Step 10        | ... informing operation success?             | GenerateTeamProposalUI         | IE: is responsible for user interactions.                                                                                                                          |
 
 ### Systematization ##
@@ -63,13 +64,13 @@ It uses Interaction Occurrence (a.k.a. Interaction Use).
 
 ![Sequence Diagram - Partial - Get Collaborators](svg/us005-sequence-diagram-partial-get-collaborators.svg)
 
-**Get Members**
+**Generate Team Proposal**
 
-![Sequence Diagram - Partial - Get Members](svg/us005-sequence-diagram-partial-get-members.svg)
+![Sequence Diagram - Partial - Generate Team Proposal](svg/us005-sequence-diagram-partial-generate-team-proposal.svg)
 
-**Create Team**
+**Add Team to the Repository**
 
-![Sequence Diagram - Partial - Create Team](svg/us005-sequence-diagram-partial-create-team.svg)
+![Sequence Diagram - Partial - Add Team to the Repository](svg/us005-sequence-diagram-partial-add-team-to-the-repository.svg)
 
 ## 3.3. Class Diagram (CD)
 

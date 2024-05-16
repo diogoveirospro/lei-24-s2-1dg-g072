@@ -1,0 +1,36 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+participant ":GenerateTeamProposalController" as CTRL
+participant "teamRepository\n:TeamRepository" as TEAMREP
+
+autonumber 17
+-> CTRL : addTeam(team)
+
+autonumber 17.1
+
+activate CTRL
+    group Add Team to the Repository
+
+    CTRL -> TEAMREP : addTeam(team)
+    activate TEAMREP
+
+    TEAMREP -> TEAMREP : validateTeam(team)
+    activate TEAMREP
+
+    deactivate TEAMREP
+
+    TEAMREP --> CTRL: ok
+    deactivate TEAMREP
+
+    end group
+
+    autonumber 18
+    <-- CTRL : ok
+
+deactivate CTRL
+
+
+@enduml
