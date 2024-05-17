@@ -5,24 +5,53 @@ skinparam shadowing false
 
 autonumber
 
-actor "Human Resources\n Manager" as HRM
+actor "Human Resources\nManager" as HRM
 participant ":AssignSkillsUI" as UI
 participant ":AssignSkillsController" as CTRL
 participant Repositories
 participant "repositories\n:Repositories" as REP
-participant "skillRepository\n:SkillRepository" as SKILLREP
 participant "collaboratorRepository\n:CollaboratorRepository" as COLREP
 participant "collaborator\n:Collaborator" as COLLAB
 participant "skill\n:Skill" as SKILL
 
 activate HRM
 
-HRM -> UI : requests to assign skills to a collaborator
+HRM -> UI : Requests to assign skills to a collaborator
 activate UI
 
-UI -> CTRL** : generate
+UI -> CTRL** : Generate
 
-UI -> CTRL : listSkills()
+UI -> CTRL: getCollaborators()
+activate CTRL
+
+CTRL -> Repositories: getInstance()
+activate Repositories
+
+Repositories --> CTRL: repositories
+deactivate Repositories
+
+CTRL -> COLREP: getCollaboratorRepository()
+activate COLREP
+
+COLREP --> CTRL: collaboratorRepository
+deactivate COLREP
+
+CTRL -> COLREP: getCollaborator(collaboratorID)
+activate COLREP
+
+COLREP -> COLLAB**: Collaborator()
+activate COLLAB
+
+COLLAB --> COLREP: updatedCollaborator
+deactivate COLLAB
+
+COLREP --> CTRL: updatedCollaborator
+deactivate COLREP
+
+CTRL --> UI: updatedCollaborator
+deactivate CTRL
+
+UI -> CTRL : ListSkills()
 activate CTRL
 
 CTRL -> Repositories: getInstance()
@@ -37,7 +66,7 @@ activate REP
 REP --> CTRL: skillRepository
 deactivate REP
 
-CTRL -> SKILLREP : listSkills()
+CTRL -> SKILLREP** : listSkills()
 activate SKILLREP
 
 SKILLREP --> CTRL : skills
@@ -46,15 +75,10 @@ deactivate SKILLREP
 CTRL --> UI : skills
 deactivate CTRL
 
-loop While selecting skills
-    UI --> HRM: shows the list of skills and asks you to \nselect one or more skills
-    deactivate UI
 
-    HRM -> UI: selects the skill(s)
-    activate UI
-end
 
-UI -> CTRL: getCollaborators()
+
+UI -> CTRL: assignSkillsToCollaborator(collaborator, skills)
 activate CTRL
 
 CTRL -> Repositories: getInstance()
@@ -63,33 +87,31 @@ activate Repositories
 Repositories --> CTRL: repositories
 deactivate Repositories
 
-CTRL -> REP: getCollaboratorRepository()
-activate REP
+CTRL -> COLREP: getCollaboratorRepository()
+activate COLREP
 
-REP --> CTRL: collaboratorRepository
-deactivate REP
+COLREP --> CTRL: collaboratorRepository
+deactivate COLREP
 
 CTRL -> COLREP: getCollaborator(collaboratorID)
 activate COLREP
 
-COLREP -> COLLAB**: Collaborator(collaboratorID)
+COLREP -> COLLAB**: Collaborator()
 activate COLLAB
 
-loop For each skill
-    COLLAB -> COLLAB: addSkill(skill)
-    activate COLLAB
-end
+COLLAB -> COLLAB: validateCollaborator()
+activate COLLAB
 
-COLLAB --> COLREP: updatedCollaborator
+COLLAB --> COLREP: validatedCollaborator
 deactivate COLLAB
 
-COLREP --> CTRL: updatedCollaborator
+COLREP --> CTRL: validatedCollaborator
 deactivate COLREP
 
-CTRL --> UI: updatedCollaborator
+CTRL --> UI: validatedCollaborator
 deactivate CTRL
 
-UI --> HRM: displays operation success
+UI --> HRM: Displays operation success
 deactivate UI
 
 deactivate HRM
