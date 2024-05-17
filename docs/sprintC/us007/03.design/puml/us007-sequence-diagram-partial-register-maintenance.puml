@@ -7,14 +7,14 @@ participant "maintenanceRepository\n:MaintenanceRepository" as MAINREP
 participant "maintenance\n:Maintenance" as MAINTENANCE
 
 autonumber 13
--> MAINREP: registerVehicleMaintenance(vehicleList)
+-> MAINREP: registerVehicleMaintenance(vehicleList, date)
 
 autonumber 13.1
 activate MAINREP
     group Register Maintenance
 
-        MAINREP -> MAINTENANCE**: registerVehicleMaintenance(vehicle)
         loop
+        MAINREP -> MAINTENANCE**: maintenance(vehicle, date)
         MAINREP -> MAINREP: addVehicleMaintenance (vehicle)
 
         activate MAINREP
