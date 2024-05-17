@@ -135,7 +135,7 @@ public class AssignSkillUI implements Runnable {
         String answer;
 
         do {
-            System.out.print("Enter the name of a skill to select (or type 'done' to finish): ");
+            System.out.print("\nEnter the name of a skill to select (or type 'done' to finish): ");
             answer = scanner.nextLine().trim();
 
             if (!answer.equalsIgnoreCase("done")) {
@@ -190,6 +190,7 @@ public class AssignSkillUI implements Runnable {
         for (Skill skill : skills) {
             System.out.println("- " + skill.getName());
         }
+        scanner.nextLine();
     }
 
     /**

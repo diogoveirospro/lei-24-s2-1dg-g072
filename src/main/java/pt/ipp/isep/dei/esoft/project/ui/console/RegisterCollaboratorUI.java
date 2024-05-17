@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.RegisterCollaboratorController;
+import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import pt.ipp.isep.dei.esoft.project.domain.Date;
 import pt.ipp.isep.dei.esoft.project.repository.JobRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
@@ -39,81 +40,27 @@ public class RegisterCollaboratorUI implements Runnable {
         System.out.print("Enter name: ");
         String name = scanner.nextLine();
 
-        Date birthDate = promptForDate(scanner, "Enter birthdate (YYYY-MM-DD): ");
+        Date birthDate = promptForBirthDate(scanner);
 
-        Date admissionDate = promptForDate(scanner, "Enter admission date (YYYY-MM-DD): ");
+        Date admissionDate = promptForAdmissionDate(scanner, birthDate);
 
         System.out.print("Enter address: ");
         String address = scanner.nextLine();
 
         System.out.print("Enter contact number: ");
 
-        int mobile = 0;
-        boolean valid = false;
-
-        while (!valid) {
-
-            try {
-                mobile = scanner.nextInt();
-                if (mobile > 99999999) {
-                    valid = true;
-                } else {
-                    System.out.println("Invalid input. The number must be exactly 9 digits.");
-                    System.out.print("Enter contact number: ");
-                }
-
-            } catch (Exception e) {
-                System.out.println("Invalid input. Please enter a valid integer.");
-                scanner.nextLine();
-                System.out.print("Enter contact number: ");
-            }
-        }
-        scanner.nextLine();
+        int mobile = validateMobileNumber(scanner);
 
         System.out.print("Enter email address: ");
 
-        String email = null;
-        valid = false;
-
-        while (!valid) {
-
-            email = scanner.nextLine();
-
-            if (email.contains("@")) {
-                valid = true;
-            } else {
-                System.out.println("Invalid input. Please enter a valid email address.");
-                System.out.print("Enter email address: ");
-            }
-        }
+        String email = validateEmail(scanner);
 
         System.out.print("Enter taxpayer number: ");
 
-        int taxpayerNumber = 0;
-        valid = false;
-
-        while (!valid) {
-
-            try {
-                mobile = scanner.nextInt();
-                if (mobile > 99999999) {
-                    valid = true;
-                } else {
-                    System.out.println("Invalid input. The taxpayer number must be exactly 9 digits.");
-                    System.out.print("Enter taxpayer number: ");
-                }
-
-            } catch (Exception e) {
-                System.out.println("Invalid input. Please enter a valid integer.");
-                scanner.nextLine();
-                System.out.print("Enter taxpayer number: ");
-            }
-        }
-
-        scanner.nextLine();
+        int taxpayerNumber = validateTaxpayerNumber(scanner);
 
         System.out.print("Enter ID document type (e.g., Passport, Driver's License, CC): ");
-        String idDocType = scanner.nextLine();
+        String idDocType = chooseIdDocumentType(scanner);
 
         System.out.print("Enter ID document number: ");
         int idDocNumber = 0;
@@ -151,16 +98,95 @@ public class RegisterCollaboratorUI implements Runnable {
         System.out.println("\nCollaborator successfully registered!");
     }
 
+    private String chooseIdDocumentType(Scanner scanner) {
+
+        for (Collaborator.IdDocType type : Collaborator.IdDocType.values()) {
+            System.out.println(type.ordinal() + 1 + " - " + type.getDisplayName());
+        }
+
+        int choice = scanner.nextInt();
+        Collaborator.IdDocType idDocumentType = Collaborator.IdDocType.values()[choice - 1];
+        return idDocumentType.toString();
+    }
+
+    private int validateMobileNumber(Scanner scanner){
+        int mobile = 0;
+        boolean valid = false;
+
+        while (!valid) {
+
+            try {
+                mobile = scanner.nextInt();
+                if (mobile > 99999999) {
+                    valid = true;
+                } else {
+                    System.out.println("Invalid input. The number must be exactly 9 digits.");
+                    System.out.print("Enter contact number: ");
+                }
+
+            } catch (Exception e) {
+                System.out.println("Invalid input. Please enter a valid integer.");
+                scanner.nextLine();
+                System.out.print("Enter contact number: ");
+            }
+        }
+        scanner.nextLine();
+        return mobile;
+    }
+
+    private String validateEmail(Scanner scanner){
+        String email = null;
+        boolean valid = false;
+
+        while (!valid) {
+
+            email = scanner.nextLine();
+
+            if (email.contains("@")) {
+                valid = true;
+            } else {
+                System.out.println("Invalid input. Please enter a valid email address.");
+                System.out.print("Enter email address: ");
+            }
+        }
+        return email;
+    }
+
+    private int validateTaxpayerNumber(Scanner scanner){
+        int taxpayerNumber = 0;
+        boolean valid = false;
+
+        while (!valid) {
+
+            try {
+                taxpayerNumber = scanner.nextInt();
+                if (taxpayerNumber > 99999999) {
+                    valid = true;
+                } else {
+                    System.out.println("Invalid input. The taxpayer number must be exactly 9 digits.");
+                    System.out.print("Enter taxpayer number: ");
+                }
+
+            } catch (Exception e) {
+                System.out.println("Invalid input. Please enter a valid integer.");
+                scanner.nextLine();
+                System.out.print("Enter taxpayer number: ");
+            }
+        }
+
+        scanner.nextLine();
+        return taxpayerNumber;
+    }
+
     /**
      * Prompts the user to enter a date and parses it into a Date object.
      *
      * @param scanner the Scanner object to read input from the user
-     * @param prompt  the prompt message to display to the user
      * @return the Date object representing the parsed date
      */
-    private static Date promptForDate(Scanner scanner, String prompt) {
+    private static Date promptForBirthDate(Scanner scanner) {
         while (true) {
-            System.out.print(prompt);
+            System.out.print("Enter birthdate (YYYY-MM-DD): ");
             String dateStr = scanner.nextLine();
 
             String[] parts = dateStr.split("-");
@@ -173,10 +199,48 @@ public class RegisterCollaboratorUI implements Runnable {
                 int year = Integer.parseInt(parts[0]);
                 int month = Integer.parseInt(parts[1]);
                 int day = Integer.parseInt(parts[2]);
-                return new Date(year, month, day);
+
+                Date birthDate = new Date(year, month, day);
+                Date currentDate = Date.currentDate();
+
+                if (currentDate.difference(birthDate) < 18){
+                    System.out.println("Invalid date. Enter again!");
+                    continue;
+                }
+                return birthDate;
             } catch (IllegalArgumentException e) {
                 System.out.println("Invalid date. Please make sure you enter valid year, month, and day numbers.");
             }
         }
+    }
+
+    private static Date promptForAdmissionDate(Scanner scanner, Date birthDate) {
+        while (true) {
+            System.out.print("Enter admission date (YYYY-MM-DD): ");
+            String dateStr = scanner.nextLine();
+
+            String[] parts = dateStr.split("-");
+            if (parts.length != 3) {
+                System.out.println("Invalid format. Please enter the date in YYYY-MM-DD format.");
+                continue;
+            }
+
+            try {
+                int year = Integer.parseInt(parts[0]);
+                int month = Integer.parseInt(parts[1]);
+                int day = Integer.parseInt(parts[2]);
+
+                Date admissionDate = new Date(year, month, day);
+
+                if (admissionDate.difference(birthDate) < 18){
+                    System.out.println("Invalid date. Enter again!");
+                    continue;
+                }
+                return admissionDate;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid date. Please make sure you enter valid year, month, and day numbers.");
+            }
+        }
+
     }
 }
