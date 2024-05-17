@@ -5,121 +5,92 @@ skinparam shadowing false
 
 autonumber
 
-actor HRM
-participant ":AssignSkillUI" as UI
-participant ":AssignSkillController" as CTRL
-participant ":Repositories" as REP
-participant "repositories\n:Repositories" as repositories
-participant "skillRepository\n:SkillRepository" as SREP
-participant "collaboratorRepository\n:CollaboratorRepository" as CREP
-participant "collaborator:\nCollaborator" as collaborator
+actor "Human Resources\n Manager" as HRM
+participant ":AssignSkillsUI" as UI
+participant ":AssignSkillsController" as CTRL
+participant Repositories
+participant "repositories\n:Repositories" as REP
+participant "skillRepository\n:SkillRepository" as SKILLREP
+participant "collaboratorRepository\n:CollaboratorRepository" as COLREP
+participant "collaborator\n:Collaborator" as COLLAB
+participant "skill\n:Skill" as SKILL
 
 activate HRM
 
-HRM -> UI : Request to assign one or more skills to a collaborator
+HRM -> UI : requests to assign skills to a collaborator
 activate UI
 
-        UI -> CTRL** : generate
+UI -> CTRL** : generate
 
-        UI -> CTRL: listSkills()
+UI -> CTRL : listSkills()
 activate CTRL
 
-                        CTRL -> REP: getInstance()
+CTRL -> Repositories: getInstance()
+activate Repositories
 
-                        activate REP
+Repositories --> CTRL: repositories
+deactivate Repositories
 
-                                REP --> CTRL: repositories
-                        deactivate REP
+CTRL -> REP: getSkillRepository()
+activate REP
 
-                        CTRL -> repositories: getSkillRepository()
-                        activate repositories
+REP --> CTRL: skillRepository
+deactivate REP
 
-                                repositories --> CTRL: skillRepository
-                        deactivate repositories
-                        CTRL -> SREP: listSkills()
-                        activate SREP
+CTRL -> SKILLREP : listSkills()
+activate SKILLREP
 
-                                SREP --> CTRL: skills
+SKILLREP --> CTRL : skills
+deactivate SKILLREP
 
-                        deactivate SREP
+CTRL --> UI : skills
+deactivate CTRL
 
-                        CTRL --> UI: skills
-                deactivate CTRL
-UI --> HRM: Displays a list of available skills
-deactivate UI
-loop
-HRM -> UI : selects a skills
-activate UI
+loop While selecting skills
+    UI --> HRM: shows the list of skills and asks you to \nselect one or more skills
+    deactivate UI
 
-        UI --> HRM: asks if you want to add more skills\nor continue the program
-deactivate UI
+    HRM -> UI: selects the skill(s)
+    activate UI
 end
-HRM -> UI : Provides collaborator details
-activate UI
 
-        UI -> CTRL: getCollaborator()
+UI -> CTRL: getCollaborators()
+activate CTRL
 
-        activate CTRL
+CTRL -> Repositories: getInstance()
+activate Repositories
 
-                CTRL -> REP: getInstance()
-                activate REP
+Repositories --> CTRL: repositories
+deactivate Repositories
 
-                        REP --> CTRL: repositories
-                deactivate REP
+CTRL -> REP: getCollaboratorRepository()
+activate REP
 
-                CTRL -> repositories: getCollaboratorRepository()
+REP --> CTRL: collaboratorRepository
+deactivate REP
 
-                activate repositories
+CTRL -> COLREP: getCollaborator(collaboratorID)
+activate COLREP
 
-                        repositories --> CTRL: collaboratorRepository
-                deactivate repositories
+COLREP -> COLLAB**: Collaborator(collaboratorID)
+activate COLLAB
 
-                CTRL -> CREP: getCollaborator()
+loop For each skill
+    COLLAB -> COLLAB: addSkill(skill)
+    activate COLLAB
+end
 
-                activate CREP
+COLLAB --> COLREP: updatedCollaborator
+deactivate COLLAB
 
-                        CREP --> CTRL: collaborator
-                deactivate CREP
+COLREP --> CTRL: updatedCollaborator
+deactivate COLREP
 
-                CTRL --> UI: collaborator
-        deactivate CTRL
+CTRL --> UI: updatedCollaborator
+deactivate CTRL
 
-UI --> HRM : Shows details and requests confirmation
+UI --> HRM: displays operation success
 deactivate UI
-
-HRM -> UI : Confirms details
-activate UI
-
-        UI -> CTRL: assignSkill(collaborator,skills)
-        activate CTRL
-
-                CTRL -> CREP: assignSkill(collaborator,skills)
-                activate CREP
-
-                        CREP -> collaborator** : assignSkill(collaborator,skills)
-                        activate collaborator
-                                collaborator -> collaborator: validateSkills(skills)
-                                activate collaborator
-
-                                        collaborator -> collaborator: addCollaboratorSkills(skills)
-
-                                        activate collaborator
-
-                                                collaborator --> CREP: collaborator
-                                        deactivate collaborator
-
-                            deactivate collaborator
-
-                        deactivate collaborator
-                        CREP --> CTRL: collaborator
-                deactivate CREP
-                CTRL --> UI: collaborator
-        deactivate CTRL
-        UI --> HRM: success
-
-deactivate UI
-
 
 deactivate HRM
-
 @enduml
