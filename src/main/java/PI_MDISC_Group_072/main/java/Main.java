@@ -1,13 +1,14 @@
 package PI_MDISC_Group_072.main.java;
 
 import java.io.*;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
 
 public class Main {
 
-    public static final int QUANTITY_OF_FILES = 30;
+    public static final int QUANTITY_OF_FILES = 10;
 
     public static void main(String[] args) throws IOException, InterruptedException {
         Locale.setDefault(Locale.US);
@@ -61,6 +62,7 @@ public class Main {
         ArrayList<Integer> quantityOfEdges = new ArrayList<>();
 
         for (int i = 0; i <  QUANTITY_OF_FILES; i++) {
+            long startTime = System.nanoTime();
 
             inputFile = aux;
             inputFile = new StringBuilder(inputFile + "_" + (i + 1));
@@ -68,45 +70,22 @@ public class Main {
 
 
             ArrayList<Edge> graphEdges = readFile(file);
-            Graph graph = addEdges(graphEdges);
-            createGraph(graph, inputFile);
             quantityOfEdges.add(graphEdges.size());
-
-            bubbleSort(graphEdges);
-
             ArrayList<Vertex> verticesGraph = getVerticesGraph(graphEdges);
-
             Graph spanningTree = kruskal(graphEdges, verticesGraph);
-
-            writeOutput(spanningTree, inputFile);
-            graphInfo(graphEdges.size(), verticesGraph.size(), spanningTree, inputFile);
-            createSpanningTree(spanningTree, inputFile);
-
-            time.add((double) System.currentTimeMillis());
+            long endTime = System.nanoTime();
+            long durationTime =((endTime - startTime));
+            time.add((double) durationTime);
+            System.out.println("File: " + inputFile + ".csv done!");
         }
 
-        double[][] asymptoticGraph = new double[2][time.size()];
-        addData(time, quantityOfEdges, asymptoticGraph);
-        writeData(asymptoticGraph);
+        asymptoticInfo(quantityOfEdges,time);
         createGnuplotGraph();
     }
 
-    private static void addData(ArrayList<Double> time, ArrayList<Integer> quantityOfEdges, double[][] asymptoticGraph) {
-        for (int i = 0; i < time.size(); i++) {
-            asymptoticGraph[0][i] = quantityOfEdges.get(i);
-            asymptoticGraph[1][i] = time.get(i);
-        }
-    }
 
-    private static void writeData(double[][] asymptoticGraph) {
-        try (PrintWriter writer = new PrintWriter(new FileWriter("src/main/java/PI_MDISC_Group_072/Output/AsymptoticData.dat"))) {
-            for (int i = 0; i < asymptoticGraph[0].length; i++) {
-                writer.printf("%d\t%f%n", (int) asymptoticGraph[0][i], asymptoticGraph[1][i]);
-            }
-        } catch (IOException e) {
-            System.err.println("Error writing file: " + e.getMessage());
-        }
-    }
+
+
 
     private static void createGraph(Graph graph, StringBuilder file) throws IOException, InterruptedException {
         createScriptGraph(graph, file);
@@ -362,8 +341,8 @@ public class Main {
         printWriter.println("set title 'Execution Time vs Input Size'");
         printWriter.println("set xlabel 'Input Size'");
         printWriter.println("set ylabel 'Time (milliseconds)'");
-        printWriter.println("set datafile separator '\\t'");
-        printWriter.println("plot 'src/main/java/PI_MDISC_Group_072/Output/AsymptoticData.dat' using 1:2 with linespoints linewidth 3  title 'Asymptotic Behavior', \\");
+        printWriter.println("set datafile separator ';'");
+        printWriter.println("plot 'src/main/java/PI_MDISC_Group_072/Output/AsymptoticBehavior.csv' skip 1 using 1:2 with linespoints linewidth 3  title 'Asymptotic Behavior', \\");
         printWriter.close();
     }
 
@@ -394,5 +373,19 @@ public class Main {
                 }
             }
         }
+    }
+    private static void asymptoticInfo(ArrayList<Integer> quantityOfEdges, ArrayList<Double> time) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter("src/main/java/PI_MDISC_Group_072/Output/AsymptoticBehavior.csv"))) {
+            writer.println("size;time");
+            for (int i = 0; i < quantityOfEdges.size(); i++) {
+                writer.printf("%d;%f ", quantityOfEdges.get(i), time.get(i));
+                writer.printf("%n");
+            }
+            System.out.println("CSV file '\"src/main/java/PI_MDISC_Group_072/Output/AsymptoticBehavior.csv' has been created successfully.");
+
+        } catch (IOException e) {
+            System.err.println("Error writing to CSV file: " + e.getMessage());
+        }
+
     }
 }

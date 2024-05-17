@@ -53,7 +53,7 @@ public class ListMaintenanceUI implements Runnable {
             for (Maintenance maintenance : maintenances) {
                 controller.checkLastMaintenance(maintenance);
                 System.out.println("|  Plate  |  Brand  |  Model  | Curr.Kms |  Freq  |  Last  |  Next  |" );
-                System.out.printf("| %10s | %10s | %10s | %10f | %10f | %10f | %10f |", maintenance.getVehicle().getPlateNumber(), maintenance.getVehicle().getBrand(), maintenance.getVehicle().getModel(),maintenance.getVehicle().getCurrentKms(),maintenance.getVehicle().getServiceFrequency(),maintenance.getVehicle().getKmAtLastMaintenance(),maintenance.getVehicle().getKmAtLastMaintenance() + maintenance.getVehicle().getServiceFrequency());
+                System.out.printf("| %10s | %10s | %10s | %10f | %10f | %10f | %10f |", maintenance.getVehicleFromPlate().getPlateNumber(), maintenance.getVehicleFromPlate().getBrand(), maintenance.getVehicleFromPlate().getModel(),maintenance.getVehicleFromPlate().getCurrentKms(),maintenance.getVehicleFromPlate().getServiceFrequency(),maintenance.getVehicleFromPlate().getKmAtLastMaintenance(),maintenance.getVehicleFromPlate().getKmAtLastMaintenance() + maintenance.getVehicleFromPlate().getServiceFrequency());
                 System.out.printf("%n");
                 System.out.printf("%n");
             }

@@ -83,6 +83,6 @@ public class ListMaintenanceController {
      * @param maintenance of the vehicle
      */
     public void checkLastMaintenance(Maintenance maintenance) {
-        maintenance.setVehicleMaintenance(maintenance.getVehicle());
+        maintenance.setVehicleMaintenance(maintenance.getVehicleFromPlate());
     }
 }

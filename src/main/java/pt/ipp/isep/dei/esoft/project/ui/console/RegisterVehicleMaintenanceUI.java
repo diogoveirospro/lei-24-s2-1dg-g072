@@ -55,7 +55,7 @@ public class RegisterVehicleMaintenanceUI implements Runnable {
         if (!maintenances.isEmpty()) {
             System.out.println("\nVehicle maintenance successfully registered for the following vehicles:");
             for (Maintenance maintenance : maintenances) {
-                System.out.println("- Vehicle: " + maintenance.getVehicle().getPlateNumber());
+                System.out.println("- Vehicle: " + maintenance.getVehicleFromPlate().getPlateNumber());
             }
         } else {
             System.out.println("\nNo vehicle maintenance was registered!");
