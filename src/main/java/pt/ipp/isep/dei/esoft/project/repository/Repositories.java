@@ -24,7 +24,7 @@ public class Repositories {
     private Repositories() {
         jobRepository = new JobRepository();
         skillRepository = new SkillRepository();
-        collaboratorRepository = new CollaboratorRepository();
+        collaboratorRepository = new CollaboratorRepository(skillRepository);
         teamRepository = new TeamRepository();
         maintenanceRepository = new MaintenanceRepository();
         authenticationRepository = new AuthenticationRepository();

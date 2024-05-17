@@ -31,8 +31,8 @@ public class TeamTest {
     @Test
     void teamTest1(){
         GenerateTeamProposalController controller = new GenerateTeamProposalController();
-        CollaboratorRepository collaboratorsRepository = new CollaboratorRepository();
         SkillRepository skillRepository = new SkillRepository();
+        CollaboratorRepository collaboratorsRepository = new CollaboratorRepository(skillRepository);
 
         collaboratorsRepository.addCollaborator(c1);
         collaboratorsRepository.addCollaborator(c2);
@@ -83,8 +83,8 @@ public class TeamTest {
     @Test
     void teamTest2(){
         GenerateTeamProposalController controller = new GenerateTeamProposalController();
-        CollaboratorRepository collaboratorsRepository = new CollaboratorRepository();
         SkillRepository skillRepository = new SkillRepository();
+        CollaboratorRepository collaboratorsRepository = new CollaboratorRepository(skillRepository);
 
         collaboratorsRepository.addCollaborator(c1);
         collaboratorsRepository.addCollaborator(c2);
@@ -119,8 +119,8 @@ public class TeamTest {
     @Test
     void teamTest3(){
         GenerateTeamProposalController controller = new GenerateTeamProposalController();
-        CollaboratorRepository collaboratorsRepository = new CollaboratorRepository();
         SkillRepository skillRepository = new SkillRepository();
+        CollaboratorRepository collaboratorsRepository = new CollaboratorRepository(skillRepository);
 
         collaboratorsRepository.addCollaborator(c1);
 
@@ -154,8 +154,8 @@ public class TeamTest {
     @Test
     void teamTest4(){
         GenerateTeamProposalController controller = new GenerateTeamProposalController();
-        CollaboratorRepository collaboratorsRepository = new CollaboratorRepository();
         SkillRepository skillRepository = new SkillRepository();
+        CollaboratorRepository collaboratorsRepository = new CollaboratorRepository(skillRepository);
 
         collaboratorsRepository.addCollaborator(c1);
         collaboratorsRepository.addCollaborator(c2);
@@ -192,8 +192,8 @@ public class TeamTest {
     @Test
     void teamTest5(){
         GenerateTeamProposalController controller = new GenerateTeamProposalController();
-        CollaboratorRepository collaboratorsRepository = new CollaboratorRepository();
         SkillRepository skillRepository = new SkillRepository();
+        CollaboratorRepository collaboratorsRepository = new CollaboratorRepository(skillRepository);
 
         collaboratorsRepository.addCollaborator(c1);
         collaboratorsRepository.addCollaborator(c2);
