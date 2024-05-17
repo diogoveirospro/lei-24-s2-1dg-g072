@@ -4,54 +4,137 @@ skinparam packageStyle rectangle
 skinparam shadowing false
 
 autonumber
-actor HRM
-participant ":RegisterCollaboratorUI" as RegisterCollaboratorUI
-participant ":RegisterCollaboratorController" as RegisterCollaboratorController
-participant ":Repositories" as REP
-participant "repositories:Repositories" as repositories
-participant "collaboratorRepository\n:CollaboratorRepository" as CollaboratorRepository
-participant "collaborator:\nCollaborator" as collaborator
+
+'hide footbox
+actor "Human Resources\n Manager" as HRM
+participant ":RegisterCollaboratorUI" as CollabUI
+participant ":RegisterCollaboratorController" as CollabController
+participant ":RegisterJobUI" as JobUI
+participant ":RegisterJobController" as JobController
+participant Repositories
+participant "repositories\n:Repositories" as Repos
+participant "collaboratorRepository\n:CollaboratorRepository" as CollabRepo
+participant "collaborator:Collaborator" as Collaborator
+participant "jobRepository\n:JobRepository" as JobRepo
+participant "job:Job" as Job
 
 activate HRM
-HRM -> RegisterCollaboratorUI: Request to register a collaborator
-activate RegisterCollaboratorUI
-RegisterCollaboratorUI -> HRM: Requests collaborator details
-deactivate RegisterCollaboratorUI
-HRM -> RegisterCollaboratorUI: Provides collaborator details
-activate RegisterCollaboratorUI
-RegisterCollaboratorUI -> HRM: Shows details and requests confirmation
-deactivate RegisterCollaboratorUI
-HRM -> RegisterCollaboratorUI: Confirms details
-activate RegisterCollaboratorUI
-RegisterCollaboratorUI -> RegisterCollaboratorController: RegisterCollaborator(name, birthdate,\n admissionDate, address, mobile phone,\n email, taxpayer number, idDocumentType,\n idDocumentNumber)
-activate RegisterCollaboratorController
-RegisterCollaboratorController -> REP: getInstance()
-activate REP
-REP -> RegisterCollaboratorController: repositories
-deactivate REP
-RegisterCollaboratorController -> repositories: getCollaboratorRepository()
-activate repositories
-repositories -> RegisterCollaboratorController: collaboratorRepository
-deactivate repositories
-RegisterCollaboratorController -> CollaboratorRepository: registerCollaborator(name, birthdate,\n admissionDate, address, mobile phone,\n email, taxpayer number, idDocumentType,\n idDocumentNumber)
-activate CollaboratorRepository
-CollaboratorRepository -> collaborator**: Collaborator(name, birthdate, admissionDate,\n address, mobile phone, email,\n taxpayer number, idDocumentType,\n idDocumentNumber)
-CollaboratorRepository -> CollaboratorRepository: addCollaborator(collaborator)
 
-activate CollaboratorRepository
-CollaboratorRepository -> CollaboratorRepository: validateCollaborator(collaborator)
+HRM -> CollabUI : asks to register a collaborator
+activate CollabUI
 
-activate CollaboratorRepository
+CollabUI --> HRM : requests collaborator details (name, birth date, admission date, address, contact info, taxpayer number, ID doc type, ID doc number)
+deactivate CollabUI
 
+HRM -> CollabUI: provides collaborator details
+activate CollabUI
 
+CollabUI --> HRM : shows details and asks for confirmation
+deactivate CollabUI
 
-CollaboratorRepository --> RegisterCollaboratorController: collaborator
-deactivate CollaboratorRepository
-deactivate CollaboratorRepository
-deactivate CollaboratorRepository
-RegisterCollaboratorController --> RegisterCollaboratorUI: collaborator
-deactivate RegisterCollaboratorController
-RegisterCollaboratorUI --> HRM: display operation success
-deactivate RegisterCollaboratorUI
+HRM -> CollabUI : confirms details
+activate CollabUI
+
+CollabUI -> CollabController: registerCollaborator(details)
+activate CollabController
+
+CollabController -> Repos: getInstance()
+activate Repos
+
+Repos --> CollabController: repositories
+deactivate Repos
+
+CollabController -> CollabRepo: getCollaboratorRepository()
+activate CollabRepo
+
+CollabRepo --> CollabController: collaboratorRepository
+deactivate CollabRepo
+
+CollabController -> CollabRepo**: registerCollaborator(details)
+activate CollabRepo
+
+CollabRepo -> Collaborator: Collaborator(details)
+activate Collaborator
+
+Collaborator -> Collaborator: validateTaxpayerNumber(taxpayer number)
+Collaborator -> Collaborator: validateIDDocumentNumber(idDocumentNumber)
+
+Collaborator --> CollabRepo: valid
+deactivate Collaborator
+
+CollabRepo -> CollabRepo: addCollaborator(collaborator)
+activate CollabRepo
+
+CollabRepo -> CollabRepo: validateCollaborator(collaborator)
+
+CollabRepo --> CollabController: collaborator
+deactivate CollabRepo
+deactivate CollabRepo
+
+CollabController --> CollabUI: collaborator
+deactivate CollabController
+
+CollabUI --> HRM: displays operation success
+deactivate CollabUI
+
+HRM -> JobUI : asks to create a new job
+activate JobUI
+
+JobUI --> HRM : requests job details
+deactivate JobUI
+
+HRM -> JobUI : provides job details
+activate JobUI
+
+JobUI --> HRM : shows details and asks for confirmation
+deactivate JobUI
+
+HRM -> JobUI : confirms job details
+activate JobUI
+
+JobUI -> JobController : registerJob(jobDetails)
+activate JobController
+
+JobController -> Repos: getInstance()
+activate Repos
+
+Repos --> JobController: repositories
+deactivate Repos
+
+JobController -> JobRepo: getJobRepository()
+activate JobRepo
+
+JobRepo --> JobController: jobRepository
+deactivate JobRepo
+
+JobController -> JobRepo**: registerJob(jobDetails)
+activate JobRepo
+
+JobRepo -> Job: Job(jobDetails)
+activate Job
+
+Job -> Job: addJob(Job)
+activate Job
+
+Job -> Job: validateJob(Job)
+activate Job
+
+Job --> JobRepo: job
+deactivate Job
+deactivate Job
+
+JobRepo -> JobRepo: validateJob(job)
+activate JobRepo
+
+JobRepo --> JobController: job
+deactivate JobRepo
+deactivate JobRepo
+
+JobController --> JobUI : job
+deactivate JobController
+
+JobUI --> HRM: displays operation success
+deactivate JobUI
+
 deactivate HRM
 @enduml
