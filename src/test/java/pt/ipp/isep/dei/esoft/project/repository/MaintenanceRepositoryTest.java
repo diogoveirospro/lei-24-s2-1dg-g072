@@ -37,9 +37,9 @@ class MaintenanceRepositoryTest {
         maintenanceRepository.addVehicleMaintenance(m3);
 
         List<Vehicle> vehicleList = new ArrayList<Vehicle>();
-        vehicleList.add(m1.getVehicle().clone());
-        vehicleList.add(m2.getVehicle().clone());
-        vehicleList.add(m3.getVehicle().clone());
+        vehicleList.add(m1.getVehicleFromPlate().clone());
+        vehicleList.add(m2.getVehicleFromPlate().clone());
+        vehicleList.add(m3.getVehicleFromPlate().clone());
 
         List<Maintenance> maintenances = maintenanceRepository.getVehicleMaintenance(vehicleList);
         List<Maintenance> expectedList = new ArrayList<>(maintenanceRepository.getVehicleMaintenance(vehicleList));
@@ -84,9 +84,9 @@ class MaintenanceRepositoryTest {
     void testCheckIfMaintenanceNotNull1() {
         MaintenanceRepository maintenanceRepository = new MaintenanceRepository();
         List<Vehicle> vehicleList = new ArrayList<Vehicle>();
-        vehicleList.add(m1.getVehicle().clone());
-        vehicleList.add(m2.getVehicle().clone());
-        vehicleList.add(m3.getVehicle().clone());
+        vehicleList.add(m1.getVehicleFromPlate().clone());
+        vehicleList.add(m2.getVehicleFromPlate().clone());
+        vehicleList.add(m3.getVehicleFromPlate().clone());
         assertThrows(IllegalArgumentException.class, () -> maintenanceRepository.getVehicleMaintenance(vehicleList));
     }
 

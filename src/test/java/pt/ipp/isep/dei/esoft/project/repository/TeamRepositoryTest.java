@@ -121,8 +121,8 @@ public class TeamRepositoryTest {
      */
     @Test
     void testGenerateTeamProposal(){
-        CollaboratorRepository collaboratorsRepository = new CollaboratorRepository();
         SkillRepository skillRepository = new SkillRepository();
+        CollaboratorRepository collaboratorsRepository = new CollaboratorRepository(skillRepository);
 
         collaboratorsRepository.addCollaborator(c1);
         collaboratorsRepository.addCollaborator(c2);

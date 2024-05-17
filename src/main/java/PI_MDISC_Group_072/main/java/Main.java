@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static final int QUANTITY_OF_FILES = 10;
+    public static final int QUANTITY_OF_FILES = 30;
 
     public static void main(String[] args) throws IOException, InterruptedException {
         Locale.setDefault(Locale.US);
@@ -40,18 +40,19 @@ public class Main {
 
         ArrayList<Edge> graphEdges = readFile(file);
         Graph graph = addEdges(graphEdges);
-        createGraph(graph,inputFile);
+        createGraph(graph, inputFile);
 
         bubbleSort(graphEdges);
 
         ArrayList<Vertex> verticesGraph = getVerticesGraph(graphEdges);
 
-        Graph spanningTree = kruskal(graphEdges, verticesGraph);
+        Graph spanningTree = Graph.kruskal(graphEdges, verticesGraph);
 
         writeOutput(spanningTree, inputFile);
         graphInfo(graphEdges.size(), verticesGraph.size(), spanningTree, inputFile);
         createSpanningTree(spanningTree, inputFile);
     }
+
 
     private static void US14() throws IOException, InterruptedException {
         Scanner sc = new Scanner(System.in);
@@ -62,7 +63,7 @@ public class Main {
         ArrayList<Integer> quantityOfEdges = new ArrayList<>();
 
         for (int i = 0; i <  QUANTITY_OF_FILES; i++) {
-            long startTime = System.nanoTime();
+
 
             inputFile = aux;
             inputFile = new StringBuilder(inputFile + "_" + (i + 1));
@@ -72,10 +73,11 @@ public class Main {
             ArrayList<Edge> graphEdges = readFile(file);
             quantityOfEdges.add(graphEdges.size());
             ArrayList<Vertex> verticesGraph = getVerticesGraph(graphEdges);
-            Graph spanningTree = kruskal(graphEdges, verticesGraph);
-            long endTime = System.nanoTime();
+            long startTime = System.currentTimeMillis();
+            Graph spanningTree = Graph.kruskal(graphEdges, verticesGraph);
+            long endTime = System.currentTimeMillis();
             long durationTime =((endTime - startTime));
-            time.add((double) durationTime);
+            time.add((double) durationTime * Math.pow(10,-2));
             System.out.println("File: " + inputFile + ".csv done!");
         }
 
@@ -202,74 +204,6 @@ public class Main {
         }
     }
 
-    private static Graph kruskal(ArrayList<Edge> sortedGraphEdges, ArrayList<Vertex> verticesGraph) {
-        Graph A = new Graph();
-        Vertex[][] S = new Vertex[verticesGraph.size()][verticesGraph.size()];
-        int nA = 0;
-        addVerticesToSack(verticesGraph, S, nA);
-        int i = 0;
-        while (nA < verticesGraph.size() - 1) {
-            Edge edge = sortedGraphEdges.get(i);
-            int Sp = locationVertexInS(edge.getOrigin(), S);
-            int Sq = locationVertexInS(edge.getDestiny(), S);
-            if (Sp != Sq && (Sp != -1 && Sq != -1)) {
-                A.addEdge(edge);
-                moveVertices(S, Sp, Sq);
-                nA++;
-            }
-            i++;
-        }
-        return A;
-    }
-
-    private static void addVerticesToSack(ArrayList<Vertex> verticesGraph, Vertex[][] S, int nA) {
-        for (Vertex vertex : verticesGraph) {
-            S[0][nA] = vertex;
-            nA++;
-        }
-    }
-
-    private static int locationVertexInS(Vertex vertex, Vertex[][] S) {
-        for (int i = 0; i < S[0].length; i++) {
-            for (Vertex[] vertices : S) {
-                if (vertices[i] != null && vertices[i].equals(vertex)) {
-                    return i;
-                }
-            }
-        }
-        return -1;
-    }
-
-    private static void moveVertices(Vertex[][] S, int Sp, int Sq) {
-        int i = 0;
-        int j = 0;
-
-        while (S[j][Sp] != null) {
-            j++;
-            if (j == S.length){
-                break;
-            }
-        }
-
-        while (S[i][Sq] != null && j < S.length) {
-            S[j][Sp] = S[i][Sq];
-            S[i][Sq] = null;
-            i++;
-            j++;
-
-            if (j == S.length) {
-                break;
-            }
-
-            while (S[j][Sp] != null) {
-                j++;
-                if (j == S.length) {
-                    break;
-                }
-            }
-        }
-    }
-
     private static String getFile(Scanner sc) {
         System.out.println("Insert the name of the file with the vertices, costs, and connections:");
         return sc.nextLine();
@@ -340,7 +274,7 @@ public class Main {
         printWriter.println("set output 'src/main/java/PI_MDISC_Group_072/Output/asymptotic_graph.png'");
         printWriter.println("set title 'Execution Time vs Input Size'");
         printWriter.println("set xlabel 'Input Size'");
-        printWriter.println("set ylabel 'Time (milliseconds)'");
+        printWriter.println("set ylabel 'Time (seconds)'");
         printWriter.println("set datafile separator ';'");
         printWriter.println("plot 'src/main/java/PI_MDISC_Group_072/Output/AsymptoticBehavior.csv' skip 1 using 1:2 with linespoints linewidth 3  title 'Asymptotic Behavior', \\");
         printWriter.close();

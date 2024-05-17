@@ -12,10 +12,10 @@ import pt.ipp.isep.dei.esoft.project.domain.Date;
  * @author Group 072 - Byte Masters - ISEP
  */
 public class Bootstrap {
-    private SkillRepository skillRepository = Repositories.getInstance().getSkillRepository();
-    private CollaboratorRepository collaboratorRepository = Repositories.getInstance().getCollaboratorRepository();
-    private VehicleRepository vehicleRepository = Repositories.getInstance().getVehicleRepository();
-    private JobRepository jobRepository = Repositories.getInstance().getJobRepository();
+    private final SkillRepository skillRepository = Repositories.getInstance().getSkillRepository();
+    private final CollaboratorRepository collaboratorRepository = Repositories.getInstance().getCollaboratorRepository();
+    private final VehicleRepository vehicleRepository = Repositories.getInstance().getVehicleRepository();
+    private final JobRepository jobRepository = Repositories.getInstance().getJobRepository();
 
     public void run() {
         addSkill();
