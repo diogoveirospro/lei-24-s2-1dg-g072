@@ -1,6 +1,9 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
 import org.junit.jupiter.api.Test;
+import pt.ipp.isep.dei.esoft.project.application.controller.GenerateTeamProposalController;
+import pt.ipp.isep.dei.esoft.project.repository.CollaboratorRepository;
+import pt.ipp.isep.dei.esoft.project.repository.SkillRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +22,220 @@ public class TeamTest {
     Collaborator c2 = new Collaborator("João", new Date(1980, 2, 3), new Date(2010, 3, 1), "Rua2", 912345669, "joao@gmail.com", 12345678, "CC", 234564321);
     Collaborator c3 = new Collaborator("André", new Date(1970, 2, 3), new Date(2010, 3, 1), "Rua3", 912345669, "andre@gmail.com", 12345678, "CC", 234564321);
     Collaborator c4 = new Collaborator("Manuel", new Date(1999, 2, 3), new Date(2015, 3, 1), "Rua4", 912345669, "manuel@gmail.com", 12345678, "CC", 234564321);
+
+    /**
+     * Test to verify the behavior of generateTeamProposal method in GenerateTeamProposalController.
+     * Generates a team proposal with specified skills and collaborators and verifies the generated team members.
+     * Ensures that the generated team meets the criteria of having a specific number of members with required skills.
+     */
+    @Test
+    void teamTest1(){
+        GenerateTeamProposalController controller = new GenerateTeamProposalController();
+        CollaboratorRepository collaboratorsRepository = new CollaboratorRepository();
+        SkillRepository skillRepository = new SkillRepository();
+
+        collaboratorsRepository.addCollaborator(c1);
+        collaboratorsRepository.addCollaborator(c2);
+        collaboratorsRepository.addCollaborator(c3);
+        collaboratorsRepository.addCollaborator(c4);
+
+        List<Collaborator> collaborators = collaboratorsRepository.getCollaborators();
+
+        Skill skill1 = new Skill("Landscape Design");
+        Skill skill2 = new Skill("Gardening");
+        Skill skill3 = new Skill("Agriculture");
+        Skill skill4 = new Skill("Sustainable Land Management");
+        Skill skill5 = new Skill("Ecological Restoration");
+
+        skillRepository.addSkill(skill1);
+        skillRepository.addSkill(skill2);
+        skillRepository.addSkill(skill3);
+        skillRepository.addSkill(skill4);
+        skillRepository.addSkill(skill5);
+
+        List<Skill> skills = new ArrayList<>();
+        skills.add(skill1);
+        skills.add(skill2);
+        skills.add(skill1);
+
+        c1.assignSkill(skill1);
+        c1.assignSkill(skill2);
+        c2.assignSkill(skill3);
+        c2.assignSkill(skill4);
+        c3.assignSkill(skill1);
+        c4.assignSkill(skill5);
+        c4.assignSkill(skill2);
+
+
+        Team team = controller.generateTeamProposal(2, 3, skills, collaborators);
+
+        assertEquals(3, team.getTeam().size());
+        assertTrue(team.getTeam().contains(collaborators.get(0)));
+        assertTrue(team.getTeam().contains(collaborators.get(1)));
+        assertTrue(team.getTeam().contains(collaborators.get(2)));
+    }
+
+    /**
+     * Test to verify the behavior of generateTeamProposal method in GenerateTeamProposalController when no collaborators have the required skills.
+     * Adds collaborators with specific skills to the repository, attempts to generate a team proposal with specified skills,
+     * and expects an IllegalArgumentException to be thrown with a message indicating the lack of collaborators with the required skill.
+     */
+    @Test
+    void teamTest2(){
+        GenerateTeamProposalController controller = new GenerateTeamProposalController();
+        CollaboratorRepository collaboratorsRepository = new CollaboratorRepository();
+        SkillRepository skillRepository = new SkillRepository();
+
+        collaboratorsRepository.addCollaborator(c1);
+        collaboratorsRepository.addCollaborator(c2);
+
+        List<Collaborator> collaborators = collaboratorsRepository.getCollaborators();
+
+        Skill skill1 = new Skill("Landscape Design");
+        Skill skill2 = new Skill("Gardening");
+
+        skillRepository.addSkill(skill1);
+        skillRepository.addSkill(skill2);
+
+        List<Skill> skills = new ArrayList<>();
+        skills.add(skill1);
+        skills.add(skill2);
+
+        c1.assignSkill(skill1);
+
+        try {
+            controller.generateTeamProposal(2, 5, skills, collaborators);
+            fail("The method should throw an IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            assertTrue(e.getMessage().contains("There are no collaborators with the required skills: "));
+        }
+    }
+
+    /**
+     * Test to verify the behavior of generateTeamProposal method in GenerateTeamProposalController when there are not enough collaborators with required skills.
+     * Adds a single collaborator with a specific skill to the repository, attempts to generate a team proposal with specified skills,
+     * and expects an IllegalArgumentException to be thrown with a message indicating the lack of sufficient collaborators with required skills.
+     */
+    @Test
+    void teamTest3(){
+        GenerateTeamProposalController controller = new GenerateTeamProposalController();
+        CollaboratorRepository collaboratorsRepository = new CollaboratorRepository();
+        SkillRepository skillRepository = new SkillRepository();
+
+        collaboratorsRepository.addCollaborator(c1);
+
+        List<Collaborator> collaborators = collaboratorsRepository.getCollaborators();
+
+        Skill skill1 = new Skill("Landscape Design");
+        Skill skill2 = new Skill("Gardening");
+
+        skillRepository.addSkill(skill1);
+        skillRepository.addSkill(skill2);
+
+        List<Skill> skills = new ArrayList<>();
+
+        c1.assignSkill(skill1);
+
+        try {
+            controller.generateTeamProposal(2, 5, skills, collaborators);
+            fail("The method should throw an IllegalArgumentException");
+        }catch (IllegalArgumentException e){
+            assertEquals("There aren't enough collaborators with the specified skills to create a team!", e.getMessage());
+        }
+    }
+
+    /**
+     * Test to verify the behavior of generateTeamProposal method in GenerateTeamProposalController when
+     * there are not enough collaborators with required skills but there are still collaborators remaining.
+     * Adds a single collaborator with no skills to the repository while also adding, three more with the wanted skills
+     * attempts to generate a team proposal with specified skills, and expects the program success as it will
+     * get the collaborator with no skills to generate the team.
+     */
+    @Test
+    void teamTest4(){
+        GenerateTeamProposalController controller = new GenerateTeamProposalController();
+        CollaboratorRepository collaboratorsRepository = new CollaboratorRepository();
+        SkillRepository skillRepository = new SkillRepository();
+
+        collaboratorsRepository.addCollaborator(c1);
+        collaboratorsRepository.addCollaborator(c2);
+        collaboratorsRepository.addCollaborator(c3);
+        collaboratorsRepository.addCollaborator(c4);
+        List<Collaborator> collaborators = collaboratorsRepository.getCollaborators();
+
+        Skill skill1 = new Skill("Landscape Design");
+        Skill skill2 = new Skill("Gardening");
+
+        skillRepository.addSkill(skill1);
+        skillRepository.addSkill(skill2);
+
+        List<Skill> skills = new ArrayList<>();
+
+        c1.assignSkill(skill1);
+        c2.assignSkill(skill2);
+        c3.assignSkill(skill1);
+        c3.assignSkill(skill2);
+        Team team = controller.generateTeamProposal(4, 4, skills, collaborators);
+
+        assertEquals(4, team.getTeam().size());
+        assertTrue(team.getTeam().contains(collaborators.get(0)));
+        assertTrue(team.getTeam().contains(collaborators.get(1)));
+        assertTrue(team.getTeam().contains(collaborators.get(2)));
+        assertTrue(team.getTeam().contains(collaborators.get(3)));
+    }
+
+    /**
+     * Test to verify the behavior of generateTeamProposal method in GenerateTeamProposalController.
+     * Generates a team proposal with specified skills and collaborators and verifies the generated team members.
+     * Ensures that the generated team meets the criteria of having a specific number of members with required skills.
+     */
+    @Test
+    void teamTest5(){
+        GenerateTeamProposalController controller = new GenerateTeamProposalController();
+        CollaboratorRepository collaboratorsRepository = new CollaboratorRepository();
+        SkillRepository skillRepository = new SkillRepository();
+
+        collaboratorsRepository.addCollaborator(c1);
+        collaboratorsRepository.addCollaborator(c2);
+        collaboratorsRepository.addCollaborator(c3);
+        collaboratorsRepository.addCollaborator(c4);
+
+        List<Collaborator> collaborators = collaboratorsRepository.getCollaborators();
+
+        Skill skill1 = new Skill("Landscape Design");
+        Skill skill2 = new Skill("Gardening");
+        Skill skill3 = new Skill("Agriculture");
+        Skill skill4 = new Skill("Sustainable Land Management");
+        Skill skill5 = new Skill("Ecological Restoration");
+
+        skillRepository.addSkill(skill1);
+        skillRepository.addSkill(skill2);
+        skillRepository.addSkill(skill3);
+        skillRepository.addSkill(skill4);
+        skillRepository.addSkill(skill5);
+
+        List<Skill> skills = new ArrayList<>();
+        skills.add(skill1);
+        skills.add(skill2);
+        skills.add(skill3);
+        skills.add(skill4);
+        skills.add(skill5);
+
+
+        c1.assignSkill(skill1);
+        c1.assignSkill(skill2);
+        c2.assignSkill(skill3);
+        c2.assignSkill(skill4);
+        c3.assignSkill(skill5);
+
+
+        Team team = controller.generateTeamProposal(2, 3, skills, collaborators);
+
+        assertEquals(3, team.getTeam().size());
+        assertTrue(team.getTeam().contains(collaborators.get(0)));
+        assertTrue(team.getTeam().contains(collaborators.get(1)));
+        assertTrue(team.getTeam().contains(collaborators.get(2)));
+    }
 
     /**
      * Test to verify the behavior of getTeam method in Team class.
@@ -78,14 +295,7 @@ public class TeamTest {
         StringBuilder stringExpected = new StringBuilder("The team members are: \n");
 
         for (Collaborator member : members){
-            stringExpected.append("Collaborator{" + "name='").append(member.getName()).append('\'').append
-                    (", birthDate=").append(member.getBirthDate()).append(", admissionDate=").
-                    append(member.getAdmissionDate()).append(", address='").append(member.getAddress()).append('\'').
-                    append(", mobile='").append(member.getMobile()).append('\'').append(", email='").append(member.getEmail())
-                    .append('\'').append(", taxpayerNumber='").append(member.getTaxpayerNumber()).append('\'').
-                    append(", idDocType='").append(member.getIdDocType()).append('\'').append(", idDocNumber='").
-                    append(member.getIdDocNumber()).append('\'').append(", job='").append(member.getJob()).append('\'').
-                    append("}\n");
+            stringExpected.append(member.getName()).append(" - ").append(member.getIdDocNumber()).append("\n");
 
         }
 

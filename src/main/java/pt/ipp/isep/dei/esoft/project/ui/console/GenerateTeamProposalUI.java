@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.esoft.project.ui.console;
 import pt.ipp.isep.dei.esoft.project.application.controller.GenerateTeamProposalController;
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
+import pt.ipp.isep.dei.esoft.project.domain.Team;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,9 +37,9 @@ public class GenerateTeamProposalUI implements Runnable {
     private List<Skill> selectedSkills;
 
     /**
-     * Team proposal members
+     * Team proposal
      */
-    List<Collaborator> members;
+    Team team;
 
     /**
      * Scanner
@@ -76,13 +77,11 @@ public class GenerateTeamProposalUI implements Runnable {
         }
 
         List<Collaborator> collaborators = controller.getCollaborators();
-        members = controller.generateTeamProposal(minimumSize, maximumSize, selectedSkills, collaborators);
+        team = controller.generateTeamProposal(minimumSize, maximumSize, selectedSkills, collaborators);
 
 
         System.out.println("\nTeam Members:");
-        for (Collaborator member : members) {
-            System.out.println("- " + member.getName() + " - " + member.getIdDocNumber());
-        }
+        System.out.println(team);
 
         System.out.println("\nDo you agree with this team proposal? [Y/N]");
         confirmation = scanner.nextLine();
@@ -93,7 +92,7 @@ public class GenerateTeamProposalUI implements Runnable {
             confirmation = scanner.nextLine();
         }
 
-        controller.createTeam(members);
+        controller.addTeam(team);
         System.out.println("\nTeam successfully created!");
 
 
@@ -303,7 +302,7 @@ public class GenerateTeamProposalUI implements Runnable {
 
             if (memberToChange != null) {
 
-                members.remove(memberToChange);
+                team.getTeam().remove(memberToChange);
                 System.out.println("'" + ID + "' removed.");
 
             } else {
@@ -325,7 +324,7 @@ public class GenerateTeamProposalUI implements Runnable {
                 Collaborator selectedMember = findCollaboratorByIDNumber(collaborators, answer);
 
                 if (selectedMember != null) {
-                    members.add(selectedMember);
+                    team.getTeam().add(selectedMember);
                     boolean hasAllSkills = true;
 
                     List<Skill> membersSkills = getMembersSkills();
@@ -369,7 +368,7 @@ public class GenerateTeamProposalUI implements Runnable {
 
         List<Skill> membersSkills = new ArrayList<>();
 
-        for (Collaborator member : members){
+        for (Collaborator member : team.getTeam()){
             membersSkills.addAll(member.getSkillSet());
         }
 

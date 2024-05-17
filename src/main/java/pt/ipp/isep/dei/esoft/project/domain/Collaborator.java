@@ -391,4 +391,9 @@ public class Collaborator {
     public boolean analyseCollaborator(Skill skill) {
         return this.skillSet.contains(skill);
     }
+
+    public boolean addTeam(Skill skill){
+
+        return analyseCollaborator(skill) && !this.hasTeam;
+    }
 }
