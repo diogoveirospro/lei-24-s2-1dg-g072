@@ -1,129 +1,96 @@
-@@startuml
- skinparam monochrome true
- skinparam packageStyle rectangle
- skinparam shadowing false
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
 
- autonumber
+autonumber
 
- actor "Human Resources\n Manager" as HRM
- participant ":AssignSkillsUI" as UI
- participant ":AssignSkillsController" as CTRL
- participant Repositories
- participant "repositories\n:Repositories" as REP
- participant "skillRepository\n:SkillRepository" as SKILLREP
- participant "collaboratorRepository\n:CollaboratorRepository" as COLREP
- participant "collaborator\n:Collaborator" as COLLAB
- participant "skill\n:Skill" as SKILL
+actor "Human Resources\n Manager" as HRM
+participant ":AssignSkillsUI" as UI
+participant ":AssignSkillsController" as CTRL
+participant Repositories
+participant "repositories\n:Repositories" as REP
+participant "skillRepository\n:SkillRepository" as SKILLREP
+participant "collaboratorRepository\n:CollaboratorRepository" as COLREP
+participant "collaborator\n:Collaborator" as COLLAB
+participant "skill\n:Skill" as SKILL
 
- activate HRM
+activate HRM
 
-     HRM -> UI : requests to assign skills to a collaborator
-     activate UI
+HRM -> UI : requests to assign skills to a collaborator
+activate UI
 
-         UI -> CTRL** : generate
+UI -> CTRL** : generate
 
-         UI -> CTRL : listSkills()
-         activate CTRL
+UI -> CTRL : listSkills()
+activate CTRL
 
-            CTRL -> Repositories: getInstance()
-            activate Repositories
+CTRL -> Repositories: getInstance()
+activate Repositories
 
-                 Repositories --> CTRL: repositories
-            deactivate Repositories
+Repositories --> CTRL: repositories
+deactivate Repositories
 
-            CTRL -> REP: getSkillRepository()
-            activate REP
+CTRL -> REP: getSkillRepository()
+activate REP
 
-                 REP --> CTRL: skillRepository
-            deactivate REP
+REP --> CTRL: skillRepository
+deactivate REP
 
-             CTRL -> SKILLREP : listSkills()
-             activate SKILLREP
+CTRL -> SKILLREP : listSkills()
+activate SKILLREP
 
-                 SKILLREP --> CTRL : skills
-             deactivate SKILLREP
+SKILLREP --> CTRL : skills
+deactivate SKILLREP
 
-             CTRL --> UI : skills
-         deactivate CTRL
+CTRL --> UI : skills
+deactivate CTRL
 
-     loop
-         UI --> HRM: shows the list of skills and asks you to \nselect one or more skills
-     deactivate UI
+loop While selecting skills
+    UI --> HRM: shows the list of skills and asks you to \nselect one or more skills
+    deactivate UI
 
-     HRM -> UI: selects the skill(s)
-     activate UI
+    HRM -> UI: selects the skill(s)
+    activate UI
+end
 
-     end
+UI -> CTRL: getCollaborators()
+activate CTRL
 
-         UI -> CTRL: getCollaborators()
-         activate CTRL
+CTRL -> Repositories: getInstance()
+activate Repositories
 
-             CTRL -> Repositories: getInstance()
-             activate Repositories
+Repositories --> CTRL: repositories
+deactivate Repositories
 
-                 Repositories --> CTRL: repositories
-             deactivate Repositories
+CTRL -> REP: getCollaboratorRepository()
+activate REP
 
-             CTRL -> REP: getCollaboratorRepository()
-             activate REP
+REP --> CTRL: collaboratorRepository
+deactivate REP
 
-                 REP --> CTRL: collaboratorRepository
-             deactivate REP
+CTRL -> COLREP: getCollaborator(collaboratorID)
+activate COLREP
 
-             CTRL -> COLREP: getCollaborators()
-             activate COLREP
+COLREP -> COLLAB**: Collaborator(collaboratorID)
+activate COLLAB
 
-                 COLREP --> CTRL: collaborators
-             deactivate COLREP
+loop For each skill
+    COLLAB -> COLLAB: addSkill(skill)
+    activate COLLAB
+end
 
-             CTRL --> UI: collaborators
-         deactivate CTRL
+COLLAB --> COLREP: updatedCollaborator
+deactivate COLLAB
 
-     loop
-         UI --> HRM: shows the list of collaborators and asks you to \nselect one
-     deactivate UI
+COLREP --> CTRL: updatedCollaborator
+deactivate COLREP
 
-     HRM -> UI: selects the collaborator
-     activate UI
+CTRL --> UI: updatedCollaborator
+deactivate CTRL
 
-     end
+UI --> HRM: displays operation success
+deactivate UI
 
-         UI -> CTRL: assignSkillsToCollaborator(collaborator, skills)
-         activate CTRL
-
-             CTRL -> Repositories: getInstance()
-             activate Repositories
-
-                 Repositories --> CTRL: repositories
-             deactivate Repositories
-
-             CTRL -> REP: getCollaboratorRepository()
-             activate REP
-
-                 REP --> CTRL: collaboratorRepository
-             deactivate REP
-
-             CTRL -> COLREP: getCollaborator(collaboratorID)
-             activate COLREP
-
-                 COLREP -> COLLAB: Collaborator()
-                 activate COLLAB
-                 loop
-                     COLLAB -> COLLAB: addSkill(skill)
-                     activate COLLAB
-                 end
-                 COLLAB --> COLREP: updatedCollaborator
-                 deactivate COLLAB
-
-                 COLREP --> CTRL: updatedCollaborator
-             deactivate COLREP
-
-             CTRL --> UI: updatedCollaborator
-         deactivate CTRL
-
-         UI --> HRM: displays operation success
-     deactivate UI
-
- deactivate HRM
-
- @enduml
+deactivate HRM
+@enduml
