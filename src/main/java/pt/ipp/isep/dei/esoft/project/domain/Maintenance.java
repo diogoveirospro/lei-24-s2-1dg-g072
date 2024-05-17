@@ -91,7 +91,7 @@ public class Maintenance {
     /**
      * Lets the system set the maintenance date of the vehicle
      *
-     * @param dateLastMaintenance
+     * @param dateLastMaintenance date of the last maintenance made to the vehicle
      */
     public void setDateLastMaintenance(Date dateLastMaintenance) {
         Vehicle vehicle = getVehicleFromPlate();

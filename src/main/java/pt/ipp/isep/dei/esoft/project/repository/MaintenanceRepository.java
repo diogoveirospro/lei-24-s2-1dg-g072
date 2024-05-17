@@ -30,26 +30,22 @@ public class MaintenanceRepository {
      * @param vehicleList of all vehicles that need maintenance
      * @return maintenance
      */
-    public List<Maintenance> getVehicleMaintenance(List<Vehicle> vehicleList) {
-        List<Maintenance> maintenances = new ArrayList<Maintenance>();
+    public List<Vehicle> getVehicleList(List<Vehicle> vehicleList) {
         for (Vehicle vehicle : vehicleList) {
-            getMaintenance(vehicle, maintenances);
+            getMaintenance(vehicle, vehicleList);
         }
-        return maintenances;
+        return vehicleList;
     }
 
     /**
      * Lets the user get the maintenance of a specific vehicle
      *
      * @param vehicle that we want to get
-     * @param maintenances list of all vehicles registered for maintenance
+     * @param vehicleList list of all vehicles (will be changed in accord with the fact of needing or not maintenance)
      */
-    private void getMaintenance(Vehicle vehicle, List<Maintenance> maintenances) {
+    private void getMaintenance(Vehicle vehicle, List<Vehicle> vehicleList) {
         Maintenance newMaintenance = new Maintenance(vehicle);
-        Maintenance aux = null;
-        aux = getMaintenanceOfVehicle(newMaintenance, aux, maintenances);
-
-        checkIfMaintenanceNotNull(aux == null, "Vehicle " + vehicle + " does not exist.");
+        removeVehicle(newMaintenance, vehicleList);
     }
 
     /**
@@ -68,16 +64,12 @@ public class MaintenanceRepository {
      * Lets the user get the maintenance of a specific vehicle if it exists
      *
      * @param newMaintenance the maintenance of the vehicle we want to get
-     * @param aux lets the program save the info of the new maintenance
-     * @param maintenances adds a new entry to the maintenance
-     * @return aux
+     * @param vehicleList    list of vehicles
      */
-    private Maintenance getMaintenanceOfVehicle(Maintenance newMaintenance, Maintenance aux, List<Maintenance> maintenances) {
-        if (maintenanceList.contains(newMaintenance)) {
-            aux = maintenanceList.get(maintenanceList.indexOf(newMaintenance));
-            maintenances.add(maintenanceList.get(maintenanceList.indexOf(newMaintenance)));
+    private void removeVehicle(Maintenance newMaintenance, List<Vehicle> vehicleList) {
+        if (newMaintenance.validateVehicleMaintenance(newMaintenance.getVehicleFromPlate())) {
+            vehicleList.remove(newMaintenance.getVehicleFromPlate());
         }
-        return aux;
     }
 
     /**
@@ -104,8 +96,9 @@ public class MaintenanceRepository {
      *
      * @return maintenanceList
      */
-    public List<Maintenance> getMaintenanceList() {
-        checkIfMaintenanceNotNull(maintenanceList.isEmpty(),"List has no Vehicles registered!!");
+
+
+    public List<Maintenance> getMaintenanceList(){
         return List.copyOf(maintenanceList);
     }
 }
