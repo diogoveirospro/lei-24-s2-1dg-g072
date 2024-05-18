@@ -8,6 +8,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Unit tests for the JobRepository class.
+ *
+ * @author Group 072 - Byte Masters - ISEP
  */
 public class JobRepositoryTest {
     private JobRepository jobRepository;

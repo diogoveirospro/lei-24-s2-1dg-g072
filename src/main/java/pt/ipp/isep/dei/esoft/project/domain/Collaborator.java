@@ -49,9 +49,44 @@ public class Collaborator {
     private int taxpayerNumber;
 
     /**
+     * All types of collaborator identification documents.
+     */
+    public enum IdDocType {
+        CC("CC"),
+        BI("BI"),
+        NISS("Social Security Number"),
+        PASSPORT("Passport"),
+        RESIDENCY_PERMIT("Residency Permit");
+
+        private final String displayName;
+
+        IdDocType(String displayName) {
+            this.displayName = displayName;
+        }
+
+        public String getDisplayName() {
+            return displayName;
+        }
+
+        @Override
+        public String toString() {
+            return displayName;
+        }
+
+        public static IdDocType fromDisplayName(String displayName) {
+            for (IdDocType type : IdDocType.values()) {
+                if (type.displayName.equalsIgnoreCase(displayName)) {
+                    return type;
+                }
+            }
+            throw new IllegalArgumentException("Invalid document type: " + displayName);
+        }
+    }
+
+    /**
      * Collaborator ID document type.
      */
-    private String idDocType;
+    private IdDocType idDocType;
 
     /**
      * Collaborator ID document number.
@@ -89,7 +124,7 @@ public class Collaborator {
      * @param jobName        Collaborator's Job Name.
      */
     public Collaborator(String name, Date birthDate, Date admissionDate, String address, int mobile, String email,
-                        int taxpayerNumber, String idDocType, int idDocNumber, String jobName) {
+                        int taxpayerNumber, IdDocType idDocType, int idDocNumber, String jobName) {
         this.name = name;
         this.birthDate = birthDate;
         this.admissionDate = admissionDate;
@@ -121,7 +156,7 @@ public class Collaborator {
      * @param idDocNumber    Collaborator ID document number.
      */
     public Collaborator(String name, Date birthDate, Date admissionDate, String address, int mobile, String email,
-                        int taxpayerNumber, String idDocType, int idDocNumber) {
+                        int taxpayerNumber, IdDocType idDocType, int idDocNumber) {
         this.name = name;
         this.birthDate = birthDate;
         this.admissionDate = admissionDate;
@@ -204,7 +239,7 @@ public class Collaborator {
      *
      * @return Collaborator ID document type.
      */
-    public String getIdDocType() {
+    public IdDocType getIdDocType() {
         return idDocType;
     }
 
@@ -285,7 +320,7 @@ public class Collaborator {
      *
      * @param idDocType of the collaborator
      */
-    public void setIdDocType(String idDocType) {
+    public void setIdDocType(IdDocType idDocType) {
         this.idDocType = idDocType;
     }
 
@@ -390,5 +425,10 @@ public class Collaborator {
      */
     public boolean analyseCollaborator(Skill skill) {
         return this.skillSet.contains(skill);
+    }
+
+    public boolean addTeam(Skill skill){
+
+        return analyseCollaborator(skill) && !this.hasTeam;
     }
 }

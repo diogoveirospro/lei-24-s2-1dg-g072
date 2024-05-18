@@ -65,7 +65,7 @@ public class AssignSkillUI implements Runnable {
 
         submitData();
 
-        System.out.println(selectedCollaborator.getName() + "was assigned the following skills:");
+        System.out.println(selectedCollaborator.getIdDocNumber() + " was assigned the following skills:");
         for (Skill selectedSkill : selectedSkills) {
             System.out.println("-" + selectedSkill.getName());
         }
@@ -90,14 +90,14 @@ public class AssignSkillUI implements Runnable {
         displayCollaborators(collaborators);
 
         Collaborator collaborator = null;
-        String answer;
+        int answer;
 
         do {
             //Only one collaborator must be chosen at the time
-            System.out.print("Enter the name of the collaborator to select: ");
-            answer = scanner.nextLine().trim();
+            System.out.print("Enter the ID Document Number of the collaborator to select: ");
+            answer = scanner.nextInt();
 
-                Collaborator selectedCollaborator = findCollaboratorName(collaborators, answer);
+                Collaborator selectedCollaborator = findCollaboratorIDDocNumber(collaborators, answer);
                 if (selectedCollaborator != null) {
                     collaborator = selectedCollaborator;
                     System.out.println("'" + answer + "' selected.");
@@ -117,7 +117,7 @@ public class AssignSkillUI implements Runnable {
      */
     private void displayCollaborators(List<Collaborator> collaborators) {
         for (Collaborator collaborator : collaborators) {
-            System.out.println("- " + collaborator.getName());
+            System.out.println("- " + collaborator.getName() + ", " + collaborator.getIdDocNumber());
         }
     }
 
@@ -135,7 +135,7 @@ public class AssignSkillUI implements Runnable {
         String answer;
 
         do {
-            System.out.print("Enter the name of a skill to select (or type 'done' to finish): ");
+            System.out.print("\nEnter the name of a skill to select (or type 'done' to finish): ");
             answer = scanner.nextLine().trim();
 
             if (!answer.equalsIgnoreCase("done")) {
@@ -170,12 +170,12 @@ public class AssignSkillUI implements Runnable {
     /**
      * Find collaborator by name.
      * @param collaborators collaborator repository.
-     * @param name collaborator name.
+     * @param idDocNumber collaborator ID Document Number.
      * @return collaborator.
      */
-    private Collaborator findCollaboratorName(List<Collaborator> collaborators, String name) {
+    private Collaborator findCollaboratorIDDocNumber(List<Collaborator> collaborators, int idDocNumber) {
         for (Collaborator collaborator : collaborators) {
-            if (collaborator.getName().equalsIgnoreCase(name)) {
+            if (collaborator.getIdDocNumber() == idDocNumber) {
                 return collaborator;
             }
         }
@@ -190,6 +190,7 @@ public class AssignSkillUI implements Runnable {
         for (Skill skill : skills) {
             System.out.println("- " + skill.getName());
         }
+        scanner.nextLine();
     }
 
     /**

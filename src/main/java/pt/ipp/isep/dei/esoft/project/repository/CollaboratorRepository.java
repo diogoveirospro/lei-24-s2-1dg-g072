@@ -7,47 +7,49 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * CollaboratorRepository class.
+ * Manages the collection of Collaborators.
  *
  * @author Group 072 - Byte Masters - ISEP
  */
 public class CollaboratorRepository {
 
-    private SkillRepository skillRepository = new SkillRepository();
-    private List<Skill> skills = skillRepository.listSkills();
+    private final SkillRepository skillRepository;
 
     /**
      * List containing all collaborators.
      */
-    private final List
-            <Collaborator> collaborators;
+    private final List<Collaborator> collaborators;
 
     /**
-     * Repository builder.
+     * Repository constructor.
+     *
+     * @param skillRepository the skill repository to use
      */
-    public CollaboratorRepository() {
-        collaborators = new ArrayList<>();
+    public CollaboratorRepository(SkillRepository skillRepository) {
+        this.skillRepository = skillRepository;
+        this.collaborators = new ArrayList<>();
     }
 
     /**
-     * Get a collaborator from the repository by their name.
+     * Get a collaborator from the repository by their ID document number.
      *
-     * @param name: Collaborator name
-     * @return: collaborator
+     * @param IdDocNumber Collaborator ID document number
+     * @return collaborator
      */
-    public Collaborator getCollaborator(String name) {
+    public Collaborator getCollaborator(int IdDocNumber) {
         for (Collaborator collaborator : collaborators) {
-            if (collaborator.getName().equals(name)) {
+            if (collaborator.getIdDocNumber() == IdDocNumber) {
                 return collaborator;
             }
         }
-        throw new IllegalArgumentException("Collaborator " + name + " does not exist.");
+        throw new IllegalArgumentException("The collaborator whose ID number is " + IdDocNumber + " does not exist.");
     }
 
     /**
      * Add a collaborator to the repository.
      *
-     * @param newCollaborator: new collaborator.
+     * @param newCollaborator new collaborator.
      */
     public void addCollaborator(Collaborator newCollaborator) {
         if (!validateCollaborator(newCollaborator)) {
@@ -59,8 +61,8 @@ public class CollaboratorRepository {
     /**
      * Private method to check if a collaborator is already in the repository.
      *
-     * @param collaborator: collaborator to be checked
-     * @return: True if the collaborator is not yet in the repository and false otherwise.
+     * @param collaborator collaborator to be checked
+     * @return True if the collaborator is not yet in the repository and false otherwise.
      */
     private boolean validateCollaborator(Collaborator collaborator) {
         return !collaborators.contains(collaborator);
@@ -69,7 +71,7 @@ public class CollaboratorRepository {
     /**
      * This method returns a defensive (immutable) copy of the collaborator list.
      *
-     * @return: The collaborator list.
+     * @return The collaborator list.
      */
     public List<Collaborator> getCollaborators() {
         return List.copyOf(collaborators);
@@ -98,9 +100,6 @@ public class CollaboratorRepository {
      * @return true if the skill is valid, false otherwise
      */
     private boolean validateSkill(Skill skill) {
-
-        return skills.contains(skill);
+        return skillRepository.listSkills().contains(skill);
     }
-
-
 }

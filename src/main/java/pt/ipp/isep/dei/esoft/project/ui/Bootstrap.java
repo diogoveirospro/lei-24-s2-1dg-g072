@@ -12,10 +12,10 @@ import pt.ipp.isep.dei.esoft.project.domain.Date;
  * @author Group 072 - Byte Masters - ISEP
  */
 public class Bootstrap {
-    private SkillRepository skillRepository = Repositories.getInstance().getSkillRepository();
-    private CollaboratorRepository collaboratorRepository = Repositories.getInstance().getCollaboratorRepository();
-    private VehicleRepository vehicleRepository = Repositories.getInstance().getVehicleRepository();
-    private JobRepository jobRepository = Repositories.getInstance().getJobRepository();
+    private final SkillRepository skillRepository = Repositories.getInstance().getSkillRepository();
+    private final CollaboratorRepository collaboratorRepository = Repositories.getInstance().getCollaboratorRepository();
+    private final VehicleRepository vehicleRepository = Repositories.getInstance().getVehicleRepository();
+    private final JobRepository jobRepository = Repositories.getInstance().getJobRepository();
 
     public void run() {
         addSkill();
@@ -130,8 +130,10 @@ public class Bootstrap {
     }
 
     private void addVehicle() {
-
-
+        VehicleRepository vehicleRepository = Repositories.getInstance().getVehicleRepository();
+        Vehicle vehicle1 = new Vehicle("GG-69-EZ","BMW","i4","hibrid",3500.0,4500.0,1000.0,new Date(2024,1,10), new  Date(2024,1,26),10000.0,0.0);
+        Vehicle vehicle2 = new Vehicle("69-WP-42","Toyota","Avensis","Diesel",3000.0,4000.0,42000.0,new Date(2018,12,10), new  Date(2019,1,10),20000.0,30000.0);
+        Vehicle vehicle3 = new Vehicle("04-20-VC","ferrari","diablo","Petrol",3000.0,4000.0,100000.0,new Date(2000,12,10), new  Date(2003,10,11),10000.0,75432.3);
     }
     private void addVehicleMaintenance(){
 

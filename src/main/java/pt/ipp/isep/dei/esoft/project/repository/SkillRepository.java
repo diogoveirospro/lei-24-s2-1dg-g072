@@ -18,7 +18,7 @@ public class SkillRepository {
      * A constructor of skillRepository that initiates the skill list
      *
      */
-    SkillRepository(){
+    public SkillRepository(){
         skills = new ArrayList<>();
     }
 
@@ -43,7 +43,7 @@ public class SkillRepository {
     /**
      * This method returns a defensive (immutable) copy of the skill list.
      *
-     * @return: The skill list.
+     * @return The skill list.
      */
     public List<Skill> listSkills() {
         return List.copyOf(skills);

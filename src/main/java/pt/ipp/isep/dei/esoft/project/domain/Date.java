@@ -186,7 +186,7 @@ public class Date implements Comparable<Date> {
         int totalDays = countDays();
         int totalDays1 = otherDate.countDays();
 
-        return Math.abs(totalDays - totalDays1);
+        return totalDays - totalDays1;
     }
 
     /**

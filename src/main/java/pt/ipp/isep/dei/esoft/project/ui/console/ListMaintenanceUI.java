@@ -1,7 +1,8 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.ListMaintenanceController;
-import pt.ipp.isep.dei.esoft.project.domain.Maintenance;
+import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
+import pt.ipp.isep.dei.esoft.project.dto.VehicleDto;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
  */
 public class ListMaintenanceUI implements Runnable {
     private  final ListMaintenanceController controller;
-    private List<Maintenance> maintenances;
+    private List<VehicleDto> vehicleListDto;
     /**
      * Constructs a new ListMaintenanceUI object and initializes it with a
      * ListMaintenanceController instance for handling listing maintenance operations.
@@ -47,13 +48,13 @@ public class ListMaintenanceUI implements Runnable {
      *
      */
     private void submitData() {
-        maintenances = controller.getMaintenanceList();
-        if (!maintenances.isEmpty()) {
+        vehicleListDto = controller.getVehicleList();
+        if (!vehicleListDto.isEmpty()) {
             System.out.println("\nVehicles in need of maintenance");
-            for (Maintenance maintenance : maintenances) {
-                controller.checkLastMaintenance(maintenance);
+            for (VehicleDto vehicle : vehicleListDto) {
+
                 System.out.println("|  Plate  |  Brand  |  Model  | Curr.Kms |  Freq  |  Last  |  Next  |" );
-                System.out.printf("| %10s | %10s | %10s | %10f | %10f | %10f | %10f |", maintenance.getVehicle().getPlateNumber(), maintenance.getVehicle().getBrand(), maintenance.getVehicle().getModel(),maintenance.getVehicle().getCurrentKms(),maintenance.getVehicle().getServiceFrequency(),maintenance.getVehicle().getKmAtLastMaintenance(),maintenance.getVehicle().getKmAtLastMaintenance() + maintenance.getVehicle().getServiceFrequency());
+                System.out.printf("| %10s | %10s | %10s | %10f | %10f | %10f | %10f |", vehicle.getPlateNumber(), vehicle.getBrand(), vehicle.getModel(),vehicle.getCurrentKms(),vehicle.getServiceFrequency(),vehicle.getKmAtLastMaintenance(),vehicle.getKmAtLastMaintenance());
                 System.out.printf("%n");
                 System.out.printf("%n");
             }

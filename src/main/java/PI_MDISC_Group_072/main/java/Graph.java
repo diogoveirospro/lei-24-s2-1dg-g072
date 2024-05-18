@@ -68,4 +68,72 @@ public class Graph {
     public ArrayList<Edge> getEdges(){
         return this.graph;
     }
+
+    /**
+     * This is the kruskal method that will generate the lowest
+     * costing spanning tree possible
+     *
+     * @param sortedGraphEdges all the edges sorted
+     * @param verticesGraph all the graph vertices
+     * @return spanning tree
+     */
+
+    public static Graph kruskal(ArrayList<Edge> sortedGraphEdges, ArrayList<Vertex> verticesGraph) {
+        Graph A = new Graph();
+        int[] parent = new int[verticesGraph.size()];
+        int[] rank = new int[verticesGraph.size()];
+        for (int i = 0; i < verticesGraph.size(); i++) {
+            parent[i] = i;
+            rank[i] = 0;
+        }
+        int nA = 0;
+        int i = 0;
+        while (nA < verticesGraph.size() - 1 && i < sortedGraphEdges.size()) {
+            Edge e = sortedGraphEdges.get(i);
+            int u = verticesGraph.indexOf(e.getOrigin());
+            int v = verticesGraph.indexOf(e.getDestiny());
+            int rootU = find(u, parent);
+            int rootV = find(v, parent);
+            if (rootU != rootV) {
+                A.addEdge(e);
+                union(rootU, rootV, parent, rank);
+                nA++;
+            }
+            i++;
+        }
+        return A;
+    }
+
+    /**
+     * Will check if the vertex is still in is original sack
+     *
+     * @param vertex of the graph
+     * @param parent a sack where a vertex is original from
+     * @return the vertex
+     */
+    private static int find(int vertex, int[] parent) {
+        if (parent[vertex] != vertex) {
+            parent[vertex] = find(parent[vertex], parent);
+        }
+        return parent[vertex];
+    }
+
+    /**
+     * Will get the multiple vertices to move them to the sack
+     *
+     * @param rootU
+     * @param rootV
+     * @param parent
+     * @param rank
+     */
+    private static void union(int rootU, int rootV, int[] parent, int[] rank) {
+        if (rank[rootU] > rank[rootV]) {
+            parent[rootV] = rootU;
+        } else if (rank[rootU] < rank[rootV]) {
+            parent[rootU] = rootV;
+        } else {
+            parent[rootV] = rootU;
+            rank[rootU]++;
+        }
+    }
 }

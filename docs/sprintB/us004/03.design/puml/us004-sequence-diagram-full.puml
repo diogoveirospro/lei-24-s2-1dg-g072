@@ -3,119 +3,116 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title System Sequence Diagram (SSD) - US04: Assign Skills to Collaborator
+autonumber
 
-actor HRM
-participant ":AssignSkillUI" as UI
-participant ":AssignSkillController" as CTRL
-participant ":Repositories" as REP
-participant "repositories\n:Repositories" as repositories
-participant "skillRepository\n:SkillRepository" as SKILLREP
+actor "Human Resources\nManager" as HRM
+participant ":AssignSkillsUI" as UI
+participant ":AssignSkillsController" as CTRL
+participant Repositories
+participant "repositories\n:Repositories" as REP
 participant "collaboratorRepository\n:CollaboratorRepository" as COLREP
-participant "collaborator:\nCollaborator" as COLLAB
+participant "collaborator\n:Collaborator" as COLLAB
+participant "skill\n:Skill" as SKILL
 
 activate HRM
 
-HRM -> UI : Request to assign one or more skills to a collaborator
+HRM -> UI : Requests to assign skills to a collaborator
 activate UI
 
-UI -> CTRL** : generate
-UI -> CTRL: listSkills()
+UI -> CTRL** : Generate
+
+UI -> CTRL: getCollaborators()
 activate CTRL
 
-CTRL -> REP: getInstance()
+CTRL -> Repositories: getInstance()
+activate Repositories
+
+Repositories --> CTRL: repositories
+deactivate Repositories
+
+CTRL -> COLREP: getCollaboratorRepository()
+activate COLREP
+
+COLREP --> CTRL: collaboratorRepository
+deactivate COLREP
+
+CTRL -> COLREP: getCollaborator(collaboratorID)
+activate COLREP
+
+COLREP -> COLLAB**: Collaborator()
+activate COLLAB
+
+COLLAB --> COLREP: updatedCollaborator
+deactivate COLLAB
+
+COLREP --> CTRL: updatedCollaborator
+deactivate COLREP
+
+CTRL --> UI: updatedCollaborator
+deactivate CTRL
+
+UI -> CTRL : ListSkills()
+activate CTRL
+
+CTRL -> Repositories: getInstance()
+activate Repositories
+
+Repositories --> CTRL: repositories
+deactivate Repositories
+
+CTRL -> REP: getSkillRepository()
 activate REP
 
-REP --> CTRL: repositories
+REP --> CTRL: skillRepository
 deactivate REP
 
-CTRL -> repositories: getSkillRepository()
-activate repositories
-
-repositories --> CTRL: skillRepository
-deactivate repositories
-
-CTRL -> SKILLREP : listSkills()
+CTRL -> SKILLREP** : listSkills()
 activate SKILLREP
 
 SKILLREP --> CTRL : skills
 deactivate SKILLREP
 
-CTRL --> UI: skills
+CTRL --> UI : skills
 deactivate CTRL
 
-UI --> HRM: Displays a list of available skills
-deactivate UI
 
-loop
-HRM -> UI : selects a skill
-activate UI
 
-UI --> HRM: asks if you want to add more skills or continue the program
-deactivate UI
 
-end
-
-HRM -> UI : Provides collaborator details
-activate UI
-
-UI -> CTRL: getCollaborator()
+UI -> CTRL: assignSkillsToCollaborator(collaborator, skills)
 activate CTRL
 
-CTRL -> REP: getInstance()
-activate REP
+CTRL -> Repositories: getInstance()
+activate Repositories
 
-REP --> CTRL: repositories
-deactivate REP
+Repositories --> CTRL: repositories
+deactivate Repositories
 
-CTRL -> repositories: getCollaboratorRepository()
-activate repositories
-
-repositories --> CTRL: collaboratorRepository
-deactivate repositories
-
-CTRL -> COLREP: getCollaborator()
+CTRL -> COLREP: getCollaboratorRepository()
 activate COLREP
 
-COLREP --> CTRL: collaborator
+COLREP --> CTRL: collaboratorRepository
 deactivate COLREP
 
-CTRL --> UI: collaborator
-deactivate CTRL
-
-UI --> HRM : Shows details and requests confirmation
-deactivate UI
-
-HRM -> UI : Confirms details
-activate UI
-
-UI -> CTRL: assignSkill(collaborator, skills)
-activate CTRL
-
-CTRL -> COLREP: assignSkill(collaborator, skills)
+CTRL -> COLREP: getCollaborator(collaboratorID)
 activate COLREP
 
-COLREP -> COLLAB**: assignSkill(collaborator, skills)
+COLREP -> COLLAB**: Collaborator()
 activate COLLAB
 
-COLLAB -> COLLAB: validateSkills(skills)
+COLLAB -> COLLAB: validateCollaborator()
 activate COLLAB
 
-COLLAB -> COLLAB: addCollaboratorSkills(skills)
-activate COLLAB
-
-COLLAB --> COLREP: collaborator
+COLLAB --> COLREP: validatedCollaborator
 deactivate COLLAB
 
-COLREP --> CTRL: collaborator
+COLREP --> CTRL: validatedCollaborator
 deactivate COLREP
 
-CTRL --> UI: collaborator
+CTRL --> UI: validatedCollaborator
 deactivate CTRL
 
-UI --> HRM: success
+UI --> HRM: Displays operation success
 deactivate UI
 
 deactivate HRM
-
 @enduml
