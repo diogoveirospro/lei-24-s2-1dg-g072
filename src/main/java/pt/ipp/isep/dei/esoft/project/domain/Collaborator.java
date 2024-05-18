@@ -91,7 +91,7 @@ public class Collaborator {
     /**
      * Collaborator ID document number.
      */
-    private int idDocNumber;
+    private String idDocNumber;
 
     /**
      * Collaborator's job.
@@ -124,7 +124,7 @@ public class Collaborator {
      * @param jobName        Collaborator's Job Name.
      */
     public Collaborator(String name, Date birthDate, Date admissionDate, String address, int mobile, String email,
-                        int taxpayerNumber, IdDocType idDocType, int idDocNumber, String jobName) {
+                        int taxpayerNumber, IdDocType idDocType, String idDocNumber, String jobName) {
         this.name = name;
         this.birthDate = birthDate;
         this.admissionDate = admissionDate;
@@ -156,7 +156,7 @@ public class Collaborator {
      * @param idDocNumber    Collaborator ID document number.
      */
     public Collaborator(String name, Date birthDate, Date admissionDate, String address, int mobile, String email,
-                        int taxpayerNumber, IdDocType idDocType, int idDocNumber) {
+                        int taxpayerNumber, IdDocType idDocType, String idDocNumber) {
         this.name = name;
         this.birthDate = birthDate;
         this.admissionDate = admissionDate;
@@ -248,7 +248,7 @@ public class Collaborator {
      *
      * @return Collaborator ID document number.
      */
-    public int getIdDocNumber() {
+    public String getIdDocNumber() {
         return idDocNumber;
     }
 
@@ -311,7 +311,7 @@ public class Collaborator {
      *
      * @param idDocNumber of the collaborator
      */
-    public void setIdDocNumber(int idDocNumber) {
+    public void setIdDocNumber(String idDocNumber) {
         this.idDocNumber = idDocNumber;
     }
 

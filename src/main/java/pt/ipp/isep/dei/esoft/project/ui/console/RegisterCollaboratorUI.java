@@ -1,8 +1,10 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
+import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidMobileNumberException;
 import pt.ipp.isep.dei.esoft.project.application.controller.RegisterCollaboratorController;
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import pt.ipp.isep.dei.esoft.project.domain.Date;
+import pt.ipp.isep.dei.esoft.project.domain.Job;
 import pt.ipp.isep.dei.esoft.project.repository.JobRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 
@@ -48,48 +50,22 @@ public class RegisterCollaboratorUI implements Runnable {
         String address = scanner.nextLine();
 
         System.out.print("Enter contact number: ");
-
         int mobile = validateMobileNumber(scanner);
 
         System.out.print("Enter email address: ");
-
         String email = validateEmail(scanner);
 
         System.out.print("Enter taxpayer number: ");
-
         int taxpayerNumber = validateTaxpayerNumber(scanner);
 
-        System.out.print("Enter ID document type (e.g., Passport, Driver's License, CC): ");
-        String idDocType = chooseIdDocumentType(scanner);
+        System.out.print("Enter ID document type: ");
+        Collaborator.IdDocType idDocType = chooseIdDocumentType(scanner);
 
         System.out.print("Enter ID document number: ");
-        int idDocNumber = 0;
+        String idDocNumber = validateIdDocumentNumber(scanner);
 
-        try {
-            idDocNumber = scanner.nextInt();
-
-        } catch (Exception e) {
-            System.out.println("Invalid input. Please enter a valid integer.");
-            scanner.nextLine();
-            System.out.print("Enter ID document number: ");
-        }
-
-        scanner.nextLine();
-
-        JobRepository jobRepository = Repositories.getInstance().getJobRepository();
-        String jobName = null;
-        valid = false;
-
-        while (!valid) {
-            System.out.print("Enter job name: ");
-            jobName = scanner.nextLine();
-
-            if (jobRepository.exists(jobName)) {
-                valid = true;
-            } else {
-                System.out.println("Job does not exist in the repository. Please enter a valid job name.");
-            }
-        }
+        System.out.print("Enter job name: ");
+        String jobName = assignJob(scanner);
 
         // Registering the collaborator
         controller.registerCollaborator(name, birthDate, admissionDate, address, mobile, email, taxpayerNumber,
@@ -98,40 +74,35 @@ public class RegisterCollaboratorUI implements Runnable {
         System.out.println("\nCollaborator successfully registered!");
     }
 
-    private String chooseIdDocumentType(Scanner scanner) {
 
-        for (Collaborator.IdDocType type : Collaborator.IdDocType.values()) {
-            System.out.println(type.ordinal() + 1 + " - " + type.getDisplayName());
-        }
-
-        int choice = scanner.nextInt();
-        Collaborator.IdDocType idDocumentType = Collaborator.IdDocType.values()[choice - 1];
-        return idDocumentType.toString();
-    }
 
     private int validateMobileNumber(Scanner scanner){
-        int mobile = 0;
+        String mobile = "";
         boolean valid = false;
 
         while (!valid) {
 
             try {
-                mobile = scanner.nextInt();
-                if (mobile > 99999999) {
-                    valid = true;
-                } else {
-                    System.out.println("Invalid input. The number must be exactly 9 digits.");
-                    System.out.print("Enter contact number: ");
-                }
+                mobile = scanner.nextLine();
+                if (mobile.length() != 9) {
+                    throw new InvalidMobileNumberException("Invalid input. The number must be exactly 9 digits.");
 
-            } catch (Exception e) {
-                System.out.println("Invalid input. Please enter a valid integer.");
-                scanner.nextLine();
+                }else if (!mobile.startsWith("91") || !mobile.startsWith("92") || !mobile.startsWith("93") || !mobile.startsWith("96")){
+                    throw new InvalidMobileNumberException("Invalid input. The number must start with 91, 92, 93, or 96.");
+
+                } else if (!mobile.matches("\\d+")) {
+                    throw new InvalidMobileNumberException("Invalid Input. The mobile number must be a number.");
+
+                }
+                valid = true;
+
+            } catch (InvalidMobileNumberException e) {
+                System.out.println(e.getMessage());
                 System.out.print("Enter contact number: ");
             }
         }
         scanner.nextLine();
-        return mobile;
+        return Integer.parseInt(mobile);
     }
 
     private String validateEmail(Scanner scanner){
@@ -176,6 +147,52 @@ public class RegisterCollaboratorUI implements Runnable {
 
         scanner.nextLine();
         return taxpayerNumber;
+    }
+
+    private Collaborator.IdDocType chooseIdDocumentType(Scanner scanner) {
+
+        for (Collaborator.IdDocType type : Collaborator.IdDocType.values()) {
+            System.out.println(type.ordinal() + 1 + " - " + type.getDisplayName());
+        }
+
+        int choice = scanner.nextInt();
+        return Collaborator.IdDocType.values()[choice - 1];
+    }
+
+    private String validateIdDocumentNumber(Scanner scanner){
+        String idDocNumber = null;
+
+        try {
+            idDocNumber = scanner.nextLine();
+
+        } catch (Exception e) {
+            System.out.println("Invalid input. Please enter a valid integer.");
+            scanner.nextLine();
+            System.out.print("Enter ID document number: ");
+        }
+
+        scanner.nextLine();
+        return idDocNumber;
+    }
+
+    private String assignJob(Scanner scanner){
+        JobRepository jobRepository = Repositories.getInstance().getJobRepository();
+        String jobName = null;
+        boolean valid = false;
+
+        while (!valid) {
+            jobName = scanner.nextLine();
+            if (jobRepository.exists(jobName)) {
+                valid = true;
+            } else {
+                System.out.println("Job does not exist in the repository. Please enter a valid job name.");
+            }
+
+            System.out.print("Enter job name: ");
+
+        }
+
+        return jobName;
     }
 
     /**
