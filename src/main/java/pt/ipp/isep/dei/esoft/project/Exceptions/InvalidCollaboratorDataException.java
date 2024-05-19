@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.esoft.project.Exceptions;
+package pt.ipp.isep.dei.esoft.project.exceptions;
 
 public class InvalidCollaboratorDataException extends Exception {
 
