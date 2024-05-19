@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
-import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidCollaboratorDataException;
+import pt.ipp.isep.dei.esoft.project.domain.utils.ValidatorUtils;
+import pt.ipp.isep.dei.esoft.project.exceptions.InvalidCollaboratorDataException;
 import pt.ipp.isep.dei.esoft.project.application.controller.RegisterCollaboratorController;
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import pt.ipp.isep.dei.esoft.project.domain.Date;
@@ -42,8 +43,10 @@ public class RegisterCollaboratorUI implements Runnable {
         System.out.print("Enter name: ");
         String name = validateName(scanner);
 
+        System.out.print("Enter birthdate (YYYY-MM-DD): ");
         Date birthDate = validateBirthDate(scanner);
 
+        System.out.print("Enter admission date (YYYY-MM-DD): ");
         Date admissionDate = validateAdmissionDate(scanner, birthDate);
 
         System.out.print("Enter address: ");
@@ -58,7 +61,7 @@ public class RegisterCollaboratorUI implements Runnable {
         System.out.print("Enter taxpayer number: ");
         int taxpayerNumber = validateTaxpayerNumber(scanner);
 
-        System.out.print("Enter ID document type: ");
+        System.out.println("Enter ID document type: ");
         Collaborator.IdDocType idDocType = chooseIdDocumentType(scanner);
 
         System.out.print("Enter ID document number: ");
@@ -82,82 +85,51 @@ public class RegisterCollaboratorUI implements Runnable {
 
             try {
                 name = scanner.nextLine();
-
-                if (name == null || name.isEmpty() || name.isBlank()){
-                    throw new InvalidCollaboratorDataException("Invalid input. The name cannot be empty or blank.");
-
-                } else if (name.matches("\\d+") || name.matches(".*[^a-zA-Z0-9 ].*")){
-                    throw new InvalidCollaboratorDataException("Invalid input. The name must not contain numbers or special characters.");
-                }
-
-                valid = true;
+                valid = ValidatorUtils.isValidName(name);
 
             }catch (InvalidCollaboratorDataException e){
                 System.out.println(e.getMessage());
-                System.out.println("Enter name: ");
+                System.out.print("Enter name: ");
             }
         }
         return name;
     }
 
     private static Date validateBirthDate(Scanner scanner) {
-        while (true) {
-            System.out.print("Enter birthdate (YYYY-MM-DD): ");
-            String dateStr = scanner.nextLine();
+        boolean valid = false;
+        Date birthDate = null;
 
-            String[] parts = dateStr.split("-");
-            if (parts.length != 3) {
-                System.out.println("Invalid format. Please enter the date in YYYY-MM-DD format.");
-                continue;
-            }
+        while (!valid) {
 
             try {
-                int year = Integer.parseInt(parts[0]);
-                int month = Integer.parseInt(parts[1]);
-                int day = Integer.parseInt(parts[2]);
-
-                Date birthDate = new Date(year, month, day);
-                Date currentDate = Date.currentDate();
-
-                if (currentDate.difference(birthDate) < 18){
-                    System.out.println("Invalid date. Enter again!");
-                    continue;
-                }
-                return birthDate;
-            } catch (IllegalArgumentException e) {
-                System.out.println("Invalid date. Please make sure you enter valid year, month, and day numbers.");
+                String dateStr = scanner.nextLine();
+                birthDate = ValidatorUtils.validateBirthDate(dateStr);
+                valid = true;
+            } catch (InvalidCollaboratorDataException e) {
+                System.out.println(e.getMessage());
+                System.out.print("Enter birthdate (YYYY-MM-DD): ");
             }
         }
+
+        return birthDate;
     }
 
     private static Date validateAdmissionDate(Scanner scanner, Date birthDate) {
-        while (true) {
-            System.out.print("Enter admission date (YYYY-MM-DD): ");
-            String dateStr = scanner.nextLine();
+        boolean valid = false;
+        Date admissionDate = null;
 
-            String[] parts = dateStr.split("-");
-            if (parts.length != 3) {
-                System.out.println("Invalid format. Please enter the date in YYYY-MM-DD format.");
-                continue;
-            }
+        while (!valid) {
 
             try {
-                int year = Integer.parseInt(parts[0]);
-                int month = Integer.parseInt(parts[1]);
-                int day = Integer.parseInt(parts[2]);
-
-                Date admissionDate = new Date(year, month, day);
-
-                if (admissionDate.difference(birthDate) < 18){
-                    System.out.println("Invalid date. Enter again!");
-                    continue;
-                }
-                return admissionDate;
-            } catch (IllegalArgumentException e) {
-                System.out.println("Invalid date. Please make sure you enter valid year, month, and day numbers.");
+                String dateStr = scanner.nextLine();
+                admissionDate = ValidatorUtils.validateAdmissionDate(dateStr, birthDate);
+                valid = true;
+            } catch (InvalidCollaboratorDataException e) {
+                System.out.println(e.getMessage());
+                System.out.print("Enter admission date (YYYY-MM-DD): ");
             }
         }
-
+        return admissionDate;
     }
 
     private String validateAddress(Scanner scanner){
@@ -168,13 +140,10 @@ public class RegisterCollaboratorUI implements Runnable {
 
             try {
                 address = scanner.nextLine();
-                if (address == null || address.isEmpty() || address.isBlank()){
-                    throw new InvalidCollaboratorDataException("The address cannot be empty or blank.");
-                }
-                valid = true;
+                valid = ValidatorUtils.isValidAddress(address);
             } catch (InvalidCollaboratorDataException e){
                 System.out.println(e.getMessage());
-                System.out.println("Enter address: ");
+                System.out.print("Enter address: ");
             }
         }
         return address;
@@ -188,24 +157,13 @@ public class RegisterCollaboratorUI implements Runnable {
 
             try {
                 mobile = scanner.nextLine();
-                if (mobile.length() != 9) {
-                    throw new InvalidCollaboratorDataException("Invalid input. The number must be exactly 9 digits.");
-
-                }else if (!mobile.startsWith("91") || !mobile.startsWith("92") || !mobile.startsWith("93") || !mobile.startsWith("96")){
-                    throw new InvalidCollaboratorDataException("Invalid input. The number must start with 91, 92, 93, or 96.");
-
-                } else if (!mobile.matches("\\d+")) {
-                    throw new InvalidCollaboratorDataException("Invalid Input. The mobile number must be a number.");
-
-                }
-                valid = true;
+                valid = ValidatorUtils.isValidMobileNumber(mobile);
 
             } catch (InvalidCollaboratorDataException e) {
                 System.out.println(e.getMessage());
                 System.out.print("Enter contact number: ");
             }
         }
-        scanner.nextLine();
         return Integer.parseInt(mobile);
     }
 
@@ -217,16 +175,11 @@ public class RegisterCollaboratorUI implements Runnable {
 
             try {
                 email = scanner.nextLine();
+                valid = ValidatorUtils.isValidEmail(email);
 
-                if (!email.contains("@")){
-                    throw new InvalidCollaboratorDataException("Invalid input. Enter a valid e-mail address.");
-                } else if (email.isBlank()) {
-                    throw new InvalidCollaboratorDataException("Invalid input. The e-mail address cannot be blank.");
-                }
-                valid = true;
             } catch (InvalidCollaboratorDataException e){
                 System.out.println(e.getMessage());
-                System.out.println("Enter email address: ");
+                System.out.print("Enter email address: ");
             }
         }
         return email;
@@ -240,17 +193,7 @@ public class RegisterCollaboratorUI implements Runnable {
 
             try {
                 taxpayerNumber = scanner.nextLine();
-                if (taxpayerNumber.length() != 9){
-                    throw new InvalidCollaboratorDataException("Invalid input. The tax number must have exactly 9 digits.");
-                } else if (!taxpayerNumber.matches("\\d+")) {
-                    throw new InvalidCollaboratorDataException("Invalid Input. The tax payer number must be a number.");
-                } else if (taxpayerNumber.startsWith("0") || taxpayerNumber.startsWith("4")) {
-                    throw new InvalidCollaboratorDataException("Invalid input. The first digit of the tax payer number must be 1, 2, 3, 5, 6, 7, 8 or 9.");
-                } else if (!checkDigitCalculation(Integer.parseInt(taxpayerNumber))) {
-                    throw new InvalidCollaboratorDataException("Invalid input. Enter a valid tax payer number.");
-                }
-
-                valid = true;
+                valid = ValidatorUtils.isValidTaxpayerNumber(taxpayerNumber);
 
             } catch (InvalidCollaboratorDataException e) {
                 System.out.println(e.getMessage());
@@ -258,30 +201,7 @@ public class RegisterCollaboratorUI implements Runnable {
             }
         }
 
-        scanner.nextLine();
         return Integer.parseInt(taxpayerNumber);
-    }
-
-    private boolean checkDigitCalculation(int taxPayerNumber){
-        int digit;
-        int soma = 0;
-
-        int controlDigit = taxPayerNumber % 10;
-        taxPayerNumber = taxPayerNumber / 10;
-
-        for (int i = 9; i > 1 ; i--) {
-            digit = taxPayerNumber % 10;
-            taxPayerNumber = taxPayerNumber / 10;
-
-            soma = soma + digit * i;
-
-        }
-
-        int restDivision = soma % 11;
-
-        if (restDivision == 0 || restDivision == 1 && controlDigit == 0){
-            return true;
-        } else return 11 - restDivision == controlDigit;
     }
 
     private Collaborator.IdDocType chooseIdDocumentType(Scanner scanner) {
@@ -291,6 +211,7 @@ public class RegisterCollaboratorUI implements Runnable {
         }
 
         int choice = scanner.nextInt();
+        scanner.nextLine();
         return Collaborator.IdDocType.values()[choice - 1];
     }
 
@@ -302,25 +223,15 @@ public class RegisterCollaboratorUI implements Runnable {
 
             try {
                 idDocNumber = scanner.nextLine();
+                valid = ValidatorUtils.isValidDocumentNumber(idDocType, idDocNumber);
 
-                if (idDocType == Collaborator.IdDocType.CC && idDocNumber.length() != 12 && !idDocNumber.matches("[0-9]{9}[A-Z]{2}[0-9]")){
-                    
-                    throw new InvalidCollaboratorDataException("Invalid input. The CC number must be 12 characters " +
-                                "long and must be of the form 012345678ZZ9.");
-                    
-                } else if (idDocType == Collaborator.IdDocType.BI && idDocNumber.length() != 9 && idDocNumber.matches("[0-9]{9}")) {
-                    throw new InvalidCollaboratorDataException("Invalid input. The BI must be 9 characters.");
-                }
-
-                valid = true;
             } catch (InvalidCollaboratorDataException e){
                 System.out.println(e.getMessage());
+                System.out.print("Enter ID document number: ");
             }
-
 
         }
 
-        scanner.nextLine();
         return idDocNumber;
     }
 
@@ -335,9 +246,8 @@ public class RegisterCollaboratorUI implements Runnable {
                 valid = true;
             } else {
                 System.out.println("Job does not exist in the repository. Please enter a valid job name.");
+                System.out.print("Enter job name: ");
             }
-
-            System.out.print("Enter job name: ");
 
         }
 
