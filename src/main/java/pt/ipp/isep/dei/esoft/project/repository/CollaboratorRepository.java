@@ -39,7 +39,7 @@ public class CollaboratorRepository {
      */
     public Collaborator getCollaborator(int IdDocNumber) {
         for (Collaborator collaborator : collaborators) {
-            if (collaborator.getIdDocNumber() == IdDocNumber) {
+            if (Integer.parseInt(collaborator.getIdDocNumber()) == IdDocNumber) {
                 return collaborator;
             }
         }

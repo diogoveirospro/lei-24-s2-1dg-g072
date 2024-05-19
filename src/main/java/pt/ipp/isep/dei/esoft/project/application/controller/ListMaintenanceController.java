@@ -1,9 +1,8 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
-import pt.ipp.isep.dei.esoft.project.domain.Maintenance;
 import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
 import pt.ipp.isep.dei.esoft.project.dto.VehicleDto;
-import pt.ipp.isep.dei.esoft.project.dto.VehicleMapper;
+import pt.ipp.isep.dei.esoft.project.Mapper.VehicleMapper;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 
 import java.util.List;
@@ -74,8 +73,8 @@ public class ListMaintenanceController {
      */
     public List<VehicleDto> getVehicleList(){
         List<Vehicle> vehicleList =  vehicleRepository.getVehicleList();
-        VehicleMapper vehicleMapper = new VehicleMapper();
         vehicleList = maintenanceRepository.getVehicleList(vehicleList);
+        VehicleMapper vehicleMapper = new VehicleMapper();
         return vehicleMapper.toDTO(vehicleList);
 
     }

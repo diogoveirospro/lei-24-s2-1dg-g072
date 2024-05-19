@@ -173,7 +173,7 @@ public class GenerateTeamProposalUI implements Runnable {
      */
     private Collaborator findCollaboratorByIDNumber(List<Collaborator> collaborators, int idNumber) {
         for (Collaborator collaborator : collaborators) {
-            if (collaborator.getIdDocNumber() == idNumber) {
+            if (Integer.parseInt(collaborator.getIdDocNumber()) == idNumber) {
                 return collaborator;
             }
         }

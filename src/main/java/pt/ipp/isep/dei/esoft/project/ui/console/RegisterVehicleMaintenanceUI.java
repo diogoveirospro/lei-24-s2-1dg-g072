@@ -4,6 +4,7 @@ import pt.ipp.isep.dei.esoft.project.application.controller.RegisterVehicleMaint
 import pt.ipp.isep.dei.esoft.project.domain.Maintenance;
 import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -55,6 +56,7 @@ public class RegisterVehicleMaintenanceUI implements Runnable {
         if (!maintenances.isEmpty()) {
             System.out.println("\nVehicle maintenance successfully registered for the following vehicles:");
             for (Maintenance maintenance : maintenances) {
+
                 System.out.println("- Vehicle: " + maintenance.getPlateNumber());
             }
         } else {
@@ -70,24 +72,35 @@ public class RegisterVehicleMaintenanceUI implements Runnable {
      * @return vehicles (All selected for maintenance)
      */
 
-    private List<Vehicle> displayAndSelectVehicles() {
-        List<Vehicle> vehicles = controller.getVehicleList();
-        if (vehicleList!= null){
+    public List<Vehicle> displayAndSelectVehicles() {
+        List<Vehicle> vehicles = new ArrayList<>();
+        List<Vehicle> vehicleList = controller.getVehicleList();
+
+        if (vehicleList != null && !vehicleList.isEmpty()) {
             int listSize = vehicleList.size();
-
             Scanner input = new Scanner(System.in);
-            int answer = -1;
-            System.out.print("If you want to stop selecting vehicles, press any number smaller than 0 or higher than" + listSize + ".");
+            String answer = "";
 
-            while (answer != 1) {
+            while (!answer.equalsIgnoreCase("done")) {
                 displayVehiclesOptions(vehicleList);
-                System.out.print("Select a vehicle: ");
+                System.out.print("Select a vehicle by number or type 'done' to finish: ");
+                answer = input.nextLine();
 
-                answer = input.nextInt();
-                if (answer < 1 || answer > listSize) {
-                    vehicles.add(vehicleList.get(answer - 1));
+                try {
+                    int choice = Integer.parseInt(answer);
+                    if (choice >= 1 && choice <= listSize) {
+                        vehicles.add(vehicleList.get(choice - 1));
+                    } else {
+                        System.out.println("Invalid selection. Please select a number between 1 and " + listSize + ".");
+                    }
+                } catch (NumberFormatException e) {
+                    if (!answer.equalsIgnoreCase("done")) {
+                        System.out.println("Invalid input. Please enter a number or 'done' to finish.");
+                    }
                 }
             }
+        } else {
+            System.out.println("No vehicles available to select.");
         }
         return vehicles;
     }

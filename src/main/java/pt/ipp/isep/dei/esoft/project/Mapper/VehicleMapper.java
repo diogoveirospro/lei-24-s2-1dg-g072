@@ -1,6 +1,7 @@
-package pt.ipp.isep.dei.esoft.project.dto;
+package pt.ipp.isep.dei.esoft.project.Mapper;
 
 import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
+import pt.ipp.isep.dei.esoft.project.dto.VehicleDto;
 
 import java.util.ArrayList;
 import java.util.List;

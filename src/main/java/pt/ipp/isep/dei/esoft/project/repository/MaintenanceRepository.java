@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.esoft.project.repository;
 import pt.ipp.isep.dei.esoft.project.domain.Maintenance;
 import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
 
+import javax.management.InstanceAlreadyExistsException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,13 +56,10 @@ public class MaintenanceRepository {
 
     /**
      * Checks if vehicle exists or not
-     *
-     * @param aux if true the vehicle doesn't exist else it exists
-     * @param vehicle message of the vehicle status
      */
-    private static void checkIfMaintenanceNotNull(boolean aux, String vehicle) {
-        if (aux) {
-            throw new IllegalArgumentException(vehicle);
+    private static void checkIfMaintenanceNotNull( Vehicle vehicle) {
+        if (vehicle == null) {
+            throw new IllegalArgumentException("Invalid vehicle that needs maintenance to add");
         }
     }
 
@@ -94,8 +92,20 @@ public class MaintenanceRepository {
      * @param maintenance: new vehicle that need maintenance.
      */
     public void addVehicleMaintenance(Maintenance maintenance) {
-        checkIfMaintenanceNotNull(!validateVehicleMaintenance(maintenance), "Invalid vehicle that needs maintenance to add");
-        maintenanceList.add(maintenance);
+        try {
+            VehicleRepository vehicleRepository = Repositories.getInstance().getVehicleRepository();
+            Vehicle vehicle = vehicleRepository.getVehicleFromPlate(maintenance.getPlateNumber());
+            checkIfMaintenanceNotNull( vehicle);
+            if (!maintenanceList.contains(maintenance)){
+                maintenance.setVehicleMaintenance(vehicle);
+                maintenanceList.add(maintenance);
+            } else {
+                throw new InstanceAlreadyExistsException("The vehicle with the plate: " + maintenance.getPlateNumber() +" already exists");
+            }
+        }catch (IllegalArgumentException | InstanceAlreadyExistsException e){
+            System.out.println(e.getMessage());
+        }
+
     }
     /**
      * Lets the user get the list of all vehicles that need maintenance
@@ -108,5 +118,4 @@ public class MaintenanceRepository {
         return List.copyOf(maintenanceList);
     }
 
-    public
 }

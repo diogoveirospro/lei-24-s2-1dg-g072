@@ -175,7 +175,7 @@ public class AssignSkillUI implements Runnable {
      */
     private Collaborator findCollaboratorIDDocNumber(List<Collaborator> collaborators, int idDocNumber) {
         for (Collaborator collaborator : collaborators) {
-            if (collaborator.getIdDocNumber() == idDocNumber) {
+            if (Integer.parseInt(collaborator.getIdDocNumber()) == idDocNumber) {
                 return collaborator;
             }
         }
