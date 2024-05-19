@@ -105,20 +105,25 @@ public class VehicleRepository {
      */
     private void sortByKmsToMaintenance(double[] difference, List<Vehicle> vehicleList) {
         int index1 = 0;
-        int index2 = 0;
-        for (Vehicle vehicle : vehicleList){
-            for (Vehicle otherVehicle : vehicleList){
-                if (difference[index1] > difference[index2]){
-                    Vehicle aux;
-                    aux = vehicle;
-                    vehicleList.set(index1,otherVehicle);
-                    vehicleList.set(index2,aux);
+        for (Vehicle vehicle : vehicleList) {
+            int index2 = 0;
+            for (Vehicle otherVehicle : vehicleList) {
+                if (difference[index1] < difference[index2]) {
+
+                    Vehicle aux1 = vehicleList.get(index1);
+                    vehicleList.set(index1, vehicleList.get(index2));
+                    vehicleList.set(index2, aux1);
+
+                    double aux2 = difference[index1];
+                    difference[index1] = difference[index2];
+                    difference[index2] = aux2;
                 }
                 index2++;
             }
             index1++;
         }
     }
+
 
     /**
      * Lets the system get the vehicle from is plate

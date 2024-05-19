@@ -8,31 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-/**
- * The RegisterVehicleMaintenanceUI class represents a user interface component responsible for
- * interacting with the system to addSkill new maintenances. It uses a RegisterVehicleMaintenanceController
- * to handle the maintenance registration.
- *
- * @author Group 072 - Byte Masters - ISEP
- */
 public class RegisterVehicleMaintenanceUI implements Runnable {
-
     private final RegisterVehicleMaintenanceController controller;
     private List<Vehicle> vehicleList;
 
-    /**
-     * Constructs a new RegisterVehicleMaintenanceUI object and initializes it with a
-     * RegisterVehicleMaintenanceController instance for handling vehicle maintenance registration operations.
-     */
     public RegisterVehicleMaintenanceUI() {
         this.controller = new RegisterVehicleMaintenanceController();
     }
 
-    /**
-     * Lets the UI get the controller
-     *
-     * @return controller
-     */
+
     private RegisterVehicleMaintenanceController getController() {
         return controller;
     }
@@ -46,17 +30,12 @@ public class RegisterVehicleMaintenanceUI implements Runnable {
         submitData();
     }
 
-    /**
-     * Shows the user all the vehicles that were registered successfully.
-     *
-     */
     private void submitData() {
         List<Maintenance> maintenances = getController().registerVehicleMaintenance(vehicleList);
 
         if (!maintenances.isEmpty()) {
             System.out.println("\nVehicle maintenance successfully registered for the following vehicles:");
             for (Maintenance maintenance : maintenances) {
-
                 System.out.println("- Vehicle: " + maintenance.getPlateNumber());
             }
         } else {
@@ -64,39 +43,34 @@ public class RegisterVehicleMaintenanceUI implements Runnable {
         }
     }
 
-
-    /**
-     * This function will display a list of all vehicles registered in the system
-     * and then will ask the user to select which vehicles would he want to addSkill for maintenance
-     *
-     * @return vehicles (All selected for maintenance)
-     */
-
     public List<Vehicle> displayAndSelectVehicles() {
         List<Vehicle> vehicles = new ArrayList<>();
-        List<Vehicle> vehicleList = controller.getVehicleList();
+        List<Vehicle> vehicleList = new ArrayList<>(controller.getVehicleList()); // Create a mutable copy of the list
 
-        if (vehicleList != null && !vehicleList.isEmpty()) {
-            int listSize = vehicleList.size();
+        if (!vehicleList.isEmpty()) {
             Scanner input = new Scanner(System.in);
             String answer = "";
 
             while (!answer.equalsIgnoreCase("done")) {
                 displayVehiclesOptions(vehicleList);
                 System.out.print("Select a vehicle by number or type 'done' to finish: ");
-                answer = input.nextLine();
+                answer = input.nextLine().trim();
+
+                if (answer.equalsIgnoreCase("done")) {
+                    break;
+                }
 
                 try {
                     int choice = Integer.parseInt(answer);
-                    if (choice >= 1 && choice <= listSize) {
+                    if (choice >= 1 && choice <= vehicleList.size()) {
                         vehicles.add(vehicleList.get(choice - 1));
+                        System.out.println("Vehicle selected successfully!");
+                        vehicleList.remove(choice - 1);
                     } else {
-                        System.out.println("Invalid selection. Please select a number between 1 and " + listSize + ".");
+                        System.out.println("Invalid selection. Please select a number between 1 and " + vehicleList.size() + ".");
                     }
                 } catch (NumberFormatException e) {
-                    if (!answer.equalsIgnoreCase("done")) {
-                        System.out.println("Invalid input. Please enter a number or 'done' to finish.");
-                    }
+                    System.out.println("Invalid input. Please enter a number or 'done' to finish.");
                 }
             }
         } else {

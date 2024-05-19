@@ -59,7 +59,7 @@ public class Maintenance {
      * @return true or false depending on how many kms were done
      */
     public boolean validateVehicleMaintenance(Vehicle vehicle){
-        return vehicle.getServiceFrequency() < vehicle.getCurrentKms() - vehicle.getKmAtLastMaintenance();
+        return (vehicle.getServiceFrequency() - (vehicle.getServiceFrequency() * 0.05)) < vehicle.getCurrentKms() - vehicle.getKmAtLastMaintenance();
     }
 
 

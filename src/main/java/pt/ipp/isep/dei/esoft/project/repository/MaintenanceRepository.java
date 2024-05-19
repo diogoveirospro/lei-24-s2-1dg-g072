@@ -71,10 +71,16 @@ public class MaintenanceRepository {
      */
     private void removeVehicle(Maintenance newMaintenance, List<Vehicle> vehicleList) {
         VehicleRepository vehicleRepository = Repositories.getInstance().getVehicleRepository();
+        List<Vehicle> mutableVehicleList = new ArrayList<>(vehicleList);
         if (newMaintenance.validateVehicleMaintenance(vehicleRepository.getVehicleFromPlate(newMaintenance.getPlateNumber()))) {
-            vehicleList.remove(vehicleRepository.getVehicleFromPlate(newMaintenance.getPlateNumber()));
+            Vehicle vehicle = vehicleRepository.getVehicleFromPlate(newMaintenance.getPlateNumber());
+            mutableVehicleList.remove(vehicle);
+            vehicleList = mutableVehicleList;
         }
     }
+
+
+
 
     /**
      * Private method to see if a vehicle is already in the repository.
@@ -96,11 +102,12 @@ public class MaintenanceRepository {
             VehicleRepository vehicleRepository = Repositories.getInstance().getVehicleRepository();
             Vehicle vehicle = vehicleRepository.getVehicleFromPlate(maintenance.getPlateNumber());
             checkIfMaintenanceNotNull( vehicle);
-            if (!maintenanceList.contains(maintenance)){
+            if (maintenance.validateVehicleMaintenance(vehicle)) {
                 maintenance.setVehicleMaintenance(vehicle);
                 maintenanceList.add(maintenance);
+                vehicle.setKmAtLastMaintenance(maintenance.getKmAtMaintenance());
             } else {
-                throw new InstanceAlreadyExistsException("The vehicle with the plate: " + maintenance.getPlateNumber() +" already exists");
+                throw new InstanceAlreadyExistsException("The vehicle with the plate: " + maintenance.getPlateNumber() + " already exists");
             }
         }catch (IllegalArgumentException | InstanceAlreadyExistsException e){
             System.out.println(e.getMessage());
