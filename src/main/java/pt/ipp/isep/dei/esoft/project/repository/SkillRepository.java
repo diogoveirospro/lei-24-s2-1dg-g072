@@ -46,7 +46,26 @@ public class SkillRepository {
      * @return The skill list.
      */
     public List<Skill> listSkills() {
+        sortSkillsAlphabetically();
         return List.copyOf(skills);
+    }
+
+    /**
+     * Sort skills alphabetically
+     *
+     */
+    public void sortSkillsAlphabetically() {
+        for (int i = 0; i < skills.size() - 1; i++) {
+            for (int j = i + 1; j < skills.size(); j++) {
+                String name1 = skills.get(i).getName();
+                String name2 = skills.get(j).getName();
+                if (name1.compareToIgnoreCase(name2) > 0) {
+                    Skill aux = skills.get(i);
+                    skills.set(i, skills.get(j));
+                    skills.set(j, aux);
+                }
+            }
+        }
     }
 
 

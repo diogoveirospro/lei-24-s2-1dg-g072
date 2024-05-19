@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
 import pt.ipp.isep.dei.esoft.project.domain.Job;
+import pt.ipp.isep.dei.esoft.project.domain.Skill;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,6 +75,7 @@ public class JobRepository {
      * @return The job list.
      */
     public List<Job> getJobs(){
+        sortJobsAlphabetically();
         return List.copyOf(jobs);
     }
 
@@ -85,5 +87,19 @@ public class JobRepository {
     public boolean exists(String jobName){
         Job job = new Job(jobName);
         return jobs.contains(job);
+    }
+
+    public void sortJobsAlphabetically() {
+        for (int i = 0; i < jobs.size() - 1; i++) {
+            for (int j = i + 1; j < jobs.size(); j++) {
+                String name1 = jobs.get(i).getName();
+                String name2 = jobs.get(j).getName();
+                if (name1.compareToIgnoreCase(name2) > 0) {
+                    Job aux = jobs.get(i);
+                    jobs.set(i, jobs.get(j));
+                    jobs.set(j, aux);
+                }
+            }
+        }
     }
 }
