@@ -157,18 +157,17 @@ public class Date implements Comparable<Date> {
      */
     @Override
     public int compareTo(Date otherDate) {
-        return (otherDate.isMaior(this)) ? -1 : (isMaior(otherDate)) ? 1 : 0;
+        return (otherDate.isGreater(this)) ? -1 : (isGreater(otherDate)) ? 1 : 0;
     }
 
     /**
-     * Devolve true se a data for maior do que a data recebida por parâmetro. Se
-     * a data for menor ou igual à data recebida por parâmetro, devolve false.
+     * Returns true if the date is greater than the date received by parameter. If the date is less than or equal to
+     * the date received by parameter, returns false.
      *
-     * @param otherDate a outra data com a qual se compara a data.
-     * @return true se a data for maior do que a data recebida por parâmetro,
-     * caso contrário devolve false.
+     * @param otherDate the other date to compare the date with.
+     * @return true if the date is greater than the date received by parameter, otherwise return false.
      */
-    public boolean isMaior(Date otherDate) {
+    public boolean isGreater(Date otherDate) {
         int totalDays = countDays();
         int totalDays1 = otherDate.countDays();
 

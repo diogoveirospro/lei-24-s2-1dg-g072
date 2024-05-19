@@ -55,8 +55,7 @@ public class Collaborator {
         CC("CC"),
         BI("BI"),
         NISS("Social Security Number"),
-        PASSPORT("Passport"),
-        RESIDENCY_PERMIT("Residency Permit");
+        PASSPORT("Passport");
 
         private final String displayName;
 
