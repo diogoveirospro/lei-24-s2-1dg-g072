@@ -167,7 +167,7 @@ public class AssignSkillUI implements Runnable {
                     }
                 }
             } catch (NumberFormatException e) {
-                System.out.println("Invalid input. Please enter a number between 1 and " + skills.size() + " or 'done' to finish.");
+                System.out.println("Invalid input.");
             }
             System.out.println("Please select a number between 1 and " + skills.size() + " or 'done' to finish.");
             choice = scanner.nextLine().trim();
@@ -282,7 +282,7 @@ public class AssignSkillUI implements Runnable {
                     }
                 }
             } catch (NumberFormatException e) {
-                System.out.println("Invalid input. Please enter a number.");
+                System.out.println("Invalid input.");
             }
             showSkillsSelected();
             System.out.println("Please select a number between 1 and " + selectedSkills.size() + " or 'done' to finish.");
