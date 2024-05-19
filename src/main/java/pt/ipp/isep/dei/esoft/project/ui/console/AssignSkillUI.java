@@ -9,8 +9,6 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- *
- *
  * @author Group 072 - Byte Masters - ISEP
  */
 public class AssignSkillUI implements Runnable {
@@ -82,6 +80,7 @@ public class AssignSkillUI implements Runnable {
 
     /**
      * Presentation of the list of collaborators to the user and their subsequent selection.
+     *
      * @return selected collaborator.
      */
     private Collaborator displayAndSelectCollaborator() {
@@ -94,17 +93,24 @@ public class AssignSkillUI implements Runnable {
 
         do {
             //Only one collaborator must be chosen at the time
-            System.out.print("Enter the ID Document Number of the collaborator to select: ");
+            System.out.print("Enter the a number on the list of collaborators to select one: ");
             answer = scanner.nextInt();
-
-                Collaborator selectedCollaborator = findCollaboratorIDDocNumber(collaborators, answer);
-                if (selectedCollaborator != null) {
-                    collaborator = selectedCollaborator;
-                    System.out.println("'" + answer + "' selected.");
-
-                } else{
-                    System.out.println("Collaborator not found. Try again");
+            try {
+                if (answer >= 1 && answer <= collaborators.size()) {
+                    Collaborator collaboratorToAssign = collaborators.get(answer - 1);
+                    Collaborator selectedCollaborator = findCollaboratorIDDocNumber(collaborators, Integer.parseInt(collaboratorToAssign.getIdDocNumber()));
+                    if (selectedCollaborator != null) {
+                        collaborator = selectedCollaborator;
+                        System.out.println("'" + selectedCollaborator.getIdDocNumber() + "' selected.");
+                    }
+                } else {
+                    System.out.println("Invalid selection. Please select a number between 1 and " + collaborators.size() + " or 'done' to finish.");
                 }
+
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a number.");
+            }
+
 
         } while (collaborator == null);
         return collaborator;
@@ -113,16 +119,20 @@ public class AssignSkillUI implements Runnable {
 
     /**
      * Displays the selected collaborator.
+     *
      * @param collaborators collaborator repository.
      */
     private void displayCollaborators(List<Collaborator> collaborators) {
+        int index = 1;
         for (Collaborator collaborator : collaborators) {
-            System.out.println("- " + collaborator.getName() + ", " + collaborator.getIdDocNumber());
+            System.out.println(index + " - " + collaborator.getName() + ", " + collaborator.getIdDocNumber());
+            index++;
         }
     }
 
     /**
      * Presentation of the list of skills to the user and their subsequent selection.
+     *
      * @return skills selected by the user.
      */
     private List<Skill> displayAndSelectSkills() {
@@ -132,30 +142,45 @@ public class AssignSkillUI implements Runnable {
         displaySkillsOptions(skills);
 
         List<Skill> selectedSkills = new ArrayList<>();
-        String answer;
-
+        String choice;
+        System.out.println("Please select a number between 1 and " + skills.size() + ".");
+        choice = scanner.nextLine().trim();
         do {
-            System.out.print("\nEnter the name of a skill to select (or type 'done' to finish): ");
-            answer = scanner.nextLine().trim();
 
-            if (!answer.equalsIgnoreCase("done")) {
-                Skill selectedSkill = findSkillByName(skills, answer);
-                if (selectedSkill != null) {
-                    selectedSkills.add(selectedSkill);
-                    System.out.println("'" + answer + "' selected.");
-                } else {
-                    System.out.println("Skill not found. Try again.");
+            try {
+                if (!choice.equalsIgnoreCase("done")) {
+
+                    if (Integer.parseInt(choice) >= 1 && Integer.parseInt(choice) <= skills.size()) {
+                        String answer = skills.get(Integer.parseInt(choice) - 1).getName();
+                        Skill selectedSkill = findSkillByName(skills, answer);
+
+                        if (selectedSkill != null && !selectedSkills.contains(selectedSkill)) {
+                            selectedSkills.add(selectedSkill);
+                            System.out.println("'" + answer + "' selected.");
+                        } else {
+                            if (selectedSkills.contains(selectedSkill)){
+                                System.out.println("'" + answer + "' already selected.");
+                            } else {
+                                System.out.println("Skill not found. Try again.");
+                            }
+                        }
+                    }
                 }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a number between 1 and " + skills.size() + " or 'done' to finish.");
             }
-        } while (!answer.equalsIgnoreCase("done"));
+            System.out.println("Please select a number between 1 and " + skills.size() + " or 'done' to finish.");
+            choice = scanner.nextLine().trim();
+        } while (!choice.equalsIgnoreCase("done"));
 
         return selectedSkills;
     }
 
     /**
      * Find a skill by its name.
+     *
      * @param skills skill repository.
-     * @param name skill's name.
+     * @param name   skill's name.
      * @return skill
      */
     private Skill findSkillByName(List<Skill> skills, String name) {
@@ -169,8 +194,9 @@ public class AssignSkillUI implements Runnable {
 
     /**
      * Find collaborator by name.
+     *
      * @param collaborators collaborator repository.
-     * @param idDocNumber collaborator ID Document Number.
+     * @param idDocNumber   collaborator ID Document Number.
      * @return collaborator.
      */
     private Collaborator findCollaboratorIDDocNumber(List<Collaborator> collaborators, int idDocNumber) {
@@ -184,11 +210,14 @@ public class AssignSkillUI implements Runnable {
 
     /**
      * Presentation of the list of skills
+     *
      * @param skills skill repository.
      */
     private void displaySkillsOptions(List<Skill> skills) {
+        int index = 1;
         for (Skill skill : skills) {
-            System.out.println("- " + skill.getName());
+            System.out.println(index + " - " + skill.getName());
+            index++;
         }
         scanner.nextLine();
     }
@@ -208,11 +237,12 @@ public class AssignSkillUI implements Runnable {
      * Show the selected skills.
      */
     private void showSkillsSelected() {
-
+        int index = 1;
         System.out.println("The selected skills were the following: ");
 
         for (Skill skillSelected : selectedSkills) {
-            System.out.println(skillSelected.getName());
+            System.out.println(index + " - "+ skillSelected.getName());
+            index++;
         }
 
     }
@@ -231,40 +261,33 @@ public class AssignSkillUI implements Runnable {
      * Change the selected skills.
      */
     private void changeSkillSelected() {
-
-        List<Skill> skills = controller.listSkills();
-
-        System.out.println("Enter the name of the skill to change: ");
-        String skillName = scanner.nextLine().trim();
-        Skill skillToChange = findSkillByName(skills, skillName);
-
-        if (skillToChange != null) {
-
-            selectedSkills.remove(skillToChange);
-            System.out.println("'" + skillName + "' removed.");
-
-        } else {
-
-            System.out.println("Skill not previously selected. Try again.");
-
-        }
-
-        displaySkillsOptions(skills);
-        String answer;
+        System.out.println("Choose the skills you want removed.");
+        showSkillsSelected();
+        String choice;
+        System.out.println("Please select a number between 1 and " + selectedSkills.size() + " or 'done' to finish.");
+        choice = scanner.nextLine().trim();
         do {
-            System.out.print("Enter the name of a skill to select (or type 'done' to finish): ");
-            answer = scanner.nextLine().trim();
 
-            if (!answer.equalsIgnoreCase("done")) {
-                Skill selectedSkill = findSkillByName(skills, answer);
-                if (selectedSkill != null) {
-                    selectedSkills.add(selectedSkill);
-                    System.out.println("'" + answer + "' selected.");
-                } else {
-                    System.out.println("Skill not found. Try again.");
+            try {
+                if (!choice.equalsIgnoreCase("done")) {
+
+                    if (Integer.parseInt(choice) >= 1 && Integer.parseInt(choice) <= selectedSkills.size()) {
+                        String answer = selectedSkills.get(Integer.parseInt(choice) - 1).getName();
+                        Skill selectedSkill = findSkillByName(selectedSkills, answer);
+
+                        if (selectedSkill != null) {
+                            selectedSkills.remove(selectedSkill);
+                            System.out.println("'" + answer + "' removed.");
+                        } else System.out.println("Skill not found. Try again.");
+                    }
                 }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a number.");
             }
-        } while (!answer.equalsIgnoreCase("done"));
+            showSkillsSelected();
+            System.out.println("Please select a number between 1 and " + selectedSkills.size() + " or 'done' to finish.");
+            choice = scanner.nextLine().trim();
+        } while (!choice.equalsIgnoreCase("done"));
 
     }
 
