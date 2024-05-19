@@ -44,8 +44,13 @@ public class MaintenanceRepository {
      * @param vehicleList list of all vehicles (will be changed in accord with the fact of needing or not maintenance)
      */
     private void getMaintenance(Vehicle vehicle, List<Vehicle> vehicleList) {
-        Maintenance newMaintenance = new Maintenance(vehicle);
-        removeVehicle(newMaintenance, vehicleList);
+        try {
+            Maintenance newMaintenance = new Maintenance(vehicle);
+            removeVehicle(newMaintenance, vehicleList);
+        }catch (IllegalArgumentException e){
+            System.out.println("There is no vehicle with the plate number: " + vehicle.getPlateNumber());
+        }
+
     }
 
     /**
@@ -67,8 +72,9 @@ public class MaintenanceRepository {
      * @param vehicleList    list of vehicles
      */
     private void removeVehicle(Maintenance newMaintenance, List<Vehicle> vehicleList) {
-        if (newMaintenance.validateVehicleMaintenance(newMaintenance.getVehicleFromPlate())) {
-            vehicleList.remove(newMaintenance.getVehicleFromPlate());
+        VehicleRepository vehicleRepository = Repositories.getInstance().getVehicleRepository();
+        if (newMaintenance.validateVehicleMaintenance(vehicleRepository.getVehicleFromPlate(newMaintenance.getPlateNumber()))) {
+            vehicleList.remove(vehicleRepository.getVehicleFromPlate(newMaintenance.getPlateNumber()));
         }
     }
 
@@ -101,4 +107,6 @@ public class MaintenanceRepository {
     public List<Maintenance> getMaintenanceList(){
         return List.copyOf(maintenanceList);
     }
+
+    public
 }

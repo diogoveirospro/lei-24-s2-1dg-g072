@@ -58,7 +58,7 @@ public class RegisterCollaboratorController {
      * @param jobName        the name of the job of the collaborator
      */
     public void registerCollaborator(String name, Date birthDate, Date admissionDate, String address,
-                                     int mobile, String email, int taxpayerNumber, String idDocType, int idDocNumber, String jobName) {
+                                     int mobile, String email, int taxpayerNumber, Collaborator.IdDocType idDocType, String idDocNumber, String jobName) {
 
         this.collaboratorRepository.addCollaborator(new Collaborator(name, birthDate, admissionDate, address, mobile,
                 email, taxpayerNumber, idDocType, idDocNumber, jobName));

@@ -29,7 +29,7 @@ public class Bootstrap {
     private void addCollaborator() {
         Collaborator c1 = new Collaborator("Ana", new Date(1990, 2, 3), new Date(2010,
                 3, 1), "Rua1", 912345669, "ana@gmail.com", 1644122,
-                "CC", 234564321);
+                Collaborator.IdDocType.CC, "234564321");
 
         c1.assignSkill(new Skill("Sustainable Land Use Practices"));
         c1.assignSkill(new Skill("Ecological Restoration"));
@@ -37,7 +37,7 @@ public class Bootstrap {
 
         Collaborator c2 = new Collaborator("João", new Date(1980, 2, 3), new Date(2010,
                 3, 1), "Rua2", 912345669, "joao@gmail.com", 12345678,
-                "CC", 234564321);
+                Collaborator.IdDocType.BI, "233354421");
 
         c2.assignSkill(new Skill("Plant Identification"));
         c2.assignSkill(new Skill("Tree Care and Maintenance"));
@@ -45,7 +45,7 @@ public class Bootstrap {
 
         Collaborator c3 = new Collaborator("André", new Date(1970, 2, 3), new Date(2010,
                 3, 1), "Rua3", 912345669, "andre@gmail.com", 12345678,
-                "CC", 234564321);
+                Collaborator.IdDocType.NISS, "234563271");
 
         c3.assignSkill(new Skill("Plant Identification"));
         c3.assignSkill(new Skill("Native Plant Gardening"));
@@ -53,7 +53,7 @@ public class Bootstrap {
 
         Collaborator c4 = new Collaborator("Manuel", new Date(1999, 2, 3), new Date(2015,
                 3, 1), "Rua4", 912345669, "manuel@gmail.com", 12345678,
-                "CC", 234564321);
+                Collaborator.IdDocType.PASSPORT, "234263321");
 
         c3.assignSkill(new Skill("Plant Identification"));
         c3.assignSkill(new Skill("Tree Care and Maintenance"));
@@ -134,6 +134,9 @@ public class Bootstrap {
         Vehicle vehicle1 = new Vehicle("GG-69-EZ","BMW","i4","hibrid",3500.0,4500.0,1000.0,new Date(2024,1,10), new  Date(2024,1,26),10000.0,0.0);
         Vehicle vehicle2 = new Vehicle("69-WP-42","Toyota","Avensis","Diesel",3000.0,4000.0,42000.0,new Date(2018,12,10), new  Date(2019,1,10),20000.0,30000.0);
         Vehicle vehicle3 = new Vehicle("04-20-VC","ferrari","diablo","Petrol",3000.0,4000.0,100000.0,new Date(2000,12,10), new  Date(2003,10,11),10000.0,75432.3);
+        vehicleRepository.addVehicle(vehicle1);
+        vehicleRepository.addVehicle(vehicle2);
+        vehicleRepository.addVehicle(vehicle3);
     }
     private void addVehicleMaintenance(){
 

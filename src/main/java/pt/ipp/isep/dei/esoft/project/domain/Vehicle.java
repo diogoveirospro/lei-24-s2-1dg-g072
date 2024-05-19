@@ -1,5 +1,9 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import pt.ipp.isep.dei.esoft.project.repository.Repositories;
+import pt.ipp.isep.dei.esoft.project.repository.VehicleRepository;
+
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -407,5 +411,6 @@ public class Vehicle {
     public int hashCode() {
         return Objects.hash(plateNumber, brand, model, type, tare, grossWeight, currentKms, registrationDate, acquisitionDate, serviceFrequency, kmAtLastMaintenance);
     }
+
 
 }

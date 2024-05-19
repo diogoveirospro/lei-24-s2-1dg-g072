@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.repository.VehicleRepository;
 
 import java.util.List;
@@ -61,22 +62,6 @@ public class Maintenance {
         return vehicle.getServiceFrequency() < vehicle.getCurrentKms() - vehicle.getKmAtLastMaintenance();
     }
 
-    /**
-     * Lets the system get the vehicle from is plate
-     *
-     * @return vehicle
-     */
-
-    public Vehicle getVehicleFromPlate(){
-        VehicleRepository vehicleRepository = new VehicleRepository();
-        List<Vehicle> vehicleList = vehicleRepository.getVehicleList();
-        for (Vehicle vehicle : vehicleList){
-            if (Objects.equals(vehicle.getPlateNumber(), plateNumber)){
-                return vehicle;
-            }
-        }
-        throw new IllegalArgumentException("There is no vehicle with the plate number: " + plateNumber);
-    }
 
     /**
      * Lets the system change the value of the kmAtLastMaintenance
@@ -94,7 +79,8 @@ public class Maintenance {
      * @param dateLastMaintenance date of the last maintenance made to the vehicle
      */
     public void setDateLastMaintenance(Date dateLastMaintenance) {
-        Vehicle vehicle = getVehicleFromPlate();
+        VehicleRepository vehicleRepository = Repositories.getInstance().getVehicleRepository();
+        Vehicle vehicle = vehicleRepository.getVehicleFromPlate(plateNumber);
         if (dateLastMaintenance == null){
             dateLastMaintenance = vehicle.getRegistrationDate();
         } else {
@@ -119,5 +105,14 @@ public class Maintenance {
 
     public Double getKmAtMaintenance() {
         return kmAtMaintenance;
+    }
+
+    /**
+     * Lets the System get the plateNumber
+     *
+     * @return plateNumber
+     */
+    public String getPlateNumber() {
+        return plateNumber;
     }
 }

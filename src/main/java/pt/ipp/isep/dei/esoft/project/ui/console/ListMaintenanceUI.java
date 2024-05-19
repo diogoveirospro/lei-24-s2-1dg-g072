@@ -50,7 +50,7 @@ public class ListMaintenanceUI implements Runnable {
     private void submitData() {
         vehicleListDto = controller.getVehicleList();
         if (!vehicleListDto.isEmpty()) {
-            System.out.println("\nVehicles in need of maintenance");
+            System.out.println("\nVehicles in need of maintenance:");
             for (VehicleDto vehicle : vehicleListDto) {
 
                 System.out.println("|  Plate  |  Brand  |  Model  | Curr.Kms |  Freq  |  Last  |  Next  |" );
@@ -59,7 +59,7 @@ public class ListMaintenanceUI implements Runnable {
                 System.out.printf("%n");
             }
         } else {
-            System.out.println("\nThere are no vehicles maintenances in the system!");
+            System.out.println("\nThere are no vehicles needing maintenance in the system!");
         }
     }
 
