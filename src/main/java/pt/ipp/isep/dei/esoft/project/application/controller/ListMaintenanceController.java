@@ -17,7 +17,7 @@ import java.util.List;
 public class ListMaintenanceController {
     private MaintenanceRepository maintenanceRepository;
     private AuthenticationRepository authenticationRepository;
-
+    private VehicleRepository vehicleRepository;
     /**
      * Empty ListMaintenanceController builder.
      *
@@ -25,6 +25,7 @@ public class ListMaintenanceController {
     public ListMaintenanceController(){
         this.maintenanceRepository = Repositories.getInstance().getMaintenanceRepository();
         this.authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
+        this.vehicleRepository = Repositories.getInstance().getVehicleRepository();
     }
 
     /**
@@ -72,9 +73,9 @@ public class ListMaintenanceController {
      * @return vehicleList copy
      */
     public List<VehicleDto> getVehicleList(){
-        VehicleRepository vehicleRepository =new VehicleRepository();
         List<Vehicle> vehicleList =  vehicleRepository.getVehicleList();
         VehicleMapper vehicleMapper = new VehicleMapper();
+        vehicleList = maintenanceRepository.getVehicleList(vehicleList);
         return vehicleMapper.toDTO(vehicleList);
 
     }
@@ -85,6 +86,7 @@ public class ListMaintenanceController {
      * @param maintenance of the vehicle
      */
     public void checkLastMaintenance(Maintenance maintenance) {
-        maintenance.setVehicleMaintenance(maintenance.getVehicleFromPlate());
+
+        maintenance.setVehicleMaintenance(vehicleRepository.getVehicleFromPlate(maintenance.getPlateNumber()));
     }
 }

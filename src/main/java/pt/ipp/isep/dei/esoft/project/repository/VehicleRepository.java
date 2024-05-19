@@ -5,6 +5,7 @@ import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -65,5 +66,22 @@ public class VehicleRepository {
      */
     public List<Vehicle> getVehicleList() {
         return (List.copyOf(vehicleList));
+    }
+
+    /**
+     * Lets the system get the vehicle from is plate
+     *
+     * @return vehicle
+     */
+
+    public Vehicle getVehicleFromPlate(){
+        VehicleRepository vehicleRepository = Repositories.getInstance().getVehicleRepository();
+        List<Vehicle> vehicleList = vehicleRepository.getVehicleList();
+        for (Vehicle vehicle : vehicleList){
+            if (Objects.equals(vehicle.getPlateNumber(), vehicle.getPlateNumber())){
+                return vehicle;
+            }
+        }
+        return null;
     }
 }

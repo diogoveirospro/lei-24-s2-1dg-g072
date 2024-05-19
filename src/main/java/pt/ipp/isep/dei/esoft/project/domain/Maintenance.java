@@ -61,22 +61,6 @@ public class Maintenance {
         return vehicle.getServiceFrequency() < vehicle.getCurrentKms() - vehicle.getKmAtLastMaintenance();
     }
 
-    /**
-     * Lets the system get the vehicle from is plate
-     *
-     * @return vehicle
-     */
-
-    public Vehicle getVehicleFromPlate(){
-        VehicleRepository vehicleRepository = new VehicleRepository();
-        List<Vehicle> vehicleList = vehicleRepository.getVehicleList();
-        for (Vehicle vehicle : vehicleList){
-            if (Objects.equals(vehicle.getPlateNumber(), plateNumber)){
-                return vehicle;
-            }
-        }
-        throw new IllegalArgumentException("There is no vehicle with the plate number: " + plateNumber);
-    }
 
     /**
      * Lets the system change the value of the kmAtLastMaintenance
@@ -119,5 +103,9 @@ public class Maintenance {
 
     public Double getKmAtMaintenance() {
         return kmAtMaintenance;
+    }
+
+    public String getPlateNumber() {
+        return plateNumber;
     }
 }
