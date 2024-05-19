@@ -69,16 +69,68 @@ public class VehicleRepository {
     }
 
     /**
+     * This method will get the difference of all vehicles, in terms of kilometers.
+     *
+     * @param difference deference of all vehicles
+     */
+
+    private void getDifferenceInKms(double[] difference,List<Vehicle> vehicleList) {
+        int index = 0;
+        for (Vehicle vehicle : vehicleList){
+
+            difference[index] = (vehicle.getKmAtLastMaintenance() + vehicle.getServiceFrequency())- vehicle.getCurrentKms();
+
+            index++;
+        }
+    }
+
+    /**
+     * This method will sort the vehicle by kms to the next maintenance
+     *
+     * @return vehicleList sorted
+     */
+
+    public List<Vehicle> sortByKms(){
+        List<Vehicle> vehicleList = getVehicleList();
+        double[] difference = new double[vehicleList.size()];
+        getDifferenceInKms(difference,vehicleList);
+        sortByKmsToMaintenance(difference,vehicleList);
+        return vehicleList;
+    }
+
+    /**
+     * Will sort all the vehicles by kms to the maintenance
+     *
+     * @param difference between the current and last maintenance kms + frequency of maintenance
+     * @param vehicleList list of all vehicles
+     */
+    private void sortByKmsToMaintenance(double[] difference, List<Vehicle> vehicleList) {
+        int index1 = 0;
+        int index2 = 0;
+        for (Vehicle vehicle : vehicleList){
+            for (Vehicle otherVehicle : vehicleList){
+                if (difference[index1] > difference[index2]){
+                    Vehicle aux = vehicle;
+                    vehicle = otherVehicle;
+                    otherVehicle = aux;
+                }
+                index2++;
+            }
+            index1++;
+        }
+    }
+
+    /**
      * Lets the system get the vehicle from is plate
      *
      * @return vehicle
      */
 
-    public Vehicle getVehicleFromPlate(){
+    public Vehicle getVehicleFromPlate(String plateNumber){
         VehicleRepository vehicleRepository = Repositories.getInstance().getVehicleRepository();
         List<Vehicle> vehicleList = vehicleRepository.getVehicleList();
         for (Vehicle vehicle : vehicleList){
-            if (Objects.equals(vehicle.getPlateNumber(), vehicle.getPlateNumber())){
+            if (Objects.equals(plateNumber, vehicle.getPlateNumber())){
                 return vehicle;
             }
         }

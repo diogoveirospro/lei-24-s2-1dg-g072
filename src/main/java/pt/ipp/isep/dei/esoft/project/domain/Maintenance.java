@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.repository.VehicleRepository;
 
 import java.util.List;
@@ -78,7 +79,8 @@ public class Maintenance {
      * @param dateLastMaintenance date of the last maintenance made to the vehicle
      */
     public void setDateLastMaintenance(Date dateLastMaintenance) {
-        Vehicle vehicle = getVehicleFromPlate();
+        VehicleRepository vehicleRepository = Repositories.getInstance().getVehicleRepository();
+        Vehicle vehicle = vehicleRepository.getVehicleFromPlate(plateNumber);
         if (dateLastMaintenance == null){
             dateLastMaintenance = vehicle.getRegistrationDate();
         } else {
@@ -105,6 +107,11 @@ public class Maintenance {
         return kmAtMaintenance;
     }
 
+    /**
+     * Lets the System get the plateNumber
+     *
+     * @return plateNumber
+     */
     public String getPlateNumber() {
         return plateNumber;
     }

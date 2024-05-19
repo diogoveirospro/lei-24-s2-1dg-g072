@@ -72,8 +72,9 @@ public class MaintenanceRepository {
      * @param vehicleList    list of vehicles
      */
     private void removeVehicle(Maintenance newMaintenance, List<Vehicle> vehicleList) {
-        if (newMaintenance.validateVehicleMaintenance(newMaintenance.getVehicleFromPlate())) {
-            vehicleList.remove(newMaintenance.getVehicleFromPlate());
+        VehicleRepository vehicleRepository = Repositories.getInstance().getVehicleRepository();
+        if (newMaintenance.validateVehicleMaintenance(vehicleRepository.getVehicleFromPlate(newMaintenance.getPlateNumber()))) {
+            vehicleList.remove(vehicleRepository.getVehicleFromPlate(newMaintenance.getPlateNumber()));
         }
     }
 
@@ -106,4 +107,6 @@ public class MaintenanceRepository {
     public List<Maintenance> getMaintenanceList(){
         return List.copyOf(maintenanceList);
     }
+
+    public
 }
