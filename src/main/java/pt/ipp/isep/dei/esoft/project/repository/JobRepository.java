@@ -89,6 +89,10 @@ public class JobRepository {
         return jobs.contains(job);
     }
 
+    /**
+     * Sort Jobs alphabetically
+     * 
+     */
     public void sortJobsAlphabetically() {
         for (int i = 0; i < jobs.size() - 1; i++) {
             for (int j = i + 1; j < jobs.size(); j++) {
