@@ -1,0 +1,86 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "Green\nSpace Manager\n(GSM)" as GSM
+participant ":ListGreenSpaceUI" as UI
+participant ":ListGreenSpaceController" as CTRL
+participant ":Repositories" as RepositorySingleton
+participant "repositories\n:Repositories" as REP
+participant "greenSpaceRepository\n:GreenSpaceRepository" as greenSpaceRepository
+participant ":GreenSpaceMapper" as Mapper
+participant "greenSpaceDto\n:GreenSpaceDto" as DTO
+
+activate GSM
+
+        GSM -> UI : asks to list all greenSpaces
+
+        activate UI
+
+            UI --> GSM : asks for confirmation
+        deactivate UI
+            GSM -> UI : confirms that he wants to create the list
+        activate UI
+
+            UI -> CTRL** : create
+
+            UI -> CTRL : getGreenSpaceList()
+            activate CTRL
+
+                CTRL -> RepositorySingleton : getInstance()
+                activate RepositorySingleton
+
+                    RepositorySingleton --> CTRL: repositories
+                deactivate RepositorySingleton
+
+                CTRL -> REP : getGreenSpaceRepository()
+                activate REP
+
+                    REP --> CTRL: greenSpaceRepository
+                deactivate REP
+
+                CTRL -> greenSpaceRepository : getGreenSpaceList()
+
+                activate greenSpaceRepository
+
+                       activate greenSpaceRepository
+
+
+
+
+
+
+                        greenSpaceRepository --> CTRL : greenSpaceList
+                        deactivate greenSpaceRepository
+
+                deactivate greenSpaceRepository
+
+                deactivate greenSpaceRepository
+
+            CTRL -> Mapper : toDTO(greenSpaceList)
+            activate Mapper
+                    loop for each greenSpace in greenSpaceList
+
+                        Mapper -> DTO** : GreenSpaceDto(greenSpace)
+
+                        Mapper -> Mapper : addGreenSpace(greenSpaceDto)
+                        activate Mapper
+                    end
+                    Mapper --> CTRL : greenSpaceListDto
+                    deactivate Mapper
+
+            deactivate Mapper
+            CTRL --> UI: greenSpaceListDto
+            deactivate CTRL
+            UI --> GSM: shows the list
+    deactivate UI
+
+deactivate GSM
+
+
+
+@enduml

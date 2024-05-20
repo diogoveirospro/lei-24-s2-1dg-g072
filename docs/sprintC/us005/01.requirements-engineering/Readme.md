@@ -84,7 +84,9 @@ Algorithms (presenting proposals and interacting with the human resources manage
 **Output Data:**
 
 * (In)Success of the operation
+
 * A team recommendation
+
 
 ### 1.6. System Sequence Diagram (SSD)
 
