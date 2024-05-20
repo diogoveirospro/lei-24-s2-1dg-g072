@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
+import pt.ipp.isep.dei.esoft.project.domain.Job;
 import pt.ipp.isep.dei.esoft.project.domain.utils.ValidatorUtils;
 import pt.ipp.isep.dei.esoft.project.exceptions.InvalidCollaboratorDataException;
 import pt.ipp.isep.dei.esoft.project.application.controller.RegisterCollaboratorController;
@@ -8,6 +9,8 @@ import pt.ipp.isep.dei.esoft.project.domain.Date;
 import pt.ipp.isep.dei.esoft.project.repository.JobRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 
+import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -67,7 +70,8 @@ public class RegisterCollaboratorUI implements Runnable {
         System.out.print("Enter ID document number: ");
         String idDocNumber = validateIdDocumentNumber(scanner, idDocType);
 
-        System.out.print("Enter job name: ");
+        
+        System.out.println("Enter the integer corresponding to the desired job: ");
         String jobName = assignJob(scanner);
 
         // Registering the collaborator
@@ -303,21 +307,41 @@ public class RegisterCollaboratorUI implements Runnable {
      */
     private String assignJob(Scanner scanner){
         JobRepository jobRepository = Repositories.getInstance().getJobRepository();
+        List<Job> jobsList = jobRepository.getJobs();
+        int index;
         String jobName = null;
         boolean valid = false;
 
+        showJobs(jobsList);
+
         while (!valid) {
-            jobName = scanner.nextLine();
-            if (jobRepository.exists(jobName)) {
-                valid = true;
-            } else {
-                System.out.println("Job does not exist in the repository. Please enter a valid job name.");
-                System.out.print("Enter job name: ");
+            try {
+                index = scanner.nextInt();
+                if (index > 0 && index <= jobsList.size()) {
+                    jobName = jobsList.get(index - 1).getName();
+                    valid = true;
+                } else {
+                    throw new InvalidCollaboratorDataException("Job not found please enter the integer corresponding to " +
+                            "the Job you want to register with the collaborator.");
+                }
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+                System.out.print("Enter the integer corresponding to the desired job: ");
             }
 
-        }
 
+        }
+        scanner.nextLine();
         return jobName;
+    }
+
+    private void showJobs(List<Job> jobsList){
+
+        for (int i = 0; i < jobsList.size(); i++) {
+
+            System.out.println(i + 1 + " - " + jobsList.get(i));
+
+        }
     }
 
 

@@ -83,7 +83,7 @@ public class GenerateTeamProposalController {
      */
     public Team generateTeamProposal(int minimumSize, int maximumSize, List<Skill> skills,
                                                    List<Collaborator> collaborators){
-        return teamRepository.generateTeamProposal(minimumSize, maximumSize, skills, collaborators);
+        return TeamRepository.generateTeamProposal(minimumSize, maximumSize, skills, collaborators);
     }
 
     /**
