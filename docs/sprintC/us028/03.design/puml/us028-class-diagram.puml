@@ -1,62 +1,81 @@
 @startuml
-'skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 skinparam linetype polyline
-'skinparam linetype orto
-
 skinparam classAttributeIconSize 0
 
-'left to right direction
+class ListTaskSpaceUI {
+}
+
+class TaskMapper {
+    - taskList
+    + toDto(taskList)
+    + addTask(task)
+}
+
+class TaskDto {
+    - String team
+    - String vehicles
+    - Date dateI
+    - Date dateF
+    - String status
+    TaskDto(task)
+}
+
+class ListTaskController {
+    + checkIfIDIsValid(idNumber)
+    + saveDatesSelected(dateI, dateF)
+    + getStatusList()
+    + getTaskList(idNumber, dateI, dateF, typeStatus)
+    + toDto(taskList)
+}
+
+class TaskRepository {
+    - taskList
+    + getStatusList()
+    + getTaskList(idNumber, dateI, dateF, typeStatus)
+    + addTaskOfCollaborator(task)
+}
+
+class Task {
+    - String team
+    - String vehicles
+    - Date dateI
+    - Date dateF
+    - String status
+    + getStatus()
+    + getIdNumber()
+    + getDateI()
+    + getDateF()
+}
+
+class CollaboratorRepository {
+    + checkIfIDIsValid(idNumber)
+}
 
 class Repositories {
     - Repositories()
-    + getInstance() : Repositories
-    + getVehicleRepository()
+    + getInstance(): Repositories
+    + getCollaboratorRepository(): CollaboratorRepository
+    + getTaskRepository(): TaskRepository
 }
 
-class RegisterVehicleController {
-    + RegisterVehicleController(vehicleRepository)
-    + registerVehicle(plateNumber, brand, model, type, tare, grossWeight, currentKms, registrationDate, acquisitionDate, serviceFrequency)
+class Date {
+    - int year
+    - int month
+    - int day
+    + Date(int year, int month, int day)
 }
 
-class vehicleRepository{
-    + registerVehicle(plateNumber, brand, model, type, tare, grossWeight, currentKms, registrationDate, acquisitionDate, serviceFrequency)
-    + addVehicle(vehicle)
-    + validateVehicle(vehicle)
-    + getVehicleList()
-}
-
-class RegisterVehicleUI {
-}
-
-class Vehicle{
-    - String plateNumber
-    - String brand
-    - String model
-    - String type
-    - Double tare
-    - Double grossWeight
-    - Double currentKms
-    - String registrationDate
-    - String acquisitionDate
-    - Double serviceFrequency
-    - Double kmAtLastMaintenance
-
-}
-
+ListTaskSpaceUI .> ListTaskController
+ListTaskController ..> Repositories : repositories
 Repositories -> Repositories : instance
-
-RegisterVehicleUI .> RegisterVehicleController
-RegisterVehicleController .> "1" vehicleRepository : vehicleRepository
-
-
-Repositories --> "1" vehicleRepository
-
-RegisterVehicleController .> Repositories : repositories
-
-vehicleRepository "1" o--- "1..*"Vehicle : has
-
-RegisterVehicleController .> Vehicle : vehicle
-
+ListTaskController .> TaskRepository: taskRepository
+Repositories "1" --> "1" TaskRepository
+Repositories "1" ..> "1" CollaboratorRepository: collaboratorRepository
+ListTaskController "1" -> "1" CollaboratorRepository
+TaskRepository o- "*" Task : has
+ListTaskController "1" -> "1" TaskMapper: taskList
+TaskMapper "1" -> "1" TaskDto: task
+ListTaskController "1" --> "2" Date: dates
 @enduml
