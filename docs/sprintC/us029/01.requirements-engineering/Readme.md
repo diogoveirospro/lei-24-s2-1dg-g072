@@ -1,27 +1,25 @@
-# US029 - Register a Vehicle 
+# US029 - Completion of a Task
 
 
 ## 1. Requirements Engineering
 
 ### 1.1. User Story Description
 
-The VFM wants to register a vehicle.
+As a Collaborator, I want to record the completion of a task.
 
 ### 1.2. Customer Specifications and Clarifications 
 
 **From the project statement document:**
 
->	The vehicle as the following attributes: Plate number, Brand, Model, Type, Tare, Gross weight, Current Kms, Registration Date, Acquisition Date and Service Frequency (in Kms). 
 
 **From the client clarifications:**
 
-> **Question:** When a vehicle is registered, are there specific requirements for accepting the brand? For example, does the system need to check if the brand is on a predetermined list? Does this also apply to the model or any other characteristics?
-> 
-> **Answer:** No; one can consider a list of brands and a list of models previously inserted in the system, no need to go through validations.
- 
-> **Question:** For the application to work does the FM need to fill all the attributes of the vehicle?
-> 
-> **Answer:** Yes.
+> **Question:** So, my question is the following: does the task associated with the Agenda entry in which this happens remain in the To-do List or can it be removed, unlike what happens in the Agenda? Or even, would this process be different between a completed task and a canceled task?
+>  
+> **Answer:** Yes. 
+> I suppose when a task goes to the Agenda, it leaves the To-Do list but maybe a different flow could be considered.
+
+
 
 
 ### 1.3. Acceptance Criteria
@@ -37,9 +35,8 @@ The VFM wants to register a vehicle.
 
 **Input Data:**
 
-* Typed data:
-    * a designation for the vehicle (plate number)
-    * the attributes of the vehicle
+* Selected data:
+    * The task to be changed to the status 'done'
 
 **Output Data:**
 
@@ -51,4 +48,4 @@ The VFM wants to register a vehicle.
 
 #### Alternative One
 
-![System Sequence Diagram - Alternative One](svg/us006-system-sequence-diagram-alternative-one.svg)
+![System Sequence Diagram - Alternative One](svg/us029-system-sequence-diagram-alternative-one.svg)

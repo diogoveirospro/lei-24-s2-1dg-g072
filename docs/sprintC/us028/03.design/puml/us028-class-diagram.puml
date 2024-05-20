@@ -8,14 +8,14 @@ class ListTaskSpaceUI {
 }
 
 class TaskMapper {
-    - taskList
+    - List<Task> taskList
     + toDto(taskList)
     + addTask(task)
 }
 
 class TaskDto {
-    - String team
-    - String vehicles
+    - Team team
+    - List<vehicleList> vehicles
     - Date dateI
     - Date dateF
     - String status
@@ -31,15 +31,15 @@ class ListTaskController {
 }
 
 class TaskRepository {
-    - taskList
+    - List<Task> taskList
     + getStatusList()
     + getTaskList(idNumber, dateI, dateF, typeStatus)
     + addTaskOfCollaborator(task)
 }
 
 class Task {
-    - String team
-    - String vehicles
+    - Team team
+    - List<Vehicle> vehicleList
     - Date dateI
     - Date dateF
     - String status
