@@ -1,0 +1,32 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+
+
+
+class Collaborator {
+
+}
+
+class Task{
+    name
+    status
+    greenSpace
+    date of the begging
+    date of the end
+    vehicles
+}
+
+
+Collaborator "1" -- "1..*" Task: lists >
+
+@enduml

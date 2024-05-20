@@ -1,0 +1,176 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "Collaborator" as Col
+participant ":ListTaskSpaceUI" as UI
+participant ":ListTaskController" as CTRL
+participant ":Repositories" as RepositorySingleton
+participant "repositories\n:Repositories" as REP
+participant "collaboratorRepository\n:CollaboratorRepository" as collaboratorRepository
+participant "date:Date" as Date
+participant "taskRepository\n:TaskRepository" as taskRepository
+participant "taskCollaboratorList\n:List<Task>" as list
+participant ":TaskMapper" as Mapper
+participant "taskDto\n:TaskDto" as DTO
+
+activate Col
+
+           Col -> UI : request to consult tasks assigned to him collaborator
+           activate UI
+
+               UI --> Col : asks him to write is id number
+           deactivate UI
+
+           Col -> UI : writes id number
+
+
+           activate UI
+
+                UI -> CTRL** : create
+                UI -> CTRL: checkIfIDIsValid(idNumber)
+                activate CTRL
+
+                        CTRL -> RepositorySingleton: getInstance()
+                        activate RepositorySingleton
+
+                                RepositorySingleton --> CTRL: repositories
+                        deactivate RepositorySingleton
+
+                        CTRL -> REP: getCollaboratorRepository
+                        activate REP
+
+                                REP --> CTRL: collaboratorRepository
+                        deactivate REP
+
+                        CTRL -> collaboratorRepository: checkIfIDIsValid(idNumber)
+                        activate collaboratorRepository
+
+                                collaboratorRepository -> collaboratorRepository: checkIfIDIsValid(idNumber)
+                                activate collaboratorRepository
+
+                                        collaboratorRepository --> CTRL: true/false statement
+                                deactivate collaboratorRepository
+
+                        deactivate collaboratorRepository
+                        CTRL --> UI: true/false statement
+                deactivate CTRL
+               UI --> Col : asks to select the beginning and end date of the search
+           deactivate UI
+
+           Col -> UI : selects the beginning and end date
+           activate UI
+
+                    UI -> CTRL: saveDatesSelected(dateI,dateF)
+                    activate CTRL
+                            loop For both dates selected
+                            CTRL -> Date**: Date(date)
+                            end
+                            CTRL --> UI: true/false statement
+                    deactivate CTRL
+
+                    UI -> CTRL: getStatusList()
+                    activate CTRL
+
+                            CTRL -> RepositorySingleton: getInstance()
+                            activate RepositorySingleton
+
+                                    RepositorySingleton --> CTRL: repositories
+                            deactivate RepositorySingleton
+
+                            CTRL -> REP: getTaskRepository()
+                            activate REP
+
+                                    REP --> CTRL: taskRepository
+                            deactivate REP
+
+                            CTRL -> taskRepository: getStatusList()
+
+                            activate taskRepository
+
+                                    taskRepository --> CTRL: statusList
+                            deactivate taskRepository
+
+                            CTRL --> UI: statusList
+                    deactivate CTRL
+                   UI --> Col: asks to select the type of status he wants to consult
+           deactivate UI
+
+           Col -> UI : Selects the type he wants to consult
+        activate UI
+
+            UI --> Col : asks for confirmation
+        deactivate UI
+            Col -> UI : confirms that he wants to create the list
+        activate UI
+
+
+
+            UI -> CTRL : getTaskList(idNumber,dateI,dateF,typeStatus)
+            activate CTRL
+
+                CTRL -> RepositorySingleton : getInstance()
+                activate RepositorySingleton
+
+                    RepositorySingleton --> CTRL: repositories
+                deactivate RepositorySingleton
+
+                CTRL -> REP : getTaskRepository()
+                activate REP
+
+                    REP --> CTRL: taskRepository
+                deactivate REP
+
+                CTRL -> taskRepository : getTaskList(idNumber,dateI,dateF,typeStatus)
+
+                activate taskRepository
+
+                        taskRepository -> list**: List<Task> taskCollaboratorList
+
+                        loop for each task in the system
+                        opt ((typeStatus == task.getStatus) && (idNumber == task.getIdNumber)\n &&(dateI <= task.getDateI) && (dateF >= task.getDateF))
+
+                            taskRepository -> taskRepository: addTaskOfCollaborator(task)
+                            activate taskRepository
+
+
+
+                        end
+
+                        end
+
+
+
+                        taskRepository --> CTRL : taskCollaboratorList
+
+                deactivate taskRepository
+
+                deactivate taskRepository
+
+            CTRL -> Mapper : toDTO(taskCollaboratorList)
+            activate Mapper
+                    loop for each task in taskCollaboratorList
+
+                        Mapper -> DTO** : TaskDto(task)
+
+                        Mapper -> Mapper : addTask(taskDto)
+                        activate Mapper
+                    end
+                    Mapper --> CTRL : taskListDto
+                    deactivate Mapper
+
+            deactivate Mapper
+            CTRL --> UI: taskListDto
+            deactivate CTRL
+            UI --> Col: shows the list
+    deactivate UI
+
+deactivate Col
+
+
+
+@enduml

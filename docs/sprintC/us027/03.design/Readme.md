@@ -6,15 +6,15 @@
 
 _**Note that SSD - Alternative One is adopted.**_
 
-| Interaction ID | Question: Which class is responsible for...            | Answer                   | Justification (with patterns)                                                                                                                                         |
-|:---------------|:-------------------------------------------------------|:-------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Step 1  		     | 	... interacting with the actor?                       | ListGreenSpaceUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model.                                                         |
-| Step 2  		     | 	 						                                               |                          |                                                                                                                                                                       |
-| Step 3	        | 	... coordinating the US?                              | ListGreenSpaceController | Controller: coordinates the interactions related to creating the maintenance list in the user interface (UI) and executes the logic needed to process these requests. |
-| 		             | 	...getting the GreenSpace list?                       | GreenSpaceRepository     | IE: owns all of its GreenSpaces.                                                                                                                                      |
-|                | ... create a list with all the data of greenSpaceList? | GreenSpaceMapper         | IE: Transforms all of its data.                                                                                                                                       |
-|                | ... transform a greenSpace into data?                  | GreenSpaceDto            | IE: Transforms all of is data.                                                                                                                                        |
-| Step 4  		     | 	...showing the GreenSpaces list?                      | ListGreenSpaceUI         | IE: is responsible for user interactions.                                                                                                                             |
+| Interaction ID | Question: Which class is responsible for...            | Answer                   | Justification (with patterns)                                                                                                                                   |
+|:---------------|:-------------------------------------------------------|:-------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Step 1  		     | 	... interacting with the actor?                       | ListGreenSpaceUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model.                                                   |
+| Step 2  		     | 	 						                                               |                          |                                                                                                                                                                 |
+| Step 3	        | 	... coordinating the US?                              | ListGreenSpaceController | Controller: coordinates the interactions related to creating the tasks list in the user interface (UI) and executes the logic needed to process these requests. |
+| 		             | 	...getting the GreenSpace list?                       | GreenSpaceRepository     | IE: owns all of its GreenSpaces.                                                                                                                                |
+|                | ... create a list with all the data of greenSpaceList? | GreenSpaceMapper         | IE: Transforms all of its data.                                                                                                                                 |
+|                | ... transform a greenSpace into data?                  | GreenSpaceDto            | IE: Transforms all of is data.                                                                                                                                  |
+| Step 4  		     | 	...showing the GreenSpaces list?                      | ListGreenSpaceUI         | IE: is responsible for user interactions.                                                                                                                       |
 
 ### Systematization ##
 
