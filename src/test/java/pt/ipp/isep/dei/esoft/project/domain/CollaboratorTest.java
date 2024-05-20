@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
 import org.junit.jupiter.api.Test;
+import pt.ipp.isep.dei.esoft.project.exceptions.InvalidCollaboratorDataException;
 import pt.ipp.isep.dei.esoft.project.repository.JobRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 
@@ -9,17 +10,17 @@ import static org.junit.jupiter.api.Assertions.*;
 class CollaboratorTest {
 
     @Test
-    void ensureCollaboratorIsCreatedSuccessfully() {
+    void ensureCollaboratorIsCreatedSuccessfully() throws InvalidCollaboratorDataException {
 
-        String name = "John Doe";
-        Date birthDate = new Date(1990, 5, 15);
-        Date admissionDate = new Date(2024, 5, 1);
-        String address = "123 Main St, City, Country";
-        int mobile = 123456789;
-        String email = "john.doe@example.com";
-        int taxpayerNumber = 123456789;
+        String name = "Ana";
+        Date birthDate = new Date(1990, 2, 3);
+        Date admissionDate = new Date(2010, 3, 1);
+        String address = "Rua1";
+        String mobile = "912345669";
+        String email = "ana@gmail.com";
+        String taxpayerNumber = "123456780";
         Collaborator.IdDocType idDocType = Collaborator.IdDocType.CC;
-        String idDocNumber = "987654321";
+        String idDocNumber = "234564321zx7";
 
         Collaborator collaborator = new Collaborator(name, birthDate, admissionDate, address, mobile, email,
                 taxpayerNumber, idDocType, idDocNumber);
@@ -37,17 +38,17 @@ class CollaboratorTest {
     }
 
     @Test
-    void ensureCollaboratorIsCreatedSuccessfullyWithJob() {
+    void ensureCollaboratorIsCreatedSuccessfullyWithJob() throws InvalidCollaboratorDataException {
 
-        String name = "John Doe";
-        Date birthDate = new Date(1990, 5, 15);
-        Date admissionDate = new Date(2024, 5, 1);
+        String name = "Ana";
+        Date birthDate = new Date(1990, 2, 3);
+        Date admissionDate = new Date(2010, 3, 1);
         String address = "Rua1";
-        int mobile = 123456789;
-        String email = "john.doe@example.com";
-        int taxpayerNumber = 123456789;
+        String mobile = "912345669";
+        String email = "ana@gmail.com";
+        String taxpayerNumber = "123456780";
         Collaborator.IdDocType idDocType = Collaborator.IdDocType.CC;
-        String idDocNumber = "987654321";
+        String idDocNumber = "234564321zx7";
         String jobName = "Landscape Designer";
 
         JobRepository jobRepository = Repositories.getInstance().getJobRepository();

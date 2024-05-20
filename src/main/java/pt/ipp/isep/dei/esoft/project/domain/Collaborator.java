@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import pt.ipp.isep.dei.esoft.project.domain.utils.ValidatorUtils;
+import pt.ipp.isep.dei.esoft.project.exceptions.InvalidCollaboratorDataException;
 import pt.ipp.isep.dei.esoft.project.repository.JobRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 
@@ -36,7 +38,7 @@ public class Collaborator {
     /**
      * Collaborator mobile number.
      */
-    private int mobile;
+    private String mobile;
 
     /**
      * Collaborator email.
@@ -46,7 +48,7 @@ public class Collaborator {
     /**
      * Collaborator taxpayer number.
      */
-    private int taxpayerNumber;
+    private String taxpayerNumber;
 
     /**
      * All types of collaborator identification documents.
@@ -121,9 +123,47 @@ public class Collaborator {
      * @param idDocType      Collaborator ID document type.
      * @param idDocNumber    Collaborator ID document number.
      * @param jobName        Collaborator's Job Name.
+     * @throws InvalidCollaboratorDataException if any of the provided data is invalid
      */
-    public Collaborator(String name, Date birthDate, Date admissionDate, String address, int mobile, String email,
-                        int taxpayerNumber, IdDocType idDocType, String idDocNumber, String jobName) {
+    public Collaborator(String name, Date birthDate, Date admissionDate, String address, String mobile, String email,
+                        String taxpayerNumber, IdDocType idDocType, String idDocNumber, String jobName) throws InvalidCollaboratorDataException {
+
+        if (!ValidatorUtils.isValidName(name)) {
+            throw new InvalidCollaboratorDataException("Invalid name.");
+        }
+
+        try {
+            ValidatorUtils.validateBirthDate(birthDate.toYearMonthDayString());
+        }catch (InvalidCollaboratorDataException e){
+            throw new InvalidCollaboratorDataException("Invalid birthdate.");
+        }
+
+        try {
+            ValidatorUtils.validateAdmissionDate(admissionDate.toYearMonthDayString(), birthDate);
+        }catch (InvalidCollaboratorDataException e){
+            throw new InvalidCollaboratorDataException("Invalid admission date.");
+        }
+
+        if (!ValidatorUtils.isValidAddress(address)) {
+            throw new InvalidCollaboratorDataException("Invalid address.");
+        }
+
+        if (!ValidatorUtils.isValidMobileNumber(mobile)) {
+            throw new InvalidCollaboratorDataException("Invalid mobile number.");
+        }
+
+        if (!ValidatorUtils.isValidEmail(email)) {
+            throw new InvalidCollaboratorDataException("Invalid email.");
+        }
+
+        if (!ValidatorUtils.isValidTaxpayerNumber(taxpayerNumber)) {
+            throw new InvalidCollaboratorDataException("Invalid taxpayer number.");
+        }
+
+        if (!ValidatorUtils.isValidDocumentNumber(idDocType, idDocNumber)) {
+            throw new InvalidCollaboratorDataException("Invalid ID document number.");
+        }
+
         this.name = name;
         this.birthDate = birthDate;
         this.admissionDate = admissionDate;
@@ -154,8 +194,45 @@ public class Collaborator {
      * @param idDocType      Collaborator ID document type.
      * @param idDocNumber    Collaborator ID document number.
      */
-    public Collaborator(String name, Date birthDate, Date admissionDate, String address, int mobile, String email,
-                        int taxpayerNumber, IdDocType idDocType, String idDocNumber) {
+    public Collaborator(String name, Date birthDate, Date admissionDate, String address, String mobile, String email,
+                        String taxpayerNumber, IdDocType idDocType, String idDocNumber) throws InvalidCollaboratorDataException {
+
+        if (!ValidatorUtils.isValidName(name)) {
+            throw new InvalidCollaboratorDataException("Invalid name.");
+        }
+
+        try {
+            ValidatorUtils.validateBirthDate(birthDate.toYearMonthDayString());
+        }catch (InvalidCollaboratorDataException e){
+            throw new InvalidCollaboratorDataException("Invalid birthdate.");
+        }
+
+        try {
+            ValidatorUtils.validateAdmissionDate(admissionDate.toYearMonthDayString(), birthDate);
+        }catch (InvalidCollaboratorDataException e){
+            throw new InvalidCollaboratorDataException("Invalid admission date.");
+        }
+
+        if (!ValidatorUtils.isValidAddress(address)) {
+            throw new InvalidCollaboratorDataException("Invalid address.");
+        }
+
+        if (!ValidatorUtils.isValidMobileNumber(mobile)) {
+            throw new InvalidCollaboratorDataException("Invalid mobile number.");
+        }
+
+        if (!ValidatorUtils.isValidEmail(email)) {
+            throw new InvalidCollaboratorDataException("Invalid email.");
+        }
+
+        if (!ValidatorUtils.isValidTaxpayerNumber(taxpayerNumber)) {
+            throw new InvalidCollaboratorDataException("Invalid taxpayer number.");
+        }
+
+        if (!ValidatorUtils.isValidDocumentNumber(idDocType, idDocNumber)) {
+            throw new InvalidCollaboratorDataException("Invalid ID document number.");
+        }
+
         this.name = name;
         this.birthDate = birthDate;
         this.admissionDate = admissionDate;
@@ -211,7 +288,7 @@ public class Collaborator {
      *
      * @return Collaborator mobile number.
      */
-    public int getMobile() {
+    public String getMobile() {
         return mobile;
     }
 
@@ -229,7 +306,7 @@ public class Collaborator {
      *
      * @return Collaborator taxpayer number.
      */
-    public int getTaxpayerNumber() {
+    public String getTaxpayerNumber() {
         return taxpayerNumber;
     }
 
@@ -328,7 +405,7 @@ public class Collaborator {
      *
      * @param mobile number of the collaborator
      */
-    public void setMobile(int mobile) {
+    public void setMobile(String mobile) {
         this.mobile = mobile;
     }
 
@@ -355,7 +432,7 @@ public class Collaborator {
      *
      * @param taxpayerNumber of the collaborator
      */
-    public void setTaxpayerNumber(int taxpayerNumber) {
+    public void setTaxpayerNumber(String taxpayerNumber) {
         this.taxpayerNumber = taxpayerNumber;
     }
 

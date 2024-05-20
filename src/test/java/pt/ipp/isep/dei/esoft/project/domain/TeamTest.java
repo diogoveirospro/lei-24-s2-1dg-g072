@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.esoft.project.domain;
 
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.esoft.project.application.controller.GenerateTeamProposalController;
+import pt.ipp.isep.dei.esoft.project.exceptions.InvalidCollaboratorDataException;
 import pt.ipp.isep.dei.esoft.project.repository.CollaboratorRepository;
 import pt.ipp.isep.dei.esoft.project.repository.SkillRepository;
 
@@ -18,10 +19,45 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class TeamTest {
 
-    Collaborator c1 = new Collaborator("Ana", new Date(1990, 2, 3), new Date(2010, 3, 1), "Rua1", 912345669, "ana@gmail.com", 12345678, "CC", 234564321);
-    Collaborator c2 = new Collaborator("João", new Date(1980, 2, 3), new Date(2010, 3, 1), "Rua2", 912345669, "joao@gmail.com", 12345678, "CC", 234564321);
-    Collaborator c3 = new Collaborator("André", new Date(1970, 2, 3), new Date(2010, 3, 1), "Rua3", 912345669, "andre@gmail.com", 12345678, "CC", 234564321);
-    Collaborator c4 = new Collaborator("Manuel", new Date(1999, 2, 3), new Date(2015, 3, 1), "Rua4", 912345669, "manuel@gmail.com", 12345678, "CC", 234564321);
+    Collaborator c1;
+
+    {
+        try {
+            c1 = new Collaborator("Ana", new Date(1990, 2, 3), new Date(2010, 3, 1), "Rua1", "912345669", "ana@gmail.com", "123456789", Collaborator.IdDocType.CC, "234564321zx7");
+        } catch (InvalidCollaboratorDataException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    Collaborator c2;
+
+    {
+        try {
+            c2 = new Collaborator("João", new Date(1980, 2, 3), new Date(2010, 3, 1), "Rua2", "912345669", "joao@gmail.com", "234567899", Collaborator.IdDocType.BI, "232566381");
+        } catch (InvalidCollaboratorDataException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    Collaborator c3;
+
+    {
+        try {
+            c3 = new Collaborator("André", new Date(1970, 2, 3), new Date(2010, 3, 1), "Rua3", "912345669", "andre@gmail.com", "345678907", Collaborator.IdDocType.NISS, "23456432125");
+        } catch (InvalidCollaboratorDataException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    Collaborator c4;
+
+    {
+        try {
+            c4 = new Collaborator("Manuel", new Date(1999, 2, 3), new Date(2020, 3, 1), "Rua4", "912345669", "manuel@gmail.com", "456789014", Collaborator.IdDocType.PASSPORT, "H234564");
+        } catch (InvalidCollaboratorDataException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     /**
      * Test to verify the behavior of generateTeamProposal method in GenerateTeamProposalController.

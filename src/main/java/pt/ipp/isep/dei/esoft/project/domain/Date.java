@@ -37,13 +37,13 @@ public class Date implements Comparable<Date> {
     /**
      * Number of days of the month
      */
-    private static int[] monthDay = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30,
+    private static final int[] monthDay = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30,
             31, 30, 31};
 
     /**
      * Names of the months of the year.
      */
-    private static String[] monthName = {"Invalid", "January", "February",
+    private static final String[] monthName = {"Invalid", "January", "February",
             "March", "April", "May", "June", "July", "August", "September",
             "October", "November", "December"};
 
@@ -126,7 +126,7 @@ public class Date implements Comparable<Date> {
      * @return date characteristics.
      */
     public String toYearMonthDayString() {
-        return String.format("%04d/%02d/%02d", year, month, day);
+        return String.format("%04d-%02d-%02d", year, month, day);
     }
 
     /**

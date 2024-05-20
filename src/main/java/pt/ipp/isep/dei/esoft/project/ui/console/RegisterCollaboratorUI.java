@@ -53,13 +53,13 @@ public class RegisterCollaboratorUI implements Runnable {
         String address = validateAddress(scanner);
 
         System.out.print("Enter contact number: ");
-        int mobile = validateMobileNumber(scanner);
+        String mobile = validateMobileNumber(scanner);
 
         System.out.print("Enter email address: ");
         String email = validateEmail(scanner);
 
         System.out.print("Enter taxpayer number: ");
-        int taxpayerNumber = validateTaxpayerNumber(scanner);
+        String taxpayerNumber = validateTaxpayerNumber(scanner);
 
         System.out.println("Enter ID document type: ");
         Collaborator.IdDocType idDocType = chooseIdDocumentType(scanner);
@@ -71,12 +71,22 @@ public class RegisterCollaboratorUI implements Runnable {
         String jobName = assignJob(scanner);
 
         // Registering the collaborator
-        controller.registerCollaborator(name, birthDate, admissionDate, address, mobile, email, taxpayerNumber,
-                idDocType, idDocNumber, jobName);
+        try {
+            controller.registerCollaborator(name, birthDate, admissionDate, address, mobile, email, taxpayerNumber,
+                    idDocType, idDocNumber, jobName);
+        } catch (InvalidCollaboratorDataException e) {
+            System.out.println(e.getMessage());
+        }
 
         System.out.println("\nCollaborator successfully registered!");
     }
 
+    /**
+     * Validates the collaborator's name input.
+     *
+     * @param scanner the scanner to read user input
+     * @return the validated name
+     */
     private String validateName(Scanner scanner) {
         String name = "";
         boolean valid = false;
@@ -95,6 +105,12 @@ public class RegisterCollaboratorUI implements Runnable {
         return name;
     }
 
+    /**
+     * Validates the collaborator's birthdate input.
+     *
+     * @param scanner the scanner to read user input
+     * @return the validated birthdate
+     */
     private static Date validateBirthDate(Scanner scanner) {
         boolean valid = false;
         Date birthDate = null;
@@ -114,6 +130,13 @@ public class RegisterCollaboratorUI implements Runnable {
         return birthDate;
     }
 
+    /**
+     * Validates the collaborator's admission date input.
+     *
+     * @param scanner    the scanner to read user input
+     * @param birthDate the birthdate to compare with
+     * @return the validated admission date
+     */
     private static Date validateAdmissionDate(Scanner scanner, Date birthDate) {
         boolean valid = false;
         Date admissionDate = null;
@@ -132,6 +155,12 @@ public class RegisterCollaboratorUI implements Runnable {
         return admissionDate;
     }
 
+    /**
+     * Validates the collaborator's address input.
+     *
+     * @param scanner the scanner to read user input
+     * @return the validated address
+     */
     private String validateAddress(Scanner scanner){
         String address = "";
         boolean valid = false;
@@ -149,7 +178,13 @@ public class RegisterCollaboratorUI implements Runnable {
         return address;
     }
 
-    private int validateMobileNumber(Scanner scanner){
+    /**
+     * Validates the collaborator's mobile number input.
+     *
+     * @param scanner the scanner to read user input
+     * @return the validated mobile number
+     */
+    private String validateMobileNumber(Scanner scanner){
         String mobile = "";
         boolean valid = false;
 
@@ -164,9 +199,15 @@ public class RegisterCollaboratorUI implements Runnable {
                 System.out.print("Enter contact number: ");
             }
         }
-        return Integer.parseInt(mobile);
+        return mobile;
     }
 
+    /**
+     * Validates the collaborator's email input.
+     *
+     * @param scanner the scanner to read user input
+     * @return the validated email address
+     */
     private String validateEmail(Scanner scanner){
         String email = "";
         boolean valid = false;
@@ -185,7 +226,13 @@ public class RegisterCollaboratorUI implements Runnable {
         return email;
     }
 
-    private int validateTaxpayerNumber(Scanner scanner){
+    /**
+     * Validates the collaborator's taxpayer number input.
+     *
+     * @param scanner the scanner to read user input
+     * @return the validated taxpayer number
+     */
+    private String validateTaxpayerNumber(Scanner scanner){
         String taxpayerNumber = "";
         boolean valid = false;
 
@@ -201,9 +248,15 @@ public class RegisterCollaboratorUI implements Runnable {
             }
         }
 
-        return Integer.parseInt(taxpayerNumber);
+        return taxpayerNumber;
     }
 
+    /**
+     * Prompts the user to choose an ID document type.
+     *
+     * @param scanner the scanner to read user input
+     * @return the chosen ID document type
+     */
     private Collaborator.IdDocType chooseIdDocumentType(Scanner scanner) {
 
         for (Collaborator.IdDocType type : Collaborator.IdDocType.values()) {
@@ -215,6 +268,13 @@ public class RegisterCollaboratorUI implements Runnable {
         return Collaborator.IdDocType.values()[choice - 1];
     }
 
+    /**
+     * Validates the collaborator's ID document number input.
+     *
+     * @param scanner the scanner to read user input
+     * @param idDocType the ID document type
+     * @return the validated ID document number
+     */
     private String validateIdDocumentNumber(Scanner scanner, Collaborator.IdDocType idDocType){
         String idDocNumber = "";
         boolean valid = false;
@@ -235,6 +295,12 @@ public class RegisterCollaboratorUI implements Runnable {
         return idDocNumber;
     }
 
+    /**
+     * Prompts the user to enter a job name and validates it against the job repository.
+     *
+     * @param scanner the scanner to read user input
+     * @return the validated job name
+     */
     private String assignJob(Scanner scanner){
         JobRepository jobRepository = Repositories.getInstance().getJobRepository();
         String jobName = null;

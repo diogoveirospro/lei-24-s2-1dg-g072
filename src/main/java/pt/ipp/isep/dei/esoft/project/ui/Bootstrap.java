@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.esoft.project.ui;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
 import pt.ipp.isep.dei.esoft.project.domain.*;
+import pt.ipp.isep.dei.esoft.project.exceptions.InvalidCollaboratorDataException;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 import pt.ipp.isep.dei.esoft.project.domain.Date;
 
@@ -17,7 +18,7 @@ public class Bootstrap {
     private final VehicleRepository vehicleRepository = Repositories.getInstance().getVehicleRepository();
     private final JobRepository jobRepository = Repositories.getInstance().getJobRepository();
 
-    public void run() {
+    public void run() throws InvalidCollaboratorDataException {
         addSkill();
         addJob();
         addCollaborator();
@@ -26,34 +27,38 @@ public class Bootstrap {
         addUsers();
     }
 
-    private void addCollaborator() {
-        Collaborator c1 = new Collaborator("Ana", new Date(1990, 2, 3), new Date(2010,
-                3, 1), "Rua1", 912345669, "ana@gmail.com", 1644122,
-                Collaborator.IdDocType.CC, "234564321");
+    private void addCollaborator() throws InvalidCollaboratorDataException {
+        Collaborator c1 = new Collaborator("Ana", new Date(1990, 2, 3),
+                new Date(2010, 3, 1), "Rua1", "912345669", "ana@gmail.com",
+                "123456789", Collaborator.IdDocType.CC, "234564321zx7");
+
 
         c1.assignSkill(new Skill("Sustainable Land Use Practices"));
         c1.assignSkill(new Skill("Ecological Restoration"));
         c1.assignSkill(new Skill("Landscape Design"));
 
         Collaborator c2 = new Collaborator("João", new Date(1980, 2, 3), new Date(2010,
-                3, 1), "Rua2", 912345669, "joao@gmail.com", 12345678,
-                Collaborator.IdDocType.BI, "233354421");
+                3, 1), "Rua2", "912345669", "joao@gmail.com", "234567899",
+                Collaborator.IdDocType.BI, "232566381");
+
 
         c2.assignSkill(new Skill("Plant Identification"));
         c2.assignSkill(new Skill("Tree Care and Maintenance"));
         c2.assignSkill(new Skill("Native Plant Gardening"));
 
         Collaborator c3 = new Collaborator("André", new Date(1970, 2, 3), new Date(2010,
-                3, 1), "Rua3", 912345669, "andre@gmail.com", 12345678,
-                Collaborator.IdDocType.NISS, "234563271");
+                3, 1), "Rua3", "912345669", "andre@gmail.com", "345678907",
+                Collaborator.IdDocType.NISS, "23456432125");
+
 
         c3.assignSkill(new Skill("Plant Identification"));
         c3.assignSkill(new Skill("Native Plant Gardening"));
         c3.assignSkill(new Skill("Landscape Design"));
 
-        Collaborator c4 = new Collaborator("Manuel", new Date(1999, 2, 3), new Date(2015,
-                3, 1), "Rua4", 912345669, "manuel@gmail.com", 12345678,
-                Collaborator.IdDocType.PASSPORT, "234263321");
+        Collaborator c4 = new Collaborator("Manuel", new Date(1999, 2, 3), new Date(2020,
+                3, 1), "Rua4", "912345669", "manuel@gmail.com", "456789014",
+                Collaborator.IdDocType.PASSPORT, "H234564");
+
 
         c3.assignSkill(new Skill("Plant Identification"));
         c3.assignSkill(new Skill("Tree Care and Maintenance"));
