@@ -6,56 +6,43 @@ skinparam shadowing false
 autonumber
 
 'hide footbox
-actor "Vehicle Fleet Manager" as ADM
-participant ":RegisterVehicleUI" as UI
-participant ":RegisterVehicleController" as CTRL
-participant ":Repositories" as RepositorySingleton
-participant "repositories\n:Repositories" as PLAT
-participant "vehicleRepository\n:VehicleRepository" as VehicleRepository
-activate ADM
+actor "Green\nSpace Manager\n(GSM)" as GSM
+participant ":ListGreenSpaceUI" as UI
+participant ":ListGreenSpaceController" as CTRL
+participant "GreenSpaceMapper" as Mapper
 
-        ADM -> UI : asks to register a new vehicle
+activate GSM
+
+        GSM -> UI : asks to list all the GreenSpaces
 
         activate UI
 
-            UI --> ADM : requests data (plateNumber, brand,\n model,type, tare, grossWeight,\n currentKms,registrationDate,\nacquisitionDate, serviceFrequency)
+            UI --> GSM : asks for confirmation
 
-            ADM -> UI : types requested data
-
-            UI --> ADM : shows all data and requests confirmation
-
-            ADM -> UI : confirms data
-
-            UI -> CTRL : registerVehicle(plateNumber, brand,\n model,type, tare, grossWeight,\n currentKms,registrationDate,\nacquisitionDate, serviceFrequency)
+            GSM -> UI : confirms that he wants to create the list
+            UI -> CTRL** : create
+            UI -> CTRL : getGreenSpaceList()
             activate CTRL
+                    ref over CTRL
+                            Get GreenSpace List
 
-                CTRL -> RepositorySingleton : getInstance()
-                activate RepositorySingleton
+                    end
+                    CTRL -> Mapper : toDto(greenSpaceList)
+                    activate Mapper
+                            ref over Mapper
+                                    Create a copy of GreenSpace list
 
-                    RepositorySingleton --> CTRL: repositories
-                deactivate RepositorySingleton
+                            end
+                            Mapper -->CTRL : greenSpaceListDto
+                    deactivate Mapper
 
-                CTRL -> PLAT : getVehicleRepository()
-                activate PLAT
+            CTRL --> UI: greenSpaceListDto
 
-                    PLAT --> CTRL: vehicleRepository
-                deactivate PLAT
-
-                CTRL -> VehicleRepository : registerVehicle(plateNumber, brand,\n model,type, tare, grossWeight,\n currentKms,registrationDate,\nacquisitionDate, serviceFrequency)
-                activate VehicleRepository
-                ref over VehicleRepository
-                    Register Vehicle
-
-                end ref
-                                VehicleRepository --> CTRL : vehicle
-
-                            deactivate VehicleRepository
-
-            CTRL --> UI: vehicle
             deactivate CTRL
-            UI --> ADM: displays operation success
+            UI --> GSM: shows the list
     deactivate UI
 
-deactivate ADM
+deactivate GSM
+
 
 @enduml

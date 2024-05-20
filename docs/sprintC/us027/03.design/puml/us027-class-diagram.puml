@@ -9,54 +9,42 @@ skinparam classAttributeIconSize 0
 
 'left to right direction
 
-class Repositories {
-    - Repositories()
-    + getInstance() : Repositories
-    + getVehicleRepository()
-}
-
-class RegisterVehicleController {
-    + RegisterVehicleController(vehicleRepository)
-    + registerVehicle(plateNumber, brand, model, type, tare, grossWeight, currentKms, registrationDate, acquisitionDate, serviceFrequency)
-}
-
-class vehicleRepository{
-    + registerVehicle(plateNumber, brand, model, type, tare, grossWeight, currentKms, registrationDate, acquisitionDate, serviceFrequency)
-    + addVehicle(vehicle)
-    + validateVehicle(vehicle)
-    + getVehicleList()
-}
-
-class RegisterVehicleUI {
-}
-
-class Vehicle{
-    - String plateNumber
-    - String brand
-    - String model
-    - String type
-    - Double tare
-    - Double grossWeight
-    - Double currentKms
-    - String registrationDate
-    - String acquisitionDate
-    - Double serviceFrequency
-    - Double kmAtLastMaintenance
+class ListGreenSpaceUI{
 
 }
+class GreenSpaceMapper{
+    - greenSpaceListDto
+    + toDto(greenSpaceList)
+    + addGreenSpace(greenSpaceDto)
+}
+class GreenSpaceDto{
+    - name
+    - dimension
+    - address
+    + greenSpaceDto(greenSpace)
+}
+class ListGreenSpaceController{
+    + getGreenSpaceList()
+    + createListGreenSpaceController()
+    + toDto(greenSpaceList)
+}
+class GreenSpaceRepository{
+    - greenSpaceList
+    + getGreenSpaceList()
+}
 
+
+class Repositories{
+ - Repositories()
+ + getGreenSpaceRepository(): Repositories
+ + getInstance(): Repositories
+}
+
+ListGreenSpaceUI .> ListGreenSpaceController
+ListGreenSpaceController ..> Repositories : repositories
 Repositories -> Repositories : instance
-
-RegisterVehicleUI .> RegisterVehicleController
-RegisterVehicleController .> "1" vehicleRepository : vehicleRepository
-
-
-Repositories --> "1" vehicleRepository
-
-RegisterVehicleController .> Repositories : repositories
-
-vehicleRepository "1" o--- "1..*"Vehicle : has
-
-RegisterVehicleController .> Vehicle : vehicle
-
+ListGreenSpaceController .> GreenSpaceRepository: greenSpaceRepository
+Repositories "1" ---> "1" GreenSpaceRepository
+ListGreenSpaceController "1" -> "1" GreenSpaceMapper: greenSpaceList
+GreenSpaceMapper "1" -> "1" GreenSpaceDto: greenSpace
 @enduml

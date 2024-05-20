@@ -48,12 +48,20 @@ It uses Interaction Occurrence (a.k.a. Interaction Use).
 
 ![Sequence Diagram - split](svg/us027-sequence-diagram-split.svg)
 
-**Register Vehicle**
+**Get GreenSpace List**
 
-![Sequence Diagram - Partial - Register Vehicle](svg/us027-sequence-diagram-partial-list-GreenSpace.svg)
+![Sequence Diagram - Partial - Get GreenSpaceList](svg/us027-sequence-diagram-partial-get-GreenSpace-list.svg)
+
+**Create a Copy of GreenSpace List**
+
+![Sequence Diagram - Partial - Get GreenSpaceList](svg/us027-sequence-diagram-partial-create-a-copy-of-GreenSpace-list.svg)
+
 
 ## 3.3. Class Diagram (CD)
 
 ![Class Diagram](svg/us027-class-diagram.svg)
+
+
+
 
 

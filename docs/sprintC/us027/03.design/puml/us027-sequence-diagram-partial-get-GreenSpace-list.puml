@@ -1,0 +1,55 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+
+participant ":MaintenanceController" as CTRL
+participant ":Repositories" as RepositorySingleton
+participant "repositories\n:Repositories" as REP
+participant "greenSpaceRepository\n:GreenSpaceRepository" as greenSpaceRepository
+participant ":GreenSpaceMapper" as Mapper
+
+autonumber 5
+
+ -> CTRL : getGreenSpaceList()
+autonumber 5.1
+activate CTRL
+    group Get GreenSpace List
+
+
+
+                            CTRL -> RepositorySingleton : getInstance()
+                            activate RepositorySingleton
+
+                                RepositorySingleton --> CTRL: repositories
+                            deactivate RepositorySingleton
+
+                            CTRL -> REP : getGreenSpaceRepository()
+                            activate REP
+
+                                REP --> CTRL: GreenSpaceRepository
+                            deactivate REP
+
+                            CTRL -> greenSpaceRepository : getGreenSpaceList()
+
+                            activate greenSpaceRepository
+
+                                    greenSpaceRepository --> CTRL : greenSpaceList
+                                    deactivate greenSpaceRepository
+
+                            deactivate greenSpaceRepository
+
+                            deactivate greenSpaceRepository
+
+
+    end
+    autonumber 6
+    CTRL -> Mapper : toDto(greenSpaceList)
+        activate Mapper
+
+
+@enduml

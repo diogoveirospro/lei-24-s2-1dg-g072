@@ -18,7 +18,17 @@ class VehicleMapper{
     + addVehicle(vehicle)
 }
 class VehicleDto{
-    - vehicle
+    - String plateNumber
+    - String brand
+    - String model
+    - String type
+    - Double tare
+    - Double grossWeight
+    - Double currentKms
+    - String registrationDate
+    - String acquisitionDate
+    - Double serviceFrequency
+    - Double kmAtLastMaintenance
     vehicleDto(vehicle)
 }
 class ListMaintenanceController{

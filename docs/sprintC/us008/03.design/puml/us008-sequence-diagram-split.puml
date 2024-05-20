@@ -21,7 +21,7 @@ activate VFM
 
             VFM -> UI : confirms that he wants to create the list
             UI -> CTRL** : create
-            UI -> CTRL : getMaintenance()
+            UI -> CTRL : getVehicleList()
             activate CTRL
                     ref over CTRL
                             Get Vehicle List
