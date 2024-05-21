@@ -92,13 +92,13 @@ public class AssignSkillUI implements Runnable {
         int answer;
 
         do {
-            //Only one collaborator must be chosen at the time
-            System.out.print("Enter the a number on the list of collaborators to select one: ");
-            answer = scanner.nextInt();
             try {
+                System.out.print("Enter the a number on the list of collaborators to select one: ");
+                answer = scanner.nextInt();
+
                 if (answer >= 1 && answer <= collaborators.size()) {
                     Collaborator collaboratorToAssign = collaborators.get(answer - 1);
-                    Collaborator selectedCollaborator = findCollaboratorIDDocNumber(collaborators, Integer.parseInt(collaboratorToAssign.getIdDocNumber()));
+                    Collaborator selectedCollaborator = findCollaboratorIDDocNumber(collaborators, collaboratorToAssign.getIdDocNumber());
                     if (selectedCollaborator != null) {
                         collaborator = selectedCollaborator;
                         System.out.println("'" + selectedCollaborator.getIdDocNumber() + "' selected.");
@@ -137,7 +137,6 @@ public class AssignSkillUI implements Runnable {
      */
     private List<Skill> displayAndSelectSkills() {
         List<Skill> skills = controller.listSkills();
-
         System.out.println("\nAvailable Skills:");
         displaySkillsOptions(skills);
 
@@ -199,9 +198,9 @@ public class AssignSkillUI implements Runnable {
      * @param idDocNumber   collaborator ID Document Number.
      * @return collaborator.
      */
-    private Collaborator findCollaboratorIDDocNumber(List<Collaborator> collaborators, int idDocNumber) {
+    private Collaborator findCollaboratorIDDocNumber(List<Collaborator> collaborators, String idDocNumber) {
         for (Collaborator collaborator : collaborators) {
-            if (Integer.parseInt(collaborator.getIdDocNumber()) == idDocNumber) {
+            if (collaborator.getIdDocNumber().equals(idDocNumber)) {
                 return collaborator;
             }
         }
