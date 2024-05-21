@@ -15,18 +15,15 @@ public class Maintenance {
 
     /**
      * Plate number of a vehicle that needs maintenance
-     *
      */
     private String plateNumber;
     /**
      * Date of the last maintenance of the vehicle
-     *
      */
     private Date dateLastMaintenance;
 
     /**
      * kms back when the vehicle was serviced
-     *
      */
     private Double kmAtMaintenance;
 
@@ -36,10 +33,11 @@ public class Maintenance {
      *
      * @param vehicle to be maintenance
      */
-    public Maintenance(Vehicle vehicle){
+    public Maintenance(Vehicle vehicle) {
         plateNumber = vehicle.getPlateNumber();
         kmAtMaintenance = vehicle.getKmAtLastMaintenance();
-        setDateLastMaintenance(dateLastMaintenance);
+        setDateLastMaintenance(vehicle.getRegistrationDate());
+
     }
 
     /**
@@ -47,8 +45,9 @@ public class Maintenance {
      *
      * @param vehicle that needs maintenance
      */
-    public void setVehicleMaintenance(Vehicle vehicle){
+    public void setVehicleMaintenance(Vehicle vehicle) {
         vehicle.setKmAtLastMaintenance(vehicle.getCurrentKms());
+        kmAtMaintenance = vehicle.getKmAtLastMaintenance();
         setDateLastMaintenance(Date.currentDate());
     }
 
@@ -58,7 +57,7 @@ public class Maintenance {
      * @param vehicle to be checked
      * @return true or false depending on how many kms were done
      */
-    public boolean validateVehicleMaintenance(Vehicle vehicle){
+    public boolean validateVehicleMaintenance(Vehicle vehicle) {
         return (vehicle.getServiceFrequency() - (vehicle.getServiceFrequency() * 0.05)) < vehicle.getCurrentKms() - vehicle.getKmAtLastMaintenance();
     }
 
@@ -79,13 +78,9 @@ public class Maintenance {
      * @param dateLastMaintenance date of the last maintenance made to the vehicle
      */
     public void setDateLastMaintenance(Date dateLastMaintenance) {
-        VehicleRepository vehicleRepository = Repositories.getInstance().getVehicleRepository();
-        Vehicle vehicle = vehicleRepository.getVehicleFromPlate(plateNumber);
-        if (dateLastMaintenance == null){
-            dateLastMaintenance = vehicle.getRegistrationDate();
-        } else {
-            this.dateLastMaintenance = dateLastMaintenance;
-        }
+
+        this.dateLastMaintenance = dateLastMaintenance;
+
     }
 
     /**
