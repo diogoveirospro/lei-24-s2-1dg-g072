@@ -17,6 +17,12 @@ activate HRM
 
         System --> HRM : displays a list of available skills
     deactivate System
+
+    HRM -> System : Provides collaborator details
+    activate System
+
+        System --> HRM : requests confirmation
+    deactivate System
 loop
     HRM -> System : selects collaborator skills
     activate System
@@ -24,12 +30,6 @@ loop
             System --> HRM: asks if the user wants to add more skills\n if not asks for collaborator details
     deactivate System
 end
-    HRM -> System : Provides collaborator details
-    activate System
-
-        System --> HRM : requests confirmation
-    deactivate System
-
     HRM -> System : confirms
     activate System
 
