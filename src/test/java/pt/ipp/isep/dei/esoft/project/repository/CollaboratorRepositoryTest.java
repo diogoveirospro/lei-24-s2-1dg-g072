@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import pt.ipp.isep.dei.esoft.project.domain.Date;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
+import pt.ipp.isep.dei.esoft.project.exceptions.InvalidCollaboratorDataException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +13,25 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class CollaboratorRepositoryTest {
 
-    Collaborator c1 = new Collaborator("Ana", new Date(1990, 2, 3), new Date(2010, 3, 1), "Rua1", 912345669, "ana@gmail.com", 12345678, "CC", 234564321);
-    Collaborator c2 = new Collaborator("João", new Date(1980, 2, 3), new Date(2010, 3, 1), "Rua2", 912345669, "joao@gmail.com", 12345678, "CC", 123456789);
+    Collaborator c1;
+
+    {
+        try {
+            c1 = new Collaborator("Ana", new Date(1990, 2, 3), new Date(2010, 3, 1), "Rua1", "912345669", "ana@gmail.com", "123456789", Collaborator.IdDocType.CC, "234564321zx7");
+        } catch (InvalidCollaboratorDataException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    Collaborator c2;
+
+    {
+        try {
+            c2 = new Collaborator("João", new Date(1980, 2, 3), new Date(2010, 3, 1), "Rua2", "912345669", "joao@gmail.com", "234567899", Collaborator.IdDocType.BI, "232566381");
+        } catch (InvalidCollaboratorDataException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @Test
     void testGetCollaborator1() {

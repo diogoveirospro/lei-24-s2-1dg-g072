@@ -33,7 +33,7 @@ public class SkillRepository {
             throw new IllegalArgumentException("Skill cannot be null");
         }
         if (skills.contains(skill)){
-            throw new IllegalArgumentException("This skill already exists "+skill.getName());
+            throw new IllegalArgumentException("This skill already exists " + skill.getName());
         }
         if (!skill.validateSkill(skill.getName())){
             throw new IllegalArgumentException("Skill can't have special characters");

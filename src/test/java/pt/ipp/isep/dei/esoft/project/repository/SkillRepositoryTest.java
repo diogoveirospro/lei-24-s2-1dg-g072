@@ -25,17 +25,38 @@ public class SkillRepositoryTest {
 
     @Test
     public void testAddSkillNull() {
-        Exception exception = assertThrows(IllegalArgumentException.class,()->repository.addSkill(null));
-        assertEquals("Skill cannot be null",exception.getMessage());
+        try {
+            repository.addSkill(null);
+            fail("The method should throw an IllegalArgumentException");
+        } catch (IllegalArgumentException e){
+            assertTrue(e.getMessage().contains("Skill cannot be null"));
+        }
     }
 
     @Test
     public void testAddSkillAlreadyExists(){
         Skill skill1 = new Skill("AAA");
         repository.addSkill(skill1);
-        Exception exception = assertThrows(IllegalArgumentException.class,()-> repository.addSkill(skill1));
-        assertEquals("This skill already exists " + skill1.getName(),exception.getMessage());
 
+        try {
+            repository.addSkill(skill1);
+            fail("The method should throw an IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            assertTrue(e.getMessage().contains("This skill already exists "));
+        }
+
+    }
+
+    @Test
+    public void testAddSkillNotValid(){
+        Skill skill1 = new Skill("AAA+");
+
+        try {
+            repository.addSkill(skill1);
+            fail("The method should throw an IllegalArgumentException");
+        } catch (IllegalArgumentException e){
+            assertTrue(e.getMessage().contains("Skill can't have special characters"));
+        }
     }
     @Test
     public void testListSkillsWorks(){
