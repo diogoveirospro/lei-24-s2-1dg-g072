@@ -6,7 +6,7 @@ package pt.ipp.isep.dei.esoft.project.domain;
  * @author Group 072 - Byte Masters - ISEP
  */
 
-public class Skill {
+public class Skill implements Comparable<Skill> {
     private String name;
 
     /**
@@ -86,5 +86,10 @@ public class Skill {
     @Override
     public String toString(){
         return this.name;
+    }
+
+    @Override
+    public int compareTo(Skill skill){
+        return this.name.compareTo(skill.getName());
     }
 }
