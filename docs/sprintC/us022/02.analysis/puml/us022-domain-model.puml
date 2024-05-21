@@ -1,0 +1,62 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+hide circles
+hide methods
+
+
+class GSM {
+
+}
+
+class GreenSpace {
+  name
+  area
+}
+
+class Entry {
+    task
+    greenSpace
+}
+
+class Task {
+    description
+    regularity
+    team
+    skills
+    duration
+}
+
+class ToDoList {
+  entries
+}
+
+class Agenda {
+    entries
+}
+
+class Team {
+    members
+}
+
+class Skill {
+    name
+}
+
+
+GSM "1" -- "0..*" GreenSpace : manages >
+GreenSpace "1" -- "0..*" Entry : associated with >
+Entry "1" -- "1" Task: has >
+Task "1" -- "1" Team: has >
+Task "1" -- "1..*" Skill : has >
+ToDoList "1" -- "0..*" Entry : includes >
+Agenda "1" -- "0..*" Entry : includes >
+GSM "1" -- "0..*" Entry : add >
+
+
+@enduml
