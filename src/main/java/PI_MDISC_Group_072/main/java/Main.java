@@ -40,7 +40,17 @@ public class Main {
 
         } while (option < 1 || option > 3);
     }
-    private static void US18(){
+    private static void US18() throws FileNotFoundException {
+        Scanner sc = new Scanner(System.in);
+        StringBuilder inputFile = new StringBuilder(getFile(sc));
+        StringBuilder file = new StringBuilder("src/main/java/PI_MDISC_Group_072/Input/" + inputFile + ".csv");
+
+        ArrayList<Edge> graphEdges = readFile(file);
+        Graph graph = addEdges(graphEdges);
+        bubbleSort(graphEdges);
+
+        ArrayList<Vertex> verticesGraph = getVerticesGraph(graphEdges);
+        Graph evacuationRoutes  = Dijkstra(graphEdges, verticesGraph);
 
     }
 
@@ -95,10 +105,10 @@ public class Main {
         asymptoticInfo(quantityOfEdges,time);
         createGnuplotGraph();
     }
+    private static Graph Dijkstra(ArrayList<Edge> assemblyPoints, ArrayList<Vertex> vertices){
 
-
-
-
+        return null;
+    }
 
     private static void createGraph(Graph graph, StringBuilder file) throws IOException, InterruptedException {
         createScriptGraph(graph, file);
