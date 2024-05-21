@@ -1,0 +1,40 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD) - Alternative One
+
+autonumber
+
+actor "Green Spaces Manager" as Employee
+participant ":System" as System
+
+activate Employee
+
+    Employee -> System : asks to postpone a entry to a future date
+    activate System
+
+loop
+        System --> Employee : shows registered entry's
+    deactivate System
+
+    Employee -> System : chooses entry to postpone
+    activate System
+
+end
+        System --> Employee : shows all chosen entry's and requests confirmation
+    deactivate System
+    Employee -> System : confirms data
+    activate System
+
+        System --> Employee : asks the date to which the entry's will be postpone
+    deactivate System
+
+    Employee -> System : types the new date
+    activate System
+        System -> Employee : displays operation success
+    deactivate System
+
+
+@enduml

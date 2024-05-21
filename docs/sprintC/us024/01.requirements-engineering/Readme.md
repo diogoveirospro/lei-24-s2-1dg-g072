@@ -1,17 +1,17 @@
-# US006 - Register a Vehicle 
+# US024 - Postpone entry in the Agenda 
 
 
 ## 1. Requirements Engineering
 
 ### 1.1. User Story Description
 
-The VFM wants to register a vehicle.
+The GSM wants to postpone an entry in the Agenda to a specific date in the future.
 
 ### 1.2. Customer Specifications and Clarifications 
 
 **From the project statement document:**
 
->	The vehicle as the following attributes: Plate number, Brand, Model, Type, Tare, Gross weight, Current Kms, Registration Date, Acquisition Date and Service Frequency (in Kms). 
+>	 
 
 **From the client clarifications:**
 
@@ -26,20 +26,22 @@ The VFM wants to register a vehicle.
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** The attributes used to describe a vehicle are: Plate number, Brand, Model, Type, Tare, Gross weight, Current Kms, Registration Date, Acquisition Date and Service Frequency (in Kms).
-* **AC2:** All required fields must be filled.
+* **AC1:** 
+* **AC2:** 
 
 ### 1.4. Found out Dependencies
 
-* No dependencies were found.
+* One dependence with US022 has there must be an entry to postpone.
 
 ### 1.5 Input and Output Data
 
 **Input Data:**
 
 * Typed data:
-    * a designation for the vehicle (plate number)
-    * the attributes of the vehicle
+    * the date to which the entry will be postponed
+
+* Selected data:
+    * the entry to postpone.  
 
 **Output Data:**
 
@@ -51,4 +53,4 @@ The VFM wants to register a vehicle.
 
 #### Alternative One
 
-![System Sequence Diagram - Alternative One](svg/us006-system-sequence-diagram-alternative-one.svg)
+![System Sequence Diagram - Alternative One](svg/us024-system-sequence-diagram-alternative-one.svg)

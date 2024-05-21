@@ -1,0 +1,97 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "Green Spaces Manager" as ADM
+participant ":PostponeEntryUI" as UI
+participant ":PostponeEntryController" as CTRL
+participant ":Repositories" as RepositorySingleton
+participant "repositories\n:Repositories" as PLAT
+participant "entryRepository\n:EntryRepository" as entryRepository
+participant "agenda\n:Agenda" as AGENDA
+
+activate ADM
+
+        ADM -> UI : asks to postpone a entry to a future date
+
+        activate UI
+
+        UI -> CTRL : getEntryList()
+              activate CTRL
+
+              CTRL -> RepositorySingleton : getInstance()
+              activate RepositorySingleton
+
+              RepositorySingleton -> CTRL : repositories
+              deactivate RepositorySingleton
+              CTRL -> PLAT : getEntryRepository()
+              activate PLAT
+
+              PLAT -> CTRL : entryRepository
+              deactivate PLAT
+
+              CTRL -> entryRepository : getEntryList()
+              activate entryRepository
+
+              entryRepository -> CTRL : entryList
+              deactivate entryRepository
+
+              CTRL -> UI : entryList
+              deactivate CTRL
+            loop
+                UI --> ADM : shows registered entry's
+
+                ADM -> UI : chooses entry to postpone
+            end
+            UI --> ADM : shows all chosen entry's and requests confirmation
+
+            ADM -> UI : confirms data
+
+            UI -> ADM : requests the date to which the entry's will be postpone
+
+            ADM -> UI : types the new date
+
+            UI -> CTRL : postponeEntry(entryList, date)
+            activate CTRL
+
+                CTRL -> RepositorySingleton : getInstance()
+                activate RepositorySingleton
+
+                    RepositorySingleton --> CTRL: repositories
+                deactivate RepositorySingleton
+
+                CTRL -> PLAT : getEntryRepository()
+                activate PLAT
+
+                    PLAT --> CTRL: entryRepository
+                deactivate PLAT
+
+                CTRL -> entryRepository : postponeEntry(entryList, date)
+                activate entryRepository
+
+                entryRepository -> AGENDA**: postponeEntry(entryList, date)
+                entryRepository -> entryRepository: postponeEntry(entryList, date)
+
+                 activate entryRepository
+                     entryRepository -> entryRepository: validatePostpone(date)
+                     activate entryRepository
+                                entryRepository --> CTRL : postponedEntry
+                     deactivate entryRepository
+
+                 deactivate entryRepository
+                 deactivate entryRepository
+
+                            deactivate entryRepository
+
+            CTRL --> UI: postponedEntry
+            deactivate CTRL
+            UI --> ADM: displays operation success
+    deactivate UI
+
+deactivate ADM
+
+@enduml
