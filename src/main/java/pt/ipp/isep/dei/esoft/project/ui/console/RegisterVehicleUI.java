@@ -1,8 +1,10 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
+import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidVehicleDataException;
 import pt.ipp.isep.dei.esoft.project.application.controller.RegisterVehicleController;
 import pt.ipp.isep.dei.esoft.project.domain.Date;
 import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
+import pt.ipp.isep.dei.esoft.project.domain.utils.ValidatorUtils;
 
 import java.util.Optional;
 import java.util.Scanner;
@@ -128,13 +130,16 @@ public class RegisterVehicleUI implements Runnable {
         Scanner sc = new Scanner(System.in);
 
         //Request vehicle plate from console
-        plate = requestPlate(sc);
+        System.out.println("Enter plate number: ");
+        plate = validatePlateNumber(sc);
 
         //Request vehicle brand from console
-        brand = requestBrand(sc);
+        System.out.println("Enter brand: ");
+        brand = validateBrand(sc);
 
         //Request vehicle model from console
-        model = requestModel(sc);
+        System.out.println("Enter model");
+        model = validateModel(sc);
 
         //Request vehicle type from console
         type = requestType(sc);
@@ -171,13 +176,71 @@ public class RegisterVehicleUI implements Runnable {
     }
 
     /**
-     * Request plate number.
-     * @param sc scanner.
-     * @return plate number.
+     * Validate model
+     * @param sc Scanner
+     * @return model
      */
-    private String requestPlate(Scanner sc) {
-        System.out.println("Insert plate number: ");
-        return sc.nextLine();
+    private String validateModel(Scanner sc) {
+        String model = "";
+        boolean valid = false;
+
+        while (!valid){
+
+            try {
+                model = sc.nextLine();
+                valid = ValidatorUtils.isValidBrand(model);
+
+            }catch (InvalidVehicleDataException e){
+                System.out.println(e.getMessage());
+                System.out.print("Enter model: ");
+            }
+        }
+        return model;
+    }
+
+    /**
+     * Validate brand
+     * @param sc Scanner
+     * @return brand
+     */
+    private String validateBrand(Scanner sc) {
+        String brand = "";
+        boolean valid = false;
+
+        while (!valid){
+
+            try {
+                brand = sc.nextLine();
+                valid = ValidatorUtils.isValidBrand(brand);
+
+            }catch (InvalidVehicleDataException e){
+                System.out.println(e.getMessage());
+                System.out.print("Enter brand: ");
+            }
+        }
+        return brand;
+    }
+
+    /**
+     * Validate plate number
+     * @param sc Scanner
+     * @return plate number
+     */
+    private String validatePlateNumber(Scanner sc) {
+        String plate = "";
+        boolean valid = false;
+        while (!valid){
+
+            try {
+                plate = sc.nextLine();
+                valid = ValidatorUtils.isValidPlate(plate);
+
+            }catch (InvalidVehicleDataException e){
+                System.out.println(e.getMessage());
+                System.out.print("Enter plate: ");
+            }
+        }
+        return plate;
     }
 
     /**
