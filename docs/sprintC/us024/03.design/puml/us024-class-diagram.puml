@@ -1,0 +1,68 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+
+'left to right direction
+
+class Repositories {
+    - Repositories()
+    + getInstance() : Repositories
+    + getVehicleRepository()
+}
+
+class PostponeEntryController {
+    + PostponeEntryController(taskRepository)
+    + postponeEntry(entryList, date)
+}
+
+class Date {
+    - int year
+    - int month
+    - int day
+    + Date(int year, int month, int day)
+}
+
+class taskRepository{
+    + postponeEntry(entryList, date)
+    + postponeEntry(entry)
+    + validatePostpone(date)
+    + getEntryList()
+}
+
+class PostponeEntryUI {
+}
+
+class Task{
+    - String name
+    - String status
+    - Team team
+    - Date dateI
+    - Date dateF
+    - List <Vehicle> vehicleList
+    + getStatus()
+    + getIdNumber()
+    + getDateI()
+    + getDateF()
+
+}
+
+Repositories -> Repositories : instance
+
+PostponeEntryUI .> PostponeEntryController
+PostponeEntryController .> "1" taskRepository : taskRepository
+
+
+Repositories --> "1" taskRepository
+
+PostponeEntryController .> Repositories : repositories
+
+PostponeEntryController "1 "--> "1" Date : dates
+
+taskRepository "1" o--- "1..*"Task : has
+
+@enduml
