@@ -40,7 +40,7 @@ public class CollaboratorRepositoryTest {
         collaboratorRepository.addCollaborator(c1);
         collaboratorRepository.addCollaborator(c2);
 
-        Collaborator collaborator = collaboratorRepository.getCollaborator(123456789);
+        Collaborator collaborator = collaboratorRepository.getCollaborator("232566381");
 
         assertEquals(c2, collaborator);
     }
@@ -52,8 +52,8 @@ public class CollaboratorRepositoryTest {
         collaboratorRepository.addCollaborator(c1);
         collaboratorRepository.addCollaborator(c2);
 
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> collaboratorRepository.getCollaborator(123454321));
-        assertEquals("The collaborator whose ID number is 123454321 does not exist.", exception.getMessage());
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> collaboratorRepository.getCollaborator("123456789"));
+        assertEquals("The collaborator whose ID number is 123456789 does not exist.", exception.getMessage());
     }
 
     @Test

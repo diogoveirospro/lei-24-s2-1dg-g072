@@ -18,7 +18,7 @@ class CollaboratorTest {
         String address = "Rua1";
         String mobile = "912345669";
         String email = "ana@gmail.com";
-        String taxpayerNumber = "123456780";
+        String taxpayerNumber = "123456789";
         Collaborator.IdDocType idDocType = Collaborator.IdDocType.CC;
         String idDocNumber = "234564321zx7";
 
@@ -46,7 +46,7 @@ class CollaboratorTest {
         String address = "Rua1";
         String mobile = "912345669";
         String email = "ana@gmail.com";
-        String taxpayerNumber = "123456780";
+        String taxpayerNumber = "123456789";
         Collaborator.IdDocType idDocType = Collaborator.IdDocType.CC;
         String idDocNumber = "234564321zx7";
         String jobName = "Landscape Designer";

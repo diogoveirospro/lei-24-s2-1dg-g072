@@ -38,9 +38,9 @@ public class CollaboratorRepository {
      * @param IdDocNumber Collaborator ID document number
      * @return collaborator
      */
-    public Collaborator getCollaborator(int IdDocNumber) {
+    public Collaborator getCollaborator(String IdDocNumber) {
         for (Collaborator collaborator : collaborators) {
-            if (Integer.parseInt(collaborator.getIdDocNumber()) == IdDocNumber) {
+            if (collaborator.getIdDocNumber().equals(IdDocNumber)) {
                 return collaborator;
             }
         }
