@@ -110,4 +110,11 @@ public class Maintenance {
     public String getPlateNumber() {
         return plateNumber;
     }
+
+    public void updateFrom(Maintenance maintenance) {
+        this.kmAtMaintenance = maintenance.getKmAtMaintenance();
+        this.plateNumber = maintenance.getPlateNumber();
+        this.dateLastMaintenance = maintenance.getDateLastMaintenance();
+    }
+
 }
