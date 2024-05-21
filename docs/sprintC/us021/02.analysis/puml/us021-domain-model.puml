@@ -11,19 +11,19 @@ hide circle
 hide methods
 
 class GreenSpace {
-    name: string
-    area: float
+    name
+    area
 }
 
 class Task {
-    description: string
-    urgency: enum {High, Medium, Low}
-    duration: string
+    description
+    urgency: {High, Medium, Low}
+    duration
 }
 
 class ToDoListEntry {
-    task: Task
-    greenSpace: GreenSpace
+    task
+    greenSpace
 }
 
 class GSM {
