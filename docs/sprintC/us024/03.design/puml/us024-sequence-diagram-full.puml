@@ -11,8 +11,8 @@ participant ":PostponeEntryUI" as UI
 participant ":PostponeEntryController" as CTRL
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as PLAT
-participant "entryRepository\n:EntryRepository" as entryRepository
-participant "agenda\n:Agenda" as AGENDA
+participant "taskRepository\n:TaskRepository" as taskRepository
+participant "task\n:Task" as TASK
 
 activate ADM
 
@@ -28,17 +28,17 @@ activate ADM
 
               RepositorySingleton -> CTRL : repositories
               deactivate RepositorySingleton
-              CTRL -> PLAT : getEntryRepository()
+              CTRL -> PLAT : getTaskRepository()
               activate PLAT
 
-              PLAT -> CTRL : entryRepository
+              PLAT -> CTRL : taskRepository
               deactivate PLAT
 
-              CTRL -> entryRepository : getEntryList()
-              activate entryRepository
+              CTRL -> taskRepository : getEntryList()
+              activate taskRepository
 
-              entryRepository -> CTRL : entryList
-              deactivate entryRepository
+              taskRepository -> CTRL : entryList
+              deactivate taskRepository
 
               CTRL -> UI : entryList
               deactivate CTRL
@@ -64,28 +64,27 @@ activate ADM
                     RepositorySingleton --> CTRL: repositories
                 deactivate RepositorySingleton
 
-                CTRL -> PLAT : getEntryRepository()
+                CTRL -> PLAT : getTaskRepository()
                 activate PLAT
 
-                    PLAT --> CTRL: entryRepository
+                    PLAT --> CTRL: taskRepository
                 deactivate PLAT
 
-                CTRL -> entryRepository : postponeEntry(entryList, date)
-                activate entryRepository
+                CTRL -> taskRepository : postponeEntry(entryList, date)
+                activate taskRepository
 
-                entryRepository -> AGENDA**: postponeEntry(entryList, date)
-                entryRepository -> entryRepository: postponeEntry(entryList, date)
+                taskRepository -> TASK**: postponeEntry(entryList, date)
+                taskRepository -> taskRepository: postponeEntry(entryList, date)
 
-                 activate entryRepository
-                     entryRepository -> entryRepository: validatePostpone(date)
-                     activate entryRepository
-                                entryRepository --> CTRL : postponedEntry
-                     deactivate entryRepository
+                 activate taskRepository
+                     taskRepository -> taskRepository: validatePostpone(date)
+                     activate taskRepository
+                                taskRepository --> CTRL : postponedEntry
+                     deactivate taskRepository
 
-                 deactivate entryRepository
-                 deactivate entryRepository
+                 deactivate taskRepository
 
-                            deactivate entryRepository
+                            deactivate taskRepository
 
             CTRL --> UI: postponedEntry
             deactivate CTRL

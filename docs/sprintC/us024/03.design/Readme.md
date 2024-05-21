@@ -6,53 +6,44 @@
 
 _**Note that SSD - Alternative One is adopted.**_
 
-| Interaction ID | Question: Which class is responsible for...   | Answer                    | Justification (with patterns)                                                                                 |
-|:---------------|:----------------------------------------------|:--------------------------|:--------------------------------------------------------------------------------------------------------------|
-| Step 1  		     | 	... interacting with the actor?              | RegisterVehicleUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |
-| 			  		        | 	... coordinating the US?                     | RegisterVehicleController | Controller                                                                                                    |
-| 			  		        | 	... instantiating a new Vehicle Maintenance? | VehicleRepository         | Creator (Rule 6): the Organization registers the vehicle.                                                     |
-| Step 2  		     | 							                                       |                           |                                                                                                               |
-| Step 3  		     | 	...saving the inputted data?                 | Vehicle                   | IE: object created in step 1 has its own data.                                                                |
-| Step 4  		     | 	... validating all data (local validation)?  | Vehicle                   | IE: owns its data.                                                                                            | 
-| 			  		        | 	... validating all data (global validation)? | VehicleRepository         | IE: knows all its vehicles.                                                                                   | 
-| 			  		        | 	... saving the vehicle maintenance?          | VehicleRepository         | IE: owns all its vehicles.                                                                                    | 
-| Step 5  		     | 	... informing operation success?             | RegisterVehicleUI         | IE: is responsible for user interactions.                                                                     | 
+| Interaction ID | Question: Which class is responsible for...   | Answer                  | Justification (with patterns)                                                                                 |
+|:---------------|:----------------------------------------------|:------------------------|:--------------------------------------------------------------------------------------------------------------|
+| Step 1  		     | 	... interacting with the actor?              | PostponeEntryUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |
+| 			  		        | 	... coordinating the US?                     | PostponeEntryController | Controller                                                                                                    |
+| Step 2  		     | 	...showing the existing entry's					         | TaskRepository          | Repository                                                                                                    |
+| 	Step 3		  		  |                                               |                         |                                                                                                               |
+| Step 4  	  		  | 	                                             |                         |                                                                                                               |
+| 	Step 5	  		   | 	                                             |                         |                                                                                                               |
+| 	Step 6	  		   | 	                                             |                         |                                                                                                               |
+| Step 7  		     | 	...saving the inputted data?                 | TaskRepository          | IE: object Task has its own data.                                                                             |
+| 		             | 	... validating all data (local validation)?  | Task                    | IE: owns its data.                                                                                            | 
+| 			  		        | 	... validating all data (global validation)? | TaskRepository          | IE: knows all its entry's.                                                                                    | 
+| 			  		        | 	... saving the new entry date?               | TaskRepository          | IE: owns all its entry's.                                                                                     | 
+| Step 8  		     | 	... informing operation success?             | PostponeEntryUI         | IE: is responsible for user interactions.                                                                     | 
 
 ### Systematization ##
 
 According to the taken rationale, the conceptual classes promoted to software classes are: 
 
-* VehicleRepository
-* Vehicle
+* TaskRepository
+* Task
 
 Other software classes (i.e. Pure Fabrication) identified: 
 
-* RegisterVehicleUI  
-* RegisterVehicleController
+* PostponeEntryUI  
+* PostponeEntryController
 
 
 ## 3.2. Sequence Diagram (SD)
 
-_**Note that SSD - Alternative Two is adopted.**_
+_**Note that SSD - Alternative One is adopted.**_
 
 ### Full Diagram
 
 This diagram shows the full sequence of interactions between the classes involved in the realization of this user story.
 
-![Sequence Diagram - Full](svg/us006-sequence-diagram-full.svg)
-
-### Split Diagrams
-
-The following diagram shows the same sequence of interactions between the classes involved in the realization of this user story, but it is split in partial diagrams to better illustrate the interactions between the classes.
-
-It uses Interaction Occurrence (a.k.a. Interaction Use).
-
-![Sequence Diagram - split](svg/us006-sequence-diagram-split.svg)
-
-**Register Vehicle**
-
-![Sequence Diagram - Partial - Register Vehicle](svg/us006-sequence-diagram-partial-register-vehicle.svg)
+![Sequence Diagram - Full](svg/us024-sequence-diagram-full.svg)
 
 ## 3.3. Class Diagram (CD)
 
-![Class Diagram](svg/us006-class-diagram.svg)
+![Class Diagram](svg/us024-class-diagram.svg)
