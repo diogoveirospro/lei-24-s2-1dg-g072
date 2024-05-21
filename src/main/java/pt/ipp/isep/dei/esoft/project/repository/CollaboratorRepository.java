@@ -4,6 +4,7 @@ import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -74,6 +75,7 @@ public class CollaboratorRepository {
      * @return The collaborator list.
      */
     public List<Collaborator> getCollaborators() {
+        Collections.sort(collaborators);
         return List.copyOf(collaborators);
     }
 

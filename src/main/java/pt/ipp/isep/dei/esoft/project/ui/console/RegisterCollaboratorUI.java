@@ -6,10 +6,7 @@ import pt.ipp.isep.dei.esoft.project.exceptions.InvalidCollaboratorDataException
 import pt.ipp.isep.dei.esoft.project.application.controller.RegisterCollaboratorController;
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import pt.ipp.isep.dei.esoft.project.domain.Date;
-import pt.ipp.isep.dei.esoft.project.repository.JobRepository;
-import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -306,8 +303,8 @@ public class RegisterCollaboratorUI implements Runnable {
      * @return the validated job name
      */
     private String assignJob(Scanner scanner){
-        JobRepository jobRepository = Repositories.getInstance().getJobRepository();
-        List<Job> jobsList = jobRepository.getJobs();
+        List<Job> jobsList = controller.getJobs();
+
         int index;
         String jobName = null;
         boolean valid = false;
@@ -335,6 +332,11 @@ public class RegisterCollaboratorUI implements Runnable {
         return jobName;
     }
 
+    /**
+     * Displays a list of jobs to the console.
+     *
+     * @param jobsList the list of jobs to be displayed
+     */
     private void showJobs(List<Job> jobsList){
 
         for (int i = 0; i < jobsList.size(); i++) {

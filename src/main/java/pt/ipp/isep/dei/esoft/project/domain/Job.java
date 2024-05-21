@@ -5,7 +5,7 @@ package pt.ipp.isep.dei.esoft.project.domain;
  *
  * @author Group 072 - Byte Masters - ISEP
  */
-public class Job {
+public class Job implements Comparable<Job> {
     /**
      * Name that represents the job.
      */
@@ -68,4 +68,15 @@ public class Job {
         return this.name;
     }
 
+    /**
+     * Compares this job to another job by name.
+     *
+     * @param job the job to be compared
+     * @return a negative integer, zero, or a positive integer as this job's name
+     *         is less than, equal to, or greater than the specified job's name
+     */
+    @Override
+    public int compareTo(Job job){
+        return this.name.compareTo(job.getName());
+    }
 }

@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author Group 072 - Byte Masters - ISEP
  */
-public class Collaborator {
+public class Collaborator implements Comparable<Collaborator> {
 
     /**
      * Collaborator name.
@@ -503,8 +503,26 @@ public class Collaborator {
         return this.skillSet.contains(skill);
     }
 
+    /**
+     * Adds a team based on a given skill.
+     *
+     * @param skill the skill to analyze for adding a team
+     * @return true if the skill analysis is successful and the team has not been added, false otherwise
+     */
     public boolean addTeam(Skill skill){
 
         return analyseCollaborator(skill) && !this.hasTeam;
+    }
+
+    /**
+     * Compares this collaborator to another collaborator by name.
+     *
+     * @param collaborator the collaborator to be compared
+     * @return a negative integer, zero, or a positive integer as this collaborator's name
+     *         is less than, equal to, or greater than the specified collaborator's name
+     */
+    @Override
+    public int compareTo(Collaborator collaborator){
+        return this.name.compareTo(collaborator.getName());
     }
 }

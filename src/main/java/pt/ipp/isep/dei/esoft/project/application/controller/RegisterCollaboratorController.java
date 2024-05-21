@@ -8,6 +8,9 @@ import pt.ipp.isep.dei.esoft.project.repository.CollaboratorRepository;
 import pt.ipp.isep.dei.esoft.project.repository.JobRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Controller class for registering a new collaborator.
  * Responsible for handling the registration of a new collaborator.
@@ -63,5 +66,14 @@ public class RegisterCollaboratorController {
 
         this.collaboratorRepository.addCollaborator(new Collaborator(name, birthDate, admissionDate, address, mobile,
                 email, taxpayerNumber, idDocType, idDocNumber, jobName));
+    }
+
+    /**
+     * Retrieves a list of jobs.
+     *
+     * @return a list of jobs
+     */
+    public List<Job> getJobs(){
+        return jobRepository.getJobs();
     }
 }
