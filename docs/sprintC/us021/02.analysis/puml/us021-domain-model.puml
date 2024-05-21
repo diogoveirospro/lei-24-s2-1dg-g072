@@ -1,0 +1,35 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+class GreenSpace {
+    name: string
+    area: float
+}
+
+class Task {
+    description: string
+    urgency: enum {High, Medium, Low}
+    duration: string
+}
+
+class ToDoListEntry {
+    task: Task
+    greenSpace: GreenSpace
+}
+
+class GSM {
+}
+
+GSM "1" *- "*" GreenSpace : manages >
+GSM "1" - "*" ToDoListEntry : adds >
+
+@enduml
