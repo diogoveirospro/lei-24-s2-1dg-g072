@@ -2,6 +2,7 @@ package PI_MDISC_Group_072.main.java;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -12,24 +13,35 @@ public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
         Locale.setDefault(Locale.US);
         Scanner sc = new Scanner(System.in);
-        int option;
+        int option = 0;
 
         do {
             System.out.println("""
                     Choose the option you want:\s
-                    Option 1: Make a savings tree.\s
-                    Option 2: Make a graph of time as a function of the number of vertices.""");
-            option = sc.nextInt();
+                    Option 1: Make a spanning tree.\s
+                    Option 2: Make a graph of time as a function of the number of vertices.\s
+                    Option 3: Make a graph of the evacuation routes.""");
+            try {
+                option = sc.nextInt();
 
-            if (option == 1){
-                US13();
-            } else if (option == 2){
-                US14();
-            } else {
-                System.out.println("Please insert a valid option");
-            }
+                if (option == 1){
+                    US13();
+                } else if (option == 2){
+                    US14();
+                } else if (option==3){
+                    US18();
+                } else {
+                    System.out.println("Please insert a valid option");
+                }
+            }catch (InputMismatchException e){
+                System.out.println(e.getMessage());
+            };
 
-        } while (option < 1 || option > 2);
+
+        } while (option < 1 || option > 3);
+    }
+    private static void US18(){
+
     }
 
     private static void US13() throws IOException, InterruptedException {
