@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.domain.utils;
 
+import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidVehicleDataException;
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import pt.ipp.isep.dei.esoft.project.domain.Date;
 import pt.ipp.isep.dei.esoft.project.exceptions.InvalidCollaboratorDataException;
@@ -222,6 +223,24 @@ public class ValidatorUtils {
         }
     }
 
+    public static boolean isValidPlate(String plate) throws InvalidVehicleDataException {
+        String validation = String.valueOf(plate.charAt(2));
+        String validation2 = String.valueOf(plate.charAt(5));
+        if (!validation.equals("-") || !validation2.equals("-")){
+            throw new InvalidVehicleDataException("Invalid plate, please try again.");
+        }
+        return true;
+    }
+
+    public static boolean isValidBrand(String brand) throws InvalidVehicleDataException {
+        for (int i = 0; i < brand.length(); i++) {
+            String validation = String.valueOf(brand.charAt(i));
+            if(validation.matches("[0-9]*") || validation.matches("\\W")){
+                throw new InvalidVehicleDataException("Invalid input, please insert the data without special characters or numbers");
+            }
+        }
+        return true;
+    }
 }
 
 

@@ -342,7 +342,7 @@ public class Vehicle {
      * @param validationProcess process used to validate the plate number according to year of registration.
      * @return true if plate number is valid, else return false.
      */
-    private boolean validatePlate(int validationProcess) {
+    public boolean validatePlate(int validationProcess) {
         boolean validate = true;
         String[] plateId;
         plateId = plateNumber.split("-");
