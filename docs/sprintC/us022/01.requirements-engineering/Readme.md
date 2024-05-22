@@ -76,7 +76,7 @@ b) different tasks can be executed at same time in the same park.
 
 > **Question:** When a To-Do List entry is planned and moves to the Agenda, the status change from "Pending" to "Planned". Should this entry be removed from the To-Do List or just change status to "Planned" as it is on the Agenda?
 > 
-> **Answer:** 
+> **Answer:** Changing the status in the To-Do list to Planned seems to be a good approach.
 
 ### 1.3. Acceptance Criteria
 
@@ -86,7 +86,7 @@ b) different tasks can be executed at same time in the same park.
 ### 1.4. Found out Dependencies
 
 * There is a dependency on **"US020 - Register a Green Space and its Respective Area"**, since the diary entries must be associated with a green space.
-* There is a dependency on **"US021 - Add a New Entry to the To-Do List"**, since new diary entries must exist on the To-Do List.
+* There is a dependency on **"US021 - Add a New Entry to the To-Do List"**, since new agenda entries must exist on the To-Do List.
 
 ### 1.5 Input and Output Data
 

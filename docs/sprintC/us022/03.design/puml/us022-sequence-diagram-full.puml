@@ -6,65 +6,101 @@ skinparam shadowing false
 autonumber
 
 'hide footbox
-actor "Vehicle Fleet Manager" as ADM
-participant ":RegisterVehicleUI" as UI
-participant ":RegisterVehicleController" as CTRL
-participant ":Repositories" as RepositorySingleton
-participant "repositories\n:Repositories" as PLAT
-participant "vehicleRepository\n:VehicleRepository" as vehicleRepository
-participant "vehicle\n:Vehicle" as VEHICLE
+actor "Green Spaces\n Manager" as GSM
+participant ":AddAgendaEntryUI" as UI
+participant ":AddAgendaEntryController" as CTRL
+participant Repositories
+participant "repositories\n:Repositories" as REP
+participant "toDoList\n:toDoList" as TODOLIST
+participant ":ToDoListMapper" as TODOLISTMAPPER
+participant "listEntries\n:List<ToDoListEntry>" as LISTENTRIES
+participant "toDoListDto\n:List<toDoListDto>" as TODOLISTDTO
+participant "objDto\n:ToDoListEntryDto" as TODOLISTENTRYDTO
 
-activate ADM
+activate GSM
 
-        ADM -> UI : asks to register a new vehicle
+    GSM -> UI : asks to add a new entry to the agenda
+    activate UI
 
-        activate UI
+        UI -> CTRL** : add
 
-            UI --> ADM : requests data (plateNumber, brand,\n model,type, tare, grossWeight,\n currentKms,registrationDate,\nacquisitionDate, serviceFrequency)
+        UI -> CTRL : getToDoListEntries()
+        activate CTRL
 
-            ADM -> UI : types requested data
+           CTRL -> Repositories: getInstance()
+           activate Repositories
 
-            UI --> ADM : shows all data and requests confirmation
+                Repositories --> CTRL: repositories
+           deactivate Repositories
 
-            ADM -> UI : confirms data
+           CTRL -> REP: getToDoList()
+           activate REP
 
-            UI -> CTRL : registerVehicle(plateNumber, brand,\n model,type, tare, grossWeight,\n currentKms,registrationDate,\nacquisitionDate, serviceFrequency)
-            activate CTRL
+                REP --> CTRL: toDoList
+           deactivate REP
 
-                CTRL -> RepositorySingleton : getInstance()
-                activate RepositorySingleton
+            CTRL -> TODOLIST : getToDoListEntries()
+            activate TODOLIST
 
-                    RepositorySingleton --> CTRL: repositories
-                deactivate RepositorySingleton
+                    TODOLIST --> LISTENTRIES** : create()
+                    activate LISTENTRIES
 
-                CTRL -> PLAT : getVehicleRepository()
-                activate PLAT
+                        loop for each toDoListEntry
+                            TODOLIST -> LISTENTRIES : add(toDoListEntry)
+                            activate LISTENTRIES
+                            deactivate LISTENTRIES
+                        end
 
-                    PLAT --> CTRL: vehicleRepository
-                deactivate PLAT
+                        LISTENTRIES --> TODOLIST : listEntries
+                    deactivate LISTENTRIES
 
-                CTRL -> vehicleRepository : registerVehicle(plateNumber, brand,\n model,type, tare, grossWeight,\n currentKms,registrationDate,\nacquisitionDate, serviceFrequency)
-                activate vehicleRepository
 
-                vehicleRepository -> VEHICLE**: registerVehicle(plateNumber, brand,\n model,type, tare, grossWeight,\n currentKms,registrationDate,\nacquisitionDate, serviceFrequency)
-                vehicleRepository -> vehicleRepository: addVehicle (vehicle)
+                TODOLIST --> CTRL : listEntries
+            deactivate TODOLIST
 
-                 activate vehicleRepository
-                     vehicleRepository -> vehicleRepository: validateVehicle(vehicle)
-                     activate vehicleRepository
-                                vehicleRepository --> CTRL : vehicle
-                     deactivate vehicleRepository
+            CTRL -> TODOLISTMAPPER : toDoListEntriesToDto(listEntries)
+            activate TODOLISTMAPPER
 
-                 deactivate vehicleRepository
-                 deactivate vehicleRepository
+                TODOLISTMAPPER --> TODOLISTDTO** : create()
 
-                            deactivate vehicleRepository
+                loop for each toDoListEntry
+                    TODOLISTMAPPER -> LISTENTRIES : obj = get(i)
+                    activate LISTENTRIES
+                    deactivate LISTENTRIES
 
-            CTRL --> UI: vehicle
-            deactivate CTRL
-            UI --> ADM: displays operation success
+                    TODOLISTMAPPER -> TODOLISTMAPPER : objDto = toDTO(obj)
+                    activate TODOLISTMAPPER
+                    deactivate TODOLISTMAPPER
+
+                    TODOLISTMAPPER --> TODOLISTENTRYDTO** : create()
+
+                    TODOLISTMAPPER -> TODOLISTDTO : add(objDto)
+                    activate TODOLISTDTO
+                    deactivate TODOLISTDTO
+
+                end
+
+                TODOLISTMAPPER --> CTRL : toDoListDto
+            deactivate TODOLISTMAPPER
+
+            CTRL --> UI : toDoListDto
+        deactivate CTRL
+
+        UI --> GSM: shows all the tasks registered in the \nTo-Do List and asks you to select the \none you want to add
     deactivate UI
 
-deactivate ADM
+    GSM -> UI: select the desired task
+    activate UI
+
+        UI --> GSM: shows all data and requests confirmation
+    deactivate UI
+
+    GSM -> UI: confirms data
+    activate UI
+
+        UI --> GSM: displays operation success
+    deactivate UI
+
+deactivate GSM
 
 @enduml
