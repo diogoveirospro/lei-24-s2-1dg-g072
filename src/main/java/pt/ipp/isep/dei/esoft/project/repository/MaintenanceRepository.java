@@ -73,6 +73,7 @@ public class MaintenanceRepository {
     private List<Vehicle> removeVehicle(Vehicle vehicle, List<Vehicle> vehicles) {
         Maintenance m1 = new Maintenance(vehicle);
         List<Vehicle> mutableVehicleList = new ArrayList<>(vehicles);
+        checkIfMaintenanceNotNull(vehicle);
         if (!m1.validateVehicleMaintenance(vehicle)) {
             mutableVehicleList.remove(vehicle);
             vehicles = mutableVehicleList;

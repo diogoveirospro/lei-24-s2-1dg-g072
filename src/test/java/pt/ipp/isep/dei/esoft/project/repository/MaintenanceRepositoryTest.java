@@ -30,26 +30,26 @@ class MaintenanceRepositoryTest {
     }
 
     @Test
-    void addVehicleMaintenance() {
+    void addVehicleMaintenance1() {
         MaintenanceRepository maintenanceRepository = Repositories.getInstance().getMaintenanceRepository();
-        vehicleRepository.addVehicle(vehicle1);
-        Maintenance maintenance1 = new Maintenance(vehicle1);
+        vehicleRepository.addVehicle(vehicle3);
+        Maintenance maintenance1 = new Maintenance(vehicle3);
         maintenanceRepository.addVehicleMaintenance(maintenance1);
         assertEquals(1, maintenanceRepository.getMaintenanceList().size());
 
-        maintenance1.setKmAtMaintenance(500.0);
+        maintenance1.setKmAtMaintenance(80000.0);
         maintenanceRepository.addVehicleMaintenance(maintenance1);
         assertEquals(1, maintenanceRepository.getMaintenanceList().size());
-        assertEquals(500.0, maintenanceRepository.getMaintenanceList().get(0).getKmAtMaintenance());
+        assertEquals(80000.0, maintenanceRepository.getMaintenanceList().get(0).getKmAtMaintenance());
 
         vehicleRepository.addVehicle(vehicle2);
         Maintenance maintenance2 = new Maintenance(vehicle2);
         maintenanceRepository.addVehicleMaintenance(maintenance2);
-        assertEquals(2, maintenanceRepository.getMaintenanceList().size());
+        assertEquals(1, maintenanceRepository.getMaintenanceList().size());
     }
 
     @Test
-    void getMaintenanceList() {
+    void addVehicleMaintenance2() {
         MaintenanceRepository maintenanceRepository = Repositories.getInstance().getMaintenanceRepository();
         vehicleRepository.addVehicle(vehicle1);
         vehicleRepository.addVehicle(vehicle2);
@@ -58,6 +58,19 @@ class MaintenanceRepositoryTest {
         maintenanceRepository.addVehicleMaintenance(maintenance1);
         maintenanceRepository.addVehicleMaintenance(maintenance2);
         List<Maintenance> maintenanceList = maintenanceRepository.getMaintenanceList();
-        assertEquals(2, maintenanceList.size());
+        assertEquals(0, maintenanceList.size());
+        vehicleRepository.addVehicle(vehicle3);
+        Maintenance maintenance3 = new Maintenance(vehicle3);
+        maintenanceRepository.addVehicleMaintenance(maintenance3);
+        maintenanceList = maintenanceRepository.getMaintenanceList();
+        assertEquals(1,maintenanceList.size());
+    }
+
+    @Test
+    void getMaintenanceListNull(){
+        MaintenanceRepository maintenanceRepository = Repositories.getInstance().getMaintenanceRepository();
+        Maintenance maintenanceNull = null;
+        assertThrows(IllegalArgumentException.class, () -> maintenanceRepository.addVehicleMaintenance(maintenanceNull));
+
     }
 }
