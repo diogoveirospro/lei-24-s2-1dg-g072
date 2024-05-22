@@ -60,9 +60,6 @@ Best regards.
 
 ### 1.5 Input and Output Data
 
-**Input Data:**
-      * id number of the collaborator
-
 * Selected Data:
       * begin data 
       * end data

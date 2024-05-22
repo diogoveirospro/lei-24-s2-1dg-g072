@@ -113,6 +113,11 @@ public class Maintenance {
         return plateNumber;
     }
 
+    /**
+     * Lets an already existing maintenance be updated with new data
+     *
+     * @param maintenance maintenance to be updated
+     */
     public void updateFrom(Maintenance maintenance) {
         this.kmAtMaintenance = maintenance.getKmAtMaintenance();
         this.plateNumber = maintenance.getPlateNumber();

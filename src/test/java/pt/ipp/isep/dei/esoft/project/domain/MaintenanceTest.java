@@ -28,6 +28,10 @@ public class MaintenanceTest {
     Maintenance m2;
     Maintenance m3;
 
+    /**
+     * Set up of the tests, creating instances of the Maintenance class.
+     *
+     */
     @BeforeEach
     void setUp() {
         m1 = new Maintenance(vehicle1);
@@ -35,6 +39,10 @@ public class MaintenanceTest {
         m3 = new Maintenance(vehicle3);
     }
 
+    /**
+     * Test for the method setVehicleMaintenance of the Maintenance class.
+     *
+     */
     @Test
     void setVehicleMaintenance() {
         m1.setVehicleMaintenance(vehicle2);
@@ -42,18 +50,32 @@ public class MaintenanceTest {
         assertEquals(Date.currentDate(), m1.getDateLastMaintenance());
     }
 
+    /**
+     * Test for the method validateVehicleMaintenance of the Maintenance class.
+     * If true, the vehicle is validated for maintenance.
+     *
+     */
     @Test
     void validateVehicleMaintenanceTrue() {
         boolean vehicleValidation = m3.validateVehicleMaintenance(vehicle3);
         assertTrue(vehicleValidation);
     }
 
+    /**
+     * Test for the method validateVehicleMaintenance of the Maintenance class.
+     * If false, the vehicle is not validated for maintenance.
+     *
+     */
     @Test
     void validateVehicleMaintenanceFalse() {
         boolean vehicleValidation = m1.validateVehicleMaintenance(vehicle1);
         assertFalse(vehicleValidation);
     }
 
+    /**
+     * Test for the method setKmAtMaintenance of the Maintenance class.
+     *
+     */
     @Test
     void setKmAtMaintenance() {
         m1.setKmAtMaintenance(vehicle1.getKmAtLastMaintenance());
@@ -66,22 +88,41 @@ public class MaintenanceTest {
         assertEquals(vehicle1.getRegistrationDate(), m1.getDateLastMaintenance());
     }
 
+    /**
+     * Test for changing the date of the last maintenance of a vehicle.
+     * To the current date.
+     *
+     */
     @Test
     void getDateLastMaintenanceToCurrentDate() {
         m1.setDateLastMaintenance(Date.currentDate());
         assertEquals(Date.currentDate(), m1.getDateLastMaintenance());
     }
 
+    /**
+     * Test for the method kmAtMaintenance of the Maintenance class.
+     *
+     */
+
     @Test
     void getKmAtMaintenance() {
         assertEquals(0.0, m1.getKmAtMaintenance());
     }
+
+    /**
+     * Test for the method getVehicle of the Maintenance class.
+     *
+     */
 
     @Test
     void getPlateNumber() {
         assertEquals("GG-69-EZ", m1.getPlateNumber());
     }
 
+    /**
+     * Test for the method updateFrom of the Maintenance class.
+     *
+     */
     @Test
     void updateFrom() {
         m1.setKmAtMaintenance(500.0);

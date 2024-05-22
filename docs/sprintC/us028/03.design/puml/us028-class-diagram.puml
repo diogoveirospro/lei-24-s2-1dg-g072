@@ -23,7 +23,7 @@ class TaskDto {
 }
 
 class ListTaskController {
-    + checkIfIDIsValid(idNumber)
+    + getCollaboratorThroughEmail(email)
     + saveDatesSelected(dateI, dateF)
     + getStatusList()
     + getTaskList(idNumber, dateI, dateF, typeStatus)
@@ -50,7 +50,7 @@ class Task {
 }
 
 class CollaboratorRepository {
-    + checkIfIDIsValid(idNumber)
+    + getCollaboratorThroughEmail(email)
 }
 
 class Repositories {

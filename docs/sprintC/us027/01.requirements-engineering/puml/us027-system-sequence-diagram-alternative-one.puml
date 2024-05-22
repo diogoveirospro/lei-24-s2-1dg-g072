@@ -15,8 +15,15 @@ activate Employee
     Employee -> System : asks to list all the GreenSpaces
     activate System
 
-        System --> Employee : asks for confirmation
+        System --> Employee : asks the user to choose the sorting option
     deactivate System
+
+    Employee -> System : Chooses one sorting option
+    activate System
+
+        System --> Employee : requests confirmation
+    deactivate System
+
     Employee -> System : Confirms that he wants to create the list
         activate System
 

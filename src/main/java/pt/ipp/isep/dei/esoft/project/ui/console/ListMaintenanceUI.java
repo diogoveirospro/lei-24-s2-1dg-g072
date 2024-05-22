@@ -49,13 +49,19 @@ public class ListMaintenanceUI implements Runnable {
      */
     private void submitData() {
         vehicleListDto = controller.getVehicleList();
-
+        double next;
         if (!vehicleListDto.isEmpty()) {
             System.out.println("\nVehicles in need of maintenance:");
             System.out.println("| Plate | Brand | Model | Curr.Kms | Freq | Last | Next |" );
             for (VehicleDto vehicle : vehicleListDto) {
+                if (vehicle.getKmAtLastMaintenance() + vehicle.getServiceFrequency() < vehicle.getCurrentKms()){
+                    next = vehicle.getCurrentKms();
+                } else {
+                    next = vehicle.getKmAtLastMaintenance() + vehicle.getServiceFrequency();
+                }
 
-                System.out.printf("| %s | %s | %s | %.0f | %.0f | %.0f | %.0f |", vehicle.getPlateNumber(), vehicle.getBrand(), vehicle.getModel(),vehicle.getCurrentKms(),vehicle.getServiceFrequency(),vehicle.getKmAtLastMaintenance(),vehicle.getKmAtLastMaintenance() + vehicle.getServiceFrequency());
+
+                System.out.printf("| %s | %s | %s | %.0f | %.0f | %.0f | %.0f |", vehicle.getPlateNumber(), vehicle.getBrand(), vehicle.getModel(),vehicle.getCurrentKms(),vehicle.getServiceFrequency(),vehicle.getKmAtLastMaintenance(),next);
                 System.out.printf("%n");
             }
         } else {

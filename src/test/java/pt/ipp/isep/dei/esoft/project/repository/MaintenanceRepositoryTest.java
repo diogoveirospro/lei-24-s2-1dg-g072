@@ -12,12 +12,20 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Class that tests the MaintenanceRepository class.
+ *
+ */
 class MaintenanceRepositoryTest {
     VehicleRepository vehicleRepository;
     Vehicle vehicle1;
     Vehicle vehicle2;
     Vehicle vehicle3;
 
+    /**
+     * Method to create the necessary objects to run the tests.
+     *
+     */
     @BeforeEach
     void setUp() {
         vehicleRepository = Repositories.getInstance().getVehicleRepository();
@@ -26,6 +34,10 @@ class MaintenanceRepositoryTest {
         vehicle3 = new Vehicle("04-20-VC","Ferrari","Diablo","Petrol",3000.0,4000.0,100000.0,new Date(2000,12,10), new  Date(2003,10,11),10000.0,75432.3);
     }
 
+    /**
+     * Test for getting the list of all vehicles in need of maintenance.
+     *
+     */
 
     @Test
     void getVehicleList() {
@@ -38,6 +50,10 @@ class MaintenanceRepositoryTest {
         assertEquals(expected, vehicleList);
     }
 
+    /**
+     * Test to check if the method addVehicleMaintenance and changes its values.
+     *
+     */
     @Test
     void addVehicleMaintenance1() {
         MaintenanceRepository maintenanceRepository = Repositories.getInstance().getMaintenanceRepository();
@@ -58,6 +74,10 @@ class MaintenanceRepositoryTest {
         vehicleRepository = new VehicleRepository();
     }
 
+    /**
+     * Tesst to check if the method addVehicleMaintenance adds the vehicles that are expected to be added.
+     *
+     */
     @Test
     void addVehicleMaintenance2() {
         MaintenanceRepository maintenanceRepository = Repositories.getInstance().getMaintenanceRepository();
@@ -81,6 +101,10 @@ class MaintenanceRepositoryTest {
         assertEquals(1, maintenanceList.size());
     }
 
+    /**
+     * Test to check if the method getMaintenanceList throws an exception when the list is null
+     *
+     */
 
     @Test
     void getMaintenanceListNull(){
@@ -89,6 +113,13 @@ class MaintenanceRepositoryTest {
         assertThrows(NullPointerException.class, () -> maintenanceRepository.addVehicleMaintenance(maintenanceNull));
 
     }
+
+    /**
+     * Test to check if the method getVehicleList throws an exception when the list is null
+     *
+     */
+
+
     @Test
     void getVehicleListNull() {
         MaintenanceRepository maintenanceRepository = new MaintenanceRepository();

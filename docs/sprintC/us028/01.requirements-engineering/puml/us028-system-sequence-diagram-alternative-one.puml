@@ -12,13 +12,8 @@ participant ":System" as System
 
 activate Col
 
-    Col -> System : request to consult tasks assigned to him collaborator
-    activate System
+    Col -> System : request to consult tasks assigned to him
 
-        System --> Col : asks him to write is id number
-    deactivate System
-
-    Col -> System : writes id number
     activate System
 
         System --> Col : asks to select the beginning and end date of the search

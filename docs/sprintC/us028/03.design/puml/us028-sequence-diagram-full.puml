@@ -16,23 +16,19 @@ participant "date:Date" as Date
 participant "taskRepository\n:TaskRepository" as taskRepository
 participant "taskCollaboratorList\n:List<Task>" as list
 participant ":TaskMapper" as Mapper
+participant "taskList\n:List<Task>" as LISTTASK
+participant "statusListDto\n:List<String>" as LISTSTATUSTODTO
+
 participant "taskDto\n:TaskDto" as DTO
 
 activate Col
 
-           Col -> UI : request to consult tasks assigned to him collaborator
-           activate UI
-
-               UI --> Col : asks him to write is id number
-           deactivate UI
-
-           Col -> UI : writes id number
-
+           Col -> UI : requests to consult tasks assigned to him
 
            activate UI
 
                 UI -> CTRL** : create
-                UI -> CTRL: checkIfIDIsValid(idNumber)
+                UI -> CTRL: getCollaboratorThoughEmail(email)
                 activate CTRL
 
                         CTRL -> RepositorySingleton: getInstance()
@@ -47,17 +43,17 @@ activate Col
                                 REP --> CTRL: collaboratorRepository
                         deactivate REP
 
-                        CTRL -> collaboratorRepository: checkIfIDIsValid(idNumber)
+                        CTRL -> collaboratorRepository: getCollaboratorThoughEmail(email)
                         activate collaboratorRepository
 
-                                collaboratorRepository -> collaboratorRepository: checkIfIDIsValid(idNumber)
+                                collaboratorRepository -> collaboratorRepository: getCollaboratorThoughEmail(email)
                                 activate collaboratorRepository
 
-                                        collaboratorRepository --> CTRL: true/false statement
+                                        collaboratorRepository --> CTRL: collaborator
                                 deactivate collaboratorRepository
 
                         deactivate collaboratorRepository
-                        CTRL --> UI: true/false statement
+                        CTRL --> UI: collaborator
                 deactivate CTRL
                UI --> Col : asks to select the beginning and end date of the search
            deactivate UI
@@ -92,10 +88,62 @@ activate Col
 
                             activate taskRepository
 
-                                    taskRepository --> CTRL: statusList
+
+                                                        taskRepository --> LISTTASK** : create()
+
+
+                                                            loop for each task in the system
+                                                                taskRepository -> LISTTASK : add(task)
+                                                                activate LISTTASK
+
+                                                            end
+
+                                                            LISTTASK --> taskRepository : taskList
+                                                        deactivate LISTTASK
+
+
+
+                                    taskRepository --> CTRL: taskList
                             deactivate taskRepository
 
-                            CTRL --> UI: statusList
+                            CTRL -> Mapper : statusListToDto(taskList)
+                                        activate Mapper
+
+                                            Mapper --> LISTSTATUSTODTO** : create()
+
+                                            loop for each toDoListEntry
+                                                Mapper -> LISTTASK : task = get(i)
+                                                activate LISTTASK
+
+                                                        LISTTASK --> Mapper : task
+                                                deactivate LISTTASK
+
+                                                Mapper -> DTO** : statusDto = toDTOStatus(task)
+
+
+
+                                                activate DTO
+                                                    DTO -> DTO : getStatus()
+                                                    activate DTO
+
+                                                    DTO --> Mapper : statusDto
+
+                                                    deactivate DTO
+
+                                                deactivate DTO
+                                                Mapper -> LISTSTATUSTODTO : add(statusDto)
+                                                activate LISTSTATUSTODTO
+
+                                                        end
+                                                        LISTSTATUSTODTO --> Mapper : statusListDto
+                                                deactivate LISTSTATUSTODTO
+
+
+
+                                            Mapper --> CTRL : statusListDto
+
+                                        deactivate Mapper
+                            CTRL --> UI: statusListDto
                     deactivate CTRL
                    UI --> Col: asks to select the type of status he wants to consult
            deactivate UI
@@ -110,7 +158,7 @@ activate Col
 
 
 
-            UI -> CTRL : getTaskList(idNumber,dateI,dateF,typeStatus)
+            UI -> CTRL : getTaskList(collaborator,dateI,dateF,typeStatus)
             activate CTRL
 
                 CTRL -> RepositorySingleton : getInstance()
@@ -125,14 +173,14 @@ activate Col
                     REP --> CTRL: taskRepository
                 deactivate REP
 
-                CTRL -> taskRepository : getTaskList(idNumber,dateI,dateF,typeStatus)
+                CTRL -> taskRepository : getTaskList(collaborator,dateI,dateF,typeStatus)
 
                 activate taskRepository
 
                         taskRepository -> list**: List<Task> taskCollaboratorList
 
                         loop for each task in the system
-                        opt ((typeStatus == task.getStatus) && (idNumber == task.getIdNumber)\n &&(dateI <= task.getDateI) && (dateF >= task.getDateF))
+                        opt ((typeStatus() == task.getStatus()) && (collaborator.getIdNumber() == task.getIdNumber())\n &&(dateI <= task.getDateI()) && (dateF >= task.getDateF()))
 
                             taskRepository -> taskRepository: addTaskOfCollaborator(task)
                             activate taskRepository
@@ -155,7 +203,7 @@ activate Col
             activate Mapper
                     loop for each task in taskCollaboratorList
 
-                        Mapper -> DTO** : TaskDto(task)
+                        Mapper -> DTO : TaskDto(task)
 
                         Mapper -> Mapper : addTask(taskDto)
                         activate Mapper
