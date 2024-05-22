@@ -42,10 +42,11 @@ public class VehicleRepository {
      * @param newVehicle vehicle to be added to the list
      */
     public boolean addVehicle(Vehicle newVehicle){
-        boolean success = false;
-        if (checkVehicleInList(newVehicle) || (newVehicle.validateVehicle())){
-            success = vehicleList.add(newVehicle.clone());
+        boolean success = true;
+        if (checkVehicleInList(newVehicle) && (newVehicle.validateVehicle())){
+            vehicleList.add(newVehicle.clone());
         }else {
+            success = false;
             throw new IllegalArgumentException("Invalid vehicle to add");
         }
         return success;
