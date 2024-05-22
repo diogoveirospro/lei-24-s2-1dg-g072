@@ -13,6 +13,7 @@ rectangle "System Actors" as actors {
     actor "Vehicle and Equipment\nFleet Manager" as VFM
     actor "Green Spaces\nManager" as GSM
     actor "Software Quality\nAssessment Team \nManager" as QAM
+    actor "Collaborator" as COLL
 }
 
 
@@ -58,6 +59,51 @@ rectangle "Use Cases" as usecases{
 
     usecase "UC14 - Run tests for the inputs of variable size" as UC14
     QAM ----> UC14
+
+    usecase "UC15 - The monthly cost associated with water consumption \nin each park is related to its size" as UC15
+    GSM ----> UC15
+
+    usecase "UC16 - Applying polynomial regression, determine the best \nline that fits the data" as UC16
+    GSM ----> UC16
+
+    usecase "UC17 - Put up evacuation signs and find the shortest \nroute from these different points to an Assembly Point" as UC17
+    GSM ----> UC17
+
+    usecase "UC18 - Put up signs to evacuate to one of several \nassembly points, so that these paths provide the shortest \nroutes to the nearest Assembly Point." as UC18
+    GSM ----> UC18
+
+    usecase "UC19 - Conclude about the worst-case time complexity \nof the procedures developed in US13, US17, and US18" as UC19
+    QAM ----> UC19
+
+    usecase "UC20 - Register a Green Space" as UC20
+    GSM ----> UC20
+
+    usecase "UC21 - Add a new entry to the To-Do List" as UC21
+    GSM ----> UC21
+
+    usecase "UC22 - Add a new entry in the Agenda" as UC22
+    GSM ----> UC22
+
+    usecase "UC23 - Assign a Team to an entry in the Agenda" as UC23
+    GSM ----> UC23
+
+    usecase "UC24 - Postpone an entry in the Agenda to a specific future date" as UC24
+    GSM ----> UC24
+
+    usecase "UC25 - Cancel an entry in the Agenda" as UC25
+    GSM ----> UC25
+
+    usecase "UC26 - Assign one or more vehicles to an entry in the Agenda" as UC26
+    GSM ----> UC26
+
+    usecase "UC27 - List all the green spaces managed by a collaborator" as UC27
+    COLL ----> UC27
+
+    usecase "UC28 - Consult the tasks assigned to a collaborator \nbetween two dates" as UC28
+    COLL ----> UC28
+
+    usecase "UC29 - Record the completion of a task" as UC29
+    COLL ----> UC29
 }
 
 
