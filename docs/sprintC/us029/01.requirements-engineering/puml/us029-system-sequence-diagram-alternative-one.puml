@@ -3,7 +3,7 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title System Sequence Diagram (SSD) - Alternative One
+title System Sequence Diagram (SSD) - Record the Completion of a Task
 
 autonumber
 
@@ -12,22 +12,22 @@ participant ":System" as System
 
 activate Col
 
-    Col -> System : asks to record the completion of a task
+    Col -> System : Request to mark task as completed
     activate System
 
-        System --> Col : shows a list of all the tasks (Not 'done')
+        System --> Col : Requests selection of task from Agenda
     deactivate System
 
-    Col -> System : selects a task
+    Col -> System : Selects task from Agenda
     activate System
 
-        System --> Col : requests confirmation
+        System --> Col : Confirms task selection
     deactivate System
 
-    Col -> System : confirms he wants to complete the task
+    Col -> System : Record task completion
     activate System
 
-        System --> Col : displays operation success
+        System --> Col : Confirms task completion and updates status in Agenda
     deactivate System
 
 @enduml

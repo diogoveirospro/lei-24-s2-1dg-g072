@@ -3,37 +3,29 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title System Sequence Diagram (SSD) - Alternative One
+title System Sequence Diagram (SSD) - Add a New Entry to the To-Do List
 
-autonumber
-
-actor "Green Space Manager" as GSM
+actor "Green Space\nManager" as GSM
 participant ":System" as System
 
 activate GSM
 
-    GSM -> System : asks to add a new entry to the To-Do List
-    activate System
+GSM -> System: Request to add a new entry
+activate System
 
-        System --> GSM : requests task data (description, priority, due date)
-    deactivate System
+System -> GSM: Present list of available green spaces
+deactivate System
 
-    GSM -> System : inputs task data
-    activate System
+GSM -> System: Choose green space
+activate System
 
-        System --> GSM : shows a list of managed green spaces \n and asks to select one
-    deactivate System
+System -> GSM: Prompt for task details (description, urgency, duration)
+deactivate System
 
-    GSM -> System : selects a green space
-    activate System
+GSM -> System: Provide task details
+activate System
 
-        System --> GSM : shows all data and requests confirmation
-    deactivate System
-
-    GSM -> System : confirms data
-    activate System
-
-        System --> GSM : displays operation success
-    deactivate System
+System -> GSM: Confirm addition of new entry
+deactivate System
 
 @enduml
