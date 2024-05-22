@@ -10,8 +10,6 @@ import java.util.Optional;
 import java.util.Scanner;
 
 /**
- *
- *
  * @author Group 072 - Byte Masters - ISEP
  */
 public class RegisterVehicleUI implements Runnable {
@@ -52,14 +50,14 @@ public class RegisterVehicleUI implements Runnable {
     private Double currentKms;
 
     /**
-     * Vehicle's acquisition date as a String.
+     * Vehicle's acquisition date.
      */
-    private String acqDate;
+    private Date acqDate;
 
     /**
-     * Vehicle's registration date as a String.
+     * Vehicle's registration date.
      */
-    private String regDate;
+    private Date regDate;
 
     /**
      * Vehicle's kms at last maintenance.
@@ -77,26 +75,6 @@ public class RegisterVehicleUI implements Runnable {
     private Double serviceFrequency;
 
     /**
-     * Array containing year month and day of acquisition date.
-     */
-    private String[] acqDateSeparated;
-
-    /**
-     * Array containing year month and day of registration date.
-     */
-    private String[] regDateSeparated;
-
-    /**
-     * Vehicle's registration date.
-     */
-    private Date registrationDate;
-
-    /**
-     * Vehicle's acquisition date.
-     */
-    private Date acquisitionDate;
-
-    /**
      * Register vehicle UI builder.
      */
     public RegisterVehicleUI() {
@@ -105,9 +83,10 @@ public class RegisterVehicleUI implements Runnable {
 
     /**
      * Lets the UI get the register vehicle controller.
+     *
      * @return RegisterVehicleController.
      */
-    private RegisterVehicleController getController(){
+    private RegisterVehicleController getController() {
         return controller;
     }
 
@@ -138,45 +117,163 @@ public class RegisterVehicleUI implements Runnable {
         brand = validateBrand(sc);
 
         //Request vehicle model from console
-        System.out.println("Enter model");
+        System.out.println("Enter model: ");
         model = validateModel(sc);
 
         //Request vehicle type from console
-        type = requestType(sc);
+        System.out.println("Enter type:");
+        type = validateType(sc);
 
         //Request vehicle tare from console
-        tare = requestTare(sc);
+        System.out.println("Enter tare: ");
+        tare = validateTare(sc);
 
         //Request vehicle gross weight from console
-        grossWeight = requestGrossWeight(sc);
+        System.out.println("Enter gross weight: ");
+        grossWeight = validateGrossWeight(sc);
 
         //Request vehicle current Kms from console
-        currentKms = requestCurrentKms(sc);
-        sc.nextLine();
+        System.out.println("Enter current Kms");
+        currentKms = validateKms(sc);
 
         //Request vehicle registration date from console
-        regDate = requestRegistrationDate(sc);
+        System.out.println("Enter registration date (YYYY-MM-DD): ");
+        regDate = validateDate(sc);
 
         //Request vehicle acquisition date from console
-        acqDate = requestAcquisitionDate(sc);
+        System.out.println("Enter acquisition date (YYYY-MM-DD): ");
+        acqDate = validateDate(sc);
 
         //Request vehicle service frequency from console
-        serviceFrequency = requestServiceFrequency(sc);
+        System.out.println("Enter service frequency: ");
+        serviceFrequency = validateKms(sc);
 
         //Request vehicle Km at last maintenance from console
-        kmAtLastMaintenance = requestKmAtLastMaintenance(sc);
+        System.out.println("Enter Km at last maintenance: ");
+        kmAtLastMaintenance = validateKms(sc);
 
-        //Separate dates soo they can be used in class Date
-        acqDateSeparated = separateDate(acqDate);
-        regDateSeparated = separateDate(regDate);
+    }
 
-        //Creat instances of Date
-        acquisitionDate = new Date(Integer.parseInt(acqDateSeparated[0]), Integer.parseInt(acqDateSeparated[1]), Integer.parseInt(acqDateSeparated[2]));
-        registrationDate = new Date(Integer.parseInt(regDateSeparated[0]), Integer.parseInt(regDateSeparated[1]), Integer.parseInt(regDateSeparated[2]));
+    /**
+     * Validate dates
+     *
+     * @param sc Scanner
+     * @return date
+     */
+    private Date validateDate(Scanner sc) {
+        String date = "";
+        boolean valid = false;
+
+        while (!valid) {
+
+            try {
+                date = sc.nextLine();
+                valid = ValidatorUtils.isValidDate(date);
+            } catch (InvalidVehicleDataException e) {
+                System.out.println(e.getMessage());
+                System.out.println("Enter date: ");
+            }
+        }
+        String[] parts = date.split("-");
+        return new Date(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]), Integer.parseInt(parts[2]));
+    }
+
+    /**
+     * Validate Kms
+     *
+     * @param sc Scanner
+     * @return kms
+     */
+    private Double validateKms(Scanner sc) {
+        String kms = "";
+        boolean valid = false;
+
+        while (!valid) {
+
+            try {
+                kms = sc.nextLine();
+                valid = ValidatorUtils.isValidNumber(kms);
+            } catch (InvalidVehicleDataException e) {
+                System.out.println(e.getMessage());
+                System.out.println("Enter Kms: ");
+            }
+        }
+        return Double.parseDouble(kms);
+    }
+
+    /**
+     * Validate gross weight
+     *
+     * @param sc Scanner
+     * @return gross weight
+     */
+    private Double validateGrossWeight(Scanner sc) {
+        String grossWeight = "";
+        boolean valid = false;
+
+        while (!valid) {
+
+            try {
+                grossWeight = sc.nextLine();
+                valid = ValidatorUtils.isValidNumber(grossWeight);
+            } catch (InvalidVehicleDataException e) {
+                System.out.println(e.getMessage());
+                System.out.println("Enter gross weight: ");
+            }
+        }
+        return Double.parseDouble(grossWeight);
+    }
+
+    /**
+     * Validate tare
+     *
+     * @param sc Scanner
+     * @return tare
+     */
+    private Double validateTare(Scanner sc) {
+        String tare = "";
+        boolean valid = false;
+
+        while (!valid) {
+
+            try {
+                tare = sc.nextLine();
+                valid = ValidatorUtils.isValidNumber(tare);
+            } catch (InvalidVehicleDataException e) {
+                System.out.println(e.getMessage());
+                System.out.println("Enter tare:");
+            }
+        }
+        return Double.parseDouble(tare);
+    }
+
+    /**
+     * Validate type
+     *
+     * @param sc Scanner
+     * @return type
+     */
+    private String validateType(Scanner sc) {
+        String type = "";
+        boolean valid = false;
+
+        while (!valid) {
+
+            try {
+                type = sc.nextLine();
+                valid = ValidatorUtils.isValidBrand(type);
+
+            } catch (InvalidVehicleDataException e) {
+                System.out.println(e.getMessage());
+                System.out.println("Enter type: ");
+            }
+        }
+        return type;
     }
 
     /**
      * Validate model
+     *
      * @param sc Scanner
      * @return model
      */
@@ -184,15 +281,15 @@ public class RegisterVehicleUI implements Runnable {
         String model = "";
         boolean valid = false;
 
-        while (!valid){
+        while (!valid) {
 
             try {
                 model = sc.nextLine();
                 valid = ValidatorUtils.isValidBrand(model);
 
-            }catch (InvalidVehicleDataException e){
+            } catch (InvalidVehicleDataException e) {
                 System.out.println(e.getMessage());
-                System.out.print("Enter model: ");
+                System.out.println("Enter model: ");
             }
         }
         return model;
@@ -200,6 +297,7 @@ public class RegisterVehicleUI implements Runnable {
 
     /**
      * Validate brand
+     *
      * @param sc Scanner
      * @return brand
      */
@@ -207,15 +305,15 @@ public class RegisterVehicleUI implements Runnable {
         String brand = "";
         boolean valid = false;
 
-        while (!valid){
+        while (!valid) {
 
             try {
                 brand = sc.nextLine();
                 valid = ValidatorUtils.isValidBrand(brand);
 
-            }catch (InvalidVehicleDataException e){
+            } catch (InvalidVehicleDataException e) {
                 System.out.println(e.getMessage());
-                System.out.print("Enter brand: ");
+                System.out.println("Enter brand: ");
             }
         }
         return brand;
@@ -223,145 +321,37 @@ public class RegisterVehicleUI implements Runnable {
 
     /**
      * Validate plate number
+     *
      * @param sc Scanner
      * @return plate number
      */
     private String validatePlateNumber(Scanner sc) {
         String plate = "";
         boolean valid = false;
-        while (!valid){
+        while (!valid) {
 
             try {
                 plate = sc.nextLine();
                 valid = ValidatorUtils.isValidPlate(plate);
 
-            }catch (InvalidVehicleDataException e){
+            } catch (InvalidVehicleDataException e) {
                 System.out.println(e.getMessage());
-                System.out.print("Enter plate: ");
+                System.out.println("Enter plate: ");
             }
         }
         return plate;
     }
 
     /**
-     * Request brand.
-     * @param sc scanner.
-     * @return brand.
-     */
-    private String requestBrand(Scanner sc) {
-        System.out.println("Insert brand: ");
-        return sc.nextLine();
-    }
-
-    /**
-     * Request model.
-     * @param sc scanner.
-     * @return model.
-     */
-    private String requestModel(Scanner sc) {
-        System.out.println("Insert model: ");
-        return sc.nextLine();
-    }
-
-    /**
-     * Request type.
-     * @param sc scanner.
-     * @return type.
-     */
-    private String requestType(Scanner sc) {
-        System.out.println("Insert type: ");
-        return sc.nextLine();
-    }
-
-    /**
-     * Request tare.
-     * @param sc scanner.
-     * @return tare.
-     */
-    private Double requestTare(Scanner sc) {
-        System.out.println("Insert tare: ");
-        return sc.nextDouble();
-    }
-
-    /**
-     * Request gross weight.
-     * @param sc scanner.
-     * @return gross weight.
-     */
-    private Double requestGrossWeight(Scanner sc) {
-        System.out.println("Insert gross weight: ");
-        return sc.nextDouble();
-    }
-
-    /**
-     * Request current Kms.
-     * @param sc scanner.
-     * @return current Kms.
-     */
-    private Double requestCurrentKms(Scanner sc) {
-        System.out.println("Insert current Kms: ");
-        return sc.nextDouble();
-    }
-
-    /**
-     * Request registration date.
-     * @param sc scanner.
-     * @return registration date.
-     */
-    private String requestRegistrationDate(Scanner sc) {
-        System.out.println("Insert registration date (YYYY-MM-DD): ");
-        return sc.nextLine();
-    }
-
-    /**
-     * Request acquisition date.
-     * @param sc scanner.
-     * @return acquisition date.
-     */
-    private String requestAcquisitionDate(Scanner sc) {
-        System.out.println("Insert acquisition date (YYYY-MM-DD): ");
-        return sc.nextLine();
-    }
-
-    /**
-     * Request service frequency.
-     * @param sc scanner.
-     * @return service frequency.
-     */
-    private Double requestServiceFrequency(Scanner sc) {
-        System.out.println("Insert service frequency: ");
-        return sc.nextDouble();
-    }
-
-    /**
-     * Request Km at last maintenance.
-     * @param sc scanner.
-     * @return Km at last maintenance.
-     */
-    private Double requestKmAtLastMaintenance(Scanner sc) {
-        System.out.println("Insert Km at last maintenance: ");
-        return sc.nextDouble();
-    }
-
-    /**
      * Register the vehicle.
      */
     private void submitData() {
-        Optional<Vehicle> vehicle = getController().registerVehicle(plate, model, type, brand, tare, grossWeight, currentKms, registrationDate, acquisitionDate, serviceFrequency, kmAtLastMaintenance);
+        Optional<Vehicle> vehicle = getController().registerVehicle(plate, model, type, brand, tare, grossWeight, currentKms, regDate, acqDate, serviceFrequency, kmAtLastMaintenance);
 
-        if(vehicle.isPresent()){
+        if (vehicle.isPresent()) {
             System.out.println("\nVehicle successfully registered");
 
-        }else
+        } else
             System.out.println("\nVehicle not registered");
-    }
-
-    /**
-     * Separate the date as String in an array.
-     * @param date date as String
-     * @return array containing year month and day of date.
-     */
-    private String[] separateDate(String date){
-        return date.split("-");
     }
 }

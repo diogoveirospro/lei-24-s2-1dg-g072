@@ -12,7 +12,7 @@ area
 
 **From the project statement document:**
 
->	
+> The green space (garden, medium-sized park, or large-sized park) must have an associated name and area.
 
 **From the client clarifications:**
 
@@ -27,8 +27,9 @@ area
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** The system must allow the GSM to register a green space with its name.
-* **AC2:** The system must prompt the GSM to provide the area of the green space in square meters during the registration process.
+* **AC1:** The green space must have a unique name.
+* **AC2:** The green space must have a defined area entered as a numeric value.
+* **AC3:** The type of green space must be selected from a predetermined list (garden, medium-sized park, large-sized park).
 
 ### 1.4. Found out Dependencies
 
@@ -43,9 +44,6 @@ area
     * Name of the Green Space
     * Type of Green Space (garden, medium-sized park, large-sized park)
     * Area (in square meters)
-
-* Selected data:
-    * ... 
 
 **Output Data:**
 

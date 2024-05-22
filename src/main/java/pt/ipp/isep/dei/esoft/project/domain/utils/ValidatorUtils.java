@@ -224,10 +224,14 @@ public class ValidatorUtils {
     }
 
     public static boolean isValidPlate(String plate) throws InvalidVehicleDataException {
-        String validation = String.valueOf(plate.charAt(2));
-        String validation2 = String.valueOf(plate.charAt(5));
-        if (!validation.equals("-") || !validation2.equals("-")){
-            throw new InvalidVehicleDataException("Invalid plate, please try again.");
+        if(plate.length() > 5) {
+            String validation = String.valueOf(plate.charAt(2));
+            String validation2 = String.valueOf(plate.charAt(5));
+            if (!validation.equals("-") || !validation2.equals("-")) {
+                throw new InvalidVehicleDataException("Invalid plate, please try again.");
+            }
+        }else {
+            throw new InvalidVehicleDataException("Invalid plate, the plate must have eight characters");
         }
         return true;
     }
@@ -239,6 +243,33 @@ public class ValidatorUtils {
                 throw new InvalidVehicleDataException("Invalid input, please insert the data without special characters or numbers");
             }
         }
+        return true;
+    }
+
+    public static boolean isValidNumber(String tare) throws InvalidVehicleDataException {
+        for (int i = 0; i < tare.length(); i++) {
+            String validation = String.valueOf(tare.charAt(i));
+            if (!validation.matches("[0-9]*")){
+                throw new InvalidVehicleDataException("Invalid value, please insert only numbers");
+            }
+        }
+        return true;
+    }
+
+    public static boolean isValidDate(String date) throws InvalidVehicleDataException {
+        String[] parts = date.split("-");
+
+        if (parts.length != 3) {
+            throw new InvalidVehicleDataException("Invalid format. Please enter the date in YYYY-MM-DD format.");
+        }
+
+        for (int i = 0; i < date.length(); i++) {
+            String validation = String.valueOf(date.charAt(i));
+            if (validation.matches("[A-Z]*")){
+                throw new InvalidVehicleDataException("Invalid format. Please enter the date in YYYY-MM-DD format.");
+            }
+        }
+
         return true;
     }
 }
