@@ -6,30 +6,37 @@ skinparam shadowing false
 'left to right direction
 
 skinparam classAttributeIconSize 0
-
-hide circle
+hide circles
 hide methods
 
-class GreenSpace {
-    name
-    area
+class GSM {
+
 }
 
-class Task {
-    description
-    urgency: {High, Medium, Low}
-    duration
+class GreenSpace {
+  name
+  area
 }
 
 class ToDoListEntry {
     task
     greenSpace
+    urgency
+    duration
 }
 
-class GSM {
+class Task {
+    description
+    regularity
 }
 
-GSM "1" *- "*" GreenSpace : manages >
-GSM "1" - "*" ToDoListEntry : adds >
+class ToDoList {
+    toDoListEntries
+}
+
+GSM "1" -- "0..*" GreenSpace : manages >
+GreenSpace "1" -- "0..*" ToDoListEntry : associated with >
+ToDoListEntry "1" -- "1" Task: has >
+ToDoList "1" -- "0..*" ToDoListEntry : includes >
 
 @enduml
