@@ -49,7 +49,7 @@ public class MaintenanceRepository {
     private List<Vehicle> getMaintenance(Vehicle vehicle, List<Vehicle> vehicles) {
         try {
             vehicles = removeVehicle(vehicle, vehicles);
-        }catch (IllegalArgumentException e){
+        }catch (IllegalArgumentException | NullPointerException e){
             System.out.println("There is no vehicle with the plate number: " + vehicle.getPlateNumber());
         }
         return vehicles;
@@ -58,9 +58,9 @@ public class MaintenanceRepository {
     /**
      * Checks if vehicle exists or not
      */
-    private static void checkIfMaintenanceNotNull( Vehicle vehicle) {
-        if (vehicle == null) {
-            throw new IllegalArgumentException("Invalid vehicle that needs maintenance to add");
+    private static void checkIfMaintenanceNotNull( Maintenance maintenance) {
+        if (maintenance == null) {
+            throw new NullPointerException("Invalid vehicle that needs maintenance to add");
         }
     }
 
@@ -73,7 +73,8 @@ public class MaintenanceRepository {
     private List<Vehicle> removeVehicle(Vehicle vehicle, List<Vehicle> vehicles) {
         Maintenance m1 = new Maintenance(vehicle);
         List<Vehicle> mutableVehicleList = new ArrayList<>(vehicles);
-        checkIfMaintenanceNotNull(vehicle);
+        Maintenance maintenance1 = new Maintenance(vehicle);
+        checkIfMaintenanceNotNull(maintenance1);
         if (!m1.validateVehicleMaintenance(vehicle)) {
             mutableVehicleList.remove(vehicle);
             vehicles = mutableVehicleList;
@@ -101,9 +102,9 @@ public class MaintenanceRepository {
      */
     public void addVehicleMaintenance(Maintenance maintenance) {
         try {
+            checkIfMaintenanceNotNull(maintenance);
             VehicleRepository vehicleRepository = Repositories.getInstance().getVehicleRepository();
             Vehicle vehicle = vehicleRepository.getVehicleFromPlate(maintenance.getPlateNumber());
-            checkIfMaintenanceNotNull(vehicle);
             Optional<Maintenance> existingMaintenanceOpt = maintenanceList.stream()
                     .filter(m -> m.getPlateNumber().equals(maintenance.getPlateNumber()))
                     .findFirst();
@@ -127,10 +128,13 @@ public class MaintenanceRepository {
                 } else {
                     throw new InstanceAlreadyExistsException("The vehicle with the plate: " + maintenance.getPlateNumber() + " already exists");
                 }
-            }
-        } catch (IllegalArgumentException | InstanceAlreadyExistsException e) {
+            }        } catch (IllegalArgumentException | InstanceAlreadyExistsException e) {
             System.out.println(e.getMessage());
+        } catch (NullPointerException e) {
+            System.out.println(e.getMessage());
+            throw e;
         }
+
     }
 
     /**

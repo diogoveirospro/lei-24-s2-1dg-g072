@@ -36,7 +36,7 @@ class Agenda {
 
 GSM "1" -- "0..*" GreenSpace : manages >
 Agenda "1" -- "0..*" AgendaEntry : includes >
-AgendaEntry --|> Entry
+AgendaEntry "1" -- "1" Entry: is a >
 GSM "1" -- "0..*" AgendaEntry : add >
 
 
