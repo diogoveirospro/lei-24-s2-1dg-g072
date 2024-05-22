@@ -6,6 +6,7 @@ import pt.ipp.isep.dei.esoft.project.domain.Date;
 import pt.ipp.isep.dei.esoft.project.domain.Maintenance;
 import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
 
+import javax.management.InstanceAlreadyExistsException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,4 +89,12 @@ class MaintenanceRepositoryTest {
         assertThrows(NullPointerException.class, () -> maintenanceRepository.addVehicleMaintenance(maintenanceNull));
 
     }
+    @Test
+    void getVehicleListNull() {
+        MaintenanceRepository maintenanceRepository = new MaintenanceRepository();
+        List<Vehicle> vehicleList = new ArrayList<>();
+        vehicleList.add(null);
+        assertThrows(NullPointerException.class, () -> maintenanceRepository.getVehicleList(vehicleList));
+    }
+
 }
