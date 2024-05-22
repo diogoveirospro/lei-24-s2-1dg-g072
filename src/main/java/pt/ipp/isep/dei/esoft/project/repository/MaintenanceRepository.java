@@ -83,18 +83,6 @@ public class MaintenanceRepository {
     }
 
 
-
-
-    /**
-     * Private method to see if a vehicle is already in the repository.
-     *
-     * @param maintenance: vehicle that needs maintenance to be checked
-     * @return if the vehicle is already in the repository or not
-     */
-    private boolean validateVehicleMaintenance(Maintenance maintenance) {
-        return !maintenanceList.contains(maintenance);
-    }
-
     /**
      * Add a vehicle that needs maintenance to the maintenance repository.
      *
@@ -105,36 +93,32 @@ public class MaintenanceRepository {
             checkIfMaintenanceNotNull(maintenance);
             VehicleRepository vehicleRepository = Repositories.getInstance().getVehicleRepository();
             Vehicle vehicle = vehicleRepository.getVehicleFromPlate(maintenance.getPlateNumber());
+
+            if (!maintenance.validateVehicleMaintenance(vehicle)) {
+                throw new IllegalArgumentException("Invalid maintenance data for vehicle with plate: " + maintenance.getPlateNumber());
+            }
+
             Optional<Maintenance> existingMaintenanceOpt = maintenanceList.stream()
                     .filter(m -> m.getPlateNumber().equals(maintenance.getPlateNumber()))
                     .findFirst();
+
             if (existingMaintenanceOpt.isPresent()) {
                 Maintenance existingMaintenance = existingMaintenanceOpt.get();
-                if (maintenance.validateVehicleMaintenance(vehicle)) {
-                    existingMaintenance.updateFrom(maintenance);
-                    System.out.println("Maintenance updated for vehicle with plate: " + maintenance.getPlateNumber());
-                } else {
-                    throw new IllegalArgumentException("Invalid maintenance data for vehicle with plate: " + maintenance.getPlateNumber());
-                }
+                existingMaintenance.updateFrom(maintenance);
+                System.out.println("Maintenance updated for vehicle with plate: " + maintenance.getPlateNumber());
             } else {
-                if (maintenance.validateVehicleMaintenance(vehicle)) {
-                    maintenance.setVehicleMaintenance(vehicle);
-                    if (validateVehicleMaintenance(maintenance)) {
-                        maintenanceList.add(maintenance);
-                        System.out.println("Maintenance added for vehicle with plate: " + maintenance.getPlateNumber());
-                    } else {
-                        throw new IllegalArgumentException("Invalid maintenance data.");
-                    }
-                } else {
-                    throw new InstanceAlreadyExistsException("The vehicle with the plate: " + maintenance.getPlateNumber() + " already exists");
-                }
-            }        } catch (IllegalArgumentException | InstanceAlreadyExistsException e) {
+                maintenance.setVehicleMaintenance(vehicle);
+
+                    maintenanceList.add(maintenance);
+                    System.out.println("Maintenance added for vehicle with plate: " + maintenance.getPlateNumber());
+
+            }
+        } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         } catch (NullPointerException e) {
             System.out.println(e.getMessage());
             throw e;
         }
-
     }
 
     /**

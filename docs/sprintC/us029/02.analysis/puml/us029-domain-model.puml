@@ -3,13 +3,17 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
 class Collaborator {
     name
 }
 
-class GreenSpace {
-    name
-    area
+class Agenda {
+    agendaEntries
 }
 
 class ToDoListEntry {
@@ -23,25 +27,9 @@ class AgendaEntry {
     completionDate
 }
 
-class Team {
-    members
-}
-
-class ToDoList {
-    toDoListEntries
-}
-
-class Agenda {
-    agendaEntries
-}
-
-Collaborator "1" -- "0..*" ToDoListEntry : completes
-GreenSpace "1" -- "0..*" ToDoListEntry : includes
-ToDoListEntry "1" -- "1" Team : assignedTo
-ToDoListEntry "1" -- "0..1" AgendaEntry : plannedIn
-ToDoList "1" -- "0..*" ToDoListEntry : includes
+Collaborator "1" -- "0..*" Agenda : completes
 Agenda "1" -- "0..*" AgendaEntry : includes
+Agenda "1" -- "0..*" ToDoListEntry : includes
 AgendaEntry "1" -- "1" ToDoListEntry : references
-Team "1" -- "0..*" Collaborator : has
 
 @enduml
