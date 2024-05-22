@@ -1,0 +1,24 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+class "Green Space" {
+     name
+     type : {garden, medium-sized park, large-sized park}
+     area
+}
+
+class "Green Space Manager" {
+
+}
+
+"Green Space Manager" "1" - "*" "Green Space" : register >
+
+@enduml
