@@ -28,13 +28,16 @@ _**Note that SSD - Alternative One is adopted.**_
 
 According to the taken rationale, the conceptual classes promoted to software classes are: 
 
-* VehicleRepository
-* Vehicle
+* ToDoList
+* ToDoListMapper
+* Agenda
+* AgendaEntry
 
 Other software classes (i.e. Pure Fabrication) identified: 
 
-* RegisterVehicleUI  
-* RegisterVehicleController
+* AddAgendaEntryUI
+* ToDoListDto
+* AddAgendaEntryController
 
 
 ## 3.2. Sequence Diagram (SD)
@@ -47,18 +50,6 @@ This diagram shows the full sequence of interactions between the classes involve
 
 ![Sequence Diagram - Full](svg/us022-sequence-diagram-full.svg)
 
-### Split Diagrams
-
-The following diagram shows the same sequence of interactions between the classes involved in the realization of this user story, but it is split in partial diagrams to better illustrate the interactions between the classes.
-
-It uses Interaction Occurrence (a.k.a. Interaction Use).
-
-![Sequence Diagram - split](svg/us006-sequence-diagram-split.svg)
-
-**Register Vehicle**
-
-![Sequence Diagram - Partial - Register Vehicle](svg/us006-sequence-diagram-partial-register-vehicle.svg)
-
 ## 3.3. Class Diagram (CD)
 
-![Class Diagram](svg/us006-class-diagram.svg)
+![Class Diagram](svg/us022-class-diagram.svg)
