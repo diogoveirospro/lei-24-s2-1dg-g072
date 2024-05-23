@@ -3,7 +3,7 @@ package pt.ipp.isep.dei.esoft.project.domain.utils;
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidVehicleDataException;
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import pt.ipp.isep.dei.esoft.project.domain.Date;
-import pt.ipp.isep.dei.esoft.project.exceptions.InvalidCollaboratorDataException;
+import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidCollaboratorDataException;
 
 /**
  * Utility class for validating collaborator data.
