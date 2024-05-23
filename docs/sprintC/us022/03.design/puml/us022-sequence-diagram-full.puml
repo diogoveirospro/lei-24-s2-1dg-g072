@@ -66,8 +66,10 @@ activate GSM
                 TODOLISTMAPPER --> TODOLISTDTO** : create()
 
                 loop for each toDoListEntry
-                    TODOLISTMAPPER -> LISTENTRIES : obj = get(i)
+                    TODOLISTMAPPER -> LISTENTRIES : get(i)
                     activate LISTENTRIES
+
+                    LISTENTRIES --> TODOLISTMAPPER : obj
                     deactivate LISTENTRIES
 
                     TODOLISTMAPPER -> TODOLISTMAPPER : objDto = toDTO(obj)
@@ -115,11 +117,18 @@ activate GSM
                 AGENDA -> AGENDAENTRY** : createEntry(toDoListEntry, startDate, endDate)
                 activate AGENDAENTRY
 
-                AGENDAENTRY -> AGENDAENTRY : taskSchedule()
+                AGENDAENTRY -> AGENDAENTRY : b = validateEntry()
                 activate AGENDAENTRY
                 deactivate AGENDAENTRY
 
+                opt b == true
+                AGENDAENTRY -> AGENDAENTRY : taskSchedule()
+                activate AGENDAENTRY
+
                 deactivate AGENDAENTRY
+
+                deactivate AGENDAENTRY
+                end
 
                 AGENDA --> CTRL : agendaEntry
                 deactivate AGENDA
