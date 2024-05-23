@@ -56,14 +56,16 @@ Best regards.
 
 ### 1.4. Found out Dependencies
 
-* No dependencies were found.
+* There is a dependency on the US023 - Assign a Entry to a Team, since the tasks are assigned to the collaborator through the team.
 
 ### 1.5 Input and Output Data
 
 * Selected Data:
-      * begin data 
-      * end data
-      * Type of status to view: (To-Do, Done, In progress, etc.)
+    * begin data  
+
+    * end data
+
+    * Type of status to view: (To-Do, Done, In progress, etc.)
 
 **Output Data:**
 

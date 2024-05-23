@@ -8,4 +8,5 @@ public class Task {
     private Team team;
 //    private Entry.StatusOfEntry status;
     public Date duration;
+    private String task;
 }

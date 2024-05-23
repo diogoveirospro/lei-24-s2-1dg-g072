@@ -12,7 +12,6 @@ participant ":ListTaskController" as CTRL
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as REP
 participant "collaboratorRepository\n:CollaboratorRepository" as collaboratorRepository
-participant "date:Date" as Date
 participant "taskRepository\n:TaskRepository" as taskRepository
 participant ":TaskMapper" as Mapper
 participant "taskList\n:List<Task>" as LISTTASK
@@ -60,13 +59,7 @@ activate Col
            Col -> UI : selects the beginning and end date
            activate UI
 
-                    UI -> CTRL: saveDatesSelected(dateI,dateF)
-                    activate CTRL
-                            loop For both dates selected
-                            CTRL -> Date**: Date(date)
-                            end
-                            CTRL --> UI: true/false statement
-                    deactivate CTRL
+
 
                     UI -> CTRL: getStatusList()
                     activate CTRL
