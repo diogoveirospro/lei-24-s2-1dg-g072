@@ -6,9 +6,6 @@ import pt.ipp.isep.dei.esoft.project.domain.Task;
 
 import java.util.List;
 
-public class ToDoList {
-    List<Entry> entries;
-    List<Task> tasks;
-    List<GreenSpace> greenSpaces;
-
+public class ToDoList extends Entry {
+    private List<ToDoList> toDoListEntries;
 }

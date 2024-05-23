@@ -57,11 +57,7 @@ public class Entry {
     private DegreeOfUrgency degree;
     private Task task;
     private Team team;
-
-    public Entry(Task task, Team team, DegreeOfUrgency degree) {
-        this.task = task;
-        this.team = team;
-        this.degree = degree;
-        this.status = StatusOfEntry.PLANNED;
-    }
+    private GreenSpace greenSpace;
+    private Date startDate;
+    private Date endDate;
 }

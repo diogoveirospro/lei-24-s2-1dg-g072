@@ -172,13 +172,13 @@ activate Col
                     Mapper --> LISTTASKDTO** : create()
 
                                                                 loop for each task in taskList
-                                                                    Mapper -> LISTTASK : task = get(i)
+                                                                    Mapper -> LISTTASK : get(i)
                                                                     activate LISTTASK
 
                                                                             LISTTASK --> Mapper : task
                                                                     deactivate LISTTASK
 
-                                                                    Mapper -> DTO** : taskDto = toDTOtask(task)
+                                                                    Mapper -> DTO** : toDTOTask(task)
 
 
 

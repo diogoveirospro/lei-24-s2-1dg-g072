@@ -1,8 +1,11 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.util.Date;
 import java.util.List;
 
 public class AgendaEntry extends Entry{
-    List<Entry> entries;
-
+    private ToDoListEntry toDoListEntry;
+    private Date startDate;
+    private Date endDate;
+    private StatusOfEntry status;
 }
