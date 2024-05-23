@@ -60,7 +60,7 @@ activate GSM
                 TODOLIST --> CTRL : listEntries
             deactivate TODOLIST
 
-            CTRL -> TODOLISTMAPPER : toDoListEntriesToDto(listEntries)
+            CTRL -> TODOLISTMAPPER** : toDoListEntriesToDto(listEntries)
             activate TODOLISTMAPPER
 
                 TODOLISTMAPPER --> TODOLISTDTO** : create()
