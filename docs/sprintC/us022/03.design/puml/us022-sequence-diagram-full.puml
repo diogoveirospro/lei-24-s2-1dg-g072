@@ -12,6 +12,8 @@ participant ":AddAgendaEntryController" as CTRL
 participant Repositories
 participant "repositories\n:Repositories" as REP
 participant "toDoList\n:toDoList" as TODOLIST
+participant "agenda\n:Agenda" as AGENDA
+participant "agendaEntry\n:AgendaEntry" as AGENDAENTRY
 participant ":ToDoListMapper" as TODOLISTMAPPER
 participant "listEntries\n:List<ToDoListEntry>" as LISTENTRIES
 participant "toDoListDto\n:List<toDoListDto>" as TODOLISTDTO
@@ -89,14 +91,63 @@ activate GSM
         UI --> GSM: shows all the tasks registered in the \nTo-Do List and asks you to select the \none you want to add
     deactivate UI
 
-    GSM -> UI: select the desired task
+    GSM -> UI: select the desired task and its start and\n end date
     activate UI
+
+        UI -> CTRL : createEntry(toDoListEntry, startDate, endDate)
+        activate CTRL
+
+            CTRL -> Repositories: getInstance()
+            activate Repositories
+
+                Repositories --> CTRL: repositories
+            deactivate Repositories
+
+            CTRL -> REP: getAgenda()
+            activate REP
+
+                REP --> CTRL: agenda
+            deactivate REP
+
+            CTRL -> AGENDA** : createEntry(toDoListEntry, startDate, endDate)
+            activate AGENDA
+
+                AGENDA -> AGENDAENTRY** : createEntry(toDoListEntry, startDate, endDate)
+                activate AGENDAENTRY
+
+                AGENDAENTRY -> AGENDAENTRY : taskSchedule()
+                activate AGENDAENTRY
+                deactivate AGENDAENTRY
+
+                deactivate AGENDAENTRY
+
+                AGENDA --> CTRL : agendaEntry
+                deactivate AGENDA
+
+            CTRL --> UI : agendaEntry
 
         UI --> GSM: shows all data and requests confirmation
     deactivate UI
 
     GSM -> UI: confirms data
     activate UI
+
+        UI -> CTRL : addAgendaEntry()
+        activate CTRL
+
+            CTRL -> AGENDA : addAgendaEntry(agendaEntry)
+            activate AGENDA
+
+            AGENDA -> AGENDA : validateEntry()
+            activate AGENDA
+
+            deactivate AGENDA
+
+            AGENDA --> CTRL : operation success
+            deactivate AGENDA
+
+            CTRL --> UI : operation success
+        deactivate CTRL
 
         UI --> GSM: displays operation success
     deactivate UI

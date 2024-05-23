@@ -25,7 +25,8 @@ class Entry {
 }
 
 class AgendaEntry {
-    date
+    startDate
+    endDate
     status
 }
 
