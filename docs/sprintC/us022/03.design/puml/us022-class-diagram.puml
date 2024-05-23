@@ -75,13 +75,13 @@ class Task {
     - team : Team
     - vehicles : List<Vehicle>
     - duration : Date
-    - priority : enum
-    + Task(description, team, vehicles, duration, priority)
+    + Task(description, team, vehicles, duration)
 }
 
 class ToDoListEntry {
     - task : Task
     - greenSpace : GreenSpace
+    - priority : enum
     + ToDoListEntry(task, greenSpace)
 }
 
@@ -89,7 +89,7 @@ class ToDoListEntry {
 package "Mapper" <<Folder>> #DDDDDD {
 class ToDoListMapper {
     +toDoListEntriesToDto(entries) : List<ToDoListEntryDto>
-    +toDTO(entry : ToDoListEntry) : ToDoListEntryDto
+    +toDTO(toDoListEntry) : ToDoListEntryDto
 }
 
 }
