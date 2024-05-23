@@ -14,11 +14,10 @@ participant "repositories\n:Repositories" as REP
 participant "collaboratorRepository\n:CollaboratorRepository" as collaboratorRepository
 participant "date:Date" as Date
 participant "taskRepository\n:TaskRepository" as taskRepository
-participant "taskCollaboratorList\n:List<Task>" as list
 participant ":TaskMapper" as Mapper
 participant "taskList\n:List<Task>" as LISTTASK
-participant "statusListDto\n:List<String>" as LISTSTATUSTODTO
-
+participant "statusList\n:List<String>" as LISTSTATUS
+participant "taskListDto\n:List<TaskDto>" as LISTTASKDTO
 participant "taskDto\n:TaskDto" as DTO
 
 activate Col
@@ -89,61 +88,25 @@ activate Col
                             activate taskRepository
 
 
-                                                        taskRepository --> LISTTASK** : create()
+                                                        taskRepository --> LISTSTATUS** : create()
 
 
-                                                            loop for each task in the system
-                                                                taskRepository -> LISTTASK : add(task)
-                                                                activate LISTTASK
+                                                            loop for each status in the system
+                                                                taskRepository -> LISTSTATUS : add(status)
+                                                                activate LISTSTATUS
 
                                                             end
 
-                                                            LISTTASK --> taskRepository : taskList
-                                                        deactivate LISTTASK
+                                                            LISTSTATUS --> taskRepository : statusList
+                                                        deactivate LISTSTATUS
 
 
 
-                                    taskRepository --> CTRL: taskList
+                                    taskRepository --> CTRL: statusList
                             deactivate taskRepository
 
-                            CTRL -> Mapper : statusListToDto(taskList)
-                                        activate Mapper
 
-                                            Mapper --> LISTSTATUSTODTO** : create()
-
-                                            loop for each toDoListEntry
-                                                Mapper -> LISTTASK : task = get(i)
-                                                activate LISTTASK
-
-                                                        LISTTASK --> Mapper : task
-                                                deactivate LISTTASK
-
-                                                Mapper -> DTO** : statusDto = toDTOStatus(task)
-
-
-
-                                                activate DTO
-                                                    DTO -> DTO : getStatus()
-                                                    activate DTO
-
-                                                    DTO --> Mapper : statusDto
-
-                                                    deactivate DTO
-
-                                                deactivate DTO
-                                                Mapper -> LISTSTATUSTODTO : add(statusDto)
-                                                activate LISTSTATUSTODTO
-
-                                                        end
-                                                        LISTSTATUSTODTO --> Mapper : statusListDto
-                                                deactivate LISTSTATUSTODTO
-
-
-
-                                            Mapper --> CTRL : statusListDto
-
-                                        deactivate Mapper
-                            CTRL --> UI: statusListDto
+                            CTRL --> UI: statusList
                     deactivate CTRL
                    UI --> Col: asks to select the type of status he wants to consult
            deactivate UI
@@ -177,13 +140,15 @@ activate Col
 
                 activate taskRepository
 
-                        taskRepository -> list**: List<Task> taskCollaboratorList
+                        taskRepository -> LISTTASK**: create()
 
                         loop for each task in the system
                         opt ((typeStatus() == task.getStatus()) && (collaborator.getIdNumber() == task.getIdNumber())\n &&(dateI <= task.getDateI()) && (dateF >= task.getDateF()))
 
-                            taskRepository -> taskRepository: addTaskOfCollaborator(task)
-                            activate taskRepository
+                            taskRepository -> LISTTASK: addTaskOfCollaborator(task)
+                            activate LISTTASK
+
+
 
 
 
@@ -191,30 +156,55 @@ activate Col
 
                         end
 
+                            LISTTASK --> taskRepository: taskList
 
+                            deactivate LISTTASK
 
-                        taskRepository --> CTRL : taskCollaboratorList
+                        taskRepository --> CTRL : taskList
 
                 deactivate taskRepository
 
                 deactivate taskRepository
 
-            CTRL -> Mapper : toDTO(taskCollaboratorList)
+            CTRL -> Mapper : toDTO(taskList)
             activate Mapper
-                    loop for each task in taskCollaboratorList
 
-                        Mapper -> DTO : TaskDto(task)
+                    Mapper --> LISTTASKDTO** : create()
 
-                        Mapper -> Mapper : addTask(taskDto)
-                        activate Mapper
-                    end
-                    Mapper --> CTRL : taskListDto
-                    deactivate Mapper
+                                                                loop for each task in taskList
+                                                                    Mapper -> LISTTASK : task = get(i)
+                                                                    activate LISTTASK
+
+                                                                            LISTTASK --> Mapper : task
+                                                                    deactivate LISTTASK
+
+                                                                    Mapper -> DTO** : taskDto = toDTOtask(task)
+
+
+
+                                                                    activate DTO
+
+
+                                                                        DTO --> Mapper : taskDto
+
+
+                                                                    deactivate DTO
+                                                                    Mapper -> LISTTASKDTO : add(taskDto)
+                                                                    activate LISTTASKDTO
+
+                                                                            end
+                                                                            LISTTASKDTO --> Mapper : taskListDto
+                                                                    deactivate LISTTASKDTO
+
+
+
+                                                                Mapper --> CTRL : taskListDto
+
 
             deactivate Mapper
             CTRL --> UI: taskListDto
             deactivate CTRL
-            UI --> Col: shows the list
+            UI --> Col: shows the LISTTASK
     deactivate UI
 
 deactivate Col
