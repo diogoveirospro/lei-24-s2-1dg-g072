@@ -79,8 +79,6 @@ public class GenerateTeamProposalUI implements Runnable {
         List<Collaborator> collaborators = controller.getCollaborators();
         team = controller.generateTeamProposal(minimumSize, maximumSize, selectedSkills, collaborators);
 
-
-        System.out.println("\nTeam Members:");
         System.out.println(team);
 
         System.out.println("\nDo you agree with this team proposal? [Y/N]");
@@ -109,23 +107,23 @@ public class GenerateTeamProposalUI implements Runnable {
         displaySkillsOptions(skills);
 
         List<Skill> selectedSkills = new ArrayList<>();
-        String answer;
+        int answer;
 
         do {
-            System.out.print("\nEnter the name of a skill to select (or type 'done' to finish): ");
-            answer = scanner.nextLine().trim();
+            System.out.print("\nEnter the integer corresponding to the skill you want: (or type '0' to finish): ");
+            answer = scanner.nextInt();
 
-            if (!answer.equalsIgnoreCase("done")) {
-                Skill selectedSkill = findSkillByName(skills, answer);
+            if (answer != 0) {
+                Skill selectedSkill = findSkillByName(skills, skills.get(answer - 1).getName());
                 if (selectedSkill != null) {
                     selectedSkills.add(selectedSkill);
-                    System.out.println("'" + answer + "' selected.");
+                    System.out.println("'" + skills.get(answer - 1) + "' selected.");
                 } else {
                     System.out.println("Skill not found. Try again.");
                 }
             }
-        } while (!answer.equalsIgnoreCase("done"));
-
+        } while (answer != 0);
+        scanner.nextLine();
         return selectedSkills;
     }
 
@@ -135,7 +133,7 @@ public class GenerateTeamProposalUI implements Runnable {
      */
     private void displaySkillsOptions(List<Skill> skills) {
         for (Skill skill : skills) {
-            System.out.println("- " + skill.getName());
+            System.out.println(skills.indexOf(skill) + 1 + " - " + skill.getName());
         }
         scanner.nextLine();
     }
@@ -173,7 +171,7 @@ public class GenerateTeamProposalUI implements Runnable {
      */
     private Collaborator findCollaboratorByIDNumber(List<Collaborator> collaborators, int idNumber) {
         for (Collaborator collaborator : collaborators) {
-            if (collaborator.getIdDocNumber() == idNumber) {
+            if (Integer.parseInt(collaborator.getIdDocNumber()) == idNumber) {
                 return collaborator;
             }
         }

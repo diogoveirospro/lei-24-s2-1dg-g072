@@ -1,13 +1,13 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
-import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidMobileNumberException;
+import pt.ipp.isep.dei.esoft.project.domain.Job;
+import pt.ipp.isep.dei.esoft.project.domain.utils.ValidatorUtils;
+import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidCollaboratorDataException;
 import pt.ipp.isep.dei.esoft.project.application.controller.RegisterCollaboratorController;
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import pt.ipp.isep.dei.esoft.project.domain.Date;
-import pt.ipp.isep.dei.esoft.project.domain.Job;
-import pt.ipp.isep.dei.esoft.project.repository.JobRepository;
-import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -19,6 +19,7 @@ import java.util.Scanner;
  */
 public class RegisterCollaboratorUI implements Runnable {
     private final RegisterCollaboratorController controller;
+
 
     /**
      * Constructs a new RegisterCollaboratorUI object and initializes it with a RegisterCollaboratorController instance.
@@ -40,43 +41,151 @@ public class RegisterCollaboratorUI implements Runnable {
 
         // Requesting basic information from HRM
         System.out.print("Enter name: ");
-        String name = scanner.nextLine();
+        String name = validateName(scanner);
 
-        Date birthDate = promptForBirthDate(scanner);
+        System.out.print("Enter birthdate (YYYY-MM-DD): ");
+        Date birthDate = validateBirthDate(scanner);
 
-        Date admissionDate = promptForAdmissionDate(scanner, birthDate);
+        System.out.print("Enter admission date (YYYY-MM-DD): ");
+        Date admissionDate = validateAdmissionDate(scanner, birthDate);
 
         System.out.print("Enter address: ");
-        String address = scanner.nextLine();
+        String address = validateAddress(scanner);
 
         System.out.print("Enter contact number: ");
-        int mobile = validateMobileNumber(scanner);
+        String mobile = validateMobileNumber(scanner);
 
         System.out.print("Enter email address: ");
         String email = validateEmail(scanner);
 
         System.out.print("Enter taxpayer number: ");
-        int taxpayerNumber = validateTaxpayerNumber(scanner);
+        String taxpayerNumber = validateTaxpayerNumber(scanner);
 
-        System.out.print("Enter ID document type: ");
+        System.out.println("Enter ID document type: ");
         Collaborator.IdDocType idDocType = chooseIdDocumentType(scanner);
 
         System.out.print("Enter ID document number: ");
-        String idDocNumber = validateIdDocumentNumber(scanner);
+        String idDocNumber = validateIdDocumentNumber(scanner, idDocType);
 
-        System.out.print("Enter job name: ");
+        
+        System.out.println("Enter the integer corresponding to the desired job: ");
         String jobName = assignJob(scanner);
 
         // Registering the collaborator
-        controller.registerCollaborator(name, birthDate, admissionDate, address, mobile, email, taxpayerNumber,
-                idDocType, idDocNumber, jobName);
+        try {
+            controller.registerCollaborator(name, birthDate, admissionDate, address, mobile, email, taxpayerNumber,
+                    idDocType, idDocNumber, jobName);
+        } catch (InvalidCollaboratorDataException e) {
+            System.out.println(e.getMessage());
+        }
 
         System.out.println("\nCollaborator successfully registered!");
     }
 
+    /**
+     * Validates the collaborator's name input.
+     *
+     * @param scanner the scanner to read user input
+     * @return the validated name
+     */
+    private String validateName(Scanner scanner) {
+        String name = "";
+        boolean valid = false;
 
+        while (!valid){
 
-    private int validateMobileNumber(Scanner scanner){
+            try {
+                name = scanner.nextLine();
+                valid = ValidatorUtils.isValidName(name);
+
+            }catch (InvalidCollaboratorDataException e){
+                System.out.println(e.getMessage());
+                System.out.print("Enter name: ");
+            }
+        }
+        return name;
+    }
+
+    /**
+     * Validates the collaborator's birthdate input.
+     *
+     * @param scanner the scanner to read user input
+     * @return the validated birthdate
+     */
+    private static Date validateBirthDate(Scanner scanner) {
+        boolean valid = false;
+        Date birthDate = null;
+
+        while (!valid) {
+
+            try {
+                String dateStr = scanner.nextLine();
+                birthDate = ValidatorUtils.validateBirthDate(dateStr);
+                valid = true;
+            } catch (InvalidCollaboratorDataException e) {
+                System.out.println(e.getMessage());
+                System.out.print("Enter birthdate (YYYY-MM-DD): ");
+            }
+        }
+
+        return birthDate;
+    }
+
+    /**
+     * Validates the collaborator's admission date input.
+     *
+     * @param scanner    the scanner to read user input
+     * @param birthDate the birthdate to compare with
+     * @return the validated admission date
+     */
+    private static Date validateAdmissionDate(Scanner scanner, Date birthDate) {
+        boolean valid = false;
+        Date admissionDate = null;
+
+        while (!valid) {
+
+            try {
+                String dateStr = scanner.nextLine();
+                admissionDate = ValidatorUtils.validateAdmissionDate(dateStr, birthDate);
+                valid = true;
+            } catch (InvalidCollaboratorDataException e) {
+                System.out.println(e.getMessage());
+                System.out.print("Enter admission date (YYYY-MM-DD): ");
+            }
+        }
+        return admissionDate;
+    }
+
+    /**
+     * Validates the collaborator's address input.
+     *
+     * @param scanner the scanner to read user input
+     * @return the validated address
+     */
+    private String validateAddress(Scanner scanner){
+        String address = "";
+        boolean valid = false;
+
+        while (!valid) {
+
+            try {
+                address = scanner.nextLine();
+                valid = ValidatorUtils.isValidAddress(address);
+            } catch (InvalidCollaboratorDataException e){
+                System.out.println(e.getMessage());
+                System.out.print("Enter address: ");
+            }
+        }
+        return address;
+    }
+
+    /**
+     * Validates the collaborator's mobile number input.
+     *
+     * @param scanner the scanner to read user input
+     * @return the validated mobile number
+     */
+    private String validateMobileNumber(Scanner scanner){
         String mobile = "";
         boolean valid = false;
 
@@ -84,71 +193,71 @@ public class RegisterCollaboratorUI implements Runnable {
 
             try {
                 mobile = scanner.nextLine();
-                if (mobile.length() != 9) {
-                    throw new InvalidMobileNumberException("Invalid input. The number must be exactly 9 digits.");
+                valid = ValidatorUtils.isValidMobileNumber(mobile);
 
-                }else if (!mobile.startsWith("91") || !mobile.startsWith("92") || !mobile.startsWith("93") || !mobile.startsWith("96")){
-                    throw new InvalidMobileNumberException("Invalid input. The number must start with 91, 92, 93, or 96.");
-
-                } else if (!mobile.matches("\\d+")) {
-                    throw new InvalidMobileNumberException("Invalid Input. The mobile number must be a number.");
-
-                }
-                valid = true;
-
-            } catch (InvalidMobileNumberException e) {
+            } catch (InvalidCollaboratorDataException e) {
                 System.out.println(e.getMessage());
                 System.out.print("Enter contact number: ");
             }
         }
-        scanner.nextLine();
-        return Integer.parseInt(mobile);
+        return mobile;
     }
 
+    /**
+     * Validates the collaborator's email input.
+     *
+     * @param scanner the scanner to read user input
+     * @return the validated email address
+     */
     private String validateEmail(Scanner scanner){
-        String email = null;
+        String email = "";
         boolean valid = false;
 
         while (!valid) {
 
-            email = scanner.nextLine();
+            try {
+                email = scanner.nextLine();
+                valid = ValidatorUtils.isValidEmail(email);
 
-            if (email.contains("@")) {
-                valid = true;
-            } else {
-                System.out.println("Invalid input. Please enter a valid email address.");
+            } catch (InvalidCollaboratorDataException e){
+                System.out.println(e.getMessage());
                 System.out.print("Enter email address: ");
             }
         }
         return email;
     }
 
-    private int validateTaxpayerNumber(Scanner scanner){
-        int taxpayerNumber = 0;
+    /**
+     * Validates the collaborator's taxpayer number input.
+     *
+     * @param scanner the scanner to read user input
+     * @return the validated taxpayer number
+     */
+    private String validateTaxpayerNumber(Scanner scanner){
+        String taxpayerNumber = "";
         boolean valid = false;
 
         while (!valid) {
 
             try {
-                taxpayerNumber = scanner.nextInt();
-                if (taxpayerNumber > 99999999) {
-                    valid = true;
-                } else {
-                    System.out.println("Invalid input. The taxpayer number must be exactly 9 digits.");
-                    System.out.print("Enter taxpayer number: ");
-                }
+                taxpayerNumber = scanner.nextLine();
+                valid = ValidatorUtils.isValidTaxpayerNumber(taxpayerNumber);
 
-            } catch (Exception e) {
-                System.out.println("Invalid input. Please enter a valid integer.");
-                scanner.nextLine();
+            } catch (InvalidCollaboratorDataException e) {
+                System.out.println(e.getMessage());
                 System.out.print("Enter taxpayer number: ");
             }
         }
 
-        scanner.nextLine();
         return taxpayerNumber;
     }
 
+    /**
+     * Prompts the user to choose an ID document type.
+     *
+     * @param scanner the scanner to read user input
+     * @return the chosen ID document type
+     */
     private Collaborator.IdDocType chooseIdDocumentType(Scanner scanner) {
 
         for (Collaborator.IdDocType type : Collaborator.IdDocType.values()) {
@@ -156,108 +265,87 @@ public class RegisterCollaboratorUI implements Runnable {
         }
 
         int choice = scanner.nextInt();
+        scanner.nextLine();
         return Collaborator.IdDocType.values()[choice - 1];
     }
 
-    private String validateIdDocumentNumber(Scanner scanner){
-        String idDocNumber = null;
+    /**
+     * Validates the collaborator's ID document number input.
+     *
+     * @param scanner the scanner to read user input
+     * @param idDocType the ID document type
+     * @return the validated ID document number
+     */
+    private String validateIdDocumentNumber(Scanner scanner, Collaborator.IdDocType idDocType){
+        String idDocNumber = "";
+        boolean valid = false;
 
-        try {
-            idDocNumber = scanner.nextLine();
+        while (!valid){
 
-        } catch (Exception e) {
-            System.out.println("Invalid input. Please enter a valid integer.");
-            scanner.nextLine();
-            System.out.print("Enter ID document number: ");
+            try {
+                idDocNumber = scanner.nextLine();
+                valid = ValidatorUtils.isValidDocumentNumber(idDocType, idDocNumber);
+
+            } catch (InvalidCollaboratorDataException e){
+                System.out.println(e.getMessage());
+                System.out.print("Enter ID document number: ");
+            }
+
         }
 
-        scanner.nextLine();
         return idDocNumber;
     }
 
+    /**
+     * Prompts the user to enter a job name and validates it against the job repository.
+     *
+     * @param scanner the scanner to read user input
+     * @return the validated job name
+     */
     private String assignJob(Scanner scanner){
-        JobRepository jobRepository = Repositories.getInstance().getJobRepository();
+        List<Job> jobsList = controller.getJobs();
+
+        int index;
         String jobName = null;
         boolean valid = false;
 
+        showJobs(jobsList);
+
         while (!valid) {
-            jobName = scanner.nextLine();
-            if (jobRepository.exists(jobName)) {
-                valid = true;
-            } else {
-                System.out.println("Job does not exist in the repository. Please enter a valid job name.");
+            try {
+                index = scanner.nextInt();
+                if (index > 0 && index <= jobsList.size()) {
+                    jobName = jobsList.get(index - 1).getName();
+                    valid = true;
+                } else {
+                    throw new InvalidCollaboratorDataException("Job not found please enter the integer corresponding to " +
+                            "the Job you want to register with the collaborator.");
+                }
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+                System.out.print("Enter the integer corresponding to the desired job: ");
             }
 
-            System.out.print("Enter job name: ");
 
         }
-
+        scanner.nextLine();
         return jobName;
     }
 
     /**
-     * Prompts the user to enter a date and parses it into a Date object.
+     * Displays a list of jobs to the console.
      *
-     * @param scanner the Scanner object to read input from the user
-     * @return the Date object representing the parsed date
+     * @param jobsList the list of jobs to be displayed
      */
-    private static Date promptForBirthDate(Scanner scanner) {
-        while (true) {
-            System.out.print("Enter birthdate (YYYY-MM-DD): ");
-            String dateStr = scanner.nextLine();
+    private void showJobs(List<Job> jobsList){
 
-            String[] parts = dateStr.split("-");
-            if (parts.length != 3) {
-                System.out.println("Invalid format. Please enter the date in YYYY-MM-DD format.");
-                continue;
-            }
+        for (int i = 0; i < jobsList.size(); i++) {
 
-            try {
-                int year = Integer.parseInt(parts[0]);
-                int month = Integer.parseInt(parts[1]);
-                int day = Integer.parseInt(parts[2]);
+            System.out.println(i + 1 + " - " + jobsList.get(i));
 
-                Date birthDate = new Date(year, month, day);
-                Date currentDate = Date.currentDate();
-
-                if (currentDate.difference(birthDate) < 18){
-                    System.out.println("Invalid date. Enter again!");
-                    continue;
-                }
-                return birthDate;
-            } catch (IllegalArgumentException e) {
-                System.out.println("Invalid date. Please make sure you enter valid year, month, and day numbers.");
-            }
         }
     }
 
-    private static Date promptForAdmissionDate(Scanner scanner, Date birthDate) {
-        while (true) {
-            System.out.print("Enter admission date (YYYY-MM-DD): ");
-            String dateStr = scanner.nextLine();
 
-            String[] parts = dateStr.split("-");
-            if (parts.length != 3) {
-                System.out.println("Invalid format. Please enter the date in YYYY-MM-DD format.");
-                continue;
-            }
 
-            try {
-                int year = Integer.parseInt(parts[0]);
-                int month = Integer.parseInt(parts[1]);
-                int day = Integer.parseInt(parts[2]);
-
-                Date admissionDate = new Date(year, month, day);
-
-                if (admissionDate.difference(birthDate) < 18){
-                    System.out.println("Invalid date. Enter again!");
-                    continue;
-                }
-                return admissionDate;
-            } catch (IllegalArgumentException e) {
-                System.out.println("Invalid date. Please make sure you enter valid year, month, and day numbers.");
-            }
-        }
-
-    }
 }

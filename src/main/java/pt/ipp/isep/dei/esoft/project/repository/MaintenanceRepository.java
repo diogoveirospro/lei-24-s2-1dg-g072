@@ -3,8 +3,10 @@ package pt.ipp.isep.dei.esoft.project.repository;
 import pt.ipp.isep.dei.esoft.project.domain.Maintenance;
 import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
 
+import javax.management.InstanceAlreadyExistsException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * This class contains all the existent vehicles that need maintenance.
@@ -31,62 +33,55 @@ public class MaintenanceRepository {
      * @return maintenance
      */
     public List<Vehicle> getVehicleList(List<Vehicle> vehicleList) {
+        List<Vehicle> vehicles = vehicleList;
         for (Vehicle vehicle : vehicleList) {
-            getMaintenance(vehicle, vehicleList);
+            vehicles = getMaintenance(vehicle, vehicles);
         }
-        return vehicleList;
+        return vehicles;
     }
 
     /**
      * Lets the user get the maintenance of a specific vehicle
      *
      * @param vehicle that we want to get
-     * @param vehicleList list of all vehicles (will be changed in accord with the fact of needing or not maintenance)
+     * @param vehicles list of all vehicles (will be changed in accord with the fact of needing or not maintenance)
      */
-    private void getMaintenance(Vehicle vehicle, List<Vehicle> vehicleList) {
+    private List<Vehicle> getMaintenance(Vehicle vehicle, List<Vehicle> vehicles) {
         try {
-            Maintenance newMaintenance = new Maintenance(vehicle);
-            removeVehicle(newMaintenance, vehicleList);
-        }catch (IllegalArgumentException e){
+            vehicles = removeVehicle(vehicle, vehicles);
+        }catch (IllegalArgumentException | NullPointerException e){
             System.out.println("There is no vehicle with the plate number: " + vehicle.getPlateNumber());
         }
-
+        return vehicles;
     }
 
     /**
      * Checks if vehicle exists or not
-     *
-     * @param aux if true the vehicle doesn't exist else it exists
-     * @param vehicle message of the vehicle status
      */
-    private static void checkIfMaintenanceNotNull(boolean aux, String vehicle) {
-        if (aux) {
-            throw new IllegalArgumentException(vehicle);
+    private static void checkIfMaintenanceNotNull( Maintenance maintenance) {
+        if (maintenance == null) {
+            throw new NullPointerException("Invalid vehicle that needs maintenance to add");
         }
     }
 
     /**
      * Lets the user get the maintenance of a specific vehicle if it exists
      *
-     * @param newMaintenance the maintenance of the vehicle we want to get
-     * @param vehicleList    list of vehicles
+     * @param vehicle the vehicle we want to check
+     * @param vehicles    list of vehicles
      */
-    private void removeVehicle(Maintenance newMaintenance, List<Vehicle> vehicleList) {
-        VehicleRepository vehicleRepository = Repositories.getInstance().getVehicleRepository();
-        if (newMaintenance.validateVehicleMaintenance(vehicleRepository.getVehicleFromPlate(newMaintenance.getPlateNumber()))) {
-            vehicleList.remove(vehicleRepository.getVehicleFromPlate(newMaintenance.getPlateNumber()));
+    private List<Vehicle> removeVehicle(Vehicle vehicle, List<Vehicle> vehicles) {
+        Maintenance m1 = new Maintenance(vehicle);
+        List<Vehicle> mutableVehicleList = new ArrayList<>(vehicles);
+        Maintenance maintenance1 = new Maintenance(vehicle);
+        checkIfMaintenanceNotNull(maintenance1);
+        if (!m1.validateVehicleMaintenance(vehicle)) {
+            mutableVehicleList.remove(vehicle);
+            vehicles = mutableVehicleList;
         }
+        return vehicles;
     }
 
-    /**
-     * Private method to see if a vehicle is already in the repository.
-     *
-     * @param maintenance: vehicle that needs maintenance to be checked
-     * @return if the vehicle is already in the repository or not
-     */
-    private boolean validateVehicleMaintenance(Maintenance maintenance) {
-        return !maintenanceList.contains(maintenance);
-    }
 
     /**
      * Add a vehicle that needs maintenance to the maintenance repository.
@@ -94,9 +89,38 @@ public class MaintenanceRepository {
      * @param maintenance: new vehicle that need maintenance.
      */
     public void addVehicleMaintenance(Maintenance maintenance) {
-        checkIfMaintenanceNotNull(!validateVehicleMaintenance(maintenance), "Invalid vehicle that needs maintenance to add");
-        maintenanceList.add(maintenance);
+        try {
+            checkIfMaintenanceNotNull(maintenance);
+            VehicleRepository vehicleRepository = Repositories.getInstance().getVehicleRepository();
+            Vehicle vehicle = vehicleRepository.getVehicleFromPlate(maintenance.getPlateNumber());
+
+            if (!maintenance.validateVehicleMaintenance(vehicle)) {
+                throw new IllegalArgumentException("Invalid maintenance data for vehicle with plate: " + maintenance.getPlateNumber());
+            }
+
+            Optional<Maintenance> existingMaintenanceOpt = maintenanceList.stream()
+                    .filter(m -> m.getPlateNumber().equals(maintenance.getPlateNumber()))
+                    .findFirst();
+
+            if (existingMaintenanceOpt.isPresent()) {
+                Maintenance existingMaintenance = existingMaintenanceOpt.get();
+                existingMaintenance.updateFrom(maintenance);
+                System.out.println("Maintenance updated for vehicle with plate: " + maintenance.getPlateNumber());
+            } else {
+                maintenance.setVehicleMaintenance(vehicle);
+
+                    maintenanceList.add(maintenance);
+                    System.out.println("Maintenance added for vehicle with plate: " + maintenance.getPlateNumber());
+
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        } catch (NullPointerException e) {
+            System.out.println(e.getMessage());
+            throw e;
+        }
     }
+
     /**
      * Lets the user get the list of all vehicles that need maintenance
      *
@@ -108,5 +132,4 @@ public class MaintenanceRepository {
         return List.copyOf(maintenanceList);
     }
 
-    public
 }

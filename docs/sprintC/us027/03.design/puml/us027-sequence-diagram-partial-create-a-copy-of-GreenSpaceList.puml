@@ -1,0 +1,42 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+
+participant ":GreenSpaceMapper" as Mapper
+participant "greenSpaceDto\n:GreenSpaceDto" as DTO
+
+autonumber 6
+
+ -> Mapper : toDto(greenSpaceList)
+autonumber 6.1
+activate Mapper
+    group Create a copy of GreenSpace list
+        activate Mapper
+                            loop for each GreenSpace in greenSpaceList
+
+                                Mapper -> DTO** : GreenSpaceDto(greenSpace)
+
+                                Mapper -> Mapper : addGreenSpace(greenSpaceDto)
+                                activate Mapper
+                            end
+
+
+
+
+
+    end
+    autonumber 7
+
+    <-- Mapper  : greenSpaceListDto
+deactivate Mapper
+
+deactivate Mapper
+
+deactivate Mapper
+
+@enduml

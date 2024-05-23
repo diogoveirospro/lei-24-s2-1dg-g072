@@ -37,13 +37,13 @@ public class Date implements Comparable<Date> {
     /**
      * Number of days of the month
      */
-    private static int[] monthDay = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30,
+    private static final int[] monthDay = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30,
             31, 30, 31};
 
     /**
      * Names of the months of the year.
      */
-    private static String[] monthName = {"Invalid", "January", "February",
+    private static final String[] monthName = {"Invalid", "January", "February",
             "March", "April", "May", "June", "July", "August", "September",
             "October", "November", "December"};
 
@@ -126,7 +126,7 @@ public class Date implements Comparable<Date> {
      * @return date characteristics.
      */
     public String toYearMonthDayString() {
-        return String.format("%04d/%02d/%02d", year, month, day);
+        return String.format("%04d-%02d-%02d", year, month, day);
     }
 
     /**
@@ -157,18 +157,17 @@ public class Date implements Comparable<Date> {
      */
     @Override
     public int compareTo(Date otherDate) {
-        return (otherDate.isMaior(this)) ? -1 : (isMaior(otherDate)) ? 1 : 0;
+        return (otherDate.isGreater(this)) ? -1 : (isGreater(otherDate)) ? 1 : 0;
     }
 
     /**
-     * Devolve true se a data for maior do que a data recebida por parâmetro. Se
-     * a data for menor ou igual à data recebida por parâmetro, devolve false.
+     * Returns true if the date is greater than the date received by parameter. If the date is less than or equal to
+     * the date received by parameter, returns false.
      *
-     * @param otherDate a outra data com a qual se compara a data.
-     * @return true se a data for maior do que a data recebida por parâmetro,
-     * caso contrário devolve false.
+     * @param otherDate the other date to compare the date with.
+     * @return true if the date is greater than the date received by parameter, otherwise return false.
      */
-    public boolean isMaior(Date otherDate) {
+    public boolean isGreater(Date otherDate) {
         int totalDays = countDays();
         int totalDays1 = otherDate.countDays();
 

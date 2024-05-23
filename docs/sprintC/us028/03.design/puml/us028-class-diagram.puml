@@ -1,0 +1,81 @@
+@startuml
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+skinparam classAttributeIconSize 0
+
+class ListTaskSpaceUI {
+}
+
+class TaskMapper {
+    - List<Task> taskList
+    + toDto(taskList)
+    + addTask(task)
+}
+
+class TaskDto {
+    - Team team
+    - List<vehicleList> vehicles
+    - Date dateI
+    - Date dateF
+    - String status
+    TaskDto(task)
+}
+
+class ListTaskController {
+    + getCollaboratorThroughEmail(email)
+    + saveDatesSelected(dateI, dateF)
+    + getStatusList()
+    + getTaskList(idNumber, dateI, dateF, typeStatus)
+    + toDto(taskList)
+}
+
+class TaskRepository {
+    - List<Task> taskList
+    + getStatusList()
+    + getTaskList(idNumber, dateI, dateF, typeStatus)
+    + addTaskOfCollaborator(task)
+}
+
+class Task {
+    - Team team
+    - List<Vehicle> vehicleList
+    - Date dateI
+    - Date dateF
+    - String status
+    + getStatus()
+    + getIdNumber()
+    + getDateI()
+    + getDateF()
+}
+
+class CollaboratorRepository {
+    + getCollaboratorThroughEmail(email)
+}
+
+class Repositories {
+    - Repositories()
+    + getInstance(): Repositories
+    + getCollaboratorRepository(): CollaboratorRepository
+    + getTaskRepository(): TaskRepository
+}
+
+class Date {
+    - int year
+    - int month
+    - int day
+    + Date(int year, int month, int day)
+}
+
+ListTaskSpaceUI .> ListTaskController
+ListTaskController ..> Repositories : repositories
+Repositories -> Repositories : instance
+ListTaskController .> TaskRepository: taskRepository
+Repositories "1" --> "1" TaskRepository
+Repositories "1" ..> "1" CollaboratorRepository: collaboratorRepository
+ListTaskController "1" -> "1" CollaboratorRepository
+TaskRepository o- "*" Task : has
+ListTaskController "1" -> "1" TaskMapper: taskList
+TaskMapper "1" -> "1" TaskDto: task
+ListTaskController "1" --> "2" Date: dates
+@enduml

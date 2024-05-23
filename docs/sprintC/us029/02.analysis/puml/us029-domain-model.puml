@@ -1,0 +1,35 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+class Collaborator {
+    name
+}
+
+class Agenda {
+    agendaEntries
+}
+
+class ToDoListEntry {
+    taskDescription
+    urgency
+    duration
+}
+
+class AgendaEntry {
+    status
+    completionDate
+}
+
+Collaborator "1" -- "0..*" Agenda : completes
+Agenda "1" -- "0..*" AgendaEntry : includes
+Agenda "1" -- "0..*" ToDoListEntry : includes
+AgendaEntry "1" -- "1" ToDoListEntry : references
+
+@enduml

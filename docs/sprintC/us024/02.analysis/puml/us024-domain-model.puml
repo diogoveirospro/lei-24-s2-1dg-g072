@@ -1,0 +1,49 @@
+@startuml
+
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+'left to right direction
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+hide circles
+hide methods
+
+
+class GSM {
+
+}
+
+class GreenSpace {
+  name
+  area
+}
+
+class Entry {
+    task
+    greenSpace
+}
+
+class AgendaEntry {
+    date
+    status
+}
+
+class Agenda {
+    AgendaEntries
+}
+
+
+GSM "1" -- "0..*" GreenSpace : manages >
+Agenda "1" -- "0..*" AgendaEntry : includes >
+AgendaEntry --|> Entry
+GSM "1" -- "0..*" AgendaEntry : postpone >
+
+
+@enduml

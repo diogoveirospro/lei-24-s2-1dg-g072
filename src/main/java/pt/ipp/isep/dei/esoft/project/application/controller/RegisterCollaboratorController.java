@@ -3,9 +3,13 @@ package pt.ipp.isep.dei.esoft.project.application.controller;
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import pt.ipp.isep.dei.esoft.project.domain.Date;
 import pt.ipp.isep.dei.esoft.project.domain.Job;
+import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidCollaboratorDataException;
 import pt.ipp.isep.dei.esoft.project.repository.CollaboratorRepository;
 import pt.ipp.isep.dei.esoft.project.repository.JobRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Controller class for registering a new collaborator.
@@ -47,7 +51,7 @@ public class RegisterCollaboratorController {
      * Registers a new collaborator with the provided information.
      *
      * @param name           the name of the collaborator
-     * @param birthDate      the birth date of the collaborator
+     * @param birthDate      the birthdate of the collaborator
      * @param admissionDate  the admission date of the collaborator
      * @param address        the address of the collaborator
      * @param mobile         the contact number of the collaborator
@@ -58,9 +62,18 @@ public class RegisterCollaboratorController {
      * @param jobName        the name of the job of the collaborator
      */
     public void registerCollaborator(String name, Date birthDate, Date admissionDate, String address,
-                                     int mobile, String email, int taxpayerNumber, Collaborator.IdDocType idDocType, String idDocNumber, String jobName) {
+                                     String mobile, String email, String taxpayerNumber, Collaborator.IdDocType idDocType, String idDocNumber, String jobName) throws InvalidCollaboratorDataException, pt.ipp.isep.dei.esoft.project.Exceptions.InvalidCollaboratorDataException {
 
         this.collaboratorRepository.addCollaborator(new Collaborator(name, birthDate, admissionDate, address, mobile,
                 email, taxpayerNumber, idDocType, idDocNumber, jobName));
+    }
+
+    /**
+     * Retrieves a list of jobs.
+     *
+     * @return a list of jobs
+     */
+    public List<Job> getJobs(){
+        return jobRepository.getJobs();
     }
 }

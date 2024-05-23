@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.ui;
 
+import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidCollaboratorDataException;
 import pt.ipp.isep.dei.esoft.project.ui.console.menu.MainMenuUI;
 
 /**
@@ -9,7 +10,7 @@ import pt.ipp.isep.dei.esoft.project.ui.console.menu.MainMenuUI;
  */
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InvalidCollaboratorDataException {
         Bootstrap bootstrap = new Bootstrap();
         bootstrap.run();
 

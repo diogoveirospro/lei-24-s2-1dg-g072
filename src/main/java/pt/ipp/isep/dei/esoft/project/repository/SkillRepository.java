@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -32,7 +33,7 @@ public class SkillRepository {
             throw new IllegalArgumentException("Skill cannot be null");
         }
         if (skills.contains(skill)){
-            throw new IllegalArgumentException("This skill already exists "+skill.getName());
+            throw new IllegalArgumentException("This skill already exists " + skill.getName());
         }
         if (!skill.validateSkill(skill.getName())){
             throw new IllegalArgumentException("Skill can't have special characters");
@@ -46,6 +47,7 @@ public class SkillRepository {
      * @return The skill list.
      */
     public List<Skill> listSkills() {
+        Collections.sort(skills);
         return List.copyOf(skills);
     }
 

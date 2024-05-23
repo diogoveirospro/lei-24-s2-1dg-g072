@@ -74,7 +74,7 @@ activate ADM
                 loop
                 activate MREP
 
-                MREP -> MAINTENANCE**: maintenance(vehicle, date)
+                MREP -> MAINTENANCE**: maintenance(vehicle, date, currentKms)
 
                 MREP -> MREP: addVehicleMaintenance(vehicleList)
 

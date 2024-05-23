@@ -42,10 +42,11 @@ public class VehicleRepository {
      * @param newVehicle vehicle to be added to the list
      */
     public boolean addVehicle(Vehicle newVehicle){
-        boolean success = false;
-        if (checkVehicleInList(newVehicle) || (newVehicle.validateVehicle())){
-            success = vehicleList.add(newVehicle.clone());
+        boolean success = true;
+        if (checkVehicleInList(newVehicle) && (newVehicle.validateVehicle())){
+            vehicleList.add(newVehicle.clone());
         }else {
+            success = false;
             throw new IllegalArgumentException("Invalid vehicle to add");
         }
         return success;
@@ -65,7 +66,9 @@ public class VehicleRepository {
      * @return The vehicle list
      */
     public List<Vehicle> getVehicleList() {
-        return (List.copyOf(vehicleList));
+        List<Vehicle> vehicles = vehicleList;
+        sortByKms(vehicles);
+        return (List.copyOf(vehicles));
     }
 
     /**
@@ -87,15 +90,12 @@ public class VehicleRepository {
     /**
      * This method will sort the vehicle by kms to the next maintenance
      *
-     * @return vehicleList sorted
      */
 
-    public List<Vehicle> sortByKms(){
-        List<Vehicle> vehicleList = getVehicleList();
+    public void sortByKms(List<Vehicle> vehicleList){
         double[] difference = new double[vehicleList.size()];
         getDifferenceInKms(difference,vehicleList);
         sortByKmsToMaintenance(difference,vehicleList);
-        return vehicleList;
     }
 
     /**
@@ -106,19 +106,25 @@ public class VehicleRepository {
      */
     private void sortByKmsToMaintenance(double[] difference, List<Vehicle> vehicleList) {
         int index1 = 0;
-        int index2 = 0;
-        for (Vehicle vehicle : vehicleList){
-            for (Vehicle otherVehicle : vehicleList){
-                if (difference[index1] > difference[index2]){
-                    Vehicle aux = vehicle;
-                    vehicle = otherVehicle;
-                    otherVehicle = aux;
+        for (Vehicle vehicle : vehicleList) {
+            int index2 = 0;
+            for (Vehicle otherVehicle : vehicleList) {
+                if (difference[index1] < difference[index2]) {
+
+                    Vehicle aux1 = vehicleList.get(index1);
+                    vehicleList.set(index1, vehicleList.get(index2));
+                    vehicleList.set(index2, aux1);
+
+                    double aux2 = difference[index1];
+                    difference[index1] = difference[index2];
+                    difference[index2] = aux2;
                 }
                 index2++;
             }
             index1++;
         }
     }
+
 
     /**
      * Lets the system get the vehicle from is plate

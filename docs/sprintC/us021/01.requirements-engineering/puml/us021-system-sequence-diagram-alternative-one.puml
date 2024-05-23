@@ -1,0 +1,31 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD) - Add a New Entry to the To-Do List
+
+actor "Green Space\nManager" as GSM
+participant ":System" as System
+
+activate GSM
+
+GSM -> System: Request to add a new entry
+activate System
+
+System -> GSM: Present list of available green spaces
+deactivate System
+
+GSM -> System: Choose green space
+activate System
+
+System -> GSM: Prompt for task details (description, urgency, duration)
+deactivate System
+
+GSM -> System: Provide task details
+activate System
+
+System -> GSM: Confirm addition of new entry
+deactivate System
+
+@enduml

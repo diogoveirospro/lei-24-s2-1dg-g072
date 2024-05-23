@@ -1,45 +1,47 @@
-# US006 - Register a Vehicle 
+# US006 - Add a New Entry to the To-Do List
 
 
 ## 1. Requirements Engineering
 
 ### 1.1. User Story Description
 
-The VFM wants to register a vehicle.
+As a GSM, I want to add a new entry to the To-Do List.
 
 ### 1.2. Customer Specifications and Clarifications 
 
-**From the project statement document:**
-
->	The vehicle as the following attributes: Plate number, Brand, Model, Type, Tare, Gross weight, Current Kms, Registration Date, Acquisition Date and Service Frequency (in Kms). 
+> The To-Do List comprises all the tasks required to be done in order to assure the proper functioning of the parks. These tasks can be regular (e.g., pruning trees) or occasional (e.g., repairing a broken piece of equipment). They may also require a multi-disciplinary team, and the length of the task can vary from a few minutes (e.g., replacing a light bulb) to weeks (e.g., installing an irrigation system).
+>
+> The entries in this list describe the required task, the degree of urgency (High, Medium, and Low), and the approximate expected duration.
 
 **From the client clarifications:**
 
-> **Question:** When a vehicle is registered, are there specific requirements for accepting the brand? For example, does the system need to check if the brand is on a predetermined list? Does this also apply to the model or any other characteristics?
+> **Question:** 
 > 
-> **Answer:** No; one can consider a list of brands and a list of models previously inserted in the system, no need to go through validations.
+> **Answer:** 
  
-> **Question:** For the application to work does the FM need to fill all the attributes of the vehicle?
+> **Question:** 
 > 
-> **Answer:** Yes.
+> **Answer:** 
 
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** The attributes used to describe a vehicle are: Plate number, Brand, Model, Type, Tare, Gross weight, Current Kms, Registration Date, Acquisition Date and Service Frequency (in Kms).
-* **AC2:** All required fields must be filled.
+* **AC1:** The new entry must be associated with a green space managed by the GSM.
+* **AC2:** The green space for the new entry should be chosen from a list presented to the GSM.
 
 ### 1.4. Found out Dependencies
 
-* No dependencies were found.
+There is a dependency on **US020 - Register a Green Space and its Respective Area**, since the To-Do List entries must be associated with a green space.
 
 ### 1.5 Input and Output Data
 
 **Input Data:**
 
 * Typed data:
-    * a designation for the vehicle (plate number)
-    * the attributes of the vehicle
+  * Task description
+  * Degree of urgency (High, Medium, Low)
+  * Approximate expected duration
+  * The green space associated with the task
 
 **Output Data:**
 
@@ -51,4 +53,4 @@ The VFM wants to register a vehicle.
 
 #### Alternative One
 
-![System Sequence Diagram - Alternative One](svg/us006-system-sequence-diagram-alternative-one.svg)
+![System Sequence Diagram - Alternative One](svg/us021-system-sequence-diagram-alternative-one.svg)

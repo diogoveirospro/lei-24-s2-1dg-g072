@@ -10,7 +10,7 @@ _**Note that SSD - Alternative One is adopted.**_
 |:---------------|:------------------------------------------------------|:-----------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Step 1         | ... interacting with the actor?                       | AssignSkillUI          | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model.                                                               |
 |                | ... coordinating the US?                              | AssignSkillController  | Controller: coordinates the interactions related to assigning a skill to a collaborator in the user interface (UI) and executes the logic needed to process these requests. |
-| Step 2         | ... knowing the list of skills to present?            | System                 | IE: Skills are recorded by HRM.                                                                                                                                             |
+| Step 2         | ... knowing the list of skills to present?            | SkillRepository        | IE: Skills are recorded by HRM.                                                                                                                                             |
 | Step 3         | ... saving the inputted data?                         | Collaborator           | IE: processes user input and generates a team based on this information.                                                                                                    |
 | Step 4         | ... saving the select skills?                         | Collaborator           | IE: AssignSkill manages the selected skills data.                                                                                                                           |
 | Step 5         | ... validating all data (local validation)?           | Collaborator           | IE: owns its data.                                                                                                                                                          |
@@ -28,6 +28,7 @@ _**Note that SSD - Alternative One is adopted.**_
 According to the taken rationale, the conceptual classes promoted to software classes are:
 
 * CollaboratorRepository
+* SkillRepository
 * Collaborator
 
 Other software classes (i.e. Pure Fabrication) identified:

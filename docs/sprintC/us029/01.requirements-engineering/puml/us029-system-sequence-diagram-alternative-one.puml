@@ -1,0 +1,33 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD) - Record the Completion of a Task
+
+autonumber
+
+actor "Collaborator" as Col
+participant ":System" as System
+
+activate Col
+
+    Col -> System : Request to mark task as completed
+    activate System
+
+        System --> Col : Requests selection of task from Agenda
+    deactivate System
+
+    Col -> System : Selects task from Agenda
+    activate System
+
+        System --> Col : Confirms task selection
+    deactivate System
+
+    Col -> System : Record task completion
+    activate System
+
+        System --> Col : Confirms task completion and updates status in Agenda
+    deactivate System
+
+@enduml

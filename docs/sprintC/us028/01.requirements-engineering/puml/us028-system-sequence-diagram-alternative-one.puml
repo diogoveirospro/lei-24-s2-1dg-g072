@@ -1,0 +1,40 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD) - Alternative One
+
+autonumber
+
+actor "Collaborator" as Col
+participant ":System" as System
+
+activate Col
+
+    Col -> System : request to consult tasks assigned to him
+
+    activate System
+
+        System --> Col : asks to select the beginning and end date of the search
+    deactivate System
+
+    Col -> System : selects the beginning and end date
+    activate System
+
+            System --> Col: asks to select the type of status he wants to consult
+    deactivate System
+
+    Col -> System : Selects the type he wants to consult
+    activate System
+
+        System --> Col : requests confirmation
+    deactivate System
+
+    Col -> System : confirms he wants to create the list
+    activate System
+
+        System --> Col : Shows the list of tasks assigned to him
+    deactivate System
+
+@enduml
