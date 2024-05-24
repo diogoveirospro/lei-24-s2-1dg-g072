@@ -21,8 +21,9 @@ _**Note that SSD - Alternative One is adopted.**_
 |                | ... validating all data (local validation)?                | AgendaEntry                   | IE: owns its data.                                                                                                                                               |
 | Step 4         |                                                            |                               |                                                                                                                                                                  |
 | Step 5         | ... validating all data (global validation)?               | Agenda                        | IE: knows all its agenda entries.                                                                                                                                |
-|                | ... saving the created agenda entry?                       | Agenda                        | IE: owns all its agenda entries.                                                                                                                                 |
+|                | ... saving the postponed agenda entry?                     | Agenda                        | IE: owns all its agenda entries.                                                                                                                                 |
 | Step 6         | ... informing operation success?                           | PostponeAgendaEntryUI         | IE: is responsible for user interactions.                                                                                                                        |
+
 ### Systematization ##
 
 According to the taken rationale, the conceptual classes promoted to software classes are: 
