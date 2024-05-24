@@ -18,7 +18,14 @@ class "ListTaskController" as CTRL {
 }
 
 package Domain {
+package Model {
+class Team {
+    - List<Collaborator> members
+    + inTeam(collaborator)
+}
+}
 package Repository {
+
 class "Repositories" as RepositorySingleton {
     - Repositories()
     + getInstance(): Repositories
@@ -66,18 +73,18 @@ class "EntryDto" as DataTransferObject {
 }
 }
 
-UserInterface .> CTRL
+UserInterface ..> CTRL
 CTRL ..> RepositorySingleton : repositories
-RepositorySingleton -> RepositorySingleton : instance
-CTRL .> collaboratorRepository: getCollaboratorRepository
-CTRL .> taskRepository: getTaskRepository
-CTRL .> teamRepository: getTeamRepository
-CTRL .> agenda: getAgenda
-CTRL .> MapperDto: toDTOList
+RepositorySingleton --> RepositorySingleton : instance
+CTRL ..> collaboratorRepository: getCollaboratorRepository
+CTRL ..> taskRepository: getTaskRepository
+CTRL ..> teamRepository: getTeamRepository
+CTRL ..> agenda: getAgenda
+CTRL ..> MapperDto: toDTOList
 MapperDto "1" --> "*" DataTransferObject: entries
 RepositorySingleton "1" ..> "1" collaboratorRepository: collaboratorRepository
 RepositorySingleton "1" --> "1" taskRepository: taskRepository
 RepositorySingleton "1" --> "1" teamRepository: teamRepository
 RepositorySingleton "1" --> "1" agenda: agenda
-
+teamRepository "1" --> "*" Team: collaborator
 @enduml
