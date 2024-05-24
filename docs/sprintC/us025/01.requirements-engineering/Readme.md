@@ -1,11 +1,11 @@
-# US006 - Register a Vehicle 
+# US025 - Cancel entry in the agenda 
 
 
 ## 1. Requirements Engineering
 
 ### 1.1. User Story Description
 
-The VFM wants to register a vehicle.
+The GSM wants to cancel an entry in the Agenda.
 
 ### 1.2. Customer Specifications and Clarifications 
 
@@ -26,20 +26,21 @@ The VFM wants to register a vehicle.
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** The attributes used to describe a vehicle are: Plate number, Brand, Model, Type, Tare, Gross weight, Current Kms, Registration Date, Acquisition Date and Service Frequency (in Kms).
-* **AC2:** All required fields must be filled.
+* **AC1:** A canceled task should not be deleted but rather change its state.
 
 ### 1.4. Found out Dependencies
 
-* No dependencies were found.
+* One dependence with US022 has there must be an entry to cancel.
 
 ### 1.5 Input and Output Data
 
 **Input Data:**
 
 * Typed data:
-    * a designation for the vehicle (plate number)
-    * the attributes of the vehicle
+  * 
+   
+* Selected data:
+  * the entry to cancel.
 
 **Output Data:**
 
