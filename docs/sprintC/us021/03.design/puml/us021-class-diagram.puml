@@ -1,0 +1,82 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+
+'left to right direction
+
+package "UI" <<Folder>> #DDDDDD {
+
+}
+
+package "Controller" <<Folder>> #DDDDDD {
+
+
+}
+
+package "Domain" <<Folder>> #DDDDDD {
+
+package "Repository" <<Folder>> #DDDDDD {
+
+class Repositories {
+    - Repositories()
+    + getInstance() : Repositories
+    + getToDoList()
+}
+
+class ToDoList {
+    + getToDoListEntries()
+}
+
+class Entry {
+    - task : Task
+    - greenSpace : GreenSpace
+}
+
+class GreenSpace {
+    - name : String
+    - area : double
+    + GreenSpace(name, area)
+}
+
+class Task {
+    - description : String
+    - team : Team
+    - vehicles : List<Vehicle>
+    - duration : Date
+    + Task(description, team, vehicles, duration)
+}
+
+class ToDoListEntry {
+    - task : Task
+    - greenSpace : GreenSpace
+    - priority : enum
+    + ToDoListEntry(task, greenSpace)
+}
+
+
+package "Mapper" <<Folder>> #DDDDDD {
+class ToDoListMapper {
+    +toDoListEntriesToDto(entries) : List<ToDoListEntryDto>
+    +toDTO(toDoListEntry) : ToDoListEntryDto
+}
+
+package "DTO" <<Folder>> #DDDDDD {
+class ToDoListEntryDto {
+}
+
+Repositories --> Repositories : instance
+Repositories --> "1" ToDoList
+
+
+ToDoList --> ToDoListEntry : has
+GreenSpace --o ToDoListEntry : has
+Task --o ToDoListEntry : has
+ToDoListEntryDto ..> ToDoListMapper : toDoListEntryDto
+Entry --|> ToDoListEntry : extends
+
+@enduml
