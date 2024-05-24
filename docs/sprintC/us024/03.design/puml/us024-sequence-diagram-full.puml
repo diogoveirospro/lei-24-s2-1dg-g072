@@ -6,91 +6,186 @@ skinparam shadowing false
 autonumber
 
 'hide footbox
-actor "Green Spaces Manager" as ADM
-participant ":PostponeEntryUI" as UI
-participant ":PostponeEntryController" as CTRL
-participant ":Repositories" as RepositorySingleton
-participant "repositories\n:Repositories" as PLAT
-participant "taskRepository\n:TaskRepository" as taskRepository
+actor "Green Spaces\n Manager" as GSM
+participant ":PostponeAgendaEntryUI" as UI
+participant ":PostponeAgendaEntryController" as CTRL
+participant Repositories
+participant "repositories\n:Repositories" as REP
+participant "entryList\n:entryList" as ENTRYLIST
+participant "agenda\n:Agenda" as AGENDA
+participant ":EntryListMapper" as ENTRYLISTMAPPER
+participant "listEntries\n:List<AgendaEntryList>" as LISTENTRIES
+participant "entryListDto\n:List<entriesListDto>" as TODOLISTDTO
+participant "entryListDto\n:EntryListDto" as ENTRYLISTDTO
+participant "toDoListEntry\n:ToDoListEntry" as TODOLISTENTRY
 participant "task\n:Task" as TASK
+participant "greenSpace\n: GreenSpace" as GREENSPACE
+participant "agendaEntry\n:AgendaEntry" as AGENDAENTRY
 
-activate ADM
+activate GSM
 
-        ADM -> UI : asks to postpone a entry to a future date
+    GSM -> UI : asks to postpone a entry on the agenda
+    activate UI
 
-        activate UI
+        UI -> CTRL** : create
 
-        UI -> CTRL : getEntryList()
-              activate CTRL
+        UI -> CTRL : getEntriesList()
+        activate CTRL
 
-              CTRL -> RepositorySingleton : getInstance()
-              activate RepositorySingleton
+           CTRL -> Repositories: getInstance()
+           activate Repositories
 
-              RepositorySingleton -> CTRL : repositories
-              deactivate RepositorySingleton
-              CTRL -> PLAT : getTaskRepository()
-              activate PLAT
+                Repositories --> CTRL: repositories
+           deactivate Repositories
 
-              PLAT -> CTRL : taskRepository
-              deactivate PLAT
+           CTRL -> REP: getToDoList()
+           activate REP
 
-              CTRL -> taskRepository : getEntryList()
-              activate taskRepository
+                REP --> CTRL: toDoList
+           deactivate REP
 
-              taskRepository -> CTRL : entryList
-              deactivate taskRepository
+            CTRL -> ENTRYLIST : getAgendaEntryList()
+            activate ENTRYLIST
 
-              CTRL -> UI : entryList
-              deactivate CTRL
-            loop
-                UI --> ADM : shows registered entry's
+                    ENTRYLIST --> LISTENTRIES** : create()
+                    activate LISTENTRIES
 
-                ADM -> UI : chooses entry to postpone
-            end
-            UI --> ADM : shows all chosen entry's and requests confirmation
+                        loop for each agendaEntry
+                            ENTRYLIST -> LISTENTRIES : add(agendaEntryList)
+                            activate LISTENTRIES
+                            deactivate LISTENTRIES
+                        end
 
-            ADM -> UI : confirms data
+                        LISTENTRIES --> ENTRYLIST : listEntries
+                    deactivate LISTENTRIES
 
-            UI -> ADM : requests the date to which the entry's will be postpone
 
-            ADM -> UI : types the new date
+                ENTRYLIST --> CTRL : listEntries
+            deactivate ENTRYLIST
 
-            UI -> CTRL : postponeEntry(entryList, date)
-            activate CTRL
+            CTRL -> ENTRYLISTMAPPER** : entryListToDto(listEntries)
+            activate ENTRYLISTMAPPER
 
-                CTRL -> RepositorySingleton : getInstance()
-                activate RepositorySingleton
+                ENTRYLISTMAPPER --> TODOLISTDTO** : create()
 
-                    RepositorySingleton --> CTRL: repositories
-                deactivate RepositorySingleton
+                loop for each agendaEntry
+                    ENTRYLISTMAPPER -> LISTENTRIES : get(i)
+                    activate LISTENTRIES
 
-                CTRL -> PLAT : getTaskRepository()
-                activate PLAT
+                    LISTENTRIES --> ENTRYLISTMAPPER : agendaEntry
+                    deactivate LISTENTRIES
 
-                    PLAT --> CTRL: taskRepository
-                deactivate PLAT
+                    ENTRYLISTMAPPER -> ENTRYLISTMAPPER : entryListDto = toDTO(agendaEntry)
+                    activate ENTRYLISTMAPPER
+                    deactivate ENTRYLISTMAPPER
 
-                CTRL -> taskRepository : postponeEntry(entryList, date)
-                activate taskRepository
+                    ENTRYLISTMAPPER --> ENTRYLISTDTO** : create()
+                    activate ENTRYLISTDTO
 
-                taskRepository -> TASK**: postponeEntry(entryList, date)
-                taskRepository -> taskRepository: postponeEntry(entryList, date)
+                    ENTRYLISTDTO --> ENTRYLISTMAPPER : entryListDto
+                    deactivate ENTRYLISTDTO
 
-                 activate taskRepository
-                     taskRepository -> taskRepository: validatePostpone(date)
-                     activate taskRepository
-                                taskRepository --> CTRL : postponedEntry
-                     deactivate taskRepository
+                    ENTRYLISTMAPPER -> TODOLISTDTO : add(entryListDto)
+                    activate TODOLISTDTO
+                    deactivate TODOLISTDTO
 
-                 deactivate taskRepository
+                end
 
-                            deactivate taskRepository
+                ENTRYLISTMAPPER --> CTRL : entryListDto
+            deactivate ENTRYLISTMAPPER
 
-            CTRL --> UI: postponedEntry
-            deactivate CTRL
-            UI --> ADM: displays operation success
+            CTRL --> UI : entryListDto
+        deactivate CTRL
+        loop
+        UI --> GSM: shows all the entries registered in the \nAgenda and asks you to select the \nones you want to postpone
     deactivate UI
 
-deactivate ADM
+    GSM -> UI: select the desired entries and \nthe date to postpone them
+    activate UI
+        end
+
+        UI -> CTRL : getGreenSpace()
+        activate CTRL
+
+            CTRL -> ENTRYLIST : getGreenSpace()
+            activate ENTRYLIST
+
+                ENTRYLIST -> TODOLISTENTRY : getGreenSpace()
+                activate TODOLISTENTRY
+
+                    TODOLISTENTRY -> GREENSPACE** : getGreenSpace()
+                    activate GREENSPACE
+
+                        GREENSPACE --> TODOLISTENTRY : greenSpace
+                    deactivate GREENSPACE
+
+                    TODOLISTENTRY --> ENTRYLIST : greenSpace
+                deactivate TODOLISTENTRY
+
+                ENTRYLIST --> CTRL : greenSpace
+            deactivate ENTRYLIST
+
+            CTRL --> UI : greenSpace
+        deactivate CTRL
+
+        UI -> CTRL : postponeAgendaEntry(chosenEntryList, greenSpace, newDate)
+        activate CTRL
+
+            CTRL -> Repositories: getInstance()
+            activate Repositories
+
+                Repositories --> CTRL: repositories
+            deactivate Repositories
+
+            CTRL -> REP: getAgenda()
+            activate REP
+
+                REP --> CTRL: agenda
+            deactivate REP
+
+            CTRL -> AGENDA** : postponeAgendaEntry(chosenEntryList, greenSpace, newDate)
+            activate AGENDA
+
+                AGENDA -> AGENDAENTRY** : postponeAgendaEntry(chosenEntryList, greenSpace, newDate)
+                loop for each entry on the chosenEntryList
+                AGENDA -> AGENDA : postponeEntry(entry, newDate)
+                activate AGENDA
+                end
+                deactivate AGENDA
+                deactivate AGENDAENTRY
+
+                AGENDA --> CTRL : postponedAgendaEntries
+                deactivate AGENDA
+
+            CTRL --> UI : postponedAgendaEntries
+            deactivate CTRL
+
+        UI --> GSM: shows all data and requests confirmation
+    deactivate UI
+
+    GSM -> UI: confirms data
+    activate UI
+
+        UI -> CTRL : postponeAgendaEntries(postponedAgendaEntries)
+        activate CTRL
+
+            CTRL -> AGENDA : postponeAgendaEntry(postponedAgendaEntries))
+            activate AGENDA
+
+            AGENDA -> AGENDA : validateEntries()
+            activate AGENDA
+
+            deactivate AGENDA
+
+            AGENDA --> CTRL : operation success
+            deactivate AGENDA
+
+            CTRL --> UI : operation success
+        deactivate CTRL
+
+        UI --> GSM: displays operation success
+    deactivate UI
+
+deactivate GSM
 
 @enduml

@@ -1,4 +1,4 @@
-# US006 - Register a Vehicle 
+# US023 - Assign a Team to an Entry in the Agenda 
 
 ## 2. Analysis
 
