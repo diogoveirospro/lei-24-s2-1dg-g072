@@ -7,8 +7,8 @@ autonumber
 
 'hide footbox
 actor "Green Spaces\n Manager" as GSM
-participant ":PostponeAgendaEntryUI" as UI
-participant ":PostponeAgendaEntryController" as CTRL
+participant ":CancelAgendaEntryUI" as UI
+participant ":CancelAgendaEntryController" as CTRL
 participant Repositories
 participant "repositories\n:Repositories" as REP
 participant "entryList\n:entryList" as ENTRYLIST
@@ -16,14 +16,14 @@ participant "agenda\n:Agenda" as AGENDA
 participant ":EntryListMapper" as ENTRYLISTMAPPER
 participant "listEntries\n:List<AgendaEntryList>" as LISTENTRIES
 participant "entryListDto\n:List<entriesListDto>" as TODOLISTDTO
-participant "entryListDto\n:EntryListDto" as ENTRYLISTDTO
 participant "agendaEntryList\n:AgendaEntryList" as AGENDAENTRYLIST
+participant "entryListDto\n:EntryListDto" as ENTRYLISTDTO
 participant "greenSpace\n: GreenSpace" as GREENSPACE
 participant "agendaEntry\n:AgendaEntry" as AGENDAENTRY
 
 activate GSM
 
-    GSM -> UI : asks to postpone a entry on the agenda
+    GSM -> UI : asks to cancel a entry on the agenda
     activate UI
 
         UI -> CTRL** : create
@@ -96,10 +96,10 @@ activate GSM
             CTRL --> UI : entryListDto
         deactivate CTRL
         loop
-        UI --> GSM: shows all the entries registered in the \nAgenda and asks you to select the \nones you want to postpone
+        UI --> GSM: shows all the entries registered in the \nAgenda and asks you to select the \nones you want to cancel
     deactivate UI
 
-    GSM -> UI: select the desired entries and \nthe date to postpone them
+    GSM -> UI: select the desired entries
     activate UI
         end
 
@@ -127,7 +127,7 @@ activate GSM
             CTRL --> UI : greenSpace
         deactivate CTRL
 
-        UI -> CTRL : postponeAgendaEntry(chosenEntryList, greenSpace, newDate)
+        UI -> CTRL : cancelAgendaEntry(chosenEntryList, greenSpace)
         activate CTRL
 
             CTRL -> Repositories: getInstance()
@@ -142,21 +142,21 @@ activate GSM
                 REP --> CTRL: agenda
             deactivate REP
 
-            CTRL -> AGENDA** : postponeAgendaEntry(chosenEntryList, greenSpace, newDate)
+            CTRL -> AGENDA** : cancelAgendaEntry(chosenEntryList, greenSpace)
             activate AGENDA
 
-                AGENDA -> AGENDAENTRY** : postponeAgendaEntry(chosenEntryList, greenSpace, newDate)
-                loop for each entry on the chosenEntryList
-                AGENDA -> AGENDA : postponeEntry(entry, newDate)
+                AGENDA -> AGENDAENTRY** : cancelAgendaEntry(chosenEntryList, greenSpace)
+                loop for each Entry on the chosenEntryList
+                AGENDA -> AGENDA : cancelEntry(agendaEntry)
                 activate AGENDA
                 end
                 deactivate AGENDA
                 deactivate AGENDAENTRY
 
-                AGENDA --> CTRL : postponedAgendaEntries
+                AGENDA --> CTRL : canceledAgendaEntries
                 deactivate AGENDA
 
-            CTRL --> UI : postponedAgendaEntries
+            CTRL --> UI : canceledAgendaEntries
             deactivate CTRL
 
         UI --> GSM: shows all data and requests confirmation
@@ -165,10 +165,10 @@ activate GSM
     GSM -> UI: confirms data
     activate UI
 
-        UI -> CTRL : postponeAgendaEntries(postponedAgendaEntries)
+        UI -> CTRL : canceledAgendaEntries(canceledAgendaEntries)
         activate CTRL
 
-            CTRL -> AGENDA : postponeAgendaEntry(postponedAgendaEntries))
+            CTRL -> AGENDA : cancelAgendaEntry(canceledAgendaEntries))
             activate AGENDA
 
             AGENDA -> AGENDA : validateEntries()

@@ -6,65 +6,64 @@ skinparam shadowing false
 autonumber
 
 'hide footbox
-actor "Vehicle Fleet Manager" as ADM
-participant ":RegisterVehicleUI" as UI
-participant ":RegisterVehicleController" as CTRL
+actor "Green Space Manager" as GSM
+participant ":RegisterGreenSpaceUI" as UI
+participant ":RegisterGreenSpaceController" as CTRL
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as PLAT
-participant "vehicleRepository\n:VehicleRepository" as vehicleRepository
-participant "vehicle\n:Vehicle" as VEHICLE
+participant "greenSpaceRepository\n:GreenSpaceRepository" as greenSpaceRepository
+participant "greenSpace\n:GreenSpace" as GREENSPACE
 
-activate ADM
+activate GSM
 
-        ADM -> UI : asks to register a new vehicle
+    GSM -> UI : asks to register a new green space
 
-        activate UI
+    activate UI
 
-            UI --> ADM : requests data (plateNumber, brand,\n model,type, tare, grossWeight,\n currentKms,registrationDate,\nacquisitionDate, serviceFrequency)
+        UI --> GSM : requests data (name, type, area)
 
-            ADM -> UI : types requested data
+        GSM -> UI : types requested data
 
-            UI --> ADM : shows all data and requests confirmation
+        UI --> GSM : shows all data and requests confirmation
 
-            ADM -> UI : confirms data
+        GSM -> UI : confirms data
 
-            UI -> CTRL : registerVehicle(plateNumber, brand,\n model,type, tare, grossWeight,\n currentKms,registrationDate,\nacquisitionDate, serviceFrequency)
-            activate CTRL
+        UI -> CTRL : registerGreenSpace(name, type, area)
+        activate CTRL
 
-                CTRL -> RepositorySingleton : getInstance()
-                activate RepositorySingleton
+            CTRL -> RepositorySingleton : getInstance()
+            activate RepositorySingleton
 
-                    RepositorySingleton --> CTRL: repositories
-                deactivate RepositorySingleton
+                RepositorySingleton --> CTRL: repositories
+            deactivate RepositorySingleton
 
-                CTRL -> PLAT : getVehicleRepository()
-                activate PLAT
+            CTRL -> PLAT : getGreenSpaceRepository()
+            activate PLAT
 
-                    PLAT --> CTRL: vehicleRepository
-                deactivate PLAT
+                PLAT --> CTRL: greenSpaceRepository
+            deactivate PLAT
 
-                CTRL -> vehicleRepository : registerVehicle(plateNumber, brand,\n model,type, tare, grossWeight,\n currentKms,registrationDate,\nacquisitionDate, serviceFrequency)
-                activate vehicleRepository
+            CTRL -> greenSpaceRepository : registerGreenSpace(name, type, area)
+            activate greenSpaceRepository
 
-                vehicleRepository -> VEHICLE**: registerVehicle(plateNumber, brand,\n model,type, tare, grossWeight,\n currentKms,registrationDate,\nacquisitionDate, serviceFrequency)
-                vehicleRepository -> vehicleRepository: addVehicle (vehicle)
+                greenSpaceRepository -> GREENSPACE**: registerGreenSpace(name, type, area)
+                greenSpaceRepository -> greenSpaceRepository: addGreenSpace(greenSpace)
 
-                 activate vehicleRepository
-                     vehicleRepository -> vehicleRepository: validateVehicle(vehicle)
-                     activate vehicleRepository
-                                vehicleRepository --> CTRL : vehicle
-                     deactivate vehicleRepository
+                activate greenSpaceRepository
+                    greenSpaceRepository -> greenSpaceRepository: validateGreenSpace(greenSpace)
+                    activate greenSpaceRepository
+                        greenSpaceRepository --> CTRL : greenSpace
+                    deactivate greenSpaceRepository
+                deactivate greenSpaceRepository
 
-                 deactivate vehicleRepository
-                 deactivate vehicleRepository
+            deactivate greenSpaceRepository
 
-                            deactivate vehicleRepository
+        CTRL --> UI: greenSpace
+        deactivate CTRL
 
-            CTRL --> UI: vehicle
-            deactivate CTRL
-            UI --> ADM: displays operation success
+        UI --> GSM: displays operation success
     deactivate UI
 
-deactivate ADM
+deactivate GSM
 
 @enduml

@@ -53,6 +53,36 @@ This diagram shows the full sequence of interactions between the classes involve
 
 ![Sequence Diagram - Full](svg/us022-sequence-diagram-full.svg)
 
+### Split Diagrams
+
+The following diagram shows the same sequence of interactions between the classes involved in the realization of this user story, but it is split in partial diagrams to better illustrate the interactions between the classes.
+
+It uses Interaction Occurrence (a.k.a. Interaction Use).
+
+![Sequence Diagram - split](svg/us022-sequence-diagram-split.svg)
+
+**Get To-Do List Entries with DTO**
+
+![Sequence Diagram - Partial - Get To-Do List Entries with DTO](svg/us022-sequence-diagram-partial-get-to-do-list-entries-with-dto.svg)
+
+**Get Task**
+
+![Sequence Diagram - Partial - Get Task](svg/us022-sequence-diagram-partial-get-task.svg)
+
+**Get Green Space**
+
+![Sequence Diagram - Partial - Get Green Space](svg/us022-sequence-diagram-partial-get-green-space.svg)
+
+**Create Agenda Entry**
+
+![Sequence Diagram - Partial - Create Agenda Entry](svg/us022-sequence-diagram-partial-create-agenda-entry.svg)
+
+**Add Agenda Entry**
+
+![Sequence Diagram - Partial - Add Agenda Entry](svg/us022-sequence-diagram-partial-add-agenda-entry.svg)
+
+
+
 ## 3.3. Class Diagram (CD)
 
 ![Class Diagram](svg/us022-class-diagram.svg)

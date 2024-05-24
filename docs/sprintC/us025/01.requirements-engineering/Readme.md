@@ -10,18 +10,17 @@ The GSM wants to cancel an entry in the Agenda.
 ### 1.2. Customer Specifications and Clarifications 
 
 **From the project statement document:**
-
->	The vehicle as the following attributes: Plate number, Brand, Model, Type, Tare, Gross weight, Current Kms, Registration Date, Acquisition Date and Service Frequency (in Kms). 
+ 
 
 **From the client clarifications:**
 
-> **Question:** When a vehicle is registered, are there specific requirements for accepting the brand? For example, does the system need to check if the brand is on a predetermined list? Does this also apply to the model or any other characteristics?
+> **Question:** When a task is cancelled, is it possible to put it back on the agenda again later?
 > 
-> **Answer:** No; one can consider a list of brands and a list of models previously inserted in the system, no need to go through validations.
+> **Answer:** Yes
  
-> **Question:** For the application to work does the FM need to fill all the attributes of the vehicle?
+> **Question:** When we cancel a task, do we move it again to the To-Do List?
 > 
-> **Answer:** Yes.
+> **Answer:** No
 
 
 ### 1.3. Acceptance Criteria
@@ -36,9 +35,6 @@ The GSM wants to cancel an entry in the Agenda.
 
 **Input Data:**
 
-* Typed data:
-  * 
-   
 * Selected data:
   * the entry to cancel.
 
@@ -52,4 +48,4 @@ The GSM wants to cancel an entry in the Agenda.
 
 #### Alternative One
 
-![System Sequence Diagram - Alternative One](svg/us006-system-sequence-diagram-alternative-one.svg)
+![System Sequence Diagram - Alternative One](svg/us025-system-sequence-diagram-alternative-one.svg)

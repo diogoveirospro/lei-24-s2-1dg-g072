@@ -12,14 +12,14 @@ participant ":System" as System
 
 activate Employee
 
-    Employee -> System : asks to postpone a entry to a future date
+    Employee -> System : asks to cancel a entry
     activate System
 
 loop
         System --> Employee : shows registered entries
     deactivate System
 
-    Employee -> System : chooses entries to postpone and \nthe date to postpone them
+    Employee -> System : chooses entries to cancel
     activate System
 
 end
@@ -29,5 +29,6 @@ end
    activate System
         System -> Employee : displays operation success
     deactivate System
+
 
 @enduml
