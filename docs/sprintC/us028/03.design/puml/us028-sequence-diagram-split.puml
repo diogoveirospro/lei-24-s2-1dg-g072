@@ -5,107 +5,147 @@ skinparam shadowing false
 
 autonumber
 
-'hide footbox
 actor "Collaborator" as Col
 participant ":ListTaskSpaceUI" as UI
 participant ":ListTaskController" as CTRL
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as REP
-participant "collaboratorRepository\n:CollaboratorRepository" as collaboratorRepository
+participant "teamRepository\n:TeamRepository" as teamRepository
+
 participant "taskRepository\n:TaskRepository" as taskRepository
-participant ":TaskMapper" as Mapper
+
+participant "agenda\n:Agenda" as AGENDA
+participant ":EntryMapper" as Mapper
+
 
 activate Col
 
-    Col -> UI : requests to consult tasks assigned to him
+Col -> UI : requests to consult tasks assigned to him
     activate UI
 
-        UI --> Col : asks to select the beginning and end date of the search
-        deactivate UI
+    UI -> CTRL** : create
+    UI -> CTRL : getCollaboratorThoughEmail(email)
+        activate CTRL
 
-        Col -> UI : selects the beginning and end date
-        activate UI
+        ref over CTRL
+            Get Collaborator Though Email
 
-            UI --> Col : asks for confirmation
-            deactivate UI
+        end
+        CTRL --> UI : collaborator
+        deactivate CTRL
 
-            Col -> UI : confirms that he wants to create the list
-            activate UI
+    UI --> Col : asks to select the beginning and end date of the search
+    deactivate UI
 
-                UI -> CTRL** : create
-                UI -> CTRL : getCollaboratorThoughEmail(email)
-                activate CTRL
+Col -> UI : selects the beginning and end date
+    activate UI
 
-                    CTRL -> RepositorySingleton: getInstance()
-                    activate RepositorySingleton
+    UI -> CTRL : getStatusList()
+        activate CTRL
 
-                        RepositorySingleton --> CTRL: repositories
-                    deactivate RepositorySingleton
+            ref over CTRL
+                        Get Status List
 
-                    CTRL -> REP: getCollaboratorRepository
-                    activate REP
+            end
 
-                        REP --> CTRL: collaboratorRepository
-                    deactivate REP
+        CTRL --> UI : statusList
+        deactivate CTRL
 
-                    CTRL -> collaboratorRepository: getCollaboratorThoughEmail(email)
-                    activate collaboratorRepository
+    UI --> Col : asks to select the type of status he wants to consult
+    deactivate UI
 
-                        collaboratorRepository -> collaboratorRepository: getCollaboratorThoughEmail(email)
-                        activate collaboratorRepository
+Col -> UI : Selects the type he wants to consult
+    activate UI
 
-                            collaboratorRepository --> CTRL: collaborator
-                        deactivate collaboratorRepository
+    UI --> Col : asks for confirmation
+    deactivate UI
 
-                    deactivate collaboratorRepository
-                    CTRL --> UI: collaborator
-                deactivate CTRL
+Col -> UI : confirms that he wants to create the list
+    activate UI
 
-                UI --> Col : asks to select the type of status he wants to consult
-                deactivate UI
+    UI -> CTRL : getTaskList(collaborator,dateI,dateF,typeStatus)
+        activate CTRL
 
-                Col -> UI : Selects the type he wants to consult
-                activate UI
 
-                    UI --> Col : asks for confirmation
-                    deactivate UI
+        CTRL -> RepositorySingleton : getInstance()
+            activate RepositorySingleton
 
-                    Col -> UI : confirms that he wants to create the list
-                    activate UI
+            RepositorySingleton --> CTRL : repositories
+            deactivate RepositorySingleton
 
-                        UI -> CTRL : getTaskList(collaborator,dateI,dateF,typeStatus)
-                        activate CTRL
+        CTRL -> REP : getTeamRepository()
+            activate REP
 
-                            CTRL -> RepositorySingleton : getInstance()
-                            activate RepositorySingleton
+            REP --> CTRL : teamRepository
+            deactivate REP
 
-                                RepositorySingleton --> CTRL: repositories
-                            deactivate RepositorySingleton
+        CTRL -> teamRepository : getTeamsThoughCollaborator(collaborator)
+            activate teamRepository
+                ref over teamRepository
+                    Get Team List
+                end
+            teamRepository --> CTRL : teamList
+            deactivate teamRepository
 
-                            CTRL -> REP : getTaskRepository()
-                            activate REP
+        CTRL -> RepositorySingleton : getInstance()
+            activate RepositorySingleton
 
-                                REP --> CTRL: taskRepository
-                            deactivate REP
+            RepositorySingleton --> CTRL : repositories
+            deactivate RepositorySingleton
 
-                            CTRL -> taskRepository : getTaskList(collaborator,dateI,dateF,typeStatus)
-                            activate taskRepository
+        CTRL -> REP : getTaskRepository()
+            activate REP
 
-                                taskRepository --> CTRL : taskList
-                            deactivate taskRepository
+            REP --> CTRL : taskRepository
+            deactivate REP
 
-                            CTRL -> Mapper : toDTO(taskList)
-                            activate Mapper
+        CTRL -> taskRepository : getTaskList(teamList,dateI,dateF,typeStatus)
+            activate taskRepository
+                ref over taskRepository
+                    Get Task List
+                end
+            taskRepository --> CTRL : taskList
+        deactivate taskRepository
 
-                                Mapper --> CTRL : taskListDto
-                            deactivate Mapper
 
-                        CTRL --> UI: taskListDto
-                    deactivate CTRL
+        CTRL -> RepositorySingleton : getInstance()
+            activate RepositorySingleton
 
-                    UI --> Col: shows the LISTTASK
-                deactivate UI
+            RepositorySingleton --> CTRL : repositories
+            deactivate RepositorySingleton
+
+        CTRL -> REP : getAgenda()
+            activate REP
+
+            REP --> CTRL : Agenda
+            deactivate REP
+
+        CTRL -> AGENDA : getCollaboratorAgendaEntries(taskList)
+            activate AGENDA
+
+                ref over AGENDA
+                    Get Entry List
+
+                end
+        AGENDA --> CTRL : listEntries
+        deactivate AGENDA
+
+        CTRL -> Mapper : toDTOList(listEntries)
+            activate Mapper
+                ref over Mapper
+                    Create a copy
+                    of Entry List
+
+                end
+
+             Mapper --> CTRL : listEntriesDto
+            deactivate Mapper
+
+        CTRL --> UI : listEntriesDto
+        deactivate CTRL
+
+    UI --> Col : shows the LISTTASK
+    deactivate UI
 
 deactivate Col
-
 @enduml

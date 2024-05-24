@@ -7,44 +7,29 @@ autonumber
 
 'hide footbox
 
-participant ":ListTaskController" as CTRL
-participant ":Repositories" as RepositorySingleton
-participant "repositories\n:Repositories" as REP
+
 participant "taskRepository\n:TaskRepository" as taskRepository
-participant ":TaskMapper" as Mapper
+participant "taskList\n:List<Task>" as LISTTASK
 
-autonumber 5
+autonumber 24
 
- -> CTRL : getTaskList(collaborator,dateI,dateF,typeStatus)
-autonumber 5.1
-activate CTRL
+ -> taskRepository : getTaskList(teamList,dateI,dateF,typeStatus)
+autonumber 24.1
+activate taskRepository
     group Get Task List
 
-        CTRL -> RepositorySingleton : getInstance()
-        activate RepositorySingleton
+taskRepository -> LISTTASK** : create()
+                loop for each task in the system
+                    opt ((typeStatus() == task.getStatus() && (team == task.getTeam))\n && (dateI <= task.getDateI()) && (dateF >= task.getDateF()))
+                        taskRepository -> LISTTASK : addTaskOfCollaborator(task)
+                            activate LISTTASK
+                    end
 
-            RepositorySingleton --> CTRL: repositories
-        deactivate RepositorySingleton
-
-        CTRL -> REP : getTaskRepository()
-        activate REP
-
-            REP --> CTRL: taskRepository
-        deactivate REP
-
-        CTRL -> taskRepository : getTaskList(collaborator,dateI,dateF,typeStatus)
-        activate taskRepository
-
-            taskRepository --> CTRL : taskList
-        deactivate taskRepository
-
-        CTRL -> Mapper : toDTO(taskList)
-        activate Mapper
-
-            Mapper --> CTRL : taskListDto
-        deactivate Mapper
-
+                end
+            LISTTASK --> taskRepository : taskList
+            deactivate LISTTASK
     end
-deactivate CTRL
+autonumber 25
+<-- taskRepository : taskList
 
 @enduml

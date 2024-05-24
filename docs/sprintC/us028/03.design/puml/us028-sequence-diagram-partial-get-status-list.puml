@@ -3,28 +3,51 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-participant "vehicleRepository\n:VehicleRepository" as ORG
-participant "vehicle\n:Vehicle" as VEHICLE
+participant ":ListTaskController" as CTRL
+participant ":Repositories" as RepositorySingleton
+participant "repositories\n:Repositories" as REP
+participant "taskRepository\n:TaskRepository" as taskRepository
+participant "statusList\n:List<String>" as LISTSTATUS
 
-autonumber 11
--> ORG: registerVehicle(plateNumber, brand,\n model, type, tare, grossWeight,\n currentKms,registrationDate,\nacquisitionDate, serviceFrequency)
+autonumber 7
+-> CTRL: getStatusList()
 
-autonumber 11.1
-activate ORG
+autonumber 7.1
+activate CTRL
     group Register Vehicle
 
-        ORG -> VEHICLE**: register(plateNumber, brand,\n model,type, tare, grossWeight,\n currentKms,registrationDate,\nacquisitionDate, serviceFrequency)
-        ORG -> ORG: addVehicle (vehicle)
 
-        activate ORG
-            ORG -> ORG: validateVehicle(vehicle)
-            activate ORG
+        CTRL -> RepositorySingleton : getInstance()
+            activate RepositorySingleton
+
+            RepositorySingleton --> CTRL : repositories
+            deactivate RepositorySingleton
+
+        CTRL -> REP : getTaskRepository()
+            activate REP
+
+            REP --> CTRL : taskRepository
+            deactivate REP
+
+        CTRL -> taskRepository : getStatusList()
+            activate taskRepository
+
+            taskRepository --> LISTSTATUS** : create()
+                loop for each status in the system
+                    taskRepository -> LISTSTATUS : add(status)
+                        activate LISTSTATUS
+                end
+            LISTSTATUS --> taskRepository : statusList
+            deactivate LISTSTATUS
+
+        taskRepository --> CTRL : statusList
+        deactivate taskRepository
 
     end
 
-    autonumber 12
-    <-- ORG : vehicle
-deactivate ORG
+    autonumber 8
+    <-- CTRL : statusList
+deactivate CTRL
 
 
 @enduml

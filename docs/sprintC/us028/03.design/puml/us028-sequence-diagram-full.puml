@@ -131,7 +131,11 @@ Col -> UI : confirms that he wants to create the list
                     teamRepository -> TEAM : validateCollaboratorTeam(collaborator,team)
                         activate TEAM
                         TEAM -> TEAM : inTeam = validateCollaboratorTeam(collaborator,team)
+                        activate TEAM
+
                         TEAM --> teamRepository : inTeam
+                        deactivate TEAM
+
                         deactivate TEAM
                     opt inTeam == true
                         teamRepository -> LISTTEAM : addTeamOfCollaborator(team)
@@ -217,7 +221,7 @@ Col -> UI : confirms that he wants to create the list
 
                         DTO --> Mapper : entryDto
                         deactivate DTO
-                    Mapper -> LISTENTRIESDTO : add(entryDto)
+                    Mapper -> LISTENTRIESDTO : add(taskDto)
                         activate LISTENTRIESDTO
                 end
 

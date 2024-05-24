@@ -12,10 +12,10 @@ participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as REP
 participant "collaboratorRepository\n:CollaboratorRepository" as collaboratorRepository
 
-autonumber 5
+autonumber 3
 
  -> CTRL : getCollaboratorThoughEmail(email)
-autonumber 5.1
+autonumber 3.1
 activate CTRL
     group Get Collaborator
 
@@ -43,6 +43,7 @@ activate CTRL
         deactivate collaboratorRepository
 
     end
+    autonumber 4
         <-- CTRL  : collaborator
 deactivate CTRL
 

@@ -49,6 +49,37 @@ This diagram shows the full sequence of interactions between the classes involve
 
 ![Sequence Diagram - Full](svg/us028-sequence-diagram-full.svg)
 
+### Split Diagrams
+
+The following diagram shows the same sequence of interactions between the classes involved in the realization of this user story, but it is split in partial diagrams to better illustrate the interactions between the classes.
+
+It uses Interaction Occurrence (a.k.a. Interaction Use).
+
+![Sequence Diagram - split](svg/us028-sequence-diagram-split.svg)
+
+**Get Collaborator through Email Partial SD**
+
+![Sequence Diagram - Partial - Get Collaborator through Email](svg/us028-sequence-diagram-partial-get-collaborator-through-email.svg)
+
+**Get Status List Partial SD**
+
+![Sequence Diagram - Partial - Get Status List](svg/us028-sequence-diagram-partial-get-status-list.svg)
+
+**Get Team List Partial SD**
+
+![Sequence Diagram - Partial - Get Team List](svg/us028-sequence-diagram-partial-get-team-list.svg)
+
+**Get Task List Partial SD**
+
+![Sequence Diagram - Partial - Get Task List](svg/us028-sequence-diagram-partial-get-task-list.svg)
+
+**Get Entry List Partial SD**
+
+![Sequence Diagram - Partial - Get Entry List](svg/us028-sequence-diagram-partial-get-entry-list.svg)
+
+**Create a Copy of Entry List Partial SD**
+
+![Sequence Diagram - Partial - Create a Copy of Entry List](svg/us028-sequence-diagram-partial-create-a-copy-of-entry-list.svg)
 
 ## 3.3. Class Diagram (CD)
 
