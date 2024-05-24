@@ -20,7 +20,7 @@ participant "toDoListEntryDto\n:ToDoListDto" as TODOLISTENTRYDTO
 participant "toDoListEntry\n:ToDoListEntry" as TODOLISTENTRY
 participant "task\n:Task" as TASK
 participant "greenSpace\n: GreenSpace" as GREENSPACE
-participant "agendaEntry\n:ToDoListEntry" as TODOLISTENTRY
+
 
 activate GSM
 
@@ -127,29 +127,53 @@ activate GSM
             CTRL --> UI : task
         deactivate CTRL
 
-        UI -> CTRL : getGreenSpace(toDoListEntry)
+        UI --> GSM: confirm data
+
+         UI -> CTRL : getGreenSpace(toDoListEntry)
+                activate CTRL
+
+                    CTRL -> TODOLIST : getGreenSpace(toDoListEntry)
+                    activate TODOLIST
+
+                        TODOLIST -> TODOLISTENTRY : getGreenSpace()
+                        activate TODOLISTENTRY
+
+                            TODOLISTENTRY -> GREENSPACE** : getGreenSpace()
+                            activate GREENSPACE
+
+                                GREENSPACE --> TODOLISTENTRY : greenSpace
+                            deactivate GREENSPACE
+
+                            TODOLISTENTRY --> TODOLIST : greenSpace
+                        deactivate TODOLISTENTRY
+
+                        TODOLIST --> CTRL : greenSpace
+                    deactivate TODOLIST
+
+                    CTRL --> UI : greenSpace
+                deactivate CTRL
+
+        UI -> CTRL : addToDoLIstEntry(toDoListEntry)
         activate CTRL
 
-            CTRL -> TODOLIST : getGreenSpace(toDoListEntry)
+            CTRL -> TODOLIST : addToDoLIstEntry(toDoListEntry)
             activate TODOLIST
 
-                TODOLIST -> TODOLISTENTRY : getGreenSpace()
-                activate TODOLISTENTRY
+            TODOLIST -> TODOLIST : validateEntry()
+            activate TODOLIST
 
-                    TODOLISTENTRY -> GREENSPACE** : getGreenSpace()
-                    activate GREENSPACE
-
-                        GREENSPACE --> TODOLISTENTRY : greenSpace
-                    deactivate GREENSPACE
-
-                    TODOLISTENTRY --> TODOLIST : greenSpace
-                deactivate TODOLISTENTRY
-
-                TODOLIST --> CTRL : greenSpace
             deactivate TODOLIST
 
-            CTRL --> UI : greenSpace
+            TODOLIST --> CTRL : operation success
+            deactivate TODOLIST
+
+            CTRL --> UI : operation success
         deactivate CTRL
+
+        UI --> GSM: displays operation success
+    deactivate UI
+
+deactivate GSM
 
 
 
