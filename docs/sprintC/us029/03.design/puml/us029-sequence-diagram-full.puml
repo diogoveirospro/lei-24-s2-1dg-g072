@@ -1,70 +1,86 @@
 @startuml
-skinparam monochrome true
+'skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
 autonumber
 
-'hide footbox
-actor "Vehicle Fleet Manager" as ADM
-participant ":RegisterVehicleUI" as UI
-participant ":RegisterVehicleController" as CTRL
+actor "Collaborator" as Col
+participant ":RecordTaskCompletionUI" as UI
+participant ":RecordTaskCompletionController" as CTRL
 participant ":Repositories" as RepositorySingleton
-participant "repositories\n:Repositories" as PLAT
-participant "vehicleRepository\n:VehicleRepository" as vehicleRepository
-participant "vehicle\n:Vehicle" as VEHICLE
+participant "repositories\n:Repositories" as REP
+participant "collaboratorRepository\n:CollaboratorRepository" as collaboratorRepository
+participant "taskRepository\n:TaskRepository" as taskRepository
+participant "task:Task" as TASK
 
-activate ADM
+activate Col
 
-        ADM -> UI : asks to register a new vehicle
+Col -> UI : requests to record task completion
+activate UI
 
-        activate UI
+UI -> CTRL** : create
+UI -> CTRL : getCollaborator()
+activate CTRL
 
-            UI --> ADM : requests data (plateNumber, brand,\n model,type, tare, grossWeight,\n currentKms,registrationDate,\nacquisitionDate, serviceFrequency)
+CTRL -> RepositorySingleton : getInstance()
+activate RepositorySingleton
 
-            ADM -> UI : types requested data
+RepositorySingleton --> CTRL : repositories
+deactivate RepositorySingleton
 
-            UI --> ADM : shows all data and requests confirmation
+CTRL -> REP : getCollaboratorRepository
+activate REP
 
-            ADM -> UI : confirms data
+REP --> CTRL : collaboratorRepository
+deactivate REP
 
-            UI -> CTRL : registerVehicle(plateNumber, brand,\n model,type, tare, grossWeight,\n currentKms,registrationDate,\nacquisitionDate, serviceFrequency)
-            activate CTRL
+CTRL -> collaboratorRepository** : getCollaborator()
+activate collaboratorRepository
 
-                CTRL -> RepositorySingleton : getInstance()
-                activate RepositorySingleton
+collaboratorRepository -> collaboratorRepository : getCollaborator()
+activate collaboratorRepository
 
-                    RepositorySingleton --> CTRL: repositories
-                deactivate RepositorySingleton
+collaboratorRepository --> CTRL : collaborator
 
-                CTRL -> PLAT : getVehicleRepository()
-                activate PLAT
+deactivate collaboratorRepository
 
-                    PLAT --> CTRL: vehicleRepository
-                deactivate PLAT
+deactivate collaboratorRepository
+CTRL --> UI : collaborator
+deactivate CTRL
 
-                CTRL -> vehicleRepository : registerVehicle(plateNumber, brand,\n model,type, tare, grossWeight,\n currentKms,registrationDate,\nacquisitionDate, serviceFrequency)
-                activate vehicleRepository
+UI --> Col : prompts to select the task to mark as completed
+deactivate UI
 
-                vehicleRepository -> VEHICLE**: registerVehicle(plateNumber, brand,\n model,type, tare, grossWeight,\n currentKms,registrationDate,\nacquisitionDate, serviceFrequency)
-                vehicleRepository -> vehicleRepository: addVehicle (vehicle)
+Col -> UI : selects the task to mark as completed
+activate UI
 
-                 activate vehicleRepository
-                     vehicleRepository -> vehicleRepository: validateVehicle(vehicle)
-                     activate vehicleRepository
-                                vehicleRepository --> CTRL : vehicle
-                     deactivate vehicleRepository
+UI -> CTRL : markTaskAsCompleted(task)
+activate CTRL
 
-                 deactivate vehicleRepository
-                 deactivate vehicleRepository
+CTRL -> RepositorySingleton : getInstance()
+activate RepositorySingleton
 
-                            deactivate vehicleRepository
+RepositorySingleton --> CTRL : repositories
+deactivate RepositorySingleton
 
-            CTRL --> UI: vehicle
-            deactivate CTRL
-            UI --> ADM: displays operation success
-    deactivate UI
+CTRL -> REP : getTaskRepository()
+activate REP
 
-deactivate ADM
+REP --> CTRL : taskRepository
+deactivate REP
 
+CTRL -> taskRepository** : markTaskAsCompleted(task)
+activate taskRepository
+
+taskRepository --> CTRL : successMessage
+deactivate taskRepository
+
+CTRL --> UI : successMessage
+deactivate CTRL
+
+UI --> Col : displays success message
+deactivate UI
+
+deactivate Col
 @enduml

@@ -12,51 +12,41 @@ skinparam classAttributeIconSize 0
 class Repositories {
     - Repositories()
     + getInstance() : Repositories
-    + getVehicleRepository()
+    + getGreenSpaceRepository()
 }
 
-class RegisterVehicleController {
-    + RegisterVehicleController(vehicleRepository)
-    + registerVehicle(plateNumber, brand, model, type, tare, grossWeight, currentKms, registrationDate, acquisitionDate, serviceFrequency)
+class RegisterGreenSpaceController {
+    + RegisterGreenSpaceController(greenSpaceRepository)
+    + registerGreenSpace(name, type, area)
 }
 
-class vehicleRepository{
-    + registerVehicle(plateNumber, brand, model, type, tare, grossWeight, currentKms, registrationDate, acquisitionDate, serviceFrequency)
-    + addVehicle(vehicle)
-    + validateVehicle(vehicle)
-    + getVehicleList()
+class GreenSpaceRepository{
+    + registerGreenSpace(name, type, area)
+    + addGreenSpace(greenSpace)
+    + validateGreenSpace(greenSpace)
+    + getGreenSpaceList()
 }
 
-class RegisterVehicleUI {
+class RegisterGreenSpaceUI {
 }
 
-class Vehicle{
-    - String plateNumber
-    - String brand
-    - String model
+class GreenSpace{
+    - String name
     - String type
-    - Double tare
-    - Double grossWeight
-    - Double currentKms
-    - String registrationDate
-    - String acquisitionDate
-    - Double serviceFrequency
-    - Double kmAtLastMaintenance
-
+    - Double area
 }
 
 Repositories -> Repositories : instance
 
-RegisterVehicleUI .> RegisterVehicleController
-RegisterVehicleController .> "1" vehicleRepository : vehicleRepository
+RegisterGreenSpaceUI .> RegisterGreenSpaceController
+RegisterGreenSpaceController .> "1" greenSpaceRepository : greenSpaceRepository
 
+Repositories --> "1" greenSpaceRepository
 
-Repositories --> "1" vehicleRepository
+RegisterGreenSpaceController .> Repositories : repositories
 
-RegisterVehicleController .> Repositories : repositories
+greenSpaceRepository "1" o--- "1..*"GreenSpace : has
 
-vehicleRepository "1" o--- "1..*"Vehicle : has
-
-RegisterVehicleController .> Vehicle : vehicle
+RegisterGreenSpaceController .> GreenSpace : greenSpace
 
 @enduml
