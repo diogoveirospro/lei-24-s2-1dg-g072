@@ -3,80 +3,101 @@
 skinparam packageStyle rectangle
 skinparam shadowing false
 skinparam linetype polyline
-'skinparam linetype orto
+'skinparam linetype ortho
 
 skinparam classAttributeIconSize 0
 
 'left to right direction
 
 package "UI" <<Folder>> #DDDDDD {
-
+    class AddToDoListEntryUI {
+        + displayTasks()
+        + selectTask(task : Task)
+        + confirmData()
+        + displaySuccess()
+    }
 }
 
 package "Controller" <<Folder>> #DDDDDD {
-
-
+    class AddToDoListController {
+        + create()
+        + getToDoListEntries() : List<ToDoListEntryDto>
+        + getTask(toDoListEntry : ToDoListEntry) : Task
+        + getGreenSpace(toDoListEntry : ToDoListEntry) : GreenSpace
+        + addToDoListEntry(toDoListEntry : ToDoListEntry)
+    }
 }
 
 package "Domain" <<Folder>> #DDDDDD {
 
-package "Repository" <<Folder>> #DDDDDD {
+    package "Repository" <<Folder>> #DDDDDD {
 
-class Repositories {
-    - Repositories()
-    + getInstance() : Repositories
-    + getToDoList()
+        class Repositories {
+            - Repositories()
+            + getInstance() : Repositories
+            + getToDoList() : ToDoList
+        }
+
+        class ToDoList {
+            + getToDoListEntries() : List<ToDoListEntry>
+        }
+
+    }
+
+    class Entry {
+        - task : Task
+        - greenSpace : GreenSpace
+    }
+
+    class GreenSpace {
+        - name : String
+        - area : double
+        + GreenSpace(name, area)
+    }
+
+    class Task {
+        - description : String
+        - team : Team
+        - vehicles : List<Vehicle>
+        - duration : Date
+        + Task(description, team, vehicles, duration)
+    }
+
+    class ToDoListEntry {
+        - task : Task
+        - greenSpace : GreenSpace
+        - priority : Enum
+        + ToDoListEntry(task, greenSpace)
+    }
+
+    package "Mapper" <<Folder>> #DDDDDD {
+
+        class ToDoListMapper {
+            + toDoListEntriesToDto(entries : List<ToDoListEntry>) : List<ToDoListEntryDto>
+            + toDTO(toDoListEntry : ToDoListEntry) : ToDoListEntryDto
+        }
+
+        package "DTO" <<Folder>> #DDDDDD {
+            class ToDoListEntryDto {
+                ' DTO attributes would be defined here if needed
+            }
+        }
+
+    }
+
+    Repositories --> Repositories : instance
+    Repositories --> "1" ToDoList : getToDoList
+
+    ToDoList --> ToDoListEntry : has
+    GreenSpace --o ToDoListEntry : has
+    Task --o ToDoListEntry : has
+    ToDoListEntryDto ..> ToDoListMapper : toDoListEntryDto
+    Entry --|> ToDoListEntry : extends
+
 }
 
-class ToDoList {
-    + getToDoListEntries()
-}
-
-class Entry {
-    - task : Task
-    - greenSpace : GreenSpace
-}
-
-class GreenSpace {
-    - name : String
-    - area : double
-    + GreenSpace(name, area)
-}
-
-class Task {
-    - description : String
-    - team : Team
-    - vehicles : List<Vehicle>
-    - duration : Date
-    + Task(description, team, vehicles, duration)
-}
-
-class ToDoListEntry {
-    - task : Task
-    - greenSpace : GreenSpace
-    - priority : enum
-    + ToDoListEntry(task, greenSpace)
-}
-
-
-package "Mapper" <<Folder>> #DDDDDD {
-class ToDoListMapper {
-    +toDoListEntriesToDto(entries) : List<ToDoListEntryDto>
-    +toDTO(toDoListEntry) : ToDoListEntryDto
-}
-
-package "DTO" <<Folder>> #DDDDDD {
-class ToDoListEntryDto {
-}
-
-Repositories --> Repositories : instance
-Repositories --> "1" ToDoList
-
-
-ToDoList --> ToDoListEntry : has
-GreenSpace --o ToDoListEntry : has
-Task --o ToDoListEntry : has
-ToDoListEntryDto ..> ToDoListMapper : toDoListEntryDto
-Entry --|> ToDoListEntry : extends
+AddToDoListEntryUI --> AddToDoListController : interacts with
+AddToDoListController --> Repositories : uses
+AddToDoListController --> ToDoListMapper : uses
 
 @enduml

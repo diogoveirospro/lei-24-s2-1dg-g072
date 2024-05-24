@@ -20,7 +20,7 @@ participant "toDoListEntryDto\n:ToDoListDto" as TODOLISTENTRYDTO
 participant "toDoListEntry\n:ToDoListEntry" as TODOLISTENTRY
 participant "task\n:Task" as TASK
 participant "greenSpace\n: GreenSpace" as GREENSPACE
-participant "agendaEntry\n:ToDoListEntry" as TODOLISTENTRY
+
 
 activate GSM
 
