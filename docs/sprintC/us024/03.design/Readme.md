@@ -6,32 +6,35 @@
 
 _**Note that SSD - Alternative One is adopted.**_
 
-| Interaction ID | Question: Which class is responsible for...   | Answer                  | Justification (with patterns)                                                                                 |
-|:---------------|:----------------------------------------------|:------------------------|:--------------------------------------------------------------------------------------------------------------|
-| Step 1  		     | 	... interacting with the actor?              | PostponeEntryUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |
-| 			  		        | 	... coordinating the US?                     | PostponeEntryController | Controller                                                                                                    |
-| Step 2  		     | 	...showing the existing entry's					         | TaskRepository          | Repository                                                                                                    |
-| 	Step 3		  		  |                                               |                         |                                                                                                               |
-| Step 4  	  		  | 	                                             |                         |                                                                                                               |
-| 	Step 5	  		   | 	                                             |                         |                                                                                                               |
-| 	Step 6	  		   | 	                                             |                         |                                                                                                               |
-| Step 7  		     | 	...saving the inputted data?                 | TaskRepository          | IE: object Task has its own data.                                                                             |
-| 		             | 	... validating all data (local validation)?  | Task                    | IE: owns its data.                                                                                            | 
-| 			  		        | 	... validating all data (global validation)? | TaskRepository          | IE: knows all its entry's.                                                                                    | 
-| 			  		        | 	... saving the new entry date?               | TaskRepository          | IE: owns all its entry's.                                                                                     | 
-| Step 8  		     | 	... informing operation success?             | PostponeEntryUI         | IE: is responsible for user interactions.                                                                     | 
-
+| Interaction ID | Question: Which class is responsible for...                | Answer                        | Justification (with patterns)                                                                                                                                    |
+|:---------------|:-----------------------------------------------------------|:------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Step 1         | ... interacting with the actor?                            | PostponeAgendaEntryUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model.                                                    |
+|                | ... coordinating the US?                                   | PostponeAgendaEntryController | Controller: coordinates the interactions related to postpone an agenda entry in the user interface (UI) and executes the logic needed to process these requests. |
+|                | ... knowing the Agenda Entries?                            | EntryList                     | IE: knows how to access the data of entries list.                                                                                                                |
+|                | ... create a list with all the data of the Agenda?         | EntryListMapper               | IE: Transforms all of its data.                                                                                                                                  |
+|                | ... creating the entry list DTO?                           | EntryListDto                  | Pure Fabrication: a simple data structure to hold the list of Entries for transfer.                                                                              |
+|                | ... returning EntryList entries DTOs to the UI?            | PostponeAgendaEntryController | Controller: coordinates the interaction and data flow between the UI and the model.                                                                              |
+| Step 2         |                                                            |                               |                                                                                                                                                                  |
+|                | ... knowing the green space associated with the EntryList? | EntryList                     | IE: EntryList is the most knowledgeable about its associated GreenSpace.                                                                                         |
+|                | ... saving the inputted data?                              | AgendaEntry                   | IE: processes user input and postpones a agenda entry based on that information.                                                                                 |
+|                | ... marking the status as postponed?                       | AgendaEntry                   | IE: owns the information necessary to manage its status.                                                                                                         |
+|                | ... validating all data (local validation)?                | AgendaEntry                   | IE: owns its data.                                                                                                                                               |
+| Step 4         |                                                            |                               |                                                                                                                                                                  |
+| Step 5         | ... validating all data (global validation)?               | Agenda                        | IE: knows all its agenda entries.                                                                                                                                |
+|                | ... saving the created agenda entry?                       | Agenda                        | IE: owns all its agenda entries.                                                                                                                                 |
+| Step 6         | ... informing operation success?                           | PostponeAgendaEntryUI         | IE: is responsible for user interactions.                                                                                                                        |
 ### Systematization ##
 
 According to the taken rationale, the conceptual classes promoted to software classes are: 
 
-* TaskRepository
-* Task
+* EntryListMapper
+* EntryList
 
 Other software classes (i.e. Pure Fabrication) identified: 
 
 * PostponeEntryUI  
 * PostponeEntryController
+* EntryListDto
 
 
 ## 3.2. Sequence Diagram (SD)
