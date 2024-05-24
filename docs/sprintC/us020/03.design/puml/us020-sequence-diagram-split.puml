@@ -5,57 +5,56 @@ skinparam shadowing false
 
 autonumber
 
-'hide footbox
-actor "Vehicle Fleet Manager" as ADM
-participant ":RegisterVehicleUI" as UI
-participant ":RegisterVehicleController" as CTRL
+actor "User" as User
+participant ":RegisterGreenSpaceUI" as UI
+participant ":RegisterGreenSpaceController" as CTRL
 participant ":Repositories" as RepositorySingleton
-participant "repositories\n:Repositories" as PLAT
-participant "vehicleRepository\n:VehicleRepository" as VehicleRepository
-activate ADM
+participant "repositories\n:Repositories" as REP
+participant "greenSpaceRepository\n:GreenSpaceRepository" as greenSpaceRepository
 
-        ADM -> UI : asks to register a new vehicle
+activate User
 
-        activate UI
+User -> UI : requests to register a green space
+activate UI
 
-            UI --> ADM : requests data (plateNumber, brand,\n model,type, tare, grossWeight,\n currentKms,registrationDate,\nacquisitionDate, serviceFrequency)
+UI -> CTRL** : create
+UI -> CTRL : registerGreenSpace(name, area, type)
+    activate CTRL
 
-            ADM -> UI : types requested data
+    CTRL -> RepositorySingleton : getInstance()
+        activate RepositorySingleton
 
-            UI --> ADM : shows all data and requests confirmation
+        RepositorySingleton --> CTRL : repositories
+        deactivate RepositorySingleton
 
-            ADM -> UI : confirms data
+    CTRL -> REP : getGreenSpaceRepository()
+        activate REP
 
-            UI -> CTRL : registerVehicle(plateNumber, brand,\n model,type, tare, grossWeight,\n currentKms,registrationDate,\nacquisitionDate, serviceFrequency)
-            activate CTRL
+        REP --> CTRL : greenSpaceRepository
+        deactivate REP
 
-                CTRL -> RepositorySingleton : getInstance()
-                activate RepositorySingleton
+    CTRL -> greenSpaceRepository : validateGreenSpace(name, area, type)
+        activate greenSpaceRepository
+            ref over greenSpaceRepository
+                Validate Green Space
+            end
 
-                    RepositorySingleton --> CTRL: repositories
-                deactivate RepositorySingleton
+        greenSpaceRepository --> CTRL : validationStatus
+        deactivate greenSpaceRepository
 
-                CTRL -> PLAT : getVehicleRepository()
-                activate PLAT
+    CTRL -> greenSpaceRepository : addGreenSpace(name, area, type)
+        activate greenSpaceRepository
+            ref over greenSpaceRepository
+                Add Green Space
+            end
+        greenSpaceRepository --> CTRL : successMessage
+        deactivate greenSpaceRepository
 
-                    PLAT --> CTRL: vehicleRepository
-                deactivate PLAT
+    CTRL --> UI : successMessage
+    deactivate CTRL
 
-                CTRL -> VehicleRepository : registerVehicle(plateNumber, brand,\n model,type, tare, grossWeight,\n currentKms,registrationDate,\nacquisitionDate, serviceFrequency)
-                activate VehicleRepository
-                ref over VehicleRepository
-                    Register Vehicle
+UI --> User : displays success message
+deactivate UI
 
-                end ref
-                                VehicleRepository --> CTRL : vehicle
-
-                            deactivate VehicleRepository
-
-            CTRL --> UI: vehicle
-            deactivate CTRL
-            UI --> ADM: displays operation success
-    deactivate UI
-
-deactivate ADM
-
+deactivate User
 @enduml

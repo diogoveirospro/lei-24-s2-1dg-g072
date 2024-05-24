@@ -5,57 +5,105 @@ skinparam shadowing false
 
 autonumber
 
-'hide footbox
-actor "Vehicle Fleet Manager" as ADM
-participant ":RegisterVehicleUI" as UI
-participant ":RegisterVehicleController" as CTRL
+actor "GSM" as GSM
+participant ":AddEntryUI" as UI
+participant ":AddEntryController" as CTRL
 participant ":Repositories" as RepositorySingleton
-participant "repositories\n:Repositories" as PLAT
-participant "vehicleRepository\n:VehicleRepository" as VehicleRepository
-activate ADM
+participant "repositories\n:Repositories" as REP
+participant "gsmRepository\n:GSMRepository" as GSMRepo
+participant "greenSpaceRepository\n:GreenSpaceRepository" as GreenSpaceRepo
+participant "entryRepository\n:EntryRepository" as EntryRepo
+participant "GreenSpace" as GreenSpace
+participant "Entry" as Entry
 
-        ADM -> UI : asks to register a new vehicle
+activate GSM
 
-        activate UI
+GSM -> UI : requests to add a new entry
+activate UI
 
-            UI --> ADM : requests data (plateNumber, brand,\n model,type, tare, grossWeight,\n currentKms,registrationDate,\nacquisitionDate, serviceFrequency)
+UI -> CTRL** : create
+UI -> CTRL : getGreenSpacesManagedByGSM()
+    activate CTRL
 
-            ADM -> UI : types requested data
+    CTRL -> RepositorySingleton : getInstance()
+        activate RepositorySingleton
 
-            UI --> ADM : shows all data and requests confirmation
+        RepositorySingleton --> CTRL : repositories
+        deactivate RepositorySingleton
 
-            ADM -> UI : confirms data
+    CTRL -> REP : getGSMRepository()
+        activate REP
 
-            UI -> CTRL : registerVehicle(plateNumber, brand,\n model,type, tare, grossWeight,\n currentKms,registrationDate,\nacquisitionDate, serviceFrequency)
-            activate CTRL
+        REP --> CTRL : GSMRepo
+        deactivate REP
 
-                CTRL -> RepositorySingleton : getInstance()
-                activate RepositorySingleton
+    CTRL -> GSMRepo : getGreenSpacesManagedByGSM(gsm)
+        activate GSMRepo
 
-                    RepositorySingleton --> CTRL: repositories
-                deactivate RepositorySingleton
+        GSMRepo -> GreenSpaceRepo : getGreenSpacesManagedByGSM(gsm)
+            activate GreenSpaceRepo
 
-                CTRL -> PLAT : getVehicleRepository()
-                activate PLAT
+            ref over GreenSpaceRepo
+                Get Green Spaces Managed by GSM
+            end
 
-                    PLAT --> CTRL: vehicleRepository
-                deactivate PLAT
+            GreenSpaceRepo --> GSMRepo : greenSpaces
+        deactivate GreenSpaceRepo
 
-                CTRL -> VehicleRepository : registerVehicle(plateNumber, brand,\n model,type, tare, grossWeight,\n currentKms,registrationDate,\nacquisitionDate, serviceFrequency)
-                activate VehicleRepository
-                ref over VehicleRepository
-                    Register Vehicle
+        GSMRepo --> CTRL : greenSpaces
+    deactivate GSMRepo
 
-                end ref
-                                VehicleRepository --> CTRL : vehicle
+    CTRL --> UI : greenSpaces
+deactivate CTRL
 
-                            deactivate VehicleRepository
+UI --> GSM : asks to select a green space
+deactivate UI
 
-            CTRL --> UI: vehicle
-            deactivate CTRL
-            UI --> ADM: displays operation success
-    deactivate UI
+GSM -> UI : selects a green space
+activate UI
 
-deactivate ADM
+UI -> GSM : prompts to enter details for the new entry
+deactivate UI
 
+GSM -> UI : enters details for the new entry
+activate UI
+
+UI -> CTRL : addEntry(greenSpace, entryDetails)
+    activate CTRL
+
+    CTRL -> RepositorySingleton : getInstance()
+        activate RepositorySingleton
+
+        RepositorySingleton --> CTRL : repositories
+        deactivate RepositorySingleton
+
+    CTRL -> REP : getEntryRepository()
+        activate REP
+
+        REP --> CTRL : EntryRepo
+        deactivate REP
+
+    CTRL -> EntryRepo : createEntry(greenSpace, entryDetails)
+        activate EntryRepo
+
+        EntryRepo -> Entry : create(entryDetails)
+            activate Entry
+
+            ref over Entry
+                Create new entry
+            end
+
+            Entry --> EntryRepo : entry
+        deactivate Entry
+
+        EntryRepo --> CTRL : successMessage
+    deactivate EntryRepo
+
+    CTRL --> UI : successMessage
+deactivate CTRL
+
+UI --> GSM : displays success message
+deactivate UI
+
+deactivate GSM
 @enduml
