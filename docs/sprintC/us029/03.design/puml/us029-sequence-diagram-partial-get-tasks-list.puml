@@ -10,12 +10,12 @@ participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as REP
 participant "taskRepository\n:TaskRepository" as taskRepository
 
-autonumber 5
+autonumber 3
 
--> CTRL : markTaskAsCompleted(task)
-autonumber 5.1
+-> CTRL : getTaskList(collaborator, dateI, dateF, typeStatus)
+autonumber 3.1
 activate CTRL
-    group Mark Task as Completed
+    group Get Tasks for Collaborator
 
         CTRL -> RepositorySingleton : getInstance()
         activate RepositorySingleton
@@ -29,15 +29,16 @@ activate CTRL
             REP --> CTRL : taskRepository
         deactivate REP
 
-        CTRL -> taskRepository : markTaskAsCompleted(task)
+        CTRL -> taskRepository : getTaskList(collaborator, dateI, dateF, typeStatus)
         activate taskRepository
 
-            taskRepository --> CTRL : successMessage
+            taskRepository --> CTRL : taskList
         deactivate taskRepository
 
     end
-autonumber 6
-        <-- CTRL : successMessage
+autonumber 4
+        <-- CTRL : taskList
 deactivate CTRL
 
 @enduml
+
