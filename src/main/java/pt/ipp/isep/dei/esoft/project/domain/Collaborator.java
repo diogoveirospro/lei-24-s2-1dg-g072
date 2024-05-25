@@ -105,7 +105,7 @@ public class Collaborator implements Comparable<Collaborator> {
     private List<Skill> skillSet;
 
     /**
-     * All types of collaborator emails.
+     * All types of collaborator email.
      */
     public enum typeOfCollaboratorEmails {
         COLLABORATOR("@gmail.com"),
