@@ -1,0 +1,28 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+participant "Repositories\n:Repositories" as ORG
+participant "toDoList\n:ToDoList" as TODOLIST
+
+autonumber
+
+group Get ToDo List Entries
+
+-> ORG: getToDoListEntries()
+
+autonumber 11
+activate ORG
+
+    ORG -> TODOLIST : getToDoListEntries()
+    activate TODOLIST
+
+        TODOLIST --> ORG : listEntries
+    deactivate TODOLIST
+
+    ORG --> UI : toDoListDto
+deactivate ORG
+
+end
+@enduml

@@ -9,17 +9,21 @@ _**Note that SSD - Alternative One is adopted.**_
 | Interaction ID | Question: Which class is responsible for...            | Answer                   | Justification (with patterns)                                                                                                                                   |
 |:---------------|:-------------------------------------------------------|:-------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Step 1  		     | 	... interacting with the actor?                       | ListGreenSpaceUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model.                                                   |
+| 	              | 	... coordinating the US?                              | ListGreenSpaceController | Controller: coordinates the interactions related to creating the tasks list in the user interface (UI) and executes the logic needed to process these requests. |
+|                | ... getting the green space manager?                   | CollaboratorRepository   | IE: knows all the collaborators                                                                                                                                 |
 | Step 2  		     | 	 						                                               |                          |                                                                                                                                                                 |
-| Step 3	        | 	... coordinating the US?                              | ListGreenSpaceController | Controller: coordinates the interactions related to creating the tasks list in the user interface (UI) and executes the logic needed to process these requests. |
-| 		             | 	...getting the GreenSpace list?                       | GreenSpaceRepository     | IE: owns all of its GreenSpaces.                                                                                                                                |
+| Step 3         |                                                        |                          |                                                                                                                                                                 |
+| Step 4         |                                                        |                          |                                                                                                                                                                 |
+| Step 5	        | 	...getting the GreenSpace list?                       | GreenSpaceRepository     | IE: owns all of its GreenSpaces.                                                                                                                                |
 |                | ... create a list with all the data of greenSpaceList? | GreenSpaceMapper         | IE: Transforms all of its data.                                                                                                                                 |
 |                | ... transform a greenSpace into data?                  | GreenSpaceDto            | IE: Transforms all of is data.                                                                                                                                  |
-| Step 4  		     | 	...showing the GreenSpaces list?                      | ListGreenSpaceUI         | IE: is responsible for user interactions.                                                                                                                       |
+| Step 6  		     | 	...showing the GreenSpaces list?                      | ListGreenSpaceUI         | IE: is responsible for user interactions.                                                                                                                       |
 
 ### Systematization ##
 
-According to the taken rationale, the conceptual classes promoted to software classes are: 
+Ac cording to the taken rationale, the conceptual classes promoted to software classes are: 
 
+* CollaboratorRepository
 * GreenSpaceRepository
 * GreenSpaceMapper
 * GreenSpaceDto
@@ -48,6 +52,10 @@ It uses Interaction Occurrence (a.k.a. Interaction Use).
 
 ![Sequence Diagram - split](svg/us027-sequence-diagram-split.svg)
 
+**Get the GSM Trough Email**
+
+![Sequence Diagram - Partial - Get GreenSpaceList](svg/us027-sequence-diagram-partial-get-GSM-by-email.svg)
+
 **Get GreenSpace List**
 
 ![Sequence Diagram - Partial - Get GreenSpaceList](svg/us027-sequence-diagram-partial-get-GreenSpace-list.svg)
@@ -55,6 +63,7 @@ It uses Interaction Occurrence (a.k.a. Interaction Use).
 **Create a Copy of GreenSpace List**
 
 ![Sequence Diagram - Partial - Get GreenSpaceList](svg/us027-sequence-diagram-partial-create-a-copy-of-GreenSpace-list.svg)
+
 
 
 ## 3.3. Class Diagram (CD)

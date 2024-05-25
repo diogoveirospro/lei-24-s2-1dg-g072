@@ -1,0 +1,33 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+participant ":Repositories" as RepositorySingleton
+participant "repositories\n:Repositories" as REP
+participant "collaboratorRepository\n:CollaboratorRepository" as collaboratorRepository
+
+autonumber
+
+group Get Collaborator
+
+-> RepositorySingleton: getInstance()
+activate RepositorySingleton
+
+RepositorySingleton --> REP : repositories
+deactivate RepositorySingleton
+
+-> REP : getCollaboratorRepository()
+activate REP
+
+REP --> collaboratorRepository : collaboratorRepository
+deactivate REP
+
+-> collaboratorRepository : getCollaborator()
+activate collaboratorRepository
+
+collaboratorRepository --> CTRL : collaborator
+deactivate collaboratorRepository
+
+end
+@enduml

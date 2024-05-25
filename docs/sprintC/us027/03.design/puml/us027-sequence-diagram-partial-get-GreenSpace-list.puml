@@ -11,43 +11,66 @@ participant ":MaintenanceController" as CTRL
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as REP
 participant "greenSpaceRepository\n:GreenSpaceRepository" as greenSpaceRepository
+participant "greenSpaceList\n:List<GreenSpace>" as greenSpaceList
 participant ":GreenSpaceMapper" as Mapper
 
-autonumber 5
+autonumber 9
 
- -> CTRL : getGreenSpaceList()
-autonumber 5.1
+ -> CTRL : getGreenSpaceList(greenSpaceManager,sortingOption)
+autonumber 9.1
 activate CTRL
     group Get GreenSpace List
 
 
 
-                            CTRL -> RepositorySingleton : getInstance()
-                            activate RepositorySingleton
 
-                                RepositorySingleton --> CTRL: repositories
-                            deactivate RepositorySingleton
+                CTRL -> RepositorySingleton : getInstance()
+                activate RepositorySingleton
 
-                            CTRL -> REP : getGreenSpaceRepository()
-                            activate REP
+                    RepositorySingleton --> CTRL: repositories
+                deactivate RepositorySingleton
 
-                                REP --> CTRL: GreenSpaceRepository
-                            deactivate REP
+                CTRL -> REP : getGreenSpaceRepository()
+                activate REP
 
-                            CTRL -> greenSpaceRepository : getGreenSpaceList()
+                    REP --> CTRL: greenSpaceRepository
+                deactivate REP
 
-                            activate greenSpaceRepository
+                CTRL -> greenSpaceRepository : getGreenSpaceList(greenSpaceManager,sortingOption)
 
-                                    greenSpaceRepository --> CTRL : greenSpaceList
-                                    deactivate greenSpaceRepository
+                activate greenSpaceRepository
 
-                            deactivate greenSpaceRepository
+                        greenSpaceRepository -> greenSpaceList**: create()
+                        loop for each greenSpace in greenSpaceList
+opt greenSpace.getGSM() == greenSpaceManager
+                            greenSpaceRepository -> greenSpaceList : add(greenSpaceManager)
+                                activate greenSpaceList
 
-                            deactivate greenSpaceRepository
+
+
+
+
+                                        end
+
+                                        end
+                                        greenSpaceList -> greenSpaceList : sort(sortingOption)
+                                        activate greenSpaceList
+
+                                                greenSpaceList --> greenSpaceRepository: greenSpaceList
+
+                                        deactivate greenSpaceList
+
+                                deactivate greenSpaceList
+
+                        greenSpaceRepository --> CTRL : greenSpaceList
+
+
+                deactivate greenSpaceRepository
+
 
 
     end
-    autonumber 6
+    autonumber 10
     CTRL -> Mapper : toDto(greenSpaceList)
         activate Mapper
 
