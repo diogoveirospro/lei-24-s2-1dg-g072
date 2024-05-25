@@ -11,24 +11,61 @@ participant ":ListGreenSpaceUI" as UI
 participant ":ListGreenSpaceController" as CTRL
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as REP
+participant "collaboratorRepository\n:CollaboratorRepository" as collaboratorRepository
 participant "greenSpaceRepository\n:GreenSpaceRepository" as greenSpaceRepository
 participant ":GreenSpaceMapper" as Mapper
+participant "greenSpaceList\n:List<GreenSpace>" as greenSpaceList
 participant "greenSpaceDto\n:GreenSpaceDto" as DTO
+participant "greenSpaceListDto\n:List<GreenSpaceDto>" as LISTDTO
 
 activate GSM
 
-        GSM -> UI : asks to list all greenSpaces
+        GSM -> UI : asks to list all greenSpaces managed by him
 
         activate UI
 
-            UI --> GSM : asks for confirmation
+                UI -> CTRL** : create
+                    UI -> CTRL : getCollaboratorThoughEmail(email)
+                        activate CTRL
+
+                        CTRL -> RepositorySingleton : getInstance()
+                            activate RepositorySingleton
+
+                            RepositorySingleton --> CTRL : repositories
+                            deactivate RepositorySingleton
+
+                        CTRL -> REP : getCollaboratorRepository
+                            activate REP
+
+                            REP --> CTRL : collaboratorRepository
+                            deactivate REP
+
+                        CTRL -> collaboratorRepository : getCollaboratorThoughEmail(email)
+                            activate collaboratorRepository
+
+                            collaboratorRepository -> collaboratorRepository : getCollaboratorThoughEmail(email)
+                            activate collaboratorRepository
+
+                            collaboratorRepository --> CTRL : greenSpaceManager
+
+                                deactivate collaboratorRepository
+
+                            deactivate collaboratorRepository
+                        CTRL --> UI : greenSpaceManager
+                        deactivate CTRL
+            UI --> GSM : asks the user to choose a sorting option
+        deactivate UI
+
+        GSM -> UI : chooses a sorting option
+        activate UI
+
+            UI --> GSM: asks for confirmation
         deactivate UI
             GSM -> UI : confirms that he wants to create the list
         activate UI
 
-            UI -> CTRL** : create
 
-            UI -> CTRL : getGreenSpaceList()
+            UI -> CTRL : getGreenSpaceList(greenSpaceManager,sortingOption)
             activate CTRL
 
                 CTRL -> RepositorySingleton : getInstance()
@@ -43,35 +80,62 @@ activate GSM
                     REP --> CTRL: greenSpaceRepository
                 deactivate REP
 
-                CTRL -> greenSpaceRepository : getGreenSpaceList()
+                CTRL -> greenSpaceRepository : getGreenSpaceList(greenSpaceManager,sortingOption)
 
                 activate greenSpaceRepository
 
-                       activate greenSpaceRepository
+                        greenSpaceRepository -> greenSpaceList**: create()
+                        loop for each greenSpace in greenSpaceList
+opt greenSpace.getGSM() == greenSpaceManager
+                            greenSpaceRepository -> greenSpaceList : add(greenSpaceManager)
+                                activate greenSpaceList
 
 
 
 
 
+                                        end
+
+                                        end
+                                        greenSpaceList -> greenSpaceList : sort(sortingOption)
+                                        activate greenSpaceList
+
+                                                greenSpaceList --> greenSpaceRepository: greenSpaceList
+
+                                        deactivate greenSpaceList
+
+                                deactivate greenSpaceList
 
                         greenSpaceRepository --> CTRL : greenSpaceList
-                        deactivate greenSpaceRepository
+
 
                 deactivate greenSpaceRepository
 
-                deactivate greenSpaceRepository
+
 
             CTRL -> Mapper : toDTO(greenSpaceList)
             activate Mapper
-                    loop for each greenSpace in greenSpaceList
 
-                        Mapper -> DTO** : GreenSpaceDto(greenSpace)
+            Mapper --> LISTDTO** : create()
+                loop for each entry in entryList
+                    Mapper -> greenSpaceList : get(i)
+                        activate greenSpaceList
 
-                        Mapper -> Mapper : addGreenSpace(greenSpaceDto)
-                        activate Mapper
-                    end
-                    Mapper --> CTRL : greenSpaceListDto
-                    deactivate Mapper
+                        greenSpaceList --> Mapper : entry
+                        deactivate greenSpaceList
+                    Mapper -> DTO : toDTOEntry(entry)
+                        activate DTO
+
+                        DTO --> Mapper : entryDto
+                        deactivate DTO
+                    Mapper -> LISTDTO : add(taskDto)
+                        activate LISTDTO
+                end
+
+
+            LISTDTO --> Mapper : listEntriesDto
+             deactivate LISTDTO
+            Mapper --> CTRL : greenSpaceListDto
 
             deactivate Mapper
             CTRL --> UI: greenSpaceListDto

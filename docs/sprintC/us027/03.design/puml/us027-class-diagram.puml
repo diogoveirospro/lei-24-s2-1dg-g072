@@ -42,7 +42,10 @@ class GreenSpaceRepository{
     - greenSpaceList
     + getGreenSpaceList()
 }
-
+class CollaboratorRepository{
+    - collaboratorList
+    + getCollaboratorTroughEmail(email)
+}
 
 class Repositories{
  - Repositories()
@@ -52,10 +55,12 @@ class Repositories{
 }
 }
 ListGreenSpaceUI .> ListGreenSpaceController
-ListGreenSpaceController ..> Repositories : repositories
+ListGreenSpaceController .> Repositories : repositories
 Repositories -> Repositories : instance
-ListGreenSpaceController ..> GreenSpaceRepository: greenSpaceRepository
+ListGreenSpaceController .> GreenSpaceRepository: greenSpaceRepository
 Repositories "1" --> "1" GreenSpaceRepository
 ListGreenSpaceController "1" -> "1" GreenSpaceMapper: greenSpaceList
 GreenSpaceMapper "1" -> "1" GreenSpaceDto: greenSpace
+Repositories "1" --> "1" CollaboratorRepository: collaboratorRepository
+ListGreenSpaceController .> CollaboratorRepository: collaboratorRepository
 @enduml

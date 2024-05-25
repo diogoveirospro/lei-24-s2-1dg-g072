@@ -9,18 +9,39 @@ autonumber
 actor "Green\nSpace Manager\n(GSM)" as GSM
 participant ":ListGreenSpaceUI" as UI
 participant ":ListGreenSpaceController" as CTRL
+
 participant "GreenSpaceMapper" as Mapper
 
 activate GSM
 
-        GSM -> UI : asks to list all the GreenSpaces
+        GSM -> UI : asks to list all the GreenSpaces managed by him
 
         activate UI
 
-            UI --> GSM : asks for confirmation
+                UI -> CTRL** : create
+
+                UI -> CTRL : getCollaboratorThoughEmail(email)
+
+                    activate CTRL
+                        ref over CTRL
+                            Get GSM Through Email
+
+                        end
+                        CTRL --> UI :greenSpaceManager
+                    deactivate CTRL
+            UI --> GSM : asks the user to choose a sorting option
+        deactivate UI
+
+        GSM -> UI : chooses a sorting option
+        activate UI
+
+                UI --> GSM : asks for confirmation
+        deactivate UI
 
             GSM -> UI : confirms that he wants to create the list
-            UI -> CTRL** : create
+        activate UI
+
+
             UI -> CTRL : getGreenSpaceList()
             activate CTRL
                     ref over CTRL
