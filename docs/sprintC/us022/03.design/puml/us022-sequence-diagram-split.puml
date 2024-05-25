@@ -34,7 +34,7 @@ activate GSM
     GSM -> UI: select the desired task and its start and\n end date
     activate UI
 
-        UI -> CTRL : getTask(toDoListEntry)
+        UI -> CTRL : getTask(toDoListEntryDto)
         activate CTRL
 
             ref over CTRL

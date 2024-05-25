@@ -9,11 +9,15 @@ participant "toDoListEntry\n:ToDoListEntry" as TODOLISTENTRY
 participant "task\n:Task" as TASK
 
 autonumber 7
--> CTRL: getTask(toDoListEntry)
+-> CTRL: getTask(toDoListEntryDto)
 
 autonumber 7.1
 activate CTRL
     group Get Task
+
+             CTRL -> CTRL : toDoListEntry = toDomain(toDoListEntryDto)
+             activate CTRL
+             deactivate CTRL
 
             CTRL -> TODOLIST : getTask(toDoListEntry)
             activate TODOLIST
