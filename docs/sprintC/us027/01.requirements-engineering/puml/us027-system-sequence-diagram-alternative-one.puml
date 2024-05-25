@@ -12,7 +12,7 @@ participant ":System" as System
 
 activate Employee
 
-    Employee -> System : asks to list all the GreenSpaces
+    Employee -> System : asks to list all the GreenSpaces managed by him
     activate System
 
         System --> Employee : asks the user to choose the sorting option

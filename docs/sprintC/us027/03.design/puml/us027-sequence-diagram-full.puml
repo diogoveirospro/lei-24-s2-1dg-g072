@@ -11,22 +11,50 @@ participant ":ListGreenSpaceUI" as UI
 participant ":ListGreenSpaceController" as CTRL
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as REP
+participant "collaboratorRepository\n:CollaboratorRepository" as collaboratorRepository
 participant "greenSpaceRepository\n:GreenSpaceRepository" as greenSpaceRepository
 participant ":GreenSpaceMapper" as Mapper
 participant "greenSpaceDto\n:GreenSpaceDto" as DTO
 
 activate GSM
 
-        GSM -> UI : asks to list all greenSpaces
+        GSM -> UI : asks to list all greenSpaces managed by him
 
         activate UI
+                UI -> CTRL** : create
+                    UI -> CTRL : getCollaboratorThoughEmail(email)
+                        activate CTRL
 
+                        CTRL -> RepositorySingleton : getInstance()
+                            activate RepositorySingleton
+
+                            RepositorySingleton --> CTRL : repositories
+                            deactivate RepositorySingleton
+
+                        CTRL -> REP : getCollaboratorRepository
+                            activate REP
+
+                            REP --> CTRL : collaboratorRepository
+                            deactivate REP
+
+                        CTRL -> collaboratorRepository : getCollaboratorThoughEmail(email)
+                            activate collaboratorRepository
+
+                            collaboratorRepository -> collaboratorRepository : getCollaboratorThoughEmail(email)
+                            activate collaboratorRepository
+
+                            collaboratorRepository --> CTRL : collaborator
+
+                                deactivate collaboratorRepository
+
+                            deactivate collaboratorRepository
+                        CTRL --> UI : collaborator
+                        deactivate CTRL
             UI --> GSM : asks for confirmation
         deactivate UI
             GSM -> UI : confirms that he wants to create the list
         activate UI
 
-            UI -> CTRL** : create
 
             UI -> CTRL : getGreenSpaceList()
             activate CTRL
