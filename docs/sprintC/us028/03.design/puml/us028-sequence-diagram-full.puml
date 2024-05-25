@@ -29,7 +29,7 @@ Col -> UI : requests to consult tasks assigned to him
     activate UI
 
     UI -> CTRL** : create
-    UI -> CTRL : getCollaboratorThoughEmail(email)
+    UI -> CTRL : getCollaboratorByEmail(email)
         activate CTRL
 
         CTRL -> RepositorySingleton : getInstance()
@@ -44,10 +44,10 @@ Col -> UI : requests to consult tasks assigned to him
             REP --> CTRL : collaboratorRepository
             deactivate REP
 
-        CTRL -> collaboratorRepository : getCollaboratorThoughEmail(email)
+        CTRL -> collaboratorRepository : getCollaboratorByEmail(email)
             activate collaboratorRepository
 
-            collaboratorRepository -> collaboratorRepository : getCollaboratorThoughEmail(email)
+            collaboratorRepository -> collaboratorRepository : getCollaboratorByEmail(email)
             activate collaboratorRepository
 
             collaboratorRepository --> CTRL : collaborator

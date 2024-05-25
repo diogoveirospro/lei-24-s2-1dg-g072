@@ -14,6 +14,10 @@ public class Repositories {
     private TeamRepository teamRepository;
     private VehicleRepository vehicleRepository;
     private MaintenanceRepository maintenanceRepository;
+    private TaskRepository taskRepository;
+    private Agenda agenda;
+    private GreenSpaceRepository greenSpaceRepository;
+    private ToDoList toDoList;
     // Este está temporariamente no codigo enquanto tentamos perceber o que fazer
     private AuthenticationRepository authenticationRepository;
 
@@ -29,6 +33,10 @@ public class Repositories {
         maintenanceRepository = new MaintenanceRepository();
         authenticationRepository = new AuthenticationRepository();
         vehicleRepository = new VehicleRepository();
+        taskRepository = new TaskRepository();
+        agenda = new Agenda();
+        greenSpaceRepository = new GreenSpaceRepository();
+        toDoList = new ToDoList();
     }
 
     public static Repositories getInstance() {
@@ -88,6 +96,41 @@ public class Repositories {
      */
     public MaintenanceRepository getMaintenanceRepository() {
         return maintenanceRepository;
+    }
+
+    /**
+     * Get the To do list
+     *
+     * @return toDoList
+     */
+    public ToDoList getToDoList() {
+        return toDoList;
+    }
+
+    /**
+     * Get the agenda
+     *
+     * @return agenda
+     */
+    public Agenda getAgenda() {
+        return agenda;
+    }
+    /**
+     * Get the green space repository
+     *
+     * @return greenSpaceRepository
+     */
+    public GreenSpaceRepository getGreenSpaceRepository() {
+        return greenSpaceRepository;
+    }
+
+    /**
+     * Get the task repository
+     *
+     * @return taskRepository
+     */
+    public TaskRepository getTaskRepository() {
+        return taskRepository;
     }
 
     /**

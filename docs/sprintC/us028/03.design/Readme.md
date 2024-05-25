@@ -63,9 +63,9 @@ It uses Interaction Occurrence (a.k.a. Interaction Use).
 
 ![Sequence Diagram - split](svg/us028-sequence-diagram-split.svg)
 
-**Get Collaborator through Email Partial SD**
+**Get Collaborator by Email Partial SD**
 
-![Sequence Diagram - Partial - Get Collaborator through Email](svg/us028-sequence-diagram-partial-get-collaborator-through-email.svg)
+![Sequence Diagram - Partial - Get Collaborator by Email](svg/us028-sequence-diagram-partial-get-collaborator-by-email.svg)
 
 **Get Status List Partial SD**
 
