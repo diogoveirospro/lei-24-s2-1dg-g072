@@ -105,6 +105,44 @@ public class Collaborator implements Comparable<Collaborator> {
     private List<Skill> skillSet;
 
     /**
+     * All types of collaborator email.
+     */
+    public enum typeOfCollaboratorEmails {
+        COLLABORATOR("@gmail.com"),
+        GSM("@gsm.com"),
+        VFM("@vfm.com"),
+        QAM("@qam.com"),
+        HRM("@hrm.com");
+        private final String emailType;
+        typeOfCollaboratorEmails(String emailType) {
+            this.emailType = emailType;
+        }
+        public String getEmailType() {
+            return emailType;
+        }
+        public static typeOfCollaboratorEmails fromEmailType(String emailType) {
+            for (typeOfCollaboratorEmails type : typeOfCollaboratorEmails.values()) {
+                if (type.emailType.equalsIgnoreCase(emailType)) {
+                    return type;
+                }
+            }
+            throw new IllegalArgumentException("Invalid email type: " + emailType);
+        }
+
+    }
+
+    /**
+     * Collaborator email type.
+     */
+
+    private typeOfCollaboratorEmails emailType;
+
+    /**
+     * Collaborator password.
+     */
+    private String pwd;
+
+    /**
      * Variable that lets you know if a collaborator has a team.
      */
     private boolean hasTeam = false;

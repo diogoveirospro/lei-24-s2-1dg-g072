@@ -1,0 +1,119 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+
+'left to right direction
+
+package "UI" <<Folder>> #DDDDDD {
+
+class CancelAgendaEntryUI {
+}
+
+}
+
+package "Controller" <<Folder>> #DDDDDD {
+class CancelAgendaEntryController {
+    + CancelAgendaEntryController(entryList, agenda)
+    + cancelAgendaEntry(entryList)
+    + cancelAgendaEntry(agendaEntry)
+    + getAgendaEntryList()
+}
+
+}
+
+package "Domain" <<Folder>> #DDDDDD {
+
+package "Repository" <<Folder>> #DDDDDD {
+
+class Repositories {
+    - Repositories()
+    + getInstance() : Repositories
+    + getAgenda()
+
+}
+
+
+class Agenda {
+    + cancelAgendaEntry(entryList)
+    + validateEntryCancel(agendaEntry)
+}
+
+class EntryList{
+    + getAgendaEntryList()
+}
+
+}
+
+class Entry {
+    - task : Task
+    - greenSpace : GreenSpace
+}
+
+class AgendaEntry {
+    -startDate : Date
+    -endDate : Date
+    -status : enum
+    +createEntry(task, greenSpace, startDate, endDate) : AgendaEntry
+    +validateEntry() : boolean
+    +taskSchedule() : void
+}
+
+class GreenSpace {
+    - name : String
+    - area : double
+    + GreenSpace(name, area)
+}
+
+class Task {
+    - description : String
+    - team : Team
+    - vehicles : List<Vehicle>
+    - duration : Date
+    + Task(description, team, vehicles, duration)
+}
+
+
+
+
+package "Mapper" <<Folder>> #DDDDDD {
+class EntryListMapper {
+    +EntryListToDto(entries) : List<EntryListDto>
+    +toDTO(entryList) : entryListDto
+}
+
+}
+
+package "DTO" <<Folder>> #DDDDDD {
+class EntryListDto{
+}
+
+}
+
+
+CancelAgendaEntryUI ..> CancelAgendaEntryController
+
+Repositories --> Repositories : instance
+CancelAgendaEntryController ..> Repositories : repositories
+CancelAgendaEntryController ..> EntryListMapper : entryListDto
+
+Repositories -->"1" EntryList
+CancelAgendaEntryController ..> EntryList : listEntries
+CancelAgendaEntryController ..> EntryList : entryList
+
+
+EntryListDto ..> EntryListMapper : entryListDto
+
+
+Repositories --> "1" Agenda
+CancelAgendaEntryController ..> Agenda : agenda
+Agenda --> AgendaEntry : has
+GreenSpace --o AgendaEntry : has
+Task --o AgendaEntry : has
+
+Entry --|> AgendaEntry : extends
+@enduml

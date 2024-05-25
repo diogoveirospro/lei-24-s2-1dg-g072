@@ -1,4 +1,4 @@
-# US006 - Register a vehicle 
+# US023 - Assign a Team to an Entry in the Agenda 
 
 ## 3. Design - User Story Realization 
 
@@ -39,7 +39,7 @@ _**Note that SSD - Alternative Two is adopted.**_
 
 This diagram shows the full sequence of interactions between the classes involved in the realization of this user story.
 
-![Sequence Diagram - Full](svg/us006-sequence-diagram-full.svg)
+![Sequence Diagram - Full](svg/us023-sequence-diagram-full.svg)
 
 ### Split Diagrams
 

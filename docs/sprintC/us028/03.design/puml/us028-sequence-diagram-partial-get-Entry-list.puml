@@ -1,0 +1,37 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+
+participant "agenda\n:Agenda" as AGENDA
+participant "agendaEntries\n:List<AgendaEntries>" as AGENDAENTRIES
+
+
+autonumber 30
+
+ -> AGENDA : getCollaboratorAgendaEntries(taskList)
+autonumber 30.1
+activate AGENDA
+    group Get Task List
+
+
+            AGENDA --> AGENDAENTRIES** : create()
+                loop for each task
+                    loop for each agendaEntry
+                        opt (agendaEntry.getTask() == task)
+                            AGENDA -> AGENDAENTRIES : add(agendaEntry)
+                                activate AGENDAENTRIES
+                        end
+                    end
+                end
+            AGENDAENTRIES --> AGENDA : listEntries
+            deactivate AGENDAENTRIES
+    end
+autonumber 31
+<-- AGENDA : listEntries
+deactivate AGENDA
+@enduml

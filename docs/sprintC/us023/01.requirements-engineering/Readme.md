@@ -1,48 +1,43 @@
-# US006 - Register a Vehicle 
+# US023 - Assign a Team to an Entry in the Agenda 
 
 
 ## 1. Requirements Engineering
 
 ### 1.1. User Story Description
 
-The VFM wants to register a vehicle.
+As a GSM, I want to assign a Team to an entry in the Agenda.
 
 ### 1.2. Customer Specifications and Clarifications 
 
-**From the project statement document:**
-
->	The vehicle as the following attributes: Plate number, Brand, Model, Type, Tare, Gross weight, Current Kms, Registration Date, Acquisition Date and Service Frequency (in Kms). 
-
 **From the client clarifications:**
 
-> **Question:** When a vehicle is registered, are there specific requirements for accepting the brand? For example, does the system need to check if the brand is on a predetermined list? Does this also apply to the model or any other characteristics?
+> **Question:** Can an Agenda entry have more than one team assigned to it?
 > 
-> **Answer:** No; one can consider a list of brands and a list of models previously inserted in the system, no need to go through validations.
- 
-> **Question:** For the application to work does the FM need to fill all the attributes of the vehicle?
-> 
+> **Answer:** No.
+
+> **Question:** Can a Team be assigned to multiple entries?
+>
 > **Answer:** Yes.
 
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** The attributes used to describe a vehicle are: Plate number, Brand, Model, Type, Tare, Gross weight, Current Kms, Registration Date, Acquisition Date and Service Frequency (in Kms).
-* **AC2:** All required fields must be filled.
+* **AC1:** A message must be sent to all team members informing them about the assignment.
+* **AC2:** Different email services can send the message. These services must be defined through a configuration file to allow the use of different platforms (e.g. Gmail, DEI’s email service, etc.).
 
 ### 1.4. Found out Dependencies
 
-* No dependencies were found.
+* There is a dependency on **"US022 - Add a new Entry in the Agenda"**, since the teams will be assigned at the Agenda Entry.
 
 ### 1.5 Input and Output Data
 
 **Input Data:**
 
-* Typed data:
-    * a designation for the vehicle (plate number)
-    * the attributes of the vehicle
+* Selected data:
+  * an agenda entry
+  * a team
 
 **Output Data:**
-
 * (In)Success of the operation
 
 ### 1.6. System Sequence Diagram (SSD)
@@ -51,4 +46,4 @@ The VFM wants to register a vehicle.
 
 #### Alternative One
 
-![System Sequence Diagram - Alternative One](svg/us006-system-sequence-diagram-alternative-one.svg)
+![System Sequence Diagram - Alternative One](svg/us023-system-sequence-diagram-alternative-one.svg)

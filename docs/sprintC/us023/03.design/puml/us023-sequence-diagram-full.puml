@@ -1,0 +1,241 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "Green Space\n Manager" as GSM
+participant ":AssignTeamUI" as UI
+participant ":AssignTeamController" as CTRL
+participant Repositories
+participant "repositories\n:Repositories" as REP
+participant "agenda\n:Agenda" as AGENDA
+participant ":AgendaMapper" as AGENDAMAPPER
+participant "agendaEntry\n:AgendaEntry" as AGENDAENTRY
+participant "listEntries\n:List<AgendaEntry>" as LISTENTRIES
+participant "agendaEntriesDto\n:List<AgendaEntryDto>" as AGENDAENTRIESDTO
+participant "agendaEntryDto\n:AgendaDto" as AGENDAENTRYDTO
+participant "teamRepository\n:TeamRepository" as TEAMREP
+participant "teamRepositoryMapper\n:TeamRepositoryMapper" as TEAMREPMAPPER
+participant "team\n:Team" as TEAM
+participant "listTeams\n:List<Team>" as LISTTEAM
+participant "teamsDto\n:List<TeamDto>" as TEAMSDTO
+participant "teamDto\n:TeamDto" as TEAMDTO
+
+
+activate GSM
+
+
+    GSM -> UI : asks to assign a team to an agenda entry
+    activate UI
+
+        UI -> CTRL** : create
+        UI -> CTRL : getAgendaEntries()
+        activate CTRL
+
+           CTRL -> Repositories: getInstance()
+           activate Repositories
+
+                Repositories --> CTRL: repositories
+           deactivate Repositories
+
+           CTRL -> REP: getAgenda()
+           activate REP
+
+                REP --> CTRL: agenda
+           deactivate REP
+
+            CTRL -> AGENDA : getAgendaEntries()
+            activate AGENDA
+
+                    AGENDA --> LISTENTRIES** : create()
+                    activate LISTENTRIES
+
+                        loop for each agendaEntry
+                            AGENDA -> AGENDAENTRY** : b = validateAgendaEntryToAssignTeam()
+
+                            opt b == true
+                            AGENDA -> LISTENTRIES : add(agendaEntry)
+                            activate LISTENTRIES
+                            deactivate LISTENTRIES
+                            end
+
+                        end
+
+                        LISTENTRIES --> AGENDA : listEntries
+                    deactivate LISTENTRIES
+
+
+                AGENDA --> CTRL : listEntries
+            deactivate AGENDA
+
+            CTRL -> AGENDAMAPPER** : agendaEntriesToDto(listEntries)
+            activate AGENDAMAPPER
+
+                AGENDAMAPPER --> AGENDAENTRIESDTO** : create()
+
+                loop for each agendaEntry
+                    AGENDAMAPPER -> LISTENTRIES : get(i)
+                    activate LISTENTRIES
+
+                    LISTENTRIES --> AGENDAMAPPER : agendaEntry
+                    deactivate LISTENTRIES
+
+                    AGENDAMAPPER -> AGENDAMAPPER : agendaEntryDto = toDTO(agendaEntry)
+                    activate AGENDAMAPPER
+                    deactivate AGENDAMAPPER
+
+                    AGENDAMAPPER --> AGENDAENTRYDTO** : create()
+                    activate AGENDAENTRYDTO
+
+                    AGENDAENTRYDTO --> AGENDAMAPPER : agendaEntryDto
+                    deactivate AGENDAENTRYDTO
+
+                    AGENDAMAPPER -> AGENDAENTRIESDTO : add(agendaEntryDto)
+                    activate AGENDAENTRIESDTO
+                    deactivate AGENDAENTRIESDTO
+
+                end
+
+                AGENDAMAPPER --> CTRL : agendaEntriesDto
+            deactivate AGENDAMAPPER
+
+            CTRL --> UI : agendaEntriesDto
+        deactivate CTRL
+
+        UI --> GSM : shows all the agenda entries created and \nasks you to select one
+    deactivate UI
+
+    GSM -> UI : choose an agenda entry
+    activate UI
+
+        UI -> CTRL : getValidTeams(agendaEntryDto)
+            activate CTRL
+
+               CTRL -> Repositories: getInstance()
+               activate Repositories
+
+                    Repositories --> CTRL: repositories
+               deactivate Repositories
+
+               CTRL -> REP: getTeamRepository()
+               activate REP
+
+                    REP --> CTRL: teamRepository
+               deactivate REP
+
+               CTRL -> CTRL : agendaEntry = toDomain(agendaEntryDto)
+               activate CTRL
+               deactivate CTRL
+
+            CTRL -> TEAMREP : getValidTeams(agendaEntry)
+            activate TEAMREP
+
+                    TEAMREP --> LISTTEAM** : create()
+                    activate LISTTEAM
+
+                        loop for each team
+                            TEAMREP -> TEAM** : b = validateTeamToBeAssignedToAnAgendaEntry(agendaEntry)
+
+                            opt b == true
+                            TEAMREP -> LISTTEAM : add(team)
+                            activate LISTTEAM
+                            deactivate LISTTEAM
+                            end
+
+                        end
+
+                        LISTTEAM --> TEAMREP : listTeams
+                    deactivate LISTTEAM
+
+
+                TEAMREP --> CTRL : listTeams
+            deactivate TEAMREP
+
+            CTRL -> TEAMREPMAPPER** : teamsToDto(listTeams)
+            activate TEAMREPMAPPER
+
+                TEAMREPMAPPER --> TEAMSDTO** : create()
+
+                loop for each team
+                    TEAMREPMAPPER -> LISTTEAM : get(i)
+                    activate LISTTEAM
+
+                    LISTTEAM --> TEAMREPMAPPER : team
+                    deactivate LISTTEAM
+
+                    TEAMREPMAPPER -> TEAMREPMAPPER : teamDto = toDTO(team)
+                    activate TEAMREPMAPPER
+                    deactivate TEAMREPMAPPER
+
+                    TEAMREPMAPPER --> TEAMDTO** : create()
+                    activate TEAMDTO
+
+                    TEAMDTO --> TEAMREPMAPPER : teamDto
+                    deactivate TEAMDTO
+
+                    TEAMREPMAPPER -> TEAMSDTO : add(teamDto)
+                    activate TEAMSDTO
+                    deactivate TEAMSDTO
+
+                end
+
+                TEAMREPMAPPER --> CTRL : teamsDto
+            deactivate TEAMREPMAPPER
+
+            CTRL --> UI : teamsDto
+        deactivate CTRL
+
+
+        UI --> GSM : shows all the teams available to carry out \nthat task and asks you to select one
+    deactivate UI
+
+    GSM -> UI : choose a team
+    activate UI
+
+        UI --> GSM : shows all data and requests confirmation
+    deactivate UI
+
+    GSM -> UI : confirms data
+    activate UI
+
+        UI -> CTRL : assignTeamToAgendaEntry(teamDto)
+        activate CTRL
+
+            CTRL -> CTRL : team = toDomain(teamDto)
+            activate CTRL
+            deactivate CTRL
+
+            CTRL -> AGENDA : assignTeamToAgendaEntry(agendaEntry, team)
+            activate AGENDA
+
+                AGENDA -> AGENDAENTRY : assignTeam(team)
+                activate AGENDAENTRY
+
+                    AGENDAENTRY -> TEAM : assignAgendaEntry()
+                    activate TEAM
+
+                    TEAM -> TEAM : blockTeamAtATime()
+                    activate TEAM
+                    deactivate TEAM
+
+                    TEAM --> AGENDAENTRY : operation success
+                    deactivate TEAM
+
+                AGENDAENTRY --> AGENDA : operation success
+                deactivate AGENDAENTRY
+
+                AGENDA --> CTRL : operation success
+            deactivate AGENDA
+
+            CTRL --> UI : operation success
+        deactivate CTRL
+
+        UI --> GSM : displays operation success
+    deactivate UI
+
+deactivate GSM
+
+@enduml

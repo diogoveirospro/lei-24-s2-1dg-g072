@@ -1,0 +1,50 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+
+participant ":ListTaskController" as CTRL
+participant ":Repositories" as RepositorySingleton
+participant "repositories\n:Repositories" as REP
+participant "collaboratorRepository\n:CollaboratorRepository" as collaboratorRepository
+
+autonumber 3
+
+ -> CTRL : getCollaboratorByEmail(email)
+autonumber 3.1
+activate CTRL
+    group Get Collaborator by Email
+
+        CTRL -> RepositorySingleton: getInstance()
+        activate RepositorySingleton
+
+            RepositorySingleton --> CTRL: repositories
+        deactivate RepositorySingleton
+
+        CTRL -> REP: getCollaboratorRepository
+        activate REP
+
+            REP --> CTRL: collaboratorRepository
+        deactivate REP
+
+        CTRL -> collaboratorRepository: getCollaboratorByEmail(email)
+        activate collaboratorRepository
+
+            collaboratorRepository -> collaboratorRepository: getCollaboratorByEmail(email)
+            activate collaboratorRepository
+
+                collaboratorRepository --> CTRL: collaborator
+            deactivate collaboratorRepository
+
+        deactivate collaboratorRepository
+
+    end
+    autonumber 4
+        <-- CTRL  : collaborator
+deactivate CTRL
+
+@enduml

@@ -15,7 +15,7 @@ participant "toDoList\n:toDoList" as TODOLIST
 participant "agenda\n:Agenda" as AGENDA
 participant ":ToDoListMapper" as TODOLISTMAPPER
 participant "listEntries\n:List<ToDoListEntry>" as LISTENTRIES
-participant "toDoListDto\n:List<toDoListEntriesDto>" as TODOLISTDTO
+participant "toDoListDto\n:List<ToDoListEntriesDto>" as TODOLISTDTO
 participant "toDoListEntryDto\n:ToDoListDto" as TODOLISTENTRYDTO
 participant "toDoListEntry\n:ToDoListEntry" as TODOLISTENTRY
 participant "task\n:Task" as TASK
@@ -103,8 +103,12 @@ activate GSM
     GSM -> UI: select the desired task and its start and\n end date
     activate UI
 
-        UI -> CTRL : getTask(toDoListEntry)
+        UI -> CTRL : getTask(toDoListEntryDto)
         activate CTRL
+
+            CTRL -> CTRL : toDoListEntry = toDomain(toDoListEntryDto)
+            activate CTRL
+            deactivate CTRL
 
             CTRL -> TODOLIST : getTask(toDoListEntry)
             activate TODOLIST

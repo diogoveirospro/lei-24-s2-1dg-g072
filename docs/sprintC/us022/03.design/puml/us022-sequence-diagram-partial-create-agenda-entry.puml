@@ -1,0 +1,62 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+participant ":AddAgendaEntryController" as CTRL
+participant Repositories
+participant "repositories\n:Repositories" as REP
+participant "agenda\n:Agenda" as AGENDA
+participant "agendaEntry\n:AgendaEntry" as AGENDAENTRY
+
+autonumber 11
+-> CTRL: createAgendaEntry(task, greenSpace, startDate, endDate)
+
+autonumber 11.1
+activate CTRL
+    group Create Agenda Entry
+
+
+            CTRL -> Repositories: getInstance()
+            activate Repositories
+
+                Repositories --> CTRL: repositories
+            deactivate Repositories
+
+            CTRL -> REP: getAgenda()
+            activate REP
+
+                REP --> CTRL: agenda
+            deactivate REP
+
+            CTRL -> AGENDA** : createAgendaEntry(task, greenSpace, startDate, endDate)
+            activate AGENDA
+
+                AGENDA -> AGENDAENTRY** : createEntry(task, greenSpace, startDate, endDate)
+                activate AGENDAENTRY
+
+                AGENDAENTRY -> AGENDAENTRY : b = validateEntry()
+                activate AGENDAENTRY
+                deactivate AGENDAENTRY
+
+                opt b == true
+                AGENDAENTRY -> AGENDAENTRY : taskSchedule()
+                activate AGENDAENTRY
+
+                    AGENDAENTRY --> AGENDA : ok
+                deactivate AGENDAENTRY
+
+                deactivate AGENDAENTRY
+                end
+
+                AGENDA --> CTRL : agendaEntry
+                deactivate AGENDA
+
+    end
+
+    autonumber 12
+    <-- CTRL : agendaEntry
+deactivate CTRL
+
+
+@enduml

@@ -1,0 +1,91 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+participant ":AddAgendaEntryController" as CTRL
+participant Repositories
+participant "repositories\n:Repositories" as REP
+participant "toDoList\n:toDoList" as TODOLIST
+participant "agenda\n:Agenda" as AGENDA
+participant ":ToDoListMapper" as TODOLISTMAPPER
+participant "listEntries\n:List<ToDoListEntry>" as LISTENTRIES
+participant "toDoListDto\n:List<toDoListEntriesDto>" as TODOLISTDTO
+participant "toDoListEntryDto\n:ToDoListDto" as TODOLISTENTRYDTO
+autonumber 3
+-> CTRL: getToDoListEntries()
+
+autonumber 3.1
+activate CTRL
+    group Get To-Do List Entries with DTO
+
+           CTRL -> Repositories: getInstance()
+           activate Repositories
+
+                Repositories --> CTRL: repositories
+           deactivate Repositories
+
+           CTRL -> REP: getToDoList()
+           activate REP
+
+                REP --> CTRL: toDoList
+           deactivate REP
+
+            CTRL -> TODOLIST : getToDoListEntries()
+            activate TODOLIST
+
+                    TODOLIST --> LISTENTRIES** : create()
+                    activate LISTENTRIES
+
+                        loop for each toDoListEntry
+                            TODOLIST -> LISTENTRIES : add(toDoListEntry)
+                            activate LISTENTRIES
+                            deactivate LISTENTRIES
+                        end
+
+                        LISTENTRIES --> TODOLIST : listEntries
+                    deactivate LISTENTRIES
+
+
+                TODOLIST --> CTRL : listEntries
+            deactivate TODOLIST
+
+            CTRL -> TODOLISTMAPPER** : toDoListEntriesToDto(listEntries)
+            activate TODOLISTMAPPER
+
+                TODOLISTMAPPER --> TODOLISTDTO** : create()
+
+                loop for each toDoListEntry
+                    TODOLISTMAPPER -> LISTENTRIES : get(i)
+                    activate LISTENTRIES
+
+                    LISTENTRIES --> TODOLISTMAPPER : toDoListEntry
+                    deactivate LISTENTRIES
+
+                    TODOLISTMAPPER -> TODOLISTMAPPER : toDoListEntryDto = toDTO(toDoListEntry)
+                    activate TODOLISTMAPPER
+                    deactivate TODOLISTMAPPER
+
+                    TODOLISTMAPPER --> TODOLISTENTRYDTO** : create()
+                    activate TODOLISTENTRYDTO
+
+                    TODOLISTENTRYDTO --> TODOLISTMAPPER : toDoListEntryDto
+                    deactivate TODOLISTENTRYDTO
+
+                    TODOLISTMAPPER -> TODOLISTDTO : add(toDoListEntryDto)
+                    activate TODOLISTDTO
+                    deactivate TODOLISTDTO
+
+                end
+
+                TODOLISTMAPPER --> CTRL : toDoListDto
+            deactivate TODOLISTMAPPER
+
+    end
+
+    autonumber 4
+    <-- CTRL : toDoListDto
+deactivate CTRL
+
+
+@enduml

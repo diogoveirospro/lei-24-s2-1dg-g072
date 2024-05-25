@@ -4,11 +4,10 @@ skinparam shadowing false
 skinparam linetype polyline
 skinparam classAttributeIconSize 0
 
-
 package UI {
 class "ListTaskSpaceUI" as UserInterface
-
 }
+
 package Controller {
 class "ListTaskController" as CTRL {
     + create()
@@ -17,13 +16,23 @@ class "ListTaskController" as CTRL {
     + getTaskList(collaborator, dateI, dateF, typeStatus)
 }
 }
+
 package Domain {
-package Domain.Repository {
+package Model {
+class Team {
+    - List<Collaborator> members
+    + inTeam(collaborator)
+}
+}
+package Repository {
+
 class "Repositories" as RepositorySingleton {
     - Repositories()
     + getInstance(): Repositories
     + getCollaboratorRepository(): CollaboratorRepository
     + getTaskRepository(): TaskRepository
+    + getTeamRepository(): TeamRepository
+    + getAgenda(): Agenda
 }
 
 class "CollaboratorRepository" as collaboratorRepository {
@@ -34,36 +43,48 @@ class "TaskRepository" as taskRepository {
     - List<Task> taskList
     - List<String> statusList
     + getStatusList()
-    + getTaskList(idNumber, dateI, dateF, typeStatus)
+    + getTaskList(teamList, dateI, dateF, typeStatus)
     + addTaskOfCollaborator(task)
 }
+
+class "TeamRepository" as teamRepository {
+    + getTeamsThoughCollaborator(collaborator): List<Team>
 }
-package Domain.Mapper {
-class "TaskMapper" as MapperDto {
-    - List<Task> taskList
-    + toDto(taskList)
-    + addTask(task)
+
+class "Agenda" as agenda {
+    + getCollaboratorAgendaEntries(taskList): List<AgendaEntries>
 }
-package Domain.Mapper.DTO {
-class "TaskDto" as DataTransferObject {
+}
+package Mapper {
+class "EntryMapper" as MapperDto {
+    + toDTOList(listEntries): List<EntryDto>
+    + toDTOEntry(entry): EntryDto
+}
+package DTO {
+class "EntryDto" as DataTransferObject {
     - Team team
-    - List<vehicleList> vehicles
+    - List<Vehicle> vehicles
     - Date dateI
     - Date dateF
     - String status
-    TaskDto(task)
+    + EntryDto(entry)
 }
 }
 }
 }
 
-UserInterface .> CTRL
+UserInterface ..> CTRL
 CTRL ..> RepositorySingleton : repositories
-RepositorySingleton -> RepositorySingleton : instance
-CTRL .> taskRepository: taskRepository
-RepositorySingleton "1" --> "1" taskRepository
+RepositorySingleton --> RepositorySingleton : instance
+CTRL ..> collaboratorRepository: getCollaboratorRepository
+CTRL ..> taskRepository: getTaskRepository
+CTRL ..> teamRepository: getTeamRepository
+CTRL ..> agenda: getAgenda
+CTRL ..> MapperDto: toDTOList
+MapperDto "1" --> "*" DataTransferObject: entries
 RepositorySingleton "1" ..> "1" collaboratorRepository: collaboratorRepository
-CTRL "1" --> "1" collaboratorRepository
-CTRL "1" -> "1" MapperDto: taskList
-MapperDto "1" --> "1" DataTransferObject: task
+RepositorySingleton "1" --> "1" taskRepository: taskRepository
+RepositorySingleton "1" --> "1" teamRepository: teamRepository
+RepositorySingleton "1" --> "1" agenda: agenda
+teamRepository "1" --> "*" Team: collaborator
 @enduml

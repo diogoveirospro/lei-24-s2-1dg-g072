@@ -1,0 +1,60 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+actor "User" as User
+participant ":RegisterGreenSpaceUI" as UI
+participant ":RegisterGreenSpaceController" as CTRL
+participant ":Repositories" as RepositorySingleton
+participant "repositories\n:Repositories" as REP
+participant "greenSpaceRepository\n:GreenSpaceRepository" as greenSpaceRepository
+
+activate User
+
+User -> UI : requests to register a green space
+activate UI
+
+UI -> CTRL** : create
+UI -> CTRL : registerGreenSpace(name, area, type)
+    activate CTRL
+
+    CTRL -> RepositorySingleton : getInstance()
+        activate RepositorySingleton
+
+        RepositorySingleton --> CTRL : repositories
+        deactivate RepositorySingleton
+
+    CTRL -> REP : getGreenSpaceRepository()
+        activate REP
+
+        REP --> CTRL : greenSpaceRepository
+        deactivate REP
+
+    CTRL -> greenSpaceRepository : validateGreenSpace(name, area, type)
+        activate greenSpaceRepository
+            ref over greenSpaceRepository
+                Validate Green Space
+            end
+
+        greenSpaceRepository --> CTRL : validationStatus
+        deactivate greenSpaceRepository
+
+    CTRL -> greenSpaceRepository : addGreenSpace(name, area, type)
+        activate greenSpaceRepository
+            ref over greenSpaceRepository
+                Add Green Space
+            end
+        greenSpaceRepository --> CTRL : successMessage
+        deactivate greenSpaceRepository
+
+    CTRL --> UI : successMessage
+    deactivate CTRL
+
+UI --> User : displays success message
+deactivate UI
+
+deactivate User
+@enduml

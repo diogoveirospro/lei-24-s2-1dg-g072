@@ -1,0 +1,45 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+
+participant "teamRepository\n:TeamRepository" as teamRepository
+participant "teamList\n:List<Team>" as LISTTEAM
+participant "team:Team" as TEAM
+autonumber 18
+-> teamRepository: getTeamsThoughCollaborator(collaborator)
+
+autonumber 18.1
+activate teamRepository
+    group Get Entry List
+
+
+
+
+            teamRepository -> LISTTEAM** : create()
+                loop for each team in the system
+                    teamRepository -> TEAM : validateCollaboratorTeam(collaborator,team)
+                        activate TEAM
+                        TEAM -> TEAM : inTeam = validateCollaboratorTeam(collaborator,team)
+                        activate TEAM
+
+                               TEAM --> teamRepository : inTeam
+                        deactivate TEAM
+
+                        deactivate TEAM
+                    opt inTeam == true
+                        teamRepository -> LISTTEAM : addTeamOfCollaborator(team)
+                            activate LISTTEAM
+                    end
+
+                end
+            LISTTEAM --> teamRepository : teamList
+            deactivate LISTTEAM
+    end
+
+    autonumber 19
+<-- teamRepository: teamList
+
+
+@enduml

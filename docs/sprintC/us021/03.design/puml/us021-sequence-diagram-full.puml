@@ -1,0 +1,180 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "Green Spaces\n Manager" as GSM
+participant ":AddToDoListEntryUI" as UI
+participant ":AddToDoListController" as CTRL
+participant Repositories
+participant "repositories\n:Repositories" as REP
+participant "toDoList\n:toDoList" as TODOLIST
+participant "agenda\n:ToDoList" as TODOLIST
+participant ":ToDoListMapper" as TODOLISTMAPPER
+participant "listEntries\n:List<ToDoListEntry>" as LISTENTRIES
+participant "toDoListDto\n:List<toDoListEntriesDto>" as TODOLISTDTO
+participant "toDoListEntryDto\n:ToDoListDto" as TODOLISTENTRYDTO
+participant "toDoListEntry\n:ToDoListEntry" as TODOLISTENTRY
+participant "task\n:Task" as TASK
+participant "greenSpace\n: GreenSpace" as GREENSPACE
+
+
+activate GSM
+
+    GSM -> UI : asks to add a new entry to the agenda
+    activate UI
+
+        UI -> CTRL** : create
+
+        UI -> CTRL : getToDoListEntries()
+        activate CTRL
+
+           CTRL -> Repositories: getInstance()
+           activate Repositories
+
+                Repositories --> CTRL: repositories
+           deactivate Repositories
+
+           CTRL -> REP: getToDoList()
+           activate REP
+
+                REP --> CTRL: toDoList
+           deactivate REP
+
+            CTRL -> TODOLIST : getToDoListEntries()
+            activate TODOLIST
+
+                    TODOLIST --> LISTENTRIES** : create()
+                    activate LISTENTRIES
+
+                        loop for each toDoListEntry
+                            TODOLIST -> LISTENTRIES : add(toDoListEntry)
+                            activate LISTENTRIES
+                            deactivate LISTENTRIES
+                        end
+
+                        LISTENTRIES --> TODOLIST : listEntries
+                    deactivate LISTENTRIES
+
+
+                TODOLIST --> CTRL : listEntries
+            deactivate TODOLIST
+
+            CTRL -> TODOLISTMAPPER** : toDoListEntriesToDto(listEntries)
+            activate TODOLISTMAPPER
+
+                TODOLISTMAPPER --> TODOLISTDTO** : create()
+
+                loop for each toDoListEntry
+                    TODOLISTMAPPER -> LISTENTRIES : get(i)
+                    activate LISTENTRIES
+
+                    LISTENTRIES --> TODOLISTMAPPER : toDoListEntry
+                    deactivate LISTENTRIES
+
+                    TODOLISTMAPPER -> TODOLISTMAPPER : toDoListEntryDto = toDTO(toDoListEntry)
+                    activate TODOLISTMAPPER
+                    deactivate TODOLISTMAPPER
+
+                    TODOLISTMAPPER --> TODOLISTENTRYDTO** : create()
+                    activate TODOLISTENTRYDTO
+
+                    TODOLISTENTRYDTO --> TODOLISTMAPPER : toDoListEntryDto
+                    deactivate TODOLISTENTRYDTO
+
+                    TODOLISTMAPPER -> TODOLISTDTO : add(toDoListEntryDto)
+                    activate TODOLISTDTO
+                    deactivate TODOLISTDTO
+
+                end
+
+                TODOLISTMAPPER --> CTRL : toDoListDto
+            deactivate TODOLISTMAPPER
+
+            CTRL --> UI : toDoListDto
+        deactivate CTRL
+
+        UI --> GSM: shows all the tasks registered in the \nTo-Do List and asks you to select the \none you want to add
+    deactivate UI
+
+    GSM -> UI: select the desired task and its start and\n end date
+    activate UI
+
+        UI -> CTRL : getTask(toDoListEntry)
+        activate CTRL
+
+            CTRL -> TODOLIST : getTask(toDoListEntry)
+            activate TODOLIST
+
+                TODOLIST -> TODOLISTENTRY** : getTask()
+                activate TODOLISTENTRY
+
+                    TODOLISTENTRY -> TASK** : getTask()
+                    activate TASK
+
+                        TASK --> TODOLISTENTRY : task
+                    deactivate TASK
+
+                    TODOLISTENTRY --> TODOLIST : task
+                deactivate TODOLISTENTRY
+
+                TODOLIST --> CTRL : task
+            deactivate TODOLIST
+
+            CTRL --> UI : task
+        deactivate CTRL
+
+        UI --> GSM: confirm data
+
+         UI -> CTRL : getGreenSpace(toDoListEntry)
+                activate CTRL
+
+                    CTRL -> TODOLIST : getGreenSpace(toDoListEntry)
+                    activate TODOLIST
+
+                        TODOLIST -> TODOLISTENTRY : getGreenSpace()
+                        activate TODOLISTENTRY
+
+                            TODOLISTENTRY -> GREENSPACE** : getGreenSpace()
+                            activate GREENSPACE
+
+                                GREENSPACE --> TODOLISTENTRY : greenSpace
+                            deactivate GREENSPACE
+
+                            TODOLISTENTRY --> TODOLIST : greenSpace
+                        deactivate TODOLISTENTRY
+
+                        TODOLIST --> CTRL : greenSpace
+                    deactivate TODOLIST
+
+                    CTRL --> UI : greenSpace
+                deactivate CTRL
+
+        UI -> CTRL : addToDoLIstEntry(toDoListEntry)
+        activate CTRL
+
+            CTRL -> TODOLIST : addToDoLIstEntry(toDoListEntry)
+            activate TODOLIST
+
+            TODOLIST -> TODOLIST : validateEntry()
+            activate TODOLIST
+
+            deactivate TODOLIST
+
+            TODOLIST --> CTRL : operation success
+            deactivate TODOLIST
+
+            CTRL --> UI : operation success
+        deactivate CTRL
+
+        UI --> GSM: displays operation success
+    deactivate UI
+
+deactivate GSM
+
+
+
+@enduml

@@ -1,0 +1,48 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+
+participant ":EntryMapper" as Mapper
+participant "listEntriesDto\n:List<EntryDto>" as LISTENTRIESDTO
+participant "entryDto\n:EntryDto" as DTO
+participant "agendaEntries\n:List<AgendaEntries>" as AGENDAENTRIES
+
+autonumber 32
+
+ -> Mapper : toDto(listEntries)
+autonumber 32.1
+activate Mapper
+    group Get Task List
+
+
+            Mapper --> LISTENTRIESDTO** : create()
+                loop for each entry in entryList
+                    Mapper -> AGENDAENTRIES : get(i)
+                        activate AGENDAENTRIES
+
+                        AGENDAENTRIES --> Mapper : entry
+                        deactivate AGENDAENTRIES
+                    Mapper -> DTO : toDTOEntry(entry)
+                        activate DTO
+
+                        DTO --> Mapper : entryDto
+                        deactivate DTO
+                    Mapper -> LISTENTRIESDTO : add(entryDto)
+                        activate LISTENTRIESDTO
+                end
+
+
+            LISTENTRIESDTO --> Mapper : listEntriesDto
+             deactivate LISTENTRIESDTO
+
+    end
+    autonumber 33
+    <-- Mapper : listEntriesDto
+deactivate Mapper
+
+@enduml
