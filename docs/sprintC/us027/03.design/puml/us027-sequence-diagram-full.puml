@@ -25,7 +25,7 @@ activate GSM
         activate UI
 
                 UI -> CTRL** : create
-                    UI -> CTRL : getCollaboratorThoughEmail(email)
+                    UI -> CTRL : getCollaboratorByEmail(email)
                         activate CTRL
 
                         CTRL -> RepositorySingleton : getInstance()
@@ -40,10 +40,10 @@ activate GSM
                             REP --> CTRL : collaboratorRepository
                             deactivate REP
 
-                        CTRL -> collaboratorRepository : getCollaboratorThoughEmail(email)
+                        CTRL -> collaboratorRepository : getCollaboratorByEmail(email)
                             activate collaboratorRepository
 
-                            collaboratorRepository -> collaboratorRepository : getCollaboratorThoughEmail(email)
+                            collaboratorRepository -> collaboratorRepository : getCollaboratorByEmail(email)
                             activate collaboratorRepository
 
                             collaboratorRepository --> CTRL : greenSpaceManager

@@ -20,7 +20,7 @@ activate GSM
 
                 UI -> CTRL** : create
 
-                UI -> CTRL : getCollaboratorThoughEmail(email)
+                UI -> CTRL : getCollaboratorByEmail(email)
 
                     activate CTRL
                         ref over CTRL
