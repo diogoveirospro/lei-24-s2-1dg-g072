@@ -51,7 +51,7 @@ It uses Interaction Occurrence (a.k.a. Interaction Use).
 
 **Register Vehicle**
 
-![Sequence Diagram - Partial - Register Vehicle](svg/us020-sequence-diagram-partial-register-vehicle.svg)
+![Sequence Diagram - Partial - Register Vehicle](svg/us020-sequence-diagram-partial-register-green-space.svg)
 
 ## 3.3. Class Diagram (CD)
 
