@@ -39,7 +39,7 @@ _**Note that SSD - Alternative Two is adopted.**_
 
 This diagram shows the full sequence of interactions between the classes involved in the realization of this user story.
 
-![Sequence Diagram - Full](svg/us006-sequence-diagram-full.svg)
+![Sequence Diagram - Full](svg/us020-sequence-diagram-full.svg)
 
 ### Split Diagrams
 
@@ -47,12 +47,12 @@ The following diagram shows the same sequence of interactions between the classe
 
 It uses Interaction Occurrence (a.k.a. Interaction Use).
 
-![Sequence Diagram - split](svg/us006-sequence-diagram-split.svg)
+![Sequence Diagram - split](svg/us020-sequence-diagram-split.svg)
 
 **Register Vehicle**
 
-![Sequence Diagram - Partial - Register Vehicle](svg/us006-sequence-diagram-partial-register-vehicle.svg)
+![Sequence Diagram - Partial - Register Vehicle](svg/us020-sequence-diagram-partial-register-vehicle.svg)
 
 ## 3.3. Class Diagram (CD)
 
-![Class Diagram](svg/us006-class-diagram.svg)
+![Class Diagram](svg/us020-class-diagram.svg)

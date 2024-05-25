@@ -20,7 +20,8 @@ public class Main {
                     Choose the option you want:\s
                     Option 1: Make a spanning tree.\s
                     Option 2: Make a graph of time as a function of the number of vertices.\s
-                    Option 3: Make a graph of the evacuation routes.""");
+                    Option 3: Make a graph of the evacuation routes to one Meeting Point.
+                    Option 4: Make a graph of the evacuation routes to different Meeting Points.""");
             try {
                 option = sc.nextInt();
 
@@ -29,23 +30,48 @@ public class Main {
                 } else if (option == 2){
                     US14();
                 } else if (option==3){
+                    US17();
+                } else if (option==4) {
                     US18();
                 } else {
-                    System.out.println("Please insert a valid option");
+                    System.out.println("Please insert a valid option!");
                 }
             }catch (InputMismatchException e){
-                System.out.println(e.getMessage());
+                System.out.println("Please insert a number!");
+                sc.next();
             };
 
 
         } while (option < 1 || option > 3);
     }
+
     private static void US18() throws FileNotFoundException {
         Scanner sc = new Scanner(System.in);
         StringBuilder inputFile = new StringBuilder(getFile(sc));
         StringBuilder file = new StringBuilder("src/main/java/PI_MDISC_Group_072/Input/" + inputFile + ".csv");
 
-        ArrayList<Edge> graphEdges = readFile(file);
+        ArrayList<Vertex> vertices = readVertexFile(file);
+        ArrayList<Integer> weights = readWeightFile(file);
+        ArrayList<Edge> graphEdges = new ArrayList<>();
+        Graph graph = addEdges(graphEdges);
+        bubbleSort(graphEdges);
+        ArrayList<Vertex> verticesGraph = getVerticesGraph(graphEdges);
+        ArrayList<String> MP = new ArrayList<>();
+        /*
+        for (int i = 0; i < MP.size(); i++) {
+            Graph evacuationRoutes  = Dijkstra(graphEdges, verticesGraph);
+        }
+        */
+    }
+
+    private static void US17() throws FileNotFoundException {
+        Scanner sc = new Scanner(System.in);
+        StringBuilder inputFile = new StringBuilder(getFile(sc));
+        StringBuilder file = new StringBuilder("src/main/java/PI_MDISC_Group_072/Input/" + inputFile + ".csv");
+
+        ArrayList<Vertex> vertices = readVertexFile(file);
+        ArrayList<Integer> weights = readWeightFile(file);
+        ArrayList<Edge> graphEdges = new ArrayList<>();
         Graph graph = addEdges(graphEdges);
         bubbleSort(graphEdges);
 
@@ -106,7 +132,6 @@ public class Main {
         createGnuplotGraph();
     }
     private static Graph Dijkstra(ArrayList<Edge> assemblyPoints, ArrayList<Vertex> vertices){
-
         return null;
     }
 
@@ -243,6 +268,30 @@ public class Main {
 
         in.close();
         return graphEdges;
+    }
+    private static ArrayList<Vertex> readVertexFile(StringBuilder file) throws FileNotFoundException {
+        ArrayList<Vertex> vertices = new ArrayList<>();
+        Scanner in = new Scanner(new File(String.valueOf(file)));
+
+        while (in.hasNextLine()) {
+            Vertex vertex = new Vertex(in.nextLine());
+            vertices.add(vertex);
+        }
+
+        in.close();
+        return vertices;
+    }
+    private static ArrayList<Integer> readWeightFile(StringBuilder file) throws FileNotFoundException {
+        ArrayList<Integer> weights = new ArrayList<>();
+        Scanner in = new Scanner(new File(String.valueOf(file)));
+
+        while (in.hasNextLine()) {
+            int weight = Integer.parseInt(in.nextLine());
+            weights.add(weight);
+        }
+
+        in.close();
+        return weights;
     }
 
     private static Edge readLine(Scanner in) {

@@ -11,14 +11,14 @@ hide circle
 hide methods
 class "Green Space" {
      name
-     type : {garden, medium-sized park, large-sized park}
+     type
      area
 }
 
-class "Green Space Manager" {
+class "GSM" {
 
 }
 
-"Green Space Manager" "1" - "*" "Green Space" : register >
+"GSM" "1" - "*" "Green Space" : register >
 
 @enduml

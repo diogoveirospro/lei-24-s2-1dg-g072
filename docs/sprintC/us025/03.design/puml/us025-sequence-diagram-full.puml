@@ -1,0 +1,190 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "Green Spaces\n Manager" as GSM
+participant ":CancelAgendaEntryUI" as UI
+participant ":CancelAgendaEntryController" as CTRL
+participant Repositories
+participant "repositories\n:Repositories" as REP
+participant "entryList\n:entryList" as ENTRYLIST
+participant "agenda\n:Agenda" as AGENDA
+participant ":EntryListMapper" as ENTRYLISTMAPPER
+participant "listEntries\n:List<AgendaEntryList>" as LISTENTRIES
+participant "entryListDto\n:List<entriesListDto>" as TODOLISTDTO
+participant "agendaEntryList\n:AgendaEntryList" as AGENDAENTRYLIST
+participant "entryListDto\n:EntryListDto" as ENTRYLISTDTO
+participant "greenSpace\n: GreenSpace" as GREENSPACE
+participant "agendaEntry\n:AgendaEntry" as AGENDAENTRY
+
+activate GSM
+
+    GSM -> UI : asks to cancel a entry on the agenda
+    activate UI
+
+        UI -> CTRL** : create
+
+        UI -> CTRL : getEntriesList()
+        activate CTRL
+
+           CTRL -> Repositories: getInstance()
+           activate Repositories
+
+                Repositories --> CTRL: repositories
+           deactivate Repositories
+
+           CTRL -> REP: getToDoList()
+           activate REP
+
+                REP --> CTRL: toDoList
+           deactivate REP
+
+            CTRL -> ENTRYLIST : getAgendaEntryList()
+            activate ENTRYLIST
+
+                    ENTRYLIST --> LISTENTRIES** : create()
+                    activate LISTENTRIES
+
+                        loop for each agendaEntry
+                            ENTRYLIST -> LISTENTRIES : add(agendaEntryList)
+                            activate LISTENTRIES
+                            deactivate LISTENTRIES
+                        end
+
+                        LISTENTRIES --> ENTRYLIST : listEntries
+                    deactivate LISTENTRIES
+
+
+                ENTRYLIST --> CTRL : listEntries
+            deactivate ENTRYLIST
+
+            CTRL -> ENTRYLISTMAPPER** : entryListToDto(listEntries)
+            activate ENTRYLISTMAPPER
+
+                ENTRYLISTMAPPER --> TODOLISTDTO** : create()
+
+                loop for each agendaEntry
+                    ENTRYLISTMAPPER -> LISTENTRIES : get(i)
+                    activate LISTENTRIES
+
+                    LISTENTRIES --> ENTRYLISTMAPPER : agendaEntry
+                    deactivate LISTENTRIES
+
+                    ENTRYLISTMAPPER -> ENTRYLISTMAPPER : entryListDto = toDTO(agendaEntry)
+                    activate ENTRYLISTMAPPER
+                    deactivate ENTRYLISTMAPPER
+
+                    ENTRYLISTMAPPER --> ENTRYLISTDTO** : create()
+                    activate ENTRYLISTDTO
+
+                    ENTRYLISTDTO --> ENTRYLISTMAPPER : entryListDto
+                    deactivate ENTRYLISTDTO
+
+                    ENTRYLISTMAPPER -> TODOLISTDTO : add(entryListDto)
+                    activate TODOLISTDTO
+                    deactivate TODOLISTDTO
+
+                end
+
+                ENTRYLISTMAPPER --> CTRL : entryListDto
+            deactivate ENTRYLISTMAPPER
+
+            CTRL --> UI : entryListDto
+        deactivate CTRL
+        loop
+        UI --> GSM: shows all the entries registered in the \nAgenda and asks you to select the \nones you want to cancel
+    deactivate UI
+
+    GSM -> UI: select the desired entries
+    activate UI
+        end
+
+        UI -> CTRL : getGreenSpace()
+        activate CTRL
+
+            CTRL -> ENTRYLIST : getGreenSpace()
+            activate ENTRYLIST
+
+                ENTRYLIST -> AGENDAENTRYLIST : getGreenSpace()
+                activate AGENDAENTRYLIST
+
+                    AGENDAENTRYLIST -> GREENSPACE** : getGreenSpace()
+                    activate GREENSPACE
+
+                        GREENSPACE --> AGENDAENTRYLIST : greenSpace
+                    deactivate GREENSPACE
+
+                    AGENDAENTRYLIST --> ENTRYLIST : greenSpace
+                deactivate AGENDAENTRYLIST
+
+                ENTRYLIST --> CTRL : greenSpace
+            deactivate ENTRYLIST
+
+            CTRL --> UI : greenSpace
+        deactivate CTRL
+
+        UI -> CTRL : cancelAgendaEntry(chosenEntryList, greenSpace)
+        activate CTRL
+
+            CTRL -> Repositories: getInstance()
+            activate Repositories
+
+                Repositories --> CTRL: repositories
+            deactivate Repositories
+
+            CTRL -> REP: getAgenda()
+            activate REP
+
+                REP --> CTRL: agenda
+            deactivate REP
+
+            CTRL -> AGENDA** : cancelAgendaEntry(chosenEntryList, greenSpace)
+            activate AGENDA
+
+                AGENDA -> AGENDAENTRY** : cancelAgendaEntry(chosenEntryList, greenSpace)
+                loop for each Entry on the chosenEntryList
+                AGENDA -> AGENDA : cancelEntry(agendaEntry)
+                activate AGENDA
+                end
+                deactivate AGENDA
+                deactivate AGENDAENTRY
+
+                AGENDA --> CTRL : canceledAgendaEntries
+                deactivate AGENDA
+
+            CTRL --> UI : canceledAgendaEntries
+            deactivate CTRL
+
+        UI --> GSM: shows all data and requests confirmation
+    deactivate UI
+
+    GSM -> UI: confirms data
+    activate UI
+
+        UI -> CTRL : canceledAgendaEntries(canceledAgendaEntries)
+        activate CTRL
+
+            CTRL -> AGENDA : cancelAgendaEntry(canceledAgendaEntries))
+            activate AGENDA
+
+            AGENDA -> AGENDA : validateEntries()
+            activate AGENDA
+
+            deactivate AGENDA
+
+            AGENDA --> CTRL : operation success
+            deactivate AGENDA
+
+            CTRL --> UI : operation success
+        deactivate CTRL
+
+        UI --> GSM: displays operation success
+    deactivate UI
+
+deactivate GSM
+
+@enduml

@@ -15,15 +15,6 @@ As a GSM, I want to add a new entry in the Agenda.
 
 **From the client clarifications:**
 
-> **Question:** It is possible to add an entry for more than one day? Like, if one task need more than one/two days is needed to add the entry for more than one day?
-> 
-> **Answer:** 
- 
-> **Question:** To add an entry in Agenda is needed to selected/input what data? Date,Task,(Team,Vehicles)?
-Can you be more specific with Entry ?
-> 
-> **Answer:** 
-
 > **Question:** We know that an entry in the diary has a target date, but should this target date be entered when transferring a task from the task list to the diary, or should it be entered when creating the task in the task list?
 > 
 > **Answer:** To-do list entries doesn't have dates!
@@ -38,22 +29,10 @@ Can you be more specific with Entry ?
 A To-Do list is a list of "tasks" one need to do, each "task" one insert in the list is an Entry.
 Agenda and its Entries, follow the same logic.
 
-> **Question:** Dear client, does every entry in the agenda have to have at least one vehicle associated with it?
-> 
-> **Answer:** 
-
 > **Question:** When the GSM plans a task (that was previously in To-Do) into the Agenda, what additional data/information does he need to input when planning?
 > 
 > **Answer:** The starting date for the task.
 Later the GSM will be able to add the Team and vehicles (if required).
-
-> **Question:** Wouldn't it also be the expected duration as mentioned in the statement?
-> 
-> **Answer:** 
-
-> **Question:** Does the entry that is added to the Agenda have the same meaning as a task?
-> 
-> **Answer:**
 
 > **Question:** Can I add an entry that has a time period that already have an existing entry in the Agenda?
 > 
@@ -64,15 +43,6 @@ b) different tasks can be executed at same time in the same park.
 > **Question:** Regarding the US022, when we are registering an entry to the agenda, are the three inputs (selecting an existing task from the to-do list, starting date, and finishing date) sufficient?
 > 
 > **Answer:** The starting date will be enough because the task already has the predicted duration.
-
-> 
-> **Question:** How many hours work a Team by day, to consider, how many days need to be taken care of to complete the task?
-> 
-> **Answer:** 
-
-> **Question:** And how much time needs to be taken into consideration for the transport distance to the location of the task?
-> 
-> **Answer:**
 
 > **Question:** When a To-Do List entry is planned and moves to the Agenda, the status change from "Pending" to "Planned". Should this entry be removed from the To-Do List or just change status to "Planned" as it is on the Agenda?
 > 
@@ -92,7 +62,7 @@ b) different tasks can be executed at same time in the same park.
 
 **Input Data:**
 
-* Typed data:
+* Selected data:
     * the tasks on the To-Do List.
 
 **Output Data:**

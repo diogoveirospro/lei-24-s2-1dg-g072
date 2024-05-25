@@ -27,11 +27,6 @@ activate GSM
     GSM -> System : selects green space type
     activate System
 
-        System --> GSM : requests the area
-    deactivate System
-
-    GSM -> System : inputs the area
-    activate System
 
         System --> GSM : shows all data and requests confirmation
     deactivate System

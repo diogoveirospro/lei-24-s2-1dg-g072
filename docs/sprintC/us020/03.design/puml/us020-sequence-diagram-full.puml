@@ -1,0 +1,69 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "Green Space Manager" as GSM
+participant ":RegisterGreenSpaceUI" as UI
+participant ":RegisterGreenSpaceController" as CTRL
+participant ":Repositories" as RepositorySingleton
+participant "repositories\n:Repositories" as PLAT
+participant "greenSpaceRepository\n:GreenSpaceRepository" as greenSpaceRepository
+participant "greenSpace\n:GreenSpace" as GREENSPACE
+
+activate GSM
+
+    GSM -> UI : asks to register a new green space
+
+    activate UI
+
+        UI --> GSM : requests data (name, type, area)
+
+        GSM -> UI : types requested data
+
+        UI --> GSM : shows all data and requests confirmation
+
+        GSM -> UI : confirms data
+
+        UI -> CTRL : registerGreenSpace(name, type, area)
+        activate CTRL
+
+            CTRL -> RepositorySingleton : getInstance()
+            activate RepositorySingleton
+
+                RepositorySingleton --> CTRL: repositories
+            deactivate RepositorySingleton
+
+            CTRL -> PLAT : getGreenSpaceRepository()
+            activate PLAT
+
+                PLAT --> CTRL: greenSpaceRepository
+            deactivate PLAT
+
+            CTRL -> greenSpaceRepository : registerGreenSpace(name, type, area)
+            activate greenSpaceRepository
+
+                greenSpaceRepository -> GREENSPACE**: registerGreenSpace(name, type, area)
+                greenSpaceRepository -> greenSpaceRepository: addGreenSpace(greenSpace)
+
+                activate greenSpaceRepository
+                    greenSpaceRepository -> greenSpaceRepository: validateGreenSpace(greenSpace)
+                    activate greenSpaceRepository
+                        greenSpaceRepository --> CTRL : greenSpace
+                    deactivate greenSpaceRepository
+                deactivate greenSpaceRepository
+
+            deactivate greenSpaceRepository
+
+        CTRL --> UI: greenSpace
+        deactivate CTRL
+
+        UI --> GSM: displays operation success
+    deactivate UI
+
+deactivate GSM
+
+@enduml

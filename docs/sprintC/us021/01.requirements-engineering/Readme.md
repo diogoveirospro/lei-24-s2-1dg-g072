@@ -53,4 +53,4 @@ There is a dependency on **US020 - Register a Green Space and its Respective Are
 
 #### Alternative One
 
-![System Sequence Diagram - Alternative One](svg/us021-system-sequence-diagram-alternative-one.svg)
+![System Sequence Diagram - Alternative One](svg/us021-system-sequence-diagram-alternative-one-System_Sequence_Diagram__SSD____Alternative_One.svg)

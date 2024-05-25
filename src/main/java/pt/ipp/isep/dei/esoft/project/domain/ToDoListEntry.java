@@ -1,5 +1,5 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
-public class ToDoListEntry extends Entry {
-
+public class ToDoListEntry extends Entry{
+    private Entry entry;
 }

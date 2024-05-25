@@ -3,33 +3,25 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-skinparam classAttributeIconSize 0
+'left to right direction
 
-hide circle
+skinparam classAttributeIconSize 0
+hide circles
 hide methods
 
-class Collaborator {
-    name
+
+class Collaborator{
+
 }
 
-class Agenda {
-    agendaEntries
-}
-
-class ToDoListEntry {
-    taskDescription
-    urgency
-    duration
-}
-
-class AgendaEntry {
+class Task{
+    team
+    vehicleList
+    dateI
+    dateF
     status
-    completionDate
 }
 
-Collaborator "1" -- "0..*" Agenda : completes
-Agenda "1" -- "0..*" AgendaEntry : includes
-Agenda "1" -- "0..*" ToDoListEntry : includes
-AgendaEntry "1" -- "1" ToDoListEntry : references
+Collaborator "1"-"   1..*" Task: complete >
 
 @enduml

@@ -5,57 +5,147 @@ skinparam shadowing false
 
 autonumber
 
-'hide footbox
-actor "Vehicle Fleet Manager" as ADM
-participant ":RegisterVehicleUI" as UI
-participant ":RegisterVehicleController" as CTRL
+actor "Collaborator" as Col
+participant ":ListTaskSpaceUI" as UI
+participant ":ListTaskController" as CTRL
 participant ":Repositories" as RepositorySingleton
-participant "repositories\n:Repositories" as PLAT
-participant "vehicleRepository\n:VehicleRepository" as VehicleRepository
-activate ADM
+participant "repositories\n:Repositories" as REP
+participant "teamRepository\n:TeamRepository" as teamRepository
 
-        ADM -> UI : asks to register a new vehicle
+participant "taskRepository\n:TaskRepository" as taskRepository
 
-        activate UI
+participant "agenda\n:Agenda" as AGENDA
+participant ":EntryMapper" as Mapper
 
-            UI --> ADM : requests data (plateNumber, brand,\n model,type, tare, grossWeight,\n currentKms,registrationDate,\nacquisitionDate, serviceFrequency)
 
-            ADM -> UI : types requested data
+activate Col
 
-            UI --> ADM : shows all data and requests confirmation
+Col -> UI : requests to consult tasks assigned to him
+    activate UI
 
-            ADM -> UI : confirms data
+    UI -> CTRL** : create
+    UI -> CTRL : getCollaboratorThoughEmail(email)
+        activate CTRL
 
-            UI -> CTRL : registerVehicle(plateNumber, brand,\n model,type, tare, grossWeight,\n currentKms,registrationDate,\nacquisitionDate, serviceFrequency)
-            activate CTRL
+        ref over CTRL
+            Get Collaborator Though Email
 
-                CTRL -> RepositorySingleton : getInstance()
-                activate RepositorySingleton
+        end
+        CTRL --> UI : collaborator
+        deactivate CTRL
 
-                    RepositorySingleton --> CTRL: repositories
-                deactivate RepositorySingleton
-
-                CTRL -> PLAT : getVehicleRepository()
-                activate PLAT
-
-                    PLAT --> CTRL: vehicleRepository
-                deactivate PLAT
-
-                CTRL -> VehicleRepository : registerVehicle(plateNumber, brand,\n model,type, tare, grossWeight,\n currentKms,registrationDate,\nacquisitionDate, serviceFrequency)
-                activate VehicleRepository
-                ref over VehicleRepository
-                    Register Vehicle
-
-                end ref
-                                VehicleRepository --> CTRL : vehicle
-
-                            deactivate VehicleRepository
-
-            CTRL --> UI: vehicle
-            deactivate CTRL
-            UI --> ADM: displays operation success
+    UI --> Col : asks to select the beginning and end date of the search
     deactivate UI
 
-deactivate ADM
+Col -> UI : selects the beginning and end date
+    activate UI
 
+    UI -> CTRL : getStatusList()
+        activate CTRL
+
+            ref over CTRL
+                        Get Status List
+
+            end
+
+        CTRL --> UI : statusList
+        deactivate CTRL
+
+    UI --> Col : asks to select the type of status he wants to consult
+    deactivate UI
+
+Col -> UI : Selects the type he wants to consult
+    activate UI
+
+    UI --> Col : asks for confirmation
+    deactivate UI
+
+Col -> UI : confirms that he wants to create the list
+    activate UI
+
+    UI -> CTRL : getTaskList(collaborator,dateI,dateF,typeStatus)
+        activate CTRL
+
+
+        CTRL -> RepositorySingleton : getInstance()
+            activate RepositorySingleton
+
+            RepositorySingleton --> CTRL : repositories
+            deactivate RepositorySingleton
+
+        CTRL -> REP : getTeamRepository()
+            activate REP
+
+            REP --> CTRL : teamRepository
+            deactivate REP
+
+        CTRL -> teamRepository : getTeamsThoughCollaborator(collaborator)
+            activate teamRepository
+                ref over teamRepository
+                    Get Team List
+                end
+            teamRepository --> CTRL : teamList
+            deactivate teamRepository
+
+        CTRL -> RepositorySingleton : getInstance()
+            activate RepositorySingleton
+
+            RepositorySingleton --> CTRL : repositories
+            deactivate RepositorySingleton
+
+        CTRL -> REP : getTaskRepository()
+            activate REP
+
+            REP --> CTRL : taskRepository
+            deactivate REP
+
+        CTRL -> taskRepository : getTaskList(teamList,dateI,dateF,typeStatus)
+            activate taskRepository
+                ref over taskRepository
+                    Get Task List
+                end
+            taskRepository --> CTRL : taskList
+        deactivate taskRepository
+
+
+        CTRL -> RepositorySingleton : getInstance()
+            activate RepositorySingleton
+
+            RepositorySingleton --> CTRL : repositories
+            deactivate RepositorySingleton
+
+        CTRL -> REP : getAgenda()
+            activate REP
+
+            REP --> CTRL : Agenda
+            deactivate REP
+
+        CTRL -> AGENDA : getCollaboratorAgendaEntries(taskList)
+            activate AGENDA
+
+                ref over AGENDA
+                    Get Entry List
+
+                end
+        AGENDA --> CTRL : listEntries
+        deactivate AGENDA
+
+        CTRL -> Mapper : toDTOList(listEntries)
+            activate Mapper
+                ref over Mapper
+                    Create a copy
+                    of Entry List
+
+                end
+
+             Mapper --> CTRL : listEntriesDto
+            deactivate Mapper
+
+        CTRL --> UI : listEntriesDto
+        deactivate CTRL
+
+    UI --> Col : shows the LISTTASK
+    deactivate UI
+
+deactivate Col
 @enduml

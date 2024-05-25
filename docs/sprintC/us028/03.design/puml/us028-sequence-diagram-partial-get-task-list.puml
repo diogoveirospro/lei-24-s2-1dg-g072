@@ -1,0 +1,35 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+
+
+participant "taskRepository\n:TaskRepository" as taskRepository
+participant "taskList\n:List<Task>" as LISTTASK
+
+autonumber 24
+
+ -> taskRepository : getTaskList(teamList,dateI,dateF,typeStatus)
+autonumber 24.1
+activate taskRepository
+    group Get Task List
+
+taskRepository -> LISTTASK** : create()
+                loop for each task in the system
+                    opt ((typeStatus() == task.getStatus() && (team == task.getTeam))\n && (dateI <= task.getDateI()) && (dateF >= task.getDateF()))
+                        taskRepository -> LISTTASK : addTaskOfCollaborator(task)
+                            activate LISTTASK
+                    end
+
+                end
+            LISTTASK --> taskRepository : taskList
+            deactivate LISTTASK
+    end
+autonumber 25
+<-- taskRepository : taskList
+
+@enduml

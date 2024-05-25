@@ -1,6 +1,6 @@
 @startuml
 'skinparam monochrome true
-skinparam packageStyle rectangle
+skinparam packageStyle Folder
 skinparam shadowing false
 skinparam linetype polyline
 'skinparam linetype orto
@@ -9,42 +9,58 @@ skinparam classAttributeIconSize 0
 
 'left to right direction
 
+package UI{
 class ListGreenSpaceUI{
 
 }
+}
+package Controller{
+class ListGreenSpaceController{
+    + getGreenSpaceList()
+    + createListGreenSpaceController()
+    + toDto(greenSpaceList)
+}
+}
+package Domain{
+package Mapper{
 class GreenSpaceMapper{
     - greenSpaceListDto
     + toDto(greenSpaceList)
     + addGreenSpace(greenSpaceDto)
 }
+package Dto{
 class GreenSpaceDto{
     - name
     - dimension
     - address
     + greenSpaceDto(greenSpace)
 }
-class ListGreenSpaceController{
-    + getGreenSpaceList()
-    + createListGreenSpaceController()
-    + toDto(greenSpaceList)
 }
+}
+package Domain.Reository{
 class GreenSpaceRepository{
     - greenSpaceList
     + getGreenSpaceList()
 }
-
+class CollaboratorRepository{
+    - collaboratorList
+    + getCollaboratorTroughEmail(email)
+}
 
 class Repositories{
  - Repositories()
  + getGreenSpaceRepository(): Repositories
  + getInstance(): Repositories
 }
-
+}
+}
 ListGreenSpaceUI .> ListGreenSpaceController
-ListGreenSpaceController ..> Repositories : repositories
+ListGreenSpaceController .> Repositories : repositories
 Repositories -> Repositories : instance
 ListGreenSpaceController .> GreenSpaceRepository: greenSpaceRepository
-Repositories "1" ---> "1" GreenSpaceRepository
+Repositories "1" --> "1" GreenSpaceRepository
 ListGreenSpaceController "1" -> "1" GreenSpaceMapper: greenSpaceList
 GreenSpaceMapper "1" -> "1" GreenSpaceDto: greenSpace
+Repositories "1" --> "1" CollaboratorRepository: collaboratorRepository
+ListGreenSpaceController .> CollaboratorRepository: collaboratorRepository
 @enduml

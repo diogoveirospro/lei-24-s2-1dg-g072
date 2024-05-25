@@ -15,13 +15,19 @@ The GSM wants to postpone an entry in the Agenda to a specific date in the futur
 
 **From the client clarifications:**
 
-> **Question:** When a vehicle is registered, are there specific requirements for accepting the brand? For example, does the system need to check if the brand is on a predetermined list? Does this also apply to the model or any other characteristics?
+> **Question:** What are the input to postpone an entry? From my perspective the Green Spaces Manager only needs to select the entry and introduce the new date.
 > 
-> **Answer:** No; one can consider a list of brands and a list of models previously inserted in the system, no need to go through validations.
- 
-> **Question:** For the application to work does the FM need to fill all the attributes of the vehicle?
+> **Answer:** Yes, you are correct!
 > 
-> **Answer:** Yes.
+> **Question:** The selected task(s) will be postponed by one interval defined by the user or for the next day??
+> 
+> **Answer:** When postponing a task, the new predicated date for execution should be inserted.
+> 
+> **Question:** The date you want to postpone in this US24 is the date referring to the "approximate expected duration" field when we registered the task?
+> 
+> **Answer:** No; sometimes, for various reasons (e.g. insufficient staff, faulty equipment or adverse weather conditions) a task has to be postponed to a new date; task duration is not directly related to this.
+
+
 
 
 ### 1.3. Acceptance Criteria
