@@ -15,20 +15,27 @@ activate GSM
     GSM -> UI : asks to add a new entry to the agenda
     activate UI
 
+        UI --> GSM : asks to choose the green space \nfor which want to add the entry
+    deactivate UI
+
+    GSM -> UI : select the desired green space
+    activate UI
+
         UI -> CTRL** : create
 
         UI -> CTRL : getToDoListEntries()
         activate CTRL
 
            ref over CTRL
-           Get To-Do List Entries with DTO
+           Get Green Space and your To-Do List
+           entries with DTO
 
            end
 
             CTRL --> UI : toDoListDto
         deactivate CTRL
 
-        UI --> GSM: shows all the tasks registered in the \nTo-Do List and asks you to select the \none you want to add
+        UI --> GSM: shows all the tasks registered in the \nto-do list of the chosen green space \nand asks to select the one want to add
     deactivate UI
 
     GSM -> UI: select the desired task and its start and\n end date
@@ -43,17 +50,6 @@ activate GSM
             end
 
             CTRL --> UI : task
-        deactivate CTRL
-
-        UI -> CTRL : getGreenSpace(toDoListEntry)
-        activate CTRL
-
-            ref over CTRL
-            Get GreenSpace
-
-            end
-
-            CTRL --> UI : greenSpace
         deactivate CTRL
 
         UI -> CTRL : createAgendaEntry(task, greenSpace, startDate, endDate)

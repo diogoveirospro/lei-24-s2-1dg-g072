@@ -15,7 +15,13 @@ activate GSM
     GSM -> System : asks to add a new entry to the agenda
     activate System
 
-        System --> GSM : shows all the tasks registered in the \nTo-Do List and asks you to select the \none you want to add
+        System --> GSM : asks to choose the green space \nfor which want to add the entry
+    deactivate System
+
+    GSM -> System : select the desired green space
+    activate System
+
+        System --> GSM : shows all the tasks registered in the \nto-do list of the chosen green space \nand asks to select the one want to add
     deactivate System
 
     GSM -> System : select the desired task and its start and\n end date

@@ -63,7 +63,12 @@ b) different tasks can be executed at same time in the same park.
 **Input Data:**
 
 * Selected data:
-    * the tasks on the To-Do List.
+    * a green space
+    * the tasks on the green space to-do list.
+
+* Typed data:
+    * the starting date of the task.
+    * the finishing date of the task.
 
 **Output Data:**
 * (In)Success of the operation

@@ -11,6 +11,8 @@ participant ":AddAgendaEntryUI" as UI
 participant ":AddAgendaEntryController" as CTRL
 participant Repositories
 participant "repositories\n:Repositories" as REP
+participant "greenSpaceRepository\n:GreenSpaceRepository" as GREENSPACEREPOSITORY
+participant "greenSpace\n: GreenSpace" as GREENSPACE
 participant "toDoList\n:toDoList" as TODOLIST
 participant "agenda\n:Agenda" as AGENDA
 participant ":ToDoListMapper" as TODOLISTMAPPER
@@ -19,7 +21,6 @@ participant "toDoListDto\n:List<ToDoListEntriesDto>" as TODOLISTDTO
 participant "toDoListEntryDto\n:ToDoListDto" as TODOLISTENTRYDTO
 participant "toDoListEntry\n:ToDoListEntry" as TODOLISTENTRY
 participant "task\n:Task" as TASK
-participant "greenSpace\n: GreenSpace" as GREENSPACE
 participant "agendaEntry\n:AgendaEntry" as AGENDAENTRY
 
 activate GSM
@@ -27,24 +28,43 @@ activate GSM
     GSM -> UI : asks to add a new entry to the agenda
     activate UI
 
+        UI --> GSM : asks to choose the green space \nfor which want to add the entry
+    deactivate UI
+
+    GSM -> UI : select the desired green space
+    activate UI
+
+
         UI -> CTRL** : create
 
         UI -> CTRL : getToDoListEntries()
         activate CTRL
 
-           CTRL -> Repositories: getInstance()
+           CTRL -> Repositories**: getInstance()
            activate Repositories
 
                 Repositories --> CTRL: repositories
            deactivate Repositories
 
-           CTRL -> REP: getToDoList()
+           CTRL -> REP**: getGreenSpaceRepository()
            activate REP
 
-                REP --> CTRL: toDoList
+                 REP --> CTRL: greenSpaceRepository
            deactivate REP
 
-            CTRL -> TODOLIST : getToDoListEntries()
+           CTRL -> GREENSPACEREPOSITORY** : getGreenSpaceByName(greenSpaceName)
+           activate GREENSPACEREPOSITORY
+
+                GREENSPACEREPOSITORY --> CTRL : greenSpace
+           deactivate GREENSPACEREPOSITORY
+
+           CTRL -> GREENSPACE**: getToDoList()
+           activate GREENSPACE
+
+                GREENSPACE --> CTRL: toDoList
+           deactivate GREENSPACE
+
+            CTRL -> TODOLIST** : getToDoListEntries()
             activate TODOLIST
 
                     TODOLIST --> LISTENTRIES** : create()
@@ -97,7 +117,7 @@ activate GSM
             CTRL --> UI : toDoListDto
         deactivate CTRL
 
-        UI --> GSM: shows all the tasks registered in the \nTo-Do List and asks you to select the \none you want to add
+        UI --> GSM: shows all the tasks registered in the \nto-do list of the chosen green space \nand asks to select the one want to add
     deactivate UI
 
     GSM -> UI: select the desired task and its start and\n end date
@@ -129,30 +149,6 @@ activate GSM
             deactivate TODOLIST
 
             CTRL --> UI : task
-        deactivate CTRL
-
-        UI -> CTRL : getGreenSpace(toDoListEntry)
-        activate CTRL
-
-            CTRL -> TODOLIST : getGreenSpace(toDoListEntry)
-            activate TODOLIST
-
-                TODOLIST -> TODOLISTENTRY : getGreenSpace()
-                activate TODOLISTENTRY
-
-                    TODOLISTENTRY -> GREENSPACE** : getGreenSpace()
-                    activate GREENSPACE
-
-                        GREENSPACE --> TODOLISTENTRY : greenSpace
-                    deactivate GREENSPACE
-
-                    TODOLISTENTRY --> TODOLIST : greenSpace
-                deactivate TODOLISTENTRY
-
-                TODOLIST --> CTRL : greenSpace
-            deactivate TODOLIST
-
-            CTRL --> UI : greenSpace
         deactivate CTRL
 
         UI -> CTRL : createAgendaEntry(task, greenSpace, startDate, endDate)
