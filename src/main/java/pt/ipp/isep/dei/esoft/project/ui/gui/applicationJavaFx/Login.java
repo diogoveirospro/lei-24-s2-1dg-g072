@@ -1,6 +1,5 @@
-package applicationJavaFx;
+package pt.ipp.isep.dei.esoft.project.ui.gui.applicationJavaFx;
 
-import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -9,12 +8,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-import static javafx.application.Application.launch;
-
-public class Login extends Application{
+public class Login {
 
     public void start(Stage primaryStage) {
-
         Label userLabel = new Label("Username:");
         TextField userField = new TextField();
 
@@ -23,18 +19,15 @@ public class Login extends Application{
 
         Button loginButton = new Button("Login");
 
-
         GridPane gridPane = new GridPane();
         gridPane.setHgap(10);
         gridPane.setVgap(10);
-
 
         gridPane.add(userLabel, 0, 0);
         gridPane.add(userField, 1, 0);
         gridPane.add(passLabel, 0, 1);
         gridPane.add(passField, 1, 1);
         gridPane.add(loginButton, 1, 2);
-
 
         loginButton.setOnAction(event -> {
             String username = userField.getText();
@@ -46,7 +39,6 @@ public class Login extends Application{
             }
         });
 
-
         Scene scene = new Scene(gridPane, 300, 200);
         primaryStage.setTitle("Login");
         primaryStage.setScene(scene);
@@ -54,12 +46,6 @@ public class Login extends Application{
     }
 
     private boolean validateLogin(String username, String password) {
-
         return "admin".equals(username) && "password".equals(password);
     }
-
-    public static void main(String[] args) {
-        launch(args);
-    }
 }
-
