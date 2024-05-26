@@ -53,6 +53,11 @@
             <artifactId>javafx-controls</artifactId>
             <version>${javafx.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -106,6 +111,8 @@
                     <mainClass>pt.ipp.isep.dei.esoft.project.ui.gui.applicationJavaFx.Main</mainClass>
                 </configuration>
             </plugin>
+
+
 
             <!-- Required for compiling the project usign maven -->
             <plugin><!-- Compiler configuration-->

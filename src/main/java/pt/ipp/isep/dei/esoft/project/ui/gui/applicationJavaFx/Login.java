@@ -40,6 +40,7 @@ public class Login {
         });
 
         Scene scene = new Scene(gridPane, 300, 200);
+        scene.getRoot().setStyle("-fx-font-family: 'serif'");
         primaryStage.setTitle("Login");
         primaryStage.setScene(scene);
         primaryStage.show();

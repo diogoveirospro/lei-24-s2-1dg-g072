@@ -6,5 +6,8 @@ import java.util.List;
 
 public class Agenda {
     private List<AgendaEntry> entriesAgenda;
-
+    public List<String> getStatusList() {
+        List<String> statusList = Entry.StatusOfEntry.getStatusList();
+        return null;
+    }
 }

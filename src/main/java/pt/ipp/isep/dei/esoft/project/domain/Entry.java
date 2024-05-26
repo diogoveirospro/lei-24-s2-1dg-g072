@@ -1,5 +1,8 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Entry {
     public enum DegreeOfUrgency {
         LOW("Low"),
@@ -52,6 +55,13 @@ public class Entry {
             }
             throw new IllegalArgumentException("Invalid status of entry: " + status);
         }
+        public static List<String> getStatusList() {
+            List<String> statusList = new ArrayList<>();
+            for (StatusOfEntry status : StatusOfEntry.values()) {
+                statusList.add(status.getStatus());
+            }
+            return statusList;
+        }
     }
     private StatusOfEntry status;
     private DegreeOfUrgency degree;
@@ -60,4 +70,5 @@ public class Entry {
     private GreenSpace greenSpace;
     private Date startDate;
     private Date endDate;
+    private List<Vehicle> vehicleList;
 }

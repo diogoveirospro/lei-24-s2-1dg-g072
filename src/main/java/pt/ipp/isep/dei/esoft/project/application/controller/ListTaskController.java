@@ -134,6 +134,6 @@ public class ListTaskController {
         return this.collaboratorRepository.getCollaboratorByEmail(email);
     }
     public List<String> getStatusList() {
-        return this.taskRepository.getStatusList();
+        return this.agenda.getStatusList();
     }
 }
