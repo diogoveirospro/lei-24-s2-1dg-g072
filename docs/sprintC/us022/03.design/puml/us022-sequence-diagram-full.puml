@@ -11,15 +11,20 @@ participant ":AddAgendaEntryUI" as UI
 participant ":AddAgendaEntryController" as CTRL
 participant Repositories
 participant "repositories\n:Repositories" as REP
+participant "greenSpaceRepository\n:GreenSpaceRepository" as GREENSPACEREPOSITORY
+participant ":GreenSpaceRepositoryMapper" as GREENSPACEREPOSITORYMAPPER
+participant "listGreenSpaces\n:List<GreenSpace>" as LISTGREENSPACES
+participant "listGreenSpacesDto\n:List<GreenSpaceDto>" as LISTGREENSPACESDTO
+participant "greenSpaceDto\n:GreenSpaceDto" as GREENSPACEDTO
+participant "greenSpace\n: GreenSpace" as GREENSPACE
 participant "toDoList\n:toDoList" as TODOLIST
-participant "agenda\n:Agenda" as AGENDA
 participant ":ToDoListMapper" as TODOLISTMAPPER
 participant "listEntries\n:List<ToDoListEntry>" as LISTENTRIES
 participant "toDoListDto\n:List<ToDoListEntriesDto>" as TODOLISTDTO
 participant "toDoListEntryDto\n:ToDoListDto" as TODOLISTENTRYDTO
 participant "toDoListEntry\n:ToDoListEntry" as TODOLISTENTRY
 participant "task\n:Task" as TASK
-participant "greenSpace\n: GreenSpace" as GREENSPACE
+participant "agenda\n:Agenda" as AGENDA
 participant "agendaEntry\n:AgendaEntry" as AGENDAENTRY
 
 activate GSM
@@ -29,22 +34,94 @@ activate GSM
 
         UI -> CTRL** : create
 
-        UI -> CTRL : getToDoListEntries()
+        UI -> CTRL : getListGreenSpaces()
         activate CTRL
 
-           CTRL -> Repositories: getInstance()
+           CTRL -> Repositories**: getInstance()
            activate Repositories
 
                 Repositories --> CTRL: repositories
            deactivate Repositories
 
-           CTRL -> REP: getToDoList()
+           CTRL -> REP**: getGreenSpaceRepository()
            activate REP
 
-                REP --> CTRL: toDoList
+                 REP --> CTRL: greenSpaceRepository
            deactivate REP
 
-            CTRL -> TODOLIST : getToDoListEntries()
+            CTRL -> GREENSPACEREPOSITORY** : getListGreenSpaces()
+            activate GREENSPACEREPOSITORY
+
+                    GREENSPACEREPOSITORY --> LISTGREENSPACES** : create()
+                    activate LISTGREENSPACES
+
+                        loop for each greenSpace
+                            GREENSPACEREPOSITORY -> LISTGREENSPACES : add(greenSpace)
+                            activate LISTGREENSPACES
+                            deactivate LISTGREENSPACES
+                        end
+
+                        LISTGREENSPACES --> GREENSPACEREPOSITORY : listGreenSpaces
+                    deactivate LISTGREENSPACES
+
+
+                GREENSPACEREPOSITORY --> CTRL : listGreenSpaces
+            deactivate GREENSPACEREPOSITORY
+
+            CTRL -> GREENSPACEREPOSITORYMAPPER** : listGreenSpacesToDto(listGreenSpaces)
+            activate GREENSPACEREPOSITORYMAPPER
+
+                GREENSPACEREPOSITORYMAPPER --> LISTGREENSPACESDTO** : create()
+
+                loop for each greenSpace
+                    GREENSPACEREPOSITORYMAPPER -> LISTGREENSPACES : get(i)
+                    activate LISTGREENSPACES
+
+                    LISTGREENSPACES --> GREENSPACEREPOSITORYMAPPER : greenSpace
+                    deactivate LISTGREENSPACES
+
+                    GREENSPACEREPOSITORYMAPPER -> GREENSPACEREPOSITORYMAPPER : greenSpaceDto = toDTO(greenSpace)
+                    activate GREENSPACEREPOSITORYMAPPER
+                    deactivate GREENSPACEREPOSITORYMAPPER
+
+                    GREENSPACEREPOSITORYMAPPER --> GREENSPACEDTO** : create()
+                    activate GREENSPACEDTO
+
+                    GREENSPACEDTO --> GREENSPACEREPOSITORYMAPPER : greenSpaceDto
+                    deactivate GREENSPACEDTO
+
+                    GREENSPACEREPOSITORYMAPPER -> LISTGREENSPACESDTO : add(greenSpaceDto)
+                    activate LISTGREENSPACESDTO
+                    deactivate LISTGREENSPACESDTO
+
+                end
+
+                GREENSPACEREPOSITORYMAPPER --> CTRL : listGreenSpacesDto
+            deactivate GREENSPACEREPOSITORYMAPPER
+
+            CTRL --> UI : listGreenSpacesDto
+        deactivate CTRL
+
+        UI --> GSM : asks to choose the green space \nfor which want to add the entry
+    deactivate UI
+
+    GSM -> UI : select the desired green space
+    activate UI
+
+        UI -> CTRL : getToDoListEntries(greenSpaceDto)
+        activate CTRL
+
+           CTRL -> CTRL : greenSpace = toDomain(greenSpaceDto)
+           activate CTRL
+           deactivate CTRL
+
+           CTRL -> GREENSPACE**: getToDoList()
+           activate GREENSPACE
+
+                GREENSPACE --> CTRL: toDoList
+           deactivate GREENSPACE
+
+            CTRL -> TODOLIST** : getToDoListEntries()
             activate TODOLIST
 
                     TODOLIST --> LISTENTRIES** : create()
@@ -97,7 +174,7 @@ activate GSM
             CTRL --> UI : toDoListDto
         deactivate CTRL
 
-        UI --> GSM: shows all the tasks registered in the \nTo-Do List and asks you to select the \none you want to add
+        UI --> GSM: shows all the tasks registered in the \nto-do list of the chosen green space \nand asks to select the one want to add
     deactivate UI
 
     GSM -> UI: select the desired task and its start and\n end date
@@ -129,30 +206,6 @@ activate GSM
             deactivate TODOLIST
 
             CTRL --> UI : task
-        deactivate CTRL
-
-        UI -> CTRL : getGreenSpace(toDoListEntry)
-        activate CTRL
-
-            CTRL -> TODOLIST : getGreenSpace(toDoListEntry)
-            activate TODOLIST
-
-                TODOLIST -> TODOLISTENTRY : getGreenSpace()
-                activate TODOLISTENTRY
-
-                    TODOLISTENTRY -> GREENSPACE** : getGreenSpace()
-                    activate GREENSPACE
-
-                        GREENSPACE --> TODOLISTENTRY : greenSpace
-                    deactivate GREENSPACE
-
-                    TODOLISTENTRY --> TODOLIST : greenSpace
-                deactivate TODOLISTENTRY
-
-                TODOLIST --> CTRL : greenSpace
-            deactivate TODOLIST
-
-            CTRL --> UI : greenSpace
         deactivate CTRL
 
         UI -> CTRL : createAgendaEntry(task, greenSpace, startDate, endDate)
