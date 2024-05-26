@@ -6,10 +6,10 @@ skinparam shadowing false
 participant ":AddAgendaEntryController" as CTRL
 participant "agenda\n:Agenda" as AGENDA
 
-autonumber 15
+autonumber 17
 -> CTRL: addAgendaEntry(agendaEntry)
 
-autonumber 15.1
+autonumber 17.1
 activate CTRL
     group Add Agenda Entry
 
@@ -27,7 +27,7 @@ activate CTRL
 
     end
 
-    autonumber 16
+    autonumber 18
     <-- CTRL : operation success
 deactivate CTRL
 

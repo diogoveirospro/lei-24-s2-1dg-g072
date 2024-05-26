@@ -4,34 +4,31 @@ skinparam packageStyle rectangle
 skinparam shadowing false
 
 participant ":AddAgendaEntryController" as CTRL
-participant Repositories
-participant "repositories\n:Repositories" as REP
+participant "greenSpace\n: GreenSpace" as GREENSPACE
 participant "toDoList\n:toDoList" as TODOLIST
-participant "agenda\n:Agenda" as AGENDA
 participant ":ToDoListMapper" as TODOLISTMAPPER
 participant "listEntries\n:List<ToDoListEntry>" as LISTENTRIES
-participant "toDoListDto\n:List<toDoListEntriesDto>" as TODOLISTDTO
+participant "toDoListDto\n:List<ToDoListEntriesDto>" as TODOLISTDTO
 participant "toDoListEntryDto\n:ToDoListDto" as TODOLISTENTRYDTO
-autonumber 3
--> CTRL: getToDoListEntries()
 
-autonumber 3.1
+autonumber 7
+-> CTRL: getToDoListEntries(greenSpaceDto)
+
+autonumber 7.1
 activate CTRL
-    group Get To-Do List Entries with DTO
+    group Get To-Do List entries with DTO
 
-           CTRL -> Repositories: getInstance()
-           activate Repositories
+           CTRL -> CTRL : greenSpace = toDomain(greenSpaceDto)
+           activate CTRL
+           deactivate CTRL
 
-                Repositories --> CTRL: repositories
-           deactivate Repositories
+           CTRL -> GREENSPACE**: getToDoList()
+           activate GREENSPACE
 
-           CTRL -> REP: getToDoList()
-           activate REP
+                GREENSPACE --> CTRL: toDoList
+           deactivate GREENSPACE
 
-                REP --> CTRL: toDoList
-           deactivate REP
-
-            CTRL -> TODOLIST : getToDoListEntries()
+            CTRL -> TODOLIST** : getToDoListEntries()
             activate TODOLIST
 
                     TODOLIST --> LISTENTRIES** : create()
@@ -83,7 +80,7 @@ activate CTRL
 
     end
 
-    autonumber 4
+    autonumber 8
     <-- CTRL : toDoListDto
 deactivate CTRL
 

@@ -8,10 +8,10 @@ participant "toDoList\n:toDoList" as TODOLIST
 participant "toDoListEntry\n:ToDoListEntry" as TODOLISTENTRY
 participant "task\n:Task" as TASK
 
-autonumber 7
+autonumber 11
 -> CTRL: getTask(toDoListEntryDto)
 
-autonumber 7.1
+autonumber 11.1
 activate CTRL
     group Get Task
 
@@ -39,7 +39,7 @@ activate CTRL
 
     end
 
-    autonumber 8
+    autonumber 12
     <-- CTRL : task
 deactivate CTRL
 

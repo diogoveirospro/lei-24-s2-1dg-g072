@@ -12,15 +12,19 @@ participant ":AddAgendaEntryController" as CTRL
 participant Repositories
 participant "repositories\n:Repositories" as REP
 participant "greenSpaceRepository\n:GreenSpaceRepository" as GREENSPACEREPOSITORY
+participant ":GreenSpaceRepositoryMapper" as GREENSPACEREPOSITORYMAPPER
+participant "listGreenSpaces\n:List<GreenSpace>" as LISTGREENSPACES
+participant "listGreenSpacesDto\n:List<GreenSpaceDto>" as LISTGREENSPACESDTO
+participant "greenSpaceDto\n:GreenSpaceDto" as GREENSPACEDTO
 participant "greenSpace\n: GreenSpace" as GREENSPACE
 participant "toDoList\n:toDoList" as TODOLIST
-participant "agenda\n:Agenda" as AGENDA
 participant ":ToDoListMapper" as TODOLISTMAPPER
 participant "listEntries\n:List<ToDoListEntry>" as LISTENTRIES
 participant "toDoListDto\n:List<ToDoListEntriesDto>" as TODOLISTDTO
 participant "toDoListEntryDto\n:ToDoListDto" as TODOLISTENTRYDTO
 participant "toDoListEntry\n:ToDoListEntry" as TODOLISTENTRY
 participant "task\n:Task" as TASK
+participant "agenda\n:Agenda" as AGENDA
 participant "agendaEntry\n:AgendaEntry" as AGENDAENTRY
 
 activate GSM
@@ -28,16 +32,9 @@ activate GSM
     GSM -> UI : asks to add a new entry to the agenda
     activate UI
 
-        UI --> GSM : asks to choose the green space \nfor which want to add the entry
-    deactivate UI
-
-    GSM -> UI : select the desired green space
-    activate UI
-
-
         UI -> CTRL** : create
 
-        UI -> CTRL : getToDoListEntries()
+        UI -> CTRL : getListGreenSpaces()
         activate CTRL
 
            CTRL -> Repositories**: getInstance()
@@ -52,11 +49,71 @@ activate GSM
                  REP --> CTRL: greenSpaceRepository
            deactivate REP
 
-           CTRL -> GREENSPACEREPOSITORY** : getGreenSpaceByName(greenSpaceName)
-           activate GREENSPACEREPOSITORY
+            CTRL -> GREENSPACEREPOSITORY** : getListGreenSpaces()
+            activate GREENSPACEREPOSITORY
 
-                GREENSPACEREPOSITORY --> CTRL : greenSpace
-           deactivate GREENSPACEREPOSITORY
+                    GREENSPACEREPOSITORY --> LISTGREENSPACES** : create()
+                    activate LISTGREENSPACES
+
+                        loop for each greenSpace
+                            GREENSPACEREPOSITORY -> LISTGREENSPACES : add(greenSpace)
+                            activate LISTGREENSPACES
+                            deactivate LISTGREENSPACES
+                        end
+
+                        LISTGREENSPACES --> GREENSPACEREPOSITORY : listGreenSpaces
+                    deactivate LISTGREENSPACES
+
+
+                GREENSPACEREPOSITORY --> CTRL : listGreenSpaces
+            deactivate GREENSPACEREPOSITORY
+
+            CTRL -> GREENSPACEREPOSITORYMAPPER** : listGreenSpacesToDto(listGreenSpaces)
+            activate GREENSPACEREPOSITORYMAPPER
+
+                GREENSPACEREPOSITORYMAPPER --> LISTGREENSPACESDTO** : create()
+
+                loop for each greenSpace
+                    GREENSPACEREPOSITORYMAPPER -> LISTGREENSPACES : get(i)
+                    activate LISTGREENSPACES
+
+                    LISTGREENSPACES --> GREENSPACEREPOSITORYMAPPER : greenSpace
+                    deactivate LISTGREENSPACES
+
+                    GREENSPACEREPOSITORYMAPPER -> GREENSPACEREPOSITORYMAPPER : greenSpaceDto = toDTO(greenSpace)
+                    activate GREENSPACEREPOSITORYMAPPER
+                    deactivate GREENSPACEREPOSITORYMAPPER
+
+                    GREENSPACEREPOSITORYMAPPER --> GREENSPACEDTO** : create()
+                    activate GREENSPACEDTO
+
+                    GREENSPACEDTO --> GREENSPACEREPOSITORYMAPPER : greenSpaceDto
+                    deactivate GREENSPACEDTO
+
+                    GREENSPACEREPOSITORYMAPPER -> LISTGREENSPACESDTO : add(greenSpaceDto)
+                    activate LISTGREENSPACESDTO
+                    deactivate LISTGREENSPACESDTO
+
+                end
+
+                GREENSPACEREPOSITORYMAPPER --> CTRL : listGreenSpacesDto
+            deactivate GREENSPACEREPOSITORYMAPPER
+
+            CTRL --> UI : listGreenSpacesDto
+        deactivate CTRL
+
+        UI --> GSM : asks to choose the green space \nfor which want to add the entry
+    deactivate UI
+
+    GSM -> UI : select the desired green space
+    activate UI
+
+        UI -> CTRL : getToDoListEntries(greenSpaceDto)
+        activate CTRL
+
+           CTRL -> CTRL : greenSpace = toDomain(greenSpaceDto)
+           activate CTRL
+           deactivate CTRL
 
            CTRL -> GREENSPACE**: getToDoList()
            activate GREENSPACE

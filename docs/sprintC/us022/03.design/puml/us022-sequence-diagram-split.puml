@@ -15,20 +15,30 @@ activate GSM
     GSM -> UI : asks to add a new entry to the agenda
     activate UI
 
+        UI -> CTRL** : create
+
+        UI -> CTRL : getListGreenSpaces()
+        activate CTRL
+
+            ref over CTRL
+            Get Green Spaces with DTO
+
+            end
+
+            CTRL --> UI : listGreenSpacesDto
+        deactivate CTRL
+
         UI --> GSM : asks to choose the green space \nfor which want to add the entry
     deactivate UI
 
     GSM -> UI : select the desired green space
     activate UI
 
-        UI -> CTRL** : create
-
-        UI -> CTRL : getToDoListEntries()
+        UI -> CTRL : getToDoListEntries(greenSpaceDto)
         activate CTRL
 
            ref over CTRL
-           Get Green Space and your To-Do List
-           entries with DTO
+           Get To-Do List entries with DTO
 
            end
 
