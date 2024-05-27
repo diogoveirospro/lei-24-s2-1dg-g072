@@ -77,10 +77,6 @@ activate GSM
            CTRL -> COLLABORATORREPOSITORY** : getCollaboratorByEmail(email)
            activate COLLABORATORREPOSITORY
 
-                 COLLABORATORREPOSITORY --> COLLABORATORREPOSITORY: getCollaboratorByEmail(email)
-                 activate COLLABORATORREPOSITORY
-                 deactivate COLLABORATORREPOSITORY
-
                  COLLABORATORREPOSITORY --> CTRL: greenSpaceManager
            deactivate COLLABORATORREPOSITORY
 

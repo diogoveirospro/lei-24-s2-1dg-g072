@@ -1,126 +1,170 @@
 @startuml
-'skinparam monochrome true
-skinparam packageStyle rectangle
+skinparam packageStyle folder
 skinparam shadowing false
 skinparam linetype polyline
-'skinparam linetype orto
-
 skinparam classAttributeIconSize 0
 
-'left to right direction
-
-package "UI" <<Folder>> #DDDDDD {
-
-class AddAgendaEntryUI {
+package "UI" #DDDDDD {
+    class AddAgendaEntryUI {
+    }
 }
 
+package "Controller" #DDDDDD {
+    class AddAgendaEntryController {
+        + AddAgendaEntryController(collaboratorRepository, greenSpaceRepository, toDoList, agenda)
+        + getCollaboratorFromSession()
+        + getToDoListEntries()
+        + toDomain(Dto)
+        + createAgendaEntry(toDoListEntry, startDate, endDate)
+        + addAgendaEntry(agendaEntry)
+    }
 }
 
-package "Controller" <<Folder>> #DDDDDD {
-class AddAgendaEntryController {
-    + AddAgendaEntryController(toDoList, agenda)
-    + getToDoListEntries()
-    + createAgendaEntry(toDoListEntry, startDate, endDate)
-    + addAgendaEntry(agendaEntry)
+package "Domain" #DDDDDD {
+    package "Repository" <<Folder>> #DDDDDD {
+        class Repositories {
+            - Repositories()
+            + getInstance() : Repositories
+            + getCollaboratorRepository()
+            + getGreenSpaceRepository()
+            + getToDoList()
+            + getAgenda()
+        }
+
+        class ToDoList {
+            + getToDoListEntries()
+        }
+
+        class Agenda {
+            + createAgendaEntry(toDoListEntry, startDate, endDate)
+            + addAgendaEntry(agendaEntry)
+            + validateEntry(agendaEntry)
+        }
+
+        class CollaboratorRepository {
+            + getCollaboratorByEmail(email)
+        }
+
+        class GreenSpaceRepository {
+            + getListGreenSpacesManagedByGsm(greenSpaceManager)
+        }
+    }
+
+    class Entry {
+        - task : Task
+        - greenSpace : GreenSpace
+    }
+
+    class AgendaEntry {
+        - startDate : Date
+        - endDate : Date
+        - status : enum
+        + createEntry(task, greenSpace, startDate, endDate) : AgendaEntry
+        + validateEntry() : boolean
+        + taskSchedule() : void
+    }
+
+    class GreenSpace {
+        - name : String
+        - type : enum
+        - area : double
+        - address : String
+        + GreenSpace(name, type, area, address)
+    }
+
+    class Task {
+        - description : String
+        - team : Team
+        - vehicles : List<Vehicle>
+        - duration : Date
+        + Task(description, team, vehicles, duration)
+    }
+
+    class ToDoListEntry {
+        - task : Task
+        - greenSpace : GreenSpace
+        - priority : enum
+        + ToDoListEntry(task, greenSpace)
+    }
+
+    class Collaborator {
+        - name : String
+        - birthDate : Date
+        - admissionDate : Date
+        - address : String
+        - mobile : String
+        - email : String
+        - taxPayerNumber : String
+        - idDocumentType : enum
+        - idDocumentNumber : String
+        - job : Job
+        - skillSet : List<Skill>
+        - typeCollaboratorEmails : enum
+        + Collaborator(name, birthDate, admissionDate, address, mobile, email, \ntaxPayerNumber, idDocumentType, idDocumentNumber, job, skillSet, typeCollaboratorEmails)
+    }
+
+
+
+    package "Mapper" #DDDDDD {
+        class ToDoListMapper {
+            + toDoListEntriesToDto(entries) : List<ToDoListEntryDto>
+            + toDTO(toDoListEntry) : ToDoListEntryDto
+        }
+
+        class GreenSpaceRepositoryMapper {
+            + listGreenSpacesToDto(listGreenSpaces) : List<GreenSpaceDto>
+            + toDTO(greenSpace) : GreenSpaceDto
+        }
+    }
+
+    package "Session" #DDDDDD {
+        class ApplicationSession {
+            + static getInstance()
+            + getCurrentSession()
+        }
+
+        class UserSession {
+            + getUserEmail()
+        }
+    }
+
+    package "DTO" #DDDDDD {
+        class ToDoListEntryDto {
+        }
+
+        class GreenSpaceDto {
+        }
+    }
 }
-
-}
-
-package "Domain" <<Folder>> #DDDDDD {
-
-package "Repository" <<Folder>> #DDDDDD {
-
-class Repositories {
-    - Repositories()
-    + getInstance() : Repositories
-    + getToDoList()
-    + getAgenda()
-
-}
-
-class ToDoList {
-    + getToDoListEntries()
-}
-
-class Agenda {
-    + createAgendaEntry(toDoListEntry, startDate, endDate)
-    + addAgendaEntry(agendaEntry)
-    + validateEntry(agendaEntry)
-}
-
-}
-
-class Entry {
-    - task : Task
-    - greenSpace : GreenSpace
-}
-
-class AgendaEntry {
-    -startDate : Date
-    -endDate : Date
-    -status : enum
-    +createEntry(task, greenSpace, startDate, endDate) : AgendaEntry
-    +validateEntry() : boolean
-    +taskSchedule() : void
-}
-
-class GreenSpace {
-    - name : String
-    - area : double
-    + GreenSpace(name, area)
-}
-
-class Task {
-    - description : String
-    - team : Team
-    - vehicles : List<Vehicle>
-    - duration : Date
-    + Task(description, team, vehicles, duration)
-}
-
-class ToDoListEntry {
-    - task : Task
-    - greenSpace : GreenSpace
-    - priority : enum
-    + ToDoListEntry(task, greenSpace)
-}
-
-
-package "Mapper" <<Folder>> #DDDDDD {
-class ToDoListMapper {
-    +toDoListEntriesToDto(entries) : List<ToDoListEntryDto>
-    +toDTO(toDoListEntry) : ToDoListEntryDto
-}
-
-}
-
-package "DTO" <<Folder>> #DDDDDD {
-class ToDoListEntryDto {
-}
-
-}
-}
-
 
 AddAgendaEntryUI ..> AddAgendaEntryController
 
 Repositories --> Repositories : instance
 AddAgendaEntryController ..> Repositories : repositories
 Repositories --> "1" ToDoList
+Repositories --> "1" CollaboratorRepository
+Repositories --> "1" GreenSpaceRepository
 
 AddAgendaEntryController ..> ToDoList : toDoList
-
 AddAgendaEntryController ..> ToDoList : listEntries
+AddAgendaEntryController ..> CollaboratorRepository : collaboratorRepository
+AddAgendaEntryController ..> GreenSpaceRepository : greenSpaceRepository
+
 ToDoList --> ToDoListEntry : has
 GreenSpace --o ToDoListEntry : has
 Task --o ToDoListEntry : has
+GreenSpaceRepository --> GreenSpace : has
+CollaboratorRepository --> "*" Collaborator : has
 
 ToDoListEntryDto ..> ToDoListMapper : toDoListEntryDto
 AddAgendaEntryController ..> ToDoListMapper : toDoListDto
 
+GreenSpaceDto ..> GreenSpaceRepositoryMapper : greenSpaceDto
+AddAgendaEntryController ..> GreenSpaceRepositoryMapper : listGreenSpacesDto
 
 Repositories --> "1" Agenda
 AddAgendaEntryController ..> Agenda : agenda
+
 Agenda --> AgendaEntry : has
 GreenSpace --o AgendaEntry : has
 Task --o AgendaEntry : has
@@ -128,7 +172,10 @@ Task --o AgendaEntry : has
 Entry --|> AgendaEntry : extends
 Entry --|> ToDoListEntry : extends
 
+AddAgendaEntryController ..> ApplicationSession
+AddAgendaEntryController ..> UserSession
 
-
+ApplicationSession --> ApplicationSession : instance
+ApplicationSession --> "1" UserSession : userSession
 
 @enduml
