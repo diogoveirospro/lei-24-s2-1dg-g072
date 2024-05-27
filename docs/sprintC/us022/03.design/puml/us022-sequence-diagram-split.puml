@@ -20,6 +20,19 @@ activate GSM
         UI -> CTRL : getListGreenSpaces()
         activate CTRL
 
+         CTRL -> CTRL: getCollaboratorFromSession()
+         activate CTRL
+
+            ref over CTRL
+            Get Green Space Manager
+
+            end
+
+         CTRL --> CTRL : greenSpaceManager
+         deactivate CTRL
+
+         |||
+
             ref over CTRL
             Get Green Spaces with DTO
 

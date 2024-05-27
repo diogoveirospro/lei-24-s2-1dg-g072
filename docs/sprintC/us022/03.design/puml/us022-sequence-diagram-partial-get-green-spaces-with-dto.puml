@@ -12,10 +12,10 @@ participant "listGreenSpaces\n:List<GreenSpace>" as LISTGREENSPACES
 participant "listGreenSpacesDto\n:List<GreenSpaceDto>" as LISTGREENSPACESDTO
 participant "greenSpaceDto\n:GreenSpaceDto" as GREENSPACEDTO
 
-autonumber 3
--> CTRL: getListGreenSpaces()
+autonumber 5
+-> CTRL: greenSpaceManager
 
-autonumber 3.1
+autonumber 5.1
 activate CTRL
     group Get Green Spaces with DTO
 
@@ -85,7 +85,7 @@ activate CTRL
 
     end
 
-    autonumber 4
+    autonumber 6
     <-- CTRL : listGreenSpacesDto
 deactivate CTRL
 

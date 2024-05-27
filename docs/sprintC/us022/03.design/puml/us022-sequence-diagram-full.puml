@@ -14,6 +14,7 @@ participant "appSession\n:ApplicationSession" as APP
 participant "currentSession\n:UserSession" as SESSION
 participant Repositories
 participant "repositories\n:Repositories" as REP
+participant "collaboratorRepository\n:CollaboratorRepository" as COLLABORATORREPOSITORY
 participant "greenSpaceRepository\n:GreenSpaceRepository" as GREENSPACEREPOSITORY
 participant ":GreenSpaceRepositoryMapper" as GREENSPACEREPOSITORYMAPPER
 participant "listGreenSpaces\n:List<GreenSpace>" as LISTGREENSPACES
@@ -40,6 +41,9 @@ activate GSM
         UI -> CTRL : getListGreenSpaces()
         activate CTRL
 
+            CTRL -> CTRL: getCollaboratorFromSession()
+            activate CTRL
+
            CTRL -> _APP**: getInstance()
            activate _APP
 
@@ -61,16 +65,43 @@ activate GSM
            CTRL -> Repositories**: getInstance()
            activate Repositories
 
+                 Repositories --> CTRL: repositories
+           deactivate Repositories
+
+           CTRL -> REP**: getCollaboratorRepository()
+           activate REP
+
+                REP --> CTRL: collaboratorRepository
+           deactivate REP
+
+           CTRL -> COLLABORATORREPOSITORY** : getCollaboratorByEmail(email)
+           activate COLLABORATORREPOSITORY
+
+                 COLLABORATORREPOSITORY --> COLLABORATORREPOSITORY: getCollaboratorByEmail(email)
+                 activate COLLABORATORREPOSITORY
+                 deactivate COLLABORATORREPOSITORY
+
+                 COLLABORATORREPOSITORY --> CTRL: greenSpaceManager
+           deactivate COLLABORATORREPOSITORY
+
+           CTRL --> CTRL : greenSpaceManager
+           deactivate CTRL
+
+           |||
+
+           CTRL -> Repositories: getInstance()
+           activate Repositories
+
                 Repositories --> CTRL: repositories
            deactivate Repositories
 
-           CTRL -> REP**: getGreenSpaceRepository()
+           CTRL -> REP: getGreenSpaceRepository()
            activate REP
 
                  REP --> CTRL: greenSpaceRepository
            deactivate REP
 
-            CTRL -> GREENSPACEREPOSITORY** : getListGreenSpacesManagedByGsm(email)
+            CTRL -> GREENSPACEREPOSITORY** : getListGreenSpacesManagedByGsm(greenSpaceManager)
             activate GREENSPACEREPOSITORY
 
                     GREENSPACEREPOSITORY --> LISTGREENSPACES** : create()

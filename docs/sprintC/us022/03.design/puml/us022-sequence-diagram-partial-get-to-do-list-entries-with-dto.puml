@@ -11,10 +11,10 @@ participant "listEntries\n:List<ToDoListEntry>" as LISTENTRIES
 participant "toDoListDto\n:List<ToDoListEntriesDto>" as TODOLISTDTO
 participant "toDoListEntryDto\n:ToDoListDto" as TODOLISTENTRYDTO
 
-autonumber 7
+autonumber 9
 -> CTRL: getToDoListEntries(greenSpaceDto)
 
-autonumber 7.1
+autonumber 9.1
 activate CTRL
     group Get To-Do List entries with DTO
 
@@ -80,7 +80,7 @@ activate CTRL
 
     end
 
-    autonumber 8
+    autonumber 10
     <-- CTRL : toDoListDto
 deactivate CTRL
 
