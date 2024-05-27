@@ -1,9 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
-import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
-import pt.ipp.isep.dei.esoft.project.domain.Date;
-import pt.ipp.isep.dei.esoft.project.domain.Task;
-import pt.ipp.isep.dei.esoft.project.domain.Team;
+import pt.ipp.isep.dei.esoft.project.Mapper.EntryMapper;
+import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.dto.EntryDto;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 
@@ -171,9 +169,20 @@ public class ListTaskController {
         return this.toDoList.getStatusList();
     }
 
+    /**
+     * Lets the controller get the task list of the collaborator
+     *
+     * @param collaborator that we want to get all the tasks
+     * @param typeStatus  status of the task
+     * @param startDate  start date of the task
+     * @param endDate   end date of the task
+     * @return list of tasks of the collaborator
+     */
     public List<EntryDto> getTaskList(Collaborator collaborator, String typeStatus, Date startDate, Date endDate) {
         List<Team> teamList = this.teamRepository.getTeamsByCollaborator(collaborator);
-        List<Task> taskList = this.taskRepository.getTaskList(teamList, typeStatus);
-        return null;
+        List<Task> taskList = this.taskRepository.getCollaboratorTaskList(teamList, typeStatus);
+        List<Entry> entryList = this.agenda.getEntryList(taskList, startDate, endDate);
+        EntryMapper mapper = new EntryMapper();
+        return mapper.toDtoList(entryList);
     }
 }

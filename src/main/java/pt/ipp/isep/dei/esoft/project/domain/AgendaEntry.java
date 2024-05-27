@@ -8,4 +8,8 @@ public class AgendaEntry extends Entry{
     private Date startDate;
     private Date endDate;
     private StatusOfEntry status;
+
+    public Entry getEntry() {
+        return toDoListEntry.getEntry();
+    }
 }
