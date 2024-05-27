@@ -11,25 +11,31 @@ To identify domain conceptual classes, start by making a list of candidate conce
 **Business Transactions**
 
 * Job
+* Skill
+* Vehicle
+* Task
 
 ---
 
 **Transaction Line Items**
 
-* 
+* Maintenance
+* Entry
 
 ---
 
 **Product/Service related to a Transaction or Transaction Line Item**
 
-* Skill
+* AgendaEntry
+* ToDoListEntry
 
 
 ---
 
 **Transaction Records**
 
-* 
+* Agenda
+* ToDoList
 
 ---  
 
@@ -38,7 +44,6 @@ To identify domain conceptual classes, start by making a list of candidate conce
 * Collaborator
 * Vehicle and Equipment Fleet Manager (VFM)
 * Green Spaces Manager (GSM)
-* Green Spaces User (GSU)
 * Human Resources Manager (HRM)
 
 ---
@@ -46,54 +51,63 @@ To identify domain conceptual classes, start by making a list of candidate conce
 **Places**
 
 * Green Space
-* Garden
-* Medium-sized park
-* Large-sized park
 
 ---
 
 **Noteworthy Events**
 
-* 
+* AgendaEntry
+* ToDoListEntry
+* Task
+* Entry
 
 ---
 
 **Physical Objects**
 
 * Vehicle
-* Machine
-* Equipment
 
 ---
 
 **Descriptions of Things**
 
-* 
+* Skill
+* Job
+* Green Space
+* Vehicle
+* Maintenance
 
 ---
 
 **Catalogs**
 
-* 
+* Agenda
+* ToDoList
+* Maintenance
 
 ---
 
 **Containers**
 
 * Team
-* Vehicles Check-Up
+* Maintenance
+* Agenda
+* ToDoList
 
 ---
 
 **Elements of Containers**
 
-* 
+* Collaborator
+* Task
+* ToDoListEntry
+* AgendaEntry
+* Vehicle
 
 ---
 
 **Organizations**
 
-* Organization
 
 ---
 
@@ -105,7 +119,10 @@ To identify domain conceptual classes, start by making a list of candidate conce
 
 **Records of finance, work, contracts, legal matters**
 
-* 
+* Maintenance
+* Task
+* ToDoListEntry
+* AgendaEntry
 
 ---
 
@@ -121,7 +138,7 @@ To identify domain conceptual classes, start by making a list of candidate conce
 
 ---
 
-
+**Please note that some classes may fit into multiple categories depending on the context and interpretation. The above categorization is based on the provided PlantUML diagram and the existing categories in the table.**
 ## Rationale to identify associations between conceptual classes
 
 An association is a relationship between instances of objects that indicates a relevant connection, and that is worth of remembering, or it is derivable from the List of Common Associations:
@@ -134,13 +151,12 @@ An association is a relationship between instances of objects that indicates a r
 - **_A_** is related with a transaction (item) of **_B_**
 - etc.
 
-
-| Concept (A) 		                            | Association   	 |       Concept (B) |
+| Concept (A)                               |   Association   |       Concept (B) |
 |-------------------------------------------|:---------------:|------------------:|
 | Human Resources Manager (HRM)             |      is a       |      Collaborator |
-| Human Resources Manager (HRM)             |    creates a    |             Skill |
-| Human Resources Manager (HRM)             |    creates a    |               Job |
-| Human Resources Manager (HRM)             |    creates a    |      Collaborator |
+| Human Resources Manager (HRM)             |   registers a   |             Skill |
+| Human Resources Manager (HRM)             |   registers a   |               Job |
+| Human Resources Manager (HRM)             |   registers a   |      Collaborator |
 | Human Resources Manager (HRM)             |     assigns     |             Skill |
 | Collaborator                              |       has       |            Skills |
 | Human Resources Manager (HRM)             |    creates a    |              Team |
@@ -153,14 +169,29 @@ An association is a relationship between instances of objects that indicates a r
 | Medium-sized park                         |      is a       |       Green Space |
 | Large-sized park                          |      is a       |       Green Space |
 | Vehicle and Equipment Fleet Manager (VFM) |      is a       |      Collaborator |
-| Vehicle and Equipment Fleet Manager (VFM) |   register a    |           Vehicle |
+| Vehicle and Equipment Fleet Manager (VFM) |   registers a   |           Vehicle |
 | Organization                              |      owns       |          Vehicles |
 | Green Space                               |       has       |          Vehicles |
 | Vehicle and Equipment Fleet Manager (VFM) |     chooses     |          Vehicles |
 | Vehicle and Equipment Fleet Manager (VFM) |      lists      | Vehicles Check-Up |
 | Vehicles Check-Up                         |       has       |          Vehicles |
 | Green Spaces Manager (GSM)                |      is a       |      Collaborator |
-| Green Spaces User (GSU)                   |      is a       |      Collaborator |
+| Green Spaces Manager (GSM)                |   registers a   |       Green Space |
+| Green Spaces Manager (GSM)                |    manages a    |       Green Space |
+| Green Spaces Manager (GSM)                |    assigns a    |              Team |
+| Green Spaces Manager (GSM)                |      lists      |          Vehicles |
+| Green Spaces Manager (GSM)                |      adds       |       AgendaEntry |
+| Green Spaces Manager (GSM)                |    postpones    |       AgendaEntry |
+| Green Spaces Manager (GSM)                |     cancels     |       AgendaEntry |
+| Green Space                               | associated with |     ToDoListEntry |
+| ToDoListEntry                             |       has       |              Task |
+| ToDoList                                  |    includes     |     ToDoListEntry |
+| Agenda                                    |    includes     |       AgendaEntry |
+| Green Spaces Manager (GSM)                |      adds       |       AgendaEntry |
+| Team                                      |       has       |       AgendaEntry |
+| AgendaEntry                               |      is a       |             Entry |
+| Collaborator                              |      lists      |              Task |
+| Collaborator                              |    completes    |              Task |
 
 
 
