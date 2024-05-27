@@ -20,7 +20,10 @@ autonumber 3
  -> CTRL : getCollaboratorByEmail(email)
 autonumber 3.1
 activate CTRL
-    group Get Collaborator by Email
+    group Get GSM by Email
+
+        CTRL -> CTRL : getCollaboratorFromSession()
+        activate CTRL
 
         CTRL -> _APP**: getInstance()
                    activate _APP
@@ -65,6 +68,8 @@ activate CTRL
     end
     autonumber 4
         <-- CTRL  : greenSpaceManager
+deactivate CTRL
+
 deactivate CTRL
 
 @enduml

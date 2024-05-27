@@ -30,6 +30,8 @@ activate GSM
                 UI -> CTRL** : create
                     UI -> CTRL : getCollaboratorByEmail(email)
                         activate CTRL
+                        CTRL -> CTRL : getCollaboratorFromSession()
+                        activate CTRL
 
                         CTRL -> _APP**: getInstance()
                                    activate _APP
@@ -72,6 +74,8 @@ activate GSM
 
                             deactivate collaboratorRepository
                         CTRL --> UI : greenSpaceManager
+                        deactivate CTRL
+
                         deactivate CTRL
             UI --> GSM : asks the user to choose a sorting option
         deactivate UI

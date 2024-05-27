@@ -37,7 +37,8 @@ Col -> UI : requests to consult tasks assigned to him
     UI -> CTRL : getCollaboratorByEmail(email)
         activate CTRL
 
-
+            CTRL -> CTRL : getCollaboratorFromSession(email)
+            activate CTRL
            CTRL -> _APP**: getInstance()
            activate _APP
 
@@ -82,6 +83,7 @@ Col -> UI : requests to consult tasks assigned to him
         CTRL --> UI : collaborator
         deactivate CTRL
 
+        deactivate CTRL
     UI --> Col : asks to select the beginning and end date of the search
     deactivate UI
 
