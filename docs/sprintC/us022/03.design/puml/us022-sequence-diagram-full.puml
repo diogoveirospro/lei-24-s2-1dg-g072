@@ -9,6 +9,9 @@ autonumber
 actor "Green Spaces\n Manager" as GSM
 participant ":AddAgendaEntryUI" as UI
 participant ":AddAgendaEntryController" as CTRL
+participant ":ApplicationSession" as _APP
+participant "appSession\n:ApplicationSession" as APP
+participant "currentSession\n:UserSession" as SESSION
 participant Repositories
 participant "repositories\n:Repositories" as REP
 participant "greenSpaceRepository\n:GreenSpaceRepository" as GREENSPACEREPOSITORY
@@ -37,6 +40,24 @@ activate GSM
         UI -> CTRL : getListGreenSpaces()
         activate CTRL
 
+           CTRL -> _APP**: getInstance()
+           activate _APP
+
+                _APP -> CTRL: appSession
+           deactivate _APP
+
+           CTRL -> APP**: getCurrentSession()
+           activate APP
+
+                APP --> CTRL: currentSession
+           deactivate APP
+
+           CTRL -> SESSION**: email = getUserEmail()
+           activate SESSION
+
+                SESSION --> CTRL: email
+           deactivate SESSION
+
            CTRL -> Repositories**: getInstance()
            activate Repositories
 
@@ -49,7 +70,7 @@ activate GSM
                  REP --> CTRL: greenSpaceRepository
            deactivate REP
 
-            CTRL -> GREENSPACEREPOSITORY** : getListGreenSpaces()
+            CTRL -> GREENSPACEREPOSITORY** : getListGreenSpacesManagedByGsm(email)
             activate GREENSPACEREPOSITORY
 
                     GREENSPACEREPOSITORY --> LISTGREENSPACES** : create()
