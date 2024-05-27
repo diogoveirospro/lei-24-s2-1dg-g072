@@ -8,6 +8,9 @@ autonumber
 'hide footbox
 
 participant ":ListTaskController" as CTRL
+participant ":ApplicationSession" as _APP
+participant "appSession\n:ApplicationSession" as APP
+participant "currentSession\n:UserSession" as SESSION
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as REP
 participant "collaboratorRepository\n:CollaboratorRepository" as collaboratorRepository
@@ -19,6 +22,23 @@ autonumber 3.1
 activate CTRL
     group Get Collaborator by Email
 
+        CTRL -> _APP**: getInstance()
+                   activate _APP
+
+                        _APP -> CTRL: appSession
+                   deactivate _APP
+
+                   CTRL -> APP**: getCurrentSession()
+                   activate APP
+
+                        APP --> CTRL: currentSession
+                   deactivate APP
+
+                   CTRL -> SESSION**: getUserEmail()
+                   activate SESSION
+
+                        SESSION --> CTRL: email
+                   deactivate SESSION
         CTRL -> RepositorySingleton: getInstance()
         activate RepositorySingleton
 

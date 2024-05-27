@@ -13,7 +13,8 @@ _**Note that SSD - Alternative One is adopted.**_
 |                | ... knows all of its collaborators?                                 | CollaboratorRepository | IE: knows all of the collaborators.                                                                                                                             |
 |                | ... has all of the collaborators?                                   | CollaboratorRepository | IE: has all of its  collaborators.                                                                                                                              |
 | Step 2         |                                                                     |                        |                                                                                                                                                                 |
-| Step 3         | ... getting a list of all status?                                   | TaskRepository         | IE: Knows all types of status.                                                                                                                                  |
+| Step 3         | ... getting a list of all status?                                   | ToDoList               | IE: Knows all types of entry's inside the toDoList.                                                                                                             |
+|                | ... getting a list of all type of status?                           | Entry                  | IE: Knows all status.                                                                                                                                           |
 | Step 4         |                                                                     |                        |                                                                                                                                                                 |
 | Step 5         |                                                                     |                        |                                                                                                                                                                 |
 | Step 6         |                                                                     |                        |                                                                                                                                                                 |
@@ -34,8 +35,12 @@ _**Note that SSD - Alternative One is adopted.**_
 According to the taken rationale, the conceptual classes promoted to software classes are: 
 
 * CollaboratorRepository
-* Date
+* ToDoList
+* Entry
+* TeamRepository
+* Team
 * TaskRepository
+* Agenda
 * TaskMapper
 * TaskDto
 

@@ -166,4 +166,8 @@ public class Team {
         }
         return true;
     }
+
+    public boolean validateCollaboratorTeam(Collaborator collaborator, Team team) {
+        return team.getTeam().contains(collaborator);
+    }
 }

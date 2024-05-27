@@ -63,7 +63,7 @@ Col -> UI : Selects the type he wants to consult
 Col -> UI : confirms that he wants to create the list
     activate UI
 
-    UI -> CTRL : getTaskList(collaborator,dateI,dateF,typeStatus)
+    UI -> CTRL : getTaskList(collaborator,startDate,endDate,typeStatus)
         activate CTRL
 
 
@@ -99,7 +99,7 @@ Col -> UI : confirms that he wants to create the list
             REP --> CTRL : taskRepository
             deactivate REP
 
-        CTRL -> taskRepository : getTaskList(teamList,dateI,dateF,typeStatus)
+        CTRL -> taskRepository : getTaskList(teamList,typeStatus)
             activate taskRepository
                 ref over taskRepository
                     Get Task List
@@ -120,7 +120,7 @@ Col -> UI : confirms that he wants to create the list
             REP --> CTRL : Agenda
             deactivate REP
 
-        CTRL -> AGENDA : getCollaboratorAgendaEntries(taskList)
+        CTRL -> AGENDA : getCollaboratorAgendaEntries(taskList,dateStart,dateEnd)
             activate AGENDA
 
                 ref over AGENDA

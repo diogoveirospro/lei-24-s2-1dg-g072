@@ -57,9 +57,10 @@ public class TeamRepository {
 
     /**
      * Generate a team proposal automatically.
-     * @param minimumSize minimum team size.
-     * @param maximumSize maximum team size.
-     * @param skills skills that members must have to be part of that team.
+     *
+     * @param minimumSize   minimum team size.
+     * @param maximumSize   maximum team size.
+     * @param skills        skills that members must have to be part of that team.
      * @param collaborators list of all collaborators
      * @return members of the team proposal.
      */
@@ -89,5 +90,26 @@ public class TeamRepository {
     public boolean validateTeam(Team team) {
         return team != null && !team.getTeam().isEmpty();
 
+    }
+
+    /**
+     * Get the teams with the collaborator.
+     *
+     * @param collaborator collaborator being searched in all teams
+     * @return
+     */
+    public List<Team> getTeamsByCollaborator(Collaborator collaborator) {
+        List<Team> teamList = new ArrayList<>();
+        for (Team team : teams) {
+            boolean inTeam = team.validateCollaboratorTeam(collaborator, team);
+            if (inTeam) {
+                teamList.add(team);
+            }
+        }
+        if (teamList.isEmpty()) {
+            throw new IllegalArgumentException("Collaborator not found in any team.");
+        } else {
+            return teamList;
+        }
     }
 }

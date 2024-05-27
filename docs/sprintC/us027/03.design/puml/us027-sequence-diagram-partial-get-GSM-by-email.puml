@@ -6,7 +6,11 @@ skinparam shadowing false
 autonumber
 
 'hide footbox
-participant ":ListGreenSpaceControllere" as CTRL
+
+participant ":ListTaskController" as CTRL
+participant ":ApplicationSession" as _APP
+participant "appSession\n:ApplicationSession" as APP
+participant "currentSession\n:UserSession" as SESSION
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as REP
 participant "collaboratorRepository\n:CollaboratorRepository" as collaboratorRepository
@@ -16,37 +20,51 @@ autonumber 3
  -> CTRL : getCollaboratorByEmail(email)
 autonumber 3.1
 activate CTRL
-    group Get GSM by Email
+    group Get Collaborator by Email
 
+        CTRL -> _APP**: getInstance()
+                   activate _APP
 
-                        CTRL -> RepositorySingleton : getInstance()
-                            activate RepositorySingleton
+                        _APP -> CTRL: appSession
+                   deactivate _APP
 
-                            RepositorySingleton --> CTRL : repositories
-                            deactivate RepositorySingleton
+                   CTRL -> APP**: getCurrentSession()
+                   activate APP
 
-                        CTRL -> REP : getCollaboratorRepository
-                            activate REP
+                        APP --> CTRL: currentSession
+                   deactivate APP
 
-                            REP --> CTRL : collaboratorRepository
-                            deactivate REP
+                   CTRL -> SESSION**: getUserEmail()
+                   activate SESSION
 
-                        CTRL -> collaboratorRepository : getCollaboratorByEmail(email)
-                            activate collaboratorRepository
+                        SESSION --> CTRL: email
+                   deactivate SESSION
+        CTRL -> RepositorySingleton: getInstance()
+        activate RepositorySingleton
 
-                            collaboratorRepository -> collaboratorRepository : getCollaboratorByEmail(email)
-                            activate collaboratorRepository
+            RepositorySingleton --> CTRL: repositories
+        deactivate RepositorySingleton
 
-                            collaboratorRepository --> CTRL : greenSpaceManager
+        CTRL -> REP: getCollaboratorRepository
+        activate REP
 
-                                deactivate collaboratorRepository
+            REP --> CTRL: collaboratorRepository
+        deactivate REP
 
-                            deactivate collaboratorRepository
+        CTRL -> collaboratorRepository: getCollaboratorByEmail(email)
+        activate collaboratorRepository
+
+            collaboratorRepository -> collaboratorRepository: getCollaboratorByEmail(email)
+            activate collaboratorRepository
+
+                collaboratorRepository --> CTRL: greenSpaceManager
+            deactivate collaboratorRepository
+
+        deactivate collaboratorRepository
 
     end
     autonumber 4
-     <-- CTRL  : greenSpaceManager
+        <-- CTRL  : greenSpaceManager
 deactivate CTRL
-
 
 @enduml

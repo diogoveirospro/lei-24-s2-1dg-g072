@@ -8,15 +8,20 @@ autonumber
 actor "Collaborator" as Col
 participant ":ListTaskSpaceUI" as UI
 participant ":ListTaskController" as CTRL
+participant ":ApplicationSession" as _APP
+participant "appSession\n:ApplicationSession" as APP
+participant "currentSession\n:UserSession" as SESSION
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as REP
 participant "collaboratorRepository\n:CollaboratorRepository" as collaboratorRepository
+participant "toDoList\n:ToDoList" as toDoList
+participant "entry\n:Entry" as entry
+participant "statusList\n:List<String>" as LISTSTATUS
 participant "teamRepository\n:TeamRepository" as teamRepository
 participant "teamList\n:List<Team>" as LISTTEAM
 participant "team:Team" as TEAM
 participant "taskRepository\n:TaskRepository" as taskRepository
 participant "taskList\n:List<Task>" as LISTTASK
-participant "statusList\n:List<String>" as LISTSTATUS
 participant "agenda\n:Agenda" as AGENDA
 participant ":EntryMapper" as Mapper
 participant "listEntriesDto\n:List<EntryDto>" as LISTENTRIESDTO
@@ -31,6 +36,25 @@ Col -> UI : requests to consult tasks assigned to him
     UI -> CTRL** : create
     UI -> CTRL : getCollaboratorByEmail(email)
         activate CTRL
+
+
+           CTRL -> _APP**: getInstance()
+           activate _APP
+
+                _APP -> CTRL: appSession
+           deactivate _APP
+
+           CTRL -> APP**: getCurrentSession()
+           activate APP
+
+                APP --> CTRL: currentSession
+           deactivate APP
+
+           CTRL -> SESSION**: getUserEmail()
+           activate SESSION
+
+                SESSION --> CTRL: email
+           deactivate SESSION
 
         CTRL -> RepositorySingleton : getInstance()
             activate RepositorySingleton
@@ -73,25 +97,29 @@ Col -> UI : selects the beginning and end date
             RepositorySingleton --> CTRL : repositories
             deactivate RepositorySingleton
 
-        CTRL -> REP : getTaskRepository()
+        CTRL -> REP : getToDoList()
             activate REP
 
-            REP --> CTRL : taskRepository
+            REP --> CTRL : toDoList
             deactivate REP
 
-        CTRL -> taskRepository : getStatusList()
-            activate taskRepository
+        CTRL -> toDoList : getStatusList()
+            activate toDoList
 
-            taskRepository --> LISTSTATUS** : create()
-                loop for each status in the system
-                    taskRepository -> LISTSTATUS : add(status)
-                        activate LISTSTATUS
-                end
-            LISTSTATUS --> taskRepository : statusList
-            deactivate LISTSTATUS
+            toDoList -> LISTSTATUS** : create()
+                    toDoList -> entry : getStatusList()
+                        activate entry
 
-        taskRepository --> CTRL : statusList
-        deactivate taskRepository
+                            loop for each status in the system
+                                entry -> LISTSTATUS : add(status)
+                                activate LISTSTATUS
+                            end
+                        LISTSTATUS --> entry : statusList
+                        deactivate LISTSTATUS
+                    entry --> toDoList : statusList
+                    deactivate entry
+        toDoList --> CTRL : statusList
+        deactivate toDoList
 
         CTRL --> UI : statusList
         deactivate CTRL
@@ -128,7 +156,7 @@ Col -> UI : confirms that he wants to create the list
 
             teamRepository -> LISTTEAM** : create()
                 loop for each team in the system
-                    teamRepository -> TEAM : validateCollaboratorTeam(collaborator,team)
+                    teamRepository -> TEAM** : validateCollaboratorTeam(collaborator,team)
                         activate TEAM
                         TEAM -> TEAM : inTeam = validateCollaboratorTeam(collaborator,team)
                         activate TEAM
@@ -160,14 +188,17 @@ Col -> UI : confirms that he wants to create the list
             REP --> CTRL : taskRepository
             deactivate REP
 
-        CTRL -> taskRepository : getTaskList(teamList,dateI,dateF,typeStatus)
+        CTRL -> taskRepository : getTaskList(teamList,typeStatus)
             activate taskRepository
 
             taskRepository -> LISTTASK** : create()
                 loop for each task in the system
-                    opt ((typeStatus() == task.getStatus() && (team == task.getTeam)) && (dateI <= task.getDateI()) && (dateF >= task.getDateF()))
+                    loop for each team in the teamList
+                    opt ((typeStatus() == task.getStatus()) && (team == task.getTeam()))
                         taskRepository -> LISTTASK : addTaskOfCollaborator(task)
                             activate LISTTASK
+                    end
+
                     end
 
                 end
@@ -189,13 +220,13 @@ Col -> UI : confirms that he wants to create the list
             REP --> CTRL : Agenda
             deactivate REP
 
-        CTRL -> AGENDA : getCollaboratorAgendaEntries(taskList)
+        CTRL -> AGENDA : getCollaboratorAgendaEntries(taskList,dateI,dateF)
             activate AGENDA
 
             AGENDA --> AGENDAENTRIES** : create()
                 loop for each task
                     loop for each agendaEntry
-                        opt (agendaEntry.getTask() == task)
+                        opt (agendaEntry.getTask() == task && agendaEntry.getDate() >= dateI && agendaEntry.getDate() <= dateF)
                             AGENDA -> AGENDAENTRIES : add(agendaEntry)
                                 activate AGENDAENTRIES
                         end

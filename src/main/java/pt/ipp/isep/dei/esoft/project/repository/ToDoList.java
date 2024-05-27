@@ -8,4 +8,8 @@ import java.util.List;
 
 public class ToDoList extends Entry {
     private List<ToDoList> toDoListEntries;
+
+    public List<String> getStatusList() {
+        return StatusOfEntry.getStatusList();
+    }
 }

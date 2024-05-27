@@ -1,6 +1,10 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
+import pt.ipp.isep.dei.esoft.project.domain.Date;
+import pt.ipp.isep.dei.esoft.project.domain.Task;
+import pt.ipp.isep.dei.esoft.project.domain.Team;
+import pt.ipp.isep.dei.esoft.project.dto.EntryDto;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 
 import java.util.List;
@@ -15,41 +19,44 @@ public class ListTaskController {
     /**
      * taskRepository contains all tasks
      */
-    private  TaskRepository taskRepository;
+    private TaskRepository taskRepository;
     /**
      * collaboratorRepository contains all collaborators
      */
-    private  CollaboratorRepository collaboratorRepository;
+    private CollaboratorRepository collaboratorRepository;
     /**
      * agenda contains all entries inside the agenda
      */
-    private  Agenda agenda;
+    private Agenda agenda;
     /**
      * teamRepository contains all teams
      */
-    private  TeamRepository teamRepository;
+    private TeamRepository teamRepository;
+    private ToDoList toDoList;
     /**
      * authenticationRepository authenticates the app
      */
-    private  AuthenticationRepository authenticationRepository;
+    private AuthenticationRepository authenticationRepository;
+
     /**
      * Empty ListTaskController builder.
-     *
      */
     public ListTaskController() {
         this.taskRepository = Repositories.getInstance().getTaskRepository();
         this.collaboratorRepository = Repositories.getInstance().getCollaboratorRepository();
         this.agenda = Repositories.getInstance().getAgenda();
         this.teamRepository = Repositories.getInstance().getTeamRepository();
+        this.toDoList = Repositories.getInstance().getToDoList();
         this.authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
     }
+
     /**
      * ListTaskController builder
      *
-     * @param taskRepository contains all tasks
-     * @param collaboratorRepository contains all collaborators
-     * @param agenda contains all tasks
-     * @param teamRepository contains all teams
+     * @param taskRepository           contains all tasks
+     * @param collaboratorRepository   contains all collaborators
+     * @param agenda                   contains all tasks
+     * @param teamRepository           contains all teams
      * @param authenticationRepository authenticates the app
      */
     public ListTaskController(TaskRepository taskRepository, CollaboratorRepository collaboratorRepository, Agenda agenda, TeamRepository teamRepository, AuthenticationRepository authenticationRepository) {
@@ -57,8 +64,10 @@ public class ListTaskController {
         this.collaboratorRepository = collaboratorRepository;
         this.agenda = agenda;
         this.teamRepository = teamRepository;
+        this.toDoList = toDoList;
         this.authenticationRepository = authenticationRepository;
     }
+
     /**
      * Lets the controller get the task repository
      *
@@ -72,6 +81,7 @@ public class ListTaskController {
         }
         return taskRepository;
     }
+
     /**
      * Lets the controller get the collaborator repository
      *
@@ -85,6 +95,7 @@ public class ListTaskController {
         }
         return collaboratorRepository;
     }
+
     /**
      * Lets the controller get the agenda
      *
@@ -98,6 +109,7 @@ public class ListTaskController {
         }
         return agenda;
     }
+
     /**
      * Lets the controller get the team repository
      *
@@ -111,6 +123,21 @@ public class ListTaskController {
         }
         return teamRepository;
     }
+
+    /**
+     * Lets the controller get the to do list
+     *
+     * @return toDoList
+     */
+    public ToDoList getToDoList() {
+        if (toDoList == null) {
+            Repositories repositories = Repositories.getInstance();
+
+            toDoList = repositories.getToDoList();
+        }
+        return toDoList;
+    }
+
     /**
      * Lets the controller get the authentication repository
      *
@@ -124,6 +151,7 @@ public class ListTaskController {
         }
         return authenticationRepository;
     }
+
     /**
      * Lets the controller get the collaborator by email
      *
@@ -133,7 +161,19 @@ public class ListTaskController {
     public Collaborator getCollaboratorByEmail(String email) {
         return this.collaboratorRepository.getCollaboratorByEmail(email);
     }
+
+    /**
+     * Lets the controller get the status list
+     *
+     * @return status list
+     */
     public List<String> getStatusList() {
-        return this.agenda.getStatusList();
+        return this.toDoList.getStatusList();
+    }
+
+    public List<EntryDto> getTaskList(Collaborator collaborator, String typeStatus, Date startDate, Date endDate) {
+        List<Team> teamList = this.teamRepository.getTeamsByCollaborator(collaborator);
+        List<Task> taskList = this.taskRepository.getTaskList(teamList, typeStatus);
+        return null;
     }
 }

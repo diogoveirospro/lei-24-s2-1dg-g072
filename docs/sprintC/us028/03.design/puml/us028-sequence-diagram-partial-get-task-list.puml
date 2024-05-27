@@ -13,18 +13,19 @@ participant "taskList\n:List<Task>" as LISTTASK
 
 autonumber 24
 
- -> taskRepository : getTaskList(teamList,dateI,dateF,typeStatus)
+ -> taskRepository : getTaskList(teamList,typeStatus)
 autonumber 24.1
 activate taskRepository
     group Get Task List
 
 taskRepository -> LISTTASK** : create()
                 loop for each task in the system
-                    opt ((typeStatus() == task.getStatus() && (team == task.getTeam))\n && (dateI <= task.getDateI()) && (dateF >= task.getDateF()))
+                    loop for each team in teamList
+                    opt (typeStatus() == task.getStatus()) && (team == task.getTeam())
                         taskRepository -> LISTTASK : addTaskOfCollaborator(task)
                             activate LISTTASK
                     end
-
+                    end
                 end
             LISTTASK --> taskRepository : taskList
             deactivate LISTTASK

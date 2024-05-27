@@ -11,9 +11,10 @@ class "ListTaskSpaceUI" as UserInterface
 package Controller {
 class "ListTaskController" as CTRL {
     + create()
-    + getCollaboratorThoughEmail(email)
+    + getCollaboratorByEmail(email)
     + getStatusList()
-    + getTaskList(collaborator, dateI, dateF, typeStatus)
+    + getTaskList(collaborator, typeStatus)
+    + getCollaboratorAgendaEntries(taskList,startDate,endDate)
 }
 }
 
@@ -22,6 +23,18 @@ package Model {
 class Team {
     - List<Collaborator> members
     + inTeam(collaborator)
+}
+class Entry{
+    - Team team
+    - List<Vehicle> vehicles
+    - Date dateI
+    - Date dateF
+    - StatusOfEntry status
+    - GreenSpace greenSpace
+    - List<Vehicle> vehicleList
+    - DegreeOfUrgency degree
+    - Task task
+    + getStatusList()
 }
 }
 package Repository {
@@ -34,6 +47,10 @@ class "Repositories" as RepositorySingleton {
     + getTeamRepository(): TeamRepository
     + getAgenda(): Agenda
 }
+class "ToDoList" as toDoList{
+    - List<ToDoList> toDoListEntries
+    + getStatusList()
+}
 
 class "CollaboratorRepository" as collaboratorRepository {
     + getCollaboratorThoughEmail(email)
@@ -43,7 +60,7 @@ class "TaskRepository" as taskRepository {
     - List<Task> taskList
     - List<String> statusList
     + getStatusList()
-    + getTaskList(teamList, dateI, dateF, typeStatus)
+    + getTaskList(teamList,typeStatus)
     + addTaskOfCollaborator(task)
 }
 
@@ -52,7 +69,7 @@ class "TeamRepository" as teamRepository {
 }
 
 class "Agenda" as agenda {
-    + getCollaboratorAgendaEntries(taskList): List<AgendaEntries>
+    + getCollaboratorAgendaEntries(taskList,startDate,endDate): List<AgendaEntries>
 }
 }
 package Mapper {
@@ -66,7 +83,11 @@ class "EntryDto" as DataTransferObject {
     - List<Vehicle> vehicles
     - Date dateI
     - Date dateF
-    - String status
+    - StatusOfEntry status
+    - GreenSpace greenSpace
+    - List<Vehicle> vehicleList
+    - DegreeOfUrgency degree
+    - Task task
     + EntryDto(entry)
 }
 }
@@ -87,4 +108,7 @@ RepositorySingleton "1" --> "1" taskRepository: taskRepository
 RepositorySingleton "1" --> "1" teamRepository: teamRepository
 RepositorySingleton "1" --> "1" agenda: agenda
 teamRepository "1" --> "*" Team: collaborator
+Entry "1" --> "*" toDoList: statusList
+RepositorySingleton "1" ---> "*" toDoList : toDoList
+CTRL ...> toDoList: getStatusList
 @enduml
