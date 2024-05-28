@@ -51,7 +51,7 @@ _**Note that SSD - Alternative One is adopted.**_
 
 This diagram shows the full sequence of interactions between the classes involved in the realization of this user story.
 
-![Sequence Diagram - Full](svg/us022-sequence-diagram-full.svg)
+![us021-sequence-diagram-full.svg](svg%2Fus021-sequence-diagram-full.svg)
 
 ### Split Diagrams
 
@@ -59,30 +59,24 @@ The following diagram shows the same sequence of interactions between the classe
 
 It uses Interaction Occurrence (a.k.a. Interaction Use).
 
-![Sequence Diagram - split](svg/us022-sequence-diagram-split.svg)
+![us021-sequence-diagram-split.svg](svg%2Fus021-sequence-diagram-split.svg)![Sequence Diagram - split](svg/us022-sequence-diagram-split.svg)
 
-**Get To-Do List Entries with DTO**
+**Add To Do List Entry**
 
-![Sequence Diagram - Partial - Get To-Do List Entries with DTO](svg/us022-sequence-diagram-partial-get-to-do-list-entries-with-dto.svg)
-
-**Get Task**
-
-![Sequence Diagram - Partial - Get Task](svg/us022-sequence-diagram-partial-get-task.svg)
+![us021-sequence-diagram-partial-add-to-do-list-entry.svg](svg%2Fus021-sequence-diagram-partial-add-to-do-list-entry.svg)
 
 **Get Green Space**
 
-![Sequence Diagram - Partial - Get Green Space](svg/us022-sequence-diagram-partial-get-green-space.svg)
+![us021-sequence-diagram-partial-get-green-space.svg](svg%2Fus021-sequence-diagram-partial-get-green-space.svg)
 
-**Create Agenda Entry**
+**Get Task**
 
-![Sequence Diagram - Partial - Create Agenda Entry](svg/us022-sequence-diagram-partial-create-agenda-entry.svg)
+![us021-sequence-diagram-partial-get-task.svg](svg%2Fus021-sequence-diagram-partial-get-task.svg)
 
-**Add Agenda Entry**
+**Get To Do List Entry**
 
-![Sequence Diagram - Partial - Add Agenda Entry](svg/us022-sequence-diagram-partial-add-agenda-entry.svg)
-
-
+![us021-sequence-diagram-partial-get-to-do-list-entry.svg](svg%2Fus021-sequence-diagram-partial-get-to-do-list-entry.svg)
 
 ## 3.3. Class Diagram (CD)
 
-![Class Diagram](svg/us022-class-diagram.svg)
+![us021-class-diagram.svg](svg%2Fus021-class-diagram.svg)![Class Diagram](svg/us022-class-diagram.svg)

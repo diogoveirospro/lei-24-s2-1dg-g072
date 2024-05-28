@@ -51,7 +51,7 @@ _**Note that SSD - Alternative Two is adopted.**_
 
 This diagram shows the full sequence of interactions between the classes involved in the realization of this user story.
 
-![Sequence Diagram - Full](svg/us022-sequence-diagram-full.svg)
+![us029-sequence-diagram-full.svg](svg%2Fus029-sequence-diagram-full.svg)
 
 ### Split Diagrams
 
@@ -59,28 +59,20 @@ The following diagram shows the same sequence of interactions between the classe
 
 It uses Interaction Occurrence (a.k.a. Interaction Use).
 
-![Sequence Diagram - split](svg/us022-sequence-diagram-split.svg)
+![us029-sequence-diagram-split.svg](svg%2Fus029-sequence-diagram-split.svg) 
 
-**Get To-Do List Entries with DTO**
+**Get Collaborator By Email**
 
-![Sequence Diagram - Partial - Get To-Do List Entries with DTO](svg/us022-sequence-diagram-partial-get-to-do-list-entries-with-dto.svg)
+![us029-sequence-diagram-partial-get-collaborator-by-email.svg](svg%2Fus029-sequence-diagram-partial-get-collaborator-by-email.svg)
 
-**Get Task**
+**Get Task List**
 
-![Sequence Diagram - Partial - Get Task](svg/us022-sequence-diagram-partial-get-task.svg)
+![us029-sequence-diagram-partial-get-tasks-list.svg](svg%2Fus029-sequence-diagram-partial-get-tasks-list.svg)
 
-**Get Green Space**
+**Mark Task As Completed**
 
-![Sequence Diagram - Partial - Get Green Space](svg/us022-sequence-diagram-partial-get-green-space.svg)
-
-**Create Agenda Entry**
-
-![Sequence Diagram - Partial - Create Agenda Entry](svg/us022-sequence-diagram-partial-create-agenda-entry.svg)
-
-**Add Agenda Entry**
-
-![Sequence Diagram - Partial - Add Agenda Entry](svg/us022-sequence-diagram-partial-add-agenda-entry.svg)
+![us029-sequence-diagram-partial-mark-task-as-completed.svg](svg%2Fus029-sequence-diagram-partial-mark-task-as-completed.svg)![Sequence Diagram - Partial - Get Green Space](svg/us022-sequence-diagram-partial-get-green-space.svg)
 
 ## 3.3. Class Diagram (CD)
 
-![Class Diagram](svg/us022-class-diagram.svg)
+![us029-class-diagram.svg](svg%2Fus029-class-diagram.svg)![Class Diagram](svg/us022-class-diagram.svg)
