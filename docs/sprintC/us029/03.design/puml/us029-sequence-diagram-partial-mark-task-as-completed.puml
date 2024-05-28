@@ -3,28 +3,41 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-participant "vehicleRepository\n:VehicleRepository" as ORG
-participant "vehicle\n:Vehicle" as VEHICLE
+autonumber
 
-autonumber 11
--> ORG: registerVehicle(plateNumber, brand,\n model, type, tare, grossWeight,\n currentKms,registrationDate,\nacquisitionDate, serviceFrequency)
+participant ":RecordTaskCompletionController" as CTRL
+participant ":Repositories" as RepositorySingleton
+participant "repositories\n:Repositories" as REP
+participant "taskRepository\n:TaskRepository" as taskRepository
 
-autonumber 11.1
-activate ORG
-    group Register Vehicle
+autonumber 5
 
-        ORG -> VEHICLE**: register(plateNumber, brand,\n model,type, tare, grossWeight,\n currentKms,registrationDate,\nacquisitionDate, serviceFrequency)
-        ORG -> ORG: addVehicle (vehicle)
+-> CTRL : markTaskAsCompleted(task)
+autonumber 5.1
+activate CTRL
+    group Mark Task as Completed
 
-        activate ORG
-            ORG -> ORG: validateVehicle(vehicle)
-            activate ORG
+        CTRL -> RepositorySingleton : getInstance()
+        activate RepositorySingleton
+
+            RepositorySingleton --> CTRL : repositories
+        deactivate RepositorySingleton
+
+        CTRL -> REP : getTaskRepository()
+        activate REP
+
+            REP --> CTRL : taskRepository
+        deactivate REP
+
+        CTRL -> taskRepository : markTaskAsCompleted(task)
+        activate taskRepository
+
+            taskRepository --> CTRL : successMessage
+        deactivate taskRepository
 
     end
-
-    autonumber 12
-    <-- ORG : vehicle
-deactivate ORG
-
+autonumber 6
+        <-- CTRL : successMessage
+deactivate CTRL
 
 @enduml

@@ -9,6 +9,9 @@ autonumber
 actor "Green\nSpace Manager\n(GSM)" as GSM
 participant ":ListGreenSpaceUI" as UI
 participant ":ListGreenSpaceController" as CTRL
+participant ":ApplicationSession" as _APP
+participant "appSession\n:ApplicationSession" as APP
+participant "currentSession\n:UserSession" as SESSION
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as REP
 participant "collaboratorRepository\n:CollaboratorRepository" as collaboratorRepository
@@ -25,9 +28,28 @@ activate GSM
         activate UI
 
                 UI -> CTRL** : create
-                    UI -> CTRL : getCollaboratorThoughEmail(email)
+                    UI -> CTRL : getCollaboratorByEmail(email)
+                        activate CTRL
+                        CTRL -> CTRL : getCollaboratorFromSession()
                         activate CTRL
 
+                        CTRL -> _APP**: getInstance()
+                                   activate _APP
+
+                                        _APP -> CTRL: appSession
+                                   deactivate _APP
+
+                                   CTRL -> APP**: getCurrentSession()
+                                   activate APP
+
+                                        APP --> CTRL: currentSession
+                                   deactivate APP
+
+                                   CTRL -> SESSION**: getUserEmail()
+                                   activate SESSION
+
+                                        SESSION --> CTRL: email
+                                   deactivate SESSION
                         CTRL -> RepositorySingleton : getInstance()
                             activate RepositorySingleton
 
@@ -40,10 +62,10 @@ activate GSM
                             REP --> CTRL : collaboratorRepository
                             deactivate REP
 
-                        CTRL -> collaboratorRepository : getCollaboratorThoughEmail(email)
+                        CTRL -> collaboratorRepository : getCollaboratorByEmail(email)
                             activate collaboratorRepository
 
-                            collaboratorRepository -> collaboratorRepository : getCollaboratorThoughEmail(email)
+                            collaboratorRepository -> collaboratorRepository : getCollaboratorByEmail(email)
                             activate collaboratorRepository
 
                             collaboratorRepository --> CTRL : greenSpaceManager
@@ -52,6 +74,8 @@ activate GSM
 
                             deactivate collaboratorRepository
                         CTRL --> UI : greenSpaceManager
+                        deactivate CTRL
+
                         deactivate CTRL
             UI --> GSM : asks the user to choose a sorting option
         deactivate UI

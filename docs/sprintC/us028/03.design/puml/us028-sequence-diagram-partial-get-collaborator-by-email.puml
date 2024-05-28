@@ -8,17 +8,42 @@ autonumber
 'hide footbox
 
 participant ":ListTaskController" as CTRL
+participant ":ApplicationSession" as _APP
+participant "appSession\n:ApplicationSession" as APP
+participant "currentSession\n:UserSession" as SESSION
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as REP
 participant "collaboratorRepository\n:CollaboratorRepository" as collaboratorRepository
 
 autonumber 3
 
- -> CTRL : getCollaboratorThoughEmail(email)
+ -> CTRL : getCollaboratorByEmail(email)
 autonumber 3.1
 activate CTRL
-    group Get Collaborator
+    group Get Collaborator by Email
+        CTRL -> CTRL : getCollaboratorFromSession()
 
+        activate CTRL
+
+        CTRL -> _APP**: getInstance()
+
+
+                   activate _APP
+
+                        _APP -> CTRL: appSession
+                   deactivate _APP
+
+                   CTRL -> APP**: getCurrentSession()
+                   activate APP
+
+                        APP --> CTRL: currentSession
+                   deactivate APP
+
+                   CTRL -> SESSION**: getUserEmail()
+                   activate SESSION
+
+                        SESSION --> CTRL: email
+                   deactivate SESSION
         CTRL -> RepositorySingleton: getInstance()
         activate RepositorySingleton
 
@@ -31,10 +56,10 @@ activate CTRL
             REP --> CTRL: collaboratorRepository
         deactivate REP
 
-        CTRL -> collaboratorRepository: getCollaboratorThoughEmail(email)
+        CTRL -> collaboratorRepository: getCollaboratorByEmail(email)
         activate collaboratorRepository
 
-            collaboratorRepository -> collaboratorRepository: getCollaboratorThoughEmail(email)
+            collaboratorRepository -> collaboratorRepository: getCollaboratorByEmail(email)
             activate collaboratorRepository
 
                 collaboratorRepository --> CTRL: collaborator
@@ -47,4 +72,5 @@ activate CTRL
         <-- CTRL  : collaborator
 deactivate CTRL
 
+deactivate CTRL
 @enduml

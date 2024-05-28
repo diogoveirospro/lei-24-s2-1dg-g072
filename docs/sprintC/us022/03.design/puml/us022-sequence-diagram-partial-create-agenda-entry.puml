@@ -9,10 +9,10 @@ participant "repositories\n:Repositories" as REP
 participant "agenda\n:Agenda" as AGENDA
 participant "agendaEntry\n:AgendaEntry" as AGENDAENTRY
 
-autonumber 11
+autonumber 15
 -> CTRL: createAgendaEntry(task, greenSpace, startDate, endDate)
 
-autonumber 11.1
+autonumber 15.1
 activate CTRL
     group Create Agenda Entry
 
@@ -54,7 +54,7 @@ activate CTRL
 
     end
 
-    autonumber 12
+    autonumber 16
     <-- CTRL : agendaEntry
 deactivate CTRL
 

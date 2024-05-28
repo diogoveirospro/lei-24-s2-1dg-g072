@@ -17,7 +17,7 @@ autonumber 32
  -> Mapper : toDto(listEntries)
 autonumber 32.1
 activate Mapper
-    group Get Task List
+    group Create a Copy of Entry List
 
 
             Mapper --> LISTENTRIESDTO** : create()

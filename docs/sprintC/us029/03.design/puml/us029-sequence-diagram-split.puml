@@ -1,5 +1,5 @@
 @startuml
-skinparam monochrome true
+'skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
@@ -20,7 +20,7 @@ Col -> UI : requests to record task completion
 activate UI
 
 UI -> CTRL** : create
-UI -> CTRL : getCollaborator()
+UI -> CTRL : getCollaboratorByEmail(email)
 activate CTRL
 
 CTRL -> RepositorySingleton : getInstance()
@@ -35,11 +35,11 @@ activate REP
 REP --> CTRL : collaboratorRepository
 deactivate REP
 
-CTRL -> collaboratorRepository : getCollaborator()
+CTRL -> collaboratorRepository : getCollaboratorByEmail(email)
 activate collaboratorRepository
 
 ref over collaboratorRepository
-    Get Collaborator
+    Get Collaborator by Email
 end
 
 collaboratorRepository --> CTRL : collaborator
@@ -48,6 +48,40 @@ CTRL --> UI : collaborator
 deactivate CTRL
 
 UI --> Col : prompts to select the task to mark as completed
+deactivate UI
+
+Col -> UI : selects the task to mark as completed
+activate UI
+
+UI -> CTRL : getTaskList(collaborator, dateI, dateF, typeStatus)
+activate CTRL
+
+CTRL -> RepositorySingleton : getInstance()
+activate RepositorySingleton
+
+RepositorySingleton --> CTRL : repositories
+deactivate RepositorySingleton
+
+CTRL -> REP : getTaskRepository()
+activate REP
+
+REP --> CTRL : taskRepository
+deactivate REP
+
+CTRL -> taskRepository : getTaskList(collaborator, dateI, dateF, typeStatus)
+activate taskRepository
+
+ref over taskRepository
+    Get Task List
+end
+
+taskRepository --> CTRL : taskList
+deactivate taskRepository
+
+CTRL --> UI : taskList
+deactivate CTRL
+
+UI --> Col : displays the task list for selection
 deactivate UI
 
 Col -> UI : selects the task to mark as completed

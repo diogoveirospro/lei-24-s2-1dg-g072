@@ -17,24 +17,54 @@ activate GSM
 
         UI -> CTRL** : create
 
-        UI -> CTRL : getToDoListEntries()
+        UI -> CTRL : getListGreenSpaces()
+        activate CTRL
+
+         CTRL -> CTRL: getCollaboratorFromSession()
+         activate CTRL
+
+            ref over CTRL
+            Get Green Space Manager
+
+            end
+
+         CTRL --> CTRL : greenSpaceManager
+         deactivate CTRL
+
+         |||
+
+            ref over CTRL
+            Get Green Spaces with DTO
+
+            end
+
+            CTRL --> UI : listGreenSpacesDto
+        deactivate CTRL
+
+        UI --> GSM : asks to choose the green space \nfor which want to add the entry
+    deactivate UI
+
+    GSM -> UI : select the desired green space
+    activate UI
+
+        UI -> CTRL : getToDoListEntries(greenSpaceDto)
         activate CTRL
 
            ref over CTRL
-           Get To-Do List Entries with DTO
+           Get To-Do List entries with DTO
 
            end
 
             CTRL --> UI : toDoListDto
         deactivate CTRL
 
-        UI --> GSM: shows all the tasks registered in the \nTo-Do List and asks you to select the \none you want to add
+        UI --> GSM: shows all the tasks registered in the \nto-do list of the chosen green space \nand asks to select the one want to add
     deactivate UI
 
     GSM -> UI: select the desired task and its start and\n end date
     activate UI
 
-        UI -> CTRL : getTask(toDoListEntry)
+        UI -> CTRL : getTask(toDoListEntryDto)
         activate CTRL
 
             ref over CTRL
@@ -43,17 +73,6 @@ activate GSM
             end
 
             CTRL --> UI : task
-        deactivate CTRL
-
-        UI -> CTRL : getGreenSpace(toDoListEntry)
-        activate CTRL
-
-            ref over CTRL
-            Get GreenSpace
-
-            end
-
-            CTRL --> UI : greenSpace
         deactivate CTRL
 
         UI -> CTRL : createAgendaEntry(task, greenSpace, startDate, endDate)

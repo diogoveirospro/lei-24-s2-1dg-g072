@@ -104,4 +104,17 @@ public class CollaboratorRepository {
     private boolean validateSkill(Skill skill) {
         return skillRepository.listSkills().contains(skill);
     }
+
+    /**
+     * Get a collaborator from the repository by their email.
+     *
+     * @param email Collaborator email
+     * @return collaborator
+     */
+    public Collaborator getCollaboratorByEmail(String email) {
+        return collaborators.stream()
+                .filter(collaborator -> collaborator.getEmail().equals(email))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Collaborator with email " + email + " not found"));
+    }
 }

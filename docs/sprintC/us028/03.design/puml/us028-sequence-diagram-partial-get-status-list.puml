@@ -6,7 +6,8 @@ skinparam shadowing false
 participant ":ListTaskController" as CTRL
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as REP
-participant "taskRepository\n:TaskRepository" as taskRepository
+participant "toDoList\n:toDoList" as toDoList
+participant "entry\n:Entry" as entry
 participant "statusList\n:List<String>" as LISTSTATUS
 
 autonumber 7
@@ -14,7 +15,7 @@ autonumber 7
 
 autonumber 7.1
 activate CTRL
-    group Register Vehicle
+    group Get Status List
 
 
         CTRL -> RepositorySingleton : getInstance()
@@ -23,25 +24,29 @@ activate CTRL
             RepositorySingleton --> CTRL : repositories
             deactivate RepositorySingleton
 
-        CTRL -> REP : getTaskRepository()
+        CTRL -> REP : getToDoList()
             activate REP
 
-            REP --> CTRL : taskRepository
+            REP --> CTRL : toDoList
             deactivate REP
 
-        CTRL -> taskRepository : getStatusList()
-            activate taskRepository
+        CTRL -> toDoList : getStatusList()
+            activate toDoList
 
-            taskRepository --> LISTSTATUS** : create()
-                loop for each status in the system
-                    taskRepository -> LISTSTATUS : add(status)
-                        activate LISTSTATUS
-                end
-            LISTSTATUS --> taskRepository : statusList
-            deactivate LISTSTATUS
+            toDoList -> LISTSTATUS** : create()
+                    toDoList -> entry : getStatusList()
+                        activate entry
 
-        taskRepository --> CTRL : statusList
-        deactivate taskRepository
+                            loop for each status in the system
+                                entry -> LISTSTATUS : add(status)
+                                activate LISTSTATUS
+                            end
+                        LISTSTATUS --> entry : statusList
+                        deactivate LISTSTATUS
+                    entry --> toDoList : statusList
+                    deactivate entry
+        toDoList --> CTRL : statusList
+        deactivate toDoList
 
     end
 

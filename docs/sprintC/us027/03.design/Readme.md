@@ -54,7 +54,7 @@ It uses Interaction Occurrence (a.k.a. Interaction Use).
 
 **Get the GSM Trough Email**
 
-![Sequence Diagram - Partial - Get GreenSpaceList](svg/us027-sequence-diagram-partial-get-GSM-trough-email.svg)
+![Sequence Diagram - Partial - Get GreenSpaceList](svg/us027-sequence-diagram-partial-get-GSM-by-email.svg)
 
 **Get GreenSpace List**
 

@@ -1,0 +1,65 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+participant ":AddAgendaEntryController" as CTRL
+participant ":ApplicationSession" as _APP
+participant "appSession\n:ApplicationSession" as APP
+participant "currentSession\n:UserSession" as SESSION
+participant Repositories
+participant "repositories\n:Repositories" as REP
+participant "collaboratorRepository\n:CollaboratorRepository" as COLLABORATORREPOSITORY
+
+autonumber 4
+-> CTRL: getCollaboratorFromSession()
+
+autonumber 4.1
+activate CTRL
+    group Get Green Space Manager
+
+           CTRL -> _APP**: getInstance()
+           activate _APP
+
+                _APP -> CTRL: appSession
+           deactivate _APP
+
+           CTRL -> APP**: getCurrentSession()
+           activate APP
+
+                APP --> CTRL: currentSession
+           deactivate APP
+
+           CTRL -> SESSION**: email = getUserEmail()
+           activate SESSION
+
+                SESSION --> CTRL: email
+           deactivate SESSION
+
+           CTRL -> Repositories**: getInstance()
+           activate Repositories
+
+                 Repositories --> CTRL: repositories
+           deactivate Repositories
+
+           CTRL -> REP**: getCollaboratorRepository()
+           activate REP
+
+                REP --> CTRL: collaboratorRepository
+           deactivate REP
+
+           CTRL -> COLLABORATORREPOSITORY** : getCollaboratorByEmail(email)
+           activate COLLABORATORREPOSITORY
+
+                 COLLABORATORREPOSITORY --> CTRL: greenSpaceManager
+           deactivate COLLABORATORREPOSITORY
+
+
+    end
+
+    autonumber 5
+    <-- CTRL : greenSpaceManager
+deactivate CTRL
+
+
+@enduml

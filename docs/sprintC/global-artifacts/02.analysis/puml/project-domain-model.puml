@@ -62,22 +62,67 @@ class Maintenance {
     km at maintenance
 }
 
+class GSM{
+
+}
+class "Collaborator" as Col {
+
+}
+class GreenSpace{
+    name
+    area
+    dimension
+    type
+    greenSpaceManager
+}
+class Task{
+    vehicleList
+    team
+    status
+    duration
+    task
+}
+class ToDoList{
+    toDoListEntries
+}
+class AgendaEntry{
+    startDate
+    endDate
+    status
+    toDoListEntries
+}
+class Entry {
+    startDate
+    endDate
+    status
+    task
+    vehicleList
+    team
+    greenSpace
+    degree of urgency
+}
+class Agenda{
+    entriesAgenda
+}
+
+
+
 
 'US001
 HRM "1" -- "1..*" Skill: register >
 
 'US002
-HRM "1" - "1..*" Job : register >
+HRM "1" -- "1..*" Job : register >
 
 'US003
-HRM "1" - "1..*" Collaborator : registers >
+HRM "1" -- "1..*" Collaborator : registers >
 
 'US004
-HRM "1" - "1..*" Skill : assigns >
+HRM "1" -- "1..*" Skill : assigns >
 Collaborator "1" -- "1..*" Skill : has >
 
 'US005
-HRM "1" - "1..*" Team : creates >
+HRM "1" -- "1..*" Team : creates >
 Collaborator "1" -- "1" Job: has >
 Team "1" -- "1..*" Collaborator: has >
 
@@ -92,5 +137,40 @@ VFM "1"-- "1..*" Vehicle: chooses >
 VFM "1" -- "1..*" Maintenance: lists >
 Vehicle "1..*" -- "1" Maintenance: has <
 
+'US020
+"GSM" "1" -- "*" "Green Space" : register >
+
+'US021
+GSM "1" -- "0..*" GreenSpace : manages >
+GreenSpace "1" -- "0..*" ToDoListEntry : associated with >
+ToDoListEntry "1" -- "1" Task: has >
+ToDoList "1" -- "0..*" ToDoListEntry : includes >
+'US022
+Agenda "1" -- "0..*" AgendaEntry : includes >
+GSM "1" -- "1..*" AgendaEntry : add >
+
+'US023
+GSM "1" -- "1..*" Team : assign >
+Team "1" -- "0..*" AgendaEntry : has >
+
+'US024
+AgendaEntry --|> Entry
+GSM "1" -- "0..*" AgendaEntry : postpone >
+
+'US025
+GSM "1" -- "0..*" AgendaEntry : cancel >
+
+'US026
+GSM "1" -- "1..*" Vehicle : assign >
+AgendaEntry "1" -- "0..*" Vehicle : has >
+
+'US027
+GSM "1" -- "1..*" GreenSpace: lists >
+
+'US028
+Col "1" -- "1..*" Task: lists >
+
+'US029
+Col "1"-- "   1..*" Task: complete >
 
 @enduml

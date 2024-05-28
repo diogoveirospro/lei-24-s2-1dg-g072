@@ -20,11 +20,11 @@ activate GSM
 
                 UI -> CTRL** : create
 
-                UI -> CTRL : getCollaboratorThoughEmail(email)
+                UI -> CTRL : getCollaboratorByEmail(email)
 
                     activate CTRL
                         ref over CTRL
-                            Get GSM Through Email
+                            Get GSM by Email
 
                         end
                         CTRL --> UI :greenSpaceManager
@@ -42,7 +42,7 @@ activate GSM
         activate UI
 
 
-            UI -> CTRL : getGreenSpaceList()
+            UI -> CTRL : getGreenSpaceList(greenSpaceManger,sortingOption)
             activate CTRL
                     ref over CTRL
                             Get GreenSpace List

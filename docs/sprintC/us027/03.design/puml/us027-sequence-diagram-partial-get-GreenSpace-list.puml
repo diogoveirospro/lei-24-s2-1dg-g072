@@ -7,7 +7,7 @@ autonumber
 
 'hide footbox
 
-participant ":MaintenanceController" as CTRL
+participant ":ListGreenSpaceController" as CTRL
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as REP
 participant "greenSpaceRepository\n:GreenSpaceRepository" as greenSpaceRepository

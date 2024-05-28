@@ -1,0 +1,93 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+participant ":AddAgendaEntryController" as CTRL
+participant Repositories
+participant "repositories\n:Repositories" as REP
+participant "greenSpaceRepository\n:GreenSpaceRepository" as GREENSPACEREPOSITORY
+participant ":GreenSpaceRepositoryMapper" as GREENSPACEREPOSITORYMAPPER
+participant "listGreenSpaces\n:List<GreenSpace>" as LISTGREENSPACES
+participant "listGreenSpacesDto\n:List<GreenSpaceDto>" as LISTGREENSPACESDTO
+participant "greenSpaceDto\n:GreenSpaceDto" as GREENSPACEDTO
+
+autonumber 5
+-> CTRL: greenSpaceManager
+
+autonumber 5.1
+activate CTRL
+    group Get Green Spaces with DTO
+
+           CTRL -> Repositories**: getInstance()
+           activate Repositories
+
+                Repositories --> CTRL: repositories
+           deactivate Repositories
+
+           CTRL -> REP**: getGreenSpaceRepository()
+           activate REP
+
+                 REP --> CTRL: greenSpaceRepository
+           deactivate REP
+
+           CTRL -> GREENSPACEREPOSITORY** : getListGreenSpaces()
+           activate GREENSPACEREPOSITORY
+
+                GREENSPACEREPOSITORY --> LISTGREENSPACES** : create()
+                activate LISTGREENSPACES
+
+                    loop for each greenSpace
+
+                    GREENSPACEREPOSITORY -> LISTGREENSPACES : add(greenSpace)
+                    activate LISTGREENSPACES
+                    deactivate LISTGREENSPACES
+
+                    end
+
+                    LISTGREENSPACES --> GREENSPACEREPOSITORY : listGreenSpaces
+                deactivate LISTGREENSPACES
+
+
+                GREENSPACEREPOSITORY --> CTRL : listGreenSpaces
+           deactivate GREENSPACEREPOSITORY
+
+            CTRL -> GREENSPACEREPOSITORYMAPPER** : listGreenSpacesToDto(listGreenSpaces)
+            activate GREENSPACEREPOSITORYMAPPER
+
+                GREENSPACEREPOSITORYMAPPER --> LISTGREENSPACESDTO** : create()
+
+                loop for each greenSpace
+                    GREENSPACEREPOSITORYMAPPER -> LISTGREENSPACES : get(i)
+                    activate LISTGREENSPACES
+
+                    LISTGREENSPACES --> GREENSPACEREPOSITORYMAPPER : greenSpace
+                    deactivate LISTGREENSPACES
+
+                    GREENSPACEREPOSITORYMAPPER -> GREENSPACEREPOSITORYMAPPER : greenSpaceDto = toDTO(greenSpace)
+                    activate GREENSPACEREPOSITORYMAPPER
+                    deactivate GREENSPACEREPOSITORYMAPPER
+
+                    GREENSPACEREPOSITORYMAPPER --> GREENSPACEDTO** : create()
+                    activate GREENSPACEDTO
+
+                    GREENSPACEDTO --> GREENSPACEREPOSITORYMAPPER : greenSpaceDto
+                    deactivate GREENSPACEDTO
+
+                    GREENSPACEREPOSITORYMAPPER -> LISTGREENSPACESDTO : add(greenSpaceDto)
+                    activate LISTGREENSPACESDTO
+                    deactivate LISTGREENSPACESDTO
+
+                end
+
+                GREENSPACEREPOSITORYMAPPER --> CTRL : listGreenSpacesDto
+            deactivate GREENSPACEREPOSITORYMAPPER
+
+    end
+
+    autonumber 6
+    <-- CTRL : listGreenSpacesDto
+deactivate CTRL
+
+
+@enduml

@@ -1,6 +1,41 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Entry {
+    public Task getTask() {
+        return task;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public StatusOfEntry getStatus() {
+        return status;
+    }
+
+    public List<Vehicle> getVehicleList() {
+        return vehicleList;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public DegreeOfUrgency getDegree() {
+        return degree;
+    }
+
+    public GreenSpace getGreenSpace() {
+        return greenSpace;
+    }
+
     public enum DegreeOfUrgency {
         LOW("Low"),
         MEDIUM("Medium"),
@@ -52,6 +87,13 @@ public class Entry {
             }
             throw new IllegalArgumentException("Invalid status of entry: " + status);
         }
+        public static List<String> getStatusList() {
+            List<String> statusList = new ArrayList<>();
+            for (StatusOfEntry status : StatusOfEntry.values()) {
+                statusList.add(status.getStatus());
+            }
+            return statusList;
+        }
     }
     private StatusOfEntry status;
     private DegreeOfUrgency degree;
@@ -60,4 +102,6 @@ public class Entry {
     private GreenSpace greenSpace;
     private Date startDate;
     private Date endDate;
+    private List<Vehicle> vehicleList;
+
 }
