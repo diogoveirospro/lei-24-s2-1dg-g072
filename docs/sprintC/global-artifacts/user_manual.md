@@ -295,26 +295,26 @@ minimum and maximum size of the team and the set of skills required for a given 
 > - Click on "Generate Team" or a similar option to automatically create a team proposal based on the criteria specified.
 
 > ### 20. Register a Green Space | GSM
-> **Purpose:** To enable the Vehicle Fleet Manager (VFM) to register a new vehicle.
+> **Purpose:** To enable the Green Space Manager (GSM) to register a green space, such as a garden, medium-sized park, or large-sized park, along with its respective area.
 >
 > **Instructions:**
-> - Log in to your Vehicle Fleet Manager account;
-> - Navigate to the section where you can register a new vehicle;
-> - Write the attributes of the vehicle;
-> - Click on "Register vehicle" or a similar option to add the vehicle, after you confirm.
+> - Log in to your Green Space Manager account.
+> - Navigate to the section dedicated to managing green spaces or parks.
+> - Select the option to register a new green space.
+> - Provide the necessary details for the green space, including its type (garden, medium-sized park, or large-sized park) and area measurement.
+> - After entering the information, click on the "Register" or similar option to save the new green space entry.
 
 > ### 21. Add a new entry to the To-Do List | GSM
-> **Purpose:** This feature enables the Vehicle Fleet Manager (VFM) to systematically record and manage the check-up details of vehicles within the organization's fleet, ensuring timely maintenance and service for optimal performance and safety.
->
+> **Purpose:** To enable the Green Space Manager (GSM) to add a new entry to the To-Do List, ensuring that tasks related to the management of green spaces are properly organized and tracked.
+> 
 > **Instructions:**
-> - Log in to your Vehicle Fleet Manager account;
-> - Navigate to the "Vehicle Maintenance" or a similar section;
-> - Select the option to register a check-up for a vehicle;
-> - Choose the vehicle from the fleet list that requires a check-up;
-> - Enter the details of the check-up, including the date, service provider, type of service performed, and any notes on repairs or maintenance issues identified during the check-up;
-> - Review the entered information for accuracy;
-> - Click on "Register Check-up" or a similar option to record the check-up details for the selected vehicle, after confirming the accuracy of the information provided.
-
+> - Log in to your Green Space Manager account.
+> - Navigate to the section dedicated to managing the To-Do List.
+> - Select the option to add a new entry.
+> - Choose the green space from the list of managed spaces.
+> - Enter the details of the new entry, such as task description, priority, and due date.
+> - Click on the "Add" or similar option to save the new entry to the To-Do List.
+ 
 > ### 22. Add a new entry in the Agenda | GSM
 > **Purpose:** To enable the Vehicle Fleet Manager (VFM) to automatically generate a list of all vehicles that need a check-up.
 >
@@ -387,10 +387,12 @@ minimum and maximum size of the team and the set of skills required for a given 
 
 
 > ### 29. Record the completion of a task | Collaborator
-> **Purpose:** This feature allows the Software Quality Assessment Team Manager to run tests for inputs of variable size, to observe the asymptotic behavior of the execution time of the US13 algorithm.
+> **Purpose:** To facilitate task management for collaborators by providing a feature to record the completion of tasks, ensuring clear communication and tracking of task progress within the system.
 >
 > **Instructions**:
-> - Log in to your Software Quality Assessment Team Manager account;
-> - From the main menu, select "Asymptotic Behavior" or a similar option.
-> - Run the algorithm of US13 for all the files that you want.
-> - Click on "Visualize" to obtain the Asymptotic Behavior graph.
+> - Log in to your user account.
+> - Navigate to the section dedicated to task management or the To-Do List.
+> - Select the task that you have completed from the list.
+> - Look for an option such as "Mark as Completed" or similar.
+> - Click on the option to indicate that the task has been completed.
+> - Verify that the system provides confirmation that the task has been successfully marked as completed.
