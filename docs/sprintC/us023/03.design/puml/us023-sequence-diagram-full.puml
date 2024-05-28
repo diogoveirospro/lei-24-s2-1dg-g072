@@ -14,7 +14,7 @@ participant ":AgendaMapper" as AGENDAMAPPER
 participant "agendaEntry\n:AgendaEntry" as AGENDAENTRY
 participant "listEntries\n:List<AgendaEntry>" as LISTENTRIES
 participant "agendaEntriesDto\n:List<AgendaEntryDto>" as AGENDAENTRIESDTO
-participant "agendaEntryDto\n:AgendaDto" as AGENDAENTRYDTO
+participant "agendaEntryDto\n:AgendaEntryDto" as AGENDAENTRYDTO
 participant "teamRepository\n:TeamRepository" as TEAMREP
 participant "teamRepositoryMapper\n:TeamRepositoryMapper" as TEAMREPMAPPER
 participant "team\n:Team" as TEAM
@@ -22,6 +22,7 @@ participant "listTeams\n:List<Team>" as LISTTEAM
 participant "teamsDto\n:List<TeamDto>" as TEAMSDTO
 participant "teamDto\n:TeamDto" as TEAMDTO
 participant "collaborator\n:Collaborator" as COLLAB
+participant "EmailAdapter" as EmailAdapter
 participant "emailService\n:EmailService" as EMAILSERVICE
 
 activate GSM
@@ -226,25 +227,30 @@ activate GSM
                 AGENDA --> CTRL : operation success
             deactivate AGENDA
 
-            CTRL -> TEAM : getCollaborators()
+            CTRL -> TEAM : getMembers()
             activate TEAM
 
                 TEAM --> CTRL : members
             deactivate TEAM
 
                 loop for each member
-
                     CTRL -> COLLAB** : getEmail()
                     activate COLLAB
 
-                        COLLAB --> CTRL : email
+                    COLLAB --> CTRL : email
                     deactivate COLLAB
 
-                    CTRL -> EMAILSERVICE** : sendEmail(email, "Subject", "Body")
+                    CTRL -> EmailAdapter** : sendEmail(email)
+                    activate EmailAdapter
+
+                    EmailAdapter -> EMAILSERVICE** : send(email)
                     activate EMAILSERVICE
 
-                        EMAILSERVICE --> CTRL : email sent confirmation
+                    EMAILSERVICE --> EmailAdapter : email sent confirmation
                     deactivate EMAILSERVICE
+
+                    EmailAdapter --> CTRL : email sent confirmation
+                    deactivate EmailAdapter
                 end
 
             CTRL --> UI : operation success
