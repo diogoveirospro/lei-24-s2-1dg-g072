@@ -48,9 +48,10 @@ public class Main {
 
     private static void US18() throws FileNotFoundException {
         Scanner sc = new Scanner(System.in);
-        StringBuilder inputFile = new StringBuilder(getFile(sc));
-        StringBuilder fileWeights = new StringBuilder("src/main/java/PI_MDISC_Group_072/Input/" + inputFile + ".csv");
-        StringBuilder fileVertices = new StringBuilder("src/main/java/PI_MDISC_Group_072/Input/" + inputFile + ".csv");
+        StringBuilder inputVerticesFile = new StringBuilder(getFile(sc));
+        StringBuilder inputFileWeights = new StringBuilder(getFile(sc));
+        StringBuilder fileWeights = new StringBuilder("src/main/java/PI_MDISC_Group_072/Input/" + inputFileWeights + ".csv");
+        StringBuilder fileVertices = new StringBuilder("src/main/java/PI_MDISC_Group_072/Input/" + inputVerticesFile + ".csv");
 
         ArrayList<Vertex> vertices = readVertexFile(fileVertices);
         int[][] weights = readWeightFile(fileWeights);
@@ -59,12 +60,18 @@ public class Main {
         // bubbleSort(graphEdges);
         ArrayList<String> MP = new ArrayList<>();
         sortMP(MP, vertices);
+        ArrayList<Graph> evacuationRoutes = new ArrayList<>();
         if (MP.isEmpty()) {
             System.out.println("There is no Meeting Point in the file!");
         } else {
             for (int i = 0; i < MP.size(); i++) {
-                Graph evacuationRoutes = Dijkstra(graphEdges, vertices);
+                evacuationRoutes.add(Dijkstra(graphEdges, vertices));
             }
+        }
+        System.out.println("Insert the vertex you want to know the shortest path to the closest AP or 'done'(if you want to stop):");
+        String vertex = sc.nextLine();
+        while (!vertex.equalsIgnoreCase("done")){
+            vertex = sc.nextLine();
         }
 
     }
@@ -96,7 +103,12 @@ public class Main {
         } else {
             Graph evacuationRoutes = Dijkstra(graphEdges, vertices);
         }
+        System.out.println("Insert the vertex you want to know the shortest path to the AP or 'done'(if you want to stop):");
+        String vertex = sc.nextLine();
+        while (!vertex.equalsIgnoreCase("done")){
 
+            vertex = sc.nextLine();
+        }
     }
 
     private static String getMP(ArrayList<Vertex> vertices) {
