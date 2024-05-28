@@ -1,0 +1,59 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+hide circles
+hide methods
+
+
+class GSM{
+
+}
+
+class Vehicle{
+    plate id
+    brand
+    model
+    type
+    tare
+    gross weight
+    current kms
+    registration date
+    acquisition date
+    maintenance frequency
+    km at last maintenance
+}
+
+class GreenSpace {
+  name
+  area
+}
+
+class Entry {
+    task
+    greenSpace
+}
+
+class AgendaEntry {
+    date
+    status
+}
+
+class Agenda {
+    AgendaEntries
+}
+
+
+GSM "1" -- "0..*" GreenSpace : manages >
+Agenda "1" -- "0..*" AgendaEntry : includes >
+AgendaEntry --|> Entry
+Vehicle "1..*" -- "1" AgendaEntry : is assigned >
+GSM "1" -- "*" Agenda : manages >
+
+GSM "1"-"   1..*" Vehicle: assigns >
+
+@enduml
