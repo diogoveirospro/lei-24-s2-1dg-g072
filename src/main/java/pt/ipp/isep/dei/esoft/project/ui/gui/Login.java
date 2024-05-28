@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.esoft.project.ui.gui.applicationJavaFx;
+package pt.ipp.isep.dei.esoft.project.ui.gui;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;

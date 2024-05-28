@@ -4,7 +4,7 @@ import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidCollaboratorDataException;
 import pt.ipp.isep.dei.esoft.project.ui.Bootstrap;
 import pt.ipp.isep.dei.esoft.project.ui.console.menu.MainMenuUI;
-import pt.ipp.isep.dei.esoft.project.ui.gui.applicationJavaFx.Login;
+import pt.ipp.isep.dei.esoft.project.ui.gui.MainMenu;
 
 import static javafx.application.Application.launch;
 
@@ -22,7 +22,7 @@ public class Main extends javafx.application.Application {
     }
     @Override
     public void start(Stage primaryStage) {
-        Login loginApp = new Login();
-        loginApp.start(primaryStage);
+        MainMenu mainMenuUI = new MainMenu();
+        mainMenuUI.start(primaryStage);
     }
 }
