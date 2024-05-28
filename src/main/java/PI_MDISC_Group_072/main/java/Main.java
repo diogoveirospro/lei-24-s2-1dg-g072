@@ -25,21 +25,22 @@ public class Main {
             try {
                 option = sc.nextInt();
 
-                if (option == 1){
+                if (option == 1) {
                     US13();
-                } else if (option == 2){
+                } else if (option == 2) {
                     US14();
-                } else if (option==3){
+                } else if (option == 3) {
                     US17();
-                } else if (option==4) {
+                } else if (option == 4) {
                     US18();
                 } else {
                     System.out.println("Please insert a valid option!");
                 }
-            }catch (InputMismatchException e){
+            } catch (InputMismatchException e) {
                 System.out.println("Please insert a number!");
                 sc.next();
-            };
+            }
+            ;
 
 
         } while (option < 1 || option > 3);
@@ -54,16 +55,29 @@ public class Main {
         ArrayList<Vertex> vertices = readVertexFile(fileVertices);
         int[][] weights = readWeightFile(fileWeights);
         ArrayList<Edge> graphEdges = new ArrayList<>();
-        Graph graph = addEdges(graphEdges);
-        bubbleSort(graphEdges);
-        ArrayList<Vertex> verticesGraph = getVerticesGraph(graphEdges);
+        makeEdges(graphEdges, vertices, weights);
+        // bubbleSort(graphEdges);
         ArrayList<String> MP = new ArrayList<>();
-        /*
-        for (int i = 0; i < MP.size(); i++) {
-            Graph evacuationRoutes  = Dijkstra(graphEdges, verticesGraph);
+        sortMP(MP, vertices);
+        if (MP.isEmpty()) {
+            System.out.println("There is no Meeting Point in the file!");
+        } else {
+            for (int i = 0; i < MP.size(); i++) {
+                Graph evacuationRoutes = Dijkstra(graphEdges, vertices);
+            }
         }
-        */
+
     }
+
+    private static void sortMP(ArrayList<String> AP, ArrayList<Vertex> vertices) {
+
+        for (Vertex vertex : vertices) {
+            if (vertex.getV().contains("AP")) {
+                AP.add(vertex.getV());
+            }
+        }
+    }
+
 
     private static void US17() throws FileNotFoundException {
         Scanner sc = new Scanner(System.in);
@@ -73,11 +87,40 @@ public class Main {
         ArrayList<Vertex> vertices = readVertexFile(file);
         int[][] weights = readWeightFile(file);
         ArrayList<Edge> graphEdges = new ArrayList<>();
-        Graph graph = addEdges(graphEdges);
-        bubbleSort(graphEdges);
+        makeEdges(graphEdges, vertices, weights);
+        // bubbleSort(graphEdges);
 
-        ArrayList<Vertex> verticesGraph = getVerticesGraph(graphEdges);
-        Graph evacuationRoutes  = Dijkstra(graphEdges, verticesGraph);
+        String MP = getMP(vertices);
+        if (MP == null) {
+            System.out.println("There is no Meeting Point in the file!");
+        } else {
+            Graph evacuationRoutes = Dijkstra(graphEdges, vertices);
+        }
+
+    }
+
+    private static String getMP(ArrayList<Vertex> vertices) {
+        String AP = null;
+        for (Vertex vertex : vertices) {
+            if (vertex.getV().contains("AP")) {
+                AP = vertex.getV();
+            }
+        }
+        return AP;
+    }
+
+    private static void makeEdges(ArrayList<Edge> graphEdges, ArrayList<Vertex> vertices, int[][] weights) {
+        for (int i = 0; i < vertices.size(); i++) {
+            for (int j = 0; j < vertices.size(); j++) {
+                if (weights[i][j] != 0) {
+                    if (i != j) {
+                        Edge edge = new Edge(vertices.get(i), vertices.get(j), weights[i][j]);
+                        graphEdges.add(edge);
+                    }
+
+                }
+            }
+        }
 
     }
 
@@ -110,7 +153,7 @@ public class Main {
         ArrayList<Double> time = new ArrayList<>();
         ArrayList<Integer> quantityOfEdges = new ArrayList<>();
 
-        for (int i = 0; i <  QUANTITY_OF_FILES; i++) {
+        for (int i = 0; i < QUANTITY_OF_FILES; i++) {
 
 
             inputFile = aux;
@@ -124,15 +167,16 @@ public class Main {
             long startTime = System.currentTimeMillis();
             Graph spanningTree = Graph.kruskal(graphEdges, verticesGraph);
             long endTime = System.currentTimeMillis();
-            long durationTime =((endTime - startTime));
-            time.add((double) durationTime * Math.pow(10,-2));
+            long durationTime = ((endTime - startTime));
+            time.add((double) durationTime * Math.pow(10, -2));
             System.out.println("File: " + inputFile + ".csv done!");
         }
 
-        asymptoticInfo(quantityOfEdges,time);
+        asymptoticInfo(quantityOfEdges, time);
         createGnuplotGraph();
     }
-    private static Graph Dijkstra(ArrayList<Edge> assemblyPoints, ArrayList<Vertex> vertices){
+
+    private static Graph Dijkstra(ArrayList<Edge> assemblyPoints, ArrayList<Vertex> vertices) {
         return null;
     }
 
@@ -270,20 +314,24 @@ public class Main {
         in.close();
         return graphEdges;
     }
+
     private static ArrayList<Vertex> readVertexFile(StringBuilder file) throws FileNotFoundException {
         ArrayList<Vertex> vertices = new ArrayList<>();
         Scanner in = new Scanner(new File(String.valueOf(file)));
 
-        while (in.hasNextLine()) {
-            Vertex vertex = new Vertex(in.nextLine());
-            vertices.add(vertex);
+        String allVertices = in.nextLine();
+        String[] aux = allVertices.split(";");
+        for (String vertex : aux) {
+            Vertex newVertex = new Vertex(vertex);
+            vertices.add(newVertex);
         }
 
         in.close();
         return vertices;
     }
+
     private static int[][] readWeightFile(StringBuilder file) throws FileNotFoundException {
-        int [][] dimensions = getDimensions(file);
+        int[][] dimensions = getDimensions(file);
         int[][] weights = new int[dimensions.length][dimensions[0].length];
         Scanner in = new Scanner(new File(String.valueOf(file)));
         int line = 0;
@@ -309,8 +357,8 @@ public class Main {
             String[] costs = readLineCosts(in);
             if (costs != null) {
                 columns = costs.length;
+                lines++;
             }
-            lines++;
         }
         return new int[lines][columns];
     }
@@ -328,6 +376,7 @@ public class Main {
         }
         return null;
     }
+
     private static String[] readLineCosts(Scanner in) {
         if (in.hasNextLine()) {
             String line = in.nextLine();
@@ -406,6 +455,7 @@ public class Main {
             }
         }
     }
+
     private static void asymptoticInfo(ArrayList<Integer> quantityOfEdges, ArrayList<Double> time) {
         try (PrintWriter writer = new PrintWriter(new FileWriter("src/main/java/PI_MDISC_Group_072/Output/AsymptoticBehavior.csv"))) {
             writer.println("size;time");
