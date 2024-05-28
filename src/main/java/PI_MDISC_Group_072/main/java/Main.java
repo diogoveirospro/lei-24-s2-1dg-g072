@@ -48,10 +48,11 @@ public class Main {
     private static void US18() throws FileNotFoundException {
         Scanner sc = new Scanner(System.in);
         StringBuilder inputFile = new StringBuilder(getFile(sc));
-        StringBuilder file = new StringBuilder("src/main/java/PI_MDISC_Group_072/Input/" + inputFile + ".csv");
+        StringBuilder fileWeights = new StringBuilder("src/main/java/PI_MDISC_Group_072/Input/" + inputFile + ".csv");
+        StringBuilder fileVertices = new StringBuilder("src/main/java/PI_MDISC_Group_072/Input/" + inputFile + ".csv");
 
-        ArrayList<Vertex> vertices = readVertexFile(file);
-        ArrayList<Integer> weights = readWeightFile(file);
+        ArrayList<Vertex> vertices = readVertexFile(fileVertices);
+        int[][] weights = readWeightFile(fileWeights);
         ArrayList<Edge> graphEdges = new ArrayList<>();
         Graph graph = addEdges(graphEdges);
         bubbleSort(graphEdges);
@@ -70,7 +71,7 @@ public class Main {
         StringBuilder file = new StringBuilder("src/main/java/PI_MDISC_Group_072/Input/" + inputFile + ".csv");
 
         ArrayList<Vertex> vertices = readVertexFile(file);
-        ArrayList<Integer> weights = readWeightFile(file);
+        int[][] weights = readWeightFile(file);
         ArrayList<Edge> graphEdges = new ArrayList<>();
         Graph graph = addEdges(graphEdges);
         bubbleSort(graphEdges);
@@ -281,17 +282,37 @@ public class Main {
         in.close();
         return vertices;
     }
-    private static ArrayList<Integer> readWeightFile(StringBuilder file) throws FileNotFoundException {
-        ArrayList<Integer> weights = new ArrayList<>();
+    private static int[][] readWeightFile(StringBuilder file) throws FileNotFoundException {
+        int [][] dimensions = getDimensions(file);
+        int[][] weights = new int[dimensions.length][dimensions[0].length];
         Scanner in = new Scanner(new File(String.valueOf(file)));
-
+        int line = 0;
         while (in.hasNextLine()) {
-            int weight = Integer.parseInt(in.nextLine());
-            weights.add(weight);
+            int columns = 0;
+            String[] costs = readLineCosts(in);
+            for (String cost : costs) {
+                weights[line][columns] = Integer.parseInt(cost);
+                columns++;
+            }
+            line++;
         }
 
         in.close();
         return weights;
+    }
+
+    private static int[][] getDimensions(StringBuilder file) throws FileNotFoundException {
+        int lines = 0;
+        int columns = 0;
+        Scanner in = new Scanner(new File(String.valueOf(file)));
+        while (in.hasNextLine()) {
+            String[] costs = readLineCosts(in);
+            if (costs != null) {
+                columns = costs.length;
+            }
+            lines++;
+        }
+        return new int[lines][columns];
     }
 
     private static Edge readLine(Scanner in) {
@@ -304,6 +325,13 @@ public class Main {
                 int cost = Integer.parseInt(parts[2]);
                 return new Edge(new Vertex(origin), new Vertex(destiny), cost);
             }
+        }
+        return null;
+    }
+    private static String[] readLineCosts(Scanner in) {
+        if (in.hasNextLine()) {
+            String line = in.nextLine();
+            return line.split(";");
         }
         return null;
     }
