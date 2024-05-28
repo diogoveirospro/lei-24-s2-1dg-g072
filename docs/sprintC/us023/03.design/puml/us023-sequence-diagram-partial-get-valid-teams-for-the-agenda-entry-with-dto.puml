@@ -1,0 +1,99 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+participant ":AssignTeamController" as CTRL
+participant "repositories\n:Repositories" as REP
+participant "teamRepository\n:TeamRepository" as TEAMREP
+participant "teamRepositoryMapper\n:TeamRepositoryMapper" as TEAMREPMAPPER
+participant "team\n:Team" as TEAM
+participant "listTeams\n:List<Team>" as LISTTEAM
+participant "teamsDto\n:List<TeamDto>" as TEAMSDTO
+participant "teamDto\n:TeamDto" as TEAMDTO
+
+autonumber 7
+-> CTRL: getValidTeams(agendaEntryDto)
+
+autonumber 7.1
+activate CTRL
+    group Get valid Teams for the Agenda entry with DTO
+
+        CTRL -> REP**: getInstance()
+        activate REP
+
+            REP --> CTRL: repositories
+        deactivate REP
+
+        CTRL -> REP: getTeamRepository()
+        activate REP
+
+            REP --> CTRL: teamRepository
+        deactivate REP
+
+        CTRL -> CTRL : agendaEntry = toDomain(agendaEntryDto)
+        activate CTRL
+        deactivate CTRL
+
+        CTRL -> TEAMREP** : getValidTeams(agendaEntry)
+        activate TEAMREP
+
+            TEAMREP --> LISTTEAM** : create()
+            activate LISTTEAM
+
+                loop for each team
+                TEAMREP -> TEAM** : b = validateTeamToBeAssignedToAnAgendaEntry(agendaEntry)
+
+                    opt b == true
+                        TEAMREP -> LISTTEAM : add(team)
+                        activate LISTTEAM
+                        deactivate LISTTEAM
+                    end
+
+                end
+
+                LISTTEAM --> TEAMREP : listTeams
+            deactivate LISTTEAM
+
+                TEAMREP --> CTRL : listTeams
+            deactivate TEAMREP
+
+        CTRL -> TEAMREPMAPPER** : teamsToDto(listTeams)
+        activate TEAMREPMAPPER
+
+            TEAMREPMAPPER --> TEAMSDTO** : create()
+
+                loop for each team
+                    TEAMREPMAPPER -> LISTTEAM : get(i)
+                    activate LISTTEAM
+
+                        LISTTEAM --> TEAMREPMAPPER : team
+                    deactivate LISTTEAM
+
+                    TEAMREPMAPPER -> TEAMREPMAPPER : teamDto = toDTO(team)
+                    activate TEAMREPMAPPER
+                    deactivate TEAMREPMAPPER
+
+                    TEAMREPMAPPER --> TEAMDTO** : create()
+                    activate TEAMDTO
+
+                        TEAMDTO --> TEAMREPMAPPER : teamDto
+                    deactivate TEAMDTO
+
+                    TEAMREPMAPPER -> TEAMSDTO : add(teamDto)
+                    activate TEAMSDTO
+                    deactivate TEAMSDTO
+
+                end
+
+                TEAMREPMAPPER --> CTRL : teamsDto
+            deactivate TEAMREPMAPPER
+
+    end
+
+    autonumber 8
+    <-- CTRL : teamsDto
+deactivate CTRL
+
+
+@enduml

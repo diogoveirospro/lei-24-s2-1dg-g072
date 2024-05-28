@@ -1,0 +1,81 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+participant ":AssignTeamController" as CTRL
+participant "agenda\n:Agenda" as AGENDA
+participant "agendaEntry\n:AgendaEntry" as AGENDAENTRY
+participant "team\n:Team" as TEAM
+participant "collaborator\n:Collaborator" as COLLAB
+participant "EmailAdapter" as EmailAdapter
+participant "emailService\n:EmailService" as EMAILSERVICE
+
+autonumber 13
+-> CTRL: assignTeamToAgendaEntry(teamDto)
+
+autonumber 13.1
+activate CTRL
+    group Assign Team and Notify Members
+
+            CTRL -> CTRL : team = toDomain(teamDto)
+            activate CTRL
+            deactivate CTRL
+
+            CTRL -> AGENDA** : assignTeamToAgendaEntry(agendaEntry, team)
+            activate AGENDA
+
+                AGENDA -> AGENDAENTRY** : assignTeam(team)
+                activate AGENDAENTRY
+
+                    AGENDAENTRY -> TEAM** : assignAgendaEntry()
+                    activate TEAM
+
+                        TEAM -> TEAM : blockTeamAtATime()
+                        activate TEAM
+                        deactivate TEAM
+
+                        TEAM --> AGENDAENTRY : operation success
+                    deactivate TEAM
+
+                    AGENDAENTRY --> AGENDA : operation success
+                deactivate AGENDAENTRY
+
+                AGENDA --> CTRL : operation success
+            deactivate AGENDA
+
+            CTRL -> TEAM : getMembers()
+            activate TEAM
+
+                TEAM --> CTRL : members
+            deactivate TEAM
+
+                loop for each member
+                    CTRL -> COLLAB** : getEmail()
+                    activate COLLAB
+
+                    COLLAB --> CTRL : email
+                    deactivate COLLAB
+
+                    CTRL -> EmailAdapter** : sendEmail(email)
+                    activate EmailAdapter
+
+                    EmailAdapter -> EMAILSERVICE** : send(email)
+                    activate EMAILSERVICE
+
+                    EMAILSERVICE --> EmailAdapter : email sent confirmation
+                    deactivate EMAILSERVICE
+
+                    EmailAdapter --> CTRL : email sent confirmation
+                    deactivate EmailAdapter
+                end
+
+
+    end
+
+    autonumber 14
+    <-- CTRL : operation success
+deactivate CTRL
+
+
+@enduml
