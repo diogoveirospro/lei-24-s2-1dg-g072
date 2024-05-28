@@ -1,4 +1,4 @@
-# US029 - Completion of a Task
+# US029 - Record the Completion of a Task
 
 ## 2. Analysis
 
