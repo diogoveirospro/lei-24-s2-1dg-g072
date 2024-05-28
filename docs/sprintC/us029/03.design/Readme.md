@@ -29,13 +29,14 @@ According to the taken rationale, the conceptual classes promoted to software cl
 
 * Task
 * TaskRepository
-* TaskDto
+* RecordTaskCompletionController
+* CollaboratorRepository
 
 Other software classes (i.e., Pure Fabrication) identified:
 
 * RecordTaskCompletionUI
 * RecordTaskCompletionController
-
+* TaskDto
 
 ## 3.2. Sequence Diagram (SD)
 

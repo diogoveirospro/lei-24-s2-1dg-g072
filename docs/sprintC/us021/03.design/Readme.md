@@ -30,6 +30,10 @@ _**Note that SSD - Alternative One is adopted.**_
 
 According to the taken rationale, the conceptual classes promoted to software classes are:
 
+* CollaboratorRepository
+* GreenSpaceRepository
+* GreenSpaceRepositoryMapper
+* GreenSpace
 * ToDoList
 * ToDoListMapper
 * ToDoListEntry
@@ -38,6 +42,7 @@ Other software classes (i.e. Pure Fabrication) identified:
 
 * AddToDoListEntryUI
 * ToDoListDto
+* GreenSpaceDto
 * AddToDoListEntryController
 
 ## 3.2. Sequence Diagram (SD)

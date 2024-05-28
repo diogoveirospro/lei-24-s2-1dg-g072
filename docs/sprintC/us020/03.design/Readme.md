@@ -28,11 +28,12 @@ According to the taken rationale, the conceptual classes promoted to software cl
 * GreenSpace
 * GreenSpaceMapper
 * GreenSpaceRegistry
+* GreenSpaceRepository
+
 
 Other software classes (i.e. Pure Fabrication) identified:
 
 * RegisterGreenSpaceUI
-* GreenSpaceDto
 * RegisterGreenSpaceController
 
 ## 3.2. Sequence Diagram (SD)
