@@ -3,8 +3,9 @@ package pt.ipp.isep.dei.esoft.project;
 import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidCollaboratorDataException;
 import pt.ipp.isep.dei.esoft.project.ui.Bootstrap;
-import pt.ipp.isep.dei.esoft.project.ui.console.menu.MainMenuUI;
-import pt.ipp.isep.dei.esoft.project.ui.gui.MainMenu;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.MainMenuUI;
+
+import java.io.IOException;
 
 import static javafx.application.Application.launch;
 
@@ -21,8 +22,8 @@ public class Main extends javafx.application.Application {
         launch(args);
     }
     @Override
-    public void start(Stage primaryStage) {
-        MainMenu mainMenuUI = new MainMenu();
+    public void start(Stage primaryStage) throws IOException {
+        MainMenuUI mainMenuUI = new MainMenuUI();
         mainMenuUI.start(primaryStage);
     }
 }
