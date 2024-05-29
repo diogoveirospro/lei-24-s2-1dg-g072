@@ -367,23 +367,24 @@ minimum and maximum size of the team and the set of skills required for a given 
 
 
 > ### 27. List all the green spaces managed by a GSM | GSM
-> **Purpose:** This feature allows the Green Spaces Manager to apply an algorithm that returns the routes to be opened and pipes needed to be laid with a minimum accumulated cost, ensuring that all points are adequately supplied.
+> **Purpose:** This feature allows the Green Spaces Manager to list all the green spaces under is management, with a sorting option of is choice. 
 >
 > **Instructions**:
-> - Log in to your Green Spaces Manager account;
-> - From the main menu, select "Topographic Survey" or a similar option.
-> - Choose the park you want to create a Topographic Survey from the available list.
-> - Click on "Visualize" to obtain the Topographic Survey
+> - Log in to your Green Space Manager account;
+> - From the main menu, select "List GreenSpaces" or a similar option.
+> - The app will show a list of different methods to sort the green spaces.
+> - Click on confirm to obtain the list of greenSpaces managed by you.
 
 
 > ### 28. Consult the tasks assigned to a collaborator between two dates | Collaborator
-> **Purpose:** This feature allows the Software Quality Assessment Team Manager to run tests for inputs of variable size, to observe the asymptotic behavior of the execution time of the US13 algorithm.
+> **Purpose:** This feature allows the collaborator, to check all the tasks assigned to him between two days, and allows him to filter with the status.
 >
 > **Instructions**:
-> - Log in to your Software Quality Assessment Team Manager account;
-> - From the main menu, select "Asymptotic Behavior" or a similar option.
-> - Run the algorithm of US13 for all the files that you want.
-> - Click on "Visualize" to obtain the Asymptotic Behavior graph.
+> - Log in to your Collaborator account;
+> - From the main menu, select "View Tasks" or a similar option.
+> - The system will ask you to choose an initial date and an end date to check the tasks inside this parameter.
+> - The app will show a list of status and will ask if you want to filter using any of the status or no.
+> - Click on confirm to visualize the list of the tasks between both dates.
 
 
 > ### 29. Record the completion of a task | Collaborator

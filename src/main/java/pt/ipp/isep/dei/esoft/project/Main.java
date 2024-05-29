@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project;
 
+import javafx.application.Application;
 import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidCollaboratorDataException;
 import pt.ipp.isep.dei.esoft.project.ui.Bootstrap;
@@ -14,7 +15,7 @@ import static javafx.application.Application.launch;
  *
  * @author Group 072 - Byte Masters - ISEP
  */
-public class Main extends javafx.application.Application {
+public class Main extends Application {
 
     public static void main(String[] args) throws InvalidCollaboratorDataException {
         Bootstrap bootstrap = new Bootstrap();

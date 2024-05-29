@@ -12,34 +12,34 @@ participant "greenSpaceDto\n:GreenSpaceDto" as DTO
 participant "greenSpaceList\n:List<GreenSpace>" as greenSpaceList
 participant "greenSpaceListDto\n:List<GreenSpaceDto>" as LISTDTO
 
-autonumber 10
+autonumber 12
 
  -> Mapper : toDto(greenSpaceList)
-autonumber 10.1
+autonumber 12.1
 activate Mapper
     group Create a copy of GreenSpace list
 
             Mapper --> LISTDTO** : create()
-                loop for each entry in entryList
+                loop for each greenSpace in greenSpaceList
                     Mapper -> greenSpaceList : get(i)
                         activate greenSpaceList
 
-                        greenSpaceList --> Mapper : entry
+                        greenSpaceList --> Mapper : greenSpace
                         deactivate greenSpaceList
-                    Mapper -> DTO : toDTOEntry(entry)
+                    Mapper -> DTO : toDTOEntry(greenSpace)
                         activate DTO
 
-                        DTO --> Mapper : entryDto
+                        DTO --> Mapper : greenSpaceDto
                         deactivate DTO
-                    Mapper -> LISTDTO : add(taskDto)
+                    Mapper -> LISTDTO : add(greenSpaceDto)
                         activate LISTDTO
                 end
 
 
-            LISTDTO --> Mapper : listEntriesDto
+            LISTDTO --> Mapper : greenSpaceListDto
              deactivate LISTDTO
     end
-    autonumber 11
+    autonumber 13
 
     <-- Mapper  : greenSpaceListDto
 

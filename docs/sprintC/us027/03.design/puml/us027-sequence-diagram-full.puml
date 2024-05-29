@@ -106,7 +106,7 @@ activate GSM
                                 deactivate greenSpaceRepository
 
                             deactivate greenSpaceRepository
-                            CTRL --> UI : sortingOption
+                            CTRL --> UI : sortingOptions
                         deactivate CTRL
 
 
@@ -144,7 +144,7 @@ activate GSM
                         greenSpaceRepository -> greenSpaceList**: create()
                         loop for each greenSpace
 opt greenSpace.getGSM() == greenSpaceManager
-                            greenSpaceRepository -> greenSpaceList : add(greenSpaceManager)
+                            greenSpaceRepository -> greenSpaceList : add(greenSpace)
                                 activate greenSpaceList
 
 
@@ -195,23 +195,23 @@ opt greenSpace.getGSM() == greenSpaceManager
             activate Mapper
 
             Mapper --> LISTDTO** : create()
-                loop for each entry in entryList
+                loop for each greenSpace in greenSpaceList
                     Mapper -> greenSpaceList : get(i)
                         activate greenSpaceList
 
-                        greenSpaceList --> Mapper : entry
+                        greenSpaceList --> Mapper : greenSpace
                         deactivate greenSpaceList
-                    Mapper -> DTO : toDTOEntry(entry)
+                    Mapper -> DTO : toDTOEntry(greenSpace)
                         activate DTO
 
-                        DTO --> Mapper : entryDto
+                        DTO --> Mapper : greenSpaceDto
                         deactivate DTO
-                    Mapper -> LISTDTO : add(taskDto)
+                    Mapper -> LISTDTO : add(greenSpaceDto)
                         activate LISTDTO
                 end
 
 
-            LISTDTO --> Mapper : listEntriesDto
+            LISTDTO --> Mapper : greenSpaceListDto
              deactivate LISTDTO
             Mapper --> CTRL : greenSpaceListDto
 

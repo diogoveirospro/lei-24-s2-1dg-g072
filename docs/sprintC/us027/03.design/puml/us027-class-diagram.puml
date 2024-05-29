@@ -22,6 +22,17 @@ class ListGreenSpaceController{
 }
 }
 package Domain{
+package ExternalModule{
+interface "ExternalModule" as EM{
+    - getReferenceValue(sortingOption)
+}
+class ExternalModuleAdapter1{
+    + getReferenceValue(sortingOption)
+}
+class ExternalModuleAdapter2{
+    + getReferenceValue(sortingOption)
+}
+}
 package Mapper{
 class GreenSpaceMapper{
     - greenSpaceListDto
@@ -41,6 +52,7 @@ package Domain.Reository{
 class GreenSpaceRepository{
     - greenSpaceList
     + getGreenSpaceList()
+    + getExternalModule()
 }
 class CollaboratorRepository{
     - collaboratorList
@@ -63,4 +75,7 @@ ListGreenSpaceController "1" -> "1" GreenSpaceMapper: greenSpaceList
 GreenSpaceMapper "1" -> "1" GreenSpaceDto: greenSpace
 Repositories "1" --> "1" CollaboratorRepository: collaboratorRepository
 ListGreenSpaceController .> CollaboratorRepository: collaboratorRepository
+GreenSpaceRepository "1" -> "1" EM : getExternalModule()
+EM "1" --> "1" ExternalModuleAdapter1 : getReferenceValue()
+EM "1" --> "1" ExternalModuleAdapter2 : getReferenceValue()
 @enduml
