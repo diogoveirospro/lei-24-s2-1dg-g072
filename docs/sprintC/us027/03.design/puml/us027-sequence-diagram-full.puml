@@ -16,6 +16,8 @@ participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as REP
 participant "collaboratorRepository\n:CollaboratorRepository" as collaboratorRepository
 participant "greenSpaceRepository\n:GreenSpaceRepository" as greenSpaceRepository
+participant "em\n:ExternalModule" as EM
+participant "refValue\n:RefValue" as RefValue
 participant ":GreenSpaceMapper" as Mapper
 participant "greenSpaceList\n:List<GreenSpace>" as greenSpaceList
 participant "greenSpaceDto\n:GreenSpaceDto" as DTO
@@ -69,14 +71,45 @@ activate GSM
                             activate collaboratorRepository
 
                             collaboratorRepository --> CTRL : greenSpaceManager
-
                                 deactivate collaboratorRepository
 
-                            deactivate collaboratorRepository
+                                deactivate collaboratorRepository
+                            CTRL --> CTRL : greenSpaceManager
+                                deactivate CTRL
+
+
+
                         CTRL --> UI : greenSpaceManager
                         deactivate CTRL
 
+                    UI -> CTRL : getSortingOptions()
+                        activate CTRL
+
+                            CTRL -> RepositorySingleton: getInstance()
+                            activate RepositorySingleton
+
+                                RepositorySingleton --> CTRL : repositories
+                            deactivate RepositorySingleton
+
+                            CTRL -> REP : getGreenSpaceRepository()
+                            activate REP
+
+                                REP --> CTRL: greenSpaceRepository
+                            deactivate REP
+
+                            CTRL -> greenSpaceRepository : getSortingOptions()
+                            activate greenSpaceRepository
+                                greenSpaceRepository -> greenSpaceRepository : getConfigurationsFromFile()
+                                activate greenSpaceRepository
+
+                                greenSpaceRepository --> CTRL: sortingOptions
+                                deactivate greenSpaceRepository
+
+                            deactivate greenSpaceRepository
+                            CTRL --> UI : sortingOption
                         deactivate CTRL
+
+
             UI --> GSM : asks the user to choose a sorting option
         deactivate UI
 
@@ -109,7 +142,7 @@ activate GSM
                 activate greenSpaceRepository
 
                         greenSpaceRepository -> greenSpaceList**: create()
-                        loop for each greenSpace in greenSpaceList
+                        loop for each greenSpace
 opt greenSpace.getGSM() == greenSpaceManager
                             greenSpaceRepository -> greenSpaceList : add(greenSpaceManager)
                                 activate greenSpaceList
@@ -121,17 +154,38 @@ opt greenSpace.getGSM() == greenSpaceManager
                                         end
 
                                         end
-                                        greenSpaceList -> greenSpaceList : sort(sortingOption)
-                                        activate greenSpaceList
+
 
                                                 greenSpaceList --> greenSpaceRepository: greenSpaceList
 
-                                        deactivate greenSpaceList
 
                                 deactivate greenSpaceList
 
+
+                                    greenSpaceRepository -> greenSpaceRepository : getExternalModule()
+
+                                    activate greenSpaceRepository
+
+                                        greenSpaceRepository --> EM : getReferenceValue(sortingOption)
+                                        activate EM
+
+                                                EM -> RefValue** : create(sortingOption)
+                                        EM --> greenSpaceRepository : refValue
+                                        deactivate EM
+
+                                        greenSpaceRepository --> greenSpaceList : sortList(refValue)
+                                        activate greenSpaceList
+                                                greenSpaceList -> greenSpaceList : sortList(refValue)
+                                                activate greenSpaceList
+
+                                                    greenSpaceList --> greenSpaceRepository : greenSpaceList
+                                                deactivate greenSpaceList
+
+                                        deactivate greenSpaceList
+
                         greenSpaceRepository --> CTRL : greenSpaceList
 
+                        deactivate greenSpaceRepository
 
                 deactivate greenSpaceRepository
 
