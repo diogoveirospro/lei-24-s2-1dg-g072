@@ -6,12 +6,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.ui.LoginUI">
    <children>
       <TextField layoutX="207.0" layoutY="169.0" promptText="Email..." />
-      <TextField layoutX="207.0" layoutY="215.0" promptText="Password" />
-      <Button layoutX="337.0" layoutY="259.0" mnemonicParsing="false" text="Login" />
-      <Button layoutX="207.0" layoutY="259.0" mnemonicParsing="false" text="Cancel" />
+      <TextField layoutX="207.0" layoutY="215.0" promptText="Password..." />
+      <Button defaultButton="true" layoutX="319.0" layoutY="259.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="75.0" text="Login" textAlignment="CENTER" />
+      <Button cancelButton="true" contentDisplay="CENTER" layoutX="207.0" layoutY="259.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="75.0" text="Cancel" textAlignment="CENTER" />
    </children>
 </AnchorPane>
