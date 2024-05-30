@@ -1,8 +1,8 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
-import pt.ipp.isep.dei.esoft.project.Mapper.EntryMapper;
+import pt.ipp.isep.dei.esoft.project.Mapper.AgendaEntryMapper;
 import pt.ipp.isep.dei.esoft.project.domain.*;
-import pt.ipp.isep.dei.esoft.project.dto.EntryDto;
+import pt.ipp.isep.dei.esoft.project.dto.AgendaEntryDto;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 
 import java.util.List;
@@ -162,11 +162,11 @@ public class ListTaskController {
      * @param endDate   end date of the task
      * @return list of tasks of the collaborator
      */
-    public List<EntryDto> getTaskList(Collaborator collaborator, String typeStatus, Date startDate, Date endDate) {
+    public List<AgendaEntryDto> getTaskList(Collaborator collaborator, String typeStatus, Date startDate, Date endDate) {
         List<Team> teamList = this.teamRepository.getTeamsByCollaborator(collaborator);
-        List<Task> taskList = this.taskRepository.getCollaboratorTaskList(teamList, typeStatus);
-        List<Entry> entryList = this.agenda.getEntryList(taskList, startDate, endDate);
-        EntryMapper mapper = new EntryMapper();
-        return mapper.toDtoList(entryList);
+        List<Task> taskList = this.taskRepository.getCollaboratorTaskList(teamList);
+        List<AgendaEntry> agendaEntryList = this.agenda.getEntryList(taskList, startDate, endDate,typeStatus);
+        AgendaEntryMapper mapper = new AgendaEntryMapper();
+        return mapper.toDtoList(agendaEntryList);
     }
 }

@@ -17,21 +17,22 @@ public class Agenda {
     /**
      * Retrieves a list of entries for the specified tasks within the given date range.
      *
-     * @param taskList the list of tasks to filter entries.
-     * @param startDate the start date of the range to filter entries.
-     * @param endDate the end date of the range to filter entries.
+     * @param taskList   the list of tasks to filter entries.
+     * @param startDate  the start date of the range to filter entries.
+     * @param endDate    the end date of the range to filter entries.
+     * @param typeStatus the status of the entries to filter.
      * @return a list of entries matching the specified tasks and date range.
      */
-    public List<Entry> getEntryList(List<Task> taskList, Date startDate, Date endDate) {
-        List<Entry> entryList = new ArrayList<>();
+    public List<AgendaEntry> getEntryList(List<Task> taskList, Date startDate, Date endDate, String typeStatus) {
+        List<AgendaEntry> agendaEntryList = new ArrayList<>();
         for (Task task : taskList) {
-            for (AgendaEntry entry : entriesAgenda) {
-                if (entry.getTask().equals(task) && entry.getStartDate().compareTo(startDate) <= 0 && entry.getEndDate().compareTo(endDate) >= 0) {
-                    entryList.add(entry.getEntry());
+            for (AgendaEntry agendaEntry : entriesAgenda) {
+                if ((agendaEntry.getTask().equals(task)) && (agendaEntry.getStartDate().compareTo(startDate) >= 0 && agendaEntry.getEndDate().compareTo(endDate) >= 0) && agendaEntry.getStatus().toString().equals(typeStatus)) {
+                    agendaEntryList.add(agendaEntry);
                 }
             }
         }
-        return entryList;
+        return agendaEntryList;
     }
 
     /**
