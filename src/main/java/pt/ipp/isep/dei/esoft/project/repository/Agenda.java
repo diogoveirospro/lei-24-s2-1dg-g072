@@ -56,4 +56,8 @@ public class Agenda {
     public boolean addAgendaEntry(AgendaEntry agendaEntry) {
         return entriesAgenda.add(agendaEntry);
     }
+
+    public List<String> getStatusList() {
+        return AgendaEntry.StatusOfEntry.getStatusList();
+    }
 }

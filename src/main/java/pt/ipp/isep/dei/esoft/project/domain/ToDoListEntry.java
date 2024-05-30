@@ -11,6 +11,8 @@ public class ToDoListEntry extends Entry {
     private GreenSpace greenSpace;
     private DegreeOfUrgency degreeOfUrgency;
 
+
+
     /**
      * Enumeration for the degree of urgency.
      */

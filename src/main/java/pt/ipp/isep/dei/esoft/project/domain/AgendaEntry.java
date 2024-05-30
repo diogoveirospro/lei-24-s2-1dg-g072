@@ -63,7 +63,17 @@ public class AgendaEntry extends Entry{
         return endDate;
     }
 
-    public StatusOfEntry getStatus() {
-        return status;
+    @Override
+    public GreenSpace getGreenSpace() {
+        return super.getGreenSpace();
+    }
+
+    @Override
+    public List<Vehicle> getVehicleList() {
+        return super.getVehicleList();
+    }
+
+    public ToDoListEntry getToDoListEntry() {
+        return toDoListEntry;
     }
 }

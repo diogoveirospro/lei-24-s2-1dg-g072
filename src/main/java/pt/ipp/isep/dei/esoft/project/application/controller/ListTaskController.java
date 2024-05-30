@@ -30,7 +30,6 @@ public class ListTaskController {
      * teamRepository contains all teams
      */
     private TeamRepository teamRepository;
-    private ToDoList toDoList;
     /**
      * authenticationRepository authenticates the app
      */
@@ -44,7 +43,6 @@ public class ListTaskController {
         this.collaboratorRepository = Repositories.getInstance().getCollaboratorRepository();
         this.agenda = Repositories.getInstance().getAgenda();
         this.teamRepository = Repositories.getInstance().getTeamRepository();
-        this.toDoList = Repositories.getInstance().getToDoList();
         this.authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
     }
 
@@ -62,7 +60,6 @@ public class ListTaskController {
         this.collaboratorRepository = collaboratorRepository;
         this.agenda = agenda;
         this.teamRepository = teamRepository;
-        this.toDoList = toDoList;
         this.authenticationRepository = authenticationRepository;
     }
 
@@ -122,19 +119,6 @@ public class ListTaskController {
         return teamRepository;
     }
 
-    /**
-     * Lets the controller get the to do list
-     *
-     * @return toDoList
-     */
-    public ToDoList getToDoList() {
-        if (toDoList == null) {
-            Repositories repositories = Repositories.getInstance();
-
-            toDoList = repositories.getToDoList();
-        }
-        return toDoList;
-    }
 
     /**
      * Lets the controller get the authentication repository
@@ -166,7 +150,7 @@ public class ListTaskController {
      * @return status list
      */
     public List<String> getStatusList() {
-        return this.toDoList.getStatusList();
+        return this.agenda.getStatusList();
     }
 
     /**
