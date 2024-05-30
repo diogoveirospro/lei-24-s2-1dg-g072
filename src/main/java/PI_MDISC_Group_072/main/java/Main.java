@@ -1,10 +1,7 @@
 package PI_MDISC_Group_072.main.java;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Locale;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
@@ -65,12 +62,13 @@ public class Main {
             System.out.println("There is no Meeting Point in the file!");
         } else {
             for (int i = 0; i < MP.size(); i++) {
-                evacuationRoutes.add(Dijkstra(graphEdges, vertices));
+                String vertex = sc.nextLine();
+                evacuationRoutes.add(Dijkstra(graphEdges, vertices,vertex));
             }
         }
         System.out.println("Insert the vertex you want to know the shortest path to the closest AP or 'done'(if you want to stop):");
         String vertex = sc.nextLine();
-        while (!vertex.equalsIgnoreCase("done")){
+        while (!vertex.equalsIgnoreCase("done")) {
             vertex = sc.nextLine();
         }
 
@@ -101,11 +99,12 @@ public class Main {
         if (MP == null) {
             System.out.println("There is no Meeting Point in the file!");
         } else {
-            Graph evacuationRoutes = Dijkstra(graphEdges, vertices);
+            String vertex = sc.nextLine();
+            Graph evacuationRoutes = Dijkstra(graphEdges, vertices,vertex);
         }
         System.out.println("Insert the vertex you want to know the shortest path to the AP or 'done'(if you want to stop):");
         String vertex = sc.nextLine();
-        while (!vertex.equalsIgnoreCase("done")){
+        while (!vertex.equalsIgnoreCase("done")) {
 
             vertex = sc.nextLine();
         }
@@ -188,9 +187,57 @@ public class Main {
         createGnuplotGraph();
     }
 
-    private static Graph Dijkstra(ArrayList<Edge> assemblyPoints, ArrayList<Vertex> vertices) {
-        return null;
+
+    private static Graph Dijkstra(ArrayList<Edge> edges, ArrayList<Vertex> vertices, String startVertex) {
+
+        int[] distances = new int[vertices.size()];
+        boolean[] visited = new boolean[vertices.size()];
+        Vertex[] previous = new Vertex[vertices.size()];
+
+        Arrays.fill(distances, Integer.MAX_VALUE);
+        distances[vertices.indexOf(new Vertex(startVertex))] = 0;
+
+
+        for (int i = 0; i < vertices.size(); i++) {
+
+            int u = -1;
+            for (int j = 0; j < vertices.size(); j++) {
+                if (!visited[j] && (u == -1 || distances[j] < distances[u])) {
+                    u = j;
+                }
+            }
+
+            if (distances[u] == Integer.MAX_VALUE) {
+                break;
+            }
+
+            visited[u] = true;
+
+            for (Edge edge : edges) {
+                if (edge.getOrigin().equals(vertices.get(u))) {
+                    int v = vertices.indexOf(edge.getDestiny());
+                    int alt = distances[u] + edge.getCost();
+                    if (alt < distances[v]) {
+                        distances[v] = alt;
+                        previous[v] = vertices.get(u);
+                    }
+                }
+            }
+        }
+
+        ArrayList<Edge> shortestPathEdges = new ArrayList<>();
+        for (int i = 0; i < vertices.size(); i++) {
+            if (previous[i] != null) {
+                shortestPathEdges.add(new Edge(previous[i], vertices.get(i), distances[i]));
+            }
+        }
+        Graph graph = new Graph();
+        for (Edge edge : shortestPathEdges) {
+            graph.addEdge(edge);
+        }
+        return graph;
     }
+
 
     private static void createGraph(Graph graph, StringBuilder file) throws IOException, InterruptedException {
         createScriptGraph(graph, file);
