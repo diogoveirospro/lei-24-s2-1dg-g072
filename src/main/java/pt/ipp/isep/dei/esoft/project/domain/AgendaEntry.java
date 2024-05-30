@@ -49,8 +49,8 @@ public class AgendaEntry extends Entry{
         return toDoListEntry.getEntry();
     }
 
-    public AgendaEntry (Task task, GreenSpace greenSpace, Date startDate, Date endDate) {
-        super(task, greenSpace);
+    public AgendaEntry (Task task, Date startDate, Date endDate) {
+        super(task);
         this.startDate = startDate;
         this.endDate = endDate;
     }

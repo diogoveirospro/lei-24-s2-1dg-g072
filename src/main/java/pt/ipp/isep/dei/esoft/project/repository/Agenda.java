@@ -45,7 +45,7 @@ public class Agenda {
      * @return the newly created AgendaEntry object.
      */
     public AgendaEntry createAgendaEntry(Task task, GreenSpace greenSpace, Date startDate, Date endDate) {
-        return new AgendaEntry(task, greenSpace, startDate, endDate);
+        return new AgendaEntry(task, startDate, endDate);
     }
 
     /**
