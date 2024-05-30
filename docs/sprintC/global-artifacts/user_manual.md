@@ -1,5 +1,8 @@
 # Green Space Management Application User Manual
 
+## Cover
+
+## Table of Contents
 
 ## Glossary
 
@@ -13,6 +16,27 @@ In this manual, it is possible to find the system structure along with the syste
 the main features of the product, a structure diagram and features of the app. 
 This manual is addressed to the users of the product, specifically the green spaces managers and administrators. 
 
+## System Requirements
+
+### Hardware Requirements
+
+The application is designed to run on a variety of hardware configurations, don't needing a strong processor or GPU (graphical processor unit) to run the app.
+The following are the minimum hardware requirements to run the application:
+> - Space: at least 100 MB of free disk space.
+> - No extra I/O devices are required.
+> - The GPU must support JavaFX 11 or higher.
+
+### Software Requirements
+
+The application is designed to run on a variety of operating systems and software configurations. 
+The following are the minimum software requirements to run the application:
+> - The software must support svg files.
+
+Any relevant information for the application to be operated must be included in this section both
+referring to software and hardware compatibility. For example, required plugins (if any),
+Compatible Operating System(s), required versions and service packs, Disk space, RAM, required
+processor speed (if relevant), Software installation procedure(s), any other technical
+specification relevant for the software application to operate.
 
 ## System Overview
 
@@ -397,3 +421,25 @@ minimum and maximum size of the team and the set of skills required for a given 
 > - Look for an option such as "Mark as Completed" or similar.
 > - Click on the option to indicate that the task has been completed.
 > - Verify that the system provides confirmation that the task has been successfully marked as completed.
+
+## Troubleshooting
+
+This section should include a list of at least 10 possible (error) situations that might occur when
+handling the application to help the user identify and solve those problems. It must also include
+the contacts of a possible “Helpdesk or Support Centre”)
+Each troubleshooting statement (referred as “ISSUE”) must include:
+- Symptom – an item that suggest an incorrect functioning
+- Sequence of instructions to narrow down the identified problem
+- Solution – suggestions to address the identified problem
+- Additional resource(s) – reference to possible support channels
+
+## Frequently Asked Questions
+
+This section includes a list of questions the users may ask about the application, and the
+respective answers. Questions and Answers must be numbered, and short, referring to precise
+features of the application. It is advisable to include 1 question for each feature, using the
+following format:
+Q # Possible question
+A # Short, direct answer
+
+## References and useful links
