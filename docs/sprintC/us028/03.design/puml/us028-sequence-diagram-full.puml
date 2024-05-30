@@ -14,19 +14,18 @@ participant "currentSession\n:UserSession" as SESSION
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as REP
 participant "collaboratorRepository\n:CollaboratorRepository" as collaboratorRepository
-participant "toDoList\n:ToDoList" as toDoList
-participant "entry\n:Entry" as entry
-participant "statusList\n:List<String>" as LISTSTATUS
 participant "teamRepository\n:TeamRepository" as teamRepository
 participant "teamList\n:List<Team>" as LISTTEAM
 participant "team:Team" as TEAM
 participant "taskRepository\n:TaskRepository" as taskRepository
 participant "taskList\n:List<Task>" as LISTTASK
 participant "agenda\n:Agenda" as AGENDA
-participant ":EntryMapper" as Mapper
-participant "listEntriesDto\n:List<EntryDto>" as LISTENTRIESDTO
-participant "entryDto\n:EntryDto" as DTO
-participant "agendaEntries\n:List<AgendaEntries>" as AGENDAENTRIES
+participant "agendaEntry\n:AgendaEntry" as agendaEntry
+participant "statusList\n:List<String>" as LISTSTATUS
+participant ":AgendaEntryMapper" as Mapper
+participant "listAgendaEntriesDto\n:List<AgendaEntryDto>" as ListAgendaEntriesDto
+participant "agendaEntryDto\n:AgendaEntryDto" as DTO
+participant "agendaEntries\n:List<AgendaEntry>" as AGENDAENTRIES
 
 activate Col
 
@@ -99,29 +98,29 @@ Col -> UI : selects the beginning and end date
             RepositorySingleton --> CTRL : repositories
             deactivate RepositorySingleton
 
-        CTRL -> REP : getToDoList()
+        CTRL -> REP : getAgenda()
             activate REP
 
-            REP --> CTRL : toDoList
+            REP --> CTRL : agenda
             deactivate REP
 
-        CTRL -> toDoList : getStatusList()
-            activate toDoList
+        CTRL -> AGENDA : getStatusList()
+            activate AGENDA
 
-            toDoList -> LISTSTATUS** : create()
-                    toDoList -> entry : getStatusList()
-                        activate entry
+            AGENDA -> LISTSTATUS** : create()
+                    AGENDA -> agendaEntry : getStatusList()
+                        activate agendaEntry
 
                             loop for each status in the system
-                                entry -> LISTSTATUS : add(status)
+                                agendaEntry -> LISTSTATUS : add(status)
                                 activate LISTSTATUS
                             end
-                        LISTSTATUS --> entry : statusList
+                        LISTSTATUS --> agendaEntry : statusList
                         deactivate LISTSTATUS
-                    entry --> toDoList : statusList
-                    deactivate entry
-        toDoList --> CTRL : statusList
-        deactivate toDoList
+                    agendaEntry --> AGENDA : statusList
+                    deactivate agendaEntry
+        AGENDA --> CTRL : statusList
+        deactivate AGENDA
 
         CTRL --> UI : statusList
         deactivate CTRL
@@ -234,41 +233,41 @@ Col -> UI : confirms that he wants to create the list
                         end
                     end
                 end
-            AGENDAENTRIES --> AGENDA : listEntries
+            AGENDAENTRIES --> AGENDA : agendaEntryList
             deactivate AGENDAENTRIES
-        AGENDA --> CTRL : listEntries
+        AGENDA --> CTRL : agendaEntryList
         deactivate AGENDA
 
-        CTRL -> Mapper : toDTOList(listEntries)
+        CTRL -> Mapper : toDTOList(agendaEntryList)
             activate Mapper
 
-            Mapper --> LISTENTRIESDTO** : create()
-                loop for each entry in entryList
+            Mapper --> ListAgendaEntriesDto** : create()
+                loop for each agendaEntry in agendaEntryList
                     Mapper -> AGENDAENTRIES : get(i)
                         activate AGENDAENTRIES
 
-                        AGENDAENTRIES --> Mapper : entry
+                        AGENDAENTRIES --> Mapper : agendaEntry
                         deactivate AGENDAENTRIES
-                    Mapper -> DTO : toDTOEntry(entry)
+                    Mapper -> DTO : toDTOEntry(agendaEntry)
                         activate DTO
 
-                        DTO --> Mapper : entryDto
+                        DTO --> Mapper : agendaEntryDto
                         deactivate DTO
-                    Mapper -> LISTENTRIESDTO : add(taskDto)
-                        activate LISTENTRIESDTO
+                    Mapper -> ListAgendaEntriesDto : add(agendaEntryDto)
+                        activate ListAgendaEntriesDto
                 end
 
 
-            LISTENTRIESDTO --> Mapper : listEntriesDto
-             deactivate LISTENTRIESDTO
+            ListAgendaEntriesDto --> Mapper : agendaEntryListDto
+             deactivate ListAgendaEntriesDto
 
-             Mapper --> CTRL : listEntriesDto
+             Mapper --> CTRL : agendaEntryListDto
             deactivate Mapper
 
-        CTRL --> UI : listEntriesDto
+        CTRL --> UI : agendaEntryListDto
         deactivate CTRL
 
-    UI --> Col : shows the LISTTASK
+    UI --> Col : shows the list of tasks
     deactivate UI
 
 deactivate Col

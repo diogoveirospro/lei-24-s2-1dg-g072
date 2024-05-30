@@ -127,10 +127,10 @@ Col -> UI : confirms that he wants to create the list
                     Get Entry List
 
                 end
-        AGENDA --> CTRL : listEntries
+        AGENDA --> CTRL : agendaEntryList
         deactivate AGENDA
 
-        CTRL -> Mapper : toDTOList(listEntries)
+        CTRL -> Mapper : toDTOList(agendaEntryList)
             activate Mapper
                 ref over Mapper
                     Create a copy
@@ -138,10 +138,10 @@ Col -> UI : confirms that he wants to create the list
 
                 end
 
-             Mapper --> CTRL : listEntriesDto
+             Mapper --> CTRL : agendaEntryListDto
             deactivate Mapper
 
-        CTRL --> UI : listEntriesDto
+        CTRL --> UI : agendaEntryListDto
         deactivate CTRL
 
     UI --> Col : shows the LISTTASK

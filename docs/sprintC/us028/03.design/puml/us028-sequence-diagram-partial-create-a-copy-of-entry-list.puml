@@ -7,9 +7,9 @@ autonumber
 
 'hide footbox
 
-participant ":EntryMapper" as Mapper
-participant "listEntriesDto\n:List<EntryDto>" as LISTENTRIESDTO
-participant "entryDto\n:EntryDto" as DTO
+participant ":AgendaEntryMapper" as Mapper
+participant "agendaEntryListDto\n:List<EntryDto>" as LISTENTRIESDTO
+participant "agendaEntryDto\n:EntryDto" as DTO
 participant "agendaEntries\n:List<AgendaEntries>" as AGENDAENTRIES
 
 autonumber 32
@@ -25,24 +25,24 @@ activate Mapper
                     Mapper -> AGENDAENTRIES : get(i)
                         activate AGENDAENTRIES
 
-                        AGENDAENTRIES --> Mapper : entry
+                        AGENDAENTRIES --> Mapper : agendaEntry
                         deactivate AGENDAENTRIES
-                    Mapper -> DTO : toDTOEntry(entry)
+                    Mapper -> DTO : toDTOEntry(agendaEntry)
                         activate DTO
 
-                        DTO --> Mapper : entryDto
+                        DTO --> Mapper : agendaEntryDto
                         deactivate DTO
-                    Mapper -> LISTENTRIESDTO : add(entryDto)
+                    Mapper -> LISTENTRIESDTO : add(agendaEntryDto)
                         activate LISTENTRIESDTO
                 end
 
 
-            LISTENTRIESDTO --> Mapper : listEntriesDto
+            LISTENTRIESDTO --> Mapper : agendaEntryListDto
              deactivate LISTENTRIESDTO
 
     end
     autonumber 33
-    <-- Mapper : listEntriesDto
+    <-- Mapper : agendaEntryListDto
 deactivate Mapper
 
 @enduml
