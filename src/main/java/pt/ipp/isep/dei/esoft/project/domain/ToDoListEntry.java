@@ -7,7 +7,6 @@ package pt.ipp.isep.dei.esoft.project.domain;
  * @author Group 072 - Byte Masters - ISEP
  */
 public class ToDoListEntry extends Entry {
-    private Task task;
     private GreenSpace greenSpace;
     private DegreeOfUrgency degreeOfUrgency;
 
@@ -66,8 +65,7 @@ public class ToDoListEntry extends Entry {
      * @param degreeOfUrgency the degree of urgency for the to-do list entry.
      */
     public ToDoListEntry(Task task, GreenSpace greenSpace, DegreeOfUrgency degreeOfUrgency) {
-        super(task, greenSpace);
-        this.task = task;
+        super(task);
         this.greenSpace = greenSpace;
         this.degreeOfUrgency = degreeOfUrgency;
     }
@@ -86,8 +84,9 @@ public class ToDoListEntry extends Entry {
      *
      * @return the task.
      */
+    @Override
     public Task getTask() {
-        return task;
+        return super.getTask();
     }
 
     /**
@@ -104,8 +103,9 @@ public class ToDoListEntry extends Entry {
      *
      * @param task the task to set.
      */
-    public void setTask(Task task) {
-        this.task = task;
+    @Override
+    protected void setTask(Task task) {
+        super.setTask(task);
     }
 
     /**
