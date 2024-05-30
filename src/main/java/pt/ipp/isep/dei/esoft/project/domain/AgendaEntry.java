@@ -7,12 +7,9 @@ import java.util.List;
 
 public class AgendaEntry extends Entry{
 
-    private Team team;
     private ToDoListEntry toDoListEntry;
     private Date startDate;
     private Date endDate;
-    private StatusOfEntry status = StatusOfEntry.PLANNED;
-    private List<Vehicle> vehicleList;
 
     public enum StatusOfEntry {
         PLANNED("Planned"),
@@ -48,13 +45,14 @@ public class AgendaEntry extends Entry{
         }
     }
 
+    public Entry getEntry() {
+        return toDoListEntry.getEntry();
+    }
 
     public AgendaEntry (Task task, GreenSpace greenSpace, Date startDate, Date endDate) {
         super(task, greenSpace);
         this.startDate = startDate;
         this.endDate = endDate;
-        this.vehicleList = new ArrayList<>();
-        this.team = null;
     }
 
     public Date getStartDate() {
@@ -65,37 +63,17 @@ public class AgendaEntry extends Entry{
         return endDate;
     }
 
+    @Override
+    public GreenSpace getGreenSpace() {
+        return super.getGreenSpace();
+    }
+
+    @Override
     public List<Vehicle> getVehicleList() {
-        return vehicleList;
+        return super.getVehicleList();
     }
 
     public ToDoListEntry getToDoListEntry() {
         return toDoListEntry;
     }
-
-    public StatusOfEntry getStatus() {
-        return status;
-    }
-
-    public Team getTeam() {
-        return team;
-    }
-
-
-    public void setToDoListEntry(ToDoListEntry toDoListEntry) {
-        this.toDoListEntry = toDoListEntry;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-
-    public void setVehicleList(List<Vehicle> vehicleList) {
-        this.vehicleList = vehicleList;
-    }
-
 }
