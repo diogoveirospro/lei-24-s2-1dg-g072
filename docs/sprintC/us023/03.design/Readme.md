@@ -27,13 +27,14 @@ _**Note that SSD - Alternative One is adopted.**_
 | Step 6         | ... convert teamDto into a domain entity?                                                        | AssignTeamController | Controller: Responsible for mediating the conversion of teamDto into a domain entity (Team), centralising the transformation logic and maintaining the separation of responsibilities.               |
 |                | ... assigning the team?                                                                          | Agenda               | Creator (Rule 2): the Agenda assigns team to the agendaEntry instance.                                                                                                                               |
 |                | ... by blocking the possibility of a team being assigned to two agenda entries at the same time? | Team                 | IE: owns its data.                                                                                                                                                                                   |
-|                | ... knowing the members?                                                                         | Team                 | IE: owns its data.                                                                                                                                                                                   |
-|                | ... knowing the collaborators' email?                                                            | Collaborator         | IE: owns its data.                                                                                                                                                                                   |
 |                | ... interacting with external email services?                                                    | EmailModule          | Adapter: Provides a standard interface for interacting with different external email services, allowing for flexibility and decoupling.                                                              |
 |                | ... implementing the external email service adapter?                                             | EmailAdapter         | Adapter: These classes implement the EmailModule interface, allowing for different external email services to be used interchangeably.                                                               |
-|                | ... sending emails to collaborators?                                                             | EmailService         | Indirection: Provides an intermediary service for sending emails, decoupling the email sending process from the core application logic.                                                              |
 |                | ... saving the new time assigned to a agenda entry?                                              | Agenda               | IE: owns all its agenda entries.                                                                                                                                                                     |
-| Step 7         | ... informing operation success?                                                                 | AssignTeamUI         | IE: is responsible for user interactions.                                                                                                                                                            |
+| Step 7         |                                                                                                  |                      |                                                                                                                                                                                                      |
+| Step 8         | ... knowing the members?                                                                         | Team                 | IE: owns its data.                                                                                                                                                                                   |
+|                | ... knowing the collaborators' email?                                                            | Collaborator         | IE: owns its data.                                                                                                                                                                                   |
+|                | ... sending emails to collaborators?                                                             | EmailService         | Indirection: Provides an intermediary service for sending emails, decoupling the email sending process from the core application logic.                                                              |
+| Step 9         | ... informing operation success?                                                                 | AssignTeamUI         | IE: is responsible for user interactions.                                                                                                                                                            |
                                                                                                                           
 
 ### Systematization ##
@@ -84,9 +85,17 @@ It uses Interaction Occurrence (a.k.a. Interaction Use).
 
 ![Sequence Diagram - Partial - Get valid Teams for the Agenda Entry with DTO](svg/us023-sequence-diagram-partial-get-valid-teams-for-the-agenda-entry-with-dto.svg)
 
-**Assign Team and Notify Members**
+**Assign Team**
 
-![Sequence Diagram - Partial - Assign Team and Notify Members](svg/us023-sequence-diagram-partial-assign-team-and-notify-members.svg)
+![Sequence Diagram - Partial - Assign Team](svg/us023-sequence-diagram-partial-assign-team.svg)
+
+**Get Email Services**
+
+![Sequence Diagram - Partial - Get Email Services](svg/us023-sequence-diagram-partial-get-email-services.svg)
+
+**Send Email to Team Members**
+
+![Sequence Diagram - Partial - Send Email to Team Members](svg/us023-sequence-diagram-partial-send-email-to-team-members.svg)
 
 ## 3.3. Class Diagram (CD)
 

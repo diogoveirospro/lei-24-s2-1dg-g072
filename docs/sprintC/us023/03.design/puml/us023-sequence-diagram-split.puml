@@ -60,12 +60,39 @@ activate GSM
         activate CTRL
 
             ref over CTRL
-            Assign Team and Notify Members
+            Assign Team
 
             end
 
             CTRL --> UI : operation success
         deactivate CTRL
+
+        UI -> CTRL : showEmailServices()
+        activate CTRL
+
+            ref over CTRL
+            Get Email Services
+
+            end
+
+            CTRL --> UI : emailServicesDto
+        deactivate CTRL
+
+        UI --> GSM : shows the available e-mail services and asks \nto choose one
+    deactivate UI
+
+    GSM -> UI : choose an e-mail service
+    activate UI
+
+        UI -> CTRL : sendEmailToTeamMembers(teamDto, emailService)
+        activate CTRL
+
+            ref over CTRL
+            Send Email to Team Members
+
+            end
+
+            CTRL --> UI : operation success
 
         UI --> GSM : displays operation success
     deactivate UI
