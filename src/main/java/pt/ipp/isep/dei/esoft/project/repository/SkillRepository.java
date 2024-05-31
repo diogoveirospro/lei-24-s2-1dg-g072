@@ -35,7 +35,7 @@ public class SkillRepository {
         if (skills.contains(skill)){
             throw new IllegalArgumentException("This skill already exists " + skill.getName());
         }
-        if (!skill.validateSkill(skill.getName())){
+        if (skill.validateSkill(skill.getName())){
             throw new IllegalArgumentException("Skill can't have special characters");
         }
         skills.add(skill);

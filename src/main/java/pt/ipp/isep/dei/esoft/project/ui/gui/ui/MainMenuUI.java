@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -14,14 +15,16 @@ import javafx.stage.WindowEvent;
 import pt.ipp.isep.dei.esoft.project.ui.gui.controller.MainMenuController;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class MainMenuUI extends Application {
+public class MainMenuUI extends Application implements Initializable {
     private MainMenuController mainMenuController;
     @FXML
-    private Button loginButton;
+    public Button loginButton;
 
     @FXML
-    private Button viewTeamButton;
+    public Button viewTeamButton;
 
     private static final String ENTERPRISE_NAME = "Musgo Sublime";
     private static final String LOGIN = "Login";
@@ -33,11 +36,11 @@ public class MainMenuUI extends Application {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainWindow.fxml"));
             Parent root = loader.load();
 
+
             Scene scene = new Scene(root);
             primaryStage.setTitle(ENTERPRISE_NAME);
             primaryStage.setScene(scene);
-            LoginUI loginUI = loader.getController();
-            loginUI.associateParentUI(this);
+            MainMenuUI loginUI = loader.getController();
             primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
                 public void handle(WindowEvent event) {
@@ -52,20 +55,22 @@ public class MainMenuUI extends Application {
             primaryStage.show();
 
         }catch (IOException ex){
+            ex.printStackTrace(System.out);
             AlertUI.createAnAlert(Alert.AlertType.ERROR, ENTERPRISE_NAME, "Problems in the application startup.", ex.getMessage()).show();
         }
     }
 
 
     @FXML
-    private void handleLoginButtonAction() {
+    public void handleLoginButtonAction() {
         LoginUI loginUI = new LoginUI();
         loginUI.loginAction();
     }
 
     @FXML
-    private void handleViewTeamButtonAction() {
-
+    public void handleViewTeamButtonAction() {
+        DevTeamUI devTeamUI = new DevTeamUI();
+        devTeamUI.viewTeamAction();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/TeamView.fxml"));
             Parent root = loader.load();
@@ -84,5 +89,10 @@ public class MainMenuUI extends Application {
 
     public MainMenuController getMainMenuController() {
         return mainMenuController;
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
     }
 }

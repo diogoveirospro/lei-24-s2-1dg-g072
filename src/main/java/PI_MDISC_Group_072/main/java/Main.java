@@ -86,14 +86,15 @@ public class Main {
 
     private static void US17() throws FileNotFoundException {
         Scanner sc = new Scanner(System.in);
-        StringBuilder inputFile = new StringBuilder(getFile(sc));
-        StringBuilder file = new StringBuilder("src/main/java/PI_MDISC_Group_072/Input/" + inputFile + ".csv");
+        StringBuilder inputVerticesFile = new StringBuilder(getFileVertices(sc));
+        StringBuilder inputFileWeights = new StringBuilder(getFileWeight(sc));
+        StringBuilder fileWeights = new StringBuilder("src/main/java/PI_MDISC_Group_072/Input/" + inputFileWeights + ".csv");
+        StringBuilder fileVertices = new StringBuilder("src/main/java/PI_MDISC_Group_072/Input/" + inputVerticesFile + ".csv");
 
-        ArrayList<Vertex> vertices = readVertexFile(file);
-        int[][] weights = readWeightFile(file);
+        ArrayList<Vertex> vertices = readVertexFile(fileVertices);
+        int[][] weights = readWeightFile(fileWeights);
         ArrayList<Edge> graphEdges = new ArrayList<>();
         makeEdges(graphEdges, vertices, weights);
-        // bubbleSort(graphEdges);
 
         String MP = getMP(vertices);
         if (MP == null) {
@@ -102,11 +103,11 @@ public class Main {
             System.out.println("Insert the vertex you want to know the shortest path to the AP or 'done'(if you want to stop):");
             String vertex = sc.nextLine();
             Graph evacuationRoutes = Dijkstra(graphEdges, vertices,vertex);
+            makeGraphCsv(evacuationRoutes);
             System.out.println("Insert the vertex you want to know the shortest path to the AP or 'done'(if you want to stop):");
-            vertex = sc.nextLine();
             while (!vertex.equalsIgnoreCase("done")) {
-
                 vertex = sc.nextLine();
+                System.out.println("Insert the vertex you want to know the shortest path to the AP or 'done'(if you want to stop):");
             }
         }
 
@@ -196,32 +197,32 @@ public class Main {
         boolean[] visited = new boolean[vertices.size()];
         Vertex[] previous = new Vertex[vertices.size()];
 
-        Arrays.fill(distances, Integer.MAX_VALUE);
+        Arrays.fill(distances, 0);
         distances[vertices.indexOf(new Vertex(startVertex))] = 0;
 
 
         for (int i = 0; i < vertices.size(); i++) {
 
-            int u = -1;
-            for (int j = 0; j < vertices.size(); j++) {
-                if (!visited[j] && (u == -1 || distances[j] < distances[u])) {
-                    u = j;
+            int visit = -1;
+            for (int toBeChecked = 0; toBeChecked < vertices.size(); toBeChecked++) {
+                if (!visited[toBeChecked] && (visit == -1 || distances[toBeChecked] < distances[visit])) {
+                    visit = toBeChecked;
                 }
             }
 
-            if (distances[u] == Integer.MAX_VALUE) {
+            if (distances[visit] == 0) {
                 break;
             }
 
-            visited[u] = true;
+            visited[visit] = true;
 
             for (Edge edge : edges) {
-                if (edge.getOrigin().equals(vertices.get(u))) {
+                if (edge.getOrigin().equals(vertices.get(visit))) {
                     int v = vertices.indexOf(edge.getDestiny());
-                    int alt = distances[u] + edge.getCost();
+                    int alt = distances[visit] + edge.getCost();
                     if (alt < distances[v]) {
                         distances[v] = alt;
-                        previous[v] = vertices.get(u);
+                        previous[v] = vertices.get(visit);
                     }
                 }
             }
@@ -356,8 +357,32 @@ public class Main {
         }
     }
 
+    private static void makeGraphCsv(Graph graph) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter("src/main/java/PI_MDISC_Group_072/Output/graph.csv"))) {
+            for (Edge edge : graph.getEdges()) {
+                String origin = edge.getOrigin().getV();
+                String destiny = edge.getDestiny().getV();
+                int cost = edge.getCost();
+                String edgeString = String.format("    %s -- %s cost : %d;", origin, destiny, cost);
+                writer.println(edgeString);
+            }
+
+            System.out.println("CSV file 'src/main/java/PI_MDISC_Group_072/Output/graph.csv' has been created successfully.");
+        } catch (IOException e) {
+            System.err.println("Error writing to CSV file: " + e.getMessage());
+        }
+    }
+
     private static String getFile(Scanner sc) {
         System.out.println("Insert the name of the file with the vertices, costs, and connections:");
+        return sc.nextLine();
+    }
+    private static String getFileWeight(Scanner sc) {
+        System.out.println("Insert the name of the file with the costs for each vertex and connection:");
+        return sc.nextLine();
+    }
+    private static String getFileVertices(Scanner sc) {
+        System.out.println("Insert the name of the file with the vertices:");
         return sc.nextLine();
     }
 
