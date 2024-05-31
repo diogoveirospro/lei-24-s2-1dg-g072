@@ -6,9 +6,38 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="fxml.USs.RegisterVehicle"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="535.0" prefWidth="606.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml.USs.RegisterVehicle">
+   <children>
+      <TextField layoutX="78.0" layoutY="305.0" text="Insert type" />
+      <TextField layoutX="78.0" layoutY="230.0" text="Insert model" />
+      <TextField layoutX="78.0" layoutY="159.0" text="Insert brand" />
+      <TextField layoutX="349.0" layoutY="92.0" text="Insert current kms" />
+      <TextField layoutX="349.0" layoutY="159.0" text="Registration date (YYYY-MM-DD)" />
+      <TextField layoutX="349.0" layoutY="230.0" text="Acquisition date (YYYY-MM-DD)" />
+      <TextField layoutX="349.0" layoutY="305.0" text="Insert service frequency" />
+      <TextField layoutX="78.0" layoutY="92.0" text="Insert plate number" />
+      <TextField layoutX="78.0" layoutY="446.0" text="Insert gross weight" />
+      <TextField layoutX="349.0" layoutY="374.0" text="Insert Km at last maintenance" />
+      <TextField layoutX="78.0" layoutY="374.0" text="Insert tare" />
+      <Button layoutX="419.0" layoutY="447.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="105.0" text="Confirm" />
+      <MenuBar layoutX="14.0" layoutY="14.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </children>
 </AnchorPane>
