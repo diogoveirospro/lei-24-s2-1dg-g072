@@ -36,6 +36,8 @@ public class MainMenuUI extends Application {
             Scene scene = new Scene(root);
             primaryStage.setTitle(ENTERPRISE_NAME);
             primaryStage.setScene(scene);
+            LoginUI loginUI = loader.getController();
+            loginUI.associateParentUI(this);
             primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
                 public void handle(WindowEvent event) {
@@ -44,10 +46,6 @@ public class MainMenuUI extends Application {
 
                     if (alerta.showAndWait().get() == ButtonType.CANCEL) {
                         event.consume();
-                    }
-                    else {
-                        MainMenuController appController = getMainMenuController();
-
                     }
                 }
             });
@@ -61,18 +59,8 @@ public class MainMenuUI extends Application {
 
     @FXML
     private void handleLoginButtonAction() {
-
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Login.fxml"));
-            Parent root = loader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            AlertUI.createAnAlert(Alert.AlertType.ERROR, MainMenuUI.ENTERPRISE_NAME, "Error.", e.getMessage()).show();
-        }
-
-
+        LoginUI loginUI = new LoginUI();
+        loginUI.loginAction();
     }
 
     @FXML

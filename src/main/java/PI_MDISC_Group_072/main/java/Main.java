@@ -40,7 +40,7 @@ public class Main {
             ;
 
 
-        } while (option < 1 || option > 3);
+        } while (option < 1 || option > 4);
     }
 
     private static void US18() throws FileNotFoundException {
@@ -99,15 +99,17 @@ public class Main {
         if (MP == null) {
             System.out.println("There is no Meeting Point in the file!");
         } else {
+            System.out.println("Insert the vertex you want to know the shortest path to the AP or 'done'(if you want to stop):");
             String vertex = sc.nextLine();
             Graph evacuationRoutes = Dijkstra(graphEdges, vertices,vertex);
-        }
-        System.out.println("Insert the vertex you want to know the shortest path to the AP or 'done'(if you want to stop):");
-        String vertex = sc.nextLine();
-        while (!vertex.equalsIgnoreCase("done")) {
-
+            System.out.println("Insert the vertex you want to know the shortest path to the AP or 'done'(if you want to stop):");
             vertex = sc.nextLine();
+            while (!vertex.equalsIgnoreCase("done")) {
+
+                vertex = sc.nextLine();
+            }
         }
+
     }
 
     private static String getMP(ArrayList<Vertex> vertices) {
