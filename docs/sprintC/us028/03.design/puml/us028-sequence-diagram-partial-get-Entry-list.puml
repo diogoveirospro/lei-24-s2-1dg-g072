@@ -28,10 +28,10 @@ activate AGENDA
                         end
                     end
                 end
-            AGENDAENTRIES --> AGENDA : listEntries
+            AGENDAENTRIES --> AGENDA : agendaEntryList
             deactivate AGENDAENTRIES
     end
 autonumber 31
-<-- AGENDA : listEntries
+<-- AGENDA : agendaEntryList
 deactivate AGENDA
 @enduml

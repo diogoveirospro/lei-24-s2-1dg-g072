@@ -16,8 +16,8 @@ public class Skill implements Comparable<Skill> {
      */
 
     public Skill (String name){
-        if(name == null || name.trim().isEmpty()){
-            throw new IllegalArgumentException("Name cannot be empty or null");
+        if(!validateSkill(name)){
+            throw new IllegalArgumentException("Name cannot be empty, null or contain numbers or special characters");
         }
         this.name = name;
     }
@@ -39,8 +39,8 @@ public class Skill implements Comparable<Skill> {
      */
 
     public void setName(String name){
-        if(name == null || name.trim().isEmpty()){
-            throw new IllegalArgumentException("Name cannot be empty or null");
+        if(!validateSkill(name)){
+            throw new IllegalArgumentException("Name cannot be empty, null or contain numbers or special characters");
         }
         this.name = name;
     }
@@ -74,7 +74,10 @@ public class Skill implements Comparable<Skill> {
      * @return the result of the name being or not in accord with the pattern
      */
     public boolean validateSkill(String name){
-        String pattern = "^[a-zA-Z0-9 ]+$";
+        if (name == null || name.trim().isEmpty()){
+            return false;
+        }
+        String pattern = "^[a-zA-Z ]+ $";
         return name.matches(pattern);
     }
 

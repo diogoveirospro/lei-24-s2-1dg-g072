@@ -23,4 +23,8 @@ public class GreenSpaceRepository {
     private void sortBySortOption(String sortingOption, List<GreenSpace> greenSpacesManagedByGSM) {
 
     }
+
+    public void getGreenSpaceByParkName(String parkName) {
+
+    }
 }

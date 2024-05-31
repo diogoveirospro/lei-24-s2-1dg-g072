@@ -33,6 +33,12 @@ activate GSM
     GSM -> System : confirms data
     activate System
 
+        System --> GSM : shows the available e-mail services and asks \nto choose one
+    deactivate System
+
+    GSM -> System : choose an e-mail service
+    activate System
+
         System --> GSM : displays operation success
     deactivate System
 

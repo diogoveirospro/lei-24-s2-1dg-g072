@@ -5,7 +5,9 @@ module pt.ipp.isep.dei.esoft.project {
     requires java.management;
     requires org.apache.commons.lang3;
     requires java.logging;
+    requires java.desktop;
 
     opens pt.ipp.isep.dei.esoft.project to javafx.fxml;
     exports pt.ipp.isep.dei.esoft.project;
+    exports pt.ipp.isep.dei.esoft.project.ui.gui.ui to javafx.graphics;
 }

@@ -10,11 +10,11 @@ import java.util.List;
 public class TaskRepository {
     List<Task> taskList;
 
-    public List<Task> getCollaboratorTaskList(List<Team> teamList, String typeStatus) {
+    public List<Task> getCollaboratorTaskList(List<Team> teamList) {
         List<Task> tasks = new ArrayList<>();
         for (Team team : teamList) {
             for (Task task : taskList) {
-                if (task.getTeam().equals(team) && task.getStatus().equals(typeStatus)) {
+                if (task.getTeam().equals(team)) {
                     tasks.add(task);
                 }
             }

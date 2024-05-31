@@ -59,6 +59,10 @@ It uses Interaction Occurrence (a.k.a. Interaction Use).
 
 ![Sequence Diagram - Partial - Get GreenSpaceList](svg/us027-sequence-diagram-partial-get-GSM-by-email.svg)
 
+**Get Sorting Options**
+
+![Sequence Diagram - Partial - Get Sorting Options](svg/us027-sequence-diagram-partial-get-sorting-options.svg)
+
 **Get GreenSpace List**
 
 ![Sequence Diagram - Partial - Get GreenSpaceList](svg/us027-sequence-diagram-partial-get-GreenSpace-list.svg)

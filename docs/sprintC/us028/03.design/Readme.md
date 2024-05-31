@@ -14,8 +14,8 @@ _**Note that SSD - Alternative One is adopted.**_
 |                | ... knows all of its collaborators?                                 | CollaboratorRepository | IE: knows all of the collaborators.                                                                                                                                                                                                                                         |
 |                | ... has all of the collaborators?                                   | CollaboratorRepository | IE: has all of its  collaborators.                                                                                                                                                                                                                                          |
 | Step 2         |                                                                     |                        |                                                                                                                                                                                                                                                                             |
-| Step 3         | ... getting a list of all status?                                   | ToDoList               | IE: Knows all types of entry's inside the toDoList.                                                                                                                                                                                                                         |
-|                | ... getting a list of all type of status?                           | Entry                  | IE: Knows all status.                                                                                                                                                                                                                                                       |
+| Step 3         | ... getting a list of all status?                                   | Agenda                 | IE: Knows all types of entry's inside the toDoList.                                                                                                                                                                                                                         |
+|                | ... getting a list of all type of status?                           | AgendaEntry            | IE: Knows all status.                                                                                                                                                                                                                                                       |
 | Step 4         |                                                                     |                        |                                                                                                                                                                                                                                                                             |
 | Step 5         |                                                                     |                        |                                                                                                                                                                                                                                                                             |
 | Step 6         |                                                                     |                        |                                                                                                                                                                                                                                                                             |
@@ -27,8 +27,8 @@ _**Note that SSD - Alternative One is adopted.**_
 |                | ... creating a list of all the tasks related to the collaborator?   | TaskRepository         | IE: owns all of its tasks.                                                                                                                                                                                                                                                  |
 |                | ... getting the Entry list                                          | Agenda                 | IE: owns all of the agendaEntries that are Entries.                                                                                                                                                                                                                         |
 |                | ... creating a list of entries to save the collaborator tasks?      | Agenda                 | IE: owns all and knows all the tasks in the system.                                                                                                                                                                                                                         |
-|                | ... create a list with all the data of entryList?                   | EntryMapper            | IE: Transforms all of its data.                                                                                                                                                                                                                                             |
-|                | ... transform a entry into data?                                    | EntryDto               | IE: Transforms all of is data.                                                                                                                                                                                                                                              |
+|                | ... create a list with all the data of entryList?                   | AgendaEntryMapper      | IE: Transforms all of its data.                                                                                                                                                                                                                                             |
+|                | ... transform a entry into data?                                    | AgendaEntryDto         | IE: Transforms all of is data.                                                                                                                                                                                                                                              |
 | Step 8  	      | 	...showing the task list?                                          | ListTasksUI            | IE: is responsible for user interactions.                                                                                                                                                                                                                                   |
 
 ### Systematization ##
@@ -36,14 +36,14 @@ _**Note that SSD - Alternative One is adopted.**_
 According to the taken rationale, the conceptual classes promoted to software classes are: 
 
 * CollaboratorRepository
-* ToDoList
+* Agenda
+* AgendaEntry
 * Entry
 * TeamRepository
 * Team
 * TaskRepository
-* Agenda
-* TaskMapper
-* TaskDto
+* AgendaEntryMapper
+* AgendaEntryDto
 
 Other software classes (i.e. Pure Fabrication) identified: 
 

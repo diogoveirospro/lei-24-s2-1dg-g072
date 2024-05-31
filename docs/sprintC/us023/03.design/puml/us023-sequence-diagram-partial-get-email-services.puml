@@ -1,0 +1,34 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+participant ":AssignTeamController" as CTRL
+participant "agenda\n:Agenda" as AGENDA
+
+autonumber 15
+-> CTRL: showEmailServices()
+
+autonumber 15.1
+activate CTRL
+    group Get Email Services
+
+            CTRL -> AGENDA : getEmailServices()
+            activate AGENDA
+
+                AGENDA -> AGENDA : getConfigurationsFromFile()
+                activate AGENDA
+                deactivate AGENDA
+
+                AGENDA --> CTRL : emailServices
+            deactivate AGENDA
+
+
+    end
+
+    autonumber 16
+    <-- CTRL : emailServices
+deactivate CTRL
+
+
+@enduml

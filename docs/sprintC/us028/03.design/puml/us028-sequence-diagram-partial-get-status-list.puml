@@ -6,8 +6,8 @@ skinparam shadowing false
 participant ":ListTaskController" as CTRL
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as REP
-participant "toDoList\n:toDoList" as toDoList
-participant "entry\n:Entry" as entry
+participant "agenda\n:Agenda" as agenda
+participant "agendaEntry\n:AgendaEntry" as agendaEntry
 participant "statusList\n:List<String>" as LISTSTATUS
 
 autonumber 7
@@ -24,29 +24,29 @@ activate CTRL
             RepositorySingleton --> CTRL : repositories
             deactivate RepositorySingleton
 
-        CTRL -> REP : getToDoList()
+        CTRL -> REP : getAgenda()
             activate REP
 
-            REP --> CTRL : toDoList
+            REP --> CTRL : agenda
             deactivate REP
 
-        CTRL -> toDoList : getStatusList()
-            activate toDoList
+        CTRL -> agenda : getStatusList()
+            activate agenda
 
-            toDoList -> LISTSTATUS** : create()
-                    toDoList -> entry : getStatusList()
-                        activate entry
+            agenda -> LISTSTATUS** : create()
+                    agenda -> agendaEntry : getStatusList()
+                        activate agendaEntry
 
                             loop for each status in the system
-                                entry -> LISTSTATUS : add(status)
+                                agendaEntry -> LISTSTATUS : add(status)
                                 activate LISTSTATUS
                             end
-                        LISTSTATUS --> entry : statusList
+                        LISTSTATUS --> agendaEntry : statusList
                         deactivate LISTSTATUS
-                    entry --> toDoList : statusList
-                    deactivate entry
-        toDoList --> CTRL : statusList
-        deactivate toDoList
+                    agendaEntry --> agenda : statusList
+                    deactivate agendaEntry
+        agenda --> CTRL : statusList
+        deactivate agenda
 
     end
 

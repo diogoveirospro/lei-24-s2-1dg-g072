@@ -24,16 +24,11 @@ class Team {
     - List<Collaborator> members
     + inTeam(collaborator)
 }
-class Entry{
-    - Team team
-    - List<Vehicle> vehicles
+
+class AgendaEntry{
     - Date dateI
     - Date dateF
     - StatusOfEntry status
-    - GreenSpace greenSpace
-    - List<Vehicle> vehicleList
-    - DegreeOfUrgency degree
-    - Task task
     + getStatusList()
 }
 }
@@ -46,10 +41,6 @@ class "Repositories" as RepositorySingleton {
     + getTaskRepository(): TaskRepository
     + getTeamRepository(): TeamRepository
     + getAgenda(): Agenda
-}
-class "ToDoList" as toDoList{
-    - List<ToDoList> toDoListEntries
-    + getStatusList()
 }
 
 class "CollaboratorRepository" as collaboratorRepository {
@@ -69,7 +60,10 @@ class "TeamRepository" as teamRepository {
 }
 
 class "Agenda" as agenda {
+    - List<AgendaEntry> statusList
+
     + getCollaboratorAgendaEntries(taskList,startDate,endDate): List<AgendaEntries>
+    + getStatusList()
 }
 }
 package Mapper {
@@ -108,7 +102,6 @@ RepositorySingleton "1" --> "1" taskRepository: taskRepository
 RepositorySingleton "1" --> "1" teamRepository: teamRepository
 RepositorySingleton "1" --> "1" agenda: agenda
 teamRepository "1" --> "*" Team: collaborator
-Entry "1" --> "*" toDoList: statusList
-RepositorySingleton "1" ---> "*" toDoList : toDoList
-CTRL ...> toDoList: getStatusList
+AgendaEntry "1" --> "*" agenda: statusList
+CTRL ....> agenda: getStatusList
 @enduml

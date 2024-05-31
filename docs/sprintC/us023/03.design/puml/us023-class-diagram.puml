@@ -24,8 +24,9 @@ package "Controller" #DDDDDD {
         + getValidTeams(agendaEntryDto)
         + toDomain(dto)
         + assignTeamToAgendaEntry(teamDto)
-
+        + sendEmailToTeamMembers(teamDto, emailService)
     }
+
 }
 
 package "Domain" #DDDDDD {
@@ -112,6 +113,7 @@ package "DTO" #DDDDDD {
     }
 
     class EmailService {
+        + sendEmailToTeamMembers(members)
         + sendEmail(email)
     }
 
@@ -136,11 +138,11 @@ package "DTO" #DDDDDD {
     }
 
     class EmailModuleAdapter1 {
-        + send(email)
+        + sendEmailService1(email)
     }
 
     class EmailModuleAdapter2 {
-        + send(email)
+        + sendEmailService2(email)
     }
 
 }

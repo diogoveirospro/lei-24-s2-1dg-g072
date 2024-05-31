@@ -16,8 +16,8 @@ public class Job implements Comparable<Job> {
      * @param name job name
      */
     public Job(String name){
-        if(name == null || name.trim().isEmpty()){
-            throw new IllegalArgumentException("Name cannot be empty or null");
+        if(!validateJobName(name)){
+            throw new IllegalArgumentException("Name cannot be empty, null or contain numbers or special characters ");
         }
         this.name = name;
     }
@@ -35,6 +35,9 @@ public class Job implements Comparable<Job> {
      * @param name new job name.
      */
     public void setName(String name) {
+        if(!validateJobName (name)){
+            throw new IllegalArgumentException("Name cannot be empty, null or contain numbers or special characters ");
+        }
         this.name = name;
     }
 
@@ -57,6 +60,20 @@ public class Job implements Comparable<Job> {
         Job anotherJob = (Job) obj;
 
         return this.getName().equals(anotherJob.getName()) ;
+    }
+
+    /**
+     * Checks if the job name adheres to the specified pattern (letters and spaces only).
+     * @param name the name of the job.
+     * @return true if the name is valid, false otherwise.
+     */
+
+    public boolean validateJobName(String name){
+        if(name == null||name.trim().isEmpty()){
+            return false;
+        }
+        String pattern = "^[a-zA-Z ]+$";
+        return name.matches(pattern);
     }
 
     /**

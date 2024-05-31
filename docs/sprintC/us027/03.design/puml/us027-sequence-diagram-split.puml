@@ -29,6 +29,15 @@ activate GSM
                         end
                         CTRL --> UI :greenSpaceManager
                     deactivate CTRL
+
+                    UI -> CTRL : getSortingOptions()
+                    activate CTRL
+                        ref over CTRL
+                            Get Sorting Options
+
+                        end
+                    CTRL --> UI : sortingOptions
+                    deactivate CTRL
             UI --> GSM : asks the user to choose a sorting option
         deactivate UI
 
