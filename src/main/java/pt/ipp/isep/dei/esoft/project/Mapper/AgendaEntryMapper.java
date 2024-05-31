@@ -26,7 +26,7 @@ public class AgendaEntryMapper {
         entryListDto.add(entry);
     }
 
-    public  List<AgendaEntryDto> toDtoList(List<AgendaEntry> agendaEntryList) {
+    public List<AgendaEntryDto> toDtoList(List<AgendaEntry> agendaEntryList) {
         for (AgendaEntry agendaEntry : agendaEntryList) {
             AgendaEntryDto agendaEntryDto = new AgendaEntryDto(
                     agendaEntry.getToDoListEntry(),

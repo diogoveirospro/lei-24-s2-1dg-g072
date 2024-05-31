@@ -61,4 +61,12 @@ public class Agenda {
     public List<String> getStatusList() {
         return AgendaEntry.StatusOfEntry.getStatusList();
     }
+
+    public List<AgendaEntry> getEntryList() {
+        List<AgendaEntry> entryList = new ArrayList<>();
+        for (AgendaEntry entry : entriesAgenda) {
+            entryList.add((AgendaEntry) entry.getEntry());
+        }
+        return entryList;
+    }
 }
