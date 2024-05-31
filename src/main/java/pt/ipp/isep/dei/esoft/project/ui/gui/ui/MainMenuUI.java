@@ -63,6 +63,15 @@ public class MainMenuUI extends Application implements Initializable {
 
     @FXML
     public void handleLoginButtonAction() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Login.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            AlertUI.createAnAlert(Alert.AlertType.ERROR, LOGIN, "Error.", e.getMessage()).show();
+        }
         LoginUI loginUI = new LoginUI();
         loginUI.loginAction();
     }
@@ -81,6 +90,7 @@ public class MainMenuUI extends Application implements Initializable {
             e.printStackTrace();
             AlertUI.createAnAlert(Alert.AlertType.ERROR, ENTERPRISE_NAME, "Problems in the application startup.", e.getMessage()).show();
         }
+
 
     }
 
