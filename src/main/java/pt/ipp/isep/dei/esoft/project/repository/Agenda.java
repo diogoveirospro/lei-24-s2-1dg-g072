@@ -23,7 +23,7 @@ public class Agenda {
      * @param typeStatus the status of the entries to filter.
      * @return a list of entries matching the specified tasks and date range.
      */
-    public List<AgendaEntry> getEntryList(List<Task> taskList, Date startDate, Date endDate, String typeStatus) {
+    public List<AgendaEntry> getAgendaEntryList(List<Task> taskList, Date startDate, Date endDate, String typeStatus) {
         List<AgendaEntry> agendaEntryList = new ArrayList<>();
         for (Task task : taskList) {
             for (AgendaEntry agendaEntry : entriesAgenda) {
@@ -45,7 +45,7 @@ public class Agenda {
      * @return the newly created AgendaEntry object.
      */
     public AgendaEntry createAgendaEntry(Task task, GreenSpace greenSpace, Date startDate, Date endDate) {
-        return new AgendaEntry(task, startDate, endDate);
+        return new AgendaEntry(task, greenSpace,startDate, endDate);
     }
 
     /**
@@ -62,11 +62,10 @@ public class Agenda {
         return AgendaEntry.StatusOfEntry.getStatusList();
     }
 
+    public List<AgendaEntry> getEntriesAgenda() {
+        return entriesAgenda;
+    }
     public List<AgendaEntry> getEntryList() {
-        List<AgendaEntry> entryList = new ArrayList<>();
-        for (AgendaEntry entry : entriesAgenda) {
-            entryList.add((AgendaEntry) entry.getEntry());
-        }
-        return entryList;
+        return new ArrayList<>(entriesAgenda);
     }
 }

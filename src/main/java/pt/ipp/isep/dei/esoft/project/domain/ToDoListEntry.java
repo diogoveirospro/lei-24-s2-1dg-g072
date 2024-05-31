@@ -65,7 +65,7 @@ public class ToDoListEntry extends Entry {
      * @param degreeOfUrgency the degree of urgency for the to-do list entry.
      */
     public ToDoListEntry(Task task, GreenSpace greenSpace, DegreeOfUrgency degreeOfUrgency) {
-        super(task);
+        super(task,greenSpace);
         this.greenSpace = greenSpace;
         this.degreeOfUrgency = degreeOfUrgency;
     }
@@ -104,7 +104,7 @@ public class ToDoListEntry extends Entry {
      * @param task the task to set.
      */
     @Override
-    protected void setTask(Task task) {
+    public void setTask(Task task) {
         super.setTask(task);
     }
 

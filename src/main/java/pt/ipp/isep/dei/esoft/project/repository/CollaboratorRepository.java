@@ -111,7 +111,7 @@ public class CollaboratorRepository {
      * @param email Collaborator email
      * @return collaborator
      */
-    public static Collaborator getCollaboratorByEmail(String email) {
+    public  Collaborator getCollaboratorByEmail(String email) {
         return collaborators.stream()
                 .filter(collaborator -> collaborator.getEmail().equals(email))
                 .findFirst()

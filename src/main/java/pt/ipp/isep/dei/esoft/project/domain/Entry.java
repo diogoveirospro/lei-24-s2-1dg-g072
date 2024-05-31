@@ -5,18 +5,27 @@ import java.util.List;
 
 public class Entry {
     private Task task;
+    private GreenSpace greenSpace;
 
 
-    public Entry(Task task) {
+    public Entry(Task task, GreenSpace greenSpace) {
         this.task = task;
+        this.greenSpace = greenSpace;
     }
 
     public Task getTask() {
         return task;
     }
 
+    public GreenSpace getGreenSpace() {
+        return greenSpace;
+    }
 
-    protected void setTask(Task task) {
+    public void setGreenSpace(GreenSpace greenSpace) {
+        this.greenSpace = greenSpace;
+    }
 
+    public void setTask(Task task) {
+        this.task = task;
     }
 }

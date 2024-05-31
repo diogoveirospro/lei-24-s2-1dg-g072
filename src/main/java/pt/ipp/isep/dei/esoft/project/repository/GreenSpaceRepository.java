@@ -9,7 +9,7 @@ import java.util.List;
 public class GreenSpaceRepository {
     List<GreenSpace> greenSpaceList;
 
-    public List<GreenSpace> getGreenSpaceList(Collaborator greenSpaceManager, String sortingOption) {
+    public List<GreenSpace> getGreenSpaceListSorted(Collaborator greenSpaceManager, String sortingOption) {
         List<GreenSpace> greenSpacesManagedByGSM = new ArrayList<>();
         for (GreenSpace greenSpace : greenSpaceList) {
             if (greenSpace.getGreenSpaceManager().equals(greenSpaceManager)) {
@@ -17,6 +17,17 @@ public class GreenSpaceRepository {
             }
         }
         sortBySortOption(sortingOption, greenSpacesManagedByGSM);
+        return greenSpacesManagedByGSM;
+    }
+
+    public List<GreenSpace> getGreenSpaceList(Collaborator greenSpaceManager) {
+        List<GreenSpace> greenSpacesManagedByGSM = new ArrayList<>();
+        for (GreenSpace greenSpace : greenSpaceList) {
+            if (greenSpace.getGreenSpaceManager().equals(greenSpaceManager)) {
+                greenSpacesManagedByGSM.add(greenSpace);
+            }
+        }
+
         return greenSpacesManagedByGSM;
     }
 

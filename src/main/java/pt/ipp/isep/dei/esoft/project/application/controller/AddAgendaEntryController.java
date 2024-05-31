@@ -47,7 +47,7 @@ public class AddAgendaEntryController {
     private Collaborator getCollaboratorFromSession() {
         String email = ApplicationSession.getInstance().getCurrentSession().getUserEmail();
 
-        return CollaboratorRepository.getCollaboratorByEmail(email);
+        return collaboratorRepository.getCollaboratorByEmail(email);
 
     }
 

@@ -165,7 +165,7 @@ public class ListTaskController {
     public List<AgendaEntryDto> getTaskList(Collaborator collaborator, String typeStatus, Date startDate, Date endDate) {
         List<Team> teamList = this.teamRepository.getTeamsByCollaborator(collaborator);
         List<Task> taskList = this.taskRepository.getCollaboratorTaskList(teamList);
-        List<AgendaEntry> agendaEntryList = this.agenda.getEntryList(taskList, startDate, endDate,typeStatus);
+        List<AgendaEntry> agendaEntryList = this.agenda.getAgendaEntryList(taskList, startDate, endDate,typeStatus);
         AgendaEntryMapper mapper = new AgendaEntryMapper();
         return mapper.toDtoList(agendaEntryList);
     }
