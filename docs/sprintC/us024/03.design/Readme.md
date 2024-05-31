@@ -30,13 +30,15 @@ According to the taken rationale, the conceptual classes promoted to software cl
 
 * EntryListMapper
 * EntryList
+* EntryListDto
+* AgendaEntry
+* AgendaEntryDto
+* Agenda
 
 Other software classes (i.e. Pure Fabrication) identified: 
 
 * PostponeEntryUI  
 * PostponeEntryController
-* EntryListDto
-
 
 ## 3.2. Sequence Diagram (SD)
 
