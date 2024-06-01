@@ -21,6 +21,7 @@ public class LoginController {
 
     @FXML
     public Button btnCancel;
+
     private HRMUI hrmUI;
     private GSMUI gsmUI;
     private CollaboratorUI collaboratorUI;
@@ -33,13 +34,13 @@ public class LoginController {
         String password = txtPassword.getText();
         try {
             if (email.equals("hrm@this.app") && password.equals("hrm")) {
-                hrmUI.showUI();
+                hrmUI.showUI(MainMenuUI.getPrimaryStage());
             } else if (email.equals("gsm@this.app") && password.equals("gsm")) {
-                gsmUI.showUI();
+                gsmUI.showUI(MainMenuUI.getPrimaryStage());
             } else if (email.equals("collaborator@this.app") && password.equals("collaborator@this.app")) {
-                collaboratorUI.showUI();
+                collaboratorUI.showUI(MainMenuUI.getPrimaryStage());
             } else if (email.equals("vfm@this.app") && password.equals("vfm@this.app")) {
-                fmUI.showUI();
+                fmUI.showUI(MainMenuUI.getPrimaryStage());
             }
         } catch (Exception e) {
             System.out.println("An error occurred while handling the login action: " + e.getMessage());

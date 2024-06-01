@@ -7,7 +7,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox prefHeight="625.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.ui.GenerateTeamProposalUI">
+<VBox prefHeight="625.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss.GenerateTeamProposalUI">
    <children>
       <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="HRM : Generate Team Proposal" wrappingWidth="281.544921875">
          <font>

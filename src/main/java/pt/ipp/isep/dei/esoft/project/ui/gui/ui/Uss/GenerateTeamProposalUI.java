@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.esoft.project.ui.gui.ui;
+package pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,10 +14,10 @@ import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
 import pt.ipp.isep.dei.esoft.project.domain.Team;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.AlertUI;
 
 import java.awt.*;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class GenerateTeamProposalUI {
 
