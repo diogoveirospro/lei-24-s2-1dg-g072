@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.ui.MainMenuUI">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.MainMenuController">
    <children>
        <Button fx:id="loginButton" alignment="CENTER" defaultButton="true" layoutX="207.0" layoutY="185.0" onAction="#handleLoginButtonAction" prefHeight="31.0" prefWidth="186.0" text="Login" textAlignment="CENTER" />
        <Button fx:id="viewTeamButton" defaultButton="true" layoutX="207.0" layoutY="232.0" onAction="#handleViewTeamButtonAction" text="View Development Team" textAlignment="CENTER" />

@@ -8,7 +8,11 @@ module pt.ipp.isep.dei.esoft.project {
     requires java.desktop;
 
     opens pt.ipp.isep.dei.esoft.project to javafx.fxml;
+    opens pt.ipp.isep.dei.esoft.project.ui.gui.ui to javafx.fxml;
+    opens pt.ipp.isep.dei.esoft.project.ui.gui.controller to javafx.fxml;
+
     exports pt.ipp.isep.dei.esoft.project;
     exports pt.ipp.isep.dei.esoft.project.ui.gui.ui to javafx.graphics, javafx.fxml;
     exports pt.ipp.isep.dei.esoft.project.ui.gui.controller to javafx.fxml;
 }
+

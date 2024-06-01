@@ -18,30 +18,24 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MainMenuUI extends Application implements Initializable {
+public class MainMenuUI extends Application {
     private MainMenuController mainMenuController;
-    @FXML
-    public Button loginButton;
 
-    @FXML
-    public Button viewTeamButton;
 
     private static final String ENTERPRISE_NAME = "Musgo Sublime";
-    private static final String LOGIN = "Login";
-    private static final String DEV_TEAM = "Development Team";
 
     @Override
-    public void start(Stage primaryStage) throws IOException {
+    public void start(Stage stage) throws IOException {
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainWindow.fxml"));
             Parent root = loader.load();
 
 
             Scene scene = new Scene(root);
-            primaryStage.setTitle(ENTERPRISE_NAME);
-            primaryStage.setScene(scene);
-            MainMenuUI loginUI = loader.getController();
-            primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            stage.setTitle(ENTERPRISE_NAME);
+            stage.setScene(scene);
+            mainMenuController = loader.getController();
+            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
                 public void handle(WindowEvent event) {
                     Alert alerta = AlertUI.createAnAlert(Alert.AlertType.CONFIRMATION, ENTERPRISE_NAME,
@@ -52,7 +46,7 @@ public class MainMenuUI extends Application implements Initializable {
                     }
                 }
             });
-            primaryStage.show();
+            stage.show();
 
         }catch (IOException ex){
             ex.printStackTrace(System.out);
@@ -61,48 +55,9 @@ public class MainMenuUI extends Application implements Initializable {
     }
 
 
-    @FXML
-    public void handleLoginButtonAction() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Login.fxml"));
-            Parent root = loader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            AlertUI.createAnAlert(Alert.AlertType.ERROR, LOGIN, "Error.", e.getMessage()).show();
-        }
-        LoginUI loginUI = new LoginUI();
-        loginUI.loginAction();
-    }
-
-    @FXML
-    public void handleViewTeamButtonAction() {
-        DevTeamUI devTeamUI = new DevTeamUI();
-        devTeamUI.viewTeamAction();
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/TeamView.fxml"));
-            Parent root = loader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            AlertUI.createAnAlert(Alert.AlertType.ERROR, ENTERPRISE_NAME, "Problems in the application startup.", e.getMessage()).show();
-        }
-
-
-    }
-
-
-
-
     public MainMenuController getMainMenuController() {
         return mainMenuController;
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
 
-    }
 }
