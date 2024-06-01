@@ -1,8 +1,8 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
-import pt.ipp.isep.dei.esoft.project.Mapper.EntryMapper;
+import pt.ipp.isep.dei.esoft.project.Mapper.AgendaEntryMapper;
 import pt.ipp.isep.dei.esoft.project.domain.*;
-import pt.ipp.isep.dei.esoft.project.dto.EntryDto;
+import pt.ipp.isep.dei.esoft.project.dto.AgendaEntryDto;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 
 import java.util.List;
@@ -30,7 +30,6 @@ public class ListTaskController {
      * teamRepository contains all teams
      */
     private TeamRepository teamRepository;
-    private ToDoList toDoList;
     /**
      * authenticationRepository authenticates the app
      */
@@ -44,7 +43,6 @@ public class ListTaskController {
         this.collaboratorRepository = Repositories.getInstance().getCollaboratorRepository();
         this.agenda = Repositories.getInstance().getAgenda();
         this.teamRepository = Repositories.getInstance().getTeamRepository();
-        this.toDoList = Repositories.getInstance().getToDoList();
         this.authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
     }
 
@@ -62,7 +60,6 @@ public class ListTaskController {
         this.collaboratorRepository = collaboratorRepository;
         this.agenda = agenda;
         this.teamRepository = teamRepository;
-        this.toDoList = toDoList;
         this.authenticationRepository = authenticationRepository;
     }
 
@@ -122,19 +119,6 @@ public class ListTaskController {
         return teamRepository;
     }
 
-    /**
-     * Lets the controller get the to do list
-     *
-     * @return toDoList
-     */
-    public ToDoList getToDoList() {
-        if (toDoList == null) {
-            Repositories repositories = Repositories.getInstance();
-
-            toDoList = repositories.getToDoList();
-        }
-        return toDoList;
-    }
 
     /**
      * Lets the controller get the authentication repository
@@ -166,7 +150,7 @@ public class ListTaskController {
      * @return status list
      */
     public List<String> getStatusList() {
-        return this.toDoList.getStatusList();
+        return this.agenda.getStatusList();
     }
 
     /**
@@ -178,11 +162,11 @@ public class ListTaskController {
      * @param endDate   end date of the task
      * @return list of tasks of the collaborator
      */
-    public List<EntryDto> getTaskList(Collaborator collaborator, String typeStatus, Date startDate, Date endDate) {
+    public List<AgendaEntryDto> getTaskList(Collaborator collaborator, String typeStatus, Date startDate, Date endDate) {
         List<Team> teamList = this.teamRepository.getTeamsByCollaborator(collaborator);
-        List<Task> taskList = this.taskRepository.getCollaboratorTaskList(teamList, typeStatus);
-        List<Entry> entryList = this.agenda.getEntryList(taskList, startDate, endDate);
-        EntryMapper mapper = new EntryMapper();
-        return mapper.toDtoList(entryList);
+        List<Task> taskList = this.taskRepository.getCollaboratorTaskList(teamList);
+        List<AgendaEntry> agendaEntryList = this.agenda.getAgendaEntryList(taskList, startDate, endDate,typeStatus);
+        AgendaEntryMapper mapper = new AgendaEntryMapper();
+        return mapper.toDtoList(agendaEntryList);
     }
 }

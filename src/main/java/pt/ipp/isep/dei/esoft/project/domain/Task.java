@@ -7,7 +7,6 @@ import java.util.Objects;
 public class Task {
     private List<Vehicle> vehicleList;
     private Team team;
-    private Entry.StatusOfEntry status;
     public Date duration;
     private String task;
 
@@ -17,10 +16,6 @@ public class Task {
 
     public Date getDuration() {
         return duration;
-    }
-
-    public Entry.StatusOfEntry getStatus() {
-        return status;
     }
 
     public String getTask() {
@@ -37,11 +32,10 @@ public class Task {
         Task task1 = (Task) vehicleObject;
         return vehicleList.equals(task1.vehicleList) &&
                 team.equals(task1.team) &&
-                status == task1.status &&
                 duration.equals(task1.duration) &&
                 task.equals(task1.task);
     }
     public int hashCode() {
-        return Objects.hash(vehicleList, team, status, duration, task);
+        return Objects.hash(vehicleList, team, duration, task);
     }
 }

@@ -235,11 +235,8 @@ activate GSM
             activate CTRL
             deactivate CTRL
 
-            CTRL -> TODOLIST : getTask(toDoListEntry)
-            activate TODOLIST
-
-                TODOLIST -> TODOLISTENTRY** : getTask()
-                activate TODOLISTENTRY
+            CTRL -> TODOLISTENTRY** : getTask(toDoListEntry)
+            activate TODOLISTENTRY
 
                     TODOLISTENTRY -> TASK** : getTask()
                     activate TASK
@@ -247,11 +244,8 @@ activate GSM
                         TASK --> TODOLISTENTRY : task
                     deactivate TASK
 
-                    TODOLISTENTRY --> TODOLIST : task
-                deactivate TODOLISTENTRY
-
-                TODOLIST --> CTRL : task
-            deactivate TODOLIST
+                TODOLISTENTRY --> CTRL : task
+            deactivate TODOLISTENTRY
 
             CTRL --> UI : task
         deactivate CTRL

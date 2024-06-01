@@ -1,4 +1,4 @@
-# US006 - Register a Vehicle
+# US026 - Assign one or more Vehicles to an entry
 
 [Requirements Engineering](01.requirements-engineering/Readme.md)
 

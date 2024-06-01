@@ -19,9 +19,6 @@ public class GreenSpaceMapper {
     public void setGreenSpaceListDto(List<GreenSpaceDto> greenSpaceListDto) {
         this.greenSpaceListDto = greenSpaceListDto;
     }
-    public void addGreenSpace(GreenSpaceDto greenSpace){
-        greenSpaceListDto.add(greenSpace);
-    }
 
     public List<GreenSpaceDto> greenSpaceListToDto(List<GreenSpace> greenSpaceList) {
         for (GreenSpace greenSpace : greenSpaceList){
@@ -33,7 +30,7 @@ public class GreenSpaceMapper {
                 greenSpace.getType(),
                 greenSpace.getAddress()
             );
-            addGreenSpace(greenSpaceDto);
+            this.greenSpaceListDto.add(greenSpaceDto);
         }
         return greenSpaceListDto;
     }

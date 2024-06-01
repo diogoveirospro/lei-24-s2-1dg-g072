@@ -76,22 +76,27 @@ public class GenerateTeamProposalUI implements Runnable {
             confirmation = scanner.nextLine();
         }
 
-        List<Collaborator> collaborators = controller.getCollaborators();
-        team = controller.generateTeamProposal(minimumSize, maximumSize, selectedSkills, collaborators);
+        try {
+            List<Collaborator> collaborators = controller.getCollaborators();
+            team = controller.generateTeamProposal(minimumSize, maximumSize, selectedSkills, collaborators);
 
-        System.out.println(team);
+            System.out.println(team);
 
-        System.out.println("\nDo you agree with this team proposal? [Y/N]");
-        confirmation = scanner.nextLine();
-
-        while (confirmation.equalsIgnoreCase("N")){
-            changeMember();
             System.out.println("\nDo you agree with this team proposal? [Y/N]");
             confirmation = scanner.nextLine();
+
+            while (confirmation.equalsIgnoreCase("N")){
+                changeMember();
+                System.out.println("\nDo you agree with this team proposal? [Y/N]");
+                confirmation = scanner.nextLine();
+            }
+
+            controller.addTeam(team);
+            System.out.println("\nTeam successfully created!");
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
         }
 
-        controller.addTeam(team);
-        System.out.println("\nTeam successfully created!");
 
 
     }
@@ -169,9 +174,9 @@ public class GenerateTeamProposalUI implements Runnable {
      * @param idNumber ID number's collaborator
      * @return collaborator
      */
-    private Collaborator findCollaboratorByIDNumber(List<Collaborator> collaborators, int idNumber) {
+    private Collaborator findCollaboratorByIDNumber(List<Collaborator> collaborators, String idNumber) {
         for (Collaborator collaborator : collaborators) {
-            if (Integer.parseInt(collaborator.getIdDocNumber()) == idNumber) {
+            if (collaborator.getIdDocNumber().equals(idNumber)) {
                 return collaborator;
             }
         }
@@ -295,7 +300,7 @@ public class GenerateTeamProposalUI implements Runnable {
         List<Collaborator> collaborators = controller.getCollaborators();
 
             System.out.println("\nEnter the ID Number of the member you want to remove (or 0 to cancel): ");
-            int ID = scanner.nextInt();
+            String ID = scanner.nextLine();
             Collaborator memberToChange = findCollaboratorByIDNumber(collaborators, ID);
 
             if (memberToChange != null) {
@@ -311,13 +316,13 @@ public class GenerateTeamProposalUI implements Runnable {
 
 
         displayCollaborators(collaborators);
-        int answer;
+        String answer;
 
         do {
             System.out.print("\nEnter the ID Number of the collaborator you want to select (or 0 to cancel): ");
-            answer = scanner.nextInt();
+            answer = scanner.nextLine();
 
-            if (answer != 0) {
+            if (answer.equals("0")) {
 
                 Collaborator selectedMember = findCollaboratorByIDNumber(collaborators, answer);
 
@@ -354,7 +359,7 @@ public class GenerateTeamProposalUI implements Runnable {
                     System.out.println("Collaborator not found. Try again.");
                 }
             }
-        } while (answer != 0);
+        } while (!answer.equals("0"));
 
     }
 

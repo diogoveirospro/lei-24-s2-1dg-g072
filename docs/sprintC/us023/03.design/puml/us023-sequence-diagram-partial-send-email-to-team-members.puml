@@ -1,0 +1,52 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+participant ":AssignTeamController" as CTRL
+participant "agenda\n:Agenda" as AGENDA
+participant "agendaEntry\n:AgendaEntry" as AGENDAENTRY
+participant "team\n:Team" as TEAM
+participant "emailService\n:EmailService" as EMAILSERVICE
+participant "collaborator\n:Collaborator" as COLLAB
+
+autonumber 19
+-> CTRL: sendEmailToTeamMembers(teamDto, emailService)
+
+autonumber 19.1
+activate CTRL
+    group Send Email to Team Members
+
+                CTRL -> TEAM : getMembers()
+                activate TEAM
+
+                    TEAM --> CTRL : members
+                deactivate TEAM
+
+                CTRL -> EMAILSERVICE** : sendEmailToTeamMembers(members)
+                activate EMAILSERVICE
+
+                    loop for each member
+                        EMAILSERVICE -> COLLAB** : getEmail()
+                        activate COLLAB
+
+                            COLLAB --> EMAILSERVICE : email
+                        deactivate COLLAB
+
+                        EMAILSERVICE -> EMAILSERVICE : sendEmail(email)
+                        activate EMAILSERVICE
+                        deactivate EMAILSERVICE
+                    end
+
+                    EMAILSERVICE --> CTRL : email sent confirmation
+                deactivate EMAILSERVICE
+
+
+    end
+
+    autonumber 20
+    <-- CTRL : operation success
+deactivate CTRL
+
+
+@enduml

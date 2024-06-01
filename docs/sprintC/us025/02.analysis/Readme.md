@@ -1,4 +1,4 @@
-# US006 - Register a Vehicle 
+# US025 - Cancel entry in the agenda 
 
 ## 2. Analysis
 

@@ -14,11 +14,9 @@ participant "repositories\n:Repositories" as REP
 participant "entryList\n:entryList" as ENTRYLIST
 participant "agenda\n:Agenda" as AGENDA
 participant ":EntryListMapper" as ENTRYLISTMAPPER
-participant "listEntries\n:List<AgendaEntryList>" as LISTENTRIES
+participant "listEntries\n:List<AgendaEntry>" as LISTENTRIES
 participant "entryListDto\n:List<entriesListDto>" as TODOLISTDTO
 participant "entryListDto\n:EntryListDto" as ENTRYLISTDTO
-participant "agendaEntryList\n:AgendaEntryList" as AGENDAENTRYLIST
-participant "greenSpace\n: GreenSpace" as GREENSPACE
 participant "agendaEntry\n:AgendaEntry" as AGENDAENTRY
 
 activate GSM
@@ -37,10 +35,10 @@ activate GSM
                 Repositories --> CTRL: repositories
            deactivate Repositories
 
-           CTRL -> REP: getToDoList()
+           CTRL -> REP: getAgenda()
            activate REP
 
-                REP --> CTRL: toDoList
+                REP --> CTRL: agenda
            deactivate REP
 
             CTRL -> ENTRYLIST : getAgendaEntryList()
@@ -103,29 +101,6 @@ activate GSM
     activate UI
         end
 
-        UI -> CTRL : getGreenSpace()
-        activate CTRL
-
-            CTRL -> ENTRYLIST : getGreenSpace()
-            activate ENTRYLIST
-
-                ENTRYLIST -> AGENDAENTRYLIST : getGreenSpace()
-                activate AGENDAENTRYLIST
-
-                    AGENDAENTRYLIST -> GREENSPACE** : getGreenSpace()
-                    activate GREENSPACE
-
-                        GREENSPACE --> AGENDAENTRYLIST : greenSpace
-                    deactivate GREENSPACE
-
-                    AGENDAENTRYLIST --> ENTRYLIST : greenSpace
-                deactivate AGENDAENTRYLIST
-
-                ENTRYLIST --> CTRL : greenSpace
-            deactivate ENTRYLIST
-
-            CTRL --> UI : greenSpace
-        deactivate CTRL
 
         UI -> CTRL : postponeAgendaEntry(chosenEntryList, greenSpace, newDate)
         activate CTRL

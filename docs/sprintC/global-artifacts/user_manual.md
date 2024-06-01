@@ -1,5 +1,8 @@
 # Green Space Management Application User Manual
 
+## Cover
+
+## Table of Contents
 
 ## Glossary
 
@@ -13,6 +16,27 @@ In this manual, it is possible to find the system structure along with the syste
 the main features of the product, a structure diagram and features of the app. 
 This manual is addressed to the users of the product, specifically the green spaces managers and administrators. 
 
+## System Requirements
+
+### Hardware Requirements
+
+The application is designed to run on a variety of hardware configurations, don't needing a strong processor or GPU (graphical processor unit) to run the app.
+The following are the minimum hardware requirements to run the application:
+> - Space: at least 100 MB of free disk space.
+> - No extra I/O devices are required.
+> - The GPU must support JavaFX 11 or higher.
+
+### Software Requirements
+
+The application is designed to run on a variety of operating systems and software configurations. 
+The following are the minimum software requirements to run the application:
+> - The software must support svg files.
+
+Any relevant information for the application to be operated must be included in this section both
+referring to software and hardware compatibility. For example, required plugins (if any),
+Compatible Operating System(s), required versions and service packs, Disk space, RAM, required
+processor speed (if relevant), Software installation procedure(s), any other technical
+specification relevant for the software application to operate.
 
 ## System Overview
 
@@ -295,26 +319,26 @@ minimum and maximum size of the team and the set of skills required for a given 
 > - Click on "Generate Team" or a similar option to automatically create a team proposal based on the criteria specified.
 
 > ### 20. Register a Green Space | GSM
-> **Purpose:** To enable the Vehicle Fleet Manager (VFM) to register a new vehicle.
+> **Purpose:** To enable the Green Space Manager (GSM) to register a green space, such as a garden, medium-sized park, or large-sized park, along with its respective area.
 >
 > **Instructions:**
-> - Log in to your Vehicle Fleet Manager account;
-> - Navigate to the section where you can register a new vehicle;
-> - Write the attributes of the vehicle;
-> - Click on "Register vehicle" or a similar option to add the vehicle, after you confirm.
+> - Log in to your Green Space Manager account.
+> - Navigate to the section dedicated to managing green spaces or parks.
+> - Select the option to register a new green space.
+> - Provide the necessary details for the green space, including its type (garden, medium-sized park, or large-sized park) and area measurement.
+> - After entering the information, click on the "Register" or similar option to save the new green space entry.
 
 > ### 21. Add a new entry to the To-Do List | GSM
-> **Purpose:** This feature enables the Vehicle Fleet Manager (VFM) to systematically record and manage the check-up details of vehicles within the organization's fleet, ensuring timely maintenance and service for optimal performance and safety.
->
+> **Purpose:** To enable the Green Space Manager (GSM) to add a new entry to the To-Do List, ensuring that tasks related to the management of green spaces are properly organized and tracked.
+> 
 > **Instructions:**
-> - Log in to your Vehicle Fleet Manager account;
-> - Navigate to the "Vehicle Maintenance" or a similar section;
-> - Select the option to register a check-up for a vehicle;
-> - Choose the vehicle from the fleet list that requires a check-up;
-> - Enter the details of the check-up, including the date, service provider, type of service performed, and any notes on repairs or maintenance issues identified during the check-up;
-> - Review the entered information for accuracy;
-> - Click on "Register Check-up" or a similar option to record the check-up details for the selected vehicle, after confirming the accuracy of the information provided.
-
+> - Log in to your Green Space Manager account.
+> - Navigate to the section dedicated to managing the To-Do List.
+> - Select the option to add a new entry.
+> - Choose the green space from the list of managed spaces.
+> - Enter the details of the new entry, such as task description, priority, and due date.
+> - Click on the "Add" or similar option to save the new entry to the To-Do List.
+ 
 > ### 22. Add a new entry in the Agenda | GSM
 > **Purpose:** To enable the Vehicle Fleet Manager (VFM) to automatically generate a list of all vehicles that need a check-up.
 >
@@ -367,30 +391,55 @@ minimum and maximum size of the team and the set of skills required for a given 
 
 
 > ### 27. List all the green spaces managed by a GSM | GSM
-> **Purpose:** This feature allows the Green Spaces Manager to apply an algorithm that returns the routes to be opened and pipes needed to be laid with a minimum accumulated cost, ensuring that all points are adequately supplied.
+> **Purpose:** This feature allows the Green Spaces Manager to list all the green spaces under is management, with a sorting option of is choice. 
 >
 > **Instructions**:
-> - Log in to your Green Spaces Manager account;
-> - From the main menu, select "Topographic Survey" or a similar option.
-> - Choose the park you want to create a Topographic Survey from the available list.
-> - Click on "Visualize" to obtain the Topographic Survey
+> - Log in to your Green Space Manager account;
+> - From the main menu, select "List GreenSpaces" or a similar option.
+> - The app will show a list of different methods to sort the green spaces.
+> - Click on confirm to obtain the list of greenSpaces managed by you.
 
 
 > ### 28. Consult the tasks assigned to a collaborator between two dates | Collaborator
-> **Purpose:** This feature allows the Software Quality Assessment Team Manager to run tests for inputs of variable size, to observe the asymptotic behavior of the execution time of the US13 algorithm.
+> **Purpose:** This feature allows the collaborator, to check all the tasks assigned to him between two days, and allows him to filter with the status.
 >
 > **Instructions**:
-> - Log in to your Software Quality Assessment Team Manager account;
-> - From the main menu, select "Asymptotic Behavior" or a similar option.
-> - Run the algorithm of US13 for all the files that you want.
-> - Click on "Visualize" to obtain the Asymptotic Behavior graph.
+> - Log in to your Collaborator account;
+> - From the main menu, select "View Tasks" or a similar option.
+> - The system will ask you to choose an initial date and an end date to check the tasks inside this parameter.
+> - The app will show a list of status and will ask if you want to filter using any of the status or no.
+> - Click on confirm to visualize the list of the tasks between both dates.
 
 
 > ### 29. Record the completion of a task | Collaborator
-> **Purpose:** This feature allows the Software Quality Assessment Team Manager to run tests for inputs of variable size, to observe the asymptotic behavior of the execution time of the US13 algorithm.
+> **Purpose:** To facilitate task management for collaborators by providing a feature to record the completion of tasks, ensuring clear communication and tracking of task progress within the system.
 >
 > **Instructions**:
-> - Log in to your Software Quality Assessment Team Manager account;
-> - From the main menu, select "Asymptotic Behavior" or a similar option.
-> - Run the algorithm of US13 for all the files that you want.
-> - Click on "Visualize" to obtain the Asymptotic Behavior graph.
+> - Log in to your user account.
+> - Navigate to the section dedicated to task management or the To-Do List.
+> - Select the task that you have completed from the list.
+> - Look for an option such as "Mark as Completed" or similar.
+> - Click on the option to indicate that the task has been completed.
+> - Verify that the system provides confirmation that the task has been successfully marked as completed.
+
+## Troubleshooting
+
+This section should include a list of at least 10 possible (error) situations that might occur when
+handling the application to help the user identify and solve those problems. It must also include
+the contacts of a possible “Helpdesk or Support Centre”)
+Each troubleshooting statement (referred as “ISSUE”) must include:
+- Symptom – an item that suggest an incorrect functioning
+- Sequence of instructions to narrow down the identified problem
+- Solution – suggestions to address the identified problem
+- Additional resource(s) – reference to possible support channels
+
+## Frequently Asked Questions
+
+This section includes a list of questions the users may ask about the application, and the
+respective answers. Questions and Answers must be numbered, and short, referring to precise
+features of the application. It is advisable to include 1 question for each feature, using the
+following format:
+Q # Possible question
+A # Short, direct answer
+
+## References and useful links

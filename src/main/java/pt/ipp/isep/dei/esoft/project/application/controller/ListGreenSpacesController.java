@@ -94,7 +94,7 @@ public class ListGreenSpacesController {
         return this.collaboratorRepository.getCollaboratorByEmail(email);
     }
     public List<GreenSpaceDto> getGreenSpaceList(Collaborator greenSpaceManager, String sortingOption){
-        List<GreenSpace> greenSpaceList = greenSpaceRepository.getGreenSpaceList(greenSpaceManager, sortingOption);
+        List<GreenSpace> greenSpaceList = greenSpaceRepository.getGreenSpaceListSorted(greenSpaceManager, sortingOption);
         GreenSpaceMapper mapper = new GreenSpaceMapper();
         return mapper.greenSpaceListToDto(greenSpaceList);
     }
