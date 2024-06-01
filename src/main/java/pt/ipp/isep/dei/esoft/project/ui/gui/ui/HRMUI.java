@@ -14,13 +14,13 @@ import java.util.ResourceBundle;
 public class HRMUI implements Initializable {
     public MainMenuUI mainMenuUI;
     public HRMController hrmController;
-    public static final String GSM = "GSM";
+    public static final String HRM = "HRM";
 
     public void showUI(Stage stage) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GSMUI.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/HRMUI.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
-        stage.setTitle(GSM);
+        stage.setTitle(HRM);
         stage.setScene(scene);
         hrmController = loader.getController();
         hrmController.setHrmui(new HRMUI());

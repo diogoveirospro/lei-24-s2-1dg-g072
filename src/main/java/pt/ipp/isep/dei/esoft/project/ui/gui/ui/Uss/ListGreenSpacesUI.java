@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss;
 
+import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.Mapper.GreenSpaceMapper;
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import pt.ipp.isep.dei.esoft.project.domain.GreenSpace;
@@ -97,5 +98,9 @@ public class ListGreenSpacesUI {
         List<GreenSpace> greenSpaceList = greenSpaceRepository.getGreenSpaceListSorted(greenSpaceManager, sortingOption);
         GreenSpaceMapper mapper = new GreenSpaceMapper();
         return mapper.greenSpaceListToDto(greenSpaceList);
+    }
+
+    public void showUI(Stage primaryStage) {
+
     }
 }

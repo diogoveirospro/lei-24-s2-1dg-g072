@@ -18,7 +18,7 @@ public class CollaboratorUI implements Initializable {
     public static final String GSM = "GSM";
 
     public void showUI(Stage stage) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GSMUI.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/CollaboratorUI.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         stage.setTitle(GSM);
@@ -36,4 +36,6 @@ public class CollaboratorUI implements Initializable {
     public CollaboratorController getCollaboratorController() {
         return collaboratorController;
     }
+
+
 }

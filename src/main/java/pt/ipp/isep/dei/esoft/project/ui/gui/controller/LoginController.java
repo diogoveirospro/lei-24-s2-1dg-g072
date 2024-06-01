@@ -34,12 +34,16 @@ public class LoginController {
         String password = txtPassword.getText();
         try {
             if (email.equals("hrm@this.app") && password.equals("hrm")) {
+                hrmUI = new HRMUI();
                 hrmUI.showUI(MainMenuUI.getPrimaryStage());
             } else if (email.equals("gsm@this.app") && password.equals("gsm")) {
+                gsmUI = new GSMUI();
                 gsmUI.showUI(MainMenuUI.getPrimaryStage());
-            } else if (email.equals("collaborator@this.app") && password.equals("collaborator@this.app")) {
+            } else if (email.equals("collaborator@this.app") && password.equals("collaborator")) {
+                collaboratorUI = new CollaboratorUI();
                 collaboratorUI.showUI(MainMenuUI.getPrimaryStage());
             } else if (email.equals("vfm@this.app") && password.equals("vfm@this.app")) {
+                fmUI = new FMUI();
                 fmUI.showUI(MainMenuUI.getPrimaryStage());
             }
         } catch (Exception e) {

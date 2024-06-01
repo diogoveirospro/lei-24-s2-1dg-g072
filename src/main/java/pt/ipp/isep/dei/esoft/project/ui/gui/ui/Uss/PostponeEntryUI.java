@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss;
 
+import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.Mapper.AgendaEntryMapper;
 import pt.ipp.isep.dei.esoft.project.domain.AgendaEntry;
 import pt.ipp.isep.dei.esoft.project.dto.AgendaEntryDto;
@@ -30,5 +31,9 @@ public class PostponeEntryUI {
     public List<AgendaEntryDto> entryListToDto(){
         AgendaEntryMapper agendaEntryMapper = new AgendaEntryMapper();
         return agendaEntryMapper.toDtoList(agendaEntries);
+    }
+
+    public void showUI(Stage primaryStage) {
+
     }
 }

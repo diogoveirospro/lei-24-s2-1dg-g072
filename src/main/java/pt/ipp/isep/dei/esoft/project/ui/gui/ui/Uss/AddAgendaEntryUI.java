@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss;
 
+import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.Mapper.GreenSpaceMapper;
 import pt.ipp.isep.dei.esoft.project.Mapper.ToDoListMapper;
 import pt.ipp.isep.dei.esoft.project.application.session.ApplicationSession;
@@ -87,5 +88,9 @@ public class AddAgendaEntryUI {
             return toDoList.getToDoListEntryByTaskHashCode(((ToDoListEntryDto) dto).getTaskHashCode());
         }
         return null;
+    }
+
+    public void showUI(Stage primaryStage) {
+
     }
 }

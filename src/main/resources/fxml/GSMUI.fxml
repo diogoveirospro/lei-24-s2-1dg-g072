@@ -46,15 +46,15 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <Button alignment="CENTER" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" text="Register GreenSpace" textAlignment="CENTER" />
-                <Button defaultButton="true" mnemonicParsing="false" text="Assign Team" GridPane.columnIndex="1" />
-                <Button defaultButton="true" mnemonicParsing="false" text="Add Entry ToDoList" GridPane.rowIndex="1" />
-                <Button defaultButton="true" mnemonicParsing="false" text="Add Entry Agenda" GridPane.rowIndex="2" />
-                <Button defaultButton="true" mnemonicParsing="false" text="PostPone Entry" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                <Button defaultButton="true" mnemonicParsing="false" text="Cancel Entry" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Button defaultButton="true" mnemonicParsing="false" text="AssignVehicles" GridPane.columnIndex="2" />
-            <Button defaultButton="true" mnemonicParsing="false" text="List GreenSpaces" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Button cancelButton="true" mnemonicParsing="false" text="Logout" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                <Button fx:id="RegisterGreenSpaceButton" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#handleRegisterGreenSpaceButtonAction" text="Register GreenSpace" textAlignment="CENTER" />
+                <Button fx:id="AssignTeamButton" defaultButton="true" mnemonicParsing="false" onAction="#handleAssignTeamButtonAction" text="Assign Team" GridPane.columnIndex="1" />
+                <Button fx:id="AddToDoListEntryButton" defaultButton="true" mnemonicParsing="false" onAction="#handleAddToDoListEntryButtonAction" text="Add Entry ToDoList" GridPane.rowIndex="1" />
+                <Button fx:id="AddAgendaEntryButton" defaultButton="true" mnemonicParsing="false" onAction="#handleAddAgendaEntryButtonAction" text="Add Entry Agenda" GridPane.rowIndex="2" />
+                <Button fx:id="PostponeEntryButton" defaultButton="true" mnemonicParsing="false" onAction="#handlePostponeEntryButtonAction" text="PostPone Entry" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Button fx:id="CancelEntryButton" defaultButton="true" mnemonicParsing="false" onAction="#handleCancelEntryButtonAction" text="Cancel Entry" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Button fx:id="AssignVehicleButton" defaultButton="true" mnemonicParsing="false" onAction="#handleAssignVehicleButtonAction" text="AssignVehicles" GridPane.columnIndex="2" />
+            <Button fx:id="ListGreenSpacesButton" defaultButton="true" mnemonicParsing="false" onAction="#handleListGreenSpacesButtonAction" text="List GreenSpaces" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Button fx:id="LogOutButton" cancelButton="true" mnemonicParsing="false" onAction="#handleLogoutButtonAction" text="Logout" GridPane.columnIndex="2" GridPane.rowIndex="2" />
             </children>
         </GridPane>
     </center>

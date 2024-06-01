@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss;
 
+import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.Mapper.AgendaEntryMapper;
 import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.dto.AgendaEntryDto;
@@ -168,5 +169,9 @@ public class ListTaskUI {
         List<AgendaEntry> agendaEntryList = this.agenda.getAgendaEntryList(taskList, startDate, endDate,typeStatus);
         AgendaEntryMapper mapper = new AgendaEntryMapper();
         return mapper.toDtoList(agendaEntryList);
+    }
+
+    public void showUI(Stage stage) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
