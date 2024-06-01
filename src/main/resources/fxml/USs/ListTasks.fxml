@@ -6,9 +6,15 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="fxml.USs.ListTasks"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.ListTaskController">
+   <children>
+      <DatePicker fx:id="startDate" layoutX="232.0" layoutY="106.0" onAction="#getStartDate" promptText="Enter a date..." />
+      <DatePicker fx:id="endDate" layoutX="232.0" layoutY="169.0" onAction="#getEndDate" promptText="Enter a date..." />
+      <Label layoutX="151.0" layoutY="111.0" text="Start Date" />
+      <Label layoutX="154.0" layoutY="174.0" text="End Date" />
+      <ComboBox editable="true" layoutX="232.0" layoutY="230.0" prefHeight="31.0" prefWidth="218.0" promptText="Choose One..." />
+      <Label layoutX="164.0" layoutY="235.0" text="Status" />
+      <Button defaultButton="true" layoutX="450.0" layoutY="305.0" mnemonicParsing="false" text="Show" />
+      <Button cancelButton="true" layoutX="99.0" layoutY="305.0" mnemonicParsing="false" text="Cancel" />
+   </children>
 </AnchorPane>

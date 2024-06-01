@@ -1,9 +1,13 @@
 package pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss;
 
+import javafx.fxml.FXML;
+import javafx.scene.control.DatePicker;
 import pt.ipp.isep.dei.esoft.project.Mapper.AgendaEntryMapper;
 import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.dto.AgendaEntryDto;
 import pt.ipp.isep.dei.esoft.project.repository.*;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.LoginUI;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss.ListTaskUI;
 
 import java.util.List;
 
@@ -14,6 +18,28 @@ import java.util.List;
  * @author Group 072 - Byte Masters - ISEP
  */
 public class ListTaskController {
+    /**
+     * ListTaskUI
+     */
+    private ListTaskUI listTaskUI;
+
+    /**
+     * Lets you pick a start date
+     */
+    @FXML
+    private DatePicker startDate;
+    /**
+     * Lets you pick an end date
+     */
+    @FXML
+    private DatePicker endDate;
+
+    public void getStartDate() {
+        Date startDate = new Date(this.startDate.getValue().getDayOfMonth(), this.startDate.getValue().getMonthValue(), this.startDate.getValue().getYear());
+    }
+    public void getEndDate() {
+        Date endDate = new Date(this.endDate.getValue().getDayOfMonth(), this.endDate.getValue().getMonthValue(), this.endDate.getValue().getYear());
+    }
     /**
      * taskRepository contains all tasks
      */
@@ -168,5 +194,9 @@ public class ListTaskController {
         List<AgendaEntry> agendaEntryList = this.agenda.getAgendaEntryList(taskList, startDate, endDate,typeStatus);
         AgendaEntryMapper mapper = new AgendaEntryMapper();
         return mapper.toDtoList(agendaEntryList);
+    }
+
+    public void setListTaskUI(ListTaskUI listTaskUI) {
+        this.listTaskUI = listTaskUI;
     }
 }
