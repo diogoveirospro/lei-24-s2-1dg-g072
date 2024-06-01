@@ -21,21 +21,25 @@ import java.util.ResourceBundle;
 public class MainMenuUI extends Application {
     private MainMenuController mainMenuController;
 
-
+    private static Stage primaryStage;
     private static final String ENTERPRISE_NAME = "Musgo Sublime";
 
     @Override
     public void start(Stage stage) throws IOException {
+        primaryStage = stage;
+        loadMainMenu();
+    }
+
+    public void loadMainMenu() {
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainWindow.fxml"));
             Parent root = loader.load();
-
-
             Scene scene = new Scene(root);
-            stage.setTitle(ENTERPRISE_NAME);
-            stage.setScene(scene);
+            primaryStage.setTitle(ENTERPRISE_NAME);
+            primaryStage.setScene(scene);
             mainMenuController = loader.getController();
-            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            mainMenuController.setMainMenuUI(new MainMenuUI());
+            primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
                 public void handle(WindowEvent event) {
                     Alert alerta = AlertUI.createAnAlert(Alert.AlertType.CONFIRMATION, ENTERPRISE_NAME,
@@ -46,7 +50,7 @@ public class MainMenuUI extends Application {
                     }
                 }
             });
-            stage.show();
+            primaryStage.show();
 
         }catch (IOException ex){
             ex.printStackTrace(System.out);
@@ -59,5 +63,7 @@ public class MainMenuUI extends Application {
         return mainMenuController;
     }
 
-
+    public static Stage getPrimaryStage() {
+        return primaryStage;
+    }
 }

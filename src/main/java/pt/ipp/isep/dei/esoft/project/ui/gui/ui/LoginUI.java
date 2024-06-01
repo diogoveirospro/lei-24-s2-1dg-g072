@@ -18,17 +18,20 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class LoginUI implements Initializable {
+
     public LoginController loginController;
     public MainMenuUI mainMenuUI;
     public static final String LOGIN = "Login";
 
 
-    public void loginAction() throws IOException {
+    public void loginAction(Stage stage) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Login.fxml"));
         Parent root = loader.load();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
+        Scene scene = new Scene(root);
+        stage.setTitle(LOGIN);
+        stage.setScene(scene);
         loginController = loader.getController();
+        loginController.setLoginUI(new LoginUI());
         stage.show();
     }
 

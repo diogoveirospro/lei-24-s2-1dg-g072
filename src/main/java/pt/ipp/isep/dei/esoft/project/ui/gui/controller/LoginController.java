@@ -4,10 +4,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import pt.ipp.isep.dei.esoft.project.ui.gui.ui.CollaboratorUI;
-import pt.ipp.isep.dei.esoft.project.ui.gui.ui.FMUI;
-import pt.ipp.isep.dei.esoft.project.ui.gui.ui.GSMUI;
-import pt.ipp.isep.dei.esoft.project.ui.gui.ui.HRMUI;
+import javafx.stage.Stage;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.*;
+
+import java.io.IOException;
 
 public class LoginController {
     @FXML
@@ -25,6 +25,8 @@ public class LoginController {
     private GSMUI gsmUI;
     private CollaboratorUI collaboratorUI;
     private FMUI fmUI;
+    private LoginUI loginUI;
+    private MainMenuUI mainMenuUI;
 
     public void handleLoginButtonAction() {
         String email = txtEmail.getText();
@@ -43,6 +45,17 @@ public class LoginController {
             System.out.println("An error occurred while handling the login action: " + e.getMessage());
         }
 
+    }
+    public void handleCancelButtonAction() {
+        try {
+            mainMenuUI = new MainMenuUI();
+            mainMenuUI.loadMainMenu();
+        } catch (Exception e) {
+            System.out.println("An error occurred while handling the cancel action: " + e.getMessage());
+        }
+    }
+    public void setLoginUI(LoginUI loginUI) {
+        this.loginUI = loginUI;
     }
 
 }
