@@ -166,7 +166,7 @@ public class Task {
         for (Skill skill : requiredSkills) {
             boolean skillFound = false;
             for (Collaborator collaborator : team.getTeam()) {
-                for (Skill collaboratorSkill : collaborator.getSkills()) {
+                for (Skill collaboratorSkill : collaborator.getSkillSet()) {
                     if (collaboratorSkill.equals(skill)) {
                         skillFound = true;
                         break;

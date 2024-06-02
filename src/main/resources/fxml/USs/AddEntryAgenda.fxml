@@ -29,7 +29,7 @@
                   <Insets left="20.0" />
                </HBox.margin>
             </Label>
-            <ComboBox fx:id="cbGreenSpace" prefWidth="150.0" />
+            <ComboBox fx:id="cbGreenSpace" prefWidth="150.0" promptText="Select Green Space" />
             <Label text="Task: ">
                <padding>
                   <Insets right="10.0" />
@@ -38,13 +38,13 @@
                   <Insets left="20.0" />
                </HBox.margin>
             </Label>
-            <ComboBox fx:id="cbTask" prefWidth="150.0" />
+            <ComboBox fx:id="cbTask" prefWidth="150.0" promptText="Select Task" />
          </children>
          <VBox.margin>
             <Insets top="20.0" />
          </VBox.margin>
       </HBox>
-      <HBox prefHeight="100.0" prefWidth="200.0">
+      <HBox prefHeight="31.0" prefWidth="487.0">
          <children>
             <Label text="Start Date: ">
                <HBox.margin>
@@ -55,18 +55,35 @@
                </padding>
             </Label>
             <DatePicker fx:id="dpStartDate" prefHeight="25.0" prefWidth="153.0" />
+            <ComboBox fx:id="cbStartHour" prefHeight="25.0" prefWidth="115.0" promptText="Select Hour">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </ComboBox>
+         </children>
+         <VBox.margin>
+            <Insets bottom="10.0" top="20.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox prefHeight="69.0" prefWidth="487.0">
+         <children>
             <Label text="End Date: ">
                <HBox.margin>
                   <Insets left="20.0" />
                </HBox.margin>
                <padding>
-                  <Insets right="10.0" />
+                  <Insets right="15.0" />
                </padding>
             </Label>
             <DatePicker fx:id="dpEndDate" prefHeight="25.0" prefWidth="153.0" />
+            <ComboBox fx:id="cbEndHour" prefHeight="25.0" prefWidth="115.0" promptText="Select Hour">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </ComboBox>
          </children>
          <VBox.margin>
-            <Insets top="20.0" />
+            <Insets top="5.0" />
          </VBox.margin>
       </HBox>
       <HBox prefHeight="52.0" prefWidth="487.0">

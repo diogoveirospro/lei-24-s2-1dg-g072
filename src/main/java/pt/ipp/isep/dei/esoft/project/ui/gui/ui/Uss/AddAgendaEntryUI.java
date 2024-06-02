@@ -1,5 +1,13 @@
 package pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss;
 
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidAgendaEntryDataException;
 import pt.ipp.isep.dei.esoft.project.Mapper.GreenSpaceMapper;
@@ -9,89 +17,56 @@ import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.dto.GreenSpaceDto;
 import pt.ipp.isep.dei.esoft.project.dto.ToDoListEntryDto;
 import pt.ipp.isep.dei.esoft.project.repository.*;
+import pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.AddAgendaEntryUIController;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.MainMenuUI;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class AddAgendaEntryUI {
+public class AddAgendaEntryUI implements Initializable {
 
-    private CollaboratorRepository collaboratorRepository;
+    @FXML
+    private ComboBox<GreenSpaceDto> cbGreenSpace;
 
-    private GreenSpaceRepository greenSpaceRepository;
+    @FXML
+    private ComboBox<ToDoListEntryDto> cbTask;
 
-    private ToDoList toDoList;
+    @FXML
+    private DatePicker dpStartDate;
 
-    private Agenda agenda;
+    @FXML
+    private DatePicker dpEndDate;
 
-    public AddAgendaEntryUI() {
-        collaboratorRepository = Repositories.getInstance().getCollaboratorRepository();
-        greenSpaceRepository = Repositories.getInstance().getGreenSpaceRepository();
-        toDoList = Repositories.getInstance().getToDoList();
-        agenda = Repositories.getInstance().getAgenda();
+    @FXML
+    private ComboBox<String> cbStartHour;
+
+    @FXML
+    private ComboBox<String> cbEndHour;
+
+    @FXML
+    private Button btnAddAgendaEntry;
+
+    @FXML
+    private Button btnCancel;
+
+
+    public static final String ADDAGENDAENTRY = "GSM | Add New Entry to the Agenda";
+
+
+    public void showUI(Stage stage) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/USs/AddAgendaEntry.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        stage.setTitle(ADDAGENDAENTRY);
+        stage.setScene(scene);
+        AddAgendaEntryUIController addAgendaEntryUIController = loader.getController();
+        stage.show();
     }
 
-    public AddAgendaEntryUI(CollaboratorRepository collaboratorRepository,
-                            GreenSpaceRepository greenSpaceRepository, ToDoList toDoList, Agenda agenda) {
-        this.collaboratorRepository = collaboratorRepository;
-        this.greenSpaceRepository = greenSpaceRepository;
-        this.toDoList = toDoList;
-        this.agenda = agenda;
-
-    }
-
-    public List<GreenSpaceDto> getListGreenSpaces() {
-        Collaborator GSM = getCollaboratorFromSession();
-        List<GreenSpace> listGreenSpaces = greenSpaceRepository.getListGreenSpacesManagedByGsm(GSM);
-
-        GreenSpaceMapper greenSpaceMapper = new GreenSpaceMapper();
-
-        return greenSpaceMapper.greenSpaceListToDto(listGreenSpaces);
-    }
-
-    private Collaborator getCollaboratorFromSession() {
-        String email = ApplicationSession.getInstance().getCurrentSession().getUserEmail();
-
-        return collaboratorRepository.getCollaboratorByEmail(email);
-
-    }
-
-    public List<ToDoListEntryDto> getToDoListEntries(GreenSpaceDto greenSpaceDto) {
-
-        GreenSpace greenSpace = (GreenSpace) toDomain(greenSpaceDto);
-
-        List<ToDoListEntry> listEntries = greenSpace.getToDoList().getToDoListEntries();
-
-        return ToDoListMapper.toDoListEntriesToDto(listEntries);
-
-    }
-
-    public Task getTask (ToDoListEntryDto toDoListEntryDto) {
-        ToDoListEntry toDoListEntry = (ToDoListEntry) toDomain(toDoListEntryDto);
-
-        return toDoListEntry.getTask();
-    }
-
-    public AgendaEntry createAgendaEntry(Task task, GreenSpace greenSpace, Date startDate, Date endDate) throws InvalidAgendaEntryDataException {
-        agenda = Repositories.getInstance().getAgenda();
-
-        return agenda.createAgendaEntry(task, greenSpace, startDate, endDate);
-
-    }
-
-    public boolean addAgendaEntry(AgendaEntry agendaEntry) {
-        return agenda.addAgendaEntry(agendaEntry);
-    }
-
-    public <T> Object toDomain(T dto) {
-        if (dto instanceof GreenSpaceDto) {
-            greenSpaceRepository.getGreenSpaceByParkName(((GreenSpaceDto) dto).getParkName());
-
-        } else if (dto instanceof ToDoListEntryDto) {
-            return toDoList.getToDoListEntryByTaskHashCode(((ToDoListEntryDto) dto).getTaskHashCode());
-        }
-        return null;
-    }
-
-    public void showUI(Stage primaryStage) {
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
 }
