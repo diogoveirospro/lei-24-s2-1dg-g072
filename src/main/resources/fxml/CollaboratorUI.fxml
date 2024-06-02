@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
@@ -7,22 +9,6 @@
 <?import javafx.scene.layout.*?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="542.0" prefWidth="644.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.CollaboratorController">
-    <left>
-        <Region prefHeight="542.0" prefWidth="79.0" style="-fx-background-color: #c16c45;" BorderPane.alignment="CENTER" />
-    </left>
-    <right>
-        <Region prefHeight="200.0" prefWidth="79.0" style="-fx-background-color: #c16c45;" BorderPane.alignment="CENTER" />
-    </right>
-    <bottom>
-        <GridPane prefHeight="75.0" BorderPane.alignment="CENTER">
-            <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            </rowConstraints>
-        </GridPane>
-    </bottom>
     <top>
         <GridPane prefHeight="75.0" prefWidth="644.0" BorderPane.alignment="CENTER">
             <columnConstraints>
@@ -31,6 +17,16 @@
             <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome Collaborator! What are we doing today?">
+               <font>
+                  <Font name="Times New Roman Bold" size="23.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="20.0" />
+               </GridPane.margin>
+            </Text>
+         </children>
         </GridPane>
     </top>
     <center>
@@ -44,9 +40,9 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <Button fx:id="btnListTasks" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#handleListTasksButtonAction" text="List Tasks" textAlignment="CENTER" />
-                <Button fx:id="btnFinishTask" defaultButton="true" mnemonicParsing="false" onAction="#handleFinishTaskButtonAction" text="Finish Task" GridPane.rowIndex="1" />
-                <Button fx:id="btnLogout" cancelButton="true" mnemonicParsing="false" onAction="#handleLogoutButtonAction" text="Logout" GridPane.rowIndex="2" />
+                <Button fx:id="btnListTasks" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#handleListTasksButtonAction" text="List Tasks" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Button fx:id="btnFinishTask" defaultButton="true" mnemonicParsing="false" onAction="#handleFinishTaskButtonAction" text="Finish Task" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                <Button fx:id="btnLogout" cancelButton="true" mnemonicParsing="false" onAction="#handleLogoutButtonAction" text="Logout" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
             </children>
         </GridPane>
     </center>

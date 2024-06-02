@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -9,7 +10,17 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.MainMenuController">
    <children>
-       <Button fx:id="loginButton" alignment="CENTER" defaultButton="true" layoutX="207.0" layoutY="185.0" onAction="#handleLoginButtonAction" prefHeight="31.0" prefWidth="186.0" text="Login" textAlignment="CENTER" />
-       <Button fx:id="viewTeamButton" defaultButton="true" layoutX="207.0" layoutY="232.0" onAction="#handleViewTeamButtonAction" text="View Development Team" textAlignment="CENTER" />
+      <Text fill="#678362" layoutX="39.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Musgo Sublime">
+         <font>
+            <Font name="Bradley Hand ITC" size="39.0" />
+         </font>
+      </Text>
+      <Text fill="#bb6140" layoutX="301.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Byte Masters" textAlignment="CENTER" wrappingWidth="260.64111328125">
+         <font>
+            <Font name="Bradley Hand ITC" size="39.0" />
+         </font>
+      </Text>
+       <Button fx:id="loginButton" alignment="CENTER" defaultButton="true" layoutX="207.0" layoutY="194.0" onAction="#handleLoginButtonAction" prefHeight="31.0" prefWidth="186.0" text="Login" textAlignment="CENTER" />
+       <Button fx:id="viewTeamButton" defaultButton="true" layoutX="226.0" layoutY="241.0" onAction="#handleViewTeamButtonAction" text="View Development Team" textAlignment="CENTER" />
    </children>
 </AnchorPane>

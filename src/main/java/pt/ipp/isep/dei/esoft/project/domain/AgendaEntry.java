@@ -1,7 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidAgendaEntryDataException;
-import pt.ipp.isep.dei.esoft.project.domain.Date;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 
 import java.util.ArrayList;
