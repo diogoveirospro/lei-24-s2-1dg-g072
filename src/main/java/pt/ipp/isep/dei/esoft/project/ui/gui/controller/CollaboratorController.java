@@ -36,6 +36,7 @@ public class CollaboratorController {
             listTaskUI = new ListTaskUI();
             listTaskUI.showUI(MainMenuUI.getPrimaryStage());
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("An error occurred while handling the list tasks action: " + e.getMessage());
         }
     }

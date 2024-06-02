@@ -12,9 +12,9 @@
       <DatePicker fx:id="endDate" layoutX="232.0" layoutY="169.0" onAction="#getEndDate" promptText="Enter a date..." />
       <Label layoutX="151.0" layoutY="111.0" text="Start Date" />
       <Label layoutX="154.0" layoutY="174.0" text="End Date" />
-      <ComboBox editable="true" layoutX="232.0" layoutY="230.0" prefHeight="31.0" prefWidth="218.0" promptText="Choose One..." />
+      <ComboBox fx:id="statusList" editable="true" layoutX="232.0" layoutY="230.0" onAction="#getStatus" prefHeight="31.0" prefWidth="218.0" promptText="Choose One..." />
       <Label layoutX="164.0" layoutY="235.0" text="Status" />
-      <Button defaultButton="true" layoutX="450.0" layoutY="305.0" mnemonicParsing="false" text="Show" />
-      <Button cancelButton="true" layoutX="99.0" layoutY="305.0" mnemonicParsing="false" text="Cancel" />
+      <Button fx:id="btnShow" defaultButton="true" layoutX="450.0" layoutY="305.0" mnemonicParsing="false" onAction="#handleShowButtonAction" text="Show" />
+      <Button fx:id="btnCancel" cancelButton="true" layoutX="99.0" layoutY="305.0" mnemonicParsing="false" onAction="#handleCancelButtonAction" text="Cancel" />
    </children>
 </AnchorPane>
