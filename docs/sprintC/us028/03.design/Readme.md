@@ -82,9 +82,6 @@ It uses Interaction Occurrence (a.k.a. Interaction Use).
 
 ![Sequence Diagram - Partial - Get Team List](svg/us028-sequence-diagram-partial-get-team-list.svg)
 
-**Get Task List Partial SD**
-
-![Sequence Diagram - Partial - Get Task List](svg/us028-sequence-diagram-partial-get-task-list.svg)
 
 **Get Entry List Partial SD**
 

@@ -13,16 +13,16 @@ participant "agendaEntries\n:List<AgendaEntries>" as AGENDAENTRIES
 
 autonumber 30
 
- -> AGENDA : getCollaboratorAgendaEntries(taskList,startDate,endDate)
+ -> AGENDA : getCollaboratorAgendaEntries(teamList,startDate,endDate,typeStatus)
 autonumber 30.1
 activate AGENDA
-    group Get Task List
+    group Get Entry List
 
 
             AGENDA --> AGENDAENTRIES** : create()
-                loop for each task
+                loop for each team in teamList
                     loop for each agendaEntry
-                        opt (agendaEntry.getTask() == task && agendaEntry.getStartDate() >= startDate \n && agendaEntry.getEndDate() <= endDate)
+                        opt (agendaEntry.getTeam() == team && agendaEntry.getStartDate() >= startDate \n && agendaEntry.getEndDate() <= endDate && agendaEntry.getTypeStatus() == typeStatus)
                             AGENDA -> AGENDAENTRIES : add(agendaEntry)
                                 activate AGENDAENTRIES
                         end

@@ -17,8 +17,6 @@ participant "collaboratorRepository\n:CollaboratorRepository" as collaboratorRep
 participant "teamRepository\n:TeamRepository" as teamRepository
 participant "teamList\n:List<Team>" as LISTTEAM
 participant "team:Team" as TEAM
-participant "taskRepository\n:TaskRepository" as taskRepository
-participant "taskList\n:List<Task>" as LISTTASK
 participant "agenda\n:Agenda" as AGENDA
 participant "agendaEntry\n:AgendaEntry" as agendaEntry
 participant "statusList\n:List<String>" as LISTSTATUS
@@ -177,37 +175,7 @@ Col -> UI : confirms that he wants to create the list
             teamRepository --> CTRL : teamList
             deactivate teamRepository
 
-        CTRL -> RepositorySingleton : getInstance()
-            activate RepositorySingleton
 
-            RepositorySingleton --> CTRL : repositories
-            deactivate RepositorySingleton
-
-        CTRL -> REP : getTaskRepository()
-            activate REP
-
-            REP --> CTRL : taskRepository
-            deactivate REP
-
-        CTRL -> taskRepository : getTaskList(teamList,typeStatus)
-            activate taskRepository
-
-            taskRepository -> LISTTASK** : create()
-                loop for each task in the system
-                    loop for each team in the teamList
-                    opt ((typeStatus() == task.getStatus()) && (team == task.getTeam()))
-                        taskRepository -> LISTTASK : addTaskOfCollaborator(task)
-                            activate LISTTASK
-                    end
-
-                    end
-
-                end
-            LISTTASK --> taskRepository : taskList
-            deactivate LISTTASK
-
-            taskRepository --> CTRL : taskList
-        deactivate taskRepository
 
         CTRL -> RepositorySingleton : getInstance()
             activate RepositorySingleton
@@ -221,13 +189,13 @@ Col -> UI : confirms that he wants to create the list
             REP --> CTRL : Agenda
             deactivate REP
 
-        CTRL -> AGENDA : getCollaboratorAgendaEntries(taskList,dateI,dateF)
+        CTRL -> AGENDA : getCollaboratorAgendaEntries(teamList,dateI,dateF,typeStatus)
             activate AGENDA
 
             AGENDA --> AGENDAENTRIES** : create()
-                loop for each task
+                loop for each team in teamList
                     loop for each agendaEntry
-                        opt (agendaEntry.getTask() == task && agendaEntry.getDate() >= dateI && agendaEntry.getDate() <= dateF)
+                        opt (agendaEntry.getTask() == team && agendaEntry.getDate() >= dateI && agendaEntry.getDate() <= dateF)
                             AGENDA -> AGENDAENTRIES : add(agendaEntry)
                                 activate AGENDAENTRIES
                         end
