@@ -5,14 +5,8 @@ import java.util.Objects;
 
 
 public class Task {
-    private List<Vehicle> vehicleList;
-    private Team team;
     public Date duration;
     private String task;
-
-    public List<Vehicle> getVehicleList() {
-        return vehicleList;
-    }
 
     public Date getDuration() {
         return duration;
@@ -22,20 +16,14 @@ public class Task {
         return task;
     }
 
-    public Team getTeam() {
-        return team;
-    }
-
     public boolean equals(Object vehicleObject) {
         if (this == vehicleObject) return true;
         if (vehicleObject == null || getClass() != vehicleObject.getClass()) return false;
         Task task1 = (Task) vehicleObject;
-        return vehicleList.equals(task1.vehicleList) &&
-                team.equals(task1.team) &&
-                duration.equals(task1.duration) &&
+        return duration.equals(task1.duration) &&
                 task.equals(task1.task);
     }
     public int hashCode() {
-        return Objects.hash(vehicleList, team, duration, task);
+        return Objects.hash(duration, task);
     }
 }

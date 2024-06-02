@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
+import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidAgendaEntryDataException;
 import pt.ipp.isep.dei.esoft.project.domain.*;
 
 import java.util.ArrayList;
@@ -44,7 +45,7 @@ public class Agenda {
      * @param endDate the end date of the agenda entry.
      * @return the newly created AgendaEntry object.
      */
-    public AgendaEntry createAgendaEntry(Task task, GreenSpace greenSpace, Date startDate, Date endDate) {
+    public AgendaEntry createAgendaEntry(Task task, GreenSpace greenSpace, Date startDate, Date endDate) throws InvalidAgendaEntryDataException {
         return new AgendaEntry(task, greenSpace,startDate, endDate);
     }
 

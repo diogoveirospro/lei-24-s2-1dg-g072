@@ -1,30 +1,46 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidAgendaEntryDataException;
 import pt.ipp.isep.dei.esoft.project.domain.Date;
+import pt.ipp.isep.dei.esoft.project.repository.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AgendaEntry extends Entry{
+/**
+ * Represents an agenda entry within the project.
+ * An agenda entry contains details about a task, including the team,
+ * start and end dates, status, and a list of associated vehicles.
+ *
+ * @author Group 072 - Byte Masters - ISEP
+ */
+public class AgendaEntry extends Entry {
 
     private Team team;
-    private ToDoListEntry toDoListEntry;
     private Date startDate;
     private Date endDate;
-    private StatusOfEntry status = StatusOfEntry.PLANNED;
+    private StatusOfEntry status;
     private List<Vehicle> vehicleList;
 
+    private GreenSpaceRepository greenSpaceRepository = Repositories.getInstance().getGreenSpaceRepository();
+    private TeamRepository teamRepository = Repositories.getInstance().getTeamRepository();
+    private VehicleRepository vehicleRepository = Repositories.getInstance().getVehicleRepository();
 
-
+    /**
+     * Enumeration representing the status of an agenda entry.
+     */
     public enum StatusOfEntry {
-        PLANNED("Planned"),
+        SCHEDULE("Schedule"),
         POSTPONED("Postponed"),
         CANCELED("Canceled"),
         DONE("Done");
+
         private final String status;
+
         StatusOfEntry(String status) {
             this.status = status;
         }
+
         public String getStatus() {
             return status;
         }
@@ -33,6 +49,7 @@ public class AgendaEntry extends Entry{
         public String toString() {
             return status;
         }
+
         public static StatusOfEntry getStatusOfEntry(String status) {
             for (StatusOfEntry statusOfEntry : StatusOfEntry.values()) {
                 if (statusOfEntry.getStatus().equals(status)) {
@@ -41,6 +58,7 @@ public class AgendaEntry extends Entry{
             }
             throw new IllegalArgumentException("Invalid status of entry: " + status);
         }
+
         public static List<String> getStatusList() {
             List<String> statusList = new ArrayList<>();
             for (StatusOfEntry status : StatusOfEntry.values()) {
@@ -50,14 +68,25 @@ public class AgendaEntry extends Entry{
         }
     }
 
-
-    public AgendaEntry (Task task,GreenSpace greenSpace, Date startDate, Date endDate) {
+    /**
+     * Constructs an agenda entry with the specified task, green space, start date, and end date.
+     *
+     * @param task       the task associated with this entry
+     * @param greenSpace the green space associated with this entry
+     * @param startDate  the start date of the task
+     * @param endDate    the end date of the task
+     * @throws InvalidAgendaEntryDataException if the start date is later than the end date
+     */
+    public AgendaEntry(Task task, GreenSpace greenSpace, Date startDate, Date endDate) throws InvalidAgendaEntryDataException {
         super(task, greenSpace);
+        if (!validateEntry(startDate, endDate)) {
+            throw new InvalidAgendaEntryDataException("The start date of the task cannot be later than the end date.");
+        }
+
         this.startDate = startDate;
         this.endDate = endDate;
         this.vehicleList = new ArrayList<>();
         this.team = null;
-
     }
 
     public Date getStartDate() {
@@ -72,10 +101,6 @@ public class AgendaEntry extends Entry{
         return vehicleList;
     }
 
-    public ToDoListEntry getToDoListEntry() {
-        return toDoListEntry;
-    }
-
     public StatusOfEntry getStatus() {
         return status;
     }
@@ -84,21 +109,97 @@ public class AgendaEntry extends Entry{
         return team;
     }
 
-
-    public void setToDoListEntry(ToDoListEntry toDoListEntry) {
-        this.toDoListEntry = toDoListEntry;
-    }
-
-    public void setStartDate(Date startDate) {
+    /**
+     * Sets the start date of the task.
+     *
+     * @param startDate the new start date
+     * @throws InvalidAgendaEntryDataException if the start date is later than the end date
+     */
+    public void setStartDate(Date startDate) throws InvalidAgendaEntryDataException {
+        if (startDate.isGreater(endDate)) {
+            throw new InvalidAgendaEntryDataException("The start date of the task cannot be later than the end date.");
+        }
         this.startDate = startDate;
     }
 
-    public void setEndDate(Date endDate) {
+    /**
+     * Sets the end date of the task.
+     *
+     * @param endDate the new end date
+     * @throws InvalidAgendaEntryDataException if the end date is earlier than the start date
+     */
+    public void setEndDate(Date endDate) throws InvalidAgendaEntryDataException {
+        if (!startDate.isGreater(endDate)) {
+            throw new InvalidAgendaEntryDataException("The end date of the task cannot be earlier than the start date.");
+        }
         this.endDate = endDate;
     }
 
-    public void setVehicleList(List<Vehicle> vehicleList) {
+    /**
+     * Sets the list of vehicles associated with this entry.
+     *
+     * @param vehicleList the new list of vehicles
+     * @throws InvalidAgendaEntryDataException if any vehicle is not in the repository
+     */
+    public void setVehicleList(List<Vehicle> vehicleList) throws InvalidAgendaEntryDataException {
+        for (Vehicle vehicle : vehicleList) {
+            if (!vehicleRepository.getVehicleList().contains(vehicle)) {
+                throw new InvalidAgendaEntryDataException("The vehicle is not in the repository.");
+            }
+        }
         this.vehicleList = vehicleList;
+    }
+
+    /**
+     * Sets the team associated with this entry.
+     *
+     * @param team the new team
+     * @throws InvalidAgendaEntryDataException if the team is not in the repository
+     */
+    public void setTeam(Team team) throws InvalidAgendaEntryDataException {
+        if (!teamRepository.getTeams().contains(team)) {
+            throw new InvalidAgendaEntryDataException("The team is not in the repository.");
+        }
+        this.team = team;
+    }
+
+    /**
+     * Sets the status of the task to "Scheduled".
+     */
+    public void taskSchedule() {
+        status = StatusOfEntry.SCHEDULE;
+    }
+
+    /**
+     * Sets the status of the task to "Postponed".
+     */
+    public void taskPostponed() {
+        status = StatusOfEntry.POSTPONED;
+    }
+
+    /**
+     * Sets the status of the task to "Canceled".
+     */
+    public void taskCanceled() {
+        status = StatusOfEntry.CANCELED;
+    }
+
+    /**
+     * Sets the status of the task to "Done".
+     */
+    public void taskDone() {
+        status = StatusOfEntry.DONE;
+    }
+
+    /**
+     * Validates the entry by ensuring the end date is greater than the start date.
+     *
+     * @param startDate the start date to validate
+     * @param endDate   the end date to validate
+     * @return true if the end date is greater than the start date, false otherwise
+     */
+    private boolean validateEntry(Date startDate, Date endDate) {
+        return endDate.isGreater(startDate);
     }
 
     @Override

@@ -20,7 +20,7 @@ public class GreenSpaceRepository {
         return greenSpacesManagedByGSM;
     }
 
-    public List<GreenSpace> getGreenSpaceList(Collaborator greenSpaceManager) {
+    public List<GreenSpace> getListGreenSpacesManagedByGsm(Collaborator greenSpaceManager) {
         List<GreenSpace> greenSpacesManagedByGSM = new ArrayList<>();
         for (GreenSpace greenSpace : greenSpaceList) {
             if (greenSpace.getGreenSpaceManager().equals(greenSpaceManager)) {

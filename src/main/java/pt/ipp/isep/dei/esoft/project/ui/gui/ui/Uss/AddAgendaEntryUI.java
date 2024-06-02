@@ -39,7 +39,7 @@ public class AddAgendaEntryUI {
 
     public List<GreenSpaceDto> getListGreenSpaces() {
         Collaborator GSM = getCollaboratorFromSession();
-        List<GreenSpace> listGreenSpaces = greenSpaceRepository.getGreenSpaceList(GSM);
+        List<GreenSpace> listGreenSpaces = greenSpaceRepository.getListGreenSpacesManagedByGsm(GSM);
 
         GreenSpaceMapper greenSpaceMapper = new GreenSpaceMapper();
 

@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss;
 
+import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidAgendaEntryDataException;
 import pt.ipp.isep.dei.esoft.project.Mapper.GreenSpaceMapper;
 import pt.ipp.isep.dei.esoft.project.Mapper.ToDoListMapper;
 import pt.ipp.isep.dei.esoft.project.application.session.ApplicationSession;
@@ -38,7 +39,7 @@ public class AddAgendaEntryController {
 
     public List<GreenSpaceDto> getListGreenSpaces() {
         Collaborator GSM = getCollaboratorFromSession();
-        List<GreenSpace> listGreenSpaces = greenSpaceRepository.getGreenSpaceList(GSM);
+        List<GreenSpace> listGreenSpaces = greenSpaceRepository.getListGreenSpacesManagedByGsm(GSM);
 
         GreenSpaceMapper greenSpaceMapper = new GreenSpaceMapper();
 
@@ -68,7 +69,7 @@ public class AddAgendaEntryController {
         return toDoListEntry.getTask();
     }
 
-    public AgendaEntry createAgendaEntry(Task task, GreenSpace greenSpace, Date startDate, Date endDate) {
+    public AgendaEntry createAgendaEntry(Task task, GreenSpace greenSpace, Date startDate, Date endDate) throws InvalidAgendaEntryDataException {
         agenda = Repositories.getInstance().getAgenda();
 
         return agenda.createAgendaEntry(task, greenSpace, startDate, endDate);
