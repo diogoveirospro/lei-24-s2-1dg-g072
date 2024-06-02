@@ -7,7 +7,6 @@ package pt.ipp.isep.dei.esoft.project.domain;
  * @author Group 072 - Byte Masters - ISEP
  */
 public class ToDoListEntry extends Entry {
-    private GreenSpace greenSpace;
     private DegreeOfUrgency degreeOfUrgency;
 
 
@@ -66,7 +65,6 @@ public class ToDoListEntry extends Entry {
      */
     public ToDoListEntry(Task task, GreenSpace greenSpace, DegreeOfUrgency degreeOfUrgency) {
         super(task,greenSpace);
-        this.greenSpace = greenSpace;
         this.degreeOfUrgency = degreeOfUrgency;
     }
 
@@ -94,8 +92,9 @@ public class ToDoListEntry extends Entry {
      *
      * @return the green space.
      */
+    @Override
     public GreenSpace getGreenSpace() {
-        return greenSpace;
+        return super.getGreenSpace();
     }
 
     /**
@@ -113,8 +112,9 @@ public class ToDoListEntry extends Entry {
      *
      * @param greenSpace the green space to set.
      */
+    @Override
     public void setGreenSpace(GreenSpace greenSpace) {
-        this.greenSpace = greenSpace;
+        super.setGreenSpace(greenSpace);
     }
 
     /**
