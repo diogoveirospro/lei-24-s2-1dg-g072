@@ -26,6 +26,7 @@ public class AgendaEntry extends Entry {
     private TeamRepository teamRepository = Repositories.getInstance().getTeamRepository();
     private VehicleRepository vehicleRepository = Repositories.getInstance().getVehicleRepository();
 
+
     /**
      * Enumeration representing the status of an agenda entry.
      */

@@ -13,7 +13,7 @@ import java.util.Optional;
  *
  * @author Group 072 - Byte Masters - ISEP
  */
-public class RegisterVehicleController {
+public class RegisterVehicleUIController {
 
     /**
      * Authentication repository.
@@ -28,7 +28,7 @@ public class RegisterVehicleController {
     /**
      * Empty RegisterVehicleController builder
      */
-    public RegisterVehicleController(){
+    public RegisterVehicleUIController(){
         this.authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
         this.vehicleRepository = Repositories.getInstance().getVehicleRepository();
     }

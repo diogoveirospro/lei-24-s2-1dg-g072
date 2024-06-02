@@ -5,9 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import pt.ipp.isep.dei.esoft.project.ui.gui.controller.LoginController;
-import pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.ListTaskController;
-import pt.ipp.isep.dei.esoft.project.ui.gui.ui.LoginUI;
+import pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.ListTaskUIController;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.MainMenuUI;
 
 import java.io.IOException;
@@ -23,7 +21,7 @@ import java.util.ResourceBundle;
 public class ListTaskUI implements Initializable {
 
 
-    public ListTaskController listTaskController;
+    public ListTaskUIController listTaskUIController;
     public MainMenuUI mainMenuUI;
     public static final String LOGIN = "Login";
 
@@ -34,8 +32,8 @@ public class ListTaskUI implements Initializable {
         Scene scene = new Scene(root);
         stage.setTitle(LOGIN);
         stage.setScene(scene);
-        listTaskController = loader.getController();
-        listTaskController.setListTaskUI(new ListTaskUI());
+        listTaskUIController = loader.getController();
+        listTaskUIController.setListTaskUI(new ListTaskUI());
         stage.show();
     }
 
@@ -44,7 +42,7 @@ public class ListTaskUI implements Initializable {
 
     }
 
-    public ListTaskController getListTaskController() {
-        return listTaskController;
+    public ListTaskUIController getListTaskController() {
+        return listTaskUIController;
     }
 }

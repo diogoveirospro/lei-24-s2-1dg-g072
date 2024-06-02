@@ -14,9 +14,12 @@ public class TaskRepository {
         List<Task> tasks = new ArrayList<>();
         for (Team team : teamList) {
             for (Task task : taskList) {
+                /*
                 if (task.getTeam().equals(team)) {
                     tasks.add(task);
                 }
+                */
+
             }
         }
         return tasks;

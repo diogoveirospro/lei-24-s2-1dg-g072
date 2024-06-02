@@ -150,7 +150,10 @@ public class ListTaskController {
      * @return status list
      */
     public List<String> getStatusList() {
-        return this.agenda.getStatusList();
+        agenda = Repositories.getInstance().getAgenda();
+        List<String> statusList = agenda.getStatusList();
+        statusList.add("None");
+        return statusList;
     }
 
     /**

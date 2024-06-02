@@ -11,7 +11,7 @@ import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 
 import java.util.List;
 
-public class ListGreenSpacesController {
+public class ListGreenSpacesUIController {
     /**
      * greenSpaceRepository contains all green spaces
      */
@@ -28,7 +28,7 @@ public class ListGreenSpacesController {
     /**
      * Empty ListGreenSpacesController builder.
      */
-    public ListGreenSpacesController() {
+    public ListGreenSpacesUIController() {
         this.greenSpaceRepository = Repositories.getInstance().getGreenSpaceRepository();
         this.collaboratorRepository = Repositories.getInstance().getCollaboratorRepository();
         this.authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
@@ -40,7 +40,7 @@ public class ListGreenSpacesController {
      * @param collaboratorRepository contains all collaborators
      * @param authenticationRepository  authenticates the app
      */
-    public ListGreenSpacesController(GreenSpaceRepository greenSpaceRepository, CollaboratorRepository collaboratorRepository, AuthenticationRepository authenticationRepository) {
+    public ListGreenSpacesUIController(GreenSpaceRepository greenSpaceRepository, CollaboratorRepository collaboratorRepository, AuthenticationRepository authenticationRepository) {
         this.greenSpaceRepository = greenSpaceRepository;
         this.collaboratorRepository = collaboratorRepository;
         this.authenticationRepository = authenticationRepository;

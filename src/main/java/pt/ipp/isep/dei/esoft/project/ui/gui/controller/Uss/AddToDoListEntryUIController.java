@@ -1,4 +1,4 @@
 package pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss;
 
-public class AssignTeamController {
+public class AddToDoListEntryUIController {
 }

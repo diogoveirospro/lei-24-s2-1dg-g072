@@ -15,7 +15,7 @@ import java.util.List;
  *
  * @author Group 072 - Byte Masters - ISEP
  */
-public class GenerateTeamProposalController {
+public class GenerateTeamProposalUIController {
 
     /**
      * Skill Repository.
@@ -35,7 +35,7 @@ public class GenerateTeamProposalController {
     /**
      * Empty GenerateTeamController builder.
      */
-    public GenerateTeamProposalController(){
+    public GenerateTeamProposalUIController(){
 
         this.skillRepository = Repositories.getInstance().getSkillRepository();
         this.collaboratorRepository = Repositories.getInstance().getCollaboratorRepository();
@@ -48,8 +48,8 @@ public class GenerateTeamProposalController {
      * @param collaboratorRepository collaborator repository
      * @param teamRepository team repository
      */
-    public GenerateTeamProposalController(SkillRepository skillRepository, CollaboratorRepository collaboratorRepository,
-                                          TeamRepository teamRepository){
+    public GenerateTeamProposalUIController(SkillRepository skillRepository, CollaboratorRepository collaboratorRepository,
+                                            TeamRepository teamRepository){
 
         this.skillRepository = skillRepository;
         this.collaboratorRepository = collaboratorRepository;

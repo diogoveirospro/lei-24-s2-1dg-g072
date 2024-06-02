@@ -9,7 +9,7 @@ import pt.ipp.isep.dei.esoft.project.repository.Repositories;
  *
  * @author Group 072 - Byte Masters - ISEP
  */
-public class RegisterJobController {
+public class RegisterJobUIController {
     /**
      * Repository containing the jobs.
      */
@@ -18,7 +18,7 @@ public class RegisterJobController {
     /**
      * Empty RegisterJobController builder.
      */
-    public RegisterJobController(){
+    public RegisterJobUIController(){
         this.jobRepository = Repositories.getInstance().getJobRepository();
     }
 
@@ -26,7 +26,7 @@ public class RegisterJobController {
      * RegisterJobController builder.
      * @param jobRepository job repository
      */
-    public RegisterJobController(JobRepository jobRepository){
+    public RegisterJobUIController(JobRepository jobRepository){
 
         this.jobRepository = jobRepository;
     }

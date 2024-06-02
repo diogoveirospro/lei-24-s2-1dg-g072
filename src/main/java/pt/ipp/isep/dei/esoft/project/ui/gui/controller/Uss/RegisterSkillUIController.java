@@ -10,14 +10,14 @@ import pt.ipp.isep.dei.esoft.project.repository.SkillRepository;
  * @author Group 072 - Byte Masters - ISEP
  */
 
-public class RegisterSkillController {
+public class RegisterSkillUIController {
     private SkillRepository skillRepository;
 
     /**
      * Empty RegisterJobController builder.
      */
 
-    public RegisterSkillController(){
+    public RegisterSkillUIController(){
         this.skillRepository = Repositories.getInstance().getSkillRepository();
     }
 
@@ -28,7 +28,7 @@ public class RegisterSkillController {
      * @param skillRepository The repository used for skill management and persistence.
      */
 
-    public RegisterSkillController(SkillRepository skillRepository){
+    public RegisterSkillUIController(SkillRepository skillRepository){
         this.skillRepository = skillRepository;
     }
 

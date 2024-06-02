@@ -1,42 +1,45 @@
 package pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss;
 
-import pt.ipp.isep.dei.esoft.project.Mapper.VehicleMapper;
+import pt.ipp.isep.dei.esoft.project.domain.Maintenance;
 import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
-import pt.ipp.isep.dei.esoft.project.dto.VehicleDto;
 import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
 import pt.ipp.isep.dei.esoft.project.repository.MaintenanceRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.repository.VehicleRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class serves as the controller for the functionality of listing all the vehicles
- * that need maintenance.
+ * This class is the controller for the functionality to register
+ * a vehicle maintenance, ot a list of vehicles maintenances.
  *
  * @author Group 072 - Byte Masters - ISEP
  */
-public class ListMaintenanceController {
+public class RegisterVehicleMaintenanceUIController {
+    private VehicleRepository vehicleRepository;
     private MaintenanceRepository maintenanceRepository;
     private AuthenticationRepository authenticationRepository;
-    private VehicleRepository vehicleRepository;
+
     /**
-     * Empty ListMaintenanceController builder.
+     * Empty RegisterVehicleMaintenanceController builder.
      *
      */
-    public ListMaintenanceController(){
+    public RegisterVehicleMaintenanceUIController(){
         this.maintenanceRepository = Repositories.getInstance().getMaintenanceRepository();
         this.authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
         this.vehicleRepository = Repositories.getInstance().getVehicleRepository();
     }
 
     /**
-     * ListMaintenanceController builder
+     * RegisterVehicleMaintenanceController builder
      *
+     * @param vehicleRepository contains all vehicles
      * @param maintenanceRepository contains all vehicles that need maintenance
      * @param authenticationRepository authenticates the app
      */
-    public ListMaintenanceController(MaintenanceRepository maintenanceRepository, AuthenticationRepository authenticationRepository){
+    public RegisterVehicleMaintenanceUIController(VehicleRepository vehicleRepository, MaintenanceRepository maintenanceRepository, AuthenticationRepository authenticationRepository){
+        this.vehicleRepository = vehicleRepository;
         this.authenticationRepository = authenticationRepository;
         this.maintenanceRepository = maintenanceRepository;
     }
@@ -56,6 +59,19 @@ public class ListMaintenanceController {
     }
 
     /**
+     * Lets the controller get the vehicle repository
+     *
+     * @return vehicleRepository
+     */
+    private VehicleRepository getVehicleRepository(){
+        if (vehicleRepository == null) {
+            Repositories repositories = Repositories.getInstance();
+
+            vehicleRepository = repositories.getVehicleRepository();
+        }
+        return vehicleRepository;
+    }
+    /**
      * Lets the controller get the authentication repository
      *
      * @return authenticationRepository
@@ -70,16 +86,29 @@ public class ListMaintenanceController {
         return authenticationRepository;
     }
     /**
-     * Lets the controller get access to the maintenanceList
+     * Register vehicle maintenance
+     *
+     * @param vehicleList list of all vehicles that need maintenance
+     * @return maintenance
+     */
+    public List<Maintenance> registerVehicleMaintenance(List<Vehicle> vehicleList) {
+        List<Maintenance> maintenances = new ArrayList<>();
+        for (Vehicle vehicle : vehicleList) {
+            Maintenance maintenance = new Maintenance(vehicle);
+            maintenanceRepository.addVehicleMaintenance(maintenance);
+            maintenances.add(maintenance);
+        }
+        return maintenances;
+    }
+
+
+
+    /**
+     * Lets the controller get access to the vehicleList
      *
      * @return vehicleList copy
      */
-    public List<VehicleDto> getVehicleList(){
-        List<Vehicle> vehicleList =  vehicleRepository.getVehicleList();
-        vehicleList = maintenanceRepository.getVehicleList(vehicleList);
-        VehicleMapper vehicleMapper = new VehicleMapper();
-        return vehicleMapper.toDTO(vehicleList);
-
+    public List<Vehicle> getVehicleList(){
+        return vehicleRepository.getVehicleList();
     }
-
 }

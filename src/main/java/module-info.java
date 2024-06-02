@@ -13,6 +13,7 @@ module pt.ipp.isep.dei.esoft.project {
     opens pt.ipp.isep.dei.esoft.project.ui.gui.controller to javafx.fxml;
     opens pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss to javafx.fxml;
     opens pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss.Output to javafx.fxml;
+    opens pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.Output to javafx.fxml;
 
     exports pt.ipp.isep.dei.esoft.project;
     exports pt.ipp.isep.dei.esoft.project.ui.gui.ui to javafx.graphics, javafx.fxml;
@@ -20,5 +21,6 @@ module pt.ipp.isep.dei.esoft.project {
     exports pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss to javafx.fxml;
     exports pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss to javafx.fxml, javafx.graphics;
     exports pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss.Output to javafx.fxml, javafx.graphics;
+    exports pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.Output to javafx.fxml;
 }
 

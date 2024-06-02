@@ -21,7 +21,7 @@ import java.util.List;
  *
  * @author Group 072 - Byte Masters - ISEP
  */
-public class RegisterCollaboratorController {
+public class RegisterCollaboratorUIController {
 
     private final CollaboratorRepository collaboratorRepository;
     private final JobRepository jobRepository;
@@ -30,7 +30,7 @@ public class RegisterCollaboratorController {
      * Constructs a new RegisterCollaboratorController object.
      * Initializes CollaboratorRepository and JobRepository from the Repositories singleton.
      */
-    public RegisterCollaboratorController() {
+    public RegisterCollaboratorUIController() {
         this.collaboratorRepository = Repositories.getInstance().getCollaboratorRepository();
         this.jobRepository = Repositories.getInstance().getJobRepository();
     }
@@ -41,7 +41,7 @@ public class RegisterCollaboratorController {
      * @param collaboratorRepository the CollaboratorRepository instance to be used
      * @param jobRepository          the JobRepository instance to be used
      */
-    public RegisterCollaboratorController(CollaboratorRepository collaboratorRepository, JobRepository jobRepository) {
+    public RegisterCollaboratorUIController(CollaboratorRepository collaboratorRepository, JobRepository jobRepository) {
         this.collaboratorRepository = collaboratorRepository;
         this.jobRepository = jobRepository;
     }

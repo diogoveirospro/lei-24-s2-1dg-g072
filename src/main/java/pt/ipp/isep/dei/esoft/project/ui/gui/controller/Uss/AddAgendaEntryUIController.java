@@ -11,7 +11,7 @@ import pt.ipp.isep.dei.esoft.project.repository.*;
 
 import java.util.List;
 
-public class AddAgendaEntryController {
+public class AddAgendaEntryUIController {
 
     private CollaboratorRepository collaboratorRepository;
 
@@ -21,15 +21,15 @@ public class AddAgendaEntryController {
 
     private Agenda agenda;
 
-    public AddAgendaEntryController() {
+    public AddAgendaEntryUIController() {
         collaboratorRepository = Repositories.getInstance().getCollaboratorRepository();
         greenSpaceRepository = Repositories.getInstance().getGreenSpaceRepository();
         toDoList = Repositories.getInstance().getToDoList();
         agenda = Repositories.getInstance().getAgenda();
     }
 
-    public AddAgendaEntryController(CollaboratorRepository collaboratorRepository,
-                                    GreenSpaceRepository greenSpaceRepository, ToDoList toDoList, Agenda agenda) {
+    public AddAgendaEntryUIController(CollaboratorRepository collaboratorRepository,
+                                      GreenSpaceRepository greenSpaceRepository, ToDoList toDoList, Agenda agenda) {
         this.collaboratorRepository = collaboratorRepository;
         this.greenSpaceRepository = greenSpaceRepository;
         this.toDoList = toDoList;

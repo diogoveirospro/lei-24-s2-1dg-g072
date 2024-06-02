@@ -9,17 +9,17 @@ import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import java.util.List;
 import java.util.Objects;
 
-public class PostponeEntryController {
+public class PostponeEntryUIController {
 
     private final Agenda agenda;
 
     private final List<AgendaEntry> agendaEntries = getAgendaEntryList();
 
-    public PostponeEntryController() {
+    public PostponeEntryUIController() {
         this.agenda = Repositories.getInstance().getAgenda();
     }
 
-    public PostponeEntryController(Agenda agenda) {
+    public PostponeEntryUIController(Agenda agenda) {
         this.agenda = agenda;
     }
 

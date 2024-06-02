@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author Group 072 - Byte Masters - ISEP
  */
-public class AssignSkillController {
+public class AssignSkillUIController {
 
     /**
      * Skill Repository.
@@ -29,7 +29,7 @@ public class AssignSkillController {
     /**
      * Empty AssignSkillController builder.
      */
-    public AssignSkillController(){
+    public AssignSkillUIController(){
         this.skillRepository = Repositories.getInstance().getSkillRepository();
         this.collaboratorRepository = Repositories.getInstance().getCollaboratorRepository();
     }
@@ -39,7 +39,7 @@ public class AssignSkillController {
      * @param skillRepository skill repository
      * @param collaboratorRepository collaborator repository
      */
-    public AssignSkillController(SkillRepository skillRepository, CollaboratorRepository collaboratorRepository){
+    public AssignSkillUIController(SkillRepository skillRepository, CollaboratorRepository collaboratorRepository){
         this.skillRepository = skillRepository;
         this.collaboratorRepository = collaboratorRepository;
     }
