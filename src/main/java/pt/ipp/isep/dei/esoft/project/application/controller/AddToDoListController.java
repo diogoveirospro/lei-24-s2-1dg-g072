@@ -16,9 +16,9 @@ public class AddToDoListController {
         this.greenSpaceRepository = greenSpaceRepository;
     }
 
-    public void addNewToDoListEntry(String taskId, String greenSpaceId, ToDoListEntry.DegreeOfUrgency degreeOfUrgency) {
+    public void addNewToDoListEntry(String taskId, String greenSpaceName, ToDoListEntry.DegreeOfUrgency degreeOfUrgency) {
         Task task = taskRepository.findTaskById(taskId);
-        GreenSpace greenSpace = greenSpaceRepository.findGreenSpaceById(greenSpaceId);
+        GreenSpace greenSpace = greenSpaceRepository.getGreenSpaceByParkName(greenSpaceName);
 
         ToDoListEntry toDoListEntry = new ToDoListEntry(task, greenSpace, degreeOfUrgency);
 
