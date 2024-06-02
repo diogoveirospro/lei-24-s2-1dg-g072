@@ -26,7 +26,6 @@ public class AgendaEntry extends Entry {
     private TeamRepository teamRepository = Repositories.getInstance().getTeamRepository();
     private VehicleRepository vehicleRepository = Repositories.getInstance().getVehicleRepository();
 
-
     /**
      * Enumeration representing the status of an agenda entry.
      */
@@ -42,6 +41,11 @@ public class AgendaEntry extends Entry {
             this.status = status;
         }
 
+        /**
+         * Gets the status of the entry.
+         *
+         * @return the status as a string
+         */
         public String getStatus() {
             return status;
         }
@@ -51,6 +55,13 @@ public class AgendaEntry extends Entry {
             return status;
         }
 
+        /**
+         * Gets the StatusOfEntry enum corresponding to the given status string.
+         *
+         * @param status the status string
+         * @return the corresponding StatusOfEntry enum
+         * @throws IllegalArgumentException if the status string is invalid
+         */
         public static StatusOfEntry getStatusOfEntry(String status) {
             for (StatusOfEntry statusOfEntry : StatusOfEntry.values()) {
                 if (statusOfEntry.getStatus().equals(status)) {
@@ -60,6 +71,11 @@ public class AgendaEntry extends Entry {
             throw new IllegalArgumentException("Invalid status of entry: " + status);
         }
 
+        /**
+         * Gets a list of all status strings.
+         *
+         * @return a list of status strings
+         */
         public static List<String> getStatusList() {
             List<String> statusList = new ArrayList<>();
             for (StatusOfEntry status : StatusOfEntry.values()) {
@@ -90,22 +106,47 @@ public class AgendaEntry extends Entry {
         this.team = null;
     }
 
+    /**
+     * Gets the start date of the task.
+     *
+     * @return the start date
+     */
     public Date getStartDate() {
         return startDate;
     }
 
+    /**
+     * Gets the end date of the task.
+     *
+     * @return the end date
+     */
     public Date getEndDate() {
         return endDate;
     }
 
+    /**
+     * Gets the list of vehicles associated with this entry.
+     *
+     * @return the list of vehicles
+     */
     public List<Vehicle> getVehicleList() {
         return vehicleList;
     }
 
+    /**
+     * Gets the status of the entry.
+     *
+     * @return the status
+     */
     public StatusOfEntry getStatus() {
         return status;
     }
 
+    /**
+     * Gets the team associated with this entry.
+     *
+     * @return the team
+     */
     public Team getTeam() {
         return team;
     }

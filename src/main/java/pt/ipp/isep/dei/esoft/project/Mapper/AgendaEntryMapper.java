@@ -29,7 +29,6 @@ public class AgendaEntryMapper {
     public List<AgendaEntryDto> toDtoList(List<AgendaEntry> agendaEntryList) {
         for (AgendaEntry agendaEntry : agendaEntryList) {
             AgendaEntryDto agendaEntryDto = new AgendaEntryDto(
-                    agendaEntry.getToDoListEntry(),
                     agendaEntry.getStartDate(),
                     agendaEntry.getEndDate(),
                     agendaEntry.getStatus(),

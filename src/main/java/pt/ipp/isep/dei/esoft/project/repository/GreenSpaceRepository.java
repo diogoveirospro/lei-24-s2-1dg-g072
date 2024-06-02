@@ -35,7 +35,12 @@ public class GreenSpaceRepository {
 
     }
 
-    public void getGreenSpaceByParkName(String parkName) {
-
+    public GreenSpace getGreenSpaceByParkName(String parkName) {
+        for (GreenSpace greenSpace : greenSpaceList) {
+            if (greenSpace.getParkName().equals(parkName)) {
+                return greenSpace;
+            }
+        }
+        return null;
     }
 }
