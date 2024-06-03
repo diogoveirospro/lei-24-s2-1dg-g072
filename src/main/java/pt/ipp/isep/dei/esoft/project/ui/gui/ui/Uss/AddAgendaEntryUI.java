@@ -67,6 +67,14 @@ public class AddAgendaEntryUI implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        AddAgendaEntryUIController controller = new AddAgendaEntryUIController();
 
+        List<GreenSpaceDto> greenSpaceDtoList = controller.getListGreenSpaces();
+        cbGreenSpace.getItems().addAll(greenSpaceDtoList);
+        GreenSpaceDto greenSpaceDto = cbGreenSpace.getSelectionModel().getSelectedItem();
+
+        List<ToDoListEntryDto> toDoListEntryDtoList = controller.getToDoListEntries(greenSpaceDto);
+        cbTask.getItems().addAll(toDoListEntryDtoList);
+        ToDoListEntryDto toDoListEntryDto = cbTask.getSelectionModel().getSelectedItem();
     }
 }
