@@ -18,7 +18,7 @@ public class AgendaEntryDto {
     /**
      * The status of the entry
      */
-    private AgendaEntry.StatusOfEntry status;
+    public AgendaEntry.StatusOfEntry status;
     /**
      * The green space associated to the entry
      */

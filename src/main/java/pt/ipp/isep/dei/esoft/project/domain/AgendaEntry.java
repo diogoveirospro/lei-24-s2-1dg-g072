@@ -16,6 +16,7 @@ import java.util.List;
 public class AgendaEntry extends Entry {
 
     private Team team;
+    private ToDoListEntry toDoListEntry;
     private Date startDate;
     private String startHour;
     private Date endDate;
@@ -84,8 +85,8 @@ public class AgendaEntry extends Entry {
             }
             return statusList;
         }
-    }
 
+    }
     /**
      * Constructs an agenda entry with the specified task, green space, start date, and end date.
      *
@@ -105,6 +106,7 @@ public class AgendaEntry extends Entry {
         this.endDate = endDate;
         this.vehicleList = new ArrayList<>();
         this.team = null;
+
     }
 
     /**
@@ -218,6 +220,14 @@ public class AgendaEntry extends Entry {
      */
     public void taskPostponed() {
         status = StatusOfEntry.POSTPONED;
+    }
+
+    /**
+     * Checks if the task is postponed.
+     * @return true if the task is postponed, false otherwise.
+     */
+    public boolean isPostponed() {
+        return this.status == StatusOfEntry.POSTPONED;
     }
 
     /**
