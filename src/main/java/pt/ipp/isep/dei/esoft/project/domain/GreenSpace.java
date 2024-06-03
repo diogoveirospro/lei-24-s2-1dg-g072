@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidTaskDataException;
 import pt.ipp.isep.dei.esoft.project.repository.ToDoList;
 
 public class GreenSpace {
@@ -75,11 +76,28 @@ public class GreenSpace {
      * @param greenSpaceManager the manager of the green space
      */
     public GreenSpace(TypeOfGreenSpace type, String parkName, double dimension,String address,Collaborator greenSpaceManager) {
-        this.type =type;
+        this.type = type;
         this.parkName = parkName;
         this.dimension = dimension;
         this.address = address;
         this.greenSpaceManager = greenSpaceManager;
+    }
+
+    /**
+     * Validates a task name.
+     *
+     * @param task the task to validate
+     * @return true if the task is valid
+     * @throws InvalidTaskDataException if the task is null, blank, or contains invalid characters
+     */
+    private static boolean isValidParkName(String task) throws InvalidTaskDataException {
+        if (task == null || task.isBlank()) {
+            throw new InvalidTaskDataException("Invalid input. The task cannot be empty or blank.");
+        } else if (!task.matches("[a-zA-ZÀ-ÿ ]+")) {
+            throw new InvalidTaskDataException("Invalid input. The task must not contain numbers or special characters, and must be composed of letters and spaces only.");
+        } else {
+            return true;
+        }
     }
 
     /**

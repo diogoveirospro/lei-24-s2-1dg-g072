@@ -17,7 +17,9 @@ public class AgendaEntry extends Entry {
 
     private Team team;
     private Date startDate;
+    private String startHour;
     private Date endDate;
+    private String endHour;
     private StatusOfEntry status;
     private List<Vehicle> vehicleList;
 
@@ -93,7 +95,7 @@ public class AgendaEntry extends Entry {
      * @param endDate    the end date of the task
      * @throws InvalidAgendaEntryDataException if the start date is later than the end date
      */
-    public AgendaEntry(Task task, GreenSpace greenSpace, Date startDate, Date endDate) throws InvalidAgendaEntryDataException {
+    public AgendaEntry(Task task, GreenSpace greenSpace, Date startDate, String startHour, Date endDate, String endHour) throws InvalidAgendaEntryDataException {
         super(task, greenSpace);
         if (!validateEntry(startDate, endDate)) {
             throw new InvalidAgendaEntryDataException("The start date of the task cannot be later than the end date.");
