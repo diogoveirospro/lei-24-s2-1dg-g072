@@ -1,22 +1,31 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
-import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidCollaboratorDataException;
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidTaskDataException;
-
-import java.util.List;
 import java.util.Objects;
 
-
+/**
+ * Represents a Task in a project domain.
+ *
+ * @author Group 072 - Byte Masters - ISEP
+ */
 public class Task {
+    /**
+     * The duration of the task.
+     */
     public String duration;
+    /**
+     * The name of the task.
+     */
     private String task;
 
-    public String getDuration() {
-        return duration;
-    }
-
+    /**
+     * Constructs a new Task with the specified task name and duration.
+     *
+     * @param task     the name of the task
+     * @param duration the duration of the task
+     * @throws InvalidTaskDataException if the task name or duration is invalid
+     */
     public Task(String task, String duration) throws InvalidTaskDataException {
-
         if (isValidTask(task)) {
             this.task = task;
         } else {
@@ -33,7 +42,6 @@ public class Task {
     private boolean isValidDuration(String duration) throws InvalidTaskDataException {
         if (!duration.matches("\\d+")) {
             throw new InvalidTaskDataException("Invalid Input. The duration of the task must be a number.");
-
         } else {
             return true;
         }
@@ -56,10 +64,31 @@ public class Task {
         }
     }
 
+    /**
+     * Retrieves the duration of the task.
+     *
+     * @return the duration of the task
+     */
+    public String getDuration() {
+        return duration;
+    }
+
+    /**
+     * Retrieves the name of the task.
+     *
+     * @return the name of the task
+     */
     public String getTaskId() {
         return task;
     }
 
+    /**
+     * Indicates whether some other object is "equal to" this one.
+     *
+     * @param vehicleObject the object to compare
+     * @return true if this object is the same as the obj argument; false otherwise
+     */
+    @Override
     public boolean equals(Object vehicleObject) {
         if (this == vehicleObject) return true;
         if (vehicleObject == null || getClass() != vehicleObject.getClass()) return false;
@@ -67,9 +96,14 @@ public class Task {
         return duration.equals(task1.duration) &&
                 task.equals(task1.task);
     }
+
+    /**
+     * Returns a hash code value for the object.
+     *
+     * @return a hash code value for this object
+     */
+    @Override
     public int hashCode() {
         return Objects.hash(duration, task);
     }
-
-
 }
