@@ -100,15 +100,21 @@ public class Main {
         if (MP == null) {
             System.out.println("There is no Meeting Point in the file!");
         } else {
+            Graph evacuationRoutes;
             System.out.println("Insert the vertex you want to know the shortest path to the AP or 'done'(if you want to stop):");
             String vertex = sc.nextLine();
-            Graph evacuationRoutes = Dijkstra(graphEdges, vertices,vertex);
-            makeGraphCsv(evacuationRoutes);
-            createGraph(graph, inputVerticesFile);
-            System.out.println("Insert the vertex you want to know the shortest path to the AP or 'done'(if you want to stop):");
             while (!vertex.equalsIgnoreCase("done")) {
+                if (!vertex.equalsIgnoreCase("done")) {
+                    if (!vertices.contains(new Vertex(vertex))) {
+                        System.out.println("Vertex not found!");
+                    } else {
+                        evacuationRoutes = Dijkstra(graphEdges, vertices, vertex);
+                        makeGraphCsv(evacuationRoutes);
+                        createGraphDisktra(graph, inputVerticesFile, evacuationRoutes.getEdges());
+                        System.out.println("Insert the vertex you want to know the shortest path to the AP or 'done'(if you want to stop):");
+                    }
+                }
                 vertex = sc.nextLine();
-                System.out.println("Insert the vertex you want to know the shortest path to the AP or 'done'(if you want to stop):");
             }
         }
 
@@ -159,6 +165,11 @@ public class Main {
         createSpanningTree(spanningTree, inputFile);
     }
 
+    private static void createGraph(Graph graph, StringBuilder inputFile) throws IOException, InterruptedException {
+        createScriptGraph(graph, inputFile);
+        executeScriptGraph(inputFile);
+    }
+
 
     private static void US14() throws IOException, InterruptedException {
         Scanner sc = new Scanner(System.in);
@@ -192,18 +203,20 @@ public class Main {
     }
 
 
-    private static Graph Dijkstra(ArrayList<Edge> edges, ArrayList<Vertex> vertices, String startVertex) {
 
+    public static Graph Dijkstra(ArrayList<Edge> edges, ArrayList<Vertex> vertices, String startVertex) {
         int[] distances = new int[vertices.size()];
         boolean[] visited = new boolean[vertices.size()];
         Vertex[] previous = new Vertex[vertices.size()];
 
         Arrays.fill(distances, Integer.MAX_VALUE);
-        distances[vertices.indexOf(new Vertex(startVertex))] = 0;
-
+        int startIndex = vertices.indexOf(new Vertex(startVertex));
+        if (startIndex == -1) {
+            throw new IllegalArgumentException("Start vertex not found in the list of vertices");
+        }
+        distances[startIndex] = 0;
 
         for (int i = 0; i < vertices.size(); i++) {
-
             int u = -1;
             for (int j = 0; j < vertices.size(); j++) {
                 if (!visited[j] && (u == -1 || distances[j] < distances[u])) {
@@ -211,41 +224,64 @@ public class Main {
                 }
             }
 
-            if (distances[u] == Integer.MAX_VALUE) {
-                break;
-            }
-
+            if (distances[u] == Integer.MAX_VALUE) break;
             visited[u] = true;
 
             for (Edge edge : edges) {
                 if (edge.getOrigin().equals(vertices.get(u))) {
                     int v = vertices.indexOf(edge.getDestiny());
-                    int alt = distances[u] + edge.getCost();
-                    if (alt < distances[v]) {
-                        distances[v] = alt;
+                    int weight = edge.getCost();
+                    if (distances[u] + weight < distances[v]) {
+                        distances[v] = distances[u] + weight;
                         previous[v] = vertices.get(u);
                     }
                 }
             }
         }
 
-        ArrayList<Edge> shortestPathEdges = new ArrayList<>();
-        for (int i = 0; i < vertices.size(); i++) {
+        List<Edge> resultEdges = new ArrayList<>();
+        for (int i = 0; i < previous.length; i++) {
             if (previous[i] != null) {
-                shortestPathEdges.add(new Edge(previous[i], vertices.get(i), distances[i]));
+                resultEdges.add(new Edge(previous[i], vertices.get(i), distances[i]));
             }
         }
         Graph graph = new Graph();
-        for (Edge edge : shortestPathEdges) {
+        for (Edge edge : resultEdges) {
             graph.addEdge(edge);
         }
         return graph;
     }
 
 
-    private static void createGraph(Graph graph, StringBuilder file) throws IOException, InterruptedException {
-        createScriptGraph(graph, file);
+
+    private static void createGraphDisktra(Graph graph, StringBuilder file, List<Edge> shortestPath) throws IOException, InterruptedException {
+        createScriptGraphDisktra(graph, file, shortestPath);
         executeScriptGraph(file);
+    }
+
+    private static void createScriptGraphDisktra(Graph graph, StringBuilder file, List<Edge> shortestPath) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter("src/main/java/PI_MDISC_Group_072/Output/Graph_" + file + ".dot"))) {
+            writer.println("graph G {");
+            writer.println("    fontname=\"Helvetica,Arial,sans-serif\"");
+            writer.println("    nodesep=1.0");
+            writer.println("    layout=dot");
+            writer.println("    node [fontname=\"Helvetica,Arial,sans-serif\"]");
+            writer.println("    edge [fontname=\"Helvetica,Arial,sans-serif\"]");
+
+            for (Edge edge : graph.getEdges()) {
+                String origin = edge.getOrigin().getV();
+                String destiny = edge.getDestiny().getV();
+                int cost = edge.getCost();
+                String edgeColor = shortestPath.contains(edge) ? "red" : "black";
+                writer.printf("    %s -- %s [label=\"%d\", color=\"%s\"];%n", origin, destiny, cost, edgeColor);
+            }
+
+            writer.println("}");
+            System.out.println("DOT file 'src/main/java/PI_MDISC_Group_072/Output/Graph.dot' has been created successfully.");
+        } catch (IOException e) {
+            System.err.println("Error writing to DOT file: " + e.getMessage());
+        }
+
     }
 
     private static void executeScriptGraph(StringBuilder file) throws IOException, InterruptedException {
@@ -412,7 +448,9 @@ public class Main {
             Vertex newVertex = new Vertex(vertex);
             vertices.add(newVertex);
         }
-
+        for (Vertex vertex : vertices) {
+            System.out.println(vertex.getV());
+        }
         in.close();
         return vertices;
     }
