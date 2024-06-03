@@ -24,7 +24,7 @@
 <!-- ﻿Biblioteca&#45;&#45;Teatro -->
 <g id="edge1" class="edge">
 <title>﻿Biblioteca&#45;&#45;Teatro</title>
-<path fill="none" stroke="red" d="M491.96,-1151.23C475.3,-1135.57 450.29,-1112.05 433.87,-1096.61"/>
+<path fill="none" stroke="black" d="M491.96,-1151.23C475.3,-1135.57 450.29,-1112.05 433.87,-1096.61"/>
 <text text-anchor="middle" x="476.39" y="-1119.2" font-family="Helvetica,Arial,sans-serif" font-size="14.00">8</text>
 </g>
 <!-- AP -->
@@ -36,7 +36,7 @@
 <!-- ﻿Biblioteca&#45;&#45;AP -->
 <g id="edge2" class="edge">
 <title>﻿Biblioteca&#45;&#45;AP</title>
-<path fill="none" stroke="red" d="M518.16,-1150.4C535.69,-1116.69 574.5,-1042.04 591.74,-1008.9"/>
+<path fill="none" stroke="black" d="M518.16,-1150.4C535.69,-1116.69 574.5,-1042.04 591.74,-1008.9"/>
 <text text-anchor="middle" x="571.51" y="-1074.95" font-family="Helvetica,Arial,sans-serif" font-size="14.00">10</text>
 </g>
 <!-- Teatro&#45;&#45;AP -->
@@ -54,13 +54,13 @@
 <!-- Teatro&#45;&#45;Topo -->
 <g id="edge4" class="edge">
 <title>Teatro&#45;&#45;Topo</title>
-<path fill="none" stroke="red" d="M415.67,-1061.58C412.61,-1028.04 405.91,-954.84 402.85,-921.35"/>
+<path fill="none" stroke="black" d="M415.67,-1061.58C412.61,-1028.04 405.91,-954.84 402.85,-921.35"/>
 <text text-anchor="middle" x="415.39" y="-986.45" font-family="Helvetica,Arial,sans-serif" font-size="14.00">6</text>
 </g>
 <!-- AP&#45;&#45;Topo -->
 <g id="edge6" class="edge">
 <title>AP&#45;&#45;Topo</title>
-<path fill="none" stroke="black" d="M578.21,-980.91C541.07,-964.77 466.26,-932.25 426.87,-915.13"/>
+<path fill="none" stroke="red" d="M578.21,-980.91C541.07,-964.77 466.26,-932.25 426.87,-915.13"/>
 <text text-anchor="middle" x="523.39" y="-942.2" font-family="Helvetica,Arial,sans-serif" font-size="14.00">9</text>
 </g>
 <!-- Pavilhao -->

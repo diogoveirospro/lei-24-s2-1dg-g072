@@ -63,7 +63,7 @@ public class Main {
         } else {
             for (int i = 0; i < MP.size(); i++) {
                 String vertex = sc.nextLine();
-                evacuationRoutes.add(Dijkstra(graphEdges, vertices,vertex));
+                evacuationRoutes.add(Dijkstra(graphEdges, vertices,MP.get(i)));
             }
         }
         System.out.println("Insert the vertex you want to know the shortest path to the closest AP or 'done'(if you want to stop):");
@@ -101,6 +101,9 @@ public class Main {
             System.out.println("There is no Meeting Point in the file!");
         } else {
             Graph evacuationRoutes;
+            evacuationRoutes = Dijkstra(graphEdges, vertices, MP);
+            makeGraphCsv(evacuationRoutes);
+            createGraphDisktra(graph, inputVerticesFile, evacuationRoutes.getEdges());
             System.out.println("Insert the vertex you want to know the shortest path to the AP or 'done'(if you want to stop):");
             String vertex = sc.nextLine();
             while (!vertex.equalsIgnoreCase("done")) {
@@ -108,7 +111,7 @@ public class Main {
                     if (!vertices.contains(new Vertex(vertex))) {
                         System.out.println("Vertex not found!");
                     } else {
-                        evacuationRoutes = Dijkstra(graphEdges, vertices, vertex);
+
                         makeGraphCsv(evacuationRoutes);
                         createGraphDisktra(graph, inputVerticesFile, evacuationRoutes.getEdges());
                         System.out.println("Insert the vertex you want to know the shortest path to the AP or 'done'(if you want to stop):");
@@ -205,16 +208,30 @@ public class Main {
 
 
     public static Graph Dijkstra(ArrayList<Edge> edges, ArrayList<Vertex> vertices, String startVertex) {
+        Graph shortestPathsGraph = new Graph();
         int[] distances = new int[vertices.size()];
+        List<List<Vertex>> paths = new ArrayList<>(vertices.size());
         boolean[] visited = new boolean[vertices.size()];
-        Vertex[] previous = new Vertex[vertices.size()];
 
         Arrays.fill(distances, Integer.MAX_VALUE);
-        int startIndex = vertices.indexOf(new Vertex(startVertex));
+        int startIndex = -1;
+        for (int i = 0; i < vertices.size(); i++) {
+            if (vertices.get(i).getV().equals(startVertex)) {
+                startIndex = i;
+                break;
+            }
+        }
+
         if (startIndex == -1) {
             throw new IllegalArgumentException("Start vertex not found in the list of vertices");
         }
+
         distances[startIndex] = 0;
+
+        // Initialize the paths list
+        for (int i = 0; i < vertices.size(); i++) {
+            paths.add(new ArrayList<>());
+        }
 
         for (int i = 0; i < vertices.size(); i++) {
             int u = -1;
@@ -233,24 +250,28 @@ public class Main {
                     int weight = edge.getCost();
                     if (distances[u] + weight < distances[v]) {
                         distances[v] = distances[u] + weight;
-                        previous[v] = vertices.get(u);
+                        ArrayList<Vertex> newPath = new ArrayList<>(paths.get(u));
+                        newPath.add(vertices.get(v));
+                        paths.set(v, newPath);
                     }
                 }
             }
         }
 
-        List<Edge> resultEdges = new ArrayList<>();
-        for (int i = 0; i < previous.length; i++) {
-            if (previous[i] != null) {
-                resultEdges.add(new Edge(previous[i], vertices.get(i), distances[i]));
+        for (int i = 0; i < vertices.size(); i++) {
+            if (i != startIndex) {
+                List<Vertex> path = paths.get(i);
+                if (!path.isEmpty()) {
+                    shortestPathsGraph.addEdge(new Edge(vertices.get(startIndex), path.get(0), distances[i]));
+                    for (int j = 0; j < path.size() - 1; j++) {
+                        shortestPathsGraph.addEdge(new Edge(path.get(j), path.get(j + 1), distances[i]));
+                    }
+                }
             }
         }
-        Graph graph = new Graph();
-        for (Edge edge : resultEdges) {
-            graph.addEdge(edge);
-        }
-        return graph;
+        return shortestPathsGraph;
     }
+
 
 
 
