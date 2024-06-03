@@ -1,14 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="fxml.USs.ListGreenSpaces"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.ListGreenSpacesUIController">
+   <children>
+      <GridPane layoutX="83.0" layoutY="27.0" prefHeight="332.0" prefWidth="435.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="154.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="277.0" minHeight="10.0" prefHeight="277.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <GridPane alignment="TOP_CENTER">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <ComboBox fx:id="listSortMethod" prefWidth="150.0" GridPane.columnIndex="1" />
+                  <Label contentDisplay="RIGHT" text="Choose Sort method" />
+               </children>
+            </GridPane>
+            <ScrollPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+               <content>
+                  <ListView fx:id="listGreenSpace" prefHeight="283.0" prefWidth="434.0" />
+               </content>
+            </ScrollPane>
+         </children>
+      </GridPane>
+      <Button fx:id="btnCancel" cancelButton="true" layoutX="83.0" layoutY="359.0" mnemonicParsing="false" onAction="#handleCancelButtonAction" text="Cancel" />
+      <Button fx:id="btnShow" alignment="CENTER_RIGHT" contentDisplay="CENTER" defaultButton="true" layoutX="463.0" layoutY="357.0" mnemonicParsing="false" text="Show" />
+   </children>
 </AnchorPane>

@@ -52,6 +52,7 @@ public class GSMController {
     }
     public void handleRegisterGreenSpaceButtonAction() {
         try {
+            registerGreenSpaceUI = new RegisterGreenSpaceUI();
             registerGreenSpaceUI.showUI(MainMenuUI.getPrimaryStage());
         } catch (Exception e) {
             System.out.println("An error occurred while handling the register green space action: " + e.getMessage());
@@ -59,6 +60,7 @@ public class GSMController {
     }
     public void handleListGreenSpacesButtonAction() {
         try {
+            listGreenSpacesUI = new ListGreenSpacesUI();
             listGreenSpacesUI.showUI(MainMenuUI.getPrimaryStage());
         } catch (Exception e) {
             System.out.println("An error occurred while handling the list green spaces action: " + e.getMessage());
@@ -66,6 +68,7 @@ public class GSMController {
     }
     public void handlePostponeEntryButtonAction() {
         try {
+            postponeEntryUI = new PostponeEntryUI();
             postponeEntryUI.showUI(MainMenuUI.getPrimaryStage());
         } catch (Exception e) {
             System.out.println("An error occurred while handling the postpone entry action: " + e.getMessage());
@@ -73,6 +76,7 @@ public class GSMController {
     }
     public void handleCancelEntryButtonAction() {
         try {
+            cancelEntryUI = new CancelEntryUI();
             cancelEntryUI.showUI(MainMenuUI.getPrimaryStage());
         } catch (Exception e) {
             System.out.println("An error occurred while handling the cancel entry action: " + e.getMessage());
@@ -80,6 +84,7 @@ public class GSMController {
     }
     public void handleAssignTeamButtonAction() {
         try {
+            assignTeamUI = new AssignTeamUI();
             assignTeamUI.showUI(MainMenuUI.getPrimaryStage());
         } catch (Exception e) {
             System.out.println("An error occurred while handling the assign team action: " + e.getMessage());
@@ -87,6 +92,7 @@ public class GSMController {
     }
     public void handleAssignVehicleButtonAction() {
         try {
+            assignVehicleUI = new AssignVehicleUI();
             assignVehicleUI.showUI(MainMenuUI.getPrimaryStage());
         } catch (Exception e) {
             System.out.println("An error occurred while handling the assign vehicle action: " + e.getMessage());
@@ -94,6 +100,7 @@ public class GSMController {
     }
     public void handleAddAgendaEntryButtonAction() {
         try {
+            addAgendaEntryUI = new AddAgendaEntryUI();
             addAgendaEntryUI.showUI(MainMenuUI.getPrimaryStage());
         } catch (Exception e) {
             System.out.println("An error occurred while handling the add agenda entry action: " + e.getMessage());
@@ -101,6 +108,7 @@ public class GSMController {
     }
     public void handleAddToDoListEntryButtonAction() {
         try {
+            addToDoListEntryUI = new AddToDoListEntryUI();
             addToDoListEntryUI.showUI(MainMenuUI.getPrimaryStage());
         } catch (Exception e) {
             System.out.println("An error occurred while handling the add to do list entry action: " + e.getMessage());

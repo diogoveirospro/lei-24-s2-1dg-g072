@@ -233,24 +233,27 @@ public class Main {
             paths.add(new ArrayList<>());
         }
 
-        for (int i = 0; i < vertices.size(); i++) {
+        while (true) {
             int u = -1;
+            int minDistance = Integer.MAX_VALUE;
             for (int j = 0; j < vertices.size(); j++) {
-                if (!visited[j] && (u == -1 || distances[j] < distances[u])) {
+                if (!visited[j] && distances[j] < minDistance) {
                     u = j;
+                    minDistance = distances[j];
                 }
             }
 
-            if (distances[u] == Integer.MAX_VALUE) break;
+            if (u == -1) break; // No reachable vertices left
+
             visited[u] = true;
 
             for (Edge edge : edges) {
                 if (edge.getOrigin().equals(vertices.get(u))) {
                     int v = vertices.indexOf(edge.getDestiny());
                     int weight = edge.getCost();
-                    if (distances[u] + weight < distances[v]) {
+                    if (distances[u] != Integer.MAX_VALUE && distances[u] + weight < distances[v]) {
                         distances[v] = distances[u] + weight;
-                        ArrayList<Vertex> newPath = new ArrayList<>(paths.get(u));
+                        List<Vertex> newPath = new ArrayList<>(paths.get(u));
                         newPath.add(vertices.get(v));
                         paths.set(v, newPath);
                     }
@@ -258,19 +261,37 @@ public class Main {
             }
         }
 
+        // Build the shortest paths graph
         for (int i = 0; i < vertices.size(); i++) {
-            if (i != startIndex) {
+            if (i != startIndex && distances[i] != Integer.MAX_VALUE) {
                 List<Vertex> path = paths.get(i);
                 if (!path.isEmpty()) {
-                    shortestPathsGraph.addEdge(new Edge(vertices.get(startIndex), path.get(0), distances[i]));
+                    Vertex source = vertices.get(startIndex);
+                    Vertex destination = vertices.get(i);
+                    int totalCost = distances[i];
+                    shortestPathsGraph.addEdge(new Edge(source, destination, totalCost));
                     for (int j = 0; j < path.size() - 1; j++) {
-                        shortestPathsGraph.addEdge(new Edge(path.get(j), path.get(j + 1), distances[i]));
+                        source = path.get(j);
+                        destination = path.get(j + 1);
+                        int edgeCost = getEdgeCost(edges, source, destination);
+                        shortestPathsGraph.addEdge(new Edge(source, destination, edgeCost));
                     }
                 }
             }
         }
         return shortestPathsGraph;
     }
+
+    private static int getEdgeCost(ArrayList<Edge> edges, Vertex source, Vertex destination) {
+        for (Edge edge : edges) {
+            if (edge.getOrigin().equals(source) && edge.getDestiny().equals(destination)) {
+                return edge.getCost();
+            }
+        }
+        return Integer.MAX_VALUE; // Default unreachable value
+    }
+
+
 
 
 

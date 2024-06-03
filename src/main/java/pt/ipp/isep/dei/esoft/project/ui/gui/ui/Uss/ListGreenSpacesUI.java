@@ -1,5 +1,9 @@
 package pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss;
 
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.Mapper.GreenSpaceMapper;
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
@@ -9,98 +13,41 @@ import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
 import pt.ipp.isep.dei.esoft.project.repository.CollaboratorRepository;
 import pt.ipp.isep.dei.esoft.project.repository.GreenSpaceRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
+import pt.ipp.isep.dei.esoft.project.ui.gui.controller.LoginController;
+import pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.ListGreenSpacesUIController;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.CollaboratorUI;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.LoginUI;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.MainMenuUI;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class ListGreenSpacesUI {
-    /**
-     * greenSpaceRepository contains all green spaces
-     */
-    private GreenSpaceRepository greenSpaceRepository;
-    /**
-     * collaboratorRepository contains all collaborators
-     */
-    private CollaboratorRepository collaboratorRepository;
-    /**
-     * authenticationRepository authenticates the app
-     */
-    private AuthenticationRepository authenticationRepository;
+public class ListGreenSpacesUI implements Initializable {
 
-    /**
-     * Empty ListGreenSpacesController builder.
-     */
-    public ListGreenSpacesUI() {
-        this.greenSpaceRepository = Repositories.getInstance().getGreenSpaceRepository();
-        this.collaboratorRepository = Repositories.getInstance().getCollaboratorRepository();
-        this.authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
+    public CollaboratorUI collaboratorUI;
+    public ListGreenSpacesUIController listGreenSpacesUIController;
+    public static final String LISTGS = "List Green Spaces";
+
+
+    public void showUI(Stage stage) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/USs/ListGreenSpaces.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        stage.setTitle(LISTGS);
+        stage.setScene(scene);
+        listGreenSpacesUIController = loader.getController();
+        listGreenSpacesUIController.setListGreenSpacesUI(new ListGreenSpacesUI());
+        stage.show();
     }
 
-    /**
-     * ListGreenSpacesController builder
-     * @param greenSpaceRepository contains all green spaces
-     * @param collaboratorRepository contains all collaborators
-     * @param authenticationRepository  authenticates the app
-     */
-    public ListGreenSpacesUI(GreenSpaceRepository greenSpaceRepository, CollaboratorRepository collaboratorRepository, AuthenticationRepository authenticationRepository) {
-        this.greenSpaceRepository = greenSpaceRepository;
-        this.collaboratorRepository = collaboratorRepository;
-        this.authenticationRepository = authenticationRepository;
-    }
-    /**
-     * Lets the controller get the authentication repository
-     *
-     * @return authenticationRepository
-     */
-    public AuthenticationRepository getAuthenticationRepository() {
-        if (authenticationRepository == null) {
-            Repositories repositories = Repositories.getInstance();
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
 
-            authenticationRepository = repositories.getAuthenticationRepository();
-        }
-        return authenticationRepository;
     }
 
-    /**
-     * Lets the controller get the green space repository
-     * @return greenSpaceRepository
-     */
-    public GreenSpaceRepository getGreenSpaceRepository() {
-        if (greenSpaceRepository == null) {
-            Repositories repositories = Repositories.getInstance();
-
-            greenSpaceRepository = repositories.getGreenSpaceRepository();
-        }
-        return greenSpaceRepository;
-    }
-
-    /**
-     * Lets the controller get the collaborator repository
-     * @return collaboratorRepository
-     */
-    public  CollaboratorRepository getCollaboratorRepository() {
-        if (collaboratorRepository == null) {
-            Repositories repositories = Repositories.getInstance();
-
-            collaboratorRepository = repositories.getCollaboratorRepository();
-        }
-        return collaboratorRepository;
-    }
-    /**
-     * Lets the controller get the collaborator by email
-     *
-     * @param email email
-     * @return collaborator
-     */
-    public Collaborator getCollaboratorByEmail(String email) {
-        return this.collaboratorRepository.getCollaboratorByEmail(email);
-    }
-    public List<GreenSpaceDto> getGreenSpaceList(Collaborator greenSpaceManager, String sortingOption){
-        List<GreenSpace> greenSpaceList = greenSpaceRepository.getGreenSpaceListSorted(greenSpaceManager, sortingOption);
-        GreenSpaceMapper mapper = new GreenSpaceMapper();
-        return mapper.greenSpaceListToDto(greenSpaceList);
-    }
-
-    public void showUI(Stage primaryStage) {
-
+    public ListGreenSpacesUIController getListGreenSpacesUIController() {
+        return listGreenSpacesUIController;
     }
 }

@@ -1,101 +1,60 @@
 package pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss;
 
-import pt.ipp.isep.dei.esoft.project.Mapper.GreenSpaceMapper;
-import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
-import pt.ipp.isep.dei.esoft.project.domain.GreenSpace;
-import pt.ipp.isep.dei.esoft.project.dto.GreenSpaceDto;
-import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
-import pt.ipp.isep.dei.esoft.project.repository.CollaboratorRepository;
-import pt.ipp.isep.dei.esoft.project.repository.GreenSpaceRepository;
-import pt.ipp.isep.dei.esoft.project.repository.Repositories;
-
-import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListView;
+import pt.ipp.isep.dei.esoft.project.application.controller.ListGreenSpacesController;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.CollaboratorUI;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.GSMUI;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.MainMenuUI;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss.ListGreenSpacesUI;
 
 public class ListGreenSpacesUIController {
-    /**
-     * greenSpaceRepository contains all green spaces
-     */
-    private GreenSpaceRepository greenSpaceRepository;
-    /**
-     * collaboratorRepository contains all collaborators
-     */
-    private CollaboratorRepository collaboratorRepository;
-    /**
-     * authenticationRepository authenticates the app
-     */
-    private AuthenticationRepository authenticationRepository;
+    private final ListGreenSpacesController listGreenSpacesController = new ListGreenSpacesController();
+    private ListGreenSpacesUI listGreenSpacesUI;
+    private GSMUI gsmui;
 
-    /**
-     * Empty ListGreenSpacesController builder.
-     */
-    public ListGreenSpacesUIController() {
-        this.greenSpaceRepository = Repositories.getInstance().getGreenSpaceRepository();
-        this.collaboratorRepository = Repositories.getInstance().getCollaboratorRepository();
-        this.authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
+
+    public void setListGreenSpacesUI(ListGreenSpacesUI listGreenSpacesUI) {
+        this.listGreenSpacesUI = listGreenSpacesUI;
     }
+    @FXML
+    private Button btnCancel;
+    @FXML
+    private Button btnShow;
+    @FXML
+    private ComboBox listSortMethod;
+    @FXML
+    private ListView listGreenSpace;
+    /**
+     * List of all the tasks
+     */
+    private ObservableList<String> methods = FXCollections.observableArrayList((listGreenSpacesController.getSortMethods()));
 
     /**
-     * ListGreenSpacesController builder
-     * @param greenSpaceRepository contains all green spaces
-     * @param collaboratorRepository contains all collaborators
-     * @param authenticationRepository  authenticates the app
+     * Initializes the ui attributes
      */
-    public ListGreenSpacesUIController(GreenSpaceRepository greenSpaceRepository, CollaboratorRepository collaboratorRepository, AuthenticationRepository authenticationRepository) {
-        this.greenSpaceRepository = greenSpaceRepository;
-        this.collaboratorRepository = collaboratorRepository;
-        this.authenticationRepository = authenticationRepository;
-    }
-    /**
-     * Lets the controller get the authentication repository
-     *
-     * @return authenticationRepository
-     */
-    public AuthenticationRepository getAuthenticationRepository() {
-        if (authenticationRepository == null) {
-            Repositories repositories = Repositories.getInstance();
+    @FXML
+    public void initialize() {
+        try{
+            //listSortMethod.setItems(methods);
 
-            authenticationRepository = repositories.getAuthenticationRepository();
+        } catch (Exception e) {
+            System.out.println("Error while loading the status list.");
         }
-        return authenticationRepository;
     }
-
     /**
-     * Lets the controller get the green space repository
-     * @return greenSpaceRepository
+     * Handles the cancel button action
      */
-    public GreenSpaceRepository getGreenSpaceRepository() {
-        if (greenSpaceRepository == null) {
-            Repositories repositories = Repositories.getInstance();
-
-            greenSpaceRepository = repositories.getGreenSpaceRepository();
+    public void handleCancelButtonAction() {
+        try {
+            gsmui = new GSMUI();
+            gsmui.showUI(MainMenuUI.getPrimaryStage());
+        } catch (Exception e) {
+            System.out.println("An error occurred while handling the cancel action: " + e.getMessage());
         }
-        return greenSpaceRepository;
-    }
-
-    /**
-     * Lets the controller get the collaborator repository
-     * @return collaboratorRepository
-     */
-    public  CollaboratorRepository getCollaboratorRepository() {
-        if (collaboratorRepository == null) {
-            Repositories repositories = Repositories.getInstance();
-
-            collaboratorRepository = repositories.getCollaboratorRepository();
-        }
-        return collaboratorRepository;
-    }
-    /**
-     * Lets the controller get the collaborator by email
-     *
-     * @param email email
-     * @return collaborator
-     */
-    public Collaborator getCollaboratorByEmail(String email) {
-        return this.collaboratorRepository.getCollaboratorByEmail(email);
-    }
-    public List<GreenSpaceDto> getGreenSpaceList(Collaborator greenSpaceManager, String sortingOption){
-        List<GreenSpace> greenSpaceList = greenSpaceRepository.getGreenSpaceListSorted(greenSpaceManager, sortingOption);
-        GreenSpaceMapper mapper = new GreenSpaceMapper();
-        return mapper.greenSpaceListToDto(greenSpaceList);
     }
 }

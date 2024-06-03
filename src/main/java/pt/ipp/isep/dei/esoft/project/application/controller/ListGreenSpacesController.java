@@ -98,4 +98,8 @@ public class ListGreenSpacesController {
         GreenSpaceMapper mapper = new GreenSpaceMapper();
         return mapper.greenSpaceListToDto(greenSpaceList);
     }
+
+    public String getSortMethods() {
+        return null;
+    }
 }
