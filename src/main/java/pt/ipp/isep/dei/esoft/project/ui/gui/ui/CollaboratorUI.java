@@ -15,13 +15,13 @@ import java.util.ResourceBundle;
 public class CollaboratorUI implements Initializable {
     public MainMenuUI mainMenuUI;
     public CollaboratorController collaboratorController;
-    public static final String GSM = "GSM";
+    public static final String HRM = "HRM";
 
     public void showUI(Stage stage) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/CollaboratorUI.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
-        stage.setTitle(GSM);
+        stage.setTitle(HRM);
         stage.setScene(scene);
         collaboratorController = loader.getController();
         collaboratorController.setCollaboratorUI(new CollaboratorUI());

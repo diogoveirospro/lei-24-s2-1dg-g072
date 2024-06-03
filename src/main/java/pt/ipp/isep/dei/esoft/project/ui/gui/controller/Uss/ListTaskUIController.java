@@ -8,6 +8,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import pt.ipp.isep.dei.esoft.project.application.controller.ListTaskController;
 import pt.ipp.isep.dei.esoft.project.domain.*;
+import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.CollaboratorUI;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.MainMenuUI;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss.ListTaskUI;
@@ -22,7 +23,7 @@ import java.io.IOException;
  * @author Group 072 - Byte Masters - ISEP
  */
 public class ListTaskUIController {
-    private ListTaskController controller;
+    private final ListTaskController controller = new ListTaskController();
     private ShowTaskListUI showTaskListUI;
     private CollaboratorUI collaboratorUI;
     /**

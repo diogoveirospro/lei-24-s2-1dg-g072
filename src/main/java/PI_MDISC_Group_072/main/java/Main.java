@@ -84,7 +84,7 @@ public class Main {
     }
 
 
-    private static void US17() throws FileNotFoundException {
+    private static void US17() throws IOException, InterruptedException {
         Scanner sc = new Scanner(System.in);
         StringBuilder inputVerticesFile = new StringBuilder(getFileVertices(sc));
         StringBuilder inputFileWeights = new StringBuilder(getFileWeight(sc));
@@ -95,7 +95,7 @@ public class Main {
         int[][] weights = readWeightFile(fileWeights);
         ArrayList<Edge> graphEdges = new ArrayList<>();
         makeEdges(graphEdges, vertices, weights);
-
+        Graph graph = addEdges(graphEdges);
         String MP = getMP(vertices);
         if (MP == null) {
             System.out.println("There is no Meeting Point in the file!");
@@ -104,6 +104,7 @@ public class Main {
             String vertex = sc.nextLine();
             Graph evacuationRoutes = Dijkstra(graphEdges, vertices,vertex);
             makeGraphCsv(evacuationRoutes);
+            createGraph(graph, inputVerticesFile);
             System.out.println("Insert the vertex you want to know the shortest path to the AP or 'done'(if you want to stop):");
             while (!vertex.equalsIgnoreCase("done")) {
                 vertex = sc.nextLine();
@@ -197,32 +198,32 @@ public class Main {
         boolean[] visited = new boolean[vertices.size()];
         Vertex[] previous = new Vertex[vertices.size()];
 
-        Arrays.fill(distances, 0);
+        Arrays.fill(distances, Integer.MAX_VALUE);
         distances[vertices.indexOf(new Vertex(startVertex))] = 0;
 
 
         for (int i = 0; i < vertices.size(); i++) {
 
-            int visit = -1;
-            for (int toBeChecked = 0; toBeChecked < vertices.size(); toBeChecked++) {
-                if (!visited[toBeChecked] && (visit == -1 || distances[toBeChecked] < distances[visit])) {
-                    visit = toBeChecked;
+            int u = -1;
+            for (int j = 0; j < vertices.size(); j++) {
+                if (!visited[j] && (u == -1 || distances[j] < distances[u])) {
+                    u = j;
                 }
             }
 
-            if (distances[visit] == 0) {
+            if (distances[u] == Integer.MAX_VALUE) {
                 break;
             }
 
-            visited[visit] = true;
+            visited[u] = true;
 
             for (Edge edge : edges) {
-                if (edge.getOrigin().equals(vertices.get(visit))) {
+                if (edge.getOrigin().equals(vertices.get(u))) {
                     int v = vertices.indexOf(edge.getDestiny());
-                    int alt = distances[visit] + edge.getCost();
+                    int alt = distances[u] + edge.getCost();
                     if (alt < distances[v]) {
                         distances[v] = alt;
-                        previous[v] = vertices.get(visit);
+                        previous[v] = vertices.get(u);
                     }
                 }
             }
@@ -421,13 +422,17 @@ public class Main {
         int[][] weights = new int[dimensions.length][dimensions[0].length];
         Scanner in = new Scanner(new File(String.valueOf(file)));
         int line = 0;
+        int vertexPosition = 0;
         while (in.hasNextLine()) {
             int columns = 0;
             String[] costs = readLineCosts(in);
             for (String cost : costs) {
-                weights[line][columns] = Integer.parseInt(cost);
+                if (columns > vertexPosition){
+                    weights[line][columns] = Integer.parseInt(cost);
+                }
                 columns++;
             }
+            vertexPosition++;
             line++;
         }
 
