@@ -4,6 +4,7 @@ import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidAgendaEntryDataException;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -18,15 +19,105 @@ public class AgendaEntry extends Entry {
     private Team team;
     private ToDoListEntry toDoListEntry;
     private Date startDate;
-    private String startHour;
+    private HourOfDay startHour;
     private Date endDate;
-    private String endHour;
+    private HourOfDay endHour;
     private StatusOfEntry status;
     private List<Vehicle> vehicleList;
 
-    private GreenSpaceRepository greenSpaceRepository = Repositories.getInstance().getGreenSpaceRepository();
     private TeamRepository teamRepository = Repositories.getInstance().getTeamRepository();
     private VehicleRepository vehicleRepository = Repositories.getInstance().getVehicleRepository();
+
+    /**
+     * Enum representing the hours of the day.
+     */
+    public enum HourOfDay {
+        H00("00:00"),
+        H01("01:00"),
+        H02("02:00"),
+        H03("03:00"),
+        H04("04:00"),
+        H05("05:00"),
+        H06("06:00"),
+        H07("07:00"),
+        H08("08:00"),
+        H09("09:00"),
+        H10("10:00"),
+        H11("11:00"),
+        H12("12:00"),
+        H13("13:00"),
+        H14("14:00"),
+        H15("15:00"),
+        H16("16:00"),
+        H17("17:00"),
+        H18("18:00"),
+        H19("19:00"),
+        H20("20:00"),
+        H21("21:00"),
+        H22("22:00"),
+        H23("23:00");
+
+        private final String hour;
+
+        /**
+         * Constructor for HourOfDay enum.
+         *
+         * @param hour the hour represented as a string in HH:mm format
+         */
+        HourOfDay(String hour) {
+            this.hour = hour;
+        }
+
+        /**
+         * Gets the hour as a string.
+         *
+         * @return the hour as a string in HH:mm format
+         */
+        public String getHour() {
+            return hour;
+        }
+
+        @Override
+        public String toString() {
+            return hour;
+        }
+
+        /**
+         * Gets the HourOfDay enum corresponding to the given hour string.
+         *
+         * @param hour the hour string in HH:mm format
+         * @return the HourOfDay enum
+         * @throws IllegalArgumentException if the hour string is invalid
+         */
+        public static HourOfDay fromString(String hour) {
+            for (HourOfDay hourOfDay : HourOfDay.values()) {
+                if (hourOfDay.getHour().equals(hour)) {
+                    return hourOfDay;
+                }
+            }
+            throw new IllegalArgumentException("Invalid hour: " + hour);
+        }
+
+        /**
+         * Returns a list containing all the hours of the day.
+         *
+         * @return a list of all hours
+         */
+        public static List<HourOfDay> getAllHours() {
+            return new ArrayList<>(Arrays.asList(HourOfDay.values()));
+        }
+
+        /**
+         * Checks if this hour is greater than another hour.
+         *
+         * @param otherHour the other hour to compare
+         * @return true if this hour is greater than the other hour, false otherwise
+         */
+        public boolean isGreather(HourOfDay otherHour) {
+            return this.ordinal() > otherHour.ordinal();
+        }
+    }
+
 
     /**
      * Enumeration representing the status of an agenda entry.
@@ -87,6 +178,7 @@ public class AgendaEntry extends Entry {
         }
 
     }
+
     /**
      * Constructs an agenda entry with the specified task, green space, start date, and end date.
      *
@@ -96,14 +188,15 @@ public class AgendaEntry extends Entry {
      * @param endDate    the end date of the task
      * @throws InvalidAgendaEntryDataException if the start date is later than the end date
      */
-    public AgendaEntry(Task task, GreenSpace greenSpace, Date startDate, String startHour, Date endDate, String endHour) throws InvalidAgendaEntryDataException {
+    public AgendaEntry(Task task, GreenSpace greenSpace, Date startDate, HourOfDay startHour, Date endDate, HourOfDay endHour) throws InvalidAgendaEntryDataException {
         super(task, greenSpace);
-        if (!validateEntry(startDate, endDate)) {
+        if (validateDates(startDate, endDate, startHour, endHour)) {
             throw new InvalidAgendaEntryDataException("The start date of the task cannot be later than the end date.");
         }
-
         this.startDate = startDate;
+        this.startHour = startHour;
         this.endDate = endDate;
+        this.endHour = endHour;
         this.vehicleList = new ArrayList<>();
         this.team = null;
 
@@ -119,12 +212,30 @@ public class AgendaEntry extends Entry {
     }
 
     /**
+     * Gets the start hour of the task.
+     *
+     * @return the start hour
+     */
+    public HourOfDay getStartHour() {
+        return startHour;
+    }
+
+    /**
      * Gets the end date of the task.
      *
      * @return the end date
      */
     public Date getEndDate() {
         return endDate;
+    }
+
+    /**
+     * Gets the end hour of the task.
+     *
+     * @return the end hour
+     */
+    public HourOfDay getEndHour() {
+        return endHour;
     }
 
     /**
@@ -161,10 +272,23 @@ public class AgendaEntry extends Entry {
      * @throws InvalidAgendaEntryDataException if the start date is later than the end date
      */
     public void setStartDate(Date startDate) throws InvalidAgendaEntryDataException {
-        if (startDate.isGreater(endDate)) {
+        if (validateDates(startDate, endDate, startHour, endHour)) {
             throw new InvalidAgendaEntryDataException("The start date of the task cannot be later than the end date.");
         }
         this.startDate = startDate;
+    }
+
+    /**
+     * Sets the start hour of the task.
+     *
+     * @param startHour the new start hour
+     * @throws InvalidAgendaEntryDataException if the start hour is later than the end hour
+     */
+    public void setStartHour(HourOfDay startHour) throws InvalidAgendaEntryDataException {
+        if (validateDates(startDate, endDate, startHour, endHour)) {
+            throw new InvalidAgendaEntryDataException("The start hour of the task cannot be later than the end hour.");
+        }
+        this.startHour = startHour;
     }
 
     /**
@@ -174,10 +298,23 @@ public class AgendaEntry extends Entry {
      * @throws InvalidAgendaEntryDataException if the end date is earlier than the start date
      */
     public void setEndDate(Date endDate) throws InvalidAgendaEntryDataException {
-        if (!startDate.isGreater(endDate)) {
+        if (validateDates(startDate, endDate, startHour, endHour)) {
             throw new InvalidAgendaEntryDataException("The end date of the task cannot be earlier than the start date.");
         }
         this.endDate = endDate;
+    }
+
+    /**
+     * Sets the end hour of the task.
+     *
+     * @param endHour the new end hour
+     * @throws InvalidAgendaEntryDataException if the end hour is earlier than the start hour
+     */
+    public void setEndHour(HourOfDay endHour) throws InvalidAgendaEntryDataException {
+        if (validateDates(startDate, endDate, startHour, endHour)) {
+            throw new InvalidAgendaEntryDataException("The end hour of the task cannot be earlier than the start hour.");
+        }
+        this.endHour = endHour;
     }
 
     /**
@@ -245,14 +382,19 @@ public class AgendaEntry extends Entry {
     }
 
     /**
-     * Validates the entry by ensuring the end date is greater than the start date.
+     * Validates the dates and hours.
      *
-     * @param startDate the start date to validate
-     * @param endDate   the end date to validate
-     * @return true if the end date is greater than the start date, false otherwise
+     * @param startDate the start date
+     * @param endDate   the end date
+     * @param startHour the start hour
+     * @param endHour   the end hour
+     * @return true if the end date and hour are greater than or equal to the start date and hour, false otherwise
      */
-    private boolean validateEntry(Date startDate, Date endDate) {
-        return endDate.isGreater(startDate);
+    private boolean validateDates(Date startDate, Date endDate, HourOfDay startHour, HourOfDay endHour) {
+
+        if (endDate.isGreater(startDate)){
+            return false;
+        } else return !endDate.equals(startDate) || !endHour.isGreather(startHour);
     }
 
     @Override

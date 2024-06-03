@@ -213,40 +213,60 @@ public class GreenSpace {
      * Lets the user set the address of the green space
      * @param address of the green space
      */
-    public void setAddress(String address) {
-        this.address = address;
+    public void setAddress(String address) throws InvalidGreenSpaceDataException {
+        if (isValidAddress(address)) {
+            this.address = address;
+        } else {
+            throw new InvalidGreenSpaceDataException("Invalid address of the green space.");
+        }
     }
 
     /**
      * Lets the user set the dimension of the green space
      * @param dimension of the green space
      */
-    public void setDimension(double dimension) {
-        this.dimension = dimension;
+    public void setDimension(double dimension) throws InvalidGreenSpaceDataException {
+        if (dimension > 0) {
+            this.dimension = dimension;
+        } else {
+            throw new InvalidGreenSpaceDataException("Invalid dimension of the green space.");
+        }
     }
 
     /**
      * Lets the user set the name of the green space
      * @param parkName of the green space
      */
-    public void setParkName(String parkName) {
-        this.parkName = parkName;
+    public void setParkName(String parkName) throws InvalidGreenSpaceDataException {
+        if (isValidParkName(parkName)) {
+            this.parkName = parkName;
+        } else {
+            throw new InvalidGreenSpaceDataException("Invalid green space name.");
+        }
     }
 
     /**
      * Lets the user set the type of the green space
      * @param type of the green space
      */
-    public void setType(TypeOfGreenSpace type) {
-        this.type = type;
+    public void setType(TypeOfGreenSpace type) throws InvalidGreenSpaceDataException {
+        if (type != null) {
+            this.type = type;
+        } else {
+            throw new InvalidGreenSpaceDataException("Invalid type of green space.");
+        }
     }
 
     /**
      * Lets the user set the manager of the green space
-     * @param greenSpaceManager
+     * @param greenSpaceManager green space manager
      */
-    public void setGreenSpaceManager(Collaborator greenSpaceManager) {
-        this.greenSpaceManager = greenSpaceManager;
+    public void setGreenSpaceManager(Collaborator greenSpaceManager) throws InvalidGreenSpaceDataException {
+        if (isValidGreenSpaceManager(greenSpaceManager)) {
+            this.greenSpaceManager = greenSpaceManager;
+        } else {
+            throw new InvalidGreenSpaceDataException("Invalid green space manager.");
+        }
     }
     /**
      * Lets the user set the to do list of the green space
