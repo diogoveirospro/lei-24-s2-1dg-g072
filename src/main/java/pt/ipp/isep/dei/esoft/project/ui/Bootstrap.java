@@ -69,11 +69,31 @@ public class Bootstrap {
         c3.assignSkill(new Skill("Tree Care and Maintenance"));
         c3.assignSkill(new Skill("Pest and Disease Management in Landscapes"));
 
+        Collaborator hrm = new Collaborator("HRM", new Date(1999, 2, 3), new Date(2020,
+                3, 1), "Rua5", "912632669", "hrm@hrm.com", "212826077",
+                Collaborator.IdDocType.CC, "123454678cc3", "ABC1234");
+
+        Collaborator gsm = new Collaborator("GSM", new Date(1988, 2, 3), new Date(2020,
+                3, 1), "Rua6", "912645629", "gsm@gsm.com", "232139687",
+                Collaborator.IdDocType.CC, "122472678cc3", "ABC1234");
+
+        Collaborator vfm = new Collaborator("VFM", new Date(1989, 2, 3), new Date(2020,
+                3, 1), "Rua7", "914657324", "vfm@vfm.com", "269999450",
+                Collaborator.IdDocType.CC, "123453678zz3", "ABC1234");
+
+        Collaborator qam = new Collaborator("QAM", new Date(1999, 2, 3), new Date(2024,
+                3, 1), "Rua8", "913456734", "qam@qam.com", "241319692",
+                Collaborator.IdDocType.CC, "123485678xx3", "ABC1234");
+
 
         collaboratorRepository.addCollaborator(c1);
         collaboratorRepository.addCollaborator(c2);
         collaboratorRepository.addCollaborator(c3);
         collaboratorRepository.addCollaborator(c4);
+        collaboratorRepository.addCollaborator(hrm);
+        collaboratorRepository.addCollaborator(gsm);
+        collaboratorRepository.addCollaborator(vfm);
+        collaboratorRepository.addCollaborator(qam);
     }
 
     private void addJob() {
@@ -134,36 +154,24 @@ public class Bootstrap {
         authenticationRepository.addUserRole(AuthenticationController.ROLE_QAM, AuthenticationController.ROLE_QAM);
         authenticationRepository.addUserRole(AuthenticationController.ROLE_COL, AuthenticationController.ROLE_COL);
 
-        Collaborator hrm = new Collaborator("HRM", new Date(1999, 2, 3), new Date(2020,
-                3, 1), "Rua5", "912632669", "hrm@hrm.com", "212826077",
-                Collaborator.IdDocType.CC, "123454678cc3", "ABC1234");
-
-        Collaborator gsm = new Collaborator("GSM", new Date(1988, 2, 3), new Date(2020,
-                3, 1), "Rua6", "912645629", "gsm@gsm.com", "232139687",
-                Collaborator.IdDocType.CC, "122472678cc3", "ABC1234");
-
-        Collaborator vfm = new Collaborator("VFM", new Date(1989, 2, 3), new Date(2020,
-                3, 1), "Rua7", "914657324", "vfm@vfm.com", "269999450",
-                Collaborator.IdDocType.CC, "123453678zz3", "ABC1234");
-
-        Collaborator qam = new Collaborator("QAM", new Date(1999, 2, 3), new Date(2024,
-                3, 1), "Rua8", "913456734", "qam@qam.com", "241319692",
-                Collaborator.IdDocType.CC, "123485678xx3", "ABC1234");
-
-
-        authenticationRepository.addUserWithRole(hrm, AuthenticationController.ROLE_HRM);
-        authenticationRepository.addUserWithRole(vfm, AuthenticationController.ROLE_VFM);
-        authenticationRepository.addUserWithRole(gsm, AuthenticationController.ROLE_GSM);
-        authenticationRepository.addUserWithRole(qam, AuthenticationController.ROLE_QAM);
-
         for (Collaborator c : collaboratorRepository.getCollaborators()) {
-            authenticationRepository.addUserWithRole(c, AuthenticationController.ROLE_COL);
+
+            if (c.getEmail().contains("@hrm.com")){
+                authenticationRepository.addUserWithRole(c, AuthenticationController.ROLE_HRM);
+            } else if (c.getEmail().contains("@gsm.com")) {
+                authenticationRepository.addUserWithRole(c, AuthenticationController.ROLE_GSM);
+            } else if (c.getEmail().contains("@vfm.com")) {
+                authenticationRepository.addUserWithRole(c, AuthenticationController.ROLE_VFM);
+            } else if (c.getEmail().contains("@qam.com")) {
+                authenticationRepository.addUserWithRole(c, AuthenticationController.ROLE_QAM);
+            } else {
+                authenticationRepository.addUserWithRole(c, AuthenticationController.ROLE_COL);
+            }
         }
 
     }
 
     private void addVehicle() {
-        VehicleRepository vehicleRepository = Repositories.getInstance().getVehicleRepository();
         Vehicle vehicle1 = new Vehicle("GG-69-EZ","BMW","i4","hibrid",3500.0,4500.0,1000.0,new Date(2024,1,10), new  Date(2024,1,26),10000.0,0.0);
         Vehicle vehicle2 = new Vehicle("69-WP-42","Toyota","Avensis","Diesel",3000.0,4000.0,42000.0,new Date(2018,12,10), new  Date(2019,1,10),20000.0,30000.0);
         Vehicle vehicle3 = new Vehicle("04-20-VC","ferrari","diablo","Petrol",3000.0,4000.0,100000.0,new Date(2000,12,10), new  Date(2003,10,11),10000.0,75432.3);

@@ -18,7 +18,7 @@ public class UserSession {
     }
 
     public String getUserEmail() {
-        return userSession.getUserId().getEmail();
+        return this.userSession.getUserId().getEmail();
     }
 
     public String getUserName() {
