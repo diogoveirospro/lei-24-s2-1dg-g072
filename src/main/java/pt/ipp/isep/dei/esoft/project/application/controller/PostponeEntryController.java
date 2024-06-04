@@ -6,6 +6,7 @@ import pt.ipp.isep.dei.esoft.project.Mapper.GreenSpaceMapper;
 import pt.ipp.isep.dei.esoft.project.application.session.ApplicationSession;
 import pt.ipp.isep.dei.esoft.project.domain.AgendaEntry;
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
+import pt.ipp.isep.dei.esoft.project.domain.Date;
 import pt.ipp.isep.dei.esoft.project.domain.GreenSpace;
 import pt.ipp.isep.dei.esoft.project.dto.AgendaEntryDto;
 import pt.ipp.isep.dei.esoft.project.dto.GreenSpaceDto;
@@ -61,12 +62,12 @@ public class PostponeEntryController {
         return agendaEntryMapper.toDtoList(agendaEntries);
     }
 
-    public boolean postponeAgendaEntry(AgendaEntry agendaEntry) throws InvalidAgendaEntryDataException {
-        if (agendaEntry == null) {
+    public void postponeAgendaEntry(AgendaEntry agendaEntry, Date newDate) throws InvalidAgendaEntryDataException {
+        if (agendaEntry == null || newDate == null){
             throw new InvalidAgendaEntryDataException("Agenda Entry is invalid.");
         } else
+            agendaEntry.postponeEntry(newDate);
             agendaEntry.taskPostponed();
-        return agendaEntry.isPostponed();
     }
 
 
