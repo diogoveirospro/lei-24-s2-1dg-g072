@@ -108,7 +108,7 @@ public class Collaborator implements Comparable<Collaborator> {
      * All types of collaborator email.
      */
     public enum typeOfCollaboratorEmails {
-        COLLABORATOR("@gmail.com"),
+        COLLABORATOR("@collaborator.com"),
         GSM("@gsm.com"),
         VFM("@vfm.com"),
         QAM("@qam.com"),
@@ -160,11 +160,12 @@ public class Collaborator implements Comparable<Collaborator> {
      * @param taxpayerNumber Collaborator taxpayer number.
      * @param idDocType      Collaborator ID document type.
      * @param idDocNumber    Collaborator ID document number.
+     * @param pwd            Collaborator password.
      * @param jobName        Collaborator's Job Name.
      * @throws InvalidCollaboratorDataException if any of the provided data is invalid
      */
     public Collaborator(String name, Date birthDate, Date admissionDate, String address, String mobile, String email,
-                        String taxpayerNumber, IdDocType idDocType, String idDocNumber, String jobName) throws InvalidCollaboratorDataException {
+                        String taxpayerNumber, IdDocType idDocType, String idDocNumber, String pwd, String jobName) throws InvalidCollaboratorDataException {
 
         if (!ValidatorUtils.isValidName(name)) {
             throw new InvalidCollaboratorDataException("Invalid name.");
@@ -202,6 +203,11 @@ public class Collaborator implements Comparable<Collaborator> {
             throw new InvalidCollaboratorDataException("Invalid ID document number.");
         }
 
+        if (!ValidatorUtils.isValidPwd(pwd)) {
+            throw new InvalidCollaboratorDataException("Invalid password.");
+        }
+
+
         this.name = name;
         this.birthDate = birthDate;
         this.admissionDate = admissionDate;
@@ -211,6 +217,7 @@ public class Collaborator implements Comparable<Collaborator> {
         this.taxpayerNumber = taxpayerNumber;
         this.idDocType = idDocType;
         this.idDocNumber = idDocNumber;
+        this.pwd = pwd;
 
         JobRepository jobRepository = Repositories.getInstance().getJobRepository();
         this.job = jobRepository.getJob(jobName);
@@ -231,9 +238,10 @@ public class Collaborator implements Comparable<Collaborator> {
      * @param taxpayerNumber Collaborator taxpayer number.
      * @param idDocType      Collaborator ID document type.
      * @param idDocNumber    Collaborator ID document number.
+     * @param pwd            Collaborator password.
      */
     public Collaborator(String name, Date birthDate, Date admissionDate, String address, String mobile, String email,
-                        String taxpayerNumber, IdDocType idDocType, String idDocNumber) throws InvalidCollaboratorDataException {
+                        String taxpayerNumber, IdDocType idDocType, String idDocNumber, String pwd) throws InvalidCollaboratorDataException {
 
         if (!ValidatorUtils.isValidName(name)) {
             throw new InvalidCollaboratorDataException("Invalid name.");
@@ -271,6 +279,10 @@ public class Collaborator implements Comparable<Collaborator> {
             throw new InvalidCollaboratorDataException("Invalid ID document number.");
         }
 
+        if (!ValidatorUtils.isValidPwd(pwd)) {
+            throw new InvalidCollaboratorDataException("Invalid password.");
+        }
+
         this.name = name;
         this.birthDate = birthDate;
         this.admissionDate = admissionDate;
@@ -280,6 +292,7 @@ public class Collaborator implements Comparable<Collaborator> {
         this.taxpayerNumber = taxpayerNumber;
         this.idDocType = idDocType;
         this.idDocNumber = idDocNumber;
+        this.pwd = pwd;
         skillSet = new ArrayList<>();
     }
 
@@ -364,6 +377,15 @@ public class Collaborator implements Comparable<Collaborator> {
      */
     public String getIdDocNumber() {
         return idDocNumber;
+    }
+
+    /**
+     * Get collaborator password.
+     *
+     * @return Collaborator password.
+     */
+    public String getPwd() {
+        return pwd;
     }
 
     /**
@@ -454,6 +476,15 @@ public class Collaborator implements Comparable<Collaborator> {
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+    /**
+     * Change collaborator password
+     *
+     * @param pwd of the collaborator
+     */
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
     }
 
     /**

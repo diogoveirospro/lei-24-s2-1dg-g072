@@ -16,7 +16,6 @@ import pt.ipp.isep.dei.esoft.project.repository.GreenSpaceRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 
 import java.util.List;
-import java.util.Objects;
 
 public class PostponeEntryController {
 
@@ -54,7 +53,15 @@ public class PostponeEntryController {
     }
 
         public List<AgendaEntry> getAgendaEntryList(){
-        return Objects.requireNonNull(agenda).getEntryList();
+            if (agenda != null) {
+                return agenda.getEntryList();
+            }else return null;
+        }
+
+    public List<String> getAgendaEntryListString(){
+        List<String> agendaEntries = agenda.getAgendaEntryList();
+        agendaEntries.add("None");
+        return agendaEntries;
     }
 
     public List<AgendaEntryDto> entryListToDto(){

@@ -71,6 +71,7 @@ public class GSMController {
             postponeEntryUI = new PostponeEntryUI();
             postponeEntryUI.showUI(MainMenuUI.getPrimaryStage());
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("An error occurred while handling the postpone entry action: " + e.getMessage());
         }
     }
@@ -103,6 +104,7 @@ public class GSMController {
             addAgendaEntryUI = new AddAgendaEntryUI();
             addAgendaEntryUI.showUI(MainMenuUI.getPrimaryStage());
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("An error occurred while handling the add agenda entry action: " + e.getMessage());
         }
     }
