@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidEntryDataException;
+
 /**
  * Represents an entry in a to-do list.
  * Contains a task, a green space, and a degree of urgency.
@@ -63,7 +65,7 @@ public class ToDoListEntry extends Entry {
      * @param greenSpace the green space associated with the to-do list entry.
      * @param degreeOfUrgency the degree of urgency for the to-do list entry.
      */
-    public ToDoListEntry(Task task, GreenSpace greenSpace, DegreeOfUrgency degreeOfUrgency) {
+    public ToDoListEntry(Task task, GreenSpace greenSpace, DegreeOfUrgency degreeOfUrgency) throws InvalidEntryDataException {
         super(task,greenSpace);
         this.degreeOfUrgency = degreeOfUrgency;
     }

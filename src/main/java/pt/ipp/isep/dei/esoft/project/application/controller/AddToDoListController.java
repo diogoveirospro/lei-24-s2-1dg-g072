@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
 
+import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidEntryDataException;
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidTaskDataException;
 import pt.ipp.isep.dei.esoft.project.Mapper.GreenSpaceMapper;
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
@@ -50,7 +51,7 @@ public class AddToDoListController {
     }
 
 
-    public void addNewToDoListEntry(String taskName,String duration, String greenSpaceName, String degreeOfUrgency) throws InvalidTaskDataException {
+    public void addNewToDoListEntry(String taskName,String duration, String greenSpaceName, String degreeOfUrgency) throws InvalidTaskDataException, InvalidEntryDataException {
         GreenSpace greenSpace = greenSpaceRepository.getGreenSpaceByParkName(greenSpaceName);
         ToDoListEntry.DegreeOfUrgency degree = ToDoListEntry.DegreeOfUrgency.getDegreeOfUrgency(degreeOfUrgency);
         Task task = new Task(taskName, duration);

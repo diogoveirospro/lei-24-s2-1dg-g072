@@ -3,12 +3,11 @@ package pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidAgendaEntryDataException;
+import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidEntryDataException;
 import pt.ipp.isep.dei.esoft.project.application.controller.AddAgendaEntryController;
 import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.dto.GreenSpaceDto;
 import pt.ipp.isep.dei.esoft.project.dto.ToDoListEntryDto;
-import pt.ipp.isep.dei.esoft.project.repository.*;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.AlertUI;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.GSMUI;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss.AddAgendaEntryUI;
@@ -124,7 +123,7 @@ public class AddAgendaEntryUIController {
 
             GSMUI gsmui = new GSMUI();
             gsmui.showUI(new Stage());
-        } catch (InvalidAgendaEntryDataException e) {
+        } catch (InvalidEntryDataException e) {
             AlertUI.createAnAlert(Alert.AlertType.ERROR, "Add Agenda Entry", "Error.", e.getMessage()).show();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -140,7 +139,7 @@ public class AddAgendaEntryUIController {
             if (result.isPresent() && result.get() == ButtonType.OK) {
                 try {
                     controller.addAgendaEntry(agendaEntry);
-                } catch (InvalidAgendaEntryDataException e) {
+                } catch (InvalidEntryDataException e) {
                     AlertUI.createAnAlert(Alert.AlertType.ERROR, "Add Agenda Entry", "Error.", e.getMessage()).show();
                 }
             }

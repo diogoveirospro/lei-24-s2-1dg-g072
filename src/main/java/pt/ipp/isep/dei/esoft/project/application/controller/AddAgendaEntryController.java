@@ -1,6 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
-import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidAgendaEntryDataException;
+import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidEntryDataException;
 import pt.ipp.isep.dei.esoft.project.Mapper.GreenSpaceMapper;
 import pt.ipp.isep.dei.esoft.project.Mapper.ToDoListMapper;
 import pt.ipp.isep.dei.esoft.project.application.session.ApplicationSession;
@@ -107,9 +107,9 @@ public class AddAgendaEntryController {
      * @param endDate       The end date of the agenda entry. Cannot be null.
      * @param endHour       The end hour of the agenda entry. Cannot be null.
      * @return              The new agenda entry created.
-     * @throws InvalidAgendaEntryDataException If the provided data is invalid.
+     * @throws InvalidEntryDataException If the provided data is invalid.
      */
-    public AgendaEntry createAgendaEntry(Task task, GreenSpace greenSpace, Date startDate, AgendaEntry.HourOfDay startHour, Date endDate, AgendaEntry.HourOfDay endHour) throws InvalidAgendaEntryDataException {
+    public AgendaEntry createAgendaEntry(Task task, GreenSpace greenSpace, Date startDate, AgendaEntry.HourOfDay startHour, Date endDate, AgendaEntry.HourOfDay endHour) throws InvalidEntryDataException {
         agenda = Repositories.getInstance().getAgenda();
         return agenda.createAgendaEntry(task, greenSpace, startDate, startHour, endDate, endHour);
     }
@@ -119,11 +119,11 @@ public class AddAgendaEntryController {
      *
      * @param agendaEntry the agenda entry to be added
      * @return true if the entry was successfully added, false otherwise
-     * @throws InvalidAgendaEntryDataException if the agenda entry is invalid
+     * @throws InvalidEntryDataException if the agenda entry is invalid
      */
-    public boolean addAgendaEntry(AgendaEntry agendaEntry) throws InvalidAgendaEntryDataException {
+    public boolean addAgendaEntry(AgendaEntry agendaEntry) throws InvalidEntryDataException {
         if (agendaEntry == null) {
-            throw new InvalidAgendaEntryDataException("Agenda Entry is invalid.");
+            throw new InvalidEntryDataException("Agenda Entry is invalid.");
         }
         return agenda.addAgendaEntry(agendaEntry);
     }

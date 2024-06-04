@@ -1,6 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
-import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidAgendaEntryDataException;
+import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidEntryDataException;
 import pt.ipp.isep.dei.esoft.project.Mapper.AgendaEntryMapper;
 import pt.ipp.isep.dei.esoft.project.Mapper.GreenSpaceMapper;
 import pt.ipp.isep.dei.esoft.project.application.session.ApplicationSession;
@@ -71,9 +71,9 @@ public class PostponeEntryController {
         return agendaEntryMapper.toDtoList(agendaEntries);
     }
 
-    public void postponeAgendaEntry(AgendaEntry agendaEntry, Date newDate) throws InvalidAgendaEntryDataException {
+    public void postponeAgendaEntry(AgendaEntry agendaEntry, Date newDate) throws InvalidEntryDataException {
         if (agendaEntry == null || newDate == null) {
-            throw new InvalidAgendaEntryDataException("Agenda Entry is invalid.");
+            throw new InvalidEntryDataException("Agenda Entry is invalid.");
         } else
             agendaEntry.postponeEntry(newDate);
         agendaEntry.taskPostponed();

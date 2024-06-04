@@ -168,6 +168,10 @@ public class Date implements Comparable<Date> {
      * @return true if the date is greater than the date received by parameter, otherwise return false.
      */
     public boolean isGreater(Date otherDate) {
+
+        if (otherDate == null) {
+            return false;
+        }
         int totalDays = countDays();
         int totalDays1 = otherDate.countDays();
 

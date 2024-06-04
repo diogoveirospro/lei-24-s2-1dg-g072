@@ -1,28 +1,14 @@
 package pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss;
 
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.stage.Stage;
-import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidAgendaEntryDataException;
-import pt.ipp.isep.dei.esoft.project.domain.AgendaEntry;
-import pt.ipp.isep.dei.esoft.project.domain.Date;
-import pt.ipp.isep.dei.esoft.project.domain.GreenSpace;
-import pt.ipp.isep.dei.esoft.project.domain.Task;
-import pt.ipp.isep.dei.esoft.project.dto.GreenSpaceDto;
-import pt.ipp.isep.dei.esoft.project.dto.ToDoListEntryDto;
 import pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.AddAgendaEntryUIController;
-import pt.ipp.isep.dei.esoft.project.ui.gui.ui.AlertUI;
-import pt.ipp.isep.dei.esoft.project.ui.gui.ui.GSMUI;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 /**

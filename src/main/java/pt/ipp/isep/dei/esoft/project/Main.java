@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.esoft.project;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidAgendaEntryDataException;
+import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidEntryDataException;
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidCollaboratorDataException;
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidGreenSpaceDataException;
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidTaskDataException;
@@ -20,7 +20,7 @@ import static javafx.application.Application.launch;
  */
 public class Main extends Application {
 
-    public static void main(String[] args) throws InvalidCollaboratorDataException, InvalidTaskDataException, InvalidAgendaEntryDataException, InvalidGreenSpaceDataException {
+    public static void main(String[] args) throws InvalidCollaboratorDataException, InvalidTaskDataException, InvalidEntryDataException, InvalidGreenSpaceDataException {
         Bootstrap bootstrap = new Bootstrap();
         bootstrap.run();
         launch(args);

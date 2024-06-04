@@ -1,6 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
-import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidAgendaEntryDataException;
+import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidEntryDataException;
 import pt.ipp.isep.dei.esoft.project.Mapper.AgendaEntryMapper;
 import pt.ipp.isep.dei.esoft.project.Mapper.GreenSpaceMapper;
 import pt.ipp.isep.dei.esoft.project.application.session.ApplicationSession;
@@ -61,9 +61,9 @@ public class CancelEntryController {
         return agendaEntryMapper.toDtoList(agendaEntries);
     }
 
-    public void cancelAgendaEntry(AgendaEntry agendaEntry) throws InvalidAgendaEntryDataException {
+    public void cancelAgendaEntry(AgendaEntry agendaEntry) throws InvalidEntryDataException {
         if (agendaEntry == null) {
-            throw new InvalidAgendaEntryDataException("Agenda Entry is invalid.");
+            throw new InvalidEntryDataException("Agenda Entry is invalid.");
         } else
             agendaEntry.taskCanceled();
     }
