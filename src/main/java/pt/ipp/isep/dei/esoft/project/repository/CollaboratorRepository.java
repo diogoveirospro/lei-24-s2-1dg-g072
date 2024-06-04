@@ -8,8 +8,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * CollaboratorRepository class.
- * Manages the collection of Collaborators.
+ * Repository class for managing Collaborators.
  *
  * @author Group 072 - Byte Masters - ISEP
  */
@@ -23,7 +22,7 @@ public class CollaboratorRepository {
     private final List<Collaborator> collaborators;
 
     /**
-     * Repository constructor.
+     * Constructs a new CollaboratorRepository with the specified skill repository.
      *
      * @param skillRepository the skill repository to use
      */
@@ -33,10 +32,11 @@ public class CollaboratorRepository {
     }
 
     /**
-     * Get a collaborator from the repository by their ID document number.
+     * Retrieves a collaborator from the repository by their ID document number.
      *
-     * @param IdDocNumber Collaborator ID document number
-     * @return collaborator
+     * @param IdDocNumber the ID document number of the collaborator
+     * @return the collaborator
+     * @throws IllegalArgumentException if the collaborator is not found
      */
     public Collaborator getCollaborator(String IdDocNumber) {
         for (Collaborator collaborator : collaborators) {
@@ -44,13 +44,14 @@ public class CollaboratorRepository {
                 return collaborator;
             }
         }
-        throw new IllegalArgumentException("The collaborator whose ID number is " + IdDocNumber + " does not exist.");
+        throw new IllegalArgumentException("The collaborator with ID number " + IdDocNumber + " does not exist.");
     }
 
     /**
-     * Add a collaborator to the repository.
+     * Adds a collaborator to the repository.
      *
-     * @param newCollaborator new collaborator.
+     * @param newCollaborator the collaborator to add
+     * @throws IllegalArgumentException if the collaborator is invalid
      */
     public void addCollaborator(Collaborator newCollaborator) {
         if (!validateCollaborator(newCollaborator)) {
@@ -60,19 +61,19 @@ public class CollaboratorRepository {
     }
 
     /**
-     * Private method to check if a collaborator is already in the repository.
+     * Private method to validate if a collaborator is not already in the repository.
      *
-     * @param collaborator collaborator to be checked
-     * @return True if the collaborator is not yet in the repository and false otherwise.
+     * @param collaborator the collaborator to validate
+     * @return true if the collaborator is not in the repository, false otherwise
      */
     private boolean validateCollaborator(Collaborator collaborator) {
         return !collaborators.contains(collaborator);
     }
 
     /**
-     * This method returns a defensive (immutable) copy of the collaborator list.
+     * Retrieves an immutable copy of the collaborator list.
      *
-     * @return The collaborator list.
+     * @return the collaborator list
      */
     public List<Collaborator> getCollaborators() {
         Collections.sort(collaborators);
@@ -84,6 +85,7 @@ public class CollaboratorRepository {
      *
      * @param collaborator the collaborator to assign the skill to
      * @param skill        the skill to be assigned
+     * @throws IllegalArgumentException if the collaborator is not found in the repository or the skill is invalid
      */
     public void assignSkill(Collaborator collaborator, Skill skill) {
         if (!collaborators.contains(collaborator)) {
@@ -96,7 +98,7 @@ public class CollaboratorRepository {
     }
 
     /**
-     * Checks if a skill is valid (e.g., exists in a list of available skills).
+     * Checks if a skill is valid (e.g., exists in the list of available skills).
      *
      * @param skill the skill to validate
      * @return true if the skill is valid, false otherwise
@@ -106,15 +108,26 @@ public class CollaboratorRepository {
     }
 
     /**
-     * Get a collaborator from the repository by their email.
+     * Retrieves a collaborator from the repository by their email.
      *
-     * @param email Collaborator email
-     * @return collaborator
+     * @param email the email of the collaborator
+     * @return the collaborator
+     * @throws IllegalArgumentException if the collaborator with the specified email is not found
      */
-    public static Collaborator getCollaboratorByEmail(String email) {
+    public Collaborator getCollaboratorByEmail(String email) {
         return collaborators.stream()
                 .filter(collaborator -> collaborator.getEmail().equals(email))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("Collaborator with email " + email + " not found"));
+    }
+
+    /**
+     * Checks if a collaborator exists in the repository.
+     *
+     * @param collaborator the collaborator to check
+     * @return true if the collaborator exists, false otherwise
+     */
+    public boolean exist(Collaborator collaborator) {
+        return collaborators.contains(collaborator);
     }
 }

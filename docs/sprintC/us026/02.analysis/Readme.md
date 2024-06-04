@@ -1,4 +1,4 @@
-# US006 - Register a Vehicle 
+# US026 - Assign one or more Vehicles to an entry 
 
 ## 2. Analysis
 

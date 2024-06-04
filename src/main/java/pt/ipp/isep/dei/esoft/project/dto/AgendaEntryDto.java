@@ -8,10 +8,6 @@ import java.util.List;
 public class AgendaEntryDto {
 
     /**
-     * An entry of the toDoList
-     */
-    private ToDoListEntry toDoListEntry;
-    /**
      * The start date of the entry
      */
     private Date startDate;
@@ -22,7 +18,7 @@ public class AgendaEntryDto {
     /**
      * The status of the entry
      */
-    private AgendaEntry.StatusOfEntry status;
+    public AgendaEntry.StatusOfEntry status;
     /**
      * The green space associated to the entry
      */
@@ -43,15 +39,13 @@ public class AgendaEntryDto {
     /**
      * AgendaEntryDto contractor that initializes the toDoListEntry, startDate, endDate, status, greenSpace and task
      *
-     * @param toDoListEntry the entry of the toDoList
      * @param startDate the start date of the entry
      * @param endDate the end date of the entry
      * @param status the status of the entry
      * @param greenSpace the green space associated to the entry
      * @param task the task associated to the entry
      */
-    public AgendaEntryDto(ToDoListEntry toDoListEntry, Date startDate, Date endDate, AgendaEntry.StatusOfEntry status, GreenSpace greenSpace, Task task, Team team, List<Vehicle> vehicleList) {
-        this.toDoListEntry = toDoListEntry;
+    public AgendaEntryDto(Date startDate, Date endDate, AgendaEntry.StatusOfEntry status, GreenSpace greenSpace, Task task, Team team, List<Vehicle> vehicleList) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.status = status;
@@ -59,16 +53,6 @@ public class AgendaEntryDto {
         this.task = task;
         this.team = team;
         this.vehicleList = vehicleList;
-    }
-
-    /**
-     * Gets the toDoListEntry
-     *
-     * @return toDoListEntry
-     */
-
-    public ToDoListEntry getToDoListEntry() {
-        return toDoListEntry;
     }
 
     /**
@@ -178,15 +162,6 @@ public class AgendaEntryDto {
      */
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
-    }
-
-    /**
-     * Sets the toDoListEntry
-     *
-     * @param toDoListEntry the entry of the toDoList
-     */
-    public void setToDoListEntry(ToDoListEntry toDoListEntry) {
-        this.toDoListEntry = toDoListEntry;
     }
 
 /**

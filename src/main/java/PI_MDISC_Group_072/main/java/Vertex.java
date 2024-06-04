@@ -1,5 +1,7 @@
 package PI_MDISC_Group_072.main.java;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Vertex implements Comparable<Vertex> {
@@ -63,5 +65,16 @@ public class Vertex implements Comparable<Vertex> {
     @Override
     public int compareTo(Vertex otherVertex) {
         return this.v.compareTo(otherVertex.v);
+    }
+
+    public List<Edge> getEdges() {
+        List<Edge> edges = new Graph().getEdges();
+        List<Edge> hasVertex = new ArrayList<>();
+        for (Edge edge : edges) {
+            if (edge.getOrigin().equals(this) || edge.getDestiny().equals(this)) {
+                hasVertex.add(edge);
+            }
+        }
+        return hasVertex;
     }
 }

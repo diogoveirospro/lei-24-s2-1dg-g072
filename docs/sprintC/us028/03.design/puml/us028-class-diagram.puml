@@ -13,8 +13,8 @@ class "ListTaskController" as CTRL {
     + create()
     + getCollaboratorByEmail(email)
     + getStatusList()
-    + getTaskList(collaborator, typeStatus)
-    + getCollaboratorAgendaEntries(taskList,startDate,endDate)
+    + getTeamsThoughCollaborator(collaborator)
+    + getCollaboratorAgendaEntries(teamList,startDate,endDate,typeStatus)
 }
 }
 
@@ -47,22 +47,16 @@ class "CollaboratorRepository" as collaboratorRepository {
     + getCollaboratorThoughEmail(email)
 }
 
-class "TaskRepository" as taskRepository {
-    - List<Task> taskList
-    - List<String> statusList
-    + getStatusList()
-    + getTaskList(teamList,typeStatus)
-    + addTaskOfCollaborator(task)
-}
+
 
 class "TeamRepository" as teamRepository {
     + getTeamsThoughCollaborator(collaborator): List<Team>
 }
 
 class "Agenda" as agenda {
-    - List<AgendaEntry> statusList
-
-    + getCollaboratorAgendaEntries(taskList,startDate,endDate): List<AgendaEntries>
+    - List<String> statusList
+    - List<AgendaEntry>
+    + getCollaboratorAgendaEntries(teamList,startDate,endDate,typeStatus)
     + getStatusList()
 }
 }
@@ -92,13 +86,11 @@ UserInterface ..> CTRL
 CTRL ..> RepositorySingleton : repositories
 RepositorySingleton --> RepositorySingleton : instance
 CTRL ..> collaboratorRepository: getCollaboratorRepository
-CTRL ..> taskRepository: getTaskRepository
 CTRL ..> teamRepository: getTeamRepository
 CTRL ..> agenda: getAgenda
 CTRL ..> MapperDto: toDTOList
 MapperDto "1" --> "*" DataTransferObject: entries
 RepositorySingleton "1" ..> "1" collaboratorRepository: collaboratorRepository
-RepositorySingleton "1" --> "1" taskRepository: taskRepository
 RepositorySingleton "1" --> "1" teamRepository: teamRepository
 RepositorySingleton "1" --> "1" agenda: agenda
 teamRepository "1" --> "*" Team: collaborator

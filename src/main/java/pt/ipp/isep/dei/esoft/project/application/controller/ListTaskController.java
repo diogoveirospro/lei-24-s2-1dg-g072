@@ -150,7 +150,10 @@ public class ListTaskController {
      * @return status list
      */
     public List<String> getStatusList() {
-        return this.agenda.getStatusList();
+        agenda = Repositories.getInstance().getAgenda();
+        List<String> statusList = agenda.getStatusList();
+        statusList.add("None");
+        return statusList;
     }
 
     /**
@@ -164,8 +167,7 @@ public class ListTaskController {
      */
     public List<AgendaEntryDto> getTaskList(Collaborator collaborator, String typeStatus, Date startDate, Date endDate) {
         List<Team> teamList = this.teamRepository.getTeamsByCollaborator(collaborator);
-        List<Task> taskList = this.taskRepository.getCollaboratorTaskList(teamList);
-        List<AgendaEntry> agendaEntryList = this.agenda.getEntryList(taskList, startDate, endDate,typeStatus);
+        List<AgendaEntry> agendaEntryList = this.agenda.getAgendaEntryList(teamList, startDate, endDate,typeStatus);
         AgendaEntryMapper mapper = new AgendaEntryMapper();
         return mapper.toDtoList(agendaEntryList);
     }

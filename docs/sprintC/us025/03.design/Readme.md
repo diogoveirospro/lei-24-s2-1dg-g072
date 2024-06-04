@@ -1,4 +1,4 @@
-# US006 - Register a vehicle 
+# US025 - Cancel entry in the agenda 
 
 ## 3. Design - User Story Realization 
 
@@ -28,7 +28,12 @@ _**Note that SSD - Alternative One is adopted.**_
 
 According to the taken rationale, the conceptual classes promoted to software classes are: 
 
-
+* EntryListMapper
+* EntryList
+* EntryListDto
+* AgendaEntry
+* AgendaEntryDto
+* Agenda
 
 Other software classes (i.e. Pure Fabrication) identified: 
 

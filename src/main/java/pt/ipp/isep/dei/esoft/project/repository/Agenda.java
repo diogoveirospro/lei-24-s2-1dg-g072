@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
+import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidAgendaEntryDataException;
 import pt.ipp.isep.dei.esoft.project.domain.*;
 
 import java.util.ArrayList;
@@ -17,17 +18,17 @@ public class Agenda {
     /**
      * Retrieves a list of entries for the specified tasks within the given date range.
      *
-     * @param taskList   the list of tasks to filter entries.
+     * @param teamList   the list of tasks to filter entries.
      * @param startDate  the start date of the range to filter entries.
      * @param endDate    the end date of the range to filter entries.
      * @param typeStatus the status of the entries to filter.
      * @return a list of entries matching the specified tasks and date range.
      */
-    public List<AgendaEntry> getEntryList(List<Task> taskList, Date startDate, Date endDate, String typeStatus) {
+    public List<AgendaEntry> getAgendaEntryList(List<Team> teamList, Date startDate, Date endDate, String typeStatus) {
         List<AgendaEntry> agendaEntryList = new ArrayList<>();
-        for (Task task : taskList) {
+        for (Team team : teamList) {
             for (AgendaEntry agendaEntry : entriesAgenda) {
-                if ((agendaEntry.getTask().equals(task)) && (agendaEntry.getStartDate().compareTo(startDate) >= 0 && agendaEntry.getEndDate().compareTo(endDate) >= 0) && agendaEntry.getStatus().toString().equals(typeStatus)) {
+                if ((agendaEntry.getTeam().equals(team)) && (agendaEntry.getStartDate().compareTo(startDate) >= 0 && agendaEntry.getEndDate().compareTo(endDate) >= 0) && agendaEntry.getStatus().toString().equals(typeStatus)) {
                     agendaEntryList.add(agendaEntry);
                 }
             }
@@ -41,11 +42,20 @@ public class Agenda {
      * @param task the task associated with the agenda entry.
      * @param greenSpace the green space associated with the agenda entry.
      * @param startDate the start date of the agenda entry.
+     * @param startHour the start hour of the agenda entry.
      * @param endDate the end date of the agenda entry.
+     * @param endHour the end hour of the agenda entry.
      * @return the newly created AgendaEntry object.
+     * @throws InvalidAgendaEntryDataException if the provided data is invalid.
      */
-    public AgendaEntry createAgendaEntry(Task task, GreenSpace greenSpace, Date startDate, Date endDate) {
-        return new AgendaEntry(task, startDate, endDate);
+    public AgendaEntry createAgendaEntry(Task task, GreenSpace greenSpace, Date startDate, AgendaEntry.HourOfDay startHour,
+                                         Date endDate, AgendaEntry.HourOfDay endHour) throws InvalidAgendaEntryDataException {
+
+        try {
+            return new AgendaEntry(task, greenSpace, startDate, startHour, endDate, endHour);
+        } catch (InvalidAgendaEntryDataException e) {
+            throw new InvalidAgendaEntryDataException(e.getMessage());
+        }
     }
 
     /**
@@ -60,5 +70,12 @@ public class Agenda {
 
     public List<String> getStatusList() {
         return AgendaEntry.StatusOfEntry.getStatusList();
+    }
+
+    public List<AgendaEntry> getEntriesAgenda() {
+        return entriesAgenda;
+    }
+    public List<AgendaEntry> getEntryList() {
+        return new ArrayList<>(entriesAgenda);
     }
 }

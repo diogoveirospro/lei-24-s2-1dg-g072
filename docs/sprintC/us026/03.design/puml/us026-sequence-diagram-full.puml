@@ -204,10 +204,10 @@ activate GSM
             CTRL -> AGENDA : assignVehicleToAgendaEntry(agendaEntry, vehicle)
             activate AGENDA
 
-                AGENDA -> AGENDAENTRY : assignVehicle(vehicle)
+                AGENDA -> AGENDAENTRY : assignVehicleToAgendaEntry(agendaEntry, vehicle)
                 activate AGENDAENTRY
 
-                    AGENDAENTRY -> VEHICLE : assignAgendaEntry()
+                    AGENDAENTRY -> VEHICLE : assignVehicle(vehicle)
                     activate VEHICLE
 
                         VEHICLE -> VEHICLE : blockVehicleAtATime()

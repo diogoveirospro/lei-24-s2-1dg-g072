@@ -1,0 +1,39 @@
+graph G {
+    fontname="Helvetica,Arial,sans-serif"
+    nodesep=1.0
+    layout=dot
+    node [fontname="Helvetica,Arial,sans-serif"]
+    edge [fontname="Helvetica,Arial,sans-serif"]
+    ﻿Biblioteca -- Teatro [label="8", color="black"];
+    ﻿Biblioteca -- AP [label="10", color="black"];
+    Teatro -- AP [label="7", color="black"];
+    Teatro -- Topo [label="6", color="black"];
+    AP -- Pavilhao [label="5", color="red"];
+    AP -- Topo [label="9", color="red"];
+    AP -- Lago [label="9", color="red"];
+    AP -- Escadas1 [label="10", color="red"];
+    Pavilhao -- Lago [label="6", color="black"];
+    Topo -- ParqueInfantil [label="7", color="red"];
+    Topo -- Miradouro [label="3", color="red"];
+    Topo -- Capela [label="4", color="red"];
+    Topo -- Lago [label="5", color="black"];
+    ParqueInfantil -- Macieirinha [label="10", color="red"];
+    ParqueInfantil -- Fontaine [label="8", color="red"];
+    Macieirinha -- Fontaine [label="11", color="black"];
+    Fontaine -- Miradouro [label="8", color="black"];
+    Fontaine -- Torreao [label="11", color="black"];
+    Miradouro -- Capela [label="4", color="black"];
+    Miradouro -- Torreao [label="9", color="red"];
+    Capela -- Torreao [label="11", color="black"];
+    Capela -- Escadas3 [label="9", color="red"];
+    Torreao -- Escadas3 [label="12", color="black"];
+    Lago -- Escadas1 [label="7", color="black"];
+    Escadas3 -- Sentimentos [label="5", color="red"];
+    Escadas3 -- Escadas2 [label="5", color="red"];
+    Sentimentos -- Escadas2 [label="7", color="black"];
+    CasaRoseiral -- JardimRoseiral [label="3", color="black"];
+    CasaRoseiral -- Escadas2 [label="4", color="black"];
+    JardimRoseiral -- Escadas2 [label="3", color="black"];
+    JardimRoseiral -- Escadas1 [label="8", color="black"];
+    Escadas2 -- Escadas1 [label="3", color="black"];
+}

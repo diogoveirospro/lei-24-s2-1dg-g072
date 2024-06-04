@@ -1,116 +1,192 @@
 @startuml
-'skinparam monochrome true
+skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
 autonumber
 
 actor "Collaborator" as Col
-participant ":RecordTaskCompletionUI" as UI
-participant ":RecordTaskCompletionController" as CTRL
+participant ":RecordCompletionUI" as UI
+participant ":RecordCompletionController" as CTRL
+participant ":ApplicationSession" as _APP
+participant "appSession\n:ApplicationSession" as APP
+participant "currentSession\n:UserSession" as SESSION
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as REP
 participant "collaboratorRepository\n:CollaboratorRepository" as collaboratorRepository
-participant "taskRepository\n:TaskRepository" as taskRepository
-participant "task:Task" as TASK
+participant "agenda\n:Agenda" as AGENDA
+participant "agendaEntry\n:AgendaEntry" as AGENDAENTRY
+participant "agendaEntries\n:List<AgendaEntry>" as AGENDAENTRIES
+participant ":AgendaEntryMapper" as Mapper
+participant "listAgendaEntriesDto\n:List<AgendaEntryDto>" as ListAgendaEntriesDto
+participant "agendaEntryDto\n:AgendaEntryDto" as DTO
 
 activate Col
 
-Col -> UI : requests to record task completion
+Col -> UI : Requests to record task completion
 activate UI
 
-UI -> CTRL** : create
+UI -> CTRL** : Create
+
 UI -> CTRL : getCollaboratorByEmail(email)
 activate CTRL
 
-CTRL -> RepositorySingleton : getInstance()
-activate RepositorySingleton
+    CTRL -> _APP**: getInstance()
+    activate _APP
 
-RepositorySingleton --> CTRL : repositories
-deactivate RepositorySingleton
+        _APP -> CTRL: appSession
+    deactivate _APP
 
-CTRL -> REP : getCollaboratorRepository
-activate REP
+    CTRL -> APP**: getCurrentSession()
+    activate APP
 
-REP --> CTRL : collaboratorRepository
-deactivate REP
+        APP --> CTRL: currentSession
+    deactivate APP
 
-CTRL -> collaboratorRepository** : getCollaboratorByEmail(email)
-activate collaboratorRepository
+    CTRL -> SESSION**: getUserEmail()
+    activate SESSION
 
-collaboratorRepository -> collaboratorRepository : getCollaboratorByEmail(email)
-activate collaboratorRepository
+        SESSION --> CTRL: email
+    deactivate SESSION
 
-collaboratorRepository --> CTRL : collaborator
+    CTRL -> RepositorySingleton : getInstance()
+    activate RepositorySingleton
 
-deactivate collaboratorRepository
+        RepositorySingleton --> CTRL : repositories
+    deactivate RepositorySingleton
 
-deactivate collaboratorRepository
+    CTRL -> REP : getCollaboratorRepository()
+    activate REP
+
+        REP --> CTRL : collaboratorRepository
+    deactivate REP
+
+        CTRL -> collaboratorRepository : getCollaboratorByEmail(email)
+            activate collaboratorRepository
+
+            collaboratorRepository -> collaboratorRepository : getCollaboratorByEmail(email)
+            activate collaboratorRepository
+
+            deactivate collaboratorRepository
+
+        collaboratorRepository --> CTRL : collaborator
+    deactivate collaboratorRepository
+
 CTRL --> UI : collaborator
 deactivate CTRL
 
-UI --> Col : prompts to select the task to mark as completed
+UI -> Col : Asks to select the beginning and end date of the search
 deactivate UI
 
-Col -> UI : selects the task to mark as completed
+Col -> UI : Selects the beginning and end date
 activate UI
 
 UI -> CTRL : getTaskList(collaborator, dateI, dateF, typeStatus)
 activate CTRL
 
-CTRL -> RepositorySingleton : getInstance()
-activate RepositorySingleton
+    CTRL -> RepositorySingleton : getInstance()
+    activate RepositorySingleton
 
-RepositorySingleton --> CTRL : repositories
-deactivate RepositorySingleton
+        RepositorySingleton --> CTRL : repositories
+    deactivate RepositorySingleton
 
-CTRL -> REP : getTaskRepository()
-activate REP
+    CTRL -> REP : getAgenda()
+    activate REP
 
-REP --> CTRL : taskRepository
-deactivate REP
+        REP --> CTRL : agenda
+    deactivate REP
 
-CTRL -> taskRepository** : getTaskList(collaborator, dateI, dateF, typeStatus)
-activate taskRepository
+    CTRL -> AGENDA : getCollaboratorAgendaEntries(collaborator, dateI, dateF, typeStatus)
+    activate AGENDA
 
-taskRepository --> CTRL : taskList
-deactivate taskRepository
+        AGENDA --> AGENDAENTRIES** : create()
+            loop for each agendaEntry in the specified date range and status
+                AGENDA -> AGENDAENTRIES : add(agendaEntry)
+                activate AGENDAENTRIES
+            end
+        AGENDAENTRIES --> AGENDA : agendaEntryList
+        deactivate AGENDAENTRIES
+    AGENDA --> CTRL : agendaEntryList
+    deactivate AGENDA
 
-CTRL --> UI : taskList
+    CTRL -> Mapper : toDTOList(agendaEntryList)
+    activate Mapper
+
+        Mapper --> ListAgendaEntriesDto** : create()
+            loop for each agendaEntry in agendaEntryList
+                Mapper -> AGENDAENTRIES : get(i)
+                    activate AGENDAENTRIES
+
+                    AGENDAENTRIES --> Mapper : agendaEntry
+                    deactivate AGENDAENTRIES
+                Mapper -> DTO : toDTOEntry(agendaEntry)
+                    activate DTO
+
+                    DTO --> Mapper : agendaEntryDto
+                    deactivate DTO
+                Mapper -> ListAgendaEntriesDto : add(agendaEntryDto)
+                    activate ListAgendaEntriesDto
+            end
+        ListAgendaEntriesDto --> Mapper : agendaEntryListDto
+        deactivate ListAgendaEntriesDto
+
+    Mapper --> CTRL : agendaEntryListDto
+    deactivate Mapper
+
+CTRL --> UI : agendaEntryListDto
 deactivate CTRL
 
-UI --> Col : displays the task list for selection
+UI --> Col : Displays the list of tasks
 deactivate UI
 
-Col -> UI : selects the task to mark as completed
+Col -> UI : Selects the task to mark as completed
 activate UI
 
-UI -> CTRL : markTaskAsCompleted(task)
+UI -> CTRL : markTaskAsCompleted(taskId)
 activate CTRL
 
-CTRL -> RepositorySingleton : getInstance()
-activate RepositorySingleton
+    CTRL -> RepositorySingleton : getInstance()
+    activate RepositorySingleton
 
-RepositorySingleton --> CTRL : repositories
-deactivate RepositorySingleton
+        RepositorySingleton --> CTRL : repositories
+    deactivate RepositorySingleton
 
-CTRL -> REP : getTaskRepository()
-activate REP
+    CTRL -> REP : getAgenda()
+    activate REP
 
-REP --> CTRL : taskRepository
-deactivate REP
+        REP --> CTRL : agenda
+    deactivate REP
 
-CTRL -> taskRepository** : markTaskAsCompleted(task)
-activate taskRepository
+    CTRL -> AGENDA : getAgendaEntry(taskId)
+    activate AGENDA
 
-taskRepository --> CTRL : successMessage
-deactivate taskRepository
+        AGENDA --> CTRL : agendaEntry
+    deactivate AGENDA
 
-CTRL --> UI : successMessage
+    CTRL -> AGENDAENTRY : markAsCompleted()
+    activate AGENDAENTRY
+
+    AGENDAENTRY --> CTRL : operation success
+    deactivate AGENDAENTRY
+
+    CTRL -> Mapper : toDTO(agendaEntry)
+    activate Mapper
+
+        Mapper -> DTO : toDTOEntry(agendaEntry)
+        activate DTO
+
+            DTO --> Mapper : agendaEntryDto
+        deactivate DTO
+
+    Mapper --> CTRL : agendaEntryDto
+    deactivate Mapper
+
+CTRL --> UI : agendaEntryDto
 deactivate CTRL
 
-UI --> Col : displays success message
+UI --> Col : Shows task completion confirmation
 deactivate UI
 
 deactivate Col
+
 @enduml

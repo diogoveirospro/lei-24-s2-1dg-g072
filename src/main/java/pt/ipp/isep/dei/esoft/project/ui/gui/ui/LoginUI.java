@@ -1,37 +1,47 @@
 package pt.ipp.isep.dei.esoft.project.ui.gui.ui;
 
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import pt.ipp.isep.dei.esoft.project.ui.gui.controller.LoginController;
+import pt.ipp.isep.dei.esoft.project.ui.gui.controller.MainMenuController;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class LoginUI implements Initializable {
-    private MainMenuUI mainMenuUI;
-    private static final String LOGIN = "Login";
-    public void loginAction(){
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Login.fxml"));
-            Parent root = loader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            AlertUI.createAnAlert(Alert.AlertType.ERROR, LOGIN, "Error.", e.getMessage()).show();
-        }
+
+    public LoginController loginController;
+    public MainMenuUI mainMenuUI;
+    public static final String LOGIN = "Login";
+
+
+    public void loginAction(Stage stage) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Login.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        stage.setTitle(LOGIN);
+        stage.setScene(scene);
+        loginController = loader.getController();
+        loginController.setLoginUI(new LoginUI());
+        stage.show();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
-    public void associateParentUI(MainMenuUI mainMenuUI) {
-        this.mainMenuUI = mainMenuUI;
+
+    public LoginController getLoginController() {
+        return loginController;
     }
 }
 

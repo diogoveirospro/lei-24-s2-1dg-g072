@@ -87,25 +87,7 @@ Col -> UI : confirms that he wants to create the list
             teamRepository --> CTRL : teamList
             deactivate teamRepository
 
-        CTRL -> RepositorySingleton : getInstance()
-            activate RepositorySingleton
 
-            RepositorySingleton --> CTRL : repositories
-            deactivate RepositorySingleton
-
-        CTRL -> REP : getTaskRepository()
-            activate REP
-
-            REP --> CTRL : taskRepository
-            deactivate REP
-
-        CTRL -> taskRepository : getTaskList(teamList,typeStatus)
-            activate taskRepository
-                ref over taskRepository
-                    Get Task List
-                end
-            taskRepository --> CTRL : taskList
-        deactivate taskRepository
 
 
         CTRL -> RepositorySingleton : getInstance()
@@ -120,7 +102,7 @@ Col -> UI : confirms that he wants to create the list
             REP --> CTRL : Agenda
             deactivate REP
 
-        CTRL -> AGENDA : getCollaboratorAgendaEntries(taskList,dateStart,dateEnd)
+        CTRL -> AGENDA : getCollaboratorAgendaEntries(teamList,dateStart,dateEnd,typeStatus)
             activate AGENDA
 
                 ref over AGENDA

@@ -5,176 +5,126 @@ skinparam shadowing false
 
 autonumber
 
-'hide footbox
-actor "Green Spaces\n Manager" as GSM
+actor "Green Space\nManager" as GSM
 participant ":AddToDoListEntryUI" as UI
-participant ":AddToDoListController" as CTRL
+participant ":AddToDoListEntryController" as CTRL
+participant ":ApplicationSession" as _APP
+participant "appSession\n:ApplicationSession" as APP
+participant "currentSession\n:UserSession" as SESSION
 participant Repositories
 participant "repositories\n:Repositories" as REP
-participant "toDoList\n:toDoList" as TODOLIST
-participant "agenda\n:ToDoList" as TODOLIST
-participant ":ToDoListMapper" as TODOLISTMAPPER
-participant "listEntries\n:List<ToDoListEntry>" as LISTENTRIES
-participant "toDoListDto\n:List<toDoListEntriesDto>" as TODOLISTDTO
-participant "toDoListEntryDto\n:ToDoListDto" as TODOLISTENTRYDTO
+participant "greenSpaceRepository\n:GreenSpaceRepository" as GREENSPACEREPOSITORY
+participant ":GreenSpaceRepositoryMapper" as GREENSPACEREPOSITORYMAPPER
+participant "listGreenSpaces\n:List<GreenSpace>" as LISTGREENSPACES
+participant "listGreenSpacesDto\n:List<GreenSpaceDto>" as LISTGREENSPACESDTO
+participant "greenSpaceDto\n:GreenSpaceDto" as GREENSPACEDTO
+participant "greenSpace\n:GreenSpace" as GREENSPACE
 participant "toDoListEntry\n:ToDoListEntry" as TODOLISTENTRY
-participant "task\n:Task" as TASK
-participant "greenSpace\n: GreenSpace" as GREENSPACE
-
 
 activate GSM
 
-    GSM -> UI : asks to add a new entry to the agenda
+    GSM -> UI : Request to add a new entry to the To-Do List
     activate UI
 
-        UI -> CTRL** : create
+        UI -> CTRL** : Create
 
-        UI -> CTRL : getToDoListEntries()
+        UI -> CTRL : getListGreenSpaces()
         activate CTRL
 
-           CTRL -> Repositories: getInstance()
-           activate Repositories
+            CTRL -> _APP**: getInstance()
+            activate _APP
+
+                _APP -> CTRL: appSession
+            deactivate _APP
+
+            CTRL -> APP**: getCurrentSession()
+            activate APP
+
+                APP --> CTRL: currentSession
+            deactivate APP
+
+            CTRL -> SESSION**: getUserEmail()
+            activate SESSION
+
+                SESSION --> CTRL: email
+            deactivate SESSION
+
+            CTRL -> Repositories**: getInstance()
+            activate Repositories
 
                 Repositories --> CTRL: repositories
-           deactivate Repositories
+            deactivate Repositories
 
-           CTRL -> REP: getToDoList()
-           activate REP
+            CTRL -> REP: getGreenSpaceRepository()
+            activate REP
 
-                REP --> CTRL: toDoList
-           deactivate REP
+                REP --> CTRL: greenSpaceRepository
+            deactivate REP
 
-            CTRL -> TODOLIST : getToDoListEntries()
-            activate TODOLIST
+            CTRL -> GREENSPACEREPOSITORY** : getListGreenSpacesManagedByGsm(greenSpaceManager)
+            activate GREENSPACEREPOSITORY
 
-                    TODOLIST --> LISTENTRIES** : create()
-                    activate LISTENTRIES
+                GREENSPACEREPOSITORY --> CTRL: listGreenSpaces
+            deactivate GREENSPACEREPOSITORY
 
-                        loop for each toDoListEntry
-                            TODOLIST -> LISTENTRIES : add(toDoListEntry)
-                            activate LISTENTRIES
-                            deactivate LISTENTRIES
-                        end
+            CTRL -> GREENSPACEREPOSITORYMAPPER** : listGreenSpacesToDto(listGreenSpaces)
+            activate GREENSPACEREPOSITORYMAPPER
 
-                        LISTENTRIES --> TODOLIST : listEntries
-                    deactivate LISTENTRIES
+                GREENSPACEREPOSITORYMAPPER --> CTRL : listGreenSpacesDto
+            deactivate GREENSPACEREPOSITORYMAPPER
 
-
-                TODOLIST --> CTRL : listEntries
-            deactivate TODOLIST
-
-            CTRL -> TODOLISTMAPPER** : toDoListEntriesToDto(listEntries)
-            activate TODOLISTMAPPER
-
-                TODOLISTMAPPER --> TODOLISTDTO** : create()
-
-                loop for each toDoListEntry
-                    TODOLISTMAPPER -> LISTENTRIES : get(i)
-                    activate LISTENTRIES
-
-                    LISTENTRIES --> TODOLISTMAPPER : toDoListEntry
-                    deactivate LISTENTRIES
-
-                    TODOLISTMAPPER -> TODOLISTMAPPER : toDoListEntryDto = toDTO(toDoListEntry)
-                    activate TODOLISTMAPPER
-                    deactivate TODOLISTMAPPER
-
-                    TODOLISTMAPPER --> TODOLISTENTRYDTO** : create()
-                    activate TODOLISTENTRYDTO
-
-                    TODOLISTENTRYDTO --> TODOLISTMAPPER : toDoListEntryDto
-                    deactivate TODOLISTENTRYDTO
-
-                    TODOLISTMAPPER -> TODOLISTDTO : add(toDoListEntryDto)
-                    activate TODOLISTDTO
-                    deactivate TODOLISTDTO
-
-                end
-
-                TODOLISTMAPPER --> CTRL : toDoListDto
-            deactivate TODOLISTMAPPER
-
-            CTRL --> UI : toDoListDto
+            CTRL --> UI : listGreenSpacesDto
         deactivate CTRL
 
-        UI --> GSM: shows all the tasks registered in the \nTo-Do List and asks you to select the \none you want to add
+        UI --> GSM : Displays the list of green spaces
     deactivate UI
 
-    GSM -> UI: select the desired task and its start and\n end date
+    GSM -> UI : Select the desired green space
     activate UI
 
-        UI -> CTRL : getTask(toDoListEntry)
+        UI -> CTRL : createToDoListEntry(greenSpaceDto, taskDetails, urgency, duration)
         activate CTRL
 
-            CTRL -> TODOLIST : getTask(toDoListEntry)
-            activate TODOLIST
+            CTRL -> GREENSPACEREPOSITORYMAPPER : greenSpaceDtoToDomain(greenSpaceDto)
+            activate GREENSPACEREPOSITORYMAPPER
 
-                TODOLIST -> TODOLISTENTRY** : getTask()
+                GREENSPACEREPOSITORYMAPPER --> CTRL : greenSpace
+            deactivate GREENSPACEREPOSITORYMAPPER
+
+            CTRL -> TODOLISTENTRY** : create(greenSpace)
+            activate TODOLISTENTRY
+
+                TODOLISTENTRY -> TODOLISTENTRY : setDetails(taskDetails, urgency, duration)
                 activate TODOLISTENTRY
-
-                    TODOLISTENTRY -> TASK** : getTask()
-                    activate TASK
-
-                        TASK --> TODOLISTENTRY : task
-                    deactivate TASK
-
-                    TODOLISTENTRY --> TODOLIST : task
                 deactivate TODOLISTENTRY
 
-                TODOLIST --> CTRL : task
-            deactivate TODOLIST
+                TODOLISTENTRY --> CTRL : toDoListEntry
+            deactivate TODOLISTENTRY
 
-            CTRL --> UI : task
-        deactivate CTRL
+            CTRL -> Repositories: getInstance()
+            activate Repositories
 
-        UI --> GSM: confirm data
+                Repositories --> CTRL: repositories
+            deactivate Repositories
 
-         UI -> CTRL : getGreenSpace(toDoListEntry)
-                activate CTRL
+            CTRL -> REP: getToDoListRepository()
+            activate REP
 
-                    CTRL -> TODOLIST : getGreenSpace(toDoListEntry)
-                    activate TODOLIST
+                REP --> CTRL: toDoListRepository
+            deactivate REP
 
-                        TODOLIST -> TODOLISTENTRY : getGreenSpace()
-                        activate TODOLISTENTRY
+            CTRL -> toDoListRepository**: addToDoListEntry(toDoListEntry)
+            activate toDoListRepository
 
-                            TODOLISTENTRY -> GREENSPACE** : getGreenSpace()
-                            activate GREENSPACE
-
-                                GREENSPACE --> TODOLISTENTRY : greenSpace
-                            deactivate GREENSPACE
-
-                            TODOLISTENTRY --> TODOLIST : greenSpace
-                        deactivate TODOLISTENTRY
-
-                        TODOLIST --> CTRL : greenSpace
-                    deactivate TODOLIST
-
-                    CTRL --> UI : greenSpace
-                deactivate CTRL
-
-        UI -> CTRL : addToDoLIstEntry(toDoListEntry)
-        activate CTRL
-
-            CTRL -> TODOLIST : addToDoLIstEntry(toDoListEntry)
-            activate TODOLIST
-
-            TODOLIST -> TODOLIST : validateEntry()
-            activate TODOLIST
-
-            deactivate TODOLIST
-
-            TODOLIST --> CTRL : operation success
-            deactivate TODOLIST
+                toDoListRepository --> CTRL: operation success
+            deactivate toDoListRepository
 
             CTRL --> UI : operation success
         deactivate CTRL
 
-        UI --> GSM: displays operation success
+        UI --> GSM : Displays operation success
     deactivate UI
 
 deactivate GSM
-
-
 
 @enduml

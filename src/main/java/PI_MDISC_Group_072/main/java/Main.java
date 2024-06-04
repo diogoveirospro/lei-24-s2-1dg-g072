@@ -63,7 +63,7 @@ public class Main {
         } else {
             for (int i = 0; i < MP.size(); i++) {
                 String vertex = sc.nextLine();
-                evacuationRoutes.add(Dijkstra(graphEdges, vertices,vertex));
+                evacuationRoutes.add(Dijkstra(graphEdges, vertices,MP.get(i)));
             }
         }
         System.out.println("Insert the vertex you want to know the shortest path to the closest AP or 'done'(if you want to stop):");
@@ -84,28 +84,39 @@ public class Main {
     }
 
 
-    private static void US17() throws FileNotFoundException {
+    private static void US17() throws IOException, InterruptedException {
         Scanner sc = new Scanner(System.in);
-        StringBuilder inputFile = new StringBuilder(getFile(sc));
-        StringBuilder file = new StringBuilder("src/main/java/PI_MDISC_Group_072/Input/" + inputFile + ".csv");
+        StringBuilder inputVerticesFile = new StringBuilder(getFileVertices(sc));
+        StringBuilder inputFileWeights = new StringBuilder(getFileWeight(sc));
+        StringBuilder fileWeights = new StringBuilder("src/main/java/PI_MDISC_Group_072/Input/" + inputFileWeights + ".csv");
+        StringBuilder fileVertices = new StringBuilder("src/main/java/PI_MDISC_Group_072/Input/" + inputVerticesFile + ".csv");
 
-        ArrayList<Vertex> vertices = readVertexFile(file);
-        int[][] weights = readWeightFile(file);
+        ArrayList<Vertex> vertices = readVertexFile(fileVertices);
+        int[][] weights = readWeightFile(fileWeights);
         ArrayList<Edge> graphEdges = new ArrayList<>();
         makeEdges(graphEdges, vertices, weights);
-        // bubbleSort(graphEdges);
-
+        Graph graph = addEdges(graphEdges);
         String MP = getMP(vertices);
         if (MP == null) {
             System.out.println("There is no Meeting Point in the file!");
         } else {
+            Graph evacuationRoutes;
+            evacuationRoutes = Dijkstra(graphEdges, vertices, MP);
+            makeGraphCsv(evacuationRoutes);
+            createGraphDisktra(graph, inputVerticesFile, evacuationRoutes.getEdges());
             System.out.println("Insert the vertex you want to know the shortest path to the AP or 'done'(if you want to stop):");
             String vertex = sc.nextLine();
-            Graph evacuationRoutes = Dijkstra(graphEdges, vertices,vertex);
-            System.out.println("Insert the vertex you want to know the shortest path to the AP or 'done'(if you want to stop):");
-            vertex = sc.nextLine();
             while (!vertex.equalsIgnoreCase("done")) {
+                if (!vertex.equalsIgnoreCase("done")) {
+                    if (!vertices.contains(new Vertex(vertex))) {
+                        System.out.println("Vertex not found!");
+                    } else {
 
+                        makeGraphCsv(evacuationRoutes);
+                        createGraphDisktra(graph, inputVerticesFile, evacuationRoutes.getEdges());
+                        System.out.println("Insert the vertex you want to know the shortest path to the AP or 'done'(if you want to stop):");
+                    }
+                }
                 vertex = sc.nextLine();
             }
         }
@@ -157,6 +168,11 @@ public class Main {
         createSpanningTree(spanningTree, inputFile);
     }
 
+    private static void createGraph(Graph graph, StringBuilder inputFile) throws IOException, InterruptedException {
+        createScriptGraph(graph, inputFile);
+        executeScriptGraph(inputFile);
+    }
+
 
     private static void US14() throws IOException, InterruptedException {
         Scanner sc = new Scanner(System.in);
@@ -190,60 +206,124 @@ public class Main {
     }
 
 
-    private static Graph Dijkstra(ArrayList<Edge> edges, ArrayList<Vertex> vertices, String startVertex) {
 
+    public static Graph Dijkstra(ArrayList<Edge> edges, ArrayList<Vertex> vertices, String startVertex) {
+        Graph shortestPathsGraph = new Graph();
         int[] distances = new int[vertices.size()];
+        List<List<Vertex>> paths = new ArrayList<>(vertices.size());
         boolean[] visited = new boolean[vertices.size()];
-        Vertex[] previous = new Vertex[vertices.size()];
 
         Arrays.fill(distances, Integer.MAX_VALUE);
-        distances[vertices.indexOf(new Vertex(startVertex))] = 0;
-
-
+        int startIndex = -1;
         for (int i = 0; i < vertices.size(); i++) {
+            if (vertices.get(i).getV().equals(startVertex)) {
+                startIndex = i;
+                break;
+            }
+        }
 
+        if (startIndex == -1) {
+            throw new IllegalArgumentException("Start vertex not found in the list of vertices");
+        }
+
+        distances[startIndex] = 0;
+
+        // Initialize the paths list
+        for (int i = 0; i < vertices.size(); i++) {
+            paths.add(new ArrayList<>());
+        }
+
+        while (true) {
             int u = -1;
+            int minDistance = Integer.MAX_VALUE;
             for (int j = 0; j < vertices.size(); j++) {
-                if (!visited[j] && (u == -1 || distances[j] < distances[u])) {
+                if (!visited[j] && distances[j] < minDistance) {
                     u = j;
+                    minDistance = distances[j];
                 }
             }
 
-            if (distances[u] == Integer.MAX_VALUE) {
-                break;
-            }
+            if (u == -1) break; // No reachable vertices left
 
             visited[u] = true;
 
             for (Edge edge : edges) {
                 if (edge.getOrigin().equals(vertices.get(u))) {
                     int v = vertices.indexOf(edge.getDestiny());
-                    int alt = distances[u] + edge.getCost();
-                    if (alt < distances[v]) {
-                        distances[v] = alt;
-                        previous[v] = vertices.get(u);
+                    int weight = edge.getCost();
+                    if (distances[u] != Integer.MAX_VALUE && distances[u] + weight < distances[v]) {
+                        distances[v] = distances[u] + weight;
+                        List<Vertex> newPath = new ArrayList<>(paths.get(u));
+                        newPath.add(vertices.get(v));
+                        paths.set(v, newPath);
                     }
                 }
             }
         }
 
-        ArrayList<Edge> shortestPathEdges = new ArrayList<>();
+        // Build the shortest paths graph
         for (int i = 0; i < vertices.size(); i++) {
-            if (previous[i] != null) {
-                shortestPathEdges.add(new Edge(previous[i], vertices.get(i), distances[i]));
+            if (i != startIndex && distances[i] != Integer.MAX_VALUE) {
+                List<Vertex> path = paths.get(i);
+                if (!path.isEmpty()) {
+                    Vertex source = vertices.get(startIndex);
+                    Vertex destination = vertices.get(i);
+                    int totalCost = distances[i];
+                    shortestPathsGraph.addEdge(new Edge(source, destination, totalCost));
+                    for (int j = 0; j < path.size() - 1; j++) {
+                        source = path.get(j);
+                        destination = path.get(j + 1);
+                        int edgeCost = getEdgeCost(edges, source, destination);
+                        shortestPathsGraph.addEdge(new Edge(source, destination, edgeCost));
+                    }
+                }
             }
         }
-        Graph graph = new Graph();
-        for (Edge edge : shortestPathEdges) {
-            graph.addEdge(edge);
+        return shortestPathsGraph;
+    }
+
+    private static int getEdgeCost(ArrayList<Edge> edges, Vertex source, Vertex destination) {
+        for (Edge edge : edges) {
+            if (edge.getOrigin().equals(source) && edge.getDestiny().equals(destination)) {
+                return edge.getCost();
+            }
         }
-        return graph;
+        return Integer.MAX_VALUE; // Default unreachable value
     }
 
 
-    private static void createGraph(Graph graph, StringBuilder file) throws IOException, InterruptedException {
-        createScriptGraph(graph, file);
+
+
+
+
+    private static void createGraphDisktra(Graph graph, StringBuilder file, List<Edge> shortestPath) throws IOException, InterruptedException {
+        createScriptGraphDisktra(graph, file, shortestPath);
         executeScriptGraph(file);
+    }
+
+    private static void createScriptGraphDisktra(Graph graph, StringBuilder file, List<Edge> shortestPath) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter("src/main/java/PI_MDISC_Group_072/Output/Graph_" + file + ".dot"))) {
+            writer.println("graph G {");
+            writer.println("    fontname=\"Helvetica,Arial,sans-serif\"");
+            writer.println("    nodesep=1.0");
+            writer.println("    layout=dot");
+            writer.println("    node [fontname=\"Helvetica,Arial,sans-serif\"]");
+            writer.println("    edge [fontname=\"Helvetica,Arial,sans-serif\"]");
+
+            for (Edge edge : graph.getEdges()) {
+                String origin = edge.getOrigin().getV();
+                String destiny = edge.getDestiny().getV();
+                int cost = edge.getCost();
+                String edgeColor = shortestPath.contains(edge) ? "red" : "black";
+                writer.printf("    %s -- %s [label=\"%d\", color=\"%s\"];%n", origin, destiny, cost, edgeColor);
+            }
+
+            writer.println("}");
+            System.out.println("DOT file 'src/main/java/PI_MDISC_Group_072/Output/Graph.dot' has been created successfully.");
+        } catch (IOException e) {
+            System.err.println("Error writing to DOT file: " + e.getMessage());
+        }
+
     }
 
     private static void executeScriptGraph(StringBuilder file) throws IOException, InterruptedException {
@@ -356,8 +436,32 @@ public class Main {
         }
     }
 
+    private static void makeGraphCsv(Graph graph) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter("src/main/java/PI_MDISC_Group_072/Output/graph.csv"))) {
+            for (Edge edge : graph.getEdges()) {
+                String origin = edge.getOrigin().getV();
+                String destiny = edge.getDestiny().getV();
+                int cost = edge.getCost();
+                String edgeString = String.format("    %s -- %s cost : %d;", origin, destiny, cost);
+                writer.println(edgeString);
+            }
+
+            System.out.println("CSV file 'src/main/java/PI_MDISC_Group_072/Output/graph.csv' has been created successfully.");
+        } catch (IOException e) {
+            System.err.println("Error writing to CSV file: " + e.getMessage());
+        }
+    }
+
     private static String getFile(Scanner sc) {
         System.out.println("Insert the name of the file with the vertices, costs, and connections:");
+        return sc.nextLine();
+    }
+    private static String getFileWeight(Scanner sc) {
+        System.out.println("Insert the name of the file with the costs for each vertex and connection:");
+        return sc.nextLine();
+    }
+    private static String getFileVertices(Scanner sc) {
+        System.out.println("Insert the name of the file with the vertices:");
         return sc.nextLine();
     }
 
@@ -386,7 +490,9 @@ public class Main {
             Vertex newVertex = new Vertex(vertex);
             vertices.add(newVertex);
         }
-
+        for (Vertex vertex : vertices) {
+            System.out.println(vertex.getV());
+        }
         in.close();
         return vertices;
     }
@@ -396,13 +502,17 @@ public class Main {
         int[][] weights = new int[dimensions.length][dimensions[0].length];
         Scanner in = new Scanner(new File(String.valueOf(file)));
         int line = 0;
+        int vertexPosition = 0;
         while (in.hasNextLine()) {
             int columns = 0;
             String[] costs = readLineCosts(in);
             for (String cost : costs) {
-                weights[line][columns] = Integer.parseInt(cost);
+                if (columns > vertexPosition){
+                    weights[line][columns] = Integer.parseInt(cost);
+                }
                 columns++;
             }
+            vertexPosition++;
             line++;
         }
 

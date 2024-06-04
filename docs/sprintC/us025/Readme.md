@@ -1,4 +1,4 @@
-# US006 - Register a Vehicle
+# US025 - Cancel entry in the agenda
 
 [Requirements Engineering](01.requirements-engineering/Readme.md)
 

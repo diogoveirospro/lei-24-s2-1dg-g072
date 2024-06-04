@@ -54,4 +54,15 @@ public class ToDoList {
     public List<ToDoListEntry> getToDoListEntries() {
         return this.toDoListEntries;
     }
+    public List<String> getDegreeOfUrgencyList() {
+        List<String> degreeList = new ArrayList<>();
+        for (ToDoListEntry.DegreeOfUrgency degree : ToDoListEntry.DegreeOfUrgency.values()) {
+            degreeList.add(degree.getDegree());
+        }
+        return degreeList;
+    }
+
+    public void addEntry(ToDoListEntry toDoListEntry) {
+        this.toDoListEntries.add(toDoListEntry);
+    }
 }
