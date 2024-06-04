@@ -7,7 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GreenSpaceRepository {
-    List<GreenSpace> greenSpaceList;
+    private List<GreenSpace> greenSpaceList;
+
+    public GreenSpaceRepository() {
+        this.greenSpaceList = new ArrayList<>();
+    }
 
     public List<GreenSpace> getGreenSpaceListSorted(Collaborator greenSpaceManager, String sortingOption) {
         List<GreenSpace> greenSpacesManagedByGSM = new ArrayList<>();
@@ -32,7 +36,7 @@ public class GreenSpaceRepository {
     }
 
     private void sortBySortOption(String sortingOption, List<GreenSpace> greenSpacesManagedByGSM) {
-
+        // Implement sorting logic here
     }
 
     public GreenSpace getGreenSpaceByParkName(String parkName) {
@@ -44,5 +48,7 @@ public class GreenSpaceRepository {
         return null;
     }
 
-
+    public void addGreenSpace(GreenSpace greenSpace) {
+        greenSpaceList.add(greenSpace);
+    }
 }

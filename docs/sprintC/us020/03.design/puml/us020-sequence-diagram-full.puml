@@ -5,7 +5,6 @@ skinparam shadowing false
 
 autonumber
 
-'hide footbox
 actor "Green Space Manager" as GSM
 participant ":RegisterGreenSpaceUI" as UI
 participant ":RegisterGreenSpaceController" as CTRL
@@ -16,19 +15,19 @@ participant "greenSpace\n:GreenSpace" as GREENSPACE
 
 activate GSM
 
-    GSM -> UI : asks to register a new green space
+    GSM -> UI : Request to register a new green space
 
     activate UI
 
-        UI --> GSM : requests data (name, type, area)
+        UI --> GSM : Requests data (name, type, area)
 
-        GSM -> UI : types requested data
+        GSM -> UI : Provides requested data
 
-        UI --> GSM : shows all data and requests confirmation
+        UI --> GSM : Shows all data and requests confirmation
 
-        GSM -> UI : confirms data
+        GSM -> UI : Confirms data
 
-        UI -> CTRL : registerGreenSpace(name, type, area)
+        UI -> CTRL : RegisterGreenSpace(name, type, area)
         activate CTRL
 
             CTRL -> RepositorySingleton : getInstance()
@@ -46,7 +45,11 @@ activate GSM
             CTRL -> greenSpaceRepository : registerGreenSpace(name, type, area)
             activate greenSpaceRepository
 
-                greenSpaceRepository -> GREENSPACE**: registerGreenSpace(name, type, area)
+                greenSpaceRepository -> GREENSPACE**: createGreenSpace(name, type, area)
+                activate GREENSPACE
+                    GREENSPACE --> greenSpaceRepository : greenSpace
+                deactivate GREENSPACE
+
                 greenSpaceRepository -> greenSpaceRepository: addGreenSpace(greenSpace)
 
                 activate greenSpaceRepository
@@ -58,10 +61,10 @@ activate GSM
 
             deactivate greenSpaceRepository
 
-        CTRL --> UI: greenSpace
+        CTRL --> UI: Green space registration success
         deactivate CTRL
 
-        UI --> GSM: displays operation success
+        UI --> GSM: Displays operation success
     deactivate UI
 
 deactivate GSM

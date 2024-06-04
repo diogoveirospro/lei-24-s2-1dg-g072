@@ -6,13 +6,19 @@ skinparam shadowing false
 autonumber
 
 actor "Green Space\nManager" as GSM
-participant ":RegisterToDoListEntryUI" as UI
-participant ":RegisterToDoListEntryController" as CTRL
+participant ":AddToDoListEntryUI" as UI
+participant ":AddToDoListEntryController" as CTRL
+participant ":ApplicationSession" as _APP
+participant "appSession\n:ApplicationSession" as APP
+participant "currentSession\n:UserSession" as SESSION
 participant Repositories
 participant "repositories\n:Repositories" as REP
-participant "greenSpaceRepository\n:GreenSpaceRepository" as GREENSPACEREPO
-participant "toDoListRepository\n:ToDoListRepository" as TODOLISTREPO
+participant "greenSpaceRepository\n:GreenSpaceRepository" as GREENSPACEREPOSITORY
+participant ":GreenSpaceRepositoryMapper" as GREENSPACEREPOSITORYMAPPER
 participant "listGreenSpaces\n:List<GreenSpace>" as LISTGREENSPACES
+participant "listGreenSpacesDto\n:List<GreenSpaceDto>" as LISTGREENSPACESDTO
+participant "greenSpaceDto\n:GreenSpaceDto" as GREENSPACEDTO
+participant "greenSpace\n:GreenSpace" as GREENSPACE
 participant "toDoListEntry\n:ToDoListEntry" as TODOLISTENTRY
 
 activate GSM
@@ -22,10 +28,28 @@ activate GSM
 
         UI -> CTRL** : Create
 
-        UI -> CTRL : getGreenSpaces()
+        UI -> CTRL : getListGreenSpaces()
         activate CTRL
 
-            CTRL -> Repositories: getInstance()
+            CTRL -> _APP**: getInstance()
+            activate _APP
+
+                _APP -> CTRL: appSession
+            deactivate _APP
+
+            CTRL -> APP**: getCurrentSession()
+            activate APP
+
+                APP --> CTRL: currentSession
+            deactivate APP
+
+            CTRL -> SESSION**: getUserEmail()
+            activate SESSION
+
+                SESSION --> CTRL: email
+            deactivate SESSION
+
+            CTRL -> Repositories**: getInstance()
             activate Repositories
 
                 Repositories --> CTRL: repositories
@@ -37,56 +61,68 @@ activate GSM
                 REP --> CTRL: greenSpaceRepository
             deactivate REP
 
-            CTRL -> GREENSPACEREPO: getGreenSpaces()
-            activate GREENSPACEREPO
+            CTRL -> GREENSPACEREPOSITORY** : getListGreenSpacesManagedByGsm(greenSpaceManager)
+            activate GREENSPACEREPOSITORY
 
-                GREENSPACEREPO --> CTRL: listGreenSpaces
-            deactivate GREENSPACEREPO
+                GREENSPACEREPOSITORY --> CTRL: listGreenSpaces
+            deactivate GREENSPACEREPOSITORY
 
-            CTRL --> UI: listGreenSpaces
+            CTRL -> GREENSPACEREPOSITORYMAPPER** : listGreenSpacesToDto(listGreenSpaces)
+            activate GREENSPACEREPOSITORYMAPPER
+
+                GREENSPACEREPOSITORYMAPPER --> CTRL : listGreenSpacesDto
+            deactivate GREENSPACEREPOSITORYMAPPER
+
+            CTRL --> UI : listGreenSpacesDto
         deactivate CTRL
 
-        UI --> GSM: Display the list of green spaces
+        UI --> GSM : Displays the list of green spaces
     deactivate UI
 
-    GSM -> UI: Choose green space
+    GSM -> UI : Select the desired green space
     activate UI
 
-        UI -> CTRL: getTaskDetails(greenSpace)
+        UI -> CTRL : createToDoListEntry(greenSpaceDto, taskDetails, urgency, duration)
         activate CTRL
 
-            CTRL -> TODOLISTENTRY**: create(greenSpace)
+            CTRL -> GREENSPACEREPOSITORYMAPPER : greenSpaceDtoToDomain(greenSpaceDto)
+            activate GREENSPACEREPOSITORYMAPPER
+
+                GREENSPACEREPOSITORYMAPPER --> CTRL : greenSpace
+            deactivate GREENSPACEREPOSITORYMAPPER
+
+            CTRL -> TODOLISTENTRY** : create(greenSpace)
             activate TODOLISTENTRY
 
-            TODOLISTENTRY --> CTRL: toDoListEntry
+                TODOLISTENTRY -> TODOLISTENTRY : setDetails(taskDetails, urgency, duration)
+                activate TODOLISTENTRY
+                deactivate TODOLISTENTRY
+
+                TODOLISTENTRY --> CTRL : toDoListEntry
             deactivate TODOLISTENTRY
 
-            CTRL --> UI: Prompt for task details (description, urgency, duration)
+            CTRL -> Repositories: getInstance()
+            activate Repositories
+
+                Repositories --> CTRL: repositories
+            deactivate Repositories
+
+            CTRL -> REP: getToDoListRepository()
+            activate REP
+
+                REP --> CTRL: toDoListRepository
+            deactivate REP
+
+            CTRL -> toDoListRepository**: addToDoListEntry(toDoListEntry)
+            activate toDoListRepository
+
+                toDoListRepository --> CTRL: operation success
+            deactivate toDoListRepository
+
+            CTRL --> UI : operation success
         deactivate CTRL
 
-        UI --> GSM: Prompt for task details (description, urgency, duration)
-    deactivate UI
-
-    GSM -> UI: Provide task details
-    activate UI
-
-        UI -> CTRL: createToDoListEntry(toDoListEntry, taskDetails, urgency, duration)
-        activate CTRL
-
-            CTRL -> TODOLISTREPO: addToDoListEntry(toDoListEntry)
-            activate TODOLISTREPO
-
-                TODOLISTREPO -> TODOLISTREPO: validateEntry()
-                activate TODOLISTREPO
-                deactivate TODOLISTREPO
-
-                TODOLISTREPO --> CTRL: operation success
-            deactivate TODOLISTREPO
-
-            CTRL --> UI: operation success
-        deactivate CTRL
-
-        UI --> GSM: Display operation success
+        UI --> GSM : Displays operation success
     deactivate UI
 
 deactivate GSM
