@@ -1,0 +1,18 @@
+graph G {
+    fontname="Helvetica,Arial,sans-serif"
+    nodesep=1.0
+    layout=dot
+    node [fontname="Helvetica,Arial,sans-serif"]
+    edge [fontname="Helvetica,Arial,sans-serif"]
+    A -- B [label="9", color="black"];
+    A -- C [label="4", color="red"];
+    A -- AP [label="15", color="black"];
+    A -- F [label="2", color="black"];
+    B -- C [label="2", color="black"];
+    B -- AP [label="4", color="black"];
+    C -- AP [label="3", color="red"];
+    C -- E [label="6", color="black"];
+    C -- F [label="7", color="black"];
+    AP -- E [label="20", color="black"];
+    E -- F [label="5", color="black"];
+}

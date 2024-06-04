@@ -45,16 +45,15 @@ public class Vertex implements Comparable<Vertex> {
      */
     @Override
     public boolean equals(Object outroObject) {
-        if (outroObject == null || getClass() != outroObject.getClass()){
-            return false;
-        } else {
-            Vertex otherVertex = (Vertex) outroObject;
-            return Objects.equals(v, otherVertex.v);
-        }
+        if (this == outroObject) return true;
+        if (!(outroObject instanceof Vertex)) return false;
+        Vertex vertex = (Vertex) outroObject;
+        return Objects.equals(getV(), vertex.getV());
     }
+
     @Override
     public int hashCode() {
-        return Objects.hash(v);
+        return Objects.hashCode(getV());
     }
 
     /**

@@ -1,5 +1,7 @@
 package PI_MDISC_Group_072.main.java;
 
+import java.util.Objects;
+
 public class Edge {
 
     /**
@@ -93,12 +95,14 @@ public class Edge {
      */
     @Override
     public boolean equals(Object otherObject) {
-        Edge otherEdge = (Edge) otherObject;
-        return this.getOrigin().equals(otherEdge.getOrigin()) && this.getDestiny().equals(otherEdge.getDestiny());
+        if (this == otherObject) return true;
+        if (!(otherObject instanceof Edge)) return false;
+        Edge edge = (Edge) otherObject;
+        return Objects.equals(getDestiny(), edge.getDestiny()) && Objects.equals(getOrigin(), edge.getOrigin());
     }
 
     @Override
-    public String toString() {
-        return this.origin + "," + this.destiny + "," + this.cost;
+    public int hashCode() {
+        return Objects.hash(getDestiny(), getOrigin());
     }
 }

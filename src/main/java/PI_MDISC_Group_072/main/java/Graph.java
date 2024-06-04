@@ -126,7 +126,7 @@ public class Graph {
      * @param parent
      * @param rank
      */
-    private static void union(int rootU, int rootV, int[] parent, int[] rank) {
+    public static void union(int rootU, int rootV, int[] parent, int[] rank) {
         if (rank[rootU] > rank[rootV]) {
             parent[rootV] = rootU;
         } else if (rank[rootU] < rank[rootV]) {
@@ -135,5 +135,14 @@ public class Graph {
             parent[rootV] = rootU;
             rank[rootU]++;
         }
+    }
+    public int getEdgeCost(Vertex u, Vertex v) {
+        for (Edge edge : graph) {
+            if ((edge.getOrigin().equals(u) && edge.getDestiny().equals(v)) ||
+                    (edge.getOrigin().equals(v) && edge.getDestiny().equals(u))) {
+                return edge.getCost();
+            }
+        }
+        return -1;
     }
 }

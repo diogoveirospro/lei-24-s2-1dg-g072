@@ -37,7 +37,7 @@ public class Main {
                 System.out.println("Please insert a number!");
                 sc.next();
             }
-            ;
+
 
 
         } while (option < 1 || option > 4);
@@ -63,7 +63,10 @@ public class Main {
         } else {
             for (int i = 0; i < MP.size(); i++) {
                 String vertex = sc.nextLine();
-                evacuationRoutes.add(Dijkstra(graphEdges, vertices,MP.get(i)));
+                for (Graph route : evacuationRoutes) {
+
+
+                }
             }
         }
         System.out.println("Insert the vertex you want to know the shortest path to the closest AP or 'done'(if you want to stop):");
@@ -96,25 +99,31 @@ public class Main {
         ArrayList<Edge> graphEdges = new ArrayList<>();
         makeEdges(graphEdges, vertices, weights);
         Graph graph = addEdges(graphEdges);
+        createGraph(graph, inputVerticesFile);
         String MP = getMP(vertices);
-        if (MP == null) {
+        List<String> MPList = new ArrayList<>();
+        if (MP != null) {
+            MPList.add(MP);
+        }
+        if (MPList.isEmpty()) {
             System.out.println("There is no Meeting Point in the file!");
         } else {
-            Graph evacuationRoutes;
-            evacuationRoutes = Dijkstra(graphEdges, vertices, MP);
-            makeGraphCsv(evacuationRoutes);
-            createGraphDisktra(graph, inputVerticesFile, evacuationRoutes.getEdges());
+            List<Graph> evacuationRoutes;
             System.out.println("Insert the vertex you want to know the shortest path to the AP or 'done'(if you want to stop):");
             String vertex = sc.nextLine();
             while (!vertex.equalsIgnoreCase("done")) {
                 if (!vertex.equalsIgnoreCase("done")) {
                     if (!vertices.contains(new Vertex(vertex))) {
                         System.out.println("Vertex not found!");
+                        System.out.println("Please insert a valid vertex that you want to know the shortest path to the AP or 'done'(if you want to stop):");
                     } else {
-
-                        makeGraphCsv(evacuationRoutes);
-                        createGraphDisktra(graph, inputVerticesFile, evacuationRoutes.getEdges());
+                        evacuationRoutes = Dijkstra(graphEdges, vertex, MPList);
+                        for (Graph route : evacuationRoutes) {
+                            makeGraphCsv(route, vertex);
+                            createGraphDisktra(graph, inputVerticesFile, route.getEdges(), vertex);
+                        }
                         System.out.println("Insert the vertex you want to know the shortest path to the AP or 'done'(if you want to stop):");
+
                     }
                 }
                 vertex = sc.nextLine();
@@ -206,99 +215,95 @@ public class Main {
     }
 
 
-
-    public static Graph Dijkstra(ArrayList<Edge> edges, ArrayList<Vertex> vertices, String startVertex) {
-        Graph shortestPathsGraph = new Graph();
-        int[] distances = new int[vertices.size()];
-        List<List<Vertex>> paths = new ArrayList<>(vertices.size());
-        boolean[] visited = new boolean[vertices.size()];
-
-        Arrays.fill(distances, Integer.MAX_VALUE);
-        int startIndex = -1;
-        for (int i = 0; i < vertices.size(); i++) {
-            if (vertices.get(i).getV().equals(startVertex)) {
-                startIndex = i;
-                break;
-            }
-        }
-
-        if (startIndex == -1) {
-            throw new IllegalArgumentException("Start vertex not found in the list of vertices");
-        }
-
-        distances[startIndex] = 0;
-
-        // Initialize the paths list
-        for (int i = 0; i < vertices.size(); i++) {
-            paths.add(new ArrayList<>());
-        }
-
-        while (true) {
-            int u = -1;
-            int minDistance = Integer.MAX_VALUE;
-            for (int j = 0; j < vertices.size(); j++) {
-                if (!visited[j] && distances[j] < minDistance) {
-                    u = j;
-                    minDistance = distances[j];
+    public static List<Graph> Dijkstra(ArrayList<Edge> edges, String start, List<String> MPs) {
+        List<Graph> shortestPaths = new ArrayList<>();
+        for (String MP : MPs) {
+            if (MP.equals(start)) {
+                System.out.println("The vertex is already the Meeting Point!");
+            } else {
+                Graph initialGraph = new Graph();
+                for (Edge edge : edges) {
+                    initialGraph.addEdge(edge);
                 }
-            }
+                List<Vertex> vertices = initialGraph.getVertices();
+                int numVertices = vertices.size();
+                int[] dist = new int[numVertices];
+                Vertex[] prev = new Vertex[numVertices];
+                boolean[] visited = new boolean[numVertices];
 
-            if (u == -1) break; // No reachable vertices left
+                // Initialize distances to -1, and visited to false
+                for (int i = 0; i < numVertices; i++) {
+                    dist[i] = -1;
+                    prev[i] = null;
+                    visited[i] = false;
+                }
 
-            visited[u] = true;
+                PriorityQueue<Vertex> queue = new PriorityQueue<>(Comparator.comparingInt(v -> dist[vertices.indexOf(v)]));
 
-            for (Edge edge : edges) {
-                if (edge.getOrigin().equals(vertices.get(u))) {
-                    int v = vertices.indexOf(edge.getDestiny());
-                    int weight = edge.getCost();
-                    if (distances[u] != Integer.MAX_VALUE && distances[u] + weight < distances[v]) {
-                        distances[v] = distances[u] + weight;
-                        List<Vertex> newPath = new ArrayList<>(paths.get(u));
-                        newPath.add(vertices.get(v));
-                        paths.set(v, newPath);
+                Vertex MPVertex = new Vertex(MP);
+                Vertex startVertex = new Vertex(start);
+                dist[vertices.indexOf(startVertex)] = 0;
+                queue.add(startVertex);
+
+                int[] oldDist = dist.clone();
+
+                while (!queue.isEmpty()) {
+                    Vertex u = queue.poll();
+                    int uIndex = vertices.indexOf(u);
+                    visited[uIndex] = true;
+
+                    List<Vertex> neighbors = initialGraph.getVerticesConnectedTo(u);
+                    for (Vertex neighbor : neighbors) {
+                        int vIndex = vertices.indexOf(neighbor);
+                        int weight = initialGraph.getEdgeCost(u, neighbor);
+
+                        if (!visited[vIndex] && dist[uIndex] != -1 && (dist[vIndex] == -1 || dist[uIndex] + weight < dist[vIndex])) {
+                            queue.remove(neighbor);
+                            dist[vIndex] = dist[uIndex] + weight;
+                            prev[vIndex] = u;
+                            queue.add(neighbor); // Add it back to re-sort the queue
+                        }
                     }
                 }
-            }
-        }
 
-        // Build the shortest paths graph
-        for (int i = 0; i < vertices.size(); i++) {
-            if (i != startIndex && distances[i] != Integer.MAX_VALUE) {
-                List<Vertex> path = paths.get(i);
-                if (!path.isEmpty()) {
-                    Vertex source = vertices.get(startIndex);
-                    Vertex destination = vertices.get(i);
-                    int totalCost = distances[i];
-                    shortestPathsGraph.addEdge(new Edge(source, destination, totalCost));
-                    for (int j = 0; j < path.size() - 1; j++) {
-                        source = path.get(j);
-                        destination = path.get(j + 1);
-                        int edgeCost = getEdgeCost(edges, source, destination);
-                        shortestPathsGraph.addEdge(new Edge(source, destination, edgeCost));
-                    }
+                List<Vertex> path = new ArrayList<>();
+                for (Vertex at = MPVertex; at != null; at = prev[vertices.indexOf(at)]) {
+                    path.add(at);
                 }
+                Collections.reverse(path);
+
+                Graph shortestPath = new Graph();
+                for (int i = 0; i < path.size() - 1; i++) {
+                    Vertex origin = path.get(i);
+                    Vertex destiny = path.get(i + 1);
+                    int cost = initialGraph.getEdgeCost(origin, destiny);
+                    shortestPath.addEdge(new Edge(origin, destiny, cost));
+                }
+
+                shortestPaths.add(shortestPath);
             }
         }
-        return shortestPathsGraph;
+        return shortestPaths;
     }
 
-    private static int getEdgeCost(ArrayList<Edge> edges, Vertex source, Vertex destination) {
-        for (Edge edge : edges) {
-            if (edge.getOrigin().equals(source) && edge.getDestiny().equals(destination)) {
-                return edge.getCost();
+    private static int minDistance(int[] dist, boolean[] visited, List<Vertex> vertices) {
+        int min = -1, minIndex = -1;
+
+        for (int v = 0; v < vertices.size(); v++) {
+
+            if (!visited[v] && dist[v] >= min) {
+                min = dist[v];
+                minIndex = v;
             }
+
         }
-        return Integer.MAX_VALUE; // Default unreachable value
+        return minIndex;
     }
 
 
-
-
-
-
-    private static void createGraphDisktra(Graph graph, StringBuilder file, List<Edge> shortestPath) throws IOException, InterruptedException {
+    private static void createGraphDisktra(Graph graph, StringBuilder file, List<Edge> shortestPath, String vertex) throws IOException, InterruptedException {
         createScriptGraphDisktra(graph, file, shortestPath);
-        executeScriptGraph(file);
+        executeScriptGraphDijkstra(file,vertex);
     }
 
     private static void createScriptGraphDisktra(Graph graph, StringBuilder file, List<Edge> shortestPath) {
@@ -314,7 +319,13 @@ public class Main {
                 String origin = edge.getOrigin().getV();
                 String destiny = edge.getDestiny().getV();
                 int cost = edge.getCost();
-                String edgeColor = shortestPath.contains(edge) ? "red" : "black";
+                String edgeColor = "black";
+                for (Edge edge1 : shortestPath) {
+                    if (edge.equals(edge1)) {
+                        edgeColor = "red";
+                        break;
+                    }
+                }
                 writer.printf("    %s -- %s [label=\"%d\", color=\"%s\"];%n", origin, destiny, cost, edgeColor);
             }
 
@@ -329,6 +340,25 @@ public class Main {
     private static void executeScriptGraph(StringBuilder file) throws IOException, InterruptedException {
         String caminhoScript = "src/main/java/PI_MDISC_Group_072/Output/Graph_" + file;
         String commandGraphviz = "dot -Tsvg " + caminhoScript + ".dot -o " + caminhoScript + ".svg";
+        Process processo = Runtime.getRuntime().exec(commandGraphviz);
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(processo.getErrorStream()));
+        String line;
+        while ((line = reader.readLine()) != null) {
+            System.err.println(line);
+        }
+
+        int exitCode = processo.waitFor();
+
+        if (exitCode == 0) {
+            System.out.println("Graph generated successfully!");
+        } else {
+            System.out.println("Error generating the graph. Output code: " + exitCode);
+        }
+    }
+    private static void executeScriptGraphDijkstra(StringBuilder file, String vertex) throws IOException, InterruptedException {
+        String caminhoScript = "src/main/java/PI_MDISC_Group_072/Output/Graph_" + file;
+        String commandGraphviz = "dot -Tsvg " + caminhoScript + ".dot -o " + caminhoScript + "_" + vertex + ".svg";
         Process processo = Runtime.getRuntime().exec(commandGraphviz);
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(processo.getErrorStream()));
@@ -436,17 +466,19 @@ public class Main {
         }
     }
 
-    private static void makeGraphCsv(Graph graph) {
-        try (PrintWriter writer = new PrintWriter(new FileWriter("src/main/java/PI_MDISC_Group_072/Output/graph.csv"))) {
+    private static void makeGraphCsv(Graph graph, String vertex) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter("src/main/java/PI_MDISC_Group_072/Output/graph_" + vertex + ".csv"))) {
+            int totalCost = 0;
             for (Edge edge : graph.getEdges()) {
                 String origin = edge.getOrigin().getV();
                 String destiny = edge.getDestiny().getV();
                 int cost = edge.getCost();
                 String edgeString = String.format("    %s -- %s cost : %d;", origin, destiny, cost);
+                totalCost += cost;
                 writer.println(edgeString);
             }
-
-            System.out.println("CSV file 'src/main/java/PI_MDISC_Group_072/Output/graph.csv' has been created successfully.");
+            writer.println("Total cost of making path: " + totalCost);
+            System.out.println("CSV file 'src/main/java/PI_MDISC_Group_072/Output/graph_" + vertex + ".csv' has been created successfully.");
         } catch (IOException e) {
             System.err.println("Error writing to CSV file: " + e.getMessage());
         }
@@ -456,10 +488,12 @@ public class Main {
         System.out.println("Insert the name of the file with the vertices, costs, and connections:");
         return sc.nextLine();
     }
+
     private static String getFileWeight(Scanner sc) {
         System.out.println("Insert the name of the file with the costs for each vertex and connection:");
         return sc.nextLine();
     }
+
     private static String getFileVertices(Scanner sc) {
         System.out.println("Insert the name of the file with the vertices:");
         return sc.nextLine();
@@ -490,9 +524,7 @@ public class Main {
             Vertex newVertex = new Vertex(vertex);
             vertices.add(newVertex);
         }
-        for (Vertex vertex : vertices) {
-            System.out.println(vertex.getV());
-        }
+
         in.close();
         return vertices;
     }
@@ -507,7 +539,7 @@ public class Main {
             int columns = 0;
             String[] costs = readLineCosts(in);
             for (String cost : costs) {
-                if (columns > vertexPosition){
+                if (columns > vertexPosition) {
                     weights[line][columns] = Integer.parseInt(cost);
                 }
                 columns++;
