@@ -16,6 +16,7 @@ import pt.ipp.isep.dei.esoft.project.repository.GreenSpaceRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 
 import java.util.List;
+import java.util.Objects;
 
 public class PostponeEntryController {
 
@@ -25,16 +26,18 @@ public class PostponeEntryController {
 
     private CollaboratorRepository collaboratorRepository = Repositories.getInstance().getCollaboratorRepository();
 
-    private final List<AgendaEntry> agendaEntries = getAgendaEntryList();
+    private List<AgendaEntry> agendaEntries;
 
     public PostponeEntryController() {
         this.agenda = Repositories.getInstance().getAgenda();
         this.greenSpaceRepository = Repositories.getInstance().getGreenSpaceRepository();
+        this.agendaEntries = agenda.getEntryList();
     }
 
     public PostponeEntryController(Agenda agenda, GreenSpaceRepository greenSpaceRepository) {
         this.agenda = agenda;
         this.greenSpaceRepository = greenSpaceRepository;
+        this.agendaEntries = agenda.getEntryList();
     }
 
     public List<GreenSpaceDto> getListGreenSpaces() {
@@ -52,30 +55,40 @@ public class PostponeEntryController {
         return collaboratorRepository.getCollaboratorByEmail(email);
     }
 
-        public List<AgendaEntry> getAgendaEntryList(){
-            if (agenda != null) {
-                return agenda.getEntryList();
-            }else return null;
-        }
+    public List<AgendaEntry> getAgendaEntryList() {
+        if (agenda != null) {
+            return agenda.getEntryList();
+        } else return null;
+    }
 
-    public List<String> getAgendaEntryListString(){
+    public List<String> getAgendaEntryListString() {
         List<String> agendaEntries = agenda.getAgendaEntryList();
-        agendaEntries.add("None");
         return agendaEntries;
     }
 
-    public List<AgendaEntryDto> entryListToDto(){
+    public List<AgendaEntryDto> entryListToDto() {
         AgendaEntryMapper agendaEntryMapper = new AgendaEntryMapper();
         return agendaEntryMapper.toDtoList(agendaEntries);
     }
 
     public void postponeAgendaEntry(AgendaEntry agendaEntry, Date newDate) throws InvalidAgendaEntryDataException {
-        if (agendaEntry == null || newDate == null){
+        if (agendaEntry == null || newDate == null) {
             throw new InvalidAgendaEntryDataException("Agenda Entry is invalid.");
         } else
             agendaEntry.postponeEntry(newDate);
-            agendaEntry.taskPostponed();
+        agendaEntry.taskPostponed();
     }
 
-
+    public AgendaEntry getAgendaEntryByTaskName(String taskName) {
+        try {
+            for (AgendaEntry entry : agendaEntries) {
+                if (Objects.equals(entry.getName(), taskName)) {
+                    return entry;
+                }
+            }
+        }catch (Exception e){
+            System.out.println("Error while getting the agenda entry by task name.");
+        }
+        return null;
+    }
 }
