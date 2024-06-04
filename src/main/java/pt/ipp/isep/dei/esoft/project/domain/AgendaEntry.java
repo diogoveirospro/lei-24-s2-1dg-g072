@@ -29,6 +29,10 @@ public class AgendaEntry extends Entry {
     private TeamRepository teamRepository = Repositories.getInstance().getTeamRepository();
     private VehicleRepository vehicleRepository = Repositories.getInstance().getVehicleRepository();
 
+    public boolean isCanceled() {
+        return false;
+    }
+
     /**
      * Enum representing the hours of the day.
      */

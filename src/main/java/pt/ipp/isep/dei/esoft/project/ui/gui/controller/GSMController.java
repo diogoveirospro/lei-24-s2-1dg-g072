@@ -103,6 +103,7 @@ public class GSMController {
             addAgendaEntryUI = new AddAgendaEntryUI();
             addAgendaEntryUI.showUI(MainMenuUI.getPrimaryStage());
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("An error occurred while handling the add agenda entry action: " + e.getMessage());
         }
     }

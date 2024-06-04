@@ -40,7 +40,7 @@ public class AddAgendaEntryUI implements Initializable {
      * @throws IOException If there is an error loading the FXML file.
      */
     public void showUI(Stage stage) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/USs/AddAgendaEntry.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/USs/AddEntryAgenda.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         stage.setTitle(ADDAGENDAENTRY);
