@@ -145,4 +145,12 @@ public class Graph {
         }
         return -1;
     }
+
+    public int getTotalCost() {
+        int totalCost = 0;
+        for (Edge edge : graph) {
+            totalCost += edge.getCost();
+        }
+        return totalCost;
+    }
 }

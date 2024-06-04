@@ -98,7 +98,7 @@ public class Edge {
         if (this == otherObject) return true;
         if (!(otherObject instanceof Edge)) return false;
         Edge edge = (Edge) otherObject;
-        return Objects.equals(getDestiny(), edge.getDestiny()) && Objects.equals(getOrigin(), edge.getOrigin());
+        return (Objects.equals(getDestiny(), edge.getDestiny()) && Objects.equals(getOrigin(), edge.getOrigin())) || (Objects.equals(getDestiny(), edge.getOrigin()) && Objects.equals(getOrigin(), edge.getDestiny()));
     }
 
     @Override
