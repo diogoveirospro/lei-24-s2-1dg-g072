@@ -176,8 +176,14 @@ public class Bootstrap {
     }
 
     private void addAgendaEntry() throws InvalidAgendaEntryDataException, InvalidTaskDataException, InvalidGreenSpaceDataException {
-        Entry entry = new Entry(new Task("Task", "14"), new GreenSpace(GreenSpace.TypeOfGreenSpace.GARDEN, "GreenSpace description", 1000.0, "Address", collaboratorRepository.getCollaborator("H234564")));
-        AgendaEntry entry1 = new AgendaEntry(entry.getTask(), new GreenSpace(GreenSpace.TypeOfGreenSpace.GARDEN, "GreenSpace description", 1000.0, "Address", collaboratorRepository.getCollaborator("H234564")), new Date(2021, 1, 1), AgendaEntry.HourOfDay.H01,new Date(2021, 1, 1), AgendaEntry.HourOfDay.H06);
+        GreenSpaceRepository greenSpaceRepository = Repositories.getInstance().getGreenSpaceRepository();
+        TaskRepository taskRepository = Repositories.getInstance().getTaskRepository();
+        Task task = new Task("Task", "14");
+        taskRepository.addTask(task);
+        GreenSpace greenSpace = new GreenSpace(GreenSpace.TypeOfGreenSpace.GARDEN, "GreenSpace description", 1000.0, "Address", collaboratorRepository.getCollaborator("H234564"));
+        greenSpaceRepository.addGreenSpace(greenSpace);
+        Entry entry = new Entry(taskRepository.findTaskById("Task"), greenSpaceRepository.getGreenSpaceByParkName("GreenSpace description"));
+        AgendaEntry entry1 = new AgendaEntry(entry.getTask(), greenSpaceRepository.getGreenSpaceByParkName("GreenSpace description"), new Date(2021, 1, 1), AgendaEntry.HourOfDay.H01,new Date(2021, 1, 1), AgendaEntry.HourOfDay.H06);
         agenda.addAgendaEntry(entry1);
     }
 }

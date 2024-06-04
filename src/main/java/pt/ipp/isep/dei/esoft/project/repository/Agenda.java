@@ -37,6 +37,10 @@ public class Agenda {
         return agendaEntryList;
     }
 
+    public Agenda(){
+        this.entriesAgenda = new ArrayList<>();
+    }
+
     /**
      * Creates a new agenda entry with the specified task, green space, start date, and end date.
      *
