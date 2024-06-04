@@ -148,18 +148,16 @@ public class Main {
         Graph graph = addEdges(graphEdges);
         createGraph(graph, inputVerticesFile);
         String MP = getMP(vertices);
-        List<String> MPList = new ArrayList<>();
+
 
         for (Vertex vertex : vertices) {
             System.out.println(vertex.getV());
         }
-        if (MP != null) {
-            MPList.add(MP);
-        }
-        if (MPList.isEmpty()) {
+
+        if (MP == null) {
             System.out.println("There is no Meeting Point in the file!");
         } else {
-            List<Graph> evacuationRoutes;
+            Graph evacuationRoutes;
             System.out.println("Insert the vertex you want to know the shortest path to the AP or 'done'(if you want to stop):");
             String vertex = sc.nextLine();
             while (!vertex.equalsIgnoreCase("done")) {
@@ -168,11 +166,11 @@ public class Main {
                         System.out.println("Vertex not found!");
                         System.out.println("Please insert a valid vertex that you want to know the shortest path to the AP or 'done'(if you want to stop):");
                     } else {
-                        evacuationRoutes = Dijkstra(graphEdges, vertex, MPList);
-                        for (Graph route : evacuationRoutes) {
-                            makeGraphCsv(route, vertex);
-                            createGraphDisktra(graph, inputVerticesFile, route.getEdges(), vertex);
-                        }
+                        evacuationRoutes = DijkstraUS17(graphEdges, vertex, MP);
+
+                        makeGraphCsv(evacuationRoutes, vertex);
+                        createGraphDisktra(graph, inputVerticesFile, evacuationRoutes.getEdges(), vertex);
+
                         System.out.println("Insert the vertex you want to know the shortest path to the AP or 'done'(if you want to stop):");
 
                     }
@@ -182,78 +180,79 @@ public class Main {
         }
 
     }
+
     public static String sanitizeVertexName(String inputName) {
         return inputName.replace("\uFEFF", "");
     }
 
-    public static List<Graph> Dijkstra(ArrayList<Edge> edges, String start, List<String> MPs) {
-        List<Graph> shortestPaths = new ArrayList<>();
-        for (String MP : MPs) {
-            if (MP.equals(start)) {
-                System.out.println("The vertex is already the Meeting Point!");
-            } else {
-                Graph initialGraph = new Graph();
-                for (Edge edge : edges) {
-                    initialGraph.addEdge(edge);
-                }
-                List<Vertex> vertices = initialGraph.getVertices();
-                int numVertices = vertices.size();
-                int[] dist = new int[numVertices];
-                Vertex[] prev = new Vertex[numVertices];
-                boolean[] visited = new boolean[numVertices];
+    public static Graph DijkstraUS17(ArrayList<Edge> edges, String start, String MP) {
+        Graph shortestPaths = new Graph();
 
-                // Initialize distances to -1, and visited to false
-                for (int i = 0; i < numVertices; i++) {
-                    dist[i] = -1;
-                    prev[i] = null;
-                    visited[i] = false;
-                }
+        if (MP.equals(start)) {
+            System.out.println("The vertex is already the Meeting Point!");
+        } else {
+            Graph initialGraph = new Graph();
+            for (Edge edge : edges) {
+                initialGraph.addEdge(edge);
+            }
+            List<Vertex> vertices = initialGraph.getVertices();
+            int numVertices = vertices.size();
+            int[] dist = new int[numVertices];
+            Vertex[] prev = new Vertex[numVertices];
+            boolean[] visited = new boolean[numVertices];
 
-                PriorityQueue<Vertex> queue = new PriorityQueue<>(Comparator.comparingInt(v -> dist[vertices.indexOf(v)]));
+            // Initialize distances to -1, and visited to false
+            for (int i = 0; i < numVertices; i++) {
+                dist[i] = -1;
+                prev[i] = null;
+                visited[i] = false;
+            }
 
-                Vertex MPVertex = new Vertex(MP);
-                Vertex startVertex = new Vertex(start);
-                dist[vertices.indexOf(startVertex)] = 0;
-                queue.add(startVertex);
+            PriorityQueue<Vertex> queue = new PriorityQueue<>(Comparator.comparingInt(v -> dist[vertices.indexOf(v)]));
 
-                int[] oldDist = dist.clone();
+            Vertex MPVertex = new Vertex(MP);
+            Vertex startVertex = new Vertex(start);
+            dist[vertices.indexOf(startVertex)] = 0;
+            queue.add(startVertex);
 
-                while (!queue.isEmpty()) {
-                    Vertex u = queue.poll();
-                    int uIndex = vertices.indexOf(u);
-                    visited[uIndex] = true;
+            int[] oldDist = dist.clone();
 
-                    List<Vertex> neighbors = initialGraph.getVerticesConnectedTo(u);
-                    for (Vertex neighbor : neighbors) {
-                        int vIndex = vertices.indexOf(neighbor);
-                        int weight = initialGraph.getEdgeCost(u, neighbor);
+            while (!queue.isEmpty()) {
+                Vertex u = queue.poll();
+                int uIndex = vertices.indexOf(u);
+                visited[uIndex] = true;
 
-                        if (!visited[vIndex] && dist[uIndex] != -1 && (dist[vIndex] == -1 || dist[uIndex] + weight < dist[vIndex])) {
-                            queue.remove(neighbor);
-                            dist[vIndex] = dist[uIndex] + weight;
-                            prev[vIndex] = u;
-                            queue.add(neighbor); // Add it back to re-sort the queue
-                        }
+                List<Vertex> neighbors = initialGraph.getVerticesConnectedTo(u);
+                for (Vertex neighbor : neighbors) {
+                    int vIndex = vertices.indexOf(neighbor);
+                    int weight = initialGraph.getEdgeCost(u, neighbor);
+
+                    if (!visited[vIndex] && dist[uIndex] != -1 && (dist[vIndex] == -1 || dist[uIndex] + weight < dist[vIndex])) {
+                        queue.remove(neighbor);
+                        dist[vIndex] = dist[uIndex] + weight;
+                        prev[vIndex] = u;
+                        queue.add(neighbor); // Add it back to re-sort the queue
                     }
                 }
-
-                List<Vertex> path = new ArrayList<>();
-                for (Vertex at = MPVertex; at != null; at = prev[vertices.indexOf(at)]) {
-                    path.add(at);
-                }
-                Collections.reverse(path);
-
-                Graph shortestPath = new Graph();
-                for (int i = 0; i < path.size() - 1; i++) {
-                    Vertex origin = path.get(i);
-                    Vertex destiny = path.get(i + 1);
-                    int cost = initialGraph.getEdgeCost(origin, destiny);
-                    shortestPath.addEdge(new Edge(origin, destiny, cost));
-                }
-
-                shortestPaths.add(shortestPath);
             }
+
+            List<Vertex> path = new ArrayList<>();
+            for (Vertex at = MPVertex; at != null; at = prev[vertices.indexOf(at)]) {
+                path.add(at);
+            }
+            Collections.reverse(path);
+
+            Graph shortestPath = new Graph();
+            for (int i = 0; i < path.size() - 1; i++) {
+                Vertex origin = path.get(i);
+                Vertex destiny = path.get(i + 1);
+                int cost = initialGraph.getEdgeCost(origin, destiny);
+                shortestPath.addEdge(new Edge(origin, destiny, cost));
+            }
+
+
         }
+
         return shortestPaths;
     }
 
