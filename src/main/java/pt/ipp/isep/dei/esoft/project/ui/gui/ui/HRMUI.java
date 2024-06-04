@@ -21,6 +21,8 @@ public class HRMUI implements Initializable {
         Parent root = loader.load();
         Scene scene = new Scene(root);
         stage.setTitle(HRM);
+        stage.setResizable(true);
+        stage.setMaximized(true);
         stage.setScene(scene);
         hrmController = loader.getController();
         hrmController.setHrmui(new HRMUI());

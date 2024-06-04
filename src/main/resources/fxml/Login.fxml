@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
 <?import java.lang.*?>
@@ -8,16 +9,37 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.LoginController">
-   <children>
-      <Text fill="#678362" layoutX="83.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Musgo Sublime">
-         <font>
-            <Font name="Bradley Hand ITC" size="65.0" />
-         </font>
-      </Text>
-      <TextField fx:id="txtEmail" layoutX="195.0" layoutY="180.0" prefHeight="31.0" prefWidth="211.0" promptText="Email..." />
-      <Button fx:id="btnLogin" defaultButton="true" layoutX="330.0" layoutY="270.0" mnemonicParsing="false" onAction="#handleLoginButtonAction" prefHeight="31.0" prefWidth="75.0" text="Login" textAlignment="CENTER" />
-      <Button fx:id="btnCancel" cancelButton="true" contentDisplay="CENTER" layoutX="194.0" layoutY="270.0" mnemonicParsing="false" onAction="#handleCancelButtonAction" prefHeight="31.0" prefWidth="75.0" text="Cancel" textAlignment="CENTER" />
-      <PasswordField fx:id="txtPassword" layoutX="195.0" layoutY="222.0" prefHeight="31.0" prefWidth="211.0" promptText="Password..." />
-   </children>
-</AnchorPane>
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.LoginController">
+   <center>
+      <VBox alignment="CENTER" BorderPane.alignment="CENTER">
+         <children>
+            <Text fill="#678362" strokeType="OUTSIDE" strokeWidth="0.0" text="Musgo Sublime">
+               <font>
+                  <Font name="Bradley Hand ITC" size="65.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="40.0" />
+               </VBox.margin>
+            </Text>
+            <TextField fx:id="txtEmail" maxWidth="-Infinity" prefHeight="31.0" prefWidth="400.0" promptText="Email..." />
+            <PasswordField fx:id="txtPassword" maxWidth="-Infinity" prefHeight="31.0" prefWidth="400.0" promptText="Password...">
+               <VBox.margin>
+                  <Insets bottom="40.0" top="20.0" />
+               </VBox.margin></PasswordField>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="btnLogin" defaultButton="true" mnemonicParsing="false" onAction="#handleLoginButtonAction" prefHeight="31.0" prefWidth="75.0" text="Login" textAlignment="CENTER" />
+                  <Button fx:id="btnCancel" cancelButton="true" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleCancelButtonAction" prefHeight="31.0" prefWidth="75.0" text="Cancel" textAlignment="CENTER">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+         </padding>
+      </VBox>
+   </center>
+</BorderPane>

@@ -99,7 +99,9 @@ public class ListGreenSpacesController {
         return mapper.greenSpaceListToDto(greenSpaceList);
     }
 
-    public String getSortMethods() {
-        return null;
+    public List<String> getSortMethods() {
+        List<String> sortMethods = greenSpaceRepository.getSortMethods();
+        sortMethods.add("None");
+        return sortMethods;
     }
 }

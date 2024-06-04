@@ -21,6 +21,6 @@
          </font>
       </Text>
        <Button fx:id="loginButton" alignment="CENTER" defaultButton="true" layoutX="207.0" layoutY="194.0" onAction="#handleLoginButtonAction" prefHeight="31.0" prefWidth="186.0" text="Login" textAlignment="CENTER" />
-       <Button fx:id="viewTeamButton" defaultButton="true" layoutX="226.0" layoutY="241.0" onAction="#handleViewTeamButtonAction" text="View Development Team" textAlignment="CENTER" />
+       <Button fx:id="viewTeamButton" defaultButton="true" layoutX="207.0" layoutY="240.0" onAction="#handleViewTeamButtonAction" prefHeight="31.0" prefWidth="186.0" text="View Development Team" textAlignment="CENTER" />
    </children>
 </AnchorPane>

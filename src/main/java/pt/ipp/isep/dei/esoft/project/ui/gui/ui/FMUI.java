@@ -20,6 +20,8 @@ public class FMUI implements Initializable {
         Parent root = loader.load();
         Scene scene = new Scene(root);
         stage.setTitle(FM);
+        stage.setResizable(true);
+        stage.setMaximized(true);
         stage.setScene(scene);
         fmController = loader.getController();
         fmController.setFmui(new FMUI());

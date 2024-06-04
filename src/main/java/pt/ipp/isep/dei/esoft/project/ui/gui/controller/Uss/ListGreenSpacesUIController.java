@@ -32,7 +32,7 @@ public class ListGreenSpacesUIController {
     /**
      * List of all the tasks
      */
-    private ObservableList<String> methods = FXCollections.observableArrayList((listGreenSpacesController.getSortMethods()));
+    private ObservableList<String> methods;
 
     /**
      * Initializes the ui attributes
@@ -40,10 +40,11 @@ public class ListGreenSpacesUIController {
     @FXML
     public void initialize() {
         try{
-            //listSortMethod.setItems(methods);
+            methods = FXCollections.observableArrayList((listGreenSpacesController.getSortMethods()));
+            listSortMethod.setItems(methods);
 
         } catch (Exception e) {
-            System.out.println("Error while loading the status list.");
+            System.out.println("Error while loading the methods list.");
         }
     }
     /**

@@ -36,6 +36,7 @@ public class MainMenuUI extends Application {
             Parent root = loader.load();
             Scene scene = new Scene(root);
             primaryStage.setTitle(ENTERPRISE_NAME);
+            primaryStage.setResizable(false);
             primaryStage.setScene(scene);
             mainMenuController = loader.getController();
             mainMenuController.setMainMenuUI(new MainMenuUI());
