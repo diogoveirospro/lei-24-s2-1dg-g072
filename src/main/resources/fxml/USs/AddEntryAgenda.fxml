@@ -1,106 +1,113 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<VBox prefHeight="426.0" prefWidth="812.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.AddAgendaEntryUIController">
-   <children>
-      <Text fill="#ff0101" strokeType="OUTSIDE" strokeWidth="0.0" text="GSM | Add New Entry to the Agenda">
-         <font>
-            <Font name="System Bold" size="28.0" />
-         </font>
-         <VBox.margin>
-            <Insets left="10.0" top="10.0" />
-         </VBox.margin>
-      </Text>
-      <HBox prefHeight="94.0" prefWidth="812.0">
+<BorderPane prefHeight="387.0" prefWidth="637.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.AddAgendaEntryUIController">
+   <center>
+      <VBox prefHeight="426.0" prefWidth="767.0" style="-fx-background-color: #F1F8E9;">
          <children>
-            <Label text="Green Space: ">
-               <padding>
-                  <Insets right="10.0" />
-               </padding>
-               <HBox.margin>
-                  <Insets left="20.0" />
-               </HBox.margin>
-            </Label>
-            <ComboBox fx:id="cbGreenSpace" prefHeight="51.0" prefWidth="306.0" promptText="Select Green Space" />
-            <Label text="Task: ">
-               <padding>
-                  <Insets right="10.0" />
-               </padding>
-               <HBox.margin>
-                  <Insets left="20.0" />
-               </HBox.margin>
-            </Label>
-            <ComboBox fx:id="cbTask" prefHeight="51.0" prefWidth="212.0" promptText="Select Task" />
+            <HBox prefHeight="70.0" prefWidth="812.0">
+               <children>
+                  <Label text="Green Space: ">
+                     <padding>
+                        <Insets right="10.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Label>
+                  <ComboBox fx:id="cbGreenSpace" prefHeight="31.0" prefWidth="196.0" promptText="Select Green Space" />
+                  <Label text="Task: ">
+                     <padding>
+                        <Insets right="10.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Label>
+                  <ComboBox fx:id="cbTask" prefHeight="31.0" prefWidth="212.0" promptText="Select Task" />
+               </children>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox prefHeight="57.0" prefWidth="812.0">
+               <children>
+                  <Label text="Start Date: ">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                     <padding>
+                        <Insets right="10.0" />
+                     </padding>
+                  </Label>
+                  <DatePicker fx:id="dpStartDate" prefHeight="31.0" prefWidth="262.0" />
+                  <ComboBox fx:id="cbStartHour" prefHeight="31.0" prefWidth="222.0" promptText="Select Hour">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </ComboBox>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" top="20.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox prefHeight="60.0" prefWidth="812.0">
+               <children>
+                  <Label text="End Date: ">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                     <padding>
+                        <Insets right="15.0" />
+                     </padding>
+                  </Label>
+                  <DatePicker fx:id="dpEndDate" prefHeight="31.0" prefWidth="269.0" />
+                  <ComboBox fx:id="cbEndHour" prefHeight="31.0" prefWidth="222.0" promptText="Select Hour">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </ComboBox>
+               </children>
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox prefHeight="75.0" prefWidth="812.0">
+               <children>
+                  <Button fx:id="btnAddAgendaEntry" mnemonicParsing="false" onAction="#handleAddAgendaEntry" style="-fx-background-color: #388E3C; -fx-text-fill: white;" text="Add Agenda Entry">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#handleCancel" style="-fx-background-color: #D32F2F; -fx-text-fill: white;" text="Cancel">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </HBox>
          </children>
-         <VBox.margin>
-            <Insets top="20.0" />
-         </VBox.margin>
-      </HBox>
-      <HBox prefHeight="31.0" prefWidth="487.0">
+      </VBox>
+   </center>
+   <top>
+      <VBox prefHeight="51.0" prefWidth="766.0" style="-fx-background-color: #2E7D32;" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Start Date: ">
-               <HBox.margin>
-                  <Insets left="20.0" />
-               </HBox.margin>
-               <padding>
-                  <Insets right="10.0" />
-               </padding>
-            </Label>
-            <DatePicker fx:id="dpStartDate" prefHeight="51.0" prefWidth="262.0" />
-            <ComboBox fx:id="cbStartHour" prefHeight="51.0" prefWidth="222.0" promptText="Select Hour">
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin>
-            </ComboBox>
+            <Text fill="WHITE" strokeType="INSIDE" strokeWidth="0.0" text="Add New Entry to the Agenda" textAlignment="CENTER" wrappingWidth="639.935546875">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </Text>
          </children>
-         <VBox.margin>
-            <Insets bottom="10.0" top="20.0" />
-         </VBox.margin>
-      </HBox>
-      <HBox prefHeight="69.0" prefWidth="487.0">
-         <children>
-            <Label text="End Date: ">
-               <HBox.margin>
-                  <Insets left="20.0" />
-               </HBox.margin>
-               <padding>
-                  <Insets right="15.0" />
-               </padding>
-            </Label>
-            <DatePicker fx:id="dpEndDate" prefHeight="51.0" prefWidth="269.0" />
-            <ComboBox fx:id="cbEndHour" prefHeight="51.0" prefWidth="222.0" promptText="Select Hour">
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin>
-            </ComboBox>
-         </children>
-         <VBox.margin>
-            <Insets top="5.0" />
-         </VBox.margin>
-      </HBox>
-      <HBox prefHeight="75.0" prefWidth="812.0">
-         <children>
-            <Button fx:id="btnAddAgendaEntry" mnemonicParsing="false" onAction="#handleAddAgendaEntry" text="Add Agenda Entry">
-               <HBox.margin>
-                  <Insets left="20.0" />
-               </HBox.margin>
-            </Button>
-            <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#handleCancel" text="Cancel">
-               <HBox.margin>
-                  <Insets left="20.0" />
-               </HBox.margin>
-            </Button>
-         </children>
-         <VBox.margin>
-            <Insets top="20.0" />
-         </VBox.margin>
-      </HBox>
-   </children>
-</VBox>
+      </VBox>
+   </top>
+</BorderPane>

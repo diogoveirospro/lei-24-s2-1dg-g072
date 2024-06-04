@@ -1,150 +1,158 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<VBox prefHeight="625.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss.GenerateTeamProposalUI">
-   <children>
-      <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="HRM : Generate Team Proposal" wrappingWidth="281.544921875">
-         <font>
-            <Font name="System Bold" size="19.0" />
-         </font>
-         <VBox.margin>
-            <Insets left="10.0" top="10.0" />
-         </VBox.margin>
-      </Text>
-      <HBox prefHeight="33.0" prefWidth="550.0">
+<BorderPane prefHeight="660.0" prefWidth="550.0" style="-fx-background-color: #F1F8E9;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss.GenerateTeamProposalUI">
+   <center>
+      <VBox prefHeight="625.0" prefWidth="550.0">
          <children>
-            <Label prefHeight="25.0" prefWidth="90.0" text="Minimum Size: ">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Label>
-            <TextField fx:id="tfMinSize">
-               <HBox.margin>
-                  <Insets left="5.0" />
-               </HBox.margin>
-            </TextField>
-            <Label prefHeight="25.0" prefWidth="90.0" text="Maximum Size: ">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin>
-            </Label>
-            <TextField fx:id="tfMaxSize">
-               <HBox.margin>
-                  <Insets left="5.0" />
-               </HBox.margin>
-            </TextField>
-         </children>
-         <padding>
-            <Insets left="10.0" top="10.0" />
-         </padding>
-      </HBox>
-      <HBox prefHeight="168.0" prefWidth="530.0">
-         <children>
-            <Label text="Skills: ">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Label>
-            <ListView fx:id="lvSkills" prefHeight="200.0" prefWidth="175.0">
-               <HBox.margin>
-                  <Insets left="5.0" />
-               </HBox.margin>
-            </ListView>
-            <VBox prefHeight="100.0" prefWidth="107.0">
+            <HBox prefHeight="33.0" prefWidth="550.0">
                <children>
-                  <Button fx:id="btnAddSkill" mnemonicParsing="false" onAction="#handleAddSkill" text="Add Skill">
-                     <VBox.margin>
-                        <Insets left="10.0" right="10.0" />
-                     </VBox.margin>
-                  </Button>
-                  <Button fx:id="btnRemoveSkill" mnemonicParsing="false" onAction="#handleRemoveSkill" prefHeight="25.0" prefWidth="113.0" text="Remove Skill">
-                     <VBox.margin>
-                        <Insets left="10.0" right="10.0" top="10.0" />
-                     </VBox.margin>
-                  </Button>
-               </children>
-            </VBox>
-            <ListView fx:id="lvSelectedSkills" prefHeight="168.0" prefWidth="175.0">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </ListView>
-         </children>
-         <VBox.margin>
-            <Insets left="10.0" right="10.0" top="15.0" />
-         </VBox.margin>
-      </HBox>
-      <Button fx:id="btnGenerate" mnemonicParsing="false" onAction="#handleGenerate" text="Generate">
-         <VBox.margin>
-            <Insets left="10.0" top="10.0" />
-         </VBox.margin>
-      </Button>
-      <VBox prefHeight="338.0" prefWidth="550.0">
-         <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Team Proposal:">
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-               <VBox.margin>
-                  <Insets left="10.0" top="10.0" />
-               </VBox.margin>
-            </Text>
-            <HBox prefHeight="233.0" prefWidth="550.0">
-               <children>
-                  <ListView fx:id="lvTeamProposal" prefHeight="200.0" prefWidth="175.0">
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
+                  <Label prefHeight="25.0" prefWidth="90.0" text="Minimum Size: ">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="tfMinSize">
                      <HBox.margin>
-                        <Insets left="10.0" top="10.0" />
+                        <Insets left="5.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <Label prefHeight="25.0" prefWidth="90.0" text="Maximum Size: ">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="tfMaxSize">
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+               <padding>
+                  <Insets left="10.0" top="10.0" />
+               </padding>
+            </HBox>
+            <HBox prefHeight="168.0" prefWidth="530.0">
+               <children>
+                  <Label text="Skills: ">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <ListView fx:id="lvSkills" prefHeight="200.0" prefWidth="175.0">
+                     <HBox.margin>
+                        <Insets left="5.0" />
                      </HBox.margin>
                   </ListView>
-                  <VBox prefHeight="207.0" prefWidth="150.0">
+                  <VBox prefHeight="100.0" prefWidth="107.0">
                      <children>
-                        <Button fx:id="btnAddMember" mnemonicParsing="false" text="Add Member" />
-                        <Button fx:id="btnRemoveMember" mnemonicParsing="false" text="Remove Member">
+                        <Button fx:id="btnAddSkill" mnemonicParsing="false" onAction="#handleAddSkill" style="-fx-background-color: #4169e1; -fx-text-fill: white;" text="Add Skill">
                            <VBox.margin>
-                              <Insets top="10.0" />
+                              <Insets left="10.0" right="10.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button fx:id="btnRemoveSkill" mnemonicParsing="false" onAction="#handleRemoveSkill" prefHeight="25.0" prefWidth="113.0" style="-fx-background-color: #4169e1; -fx-text-fill: white;" text="Remove Skill">
+                           <VBox.margin>
+                              <Insets left="10.0" right="10.0" top="10.0" />
                            </VBox.margin>
                         </Button>
                      </children>
-                     <HBox.margin>
-                        <Insets top="10.0" />
-                     </HBox.margin>
-                     <padding>
-                        <Insets left="10.0" />
-                     </padding>
                   </VBox>
-                  <ListView fx:id="lvCollaborators" prefHeight="144.0" prefWidth="175.0">
+                  <ListView fx:id="lvSelectedSkills" prefHeight="168.0" prefWidth="175.0">
                      <HBox.margin>
-                        <Insets right="10.0" top="10.0" />
+                        <Insets />
                      </HBox.margin>
                   </ListView>
                </children>
-            </HBox>
-            <HBox prefHeight="41.0" prefWidth="550.0">
-               <children>
-                  <Button fx:id="btnAcceptProposal" mnemonicParsing="false" onAction="#handleAcceptProposal" text="Accept Proposal">
-                     <HBox.margin>
-                        <Insets left="10.0" right="10.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button fx:id="btnDeclineProposal" mnemonicParsing="false" onAction="#handleDeclineProposal" text="Decline Proposal" />
-               </children>
                <VBox.margin>
-                  <Insets top="10.0" />
+                  <Insets left="10.0" right="10.0" top="15.0" />
                </VBox.margin>
             </HBox>
+            <Button fx:id="btnGenerate" mnemonicParsing="false" onAction="#handleGenerate" style="-fx-background-color: #388E3C; -fx-text-fill: white;" text="Generate">
+               <VBox.margin>
+                  <Insets left="10.0" top="10.0" />
+               </VBox.margin>
+            </Button>
+            <VBox prefHeight="338.0" prefWidth="550.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Team Proposal:">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="10.0" top="10.0" />
+                     </VBox.margin>
+                  </Text>
+                  <HBox prefHeight="233.0" prefWidth="550.0">
+                     <children>
+                        <ListView fx:id="lvTeamProposal" prefHeight="200.0" prefWidth="175.0">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <HBox.margin>
+                              <Insets left="10.0" top="10.0" />
+                           </HBox.margin>
+                        </ListView>
+                        <VBox prefHeight="207.0" prefWidth="150.0">
+                           <children>
+                              <Button fx:id="btnAddMember" mnemonicParsing="false" style="-fx-background-color: #4169e1; -fx-text-fill: white;" text="Add Member" />
+                              <Button fx:id="btnRemoveMember" mnemonicParsing="false" style="-fx-background-color: #4169e1; -fx-text-fill: white;" text="Remove Member">
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                           <HBox.margin>
+                              <Insets top="10.0" />
+                           </HBox.margin>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </VBox>
+                        <ListView fx:id="lvCollaborators" prefHeight="144.0" prefWidth="175.0">
+                           <HBox.margin>
+                              <Insets right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </ListView>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="41.0" prefWidth="550.0">
+                     <children>
+                        <Button fx:id="btnAcceptProposal" mnemonicParsing="false" onAction="#handleAcceptProposal" style="-fx-background-color: #388E3C; -fx-text-fill: white;" text="Accept Proposal">
+                           <HBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="btnDeclineProposal" mnemonicParsing="false" onAction="#handleDeclineProposal" style="-fx-background-color: #D32F2F; -fx-text-fill: white;" text="Decline Proposal" />
+                     </children>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+            </VBox>
          </children>
       </VBox>
-   </children>
-</VBox>
+   </center>
+   <top>
+      <VBox prefHeight="52.0" prefWidth="550.0" style="-fx-background-color: #2E7D32;" BorderPane.alignment="CENTER">
+         <children>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Generate Team Proposal" textAlignment="CENTER" wrappingWidth="548.544921875">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="8.0" />
+               </VBox.margin>
+            </Text>
+         </children>
+      </VBox>
+   </top>
+</BorderPane>
