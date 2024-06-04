@@ -24,6 +24,7 @@ public class AgendaEntry extends Entry {
     private HourOfDay endHour;
     private StatusOfEntry status;
     private List<Vehicle> vehicleList;
+    private int duration;
 
     private TeamRepository teamRepository = Repositories.getInstance().getTeamRepository();
     private VehicleRepository vehicleRepository = Repositories.getInstance().getVehicleRepository();
@@ -116,8 +117,8 @@ public class AgendaEntry extends Entry {
         public boolean isGreather(HourOfDay otherHour) {
             return this.ordinal() > otherHour.ordinal();
         }
-    }
 
+    }
 
     /**
      * Enumeration representing the status of an agenda entry.
@@ -177,8 +178,9 @@ public class AgendaEntry extends Entry {
             return statusList;
         }
 
-    }
 
+
+    }
     /**
      * Constructs an agenda entry with the specified task, green space, start date, and end date.
      *
@@ -197,6 +199,7 @@ public class AgendaEntry extends Entry {
         this.startHour = startHour;
         this.endDate = endDate;
         this.endHour = endHour;
+        this.duration = calculateDuration();
         this.vehicleList = new ArrayList<>();
         this.team = null;
 
@@ -210,7 +213,6 @@ public class AgendaEntry extends Entry {
     public Date getStartDate() {
         return startDate;
     }
-
     /**
      * Gets the start hour of the task.
      *
@@ -360,14 +362,6 @@ public class AgendaEntry extends Entry {
     }
 
     /**
-     * Checks if the task is postponed.
-     * @return true if the task is postponed, false otherwise.
-     */
-    public boolean isPostponed() {
-        return this.status == StatusOfEntry.POSTPONED;
-    }
-
-    /**
      * Sets the status of the task to "Canceled".
      */
     public void taskCanceled() {
@@ -395,6 +389,15 @@ public class AgendaEntry extends Entry {
         if (endDate.isGreater(startDate)){
             return false;
         } else return !endDate.equals(startDate) || !endHour.isGreather(startHour);
+    }
+
+    public void postponeEntry(Date newDate) {
+        this.startDate = newDate;
+
+    }
+
+    public int calculateDuration(){
+        return this.startDate.difference(this.endDate);
     }
 
     @Override
