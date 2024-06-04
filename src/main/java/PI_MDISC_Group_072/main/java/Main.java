@@ -50,6 +50,10 @@ public class Main {
         StringBuilder fileVertices = new StringBuilder("src/main/java/PI_MDISC_Group_072/Input/" + inputVerticesFile + ".csv");
 
         ArrayList<Vertex> vertices = readVertexFile(fileVertices);
+        for (Vertex vertex : vertices) {
+            String sanitizedVertexName = sanitizeVertexName(vertex.getV());
+            vertex.setV(sanitizedVertexName);
+        }
         int[][] weights = readWeightFile(fileWeights);
         ArrayList<Edge> graphEdges = new ArrayList<>();
         makeEdges(graphEdges, vertices, weights);
@@ -134,6 +138,10 @@ public class Main {
         StringBuilder fileVertices = new StringBuilder("src/main/java/PI_MDISC_Group_072/Input/" + inputVerticesFile + ".csv");
 
         ArrayList<Vertex> vertices = readVertexFile(fileVertices);
+        for (Vertex vertex : vertices) {
+            String sanitizedVertexName = sanitizeVertexName(vertex.getV());
+            vertex.setV(sanitizedVertexName);
+        }
         int[][] weights = readWeightFile(fileWeights);
         ArrayList<Edge> graphEdges = new ArrayList<>();
         makeEdges(graphEdges, vertices, weights);
@@ -173,6 +181,9 @@ public class Main {
             }
         }
 
+    }
+    public static String sanitizeVertexName(String inputName) {
+        return inputName.replace("\uFEFF", "");
     }
 
     public static List<Graph> Dijkstra(ArrayList<Edge> edges, String start, List<String> MPs) {
