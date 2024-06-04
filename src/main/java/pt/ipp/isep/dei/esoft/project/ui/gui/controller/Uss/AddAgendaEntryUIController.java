@@ -1,10 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidAgendaEntryDataException;
 import pt.ipp.isep.dei.esoft.project.application.controller.AddAgendaEntryController;
@@ -27,6 +24,8 @@ import java.util.Optional;
  */
 public class AddAgendaEntryUIController {
 
+    public Button btnAddAgendaEntry;
+    public Button btnCancel;
     @FXML
     private ComboBox<GreenSpaceDto> cbGreenSpace;
 
