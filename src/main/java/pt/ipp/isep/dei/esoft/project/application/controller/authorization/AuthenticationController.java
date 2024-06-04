@@ -14,6 +14,7 @@ public class AuthenticationController {
     public static final String ROLE_HRM = "HUMAN RESOURCES MANAGER";
     public static final String ROLE_VFM = "VEHICLE AND EQUIPMENT FLEET MANAGER";
     public static final String ROLE_GSM = "GREEN SPACE MANAGER";
+    public static final String ROLE_QAM = "SOFTWARE QUALITY ASSESSMENT TEAM MANAGER";
     public static final String ROLE_COL = "COLLABORATOR";
 
     //private final ApplicationSession applicationSession;

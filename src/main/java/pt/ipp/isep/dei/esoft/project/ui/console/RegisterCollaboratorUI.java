@@ -67,6 +67,9 @@ public class RegisterCollaboratorUI implements Runnable {
         System.out.print("Enter ID document number: ");
         String idDocNumber = validateIdDocumentNumber(scanner, idDocType);
 
+        System.out.println("Enter your password, which must contain seven alphanumeric characters, including three capital letters and two digits: ");
+        String password = validatePwd(scanner);
+
         
         System.out.println("Enter the integer corresponding to the desired job: ");
         String jobName = assignJob(scanner);
@@ -294,6 +297,24 @@ public class RegisterCollaboratorUI implements Runnable {
         }
 
         return idDocNumber;
+    }
+
+    private String validatePwd(Scanner scanner){
+        String pwd = "";
+        boolean valid = false;
+
+        while (!valid) {
+
+            try {
+                pwd = scanner.nextLine();
+                valid = ValidatorUtils.isValidPwd(pwd);
+
+            } catch (InvalidCollaboratorDataException e) {
+                System.out.println(e.getMessage());
+                System.out.println("Enter your password, which must contain seven alphanumeric characters, including three capital letters and two digits: ");
+            }
+        }
+        return pwd;
     }
 
     /**

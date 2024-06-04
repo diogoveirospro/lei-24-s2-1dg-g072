@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
+import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import pt.isep.lei.esoft.auth.AuthFacade;
 import pt.isep.lei.esoft.auth.UserSession;
 
@@ -31,7 +32,7 @@ public class AuthenticationRepository {
         return authenticationFacade.addUserRole(id, description);
     }
 
-    public boolean addUserWithRole(String name, String email, String pwd, String roleId) {
-        return authenticationFacade.addUserWithRole(name, email, pwd, roleId);
+    public boolean addUserWithRole(Collaborator collaborator, String roleId) {
+        return authenticationFacade.addUserWithRole(collaborator.getName(), collaborator.getEmail(), collaborator.getPwd(), roleId);
     }
 }

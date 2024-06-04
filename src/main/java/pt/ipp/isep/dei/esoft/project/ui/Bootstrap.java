@@ -34,8 +34,8 @@ public class Bootstrap {
 
     private void addCollaborator() throws InvalidCollaboratorDataException {
         Collaborator c1 = new Collaborator("Ana", new Date(1990, 2, 3),
-                new Date(2010, 3, 1), "Rua1", "912345669", "ana@gmail.com",
-                "123456789", Collaborator.IdDocType.CC, "234564321zx7");
+                new Date(2010, 3, 1), "Rua1", "912345669", "ana@collaborator.com",
+                "123456789", Collaborator.IdDocType.CC, "234564321zx7", "ABC1234");
 
 
         c1.assignSkill(new Skill("Sustainable Land Use Practices"));
@@ -43,8 +43,8 @@ public class Bootstrap {
         c1.assignSkill(new Skill("Landscape Design"));
 
         Collaborator c2 = new Collaborator("João", new Date(1980, 2, 3), new Date(2010,
-                3, 1), "Rua2", "912345669", "joao@gmail.com", "234567899",
-                Collaborator.IdDocType.BI, "232566381");
+                3, 1), "Rua2", "912345669", "joao@collaborator.com", "234567899",
+                Collaborator.IdDocType.BI, "232566381", "ABC1234");
 
 
         c2.assignSkill(new Skill("Plant Identification"));
@@ -52,8 +52,8 @@ public class Bootstrap {
         c2.assignSkill(new Skill("Native Plant Gardening"));
 
         Collaborator c3 = new Collaborator("André", new Date(1970, 2, 3), new Date(2010,
-                3, 1), "Rua3", "912345669", "andre@gmail.com", "345678907",
-                Collaborator.IdDocType.NISS, "23456432125");
+                3, 1), "Rua3", "912345669", "andre@collaborator.com", "345678907",
+                Collaborator.IdDocType.NISS, "23456432125", "ABC1234");
 
 
         c3.assignSkill(new Skill("Plant Identification"));
@@ -61,8 +61,8 @@ public class Bootstrap {
         c3.assignSkill(new Skill("Landscape Design"));
 
         Collaborator c4 = new Collaborator("Manuel", new Date(1999, 2, 3), new Date(2020,
-                3, 1), "Rua4", "912345669", "manuel@gmail.com", "456789014",
-                Collaborator.IdDocType.PASSPORT, "H234564");
+                3, 1), "Rua4", "912345669", "manuel@collaborator.com", "456789014",
+                Collaborator.IdDocType.PASSPORT, "H234564", "ABC1234");
 
 
         c3.assignSkill(new Skill("Plant Identification"));
@@ -126,16 +126,39 @@ public class Bootstrap {
     }
 
 
-    private void addUsers() {
+    private void addUsers() throws InvalidCollaboratorDataException {
         AuthenticationRepository authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
         authenticationRepository.addUserRole(AuthenticationController.ROLE_HRM, AuthenticationController.ROLE_HRM);
         authenticationRepository.addUserRole(AuthenticationController.ROLE_VFM, AuthenticationController.ROLE_VFM);
+        authenticationRepository.addUserRole(AuthenticationController.ROLE_GSM, AuthenticationController.ROLE_GSM);
+        authenticationRepository.addUserRole(AuthenticationController.ROLE_QAM, AuthenticationController.ROLE_QAM);
+        authenticationRepository.addUserRole(AuthenticationController.ROLE_COL, AuthenticationController.ROLE_COL);
 
-        authenticationRepository.addUserWithRole("HRM", "hrm@this.app", "hrm",
-                AuthenticationController.ROLE_HRM);
+        Collaborator hrm = new Collaborator("HRM", new Date(1999, 2, 3), new Date(2020,
+                3, 1), "Rua5", "912632669", "hrm@hrm.com", "212826077",
+                Collaborator.IdDocType.CC, "123454678cc3", "ABC1234");
 
-        authenticationRepository.addUserWithRole("VFM", "vfm@this.app", "vfm",
-                AuthenticationController.ROLE_VFM);
+        Collaborator gsm = new Collaborator("GSM", new Date(1988, 2, 3), new Date(2020,
+                3, 1), "Rua6", "912645629", "gsm@gsm.com", "232139687",
+                Collaborator.IdDocType.CC, "122472678cc3", "ABC1234");
+
+        Collaborator vfm = new Collaborator("VFM", new Date(1989, 2, 3), new Date(2020,
+                3, 1), "Rua7", "914657324", "vfm@vfm.com", "269999450",
+                Collaborator.IdDocType.CC, "123453678zz3", "ABC1234");
+
+        Collaborator qam = new Collaborator("QAM", new Date(1999, 2, 3), new Date(2024,
+                3, 1), "Rua8", "913456734", "qam@qam.com", "241319692",
+                Collaborator.IdDocType.CC, "123485678xx3", "ABC1234");
+
+
+        authenticationRepository.addUserWithRole(hrm, AuthenticationController.ROLE_HRM);
+        authenticationRepository.addUserWithRole(vfm, AuthenticationController.ROLE_VFM);
+        authenticationRepository.addUserWithRole(gsm, AuthenticationController.ROLE_GSM);
+        authenticationRepository.addUserWithRole(qam, AuthenticationController.ROLE_QAM);
+
+        for (Collaborator c : collaboratorRepository.getCollaborators()) {
+            authenticationRepository.addUserWithRole(c, AuthenticationController.ROLE_COL);
+        }
 
     }
 

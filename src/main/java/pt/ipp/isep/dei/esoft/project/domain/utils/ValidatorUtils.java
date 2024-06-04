@@ -127,20 +127,39 @@ public class ValidatorUtils {
     }
 
     /**
-     * Validates a collaborator's email address.
+     * Validates the given email address.
+     * <p>
+     * This method checks if the provided email address is valid based on the following criteria:
+     * 1. It is not null or blank.
+     * 2. It matches a standard email format.
+     * 3. It ends with one of the predefined valid domains.
      *
-     * @param email the email address to validate
-     * @return true if the email address is valid
-     * @throws InvalidCollaboratorDataException if the email is null, blank, or does not match the valid email format
+     * @param email the email address to validate.
+     * @return true if the email is valid, otherwise an exception is thrown.
+     * @throws InvalidCollaboratorDataException if the email is null, blank, not in a valid format, or does not have a valid domain.
      */
     public static boolean isValidEmail(String email) throws InvalidCollaboratorDataException {
         if (email == null || email.isBlank()) {
             throw new InvalidCollaboratorDataException("Invalid input. The e-mail address cannot be blank.");
-        } else if (!email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}")) {
-            throw new InvalidCollaboratorDataException("Invalid input. Enter a valid e-mail address.");
-        } else {
-            return true;
         }
+
+        if (!email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}")) {
+            throw new InvalidCollaboratorDataException("Invalid input. Enter a valid e-mail address.");
+        }
+
+        boolean validEmailType = false;
+        for (Collaborator.typeOfCollaboratorEmails type : Collaborator.typeOfCollaboratorEmails.values()) {
+            if (email.endsWith(type.getEmailType())) {
+                validEmailType = true;
+                break;
+            }
+        }
+
+        if (!validEmailType) {
+            throw new InvalidCollaboratorDataException("Invalid input. The e-mail address must have a valid domain.");
+        }
+
+        return true;
     }
 
     /**
@@ -271,6 +290,16 @@ public class ValidatorUtils {
         }
 
         return true;
+    }
+
+    public static boolean isValidPwd(String pwd) throws InvalidCollaboratorDataException {
+        if (pwd == null || pwd.isBlank()) {
+            throw new InvalidCollaboratorDataException("Invalid input. The password cannot be empty or blank.");
+        } else if (!pwd.matches("^(?=.*[A-Z].*[A-Z].*[A-Z])(?=.*\\d.*\\d)[A-Za-z\\d]{7}$")) {
+            throw new InvalidCollaboratorDataException("Invalid input. The password must contain seven alphanumeric characters, including three capital letters and two digits.");
+        } else {
+            return true;
+        }
     }
 }
 
