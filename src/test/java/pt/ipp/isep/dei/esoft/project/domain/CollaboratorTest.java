@@ -17,13 +17,14 @@ class CollaboratorTest {
         Date admissionDate = new Date(2010, 3, 1);
         String address = "Rua1";
         String mobile = "912345669";
-        String email = "ana@gmail.com";
+        String email = "ana@collaborator.com";
         String taxpayerNumber = "123456789";
         Collaborator.IdDocType idDocType = Collaborator.IdDocType.CC;
         String idDocNumber = "234564321zx7";
+        String pwd = "ABC1234";
 
         Collaborator collaborator = new Collaborator(name, birthDate, admissionDate, address, mobile, email,
-                taxpayerNumber, idDocType, idDocNumber);
+                taxpayerNumber, idDocType, idDocNumber, pwd);
 
         assertNotNull(collaborator);
         assertEquals(name, collaborator.getName());

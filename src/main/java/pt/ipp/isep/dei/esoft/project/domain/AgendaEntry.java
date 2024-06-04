@@ -1,6 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
-import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidAgendaEntryDataException;
+import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidEntryDataException;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 
 import java.util.ArrayList;
@@ -28,10 +28,6 @@ public class AgendaEntry extends Entry {
 
     private TeamRepository teamRepository = Repositories.getInstance().getTeamRepository();
     private VehicleRepository vehicleRepository = Repositories.getInstance().getVehicleRepository();
-
-    public boolean isCanceled() {
-        return false;
-    }
 
     /**
      * Enum representing the hours of the day.
@@ -94,13 +90,13 @@ public class AgendaEntry extends Entry {
          * @return the HourOfDay enum
          * @throws IllegalArgumentException if the hour string is invalid
          */
-        public static HourOfDay fromString(String hour) {
+        public static HourOfDay fromString(String hour) throws InvalidEntryDataException {
             for (HourOfDay hourOfDay : HourOfDay.values()) {
                 if (hourOfDay.getHour().equals(hour)) {
                     return hourOfDay;
                 }
             }
-            throw new IllegalArgumentException("Invalid hour: " + hour);
+            throw new InvalidEntryDataException("Invalid hour: " + hour);
         }
 
         /**
@@ -118,8 +114,15 @@ public class AgendaEntry extends Entry {
          * @param otherHour the other hour to compare
          * @return true if this hour is greater than the other hour, false otherwise
          */
-        public boolean isGreather(HourOfDay otherHour) {
-            return this.ordinal() > otherHour.ordinal();
+        public boolean isGreater(HourOfDay otherHour) {
+            if (otherHour == null || this == otherHour){
+                return false;
+            }
+
+            int hour1 = Integer.parseInt(this.getHour().substring(0, 2));
+            int hour2 = Integer.parseInt(otherHour.getHour().substring(0, 2));
+
+            return hour1 > hour2;
         }
 
     }
@@ -160,13 +163,13 @@ public class AgendaEntry extends Entry {
          * @return the corresponding StatusOfEntry enum
          * @throws IllegalArgumentException if the status string is invalid
          */
-        public static StatusOfEntry getStatusOfEntry(String status) {
+        public static StatusOfEntry getStatusOfEntry(String status) throws InvalidEntryDataException {
             for (StatusOfEntry statusOfEntry : StatusOfEntry.values()) {
                 if (statusOfEntry.getStatus().equals(status)) {
                     return statusOfEntry;
                 }
             }
-            throw new IllegalArgumentException("Invalid status of entry: " + status);
+            throw new InvalidEntryDataException("Invalid status of entry: " + status);
         }
 
         /**
@@ -192,12 +195,12 @@ public class AgendaEntry extends Entry {
      * @param greenSpace the green space associated with this entry
      * @param startDate  the start date of the task
      * @param endDate    the end date of the task
-     * @throws InvalidAgendaEntryDataException if the start date is later than the end date
+     * @throws InvalidEntryDataException if the start date is later than the end date
      */
-    public AgendaEntry(Task task, GreenSpace greenSpace, Date startDate, HourOfDay startHour, Date endDate, HourOfDay endHour) throws InvalidAgendaEntryDataException {
+    public AgendaEntry(Task task, GreenSpace greenSpace, Date startDate, HourOfDay startHour, Date endDate, HourOfDay endHour) throws InvalidEntryDataException {
         super(task, greenSpace);
         if (validateDates(startDate, endDate, startHour, endHour)) {
-            throw new InvalidAgendaEntryDataException("The start date of the task cannot be later than the end date.");
+            throw new InvalidEntryDataException("The start date of the task cannot be later than the end date.");
         }
         this.startDate = startDate;
         this.startHour = startHour;
@@ -206,6 +209,7 @@ public class AgendaEntry extends Entry {
         this.duration = calculateDuration();
         this.vehicleList = new ArrayList<>();
         this.team = null;
+        this.status = StatusOfEntry.SCHEDULE;
 
     }
 
@@ -275,11 +279,11 @@ public class AgendaEntry extends Entry {
      * Sets the start date of the task.
      *
      * @param startDate the new start date
-     * @throws InvalidAgendaEntryDataException if the start date is later than the end date
+     * @throws InvalidEntryDataException if the start date is later than the end date
      */
-    public void setStartDate(Date startDate) throws InvalidAgendaEntryDataException {
+    public void setStartDate(Date startDate) throws InvalidEntryDataException {
         if (validateDates(startDate, endDate, startHour, endHour)) {
-            throw new InvalidAgendaEntryDataException("The start date of the task cannot be later than the end date.");
+            throw new InvalidEntryDataException("The start date of the task cannot be later than the end date.");
         }
         this.startDate = startDate;
     }
@@ -288,11 +292,11 @@ public class AgendaEntry extends Entry {
      * Sets the start hour of the task.
      *
      * @param startHour the new start hour
-     * @throws InvalidAgendaEntryDataException if the start hour is later than the end hour
+     * @throws InvalidEntryDataException if the start hour is later than the end hour
      */
-    public void setStartHour(HourOfDay startHour) throws InvalidAgendaEntryDataException {
+    public void setStartHour(HourOfDay startHour) throws InvalidEntryDataException {
         if (validateDates(startDate, endDate, startHour, endHour)) {
-            throw new InvalidAgendaEntryDataException("The start hour of the task cannot be later than the end hour.");
+            throw new InvalidEntryDataException("The start hour of the task cannot be later than the end hour.");
         }
         this.startHour = startHour;
     }
@@ -301,11 +305,11 @@ public class AgendaEntry extends Entry {
      * Sets the end date of the task.
      *
      * @param endDate the new end date
-     * @throws InvalidAgendaEntryDataException if the end date is earlier than the start date
+     * @throws InvalidEntryDataException if the end date is earlier than the start date
      */
-    public void setEndDate(Date endDate) throws InvalidAgendaEntryDataException {
+    public void setEndDate(Date endDate) throws InvalidEntryDataException {
         if (validateDates(startDate, endDate, startHour, endHour)) {
-            throw new InvalidAgendaEntryDataException("The end date of the task cannot be earlier than the start date.");
+            throw new InvalidEntryDataException("The end date of the task cannot be earlier than the start date.");
         }
         this.endDate = endDate;
     }
@@ -314,39 +318,19 @@ public class AgendaEntry extends Entry {
      * Sets the end hour of the task.
      *
      * @param endHour the new end hour
-     * @throws InvalidAgendaEntryDataException if the end hour is earlier than the start hour
+     * @throws InvalidEntryDataException if the end hour is earlier than the start hour
      */
-    public void setEndHour(HourOfDay endHour) throws InvalidAgendaEntryDataException {
+    public void setEndHour(HourOfDay endHour) throws InvalidEntryDataException {
         if (validateDates(startDate, endDate, startHour, endHour)) {
-            throw new InvalidAgendaEntryDataException("The end hour of the task cannot be earlier than the start hour.");
+            throw new InvalidEntryDataException("The end hour of the task cannot be earlier than the start hour.");
         }
         this.endHour = endHour;
     }
 
-    /**
-     * Sets the list of vehicles associated with this entry.
-     *
-     * @param vehicleList the new list of vehicles
-     * @throws InvalidAgendaEntryDataException if any vehicle is not in the repository
-     */
-    public void setVehicleList(List<Vehicle> vehicleList) throws InvalidAgendaEntryDataException {
-        for (Vehicle vehicle : vehicleList) {
-            if (!vehicleRepository.getVehicleList().contains(vehicle)) {
-                throw new InvalidAgendaEntryDataException("The vehicle is not in the repository.");
-            }
-        }
-        this.vehicleList = vehicleList;
-    }
 
-    /**
-     * Sets the team associated with this entry.
-     *
-     * @param team the new team
-     * @throws InvalidAgendaEntryDataException if the team is not in the repository
-     */
-    public void setTeam(Team team) throws InvalidAgendaEntryDataException {
+    public void addTeam(Team team) throws InvalidEntryDataException {
         if (!teamRepository.getTeams().contains(team)) {
-            throw new InvalidAgendaEntryDataException("The team is not in the repository.");
+            throw new InvalidEntryDataException("The team is not in the repository.");
         }
         this.team = team;
     }
@@ -390,13 +374,23 @@ public class AgendaEntry extends Entry {
      */
     private boolean validateDates(Date startDate, Date endDate, HourOfDay startHour, HourOfDay endHour) {
 
-        if (endDate.isGreater(startDate)){
+
+        if (startDate == null ||  endDate == null || startHour == null || endHour == null) {
+            return true;
+        }else if (endDate.isGreater(startDate) ){
             return false;
-        } else return !endDate.equals(startDate) || !endHour.isGreather(startHour);
+        } else if (startDate.isGreater(endDate)){
+            return true;
+        } else if (startDate.equals(endDate)){
+            return !endHour.isGreater(startHour);
+        } else {
+            return true;
+        }
     }
 
     public void postponeEntry(Date newDate) {
         this.startDate = newDate;
+        taskPostponed();
 
     }
 
@@ -406,6 +400,15 @@ public class AgendaEntry extends Entry {
 
     public int calculateDuration(){
         return this.startDate.difference(this.endDate);
+    }
+
+    public void addVehicleList(List<Vehicle> vehicleList) throws InvalidEntryDataException {
+        for (Vehicle vehicle : vehicleList) {
+            if (!vehicleRepository.getVehicleList().contains(vehicle)) {
+                throw new InvalidEntryDataException("The vehicle is not in the repository.");
+            }
+        }
+        this.vehicleList = vehicleList;
     }
 
     @Override

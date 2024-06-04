@@ -1,6 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.ui;
 
-import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidAgendaEntryDataException;
+import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidEntryDataException;
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidGreenSpaceDataException;
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidTaskDataException;
 import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
@@ -22,7 +22,7 @@ public class Bootstrap {
     private final JobRepository jobRepository = Repositories.getInstance().getJobRepository();
     private final Agenda agenda = Repositories.getInstance().getAgenda();
 
-    public void run() throws InvalidCollaboratorDataException, InvalidTaskDataException, InvalidAgendaEntryDataException, InvalidGreenSpaceDataException {
+    public void run() throws InvalidCollaboratorDataException, InvalidTaskDataException, InvalidEntryDataException, InvalidGreenSpaceDataException {
         addSkill();
         addJob();
         addCollaborator();
@@ -183,7 +183,7 @@ public class Bootstrap {
 
     }
 
-    private void addAgendaEntry() throws InvalidAgendaEntryDataException, InvalidTaskDataException, InvalidGreenSpaceDataException {
+    private void addAgendaEntry() throws InvalidEntryDataException, InvalidTaskDataException, InvalidGreenSpaceDataException {
         GreenSpaceRepository greenSpaceRepository = Repositories.getInstance().getGreenSpaceRepository();
         TaskRepository taskRepository = Repositories.getInstance().getTaskRepository();
         Task task = new Task("Task", "14");

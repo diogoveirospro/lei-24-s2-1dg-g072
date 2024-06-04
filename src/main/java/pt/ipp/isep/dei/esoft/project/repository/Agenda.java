@@ -1,6 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
-import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidAgendaEntryDataException;
+import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidEntryDataException;
 import pt.ipp.isep.dei.esoft.project.domain.*;
 
 import java.util.ArrayList;
@@ -51,15 +51,15 @@ public class Agenda {
      * @param endDate    the end date of the agenda entry.
      * @param endHour    the end hour of the agenda entry.
      * @return the newly created AgendaEntry object.
-     * @throws InvalidAgendaEntryDataException if the provided data is invalid.
+     * @throws InvalidEntryDataException if the provided data is invalid.
      */
     public AgendaEntry createAgendaEntry(Task task, GreenSpace greenSpace, Date startDate, AgendaEntry.HourOfDay startHour,
-                                         Date endDate, AgendaEntry.HourOfDay endHour) throws InvalidAgendaEntryDataException {
+                                         Date endDate, AgendaEntry.HourOfDay endHour) throws InvalidEntryDataException {
 
         try {
             return new AgendaEntry(task, greenSpace, startDate, startHour, endDate, endHour);
-        } catch (InvalidAgendaEntryDataException e) {
-            throw new InvalidAgendaEntryDataException(e.getMessage());
+        } catch (InvalidEntryDataException e) {
+            throw new InvalidEntryDataException(e.getMessage());
         }
     }
 

@@ -1,6 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
-import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidAgendaEntryDataException;
+import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidEntryDataException;
 import pt.ipp.isep.dei.esoft.project.domain.AgendaEntry;
 import pt.ipp.isep.dei.esoft.project.domain.Date;
 import pt.ipp.isep.dei.esoft.project.domain.Task;
@@ -15,9 +15,9 @@ public class PostponeAgendaEntryController {
         this.agenda = agenda;
     }
 
-    public boolean POSTponeAgendaEntry (AgendaEntry agendaEntry, Date newStartDate, Date newEndDate) throws InvalidAgendaEntryDataException{
+    public boolean POSTponeAgendaEntry (AgendaEntry agendaEntry, Date newStartDate, Date newEndDate) throws InvalidEntryDataException {
         if(agendaEntry == null || newEndDate == null || !newEndDate.isGreater(newStartDate)){
-            throw new InvalidAgendaEntryDataException("Invalid Dates");
+            throw new InvalidEntryDataException("Invalid Dates");
         }
         agendaEntry.setStartDate(newStartDate);
         agendaEntry.setEndDate(newEndDate);
