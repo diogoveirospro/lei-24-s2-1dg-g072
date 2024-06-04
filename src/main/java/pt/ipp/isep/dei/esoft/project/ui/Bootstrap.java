@@ -1,5 +1,8 @@
 package pt.ipp.isep.dei.esoft.project.ui;
 
+import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidAgendaEntryDataException;
+import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidGreenSpaceDataException;
+import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidTaskDataException;
 import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
 import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidCollaboratorDataException;
@@ -17,14 +20,16 @@ public class Bootstrap {
     private final CollaboratorRepository collaboratorRepository = Repositories.getInstance().getCollaboratorRepository();
     private final VehicleRepository vehicleRepository = Repositories.getInstance().getVehicleRepository();
     private final JobRepository jobRepository = Repositories.getInstance().getJobRepository();
+    private final Agenda agenda = Repositories.getInstance().getAgenda();
 
-    public void run() throws InvalidCollaboratorDataException {
+    public void run() throws InvalidCollaboratorDataException, InvalidTaskDataException, InvalidAgendaEntryDataException, InvalidGreenSpaceDataException {
         addSkill();
         addJob();
         addCollaborator();
         addVehicle();
         addVehicleMaintenance();
         addUsers();
+        addAgendaEntry();
     }
 
     private void addCollaborator() throws InvalidCollaboratorDataException {
@@ -145,5 +150,11 @@ public class Bootstrap {
     }
     private void addVehicleMaintenance(){
 
+    }
+
+    private void addAgendaEntry() throws InvalidAgendaEntryDataException, InvalidTaskDataException, InvalidGreenSpaceDataException {
+        Entry entry = new Entry(new Task("Task", "14"), new GreenSpace(GreenSpace.TypeOfGreenSpace.GARDEN, "GreenSpace description", 1000.0, "Address", collaboratorRepository.getCollaborator("H234564")));
+        AgendaEntry entry1 = new AgendaEntry(entry.getTask(), new GreenSpace(GreenSpace.TypeOfGreenSpace.GARDEN, "GreenSpace description", 1000.0, "Address", collaboratorRepository.getCollaborator("H234564")), new Date(2021, 1, 1), AgendaEntry.HourOfDay.H01,new Date(2021, 1, 1), AgendaEntry.HourOfDay.H06);
+        agenda.addAgendaEntry(entry1);
     }
 }

@@ -1,4 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -20,6 +22,7 @@ import pt.ipp.isep.dei.esoft.project.repository.Agenda;
 import pt.ipp.isep.dei.esoft.project.repository.CollaboratorRepository;
 import pt.ipp.isep.dei.esoft.project.repository.GreenSpaceRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.AlertUI;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.GSMUI;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.MainMenuUI;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss.PostponeEntryUI;
@@ -38,20 +41,26 @@ public class PostponeEntryUIController {
 
     private final List<AgendaEntry> agendaEntries = getAgendaEntryList();
 
+    private AlertUI alertUI;
+
     private final PostponeEntryController postponeEntryController = new PostponeEntryController();
 
     private PostponeEntryUI postponeEntryUI;
 
     private GSMUI gsmui;
 
+    ObservableList<String> methods;
+
     public PostponeEntryUIController() {
         this.agenda = Repositories.getInstance().getAgenda();
         this.greenSpaceRepository = Repositories.getInstance().getGreenSpaceRepository();
+        this.alertUI = new AlertUI();
     }
 
     public PostponeEntryUIController(Agenda agenda, GreenSpaceRepository greenSpaceRepository) {
         this.agenda = agenda;
         this.greenSpaceRepository = greenSpaceRepository;
+        this.alertUI = new AlertUI();
     }
 
     public List<GreenSpaceDto> getListGreenSpaces() {
@@ -70,7 +79,11 @@ public class PostponeEntryUIController {
     }
 
     public List<AgendaEntry> getAgendaEntryList(){
-        return Objects.requireNonNull(agenda).getEntryList();
+        if (agenda != null) {
+            return agenda.getEntryList();
+        }else {
+            return null;
+        }
     }
 
     public List<AgendaEntryDto> entryListToDto(){
@@ -97,7 +110,8 @@ public class PostponeEntryUIController {
     @FXML
     public void initialize() {
         try{
-
+            methods = FXCollections.observableArrayList((postponeEntryController.getAgendaEntryListString()));
+            cmbAgendaEntries.setItems(methods);
         } catch (Exception e) {
             System.out.println("Error while loading the status list.");
         }
@@ -118,7 +132,7 @@ public class PostponeEntryUIController {
     public void postpone(ActionEvent actionEvent) {
         try {
             if (cmbAgendaEntries.getSelectionModel().isEmpty() || date.getValue() == null) {
-                showAlert(Alert.AlertType.ERROR, "Error", "Please select an agenda entry and a date to postpone it to.");
+                alertUI.createAnAlert(Alert.AlertType.ERROR, "Musgo Sublime","Postpone Entry Error", "Please select an agenda entry and a date to postpone it to.");
                 return;
             }
             LocalDate newDate = date.getValue();
@@ -126,16 +140,8 @@ public class PostponeEntryUIController {
             AgendaEntry agendaEntry = (AgendaEntry) cmbAgendaEntries.getSelectionModel().getSelectedItem();
             postponeEntryController.postponeAgendaEntry(agendaEntry, date);
         } catch (Exception e) {
-            System.out.println("An error occurred while handling the postpone action: " + e.getMessage());
-        }
+            alertUI.createAnAlert(Alert.AlertType.ERROR, "Musgo Sublime","Postpone Entry Error", "An error occurred while postponing entry.");        }
     }
 
-    private void showAlert(Alert.AlertType alertType, String title, String message) {
-
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setHeaderText(message);
-        alert.showAndWait();
-    }
 }
 

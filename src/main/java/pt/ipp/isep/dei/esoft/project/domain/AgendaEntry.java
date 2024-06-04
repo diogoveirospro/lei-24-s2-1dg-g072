@@ -400,6 +400,10 @@ public class AgendaEntry extends Entry {
 
     }
 
+    public String getName(){
+        return super.getTask().getTaskId();
+    }
+
     public int calculateDuration(){
         return this.startDate.difference(this.endDate);
     }

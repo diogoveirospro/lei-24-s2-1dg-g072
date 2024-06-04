@@ -4,6 +4,7 @@ import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidAgendaEntryDataException;
 import pt.ipp.isep.dei.esoft.project.domain.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -39,12 +40,12 @@ public class Agenda {
     /**
      * Creates a new agenda entry with the specified task, green space, start date, and end date.
      *
-     * @param task the task associated with the agenda entry.
+     * @param task       the task associated with the agenda entry.
      * @param greenSpace the green space associated with the agenda entry.
-     * @param startDate the start date of the agenda entry.
-     * @param startHour the start hour of the agenda entry.
-     * @param endDate the end date of the agenda entry.
-     * @param endHour the end hour of the agenda entry.
+     * @param startDate  the start date of the agenda entry.
+     * @param startHour  the start hour of the agenda entry.
+     * @param endDate    the end date of the agenda entry.
+     * @param endHour    the end hour of the agenda entry.
      * @return the newly created AgendaEntry object.
      * @throws InvalidAgendaEntryDataException if the provided data is invalid.
      */
@@ -75,7 +76,23 @@ public class Agenda {
     public List<AgendaEntry> getEntriesAgenda() {
         return entriesAgenda;
     }
+
     public List<AgendaEntry> getEntryList() {
-        return new ArrayList<>(entriesAgenda);
+        List<AgendaEntry> entryList = new ArrayList<>();
+        for (AgendaEntry entry : entriesAgenda) {
+            entryList.add(entry);
+        }
+        return entryList;
+    }
+
+    public List<String> getAgendaEntryList() {
+        List<AgendaEntry> entryList;
+        String[] entryListArray = new String[0];
+        entryList = getEntryList();
+        for (int i = 0; i < entryList.size(); i++) {
+            entryListArray = new String[]{entryList.get(i).getName()};
+        }
+
+        return new ArrayList<>(Arrays.asList(entryListArray));
     }
 }

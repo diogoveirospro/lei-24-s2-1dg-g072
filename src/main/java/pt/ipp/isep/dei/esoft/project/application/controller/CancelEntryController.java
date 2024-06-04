@@ -61,13 +61,11 @@ public class CancelEntryController {
         return agendaEntryMapper.toDtoList(agendaEntries);
     }
 
-    public boolean cancelAgendaEntry(AgendaEntry agendaEntry) throws InvalidAgendaEntryDataException {
+    public void cancelAgendaEntry(AgendaEntry agendaEntry) throws InvalidAgendaEntryDataException {
         if (agendaEntry == null) {
             throw new InvalidAgendaEntryDataException("Agenda Entry is invalid.");
         } else
             agendaEntry.taskCanceled();
-        return agendaEntry.isCanceled();
     }
-
 
 }
