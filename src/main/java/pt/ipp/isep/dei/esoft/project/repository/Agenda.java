@@ -42,12 +42,20 @@ public class Agenda {
      * @param task the task associated with the agenda entry.
      * @param greenSpace the green space associated with the agenda entry.
      * @param startDate the start date of the agenda entry.
+     * @param startHour the start hour of the agenda entry.
      * @param endDate the end date of the agenda entry.
+     * @param endHour the end hour of the agenda entry.
      * @return the newly created AgendaEntry object.
+     * @throws InvalidAgendaEntryDataException if the provided data is invalid.
      */
-    public AgendaEntry createAgendaEntry(Task task, GreenSpace greenSpace, Date startDate, Date endDate) throws InvalidAgendaEntryDataException {
-        //return new AgendaEntry(task, greenSpace,startDate, endDate);
-        return null;
+    public AgendaEntry createAgendaEntry(Task task, GreenSpace greenSpace, Date startDate, AgendaEntry.HourOfDay startHour,
+                                         Date endDate, AgendaEntry.HourOfDay endHour) throws InvalidAgendaEntryDataException {
+
+        try {
+            return new AgendaEntry(task, greenSpace, startDate, startHour, endDate, endHour);
+        } catch (InvalidAgendaEntryDataException e) {
+            throw new InvalidAgendaEntryDataException(e.getMessage());
+        }
     }
 
     /**

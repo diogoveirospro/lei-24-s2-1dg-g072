@@ -87,12 +87,12 @@
       </HBox>
       <HBox prefHeight="75.0" prefWidth="812.0">
          <children>
-            <Button fx:id="btnAddAgendaEntry" mnemonicParsing="false" text="Add Agenda Entry">
+            <Button fx:id="btnAddAgendaEntry" mnemonicParsing="false" onAction="#handleAddAgendaEntry" text="Add Agenda Entry">
                <HBox.margin>
                   <Insets left="20.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="btnCancel" mnemonicParsing="false" text="Cancel">
+            <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#handleCancel" text="Cancel">
                <HBox.margin>
                   <Insets left="20.0" />
                </HBox.margin>

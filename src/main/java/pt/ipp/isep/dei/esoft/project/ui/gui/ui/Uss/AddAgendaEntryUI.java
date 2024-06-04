@@ -5,9 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidAgendaEntryDataException;
 import pt.ipp.isep.dei.esoft.project.Mapper.GreenSpaceMapper;
@@ -18,11 +16,16 @@ import pt.ipp.isep.dei.esoft.project.dto.GreenSpaceDto;
 import pt.ipp.isep.dei.esoft.project.dto.ToDoListEntryDto;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 import pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.AddAgendaEntryUIController;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.AlertUI;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.GSMUI;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.MainMenuUI;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class AddAgendaEntryUI implements Initializable {
@@ -67,14 +70,104 @@ public class AddAgendaEntryUI implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        AddAgendaEntryUIController controller = new AddAgendaEntryUIController();
+        populateGreenSpacesComboBox();
+        populateToDoListEntriesComboBox();
+        populateHoursComboBox();
 
+    }
+
+    private void populateGreenSpacesComboBox() {
+        AddAgendaEntryUIController controller = new AddAgendaEntryUIController();
         List<GreenSpaceDto> greenSpaceDtoList = controller.getListGreenSpaces();
         cbGreenSpace.getItems().addAll(greenSpaceDtoList);
-        GreenSpaceDto greenSpaceDto = cbGreenSpace.getSelectionModel().getSelectedItem();
+    }
 
+    private void populateToDoListEntriesComboBox() {
+        GreenSpaceDto greenSpaceDto = cbGreenSpace.getSelectionModel().getSelectedItem();
+        AddAgendaEntryUIController controller = new AddAgendaEntryUIController();
         List<ToDoListEntryDto> toDoListEntryDtoList = controller.getToDoListEntries(greenSpaceDto);
         cbTask.getItems().addAll(toDoListEntryDtoList);
-        ToDoListEntryDto toDoListEntryDto = cbTask.getSelectionModel().getSelectedItem();
+    }
+
+    private LocalDate getStartDate() {
+        return dpStartDate.getValue();
+    }
+
+    private LocalDate getEndDate() {
+        return dpEndDate.getValue();
+    }
+
+    private void populateHoursComboBox() {
+        for (int i = 0; i < 24; i++) {
+            cbStartHour.getItems().add(i + ":00");
+            cbEndHour.getItems().add(i + ":00");
+        }
+    }
+
+    @FXML
+    public void handleAddAgendaEntry() {
+
+        boolean added = false;
+        AddAgendaEntryUIController controller = new AddAgendaEntryUIController();
+        AgendaEntry agendaEntry = null;
+
+        try {
+            GreenSpaceDto greenSpaceDto = cbGreenSpace.getSelectionModel().getSelectedItem();
+            ToDoListEntryDto toDoListEntryDto = cbTask.getSelectionModel().getSelectedItem();
+
+            String startHour = cbStartHour.getSelectionModel().getSelectedItem();
+            String endHour = cbEndHour.getSelectionModel().getSelectedItem();
+
+            LocalDate startLocalDate = getStartDate();
+            LocalDate endLocalDate = getEndDate();
+
+            AgendaEntry.HourOfDay startHourOfDay = AgendaEntry.HourOfDay.fromString(startHour);
+            AgendaEntry.HourOfDay endHourOfDay = AgendaEntry.HourOfDay.fromString(endHour);
+
+            Task task = controller.getTask(toDoListEntryDto);
+            GreenSpace greenSpace = (GreenSpace) controller.toDomain(greenSpaceDto);
+            Date startDate = new Date(startLocalDate.getYear(), startLocalDate.getMonthValue(), startLocalDate.getDayOfMonth());
+            Date endDate = new Date(endLocalDate.getYear(), endLocalDate.getMonthValue(), endLocalDate.getDayOfMonth());
+
+            agendaEntry = controller.createAgendaEntry(task, greenSpace, startDate, startHourOfDay, endDate, endHourOfDay);
+            added = controller.addAgendaEntry(agendaEntry);
+
+            GSMUI gsmui = new GSMUI();
+            gsmui.showUI(new Stage());
+        } catch (InvalidAgendaEntryDataException e) {
+            AlertUI.createAnAlert(Alert.AlertType.ERROR, "Add Agenda Entry", "Error.", e.getMessage()).show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        if (added) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation");
+            alert.setHeaderText("Are you sure you want to add this agenda entry?");
+            alert.setContentText("The data provided will be used to create the new entry.");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+
+                try {
+                    controller.addAgendaEntry(agendaEntry);
+                } catch (InvalidAgendaEntryDataException e) {
+                    AlertUI.createAnAlert(Alert.AlertType.ERROR, "Add Agenda Entry", "Error.", e.getMessage()).show();
+                }
+            } else {
+                //permitirAlterarDados();
+            }
+        }
+
+    }
+
+    @FXML
+    public void handleCancel() {
+        GSMUI gsmui = new GSMUI();
+        try {
+            gsmui.showUI(new Stage());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

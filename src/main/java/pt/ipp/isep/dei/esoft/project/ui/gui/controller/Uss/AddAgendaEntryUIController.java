@@ -98,18 +98,20 @@ public class AddAgendaEntryUIController {
     }
 
     /**
-     * Creates a new agenda entry.
+     * Creates a new agenda entry with the provided data.
      *
-     * @param task       the task associated with the agenda entry
-     * @param greenSpace the green space associated with the agenda entry
-     * @param startDate  the start date of the agenda entry
-     * @param endDate    the end date of the agenda entry
-     * @return the created agenda entry
-     * @throws InvalidAgendaEntryDataException if the start date is later than the end date
+     * @param task          The task associated with the agenda entry. May be null.
+     * @param greenSpace    The green space associated with the agenda entry. May be null.
+     * @param startDate     The start date of the agenda entry. Cannot be null.
+     * @param startHour     The start hour of the agenda entry. Cannot be null.
+     * @param endDate       The end date of the agenda entry. Cannot be null.
+     * @param endHour       The end hour of the agenda entry. Cannot be null.
+     * @return              The new agenda entry created.
+     * @throws InvalidAgendaEntryDataException If the provided data is invalid.
      */
-    public AgendaEntry createAgendaEntry(Task task, GreenSpace greenSpace, Date startDate, Date endDate) throws InvalidAgendaEntryDataException {
+    public AgendaEntry createAgendaEntry(Task task, GreenSpace greenSpace, Date startDate, AgendaEntry.HourOfDay startHour, Date endDate, AgendaEntry.HourOfDay endHour) throws InvalidAgendaEntryDataException {
         agenda = Repositories.getInstance().getAgenda();
-        return agenda.createAgendaEntry(task, greenSpace, startDate, endDate);
+        return agenda.createAgendaEntry(task, greenSpace, startDate, startHour, endDate, endHour);
     }
 
     /**
