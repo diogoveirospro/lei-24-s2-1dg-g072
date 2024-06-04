@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox prefHeight="426.0" prefWidth="812.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss.AddAgendaEntryUI">
+<VBox prefHeight="426.0" prefWidth="812.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.AddAgendaEntryUIController">
    <children>
       <Text fill="#ff0101" strokeType="OUTSIDE" strokeWidth="0.0" text="GSM | Add New Entry to the Agenda">
          <font>

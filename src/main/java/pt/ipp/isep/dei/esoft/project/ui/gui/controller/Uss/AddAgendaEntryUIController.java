@@ -1,14 +1,25 @@
 package pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss;
 
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidAgendaEntryDataException;
-import pt.ipp.isep.dei.esoft.project.Mapper.GreenSpaceMapper;
-import pt.ipp.isep.dei.esoft.project.Mapper.ToDoListMapper;
-import pt.ipp.isep.dei.esoft.project.application.session.ApplicationSession;
+import pt.ipp.isep.dei.esoft.project.application.controller.AddAgendaEntryController;
 import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.dto.GreenSpaceDto;
 import pt.ipp.isep.dei.esoft.project.dto.ToDoListEntryDto;
 import pt.ipp.isep.dei.esoft.project.repository.*;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.AlertUI;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.GSMUI;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss.AddAgendaEntryUI;
+
+import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Controller for managing agenda entries.
@@ -16,131 +27,148 @@ import java.util.List;
  */
 public class AddAgendaEntryUIController {
 
-    private CollaboratorRepository collaboratorRepository;
+    @FXML
+    private ComboBox<GreenSpaceDto> cbGreenSpace;
 
-    private GreenSpaceRepository greenSpaceRepository;
+    @FXML
+    private ComboBox<ToDoListEntryDto> cbTask;
 
-    private ToDoList toDoList;
+    @FXML
+    private DatePicker dpStartDate;
 
-    private Agenda agenda;
+    @FXML
+    private DatePicker dpEndDate;
+
+    @FXML
+    private ComboBox<String> cbStartHour;
+
+    @FXML
+    private ComboBox<String> cbEndHour;
+
+    AddAgendaEntryController controller = new AddAgendaEntryController();
+    AddAgendaEntryUI addAgendaEntryUI = new AddAgendaEntryUI();
 
     /**
-     * Default constructor initializing the repositories and agenda from the singleton instance of Repositories.
+     * Populates the combo box with green spaces.
      */
-    public AddAgendaEntryUIController() {
-        collaboratorRepository = Repositories.getInstance().getCollaboratorRepository();
-        greenSpaceRepository = Repositories.getInstance().getGreenSpaceRepository();
-        toDoList = Repositories.getInstance().getToDoList();
-        agenda = Repositories.getInstance().getAgenda();
+    public void populateGreenSpacesComboBox() {
+        List<GreenSpaceDto> greenSpaceDtoList = controller.getListGreenSpaces();
+        cbGreenSpace.getItems().addAll(greenSpaceDtoList);
     }
 
     /**
-     * Constructor for initializing the controller with specific repositories and agenda.
-     *
-     * @param collaboratorRepository the collaborator repository
-     * @param greenSpaceRepository   the green space repository
-     * @param toDoList               the to-do list
-     * @param agenda                 the agenda
+     * Populates the combo box with to-do list entries based on the selected green space.
      */
-    public AddAgendaEntryUIController(CollaboratorRepository collaboratorRepository,
-                                    GreenSpaceRepository greenSpaceRepository, ToDoList toDoList, Agenda agenda) {
-        this.collaboratorRepository = collaboratorRepository;
-        this.greenSpaceRepository = greenSpaceRepository;
-        this.toDoList = toDoList;
-        this.agenda = agenda;
+    public void populateToDoListEntriesComboBox() {
+        GreenSpaceDto greenSpaceDto = cbGreenSpace.getSelectionModel().getSelectedItem();
+        List<ToDoListEntryDto> toDoListEntryDtoList = controller.getToDoListEntries(greenSpaceDto);
+        cbTask.getItems().addAll(toDoListEntryDtoList);
     }
 
     /**
-     * Retrieves a list of green spaces managed by the current session's collaborator.
+     * Gets the start date from the date picker.
      *
-     * @return a list of GreenSpaceDto representing the green spaces
+     * @return The selected start date.
      */
-    public List<GreenSpaceDto> getListGreenSpaces() {
-        Collaborator GSM = getCollaboratorFromSession();
-        List<GreenSpace> listGreenSpaces = greenSpaceRepository.getListGreenSpacesManagedByGsm(GSM);
-
-        GreenSpaceMapper greenSpaceMapper = new GreenSpaceMapper();
-
-        return greenSpaceMapper.greenSpaceListToDto(listGreenSpaces);
+    private LocalDate getStartDate() {
+        return dpStartDate.getValue();
     }
 
     /**
-     * Retrieves the collaborator from the current session.
+     * Gets the end date from the date picker.
      *
-     * @return the collaborator associated with the current session's user email
+     * @return The selected end date.
      */
-    private Collaborator getCollaboratorFromSession() {
-        String email = ApplicationSession.getInstance().getCurrentSession().getUserEmail();
-        return collaboratorRepository.getCollaboratorByEmail(email);
+    private LocalDate getEndDate() {
+        return dpEndDate.getValue();
     }
 
     /**
-     * Retrieves a list of to-do list entries for a given green space.
-     *
-     * @param greenSpaceDto the green space DTO
-     * @return a list of ToDoListEntryDto representing the to-do list entries
+     * Populates the combo boxes for start and end hours.
      */
-    public List<ToDoListEntryDto> getToDoListEntries(GreenSpaceDto greenSpaceDto) {
-        GreenSpace greenSpace = (GreenSpace) toDomain(greenSpaceDto);
-        List<ToDoListEntry> listEntries = greenSpace.getToDoList().getToDoListEntries();
-        return ToDoListMapper.toDoListEntriesToDto(listEntries);
-    }
-
-    /**
-     * Retrieves the task associated with a given to-do list entry DTO.
-     *
-     * @param toDoListEntryDto the to-do list entry DTO
-     * @return the task associated with the to-do list entry
-     */
-    public Task getTask(ToDoListEntryDto toDoListEntryDto) {
-        ToDoListEntry toDoListEntry = (ToDoListEntry) toDomain(toDoListEntryDto);
-        return toDoListEntry.getTask();
-    }
-
-    /**
-     * Creates a new agenda entry with the provided data.
-     *
-     * @param task          The task associated with the agenda entry. May be null.
-     * @param greenSpace    The green space associated with the agenda entry. May be null.
-     * @param startDate     The start date of the agenda entry. Cannot be null.
-     * @param startHour     The start hour of the agenda entry. Cannot be null.
-     * @param endDate       The end date of the agenda entry. Cannot be null.
-     * @param endHour       The end hour of the agenda entry. Cannot be null.
-     * @return              The new agenda entry created.
-     * @throws InvalidAgendaEntryDataException If the provided data is invalid.
-     */
-    public AgendaEntry createAgendaEntry(Task task, GreenSpace greenSpace, Date startDate, AgendaEntry.HourOfDay startHour, Date endDate, AgendaEntry.HourOfDay endHour) throws InvalidAgendaEntryDataException {
-        agenda = Repositories.getInstance().getAgenda();
-        return agenda.createAgendaEntry(task, greenSpace, startDate, startHour, endDate, endHour);
-    }
-
-    /**
-     * Adds an agenda entry to the agenda.
-     *
-     * @param agendaEntry the agenda entry to be added
-     * @return true if the entry was successfully added, false otherwise
-     * @throws InvalidAgendaEntryDataException if the agenda entry is invalid
-     */
-    public boolean addAgendaEntry(AgendaEntry agendaEntry) throws InvalidAgendaEntryDataException {
-        if (agendaEntry == null) {
-            throw new InvalidAgendaEntryDataException("Agenda Entry is invalid.");
+    public void populateHoursComboBox() {
+        for (int i = 0; i < 24; i++) {
+            cbStartHour.getItems().add(i + ":00");
+            cbEndHour.getItems().add(i + ":00");
         }
-        return agenda.addAgendaEntry(agendaEntry);
     }
 
     /**
-     * Converts a DTO to its domain object equivalent.
-     *
-     * @param <T> the type of the DTO
-     * @param dto the DTO to be converted
-     * @return the domain object equivalent of the DTO, or null if the conversion is not applicable
+     * Handles the action of adding a new agenda entry.
      */
-    public <T> Object toDomain(T dto) {
-        if (dto instanceof GreenSpaceDto) {
-            return greenSpaceRepository.getGreenSpaceByParkName(((GreenSpaceDto) dto).getParkName());
-        } else if (dto instanceof ToDoListEntryDto) {
-            return toDoList.getToDoListEntryByTaskHashCode(((ToDoListEntryDto) dto).getTaskHashCode());
+    @FXML
+    public void handleAddAgendaEntry() {
+
+        boolean added = false;
+        AgendaEntry agendaEntry = null;
+
+        try {
+            GreenSpaceDto greenSpaceDto = cbGreenSpace.getSelectionModel().getSelectedItem();
+            ToDoListEntryDto toDoListEntryDto = cbTask.getSelectionModel().getSelectedItem();
+
+            String startHour = cbStartHour.getSelectionModel().getSelectedItem();
+            String endHour = cbEndHour.getSelectionModel().getSelectedItem();
+
+            LocalDate startLocalDate = getStartDate();
+            LocalDate endLocalDate = getEndDate();
+
+            AgendaEntry.HourOfDay startHourOfDay = AgendaEntry.HourOfDay.fromString(startHour);
+            AgendaEntry.HourOfDay endHourOfDay = AgendaEntry.HourOfDay.fromString(endHour);
+
+            Task task = controller.getTask(toDoListEntryDto);
+            GreenSpace greenSpace = (GreenSpace) controller.toDomain(greenSpaceDto);
+            Date startDate = new Date(startLocalDate.getYear(), startLocalDate.getMonthValue(), startLocalDate.getDayOfMonth());
+            Date endDate = new Date(endLocalDate.getYear(), endLocalDate.getMonthValue(), endLocalDate.getDayOfMonth());
+
+            agendaEntry = controller.createAgendaEntry(task, greenSpace, startDate, startHourOfDay, endDate, endHourOfDay);
+            added = controller.addAgendaEntry(agendaEntry);
+
+            GSMUI gsmui = new GSMUI();
+            gsmui.showUI(new Stage());
+        } catch (InvalidAgendaEntryDataException e) {
+            AlertUI.createAnAlert(Alert.AlertType.ERROR, "Add Agenda Entry", "Error.", e.getMessage()).show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-        return null;
+
+        if (added) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation");
+            alert.setHeaderText("Are you sure you want to add this agenda entry?");
+            alert.setContentText("The data provided will be used to create the new entry.");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                try {
+                    controller.addAgendaEntry(agendaEntry);
+                } catch (InvalidAgendaEntryDataException e) {
+                    AlertUI.createAnAlert(Alert.AlertType.ERROR, "Add Agenda Entry", "Error.", e.getMessage()).show();
+                }
+            }
+        }
+    }
+
+    /**
+     * Handles the action of canceling and returning to the main UI.
+     */
+    @FXML
+    public void handleCancel() {
+        GSMUI gsmui = new GSMUI();
+        try {
+            gsmui.showUI(new Stage());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void setAddAgendaEntryUI (AddAgendaEntryUI addAgendaEntryUI) {
+        this.addAgendaEntryUI = addAgendaEntryUI;
+    }
+
+    @FXML
+    public void initialize() {
+        populateGreenSpacesComboBox();
+        populateHoursComboBox();
+        populateToDoListEntriesComboBox();
     }
 }
