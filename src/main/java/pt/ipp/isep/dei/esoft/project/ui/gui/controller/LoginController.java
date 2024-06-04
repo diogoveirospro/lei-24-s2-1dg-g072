@@ -33,16 +33,16 @@ public class LoginController {
         String email = txtEmail.getText();
         String password = txtPassword.getText();
         try {
-            if (email.equals("hrm@this.app") && password.equals("hrm")) {
+            if (email.contains("@hrm.com")) {
                 hrmUI = new HRMUI();
                 hrmUI.showUI(MainMenuUI.getPrimaryStage());
-            } else if (email.equals("gsm@this.app") && password.equals("gsm")) {
+            } else if (email.contains("@gsm.com")) {
                 gsmUI = new GSMUI();
                 gsmUI.showUI(MainMenuUI.getPrimaryStage());
-            } else if (email.equals("collaborator@this.app") && password.equals("collaborator")) {
+            } else if (email.contains("@collaborator.com")) {
                 collaboratorUI = new CollaboratorUI();
                 collaboratorUI.showUI(MainMenuUI.getPrimaryStage());
-            } else if (email.equals("vfm@this.app") && password.equals("vfm@this.app")) {
+            } else if (email.contains("@vfm.com")) {
                 fmUI = new FMUI();
                 fmUI.showUI(MainMenuUI.getPrimaryStage());
             }
