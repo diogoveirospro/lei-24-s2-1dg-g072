@@ -412,5 +412,8 @@ public class Vehicle {
         return Objects.hash(plateNumber, brand, model, type, tare, grossWeight, currentKms, registrationDate, acquisitionDate, serviceFrequency, kmAtLastMaintenance);
     }
 
+    public boolean validateVehicleForEntry(AgendaEntry agendaEntry) {
+        return !agendaEntry.getVehicleList().contains(this);
+    }
 
 }

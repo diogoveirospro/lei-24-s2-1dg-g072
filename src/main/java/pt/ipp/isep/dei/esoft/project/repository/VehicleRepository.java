@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
+import pt.ipp.isep.dei.esoft.project.domain.AgendaEntry;
 import pt.ipp.isep.dei.esoft.project.domain.Date;
 import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
 
@@ -141,5 +142,17 @@ public class VehicleRepository {
             }
         }
         return null;
+    }
+
+    public List<Vehicle> getValidVehicles(AgendaEntry agendaEntry) {
+        List<Vehicle> validVehicles = new ArrayList<>();
+        List<Vehicle> allVehicles = Repositories.getInstance().getVehicleRepository().getVehicleList();
+
+        for (Vehicle vehicle : allVehicles) {
+            if (vehicle.validateVehicleForEntry(agendaEntry)) {
+                validVehicles.add(vehicle);
+            }
+        }
+        return validVehicles;
     }
 }
