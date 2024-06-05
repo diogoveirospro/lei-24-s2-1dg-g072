@@ -95,4 +95,8 @@ public class Agenda {
 
         return entryListString;
     }
+
+    public boolean assignTeamToAgendaEntry(AgendaEntry agendaEntry, Team team) {
+        return agendaEntry.assignTeam(team);
+    }
 }

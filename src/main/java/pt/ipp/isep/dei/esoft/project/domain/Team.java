@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import pt.ipp.isep.dei.esoft.project.repository.Agenda;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +16,8 @@ public class Team {
      * List of collaborators representing the team.
      */
     List<Collaborator> team;
+
+    List<AgendaEntry> agendaEntriesAssignedToTeam = new ArrayList<>();
 
     public Team (List<Collaborator> members){
         this.team = members;
@@ -169,5 +173,22 @@ public class Team {
 
     public boolean validateCollaboratorTeam(Collaborator collaborator, Team team) {
         return team.getTeam().contains(collaborator);
+    }
+
+    public boolean validateTeamToBeAssignedToAnAgendaEntry(AgendaEntry agendaEntry) {
+        for (AgendaEntry entry : agendaEntriesAssignedToTeam) {
+            if (entry.getStartDate().isGreater(agendaEntry.getStartDate()) && agendaEntry.getEndDate().isGreater(entry.getEndDate())) {
+                return false;
+            } else if (entry.getStartDate().equals(agendaEntry.getStartDate()) && entry.getEndDate().equals(agendaEntry.getEndDate())) {
+                return false;
+
+            }
+        }
+        return true;
+    }
+
+    public boolean assignAgendaEntry(AgendaEntry agendaEntry) {
+        agendaEntriesAssignedToTeam.add(agendaEntry);
+        return true;
     }
 }

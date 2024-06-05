@@ -426,6 +426,14 @@ public class AgendaEntry extends Entry {
         this.vehicleList = vehicleList;
     }
 
+    public boolean assignTeam(Team team) {
+        if (team == null) {
+            return false;
+        }
+        this.team = team;
+        return team.assignAgendaEntry(this);
+    }
+
     @Override
     public Task getTask() {
         return super.getTask();

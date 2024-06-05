@@ -1,8 +1,10 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
+import pt.ipp.isep.dei.esoft.project.domain.AgendaEntry;
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
 import pt.ipp.isep.dei.esoft.project.domain.Team;
+import pt.ipp.isep.dei.esoft.project.dto.AgendaEntryDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -111,5 +113,15 @@ public class TeamRepository {
         } else {
             return teamList;
         }
+    }
+
+    public List<Team> getValidTeams(AgendaEntry agendaEntry) {
+        List<Team> validTeams = new ArrayList<>();
+        for (Team team : teams) {
+            if (team.validateTeamToBeAssignedToAnAgendaEntry(agendaEntry)) {
+                validTeams.add(team);
+            }
+        }
+        return validTeams;
     }
 }
