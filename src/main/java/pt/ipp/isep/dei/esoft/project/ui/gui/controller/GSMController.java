@@ -44,6 +44,7 @@ public class GSMController {
     }
     public void handleLogoutButtonAction() {
         try {
+
             mainMenuUI = new MainMenuUI();
             mainMenuUI.loadMainMenu();
         } catch (Exception e) {
