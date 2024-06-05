@@ -31,6 +31,7 @@ public class GreenSpace {
      * The manager of the green space.
      */
     private Collaborator greenSpaceManager;
+
     /**
      * All types of green spaces.
      */
@@ -54,13 +55,13 @@ public class GreenSpace {
             return type;
         }
 
-        public static TypeOfGreenSpace getTypeOfGreenSpace(String type) {
+        public static TypeOfGreenSpace getTypeOfGreenSpace(String type) throws InvalidGreenSpaceDataException {
             for (TypeOfGreenSpace typeOfGreenSpace : TypeOfGreenSpace.values()) {
                 if (typeOfGreenSpace.getType().equals(type)) {
                     return typeOfGreenSpace;
                 }
             }
-            throw new IllegalArgumentException("Invalid type of green space: " + type);
+            throw new InvalidGreenSpaceDataException("Invalid type of green space: " + type);
         }
     }
 
@@ -211,6 +212,7 @@ public class GreenSpace {
 
     /**
      * Lets the user set the address of the green space
+     *
      * @param address of the green space
      */
     public void setAddress(String address) throws InvalidGreenSpaceDataException {
@@ -223,6 +225,7 @@ public class GreenSpace {
 
     /**
      * Lets the user set the dimension of the green space
+     *
      * @param dimension of the green space
      */
     public void setDimension(double dimension) throws InvalidGreenSpaceDataException {
@@ -235,6 +238,7 @@ public class GreenSpace {
 
     /**
      * Lets the user set the name of the green space
+     *
      * @param parkName of the green space
      */
     public void setParkName(String parkName) throws InvalidGreenSpaceDataException {
@@ -247,6 +251,7 @@ public class GreenSpace {
 
     /**
      * Lets the user set the type of the green space
+     *
      * @param type of the green space
      */
     public void setType(TypeOfGreenSpace type) throws InvalidGreenSpaceDataException {
@@ -259,6 +264,7 @@ public class GreenSpace {
 
     /**
      * Lets the user set the manager of the green space
+     *
      * @param greenSpaceManager green space manager
      */
     public void setGreenSpaceManager(Collaborator greenSpaceManager) throws InvalidGreenSpaceDataException {
@@ -268,11 +274,20 @@ public class GreenSpace {
             throw new InvalidGreenSpaceDataException("Invalid green space manager.");
         }
     }
+
     /**
      * Lets the user set the to do list of the green space
+     *
      * @param toDoList of the green space
      */
-    public void setToDoList(ToDoList toDoList) {
+
+    public void setToDoList(ToDoList toDoList) throws InvalidGreenSpaceDataException {
+
+        if (toDoList == null) {
+            throw new InvalidGreenSpaceDataException("The to-do list cannot be null.");
+        }
         this.toDoList = toDoList;
+
     }
 }
+
