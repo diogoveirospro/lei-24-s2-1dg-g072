@@ -102,10 +102,10 @@ public class ListTaskUIController {
                 List<AgendaEntryDto> taskList = getTaskList(collaborator, status, startDate, endDate);
                 */
                 showTaskListUI = new ShowTaskListUI();
-                showTaskListUI.showUI();
+                showTaskListUI.showUI(MainMenuUI.getPrimaryStage());
             }
 
-        } catch (IllegalArgumentException ex) {
+        } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
     }

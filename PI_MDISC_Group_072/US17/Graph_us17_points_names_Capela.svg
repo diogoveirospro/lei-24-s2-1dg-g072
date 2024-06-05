@@ -60,7 +60,7 @@
 <!-- AP&#45;&#45;Topo -->
 <g id="edge6" class="edge">
 <title>AP&#45;&#45;Topo</title>
-<path fill="none" stroke="black" d="M578.21,-980.91C541.07,-964.77 466.26,-932.25 426.87,-915.13"/>
+<path fill="none" stroke="red" d="M578.21,-980.91C541.07,-964.77 466.26,-932.25 426.87,-915.13"/>
 <text text-anchor="middle" x="523.39" y="-942.2" font-family="Helvetica,Arial,sans-serif" font-size="14.00">9</text>
 </g>
 <!-- Pavilhao -->
@@ -138,7 +138,7 @@
 <!-- Topo&#45;&#45;Capela -->
 <g id="edge12" class="edge">
 <title>Topo&#45;&#45;Capela</title>
-<path fill="none" stroke="black" d="M367.4,-900.17C284.16,-894.77 76.26,-875.27 76.26,-815.5 76.26,-815.5 76.26,-815.5 76.26,-548 76.26,-517.63 102.5,-491.62 122.37,-476.26"/>
+<path fill="none" stroke="red" d="M367.4,-900.17C284.16,-894.77 76.26,-875.27 76.26,-815.5 76.26,-815.5 76.26,-815.5 76.26,-548 76.26,-517.63 102.5,-491.62 122.37,-476.26"/>
 <text text-anchor="middle" x="80.39" y="-676.7" font-family="Helvetica,Arial,sans-serif" font-size="14.00">4</text>
 </g>
 <!-- Pavilhao&#45;&#45;Lago -->

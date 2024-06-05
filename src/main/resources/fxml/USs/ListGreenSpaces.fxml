@@ -39,6 +39,6 @@
          </children>
       </GridPane>
       <Button fx:id="btnCancel" cancelButton="true" layoutX="83.0" layoutY="359.0" mnemonicParsing="false" onAction="#handleCancelButtonAction" text="Cancel" />
-      <Button fx:id="btnShow" alignment="CENTER_RIGHT" contentDisplay="CENTER" defaultButton="true" layoutX="463.0" layoutY="357.0" mnemonicParsing="false" text="Show" />
+      <Button fx:id="btnShow" alignment="CENTER_RIGHT" contentDisplay="CENTER" defaultButton="true" layoutX="463.0" layoutY="357.0" mnemonicParsing="false" onAction="#handleShowButtonAction" text="Show" />
    </children>
 </AnchorPane>
