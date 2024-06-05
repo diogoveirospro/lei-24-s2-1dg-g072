@@ -20,6 +20,7 @@ participant "em\n:ExternalModule" as EM
 participant "refValue\n:RefValue" as RefValue
 participant ":GreenSpaceMapper" as Mapper
 participant "greenSpaceList\n:List<GreenSpace>" as greenSpaceList
+participant "externalModuleAdapter:ExternalModuleAdapter" as Adapter
 participant "greenSpaceDto\n:GreenSpaceDto" as DTO
 participant "greenSpaceListDto\n:List<GreenSpaceDto>" as LISTDTO
 
@@ -173,15 +174,16 @@ opt greenSpace.getGSM() == greenSpaceManager
                                         EM --> greenSpaceRepository : refValue
                                         deactivate EM
 
-                                        greenSpaceRepository --> greenSpaceList : sortList(refValue)
-                                        activate greenSpaceList
-                                                greenSpaceList -> greenSpaceList : sortList(refValue)
-                                                activate greenSpaceList
+                                        greenSpaceRepository --> Adapter : sortList(refValue,greenSpaceList)
+                                        activate Adapter
 
-                                                    greenSpaceList --> greenSpaceRepository : greenSpaceList
-                                                deactivate greenSpaceList
+                                                Adapter -> Adapter : sortList(refValue,greenSpaceList)
+                                                activate Adapter
 
-                                        deactivate greenSpaceList
+                                                    Adapter --> greenSpaceRepository : greenSpaceList
+                                                deactivate Adapter
+
+                                        deactivate Adapter
 
                         greenSpaceRepository --> CTRL : greenSpaceList
 

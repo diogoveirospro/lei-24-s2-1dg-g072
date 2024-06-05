@@ -32,9 +32,12 @@ class Collaborator {
     birthdate
     admissionDate
     address
-    contactInfo
+    mobile number
+    email
+    password
     idDocumentType
     idDocumentNumber
+    taxPayerNumber
 }
 
 
@@ -49,7 +52,7 @@ class Vehicle{
     current kms
     registration date
     acquisition date
-    maintenance/check-up frequency
+    maintenance frequency
 }
 
 class VFM {
@@ -57,7 +60,7 @@ class VFM {
 }
 
 class Maintenance {
-    plate id
+    plate number
     date of last maintenance
     km at maintenance
 }

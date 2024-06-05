@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
 import pt.ipp.isep.dei.esoft.project.Mapper.GreenSpaceMapper;
+import pt.ipp.isep.dei.esoft.project.application.session.ApplicationSession;
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import pt.ipp.isep.dei.esoft.project.domain.GreenSpace;
 import pt.ipp.isep.dei.esoft.project.dto.GreenSpaceDto;
@@ -84,24 +85,21 @@ public class ListGreenSpacesController {
         }
         return collaboratorRepository;
     }
-    /**
-     * Lets the controller get the collaborator by email
-     *
-     * @param email email
-     * @return collaborator
-     */
-    public Collaborator getCollaboratorByEmail(String email) {
-        return this.collaboratorRepository.getCollaboratorByEmail(email);
-    }
-    public List<GreenSpaceDto> getGreenSpaceList(Collaborator greenSpaceManager, String sortingOption){
-        List<GreenSpace> greenSpaceList = greenSpaceRepository.getGreenSpaceListSorted(greenSpaceManager, sortingOption);
+
+    public List<GreenSpaceDto> getGreenSpaceList(String sortingOption){
+        Collaborator GSM = getCollaboratorFromSession();
+        List<GreenSpace> greenSpaceList = greenSpaceRepository.getGreenSpaceListSorted(GSM, sortingOption);
         GreenSpaceMapper mapper = new GreenSpaceMapper();
         return mapper.greenSpaceListToDto(greenSpaceList);
     }
 
-    public List<String> getSortMethods() {
-        List<String> sortMethods = greenSpaceRepository.getSortMethods();
-        sortMethods.add("None");
-        return sortMethods;
+    private Collaborator getCollaboratorFromSession() {
+        String email = ApplicationSession.getInstance().getCurrentSession().getUserEmail();
+        return collaboratorRepository.getCollaboratorByEmail(email);
     }
+
+    public List<String> getSortMethods() {
+        return greenSpaceRepository.getSortMethods();
+    }
+
 }

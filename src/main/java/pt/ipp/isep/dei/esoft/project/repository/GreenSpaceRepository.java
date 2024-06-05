@@ -1,8 +1,10 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
-import pt.ipp.isep.dei.esoft.project.application.controller.PostponeEntryController;
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import pt.ipp.isep.dei.esoft.project.domain.GreenSpace;
+import pt.ipp.isep.dei.esoft.project.domain.externalModules.SortExternalModule;
+import pt.ipp.isep.dei.esoft.project.domain.externalModules.SortSmalestToBigestByStatus;
+import pt.ipp.isep.dei.esoft.project.domain.externalModules.SortSmalestToBigestSize;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -28,7 +30,18 @@ public class GreenSpaceRepository {
                 greenSpacesManagedByGSM.add(greenSpace);
             }
         }
-        sortBySortOption(sortingOption, greenSpacesManagedByGSM);
+
+        SortExternalModule sorter;
+        if (sortingOption.equalsIgnoreCase("type")) {
+            sorter = new SortSmalestToBigestByStatus();
+        } else if (sortingOption.equalsIgnoreCase("area")) {
+            sorter = new SortSmalestToBigestSize();
+        } else {
+            return greenSpacesManagedByGSM;  // No sorting if the option is unrecognized
+        }
+
+        String referenceValue = sorter.getReferenceValue(sortingOption);
+        sortBySortOption(referenceValue, sorter, greenSpacesManagedByGSM);
         return greenSpacesManagedByGSM;
     }
 
@@ -39,12 +52,11 @@ public class GreenSpaceRepository {
                 greenSpacesManagedByGSM.add(greenSpace);
             }
         }
-
         return greenSpacesManagedByGSM;
     }
 
-    private void sortBySortOption(String sortingOption, List<GreenSpace> greenSpacesManagedByGSM) {
-        // Implement sorting logic here
+    private void sortBySortOption(String referenceValue, SortExternalModule sorter, List<GreenSpace> greenSpacesManagedByGSM) {
+        sorter.sortList(greenSpacesManagedByGSM);
     }
 
     public GreenSpace getGreenSpaceByParkName(String parkName) {
@@ -55,7 +67,6 @@ public class GreenSpaceRepository {
         }
         return null;
     }
-
 
     public List<String> getSortMethods() {
         Properties props = getProperties();
@@ -71,10 +82,11 @@ public class GreenSpaceRepository {
             props.load(in);
             in.close();
         } catch (IOException ex) {
-            ex.printStackTrace();
+            System.out.println("Properties were not loaded successfully.");
         }
         return props;
     }
+
     public void addGreenSpace(GreenSpace greenSpace) {
         greenSpaceList.add(greenSpace);
     }

@@ -7,10 +7,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import pt.ipp.isep.dei.esoft.project.application.controller.ListGreenSpacesController;
+import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
+import pt.ipp.isep.dei.esoft.project.dto.GreenSpaceDto;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.CollaboratorUI;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.GSMUI;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.MainMenuUI;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss.ListGreenSpacesUI;
+
+import java.util.List;
 
 public class ListGreenSpacesUIController {
     private final ListGreenSpacesController listGreenSpacesController = new ListGreenSpacesController();
@@ -56,6 +60,17 @@ public class ListGreenSpacesUIController {
             gsmui.showUI(MainMenuUI.getPrimaryStage());
         } catch (Exception e) {
             System.out.println("An error occurred while handling the cancel action: " + e.getMessage());
+        }
+    }
+    public void handleShowButtonAction() {
+        try {
+            String sortMethod = (String) listSortMethod.getValue();
+            List<GreenSpaceDto> greenSpaces = listGreenSpacesController.getGreenSpaceList(sortMethod);
+            for (GreenSpaceDto greenSpace : greenSpaces) {
+                listGreenSpace.getItems().add(greenSpace.getParkName());
+            }
+        } catch (Exception e) {
+            System.out.println("An error occurred while handling the show action: " + e.getMessage());
         }
     }
 }
