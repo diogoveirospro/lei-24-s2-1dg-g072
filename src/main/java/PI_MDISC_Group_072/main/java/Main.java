@@ -423,19 +423,6 @@ public class Main {
         return shortestPaths;
     }
 
-    private static int minDistance(int[] dist, boolean[] visited, List<Vertex> vertices) {
-        int min = -1, minIndex = -1;
-
-        for (int v = 0; v < vertices.size(); v++) {
-
-            if (!visited[v] && dist[v] >= min) {
-                min = dist[v];
-                minIndex = v;
-            }
-
-        }
-        return minIndex;
-    }
 
 
     private static void createGraphDisktra(Graph graph, StringBuilder file, List<Edge> shortestPath, String vertex) throws IOException, InterruptedException {

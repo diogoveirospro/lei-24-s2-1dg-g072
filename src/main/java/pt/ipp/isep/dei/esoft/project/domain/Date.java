@@ -234,5 +234,10 @@ public class Date implements Comparable<Date> {
 
         return totalDays;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%02d/%02d/%04d", day, month, year);
+    }
 }
 

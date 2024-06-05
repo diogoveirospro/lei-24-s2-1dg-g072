@@ -8,6 +8,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import pt.ipp.isep.dei.esoft.project.application.controller.ListTaskController;
 import pt.ipp.isep.dei.esoft.project.domain.*;
+import pt.ipp.isep.dei.esoft.project.dto.AgendaEntryDto;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.CollaboratorUI;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.MainMenuUI;
@@ -15,6 +16,8 @@ import pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss.ListTaskUI;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss.Output.ShowTaskListUI;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class serves as the controller for the functionality of listing all the tasks
@@ -94,15 +97,22 @@ public class ListTaskUIController {
             } else if (startDate.getValue().isAfter(endDate.getValue())) {
                 throw new IllegalArgumentException("The start date must be before the end date.");
             } else{
-                /*
-                Collaborator collaborator = getCollaboratorByEmail(LoginUI.getEmail());
-                String status = (String) statusList.getValue();
+
+                AgendaEntry.StatusOfEntry status = (AgendaEntry.StatusOfEntry) statusList.getValue();
                 Date startDate = getStartDate();
                 Date endDate = getEndDate();
-                List<AgendaEntryDto> taskList = getTaskList(collaborator, status, startDate, endDate);
-                */
+                List<AgendaEntryDto> taskList = controller.getTaskList(status, startDate, endDate);
+                List<String> taskListString = new ArrayList<>();
+                String[][] dates = new String[taskList.size()][2];
+                for (AgendaEntryDto task : taskList) {
+                    taskListString.add(task.getTask().getTaskId());
+                }
+                for (int i = 0; i < taskList.size(); i++) {
+                    dates[i][0] = taskList.get(i).getStartDate().toString();
+                    dates[i][1] = taskList.get(i).getEndDate().toString();
+                }
                 showTaskListUI = new ShowTaskListUI();
-                showTaskListUI.showUI(MainMenuUI.getPrimaryStage());
+                showTaskListUI.showUI(MainMenuUI.getPrimaryStage(),taskListString,dates);
             }
 
         } catch (Exception ex) {
