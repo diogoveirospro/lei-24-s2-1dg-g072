@@ -4,7 +4,6 @@ import pt.ipp.isep.dei.esoft.project.domain.AgendaEntry;
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import pt.ipp.isep.dei.esoft.project.domain.Team;
 import pt.ipp.isep.dei.esoft.project.domain.externalModules.EmailServicesExternalModule;
-import pt.ipp.isep.dei.esoft.project.dto.AgendaEntryDto;
 import pt.ipp.isep.dei.esoft.project.repository.Agenda;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.repository.TeamRepository;
@@ -23,9 +22,8 @@ import java.util.Properties;
  * The AssignTeamController class represents the controller for assigning teams to agenda entries.
  */
 public class AssignTeamController {
-
-    private Agenda agenda;
-    private TeamRepository teamRepository;
+    private final Agenda agenda;
+    private final TeamRepository teamRepository;
 
     /**
      * Constructs a new AssignTeamController with the necessary repositories.
@@ -45,12 +43,22 @@ public class AssignTeamController {
     }
 
     /**
+     * Retrieves the agenda entry with the specified name.
+     *
+     * @param name the name of the agenda entry
+     * @return the agenda entry with the specified name
+     */
+    public AgendaEntry getAgendaEntry(String name) {
+        return this.agenda.getAgendaEntry(name);
+    }
+
+    /**
      * Retrieves the list of valid teams for assignment to the specified agenda entry.
      *
      * @param agendaEntry the agenda entry to be assigned to
      * @return the list of valid teams
      */
-    public List<Team> getValidTeams(AgendaEntry agendaEntry) {
+    public List<Team> getValidTeams (AgendaEntry agendaEntry) {
         return this.teamRepository.getValidTeams(agendaEntry);
     }
 
@@ -61,7 +69,7 @@ public class AssignTeamController {
      * @param team the team to be assigned
      * @return true if the team is successfully assigned to the agenda entry, otherwise false
      */
-    public boolean assignTeamToAgendaEntry(AgendaEntry agendaEntry, Team team) {
+    public boolean assignTeamToAgendaEntry (AgendaEntry agendaEntry, Team team){
         return agenda.assignTeamToAgendaEntry(agendaEntry, team);
     }
 
@@ -71,7 +79,7 @@ public class AssignTeamController {
      * @return the list of available email services
      * @throws IOException if an I/O error occurs while reading the config.properties file
      */
-    public List<String> showEmailServices() throws IOException {
+    public List<String> showEmailServices () throws IOException {
         Properties props = new Properties();
         try (InputStream in = new FileInputStream("config.properties")) {
             props.load(in);
@@ -87,7 +95,7 @@ public class AssignTeamController {
      * @param emailService the email service to be used for sending the email
      * @return true if the email is successfully sent, otherwise false
      */
-    public boolean sendEmailToTeamMembers(Team team, String emailService) {
+    public boolean sendEmailToTeamMembers (Team team, String emailService){
         List<Collaborator> members = team.getTeam();
         try {
             Class<?> emailServiceClass = Class.forName("pt.ipp.isep.dei.esoft.project.domain.externalModules." + emailService + "EmailService");
@@ -103,4 +111,11 @@ public class AssignTeamController {
             return false;
         }
     }
+
+    public List<AgendaEntry> getAgendaEntriesWithoutTeam () {
+        return this.agenda.getAgendaEntriesWithoutTeam();
+    }
+
 }
+
+

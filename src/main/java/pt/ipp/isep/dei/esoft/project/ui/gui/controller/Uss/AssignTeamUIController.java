@@ -1,11 +1,13 @@
 package pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.application.controller.AssignTeamController;
 import pt.ipp.isep.dei.esoft.project.domain.AgendaEntry;
 import pt.ipp.isep.dei.esoft.project.domain.Team;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.AlertUI;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.GSMUI;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss.AssignTeamUI;
 
@@ -15,16 +17,20 @@ import java.util.List;
 public class AssignTeamUIController {
 
     @FXML
-    private ListView<String> cbAgendaEntries;
+    private ListView<String> lvAgendaEntries;
 
     @FXML
-    private ListView<Team> cbTeams;
+    private ListView<Team> lvTeams;
+
+    @FXML
+    private ListView<String> cbEmailService;
 
     private AssignTeamController controller = new AssignTeamController();
     private AssignTeamUI assignTeamUI = new AssignTeamUI();
 
     private AgendaEntry selectedAgendaEntry;
     private Team selectedTeam;
+    private String selectedEmailService;
 
     @FXML
     public void initialize() {
@@ -32,6 +38,8 @@ public class AssignTeamUIController {
         setupAgendaEntriesListViewClickListener();
         populateTeamsListView();
         setupTeamsListViewClickListener();
+        populateEmailServiceListView();
+        setupEmailServiceListViewClickListener();
     }
 
     public void populateAgendaEntriesListView() {
@@ -39,25 +47,42 @@ public class AssignTeamUIController {
         List<AgendaEntry> agendaEntries = controller.getAgendaEntriesWithoutTeam();
 
         for (AgendaEntry agendaEntry : agendaEntries) {
-            cbAgendaEntries.getItems().add(agendaEntry.getName());
+            lvAgendaEntries.getItems().add(agendaEntry.getName());
         }
 
     }
 
     private void setupAgendaEntriesListViewClickListener() {
-        cbAgendaEntries.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        lvAgendaEntries.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             this.selectedAgendaEntry = controller.getAgendaEntry(newValue);
         });
     }
 
     public void populateTeamsListView() {
         List<Team> teams = controller.getValidTeams(selectedAgendaEntry);
-        cbTeams.getItems().addAll(teams);
+        lvTeams.getItems().addAll(teams);
     }
 
     private void setupTeamsListViewClickListener() {
-        cbTeams.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        lvTeams.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             this.selectedTeam = newValue;
+        });
+    }
+
+    private void populateEmailServiceListView() {
+        try {
+            List<String> emailServices = controller.showEmailServices();
+            cbEmailService.getItems().addAll(emailServices);
+        } catch (IOException e) {
+            AlertUI.createAnAlert(Alert.AlertType.ERROR, "Email Services",
+                    "Email services could not be shown.", e.getMessage());
+        }
+
+    }
+
+    private void setupEmailServiceListViewClickListener() {
+        cbEmailService.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            this.selectedEmailService = newValue;
         });
     }
 
@@ -65,9 +90,11 @@ public class AssignTeamUIController {
     public void handleAssignTeam() {
         try {
             controller.assignTeamToAgendaEntry(selectedAgendaEntry, selectedTeam);
+            controller.sendEmailToTeamMembers(selectedTeam, selectedEmailService);
             assignTeamUI.showUI(new Stage());
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            AlertUI.createAnAlert(Alert.AlertType.ERROR, "Assign Team",
+                    "It was not possible to assign the team to the agenda entry.", e.getMessage());
         }
 
     }
@@ -78,7 +105,8 @@ public class AssignTeamUIController {
         try {
             gsmui.showUI(new Stage());
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            AlertUI.createAnAlert(Alert.AlertType.ERROR, "Cancel Assign Team",
+                    "It was not possible to return to the menu.", e.getMessage());
         }
     }
 

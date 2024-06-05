@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane prefHeight="476.0" prefWidth="955.0" style="-fx-background-color: #F1F8E9;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.AssignTeamUIController">
+<BorderPane prefHeight="510.0" prefWidth="958.0" style="-fx-background-color: #F1F8E9;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.AssignTeamUIController">
    <top>
       <VBox prefHeight="51.0" prefWidth="766.0" style="-fx-background-color: #2E7D32;" BorderPane.alignment="CENTER">
          <children>
@@ -53,11 +53,16 @@
                   </ListView>
                </children>
             </HBox>
+            <ComboBox fx:id="cbEmailService" prefWidth="150.0" promptText="Email Service">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="20.0" top="10.0" />
+               </VBox.margin>
+            </ComboBox>
          </children>
       </VBox>
    </center>
    <bottom>
-      <HBox prefHeight="51.0" prefWidth="965.0" BorderPane.alignment="CENTER">
+      <HBox prefHeight="46.0" prefWidth="958.0" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="btnAssignTeam" mnemonicParsing="false" onAction="#handleAssignTeam" style="-fx-background-color: #388E3C; -fx-text-fill: white;" text="Assign Team">
                <HBox.margin>
