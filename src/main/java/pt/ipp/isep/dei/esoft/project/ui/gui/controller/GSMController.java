@@ -81,6 +81,7 @@ public class GSMController {
             cancelEntryUI = new CancelEntryUI();
             cancelEntryUI.showUI(MainMenuUI.getPrimaryStage());
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("An error occurred while handling the cancel entry action: " + e.getMessage());
         }
     }

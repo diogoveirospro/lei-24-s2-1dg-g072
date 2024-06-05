@@ -1,16 +1,8 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidEntryDataException;
-import pt.ipp.isep.dei.esoft.project.Mapper.AgendaEntryMapper;
-import pt.ipp.isep.dei.esoft.project.Mapper.GreenSpaceMapper;
-import pt.ipp.isep.dei.esoft.project.application.session.ApplicationSession;
 import pt.ipp.isep.dei.esoft.project.domain.AgendaEntry;
-import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
-import pt.ipp.isep.dei.esoft.project.domain.GreenSpace;
-import pt.ipp.isep.dei.esoft.project.dto.AgendaEntryDto;
-import pt.ipp.isep.dei.esoft.project.dto.GreenSpaceDto;
 import pt.ipp.isep.dei.esoft.project.repository.Agenda;
-import pt.ipp.isep.dei.esoft.project.repository.CollaboratorRepository;
 import pt.ipp.isep.dei.esoft.project.repository.GreenSpaceRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 
@@ -19,48 +11,40 @@ import java.util.Objects;
 
 public class CancelEntryController {
 
+    /**
+     * The Agenda
+     */
     private final Agenda agenda;
 
-    private GreenSpaceRepository greenSpaceRepository;
+    /**
+     * The List of Agenda Entries
+     */
+    private final List<AgendaEntry> agendaEntries;
 
-    private CollaboratorRepository collaboratorRepository = Repositories.getInstance().getCollaboratorRepository();
-
-    private final List<AgendaEntry> agendaEntries = getAgendaEntryList();
-
+    /**
+     * Instantiates a new Cancel entry controller.
+     */
     public CancelEntryController() {
         this.agenda = Repositories.getInstance().getAgenda();
-        this.greenSpaceRepository = Repositories.getInstance().getGreenSpaceRepository();
+        this.agendaEntries = agenda.getEntryList();
     }
 
+    /**
+     * Instantiates a new Cancel entry controller.
+     *
+     * @param agenda               the agenda
+     * @param greenSpaceRepository the green space repository
+     */
     public CancelEntryController(Agenda agenda, GreenSpaceRepository greenSpaceRepository) {
         this.agenda = agenda;
-        this.greenSpaceRepository = greenSpaceRepository;
+        this.agendaEntries = agenda.getEntryList();
     }
 
-    public List<GreenSpaceDto> getListGreenSpaces() {
-        Collaborator GSM = getCollaboratorFromSession();
-        List<GreenSpace> listGreenSpaces = greenSpaceRepository.getListGreenSpacesManagedByGsm(GSM);
-
-        GreenSpaceMapper greenSpaceMapper = new GreenSpaceMapper();
-
-        return greenSpaceMapper.greenSpaceListToDto(listGreenSpaces);
-    }
-
-    private Collaborator getCollaboratorFromSession() {
-        String email = ApplicationSession.getInstance().getCurrentSession().getUserEmail();
-
-        return collaboratorRepository.getCollaboratorByEmail(email);
-    }
-
-    public List<AgendaEntry> getAgendaEntryList(){
-        return Objects.requireNonNull(agenda).getEntryList();
-    }
-
-    public List<AgendaEntryDto> entryListToDto(){
-        AgendaEntryMapper agendaEntryMapper = new AgendaEntryMapper();
-        return agendaEntryMapper.toDtoList(agendaEntries);
-    }
-
+    /**
+     * Changes the status of an agenda entry to canceled
+     * @param agendaEntry the agenda entry
+     * @throws InvalidEntryDataException if the entry is invalid
+     */
     public void cancelAgendaEntry(AgendaEntry agendaEntry) throws InvalidEntryDataException {
         if (agendaEntry == null) {
             throw new InvalidEntryDataException("Agenda Entry is invalid.");
@@ -68,4 +52,29 @@ public class CancelEntryController {
             agendaEntry.taskCanceled();
     }
 
+    /**
+     * Gets the list of agenda entries as Strings
+     * @return List of Strings
+     */
+    public List<String> getAgendaEntryListString() {
+        return agenda.getAgendaEntryList();
+    }
+
+    /**
+     * Gets the agenda entry by task name
+     * @param taskName the task name
+     * @return AgendaEntry
+     */
+    public AgendaEntry getAgendaEntryByTaskName(String taskName) {
+        try {
+            for (AgendaEntry entry : agendaEntries) {
+                if (Objects.equals(entry.getName(), taskName)) {
+                    return entry;
+                }
+            }
+        }catch (Exception e){
+            System.out.println("Error while getting the agenda entry by task name.");
+        }
+        return null;
+    }
 }

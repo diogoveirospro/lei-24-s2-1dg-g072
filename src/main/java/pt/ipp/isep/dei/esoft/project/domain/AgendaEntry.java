@@ -388,19 +388,34 @@ public class AgendaEntry extends Entry {
         }
     }
 
+    /**
+     * Postpones the entry to a new date.
+     *
+     * @param newDate the new date
+     */
     public void postponeEntry(Date newDate) {
         this.startDate = newDate;
         taskPostponed();
 
     }
 
+    /**
+     * Gets the name of the task.
+     * @return the name of the task
+     */
     public String getName(){
         return super.getTask().getTaskId();
     }
 
+    /**
+     * Calculates the duration of the task.
+     *
+     * @return the duration of the task in days.
+     */
     public int calculateDuration(){
         return this.startDate.difference(this.endDate);
     }
+
 
     public void addVehicleList(List<Vehicle> vehicleList) throws InvalidEntryDataException {
         for (Vehicle vehicle : vehicleList) {
