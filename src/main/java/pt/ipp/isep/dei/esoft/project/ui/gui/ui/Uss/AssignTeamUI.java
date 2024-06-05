@@ -14,7 +14,7 @@ import java.util.ResourceBundle;
 
 public class AssignTeamUI implements Initializable {
     public static final String ASSIGNTEAM = "Assign Team to Agenda Entry";
-    public AssignTeamUIController assignTeamUIController = new AssignTeamUIController();
+    public AssignTeamUIController assignTeamUIController;
 
 
     public void showUI(Stage stage) throws IOException {

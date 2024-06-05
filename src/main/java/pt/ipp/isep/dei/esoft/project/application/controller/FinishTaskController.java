@@ -1,4 +1,4 @@
-
+/*
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
 import pt.ipp.isep.dei.esoft.project.repository.Agenda;
@@ -26,6 +26,10 @@ public class FinishTaskController {
         this.appSession = ApplicationSession.getInstance();
     }
 
+
+
+
+
     public Collaborator getCollaboratorByEmail(String email) {
         return collaboratorRepository.getCollaboratorByEmail(email);
     }
@@ -45,3 +49,5 @@ public class FinishTaskController {
         return Optional.empty();
     }
 }
+
+*/
