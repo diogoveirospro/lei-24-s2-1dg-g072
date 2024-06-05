@@ -99,4 +99,25 @@ public class Agenda {
     public boolean assignTeamToAgendaEntry(AgendaEntry agendaEntry, Team team) {
         return agendaEntry.assignTeam(team);
     }
+
+    public List<AgendaEntry> getAgendaEntriesWithoutTeam() {
+
+        List<AgendaEntry> agendaEntriesWithoutTeam = new ArrayList<>();
+        for (AgendaEntry agendaEntry : entriesAgenda) {
+            if (agendaEntry.getTeam() == null) {
+                agendaEntriesWithoutTeam.add(agendaEntry);
+            }
+        }
+        return agendaEntriesWithoutTeam;
+
+    }
+
+    public AgendaEntry getAgendaEntry(String selectedAgendaEntryName) {
+        for (AgendaEntry agendaEntry : entriesAgenda) {
+            if (agendaEntry.getName().equals(selectedAgendaEntryName)) {
+                return agendaEntry;
+            }
+        }
+        return null;
+    }
 }

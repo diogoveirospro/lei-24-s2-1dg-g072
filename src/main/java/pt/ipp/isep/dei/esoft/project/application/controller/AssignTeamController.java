@@ -64,7 +64,7 @@ public class AssignTeamController {
     public boolean assignTeamToAgendaEntry(AgendaEntry agendaEntry, Team team) {
         return agenda.assignTeamToAgendaEntry(agendaEntry, team);
     }
-/*
+
     /**
      * Retrieves the list of available email services.
      *
@@ -103,6 +103,4 @@ public class AssignTeamController {
             return false;
         }
     }
-
-
 }

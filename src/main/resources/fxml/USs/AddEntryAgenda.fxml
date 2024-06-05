@@ -18,6 +18,9 @@
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
                   </Label>
                   <ComboBox fx:id="cbGreenSpace" prefHeight="31.0" prefWidth="196.0" promptText="Select Green Space" />
                   <Label text="Task: ">

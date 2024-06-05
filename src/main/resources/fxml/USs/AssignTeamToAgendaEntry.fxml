@@ -1,14 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="fxml.USs.AssignTeamToAgendaEntry"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<BorderPane prefHeight="476.0" prefWidth="955.0" style="-fx-background-color: #F1F8E9;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.AssignTeamUIController">
+   <top>
+      <VBox prefHeight="51.0" prefWidth="766.0" style="-fx-background-color: #2E7D32;" BorderPane.alignment="CENTER">
+         <children>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Assign Team To Agenda Entry" textAlignment="CENTER" wrappingWidth="957.4867553710938">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </Text>
+         </children>
+      </VBox>
+   </top>
+   <center>
+      <VBox prefHeight="273.0" prefWidth="958.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="360.0" prefWidth="958.0">
+               <children>
+                  <Label text="Agenda Entry: ">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="20.0" top="20.0" />
+                     </HBox.margin>
+                  </Label>
+                  <ListView fx:id="lvAgendaEntries" prefHeight="293.0" prefWidth="345.0">
+                     <HBox.margin>
+                        <Insets bottom="5.0" top="20.0" />
+                     </HBox.margin>
+                  </ListView>
+                  <Label text="Team: ">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" top="20.0" />
+                     </HBox.margin>
+                  </Label>
+                  <ListView fx:id="lvTeams" prefHeight="293.0" prefWidth="345.0">
+                     <HBox.margin>
+                        <Insets bottom="5.0" top="20.0" />
+                     </HBox.margin>
+                  </ListView>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+   <bottom>
+      <HBox prefHeight="51.0" prefWidth="965.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="btnAssignTeam" mnemonicParsing="false" onAction="#handleAssignTeam" style="-fx-background-color: #388E3C; -fx-text-fill: white;" text="Assign Team">
+               <HBox.margin>
+                  <Insets left="20.0" right="20.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#handleCancel" style="-fx-background-color: #D32F2F; -fx-text-fill: white;" text="Cancel">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+   </bottom>
+</BorderPane>

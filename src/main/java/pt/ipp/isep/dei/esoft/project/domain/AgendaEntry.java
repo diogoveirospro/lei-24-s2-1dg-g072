@@ -428,8 +428,14 @@ public class AgendaEntry extends Entry {
 
     public boolean assignTeam(Team team) {
         if (team == null) {
-            return false;
+            throw new IllegalArgumentException("The team is null.");
+        } else if (!teamRepository.getTeams().contains(team)) {
+            throw new IllegalArgumentException("The team is not in the repository.");
+
+        } else if (this.team == null) {
+            throw new IllegalArgumentException("The entry already has an associated team.");
         }
+
         this.team = team;
         return team.assignAgendaEntry(this);
     }
