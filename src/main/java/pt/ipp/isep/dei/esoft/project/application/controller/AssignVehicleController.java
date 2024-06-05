@@ -1,3 +1,4 @@
+
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
 
@@ -92,6 +93,7 @@ public class AssignVehicleController {
      * @param service     the vehicle service provider to be contacted
      * @return true if the service request is successfully sent, otherwise false
      */
+    /*
     public boolean sendServiceRequest(AgendaEntry agendaEntry, String service) {
         Vehicle assignedVehicle = agendaEntry.getAssignedVehicle();
         try {
@@ -103,7 +105,7 @@ public class AssignVehicleController {
             return false;
         }
     }
-
+    */
     /**
      * Retrieves the list of agenda entries without assigned vehicles.
      *
