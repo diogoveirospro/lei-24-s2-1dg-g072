@@ -440,8 +440,49 @@ public class AgendaEntry extends Entry {
         return team.assignAgendaEntry(this);
     }
 
+    public void addVehicle(Vehicle vehicle) throws InvalidEntryDataException {
+        if (!vehicleRepository.getVehicleList().contains(vehicle)) {
+            throw new InvalidEntryDataException("The vehicle is not in the repository.");
+        }
+        this.vehicleList.add(vehicle);
+    }
+
     @Override
     public Task getTask() {
         return super.getTask();
     }
+
+    /**
+     * Gets the vehicle assigned to this entry.
+     *
+     * @return the vehicle assigned to this entry, or null if no vehicle is assigned
+     */
+    public Vehicle getAssignedVehicle() {
+        return vehicleList.isEmpty() ? null : vehicleList.get(0);
+    }
+
+    public void assignVehicleToAgendaEntry(Vehicle vehicle) throws InvalidEntryDataException {
+        if (!vehicleRepository.getVehicleList().contains(vehicle)) {
+            throw new InvalidEntryDataException("The vehicle is not in the repository.");
+        }
+
+        this.addVehicle(vehicle);
+    }
+
+    /**
+     * Assigns a vehicle to this agenda entry.
+     *
+     * @param vehicle the vehicle to be assigned
+     * @throws InvalidEntryDataException if the vehicle cannot be assigned
+     */
+    public void assignVehicle(Vehicle vehicle) throws InvalidEntryDataException {
+        if (vehicle == null) {
+            throw new IllegalArgumentException("O veículo é nulo.");
+        }
+        if (vehicleList.contains(vehicle)) {
+            throw new InvalidEntryDataException("O veículo já está atribuído a esta entrada de agenda.");
+        }
+        vehicleList.add(vehicle);
+    }
 }
+

@@ -120,4 +120,27 @@ public class Agenda {
         }
         return null;
     }
+
+    public List<AgendaEntry> getAgendaEntriesWithoutVehicle() {
+        List<AgendaEntry> entriesWithoutVehicle = new ArrayList<>();
+        for (AgendaEntry entry : entriesAgenda) {
+            if (entry.getAssignedVehicle()== null) {
+                entriesWithoutVehicle.add(entry);
+            }
+        }
+        return entriesWithoutVehicle;
+    }
+
+    public boolean assignVehicleToAgendaEntry(AgendaEntry agendaEntry, Vehicle vehicle) {
+        try {
+
+            agendaEntry.assignVehicle(vehicle);
+            return true;
+        } catch (InvalidEntryDataException e) {
+
+            System.err.println("Erro ao atribuir veículo à entrada da agenda: " + e.getMessage());
+            return false;
+        }
+    }
+
 }
