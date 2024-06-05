@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.application.controller.AssignTeamController;
@@ -23,7 +24,7 @@ public class AssignTeamUIController {
     private ListView<Team> lvTeams;
 
     @FXML
-    private ListView<String> cbEmailService;
+    private ComboBox<String> cbEmailService;
 
     private AssignTeamController controller = new AssignTeamController();
     private AssignTeamUI assignTeamUI = new AssignTeamUI();

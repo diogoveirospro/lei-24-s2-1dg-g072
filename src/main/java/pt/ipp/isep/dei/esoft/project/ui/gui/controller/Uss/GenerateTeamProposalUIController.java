@@ -1,5 +1,15 @@
 package pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ListView;
+import javafx.stage.Stage;
+import pt.ipp.isep.dei.esoft.project.application.controller.GenerateTeamProposalController;
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
 import pt.ipp.isep.dei.esoft.project.domain.Team;
@@ -7,91 +17,142 @@ import pt.ipp.isep.dei.esoft.project.repository.CollaboratorRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.repository.SkillRepository;
 import pt.ipp.isep.dei.esoft.project.repository.TeamRepository;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.AlertUI;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss.AddAgendaEntryUI;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss.GenerateTeamProposalUI;
 
+import java.awt.*;
+import java.io.IOException;
 import java.util.List;
 
-/**
- * GenerateTeamController is a class responsible for making the requests related to team generation, requested by the UI.
- *
- * @author Group 072 - Byte Masters - ISEP
- */
+
 public class GenerateTeamProposalUIController {
 
-    /**
-     * Skill Repository.
-     */
-    private final SkillRepository skillRepository;
+    @FXML
+    private TextField tfMinSize;
 
-    /**
-     * Collaborator Repository
-     */
-    private final CollaboratorRepository collaboratorRepository;
+    @FXML
+    private TextField tfMaxSize;
 
-    /**
-     * Team Repository
-     */
-    private final TeamRepository teamRepository;
+    @FXML
+    private ListView<Skill> lvSkills;
 
-    /**
-     * Empty GenerateTeamController builder.
-     */
-    public GenerateTeamProposalUIController(){
+    @FXML
+    private ListView<Skill> lvSelectedSkills;
 
-        this.skillRepository = Repositories.getInstance().getSkillRepository();
-        this.collaboratorRepository = Repositories.getInstance().getCollaboratorRepository();
-        this.teamRepository = Repositories.getInstance().getTeamRepository();
+    @FXML
+    private Button btnAddSkill;
+
+    @FXML
+    private Button btnRemoveSkill;
+
+    @FXML
+    private Button btnGenerate;
+
+    @FXML
+    private ListView<Collaborator> lvTeamProposal;
+
+    @FXML
+    private Button btnAcceptProposal;
+
+    @FXML
+    private Button btnDeclineProposal;
+
+    @FXML
+    private Button btnAddMember;
+
+    @FXML
+    private Button btnRemoveMember;
+
+    @FXML
+    private ListView<Collaborator> lvCollaborators;
+
+    GenerateTeamProposalController generateTeamProposalController = new GenerateTeamProposalController();
+    GenerateTeamProposalUI generateTeamProposalUI = new GenerateTeamProposalUI();
+
+
+    @FXML
+    public void initialize() {
+        lvSkills.setItems(FXCollections.observableArrayList(generateTeamProposalController.listSkills()));
+
+        lvCollaborators.setVisible(false);
+        btnAddMember.setVisible(false);
+        btnRemoveMember.setVisible(false);
+        lvCollaborators.setMouseTransparent(true);
     }
 
-    /**
-     * GenerateTeamController builder.
-     * @param skillRepository skill repository
-     * @param collaboratorRepository collaborator repository
-     * @param teamRepository team repository
-     */
-    public GenerateTeamProposalUIController(SkillRepository skillRepository, CollaboratorRepository collaboratorRepository,
-                                            TeamRepository teamRepository){
+    @FXML
+    public void handleAddSkill() {
+        Skill selectedSkill = lvSkills.getSelectionModel().getSelectedItem();
+        if (selectedSkill != null) {
+            lvSelectedSkills.getItems().add(selectedSkill);
+        }else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Please select a skill to add");
+            alert.showAndWait();
+        }
+    }
 
-        this.skillRepository = skillRepository;
-        this.collaboratorRepository = collaboratorRepository;
-        this.teamRepository = teamRepository;
+    @FXML
+    public void handleRemoveSkill() {
+        Skill selectedSkill = lvSelectedSkills.getSelectionModel().getSelectedItem();
+        if (selectedSkill != null) {
+            lvSelectedSkills.getItems().remove(selectedSkill);
+        }else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Please select a skill to remove");
+            alert.showAndWait();
+        }
+    }
+
+    @FXML
+    public void handleGenerate() {
+        int minSize = Integer.parseInt(tfMinSize.getText());
+        int maxSize = Integer.parseInt(tfMaxSize.getText());
+        java.util.List<Skill> selectedSkills = lvSelectedSkills.getItems();
+        java.util.List<Collaborator> collaborators = Repositories.getInstance().getCollaboratorRepository().getCollaborators();
+
+        try {
+            Team teamProposal = generateTeamProposalController.generateTeamProposal(minSize, maxSize, selectedSkills, collaborators);
+            lvTeamProposal.setItems(FXCollections.observableArrayList(teamProposal.getTeam()));
+        } catch (IllegalArgumentException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(e.getMessage());
+            alert.showAndWait();
+        }
 
     }
 
-    /**
-     * List all skills
-     * @return skills
-     */
-    public List<Skill> listSkills(){
-        return skillRepository.listSkills();
+    @FXML
+    public void handleAcceptProposal() {
+        ObservableList<Collaborator> members = lvTeamProposal.getItems();
+        Team teamProposal = new Team(members);
+
+        if (generateTeamProposalController.addTeam(teamProposal)){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Success");
+            alert.setHeaderText("Team proposal accepted");
+            alert.showAndWait();
+        }else {
+
+        }
+
     }
 
-    /**
-     * Get all collaborators.
-     * @return collaborators
-     */
-    public List<Collaborator> getCollaborators(){
-        return collaboratorRepository.getCollaborators();
+    @FXML
+    public void handleDeclineProposal() {
+        lvTeamProposal.getItems().clear();
+
+        lvCollaborators.setVisible(true);
+        btnAddMember.setVisible(true);
+        btnRemoveMember.setVisible(true);
+        lvCollaborators.setMouseTransparent(false);
     }
 
-    /**
-     * Generate a team proposal automatically.
-     * @param minimumSize minimum team size.
-     * @param maximumSize maximum team size.
-     * @param skills skills list.
-     * @param collaborators collaborators list.
-     * @return team proposal
-     */
-    public Team generateTeamProposal(int minimumSize, int maximumSize, List<Skill> skills,
-                                                   List<Collaborator> collaborators){
-        return TeamRepository.generateTeamProposal(minimumSize, maximumSize, skills, collaborators);
-    }
-
-    /**
-     * Add the team to the team repository.
-     * @param team team to add.
-     * @return true if added false otherwise
-     */
-    public boolean addTeam(Team team){
-        return teamRepository.addTeam(team);
+    public void setGenerateTeamProposal(GenerateTeamProposalUI generateTeamProposalUI) {
+        this.generateTeamProposalUI = generateTeamProposalUI;
     }
 }

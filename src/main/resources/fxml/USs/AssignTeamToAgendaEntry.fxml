@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane prefHeight="510.0" prefWidth="958.0" style="-fx-background-color: #F1F8E9;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.AssignTeamUIController">
+<BorderPane prefHeight="510.0" prefWidth="958.0" style="-fx-background-color: #F1F8E9;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.AssignTeamUIController">
    <top>
       <VBox prefHeight="51.0" prefWidth="766.0" style="-fx-background-color: #2E7D32;" BorderPane.alignment="CENTER">
          <children>
@@ -53,7 +54,7 @@
                   </ListView>
                </children>
             </HBox>
-            <ComboBox fx:id="cbEmailService" prefWidth="150.0" promptText="Email Service">
+            <ComboBox fx:id="cbEmailService" prefHeight="22.0" prefWidth="242.0" promptText="Email Service">
                <VBox.margin>
                   <Insets bottom="10.0" left="20.0" top="10.0" />
                </VBox.margin>

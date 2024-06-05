@@ -8,10 +8,7 @@ import pt.ipp.isep.dei.esoft.project.repository.Agenda;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.repository.TeamRepository;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
@@ -81,7 +78,7 @@ public class AssignTeamController {
      */
     public List<String> showEmailServices () throws IOException {
         Properties props = new Properties();
-        try (InputStream in = new FileInputStream("config.properties")) {
+        try (InputStream in = new FileInputStream("src/main/resources/config/config.properties")) {
             props.load(in);
         }
         String emailServices = props.getProperty("email.services");

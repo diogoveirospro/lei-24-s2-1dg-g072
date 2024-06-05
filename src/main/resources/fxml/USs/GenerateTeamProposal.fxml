@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane prefHeight="660.0" prefWidth="550.0" style="-fx-background-color: #F1F8E9;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss.GenerateTeamProposalUI">
+<BorderPane prefHeight="660.0" prefWidth="550.0" style="-fx-background-color: #F1F8E9;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.GenerateTeamProposalUIController">
    <center>
       <VBox prefHeight="625.0" prefWidth="550.0">
          <children>

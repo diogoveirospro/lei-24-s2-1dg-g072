@@ -9,6 +9,9 @@ import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidCollaboratorDataException
 import pt.ipp.isep.dei.esoft.project.repository.*;
 import pt.ipp.isep.dei.esoft.project.domain.Date;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * This class serves as a way to add objects to the system so
  * the program doesn't start without anything.
@@ -21,6 +24,7 @@ public class Bootstrap {
     private final VehicleRepository vehicleRepository = Repositories.getInstance().getVehicleRepository();
     private final JobRepository jobRepository = Repositories.getInstance().getJobRepository();
     private final Agenda agenda = Repositories.getInstance().getAgenda();
+    private final TeamRepository teamRepository = Repositories.getInstance().getTeamRepository();
 
     public void run() throws InvalidCollaboratorDataException, InvalidTaskDataException, InvalidEntryDataException, InvalidGreenSpaceDataException {
         addSkill();
@@ -193,5 +197,31 @@ public class Bootstrap {
         Entry entry = new Entry(taskRepository.findTaskById("Task"), greenSpaceRepository.getGreenSpaceByParkName("GreenSpace description"));
         AgendaEntry entry1 = new AgendaEntry(entry.getTask(), greenSpaceRepository.getGreenSpaceByParkName("GreenSpace description"), new Date(2021, 1, 1), AgendaEntry.HourOfDay.H01,new Date(2021, 1, 1), AgendaEntry.HourOfDay.H06);
         agenda.addAgendaEntry(entry1);
+    }
+
+    private void addTeam() throws InvalidCollaboratorDataException {
+
+        Collaborator c1 = new Collaborator("Ana", new Date(1990, 2, 3),
+                new Date(2010, 3, 1), "Rua1", "912345669", "ana@collaborator.com",
+                "123456789", Collaborator.IdDocType.CC, "234564321zx7", "ABC1234");
+
+        Collaborator c2 = new Collaborator("João", new Date(1980, 2, 3), new Date(2010,
+                3, 1), "Rua2", "912345669", "joao@collaborator.com", "234567899",
+                Collaborator.IdDocType.BI, "232566381", "ABC1234");
+
+        Collaborator c3 = new Collaborator("André", new Date(1970, 2, 3), new Date(2010,
+                3, 1), "Rua3", "912345669", "andre@collaborator.com", "345678907",
+                Collaborator.IdDocType.NISS, "23456432125", "ABC1234");
+
+        Collaborator c4 = new Collaborator("Manuel", new Date(1999, 2, 3), new Date(2020,
+                3, 1), "Rua4", "912345669", "manuel@collaborator.com", "456789014",
+                Collaborator.IdDocType.PASSPORT, "H234564", "ABC1234");
+
+
+        Team team1 = new Team(List.of(c1, c2));
+        Team team2 = new Team(List.of(c3, c4));
+
+        teamRepository.addTeam(team1);
+        teamRepository.addTeam(team2);
     }
 }
