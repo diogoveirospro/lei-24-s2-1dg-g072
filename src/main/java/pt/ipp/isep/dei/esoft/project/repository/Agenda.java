@@ -25,11 +25,11 @@ public class Agenda {
      * @param typeStatus the status of the entries to filter.
      * @return a list of entries matching the specified tasks and date range.
      */
-    public List<AgendaEntry> getAgendaEntryList(List<Team> teamList, Date startDate, Date endDate, String typeStatus) {
+    public List<AgendaEntry> getAgendaEntryList(List<Team> teamList, Date startDate, Date endDate, AgendaEntry.StatusOfEntry typeStatus) {
         List<AgendaEntry> agendaEntryList = new ArrayList<>();
         for (Team team : teamList) {
             for (AgendaEntry agendaEntry : entriesAgenda) {
-                if ((agendaEntry.getTeam().equals(team)) && (agendaEntry.getStartDate().compareTo(startDate) >= 0 && agendaEntry.getEndDate().compareTo(endDate) >= 0) && agendaEntry.getStatus().toString().equals(typeStatus)) {
+                if ((agendaEntry.getTeam().equals(team)) && (agendaEntry.getStartDate().compareTo(startDate) >= 0 && agendaEntry.getEndDate().compareTo(endDate) >= 0) && agendaEntry.getStatus().equals(typeStatus)) {
                     agendaEntryList.add(agendaEntry);
                 }
             }
@@ -77,10 +77,6 @@ public class Agenda {
         return AgendaEntry.StatusOfEntry.getStatusList();
     }
 
-    public List<AgendaEntry> getEntriesAgenda() {
-        return entriesAgenda;
-    }
-
     public List<AgendaEntry> getEntryList() {
         List<AgendaEntry> entryList = new ArrayList<>();
         for (AgendaEntry entry : entriesAgenda) {
@@ -91,12 +87,12 @@ public class Agenda {
 
     public List<String> getAgendaEntryList() {
         List<AgendaEntry> entryList;
-        String[] entryListArray = new String[0];
+        List<String> entryListString = new ArrayList<>();
         entryList = getEntryList();
         for (int i = 0; i < entryList.size(); i++) {
-            entryListArray = new String[]{entryList.get(i).getName()};
+            entryListString.add(entryList.get(i).getName());
         }
 
-        return new ArrayList<>(Arrays.asList(entryListArray));
+        return entryListString;
     }
 }

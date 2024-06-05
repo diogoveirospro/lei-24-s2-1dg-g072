@@ -165,9 +165,9 @@ public class ListTaskController {
      * @param endDate   end date of the task
      * @return list of tasks of the collaborator
      */
-    public List<AgendaEntryDto> getTaskList(Collaborator collaborator, String typeStatus, Date startDate, Date endDate) {
+    public List<AgendaEntryDto> getTaskList(Collaborator collaborator, AgendaEntry.StatusOfEntry typeStatus, Date startDate, Date endDate) {
         List<Team> teamList = this.teamRepository.getTeamsByCollaborator(collaborator);
-        List<AgendaEntry> agendaEntryList = this.agenda.getAgendaEntryList(teamList, startDate, endDate,typeStatus);
+        List<AgendaEntry> agendaEntryList = this.agenda.getAgendaEntryList(teamList, startDate, endDate, typeStatus);
         AgendaEntryMapper mapper = new AgendaEntryMapper();
         return mapper.toDtoList(agendaEntryList);
     }
