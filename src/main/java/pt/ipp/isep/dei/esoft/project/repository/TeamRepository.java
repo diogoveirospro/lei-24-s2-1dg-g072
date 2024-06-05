@@ -115,6 +115,12 @@ public class TeamRepository {
         }
     }
 
+    /**
+     * Retrieves a list of teams that are valid to be assigned to the specified agenda entry.
+     *
+     * @param agendaEntry the agenda entry to which the teams are being validated for assignment
+     * @return a list of valid teams
+     */
     public List<Team> getValidTeams(AgendaEntry agendaEntry) {
         List<Team> validTeams = new ArrayList<>();
         for (Team team : teams) {
@@ -124,4 +130,5 @@ public class TeamRepository {
         }
         return validTeams;
     }
+
 }

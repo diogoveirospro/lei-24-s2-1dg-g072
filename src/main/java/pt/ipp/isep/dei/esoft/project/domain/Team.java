@@ -171,24 +171,43 @@ public class Team {
         return true;
     }
 
+    /**
+     * Validates whether a collaborator is part of the specified team.
+     *
+     * @param collaborator the collaborator to be validated
+     * @param team the team to be validated against
+     * @return true if the collaborator is part of the team, otherwise false
+     */
     public boolean validateCollaboratorTeam(Collaborator collaborator, Team team) {
         return team.getTeam().contains(collaborator);
     }
 
+    /**
+     * Validates whether the team can be assigned to the specified agenda entry.
+     *
+     * @param agendaEntry the agenda entry to be assigned
+     * @return true if the team can be assigned to the agenda entry, otherwise false
+     */
     public boolean validateTeamToBeAssignedToAnAgendaEntry(AgendaEntry agendaEntry) {
         for (AgendaEntry entry : agendaEntriesAssignedToTeam) {
             if (entry.getStartDate().isGreater(agendaEntry.getStartDate()) && agendaEntry.getEndDate().isGreater(entry.getEndDate())) {
                 return false;
             } else if (entry.getStartDate().equals(agendaEntry.getStartDate()) && entry.getEndDate().equals(agendaEntry.getEndDate())) {
                 return false;
-
             }
         }
         return true;
     }
 
+    /**
+     * Assigns the specified agenda entry to the team.
+     *
+     * @param agendaEntry the agenda entry to be assigned
+     * @return true if the agenda entry is successfully assigned to the team, otherwise false
+     */
     public boolean assignAgendaEntry(AgendaEntry agendaEntry) {
         agendaEntriesAssignedToTeam.add(agendaEntry);
         return true;
     }
+
 }
