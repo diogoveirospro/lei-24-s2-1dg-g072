@@ -90,8 +90,7 @@ package "DTO" #DDDDDD {
     class Team {
         - members : List<Collaborator>
         + validateTeamToBeAssignedToAnAgendaEntry(agendaEntry)
-        + assignAgendaEntry()
-        + blockTeamAtATime()
+        + assignAgendaEntry(agendaEntry)
         + getMembers()
     }
 
