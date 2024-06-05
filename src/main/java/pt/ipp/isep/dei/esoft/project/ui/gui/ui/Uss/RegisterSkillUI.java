@@ -1,4 +1,5 @@
 package pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss;
+import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.repository.SkillRepository;
@@ -39,12 +40,10 @@ public class RegisterSkillUI {
      * @param name The name of the skill to addSkill. It must not be null or empty.
      */
 
-    public void registerSkill (String name){
-        Skill skill = new Skill(name);
-        try {
-            skillRepository.addSkill(skill);
-        }catch (IllegalArgumentException e){
-            System.out.println(e.getMessage());
-        }
+    public void registerSkill(String name) {
+
+    }
+
+    public void showUI(Stage primaryStage) {
     }
 }

@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss;
 
+import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.domain.Job;
 import pt.ipp.isep.dei.esoft.project.repository.JobRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
@@ -41,4 +42,6 @@ public class RegisterJobUI {
         jobRepository.addJob(job);
     }
 
+    public void showUI(Stage primaryStage) {
+    }
 }

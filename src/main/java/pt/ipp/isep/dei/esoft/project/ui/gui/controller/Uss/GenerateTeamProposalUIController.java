@@ -3,22 +3,13 @@ package pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
-import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.application.controller.GenerateTeamProposalController;
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
 import pt.ipp.isep.dei.esoft.project.domain.Team;
-import pt.ipp.isep.dei.esoft.project.repository.CollaboratorRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
-import pt.ipp.isep.dei.esoft.project.repository.SkillRepository;
-import pt.ipp.isep.dei.esoft.project.repository.TeamRepository;
-import pt.ipp.isep.dei.esoft.project.ui.gui.ui.AlertUI;
-import pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss.AddAgendaEntryUI;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss.GenerateTeamProposalUI;
 
 import java.awt.*;
@@ -29,43 +20,43 @@ import java.util.List;
 public class GenerateTeamProposalUIController {
 
     @FXML
-    private TextField tfMinSize;
+    public TextField tfMinSize;
 
     @FXML
-    private TextField tfMaxSize;
+    public TextField tfMaxSize;
 
     @FXML
-    private ListView<Skill> lvSkills;
+    public ListView<Skill> lvSkills;
 
     @FXML
-    private ListView<Skill> lvSelectedSkills;
+    public ListView<Skill> lvSelectedSkills;
 
     @FXML
-    private Button btnAddSkill;
+    public Button btnAddSkill;
 
     @FXML
-    private Button btnRemoveSkill;
+    public Button btnRemoveSkill;
 
     @FXML
-    private Button btnGenerate;
+    public Button btnGenerate;
 
     @FXML
-    private ListView<Collaborator> lvTeamProposal;
+    public ListView<Collaborator> lvTeamProposal;
 
     @FXML
-    private Button btnAcceptProposal;
+    public Button btnAcceptProposal;
 
     @FXML
-    private Button btnDeclineProposal;
+    public Button btnDeclineProposal;
 
     @FXML
-    private Button btnAddMember;
+    public Button btnAddMember;
 
     @FXML
-    private Button btnRemoveMember;
+    public Button btnRemoveMember;
 
     @FXML
-    private ListView<Collaborator> lvCollaborators;
+    public ListView<Collaborator> lvCollaborators;
 
     GenerateTeamProposalController generateTeamProposalController = new GenerateTeamProposalController();
     GenerateTeamProposalUI generateTeamProposalUI = new GenerateTeamProposalUI();
@@ -138,6 +129,10 @@ public class GenerateTeamProposalUIController {
             alert.showAndWait();
         }else {
 
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Team proposal not accepted");
+            alert.showAndWait();
         }
 
     }
