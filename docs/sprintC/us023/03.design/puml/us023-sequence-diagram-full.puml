@@ -211,12 +211,8 @@ activate GSM
                 AGENDA -> AGENDAENTRY : assignTeam(team)
                 activate AGENDAENTRY
 
-                    AGENDAENTRY -> TEAM : assignAgendaEntry()
+                    AGENDAENTRY -> TEAM : assignAgendaEntry(agendaEntry)
                     activate TEAM
-
-                        TEAM -> TEAM : blockTeamAtATime()
-                        activate TEAM
-                        deactivate TEAM
 
                         TEAM --> AGENDAENTRY : operation success
                     deactivate TEAM
