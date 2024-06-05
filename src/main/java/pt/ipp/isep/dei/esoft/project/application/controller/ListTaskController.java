@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
 import pt.ipp.isep.dei.esoft.project.Mapper.AgendaEntryMapper;
+import pt.ipp.isep.dei.esoft.project.application.session.ApplicationSession;
 import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.dto.AgendaEntryDto;
 import pt.ipp.isep.dei.esoft.project.repository.*;
@@ -134,15 +135,6 @@ public class ListTaskController {
         return authenticationRepository;
     }
 
-    /**
-     * Lets the controller get the collaborator by email
-     *
-     * @param email email
-     * @return collaborator
-     */
-    public Collaborator getCollaboratorByEmail(String email) {
-        return this.collaboratorRepository.getCollaboratorByEmail(email);
-    }
 
     /**
      * Lets the controller get the status list
@@ -159,16 +151,20 @@ public class ListTaskController {
     /**
      * Lets the controller get the task list of the collaborator
      *
-     * @param collaborator that we want to get all the tasks
      * @param typeStatus  status of the task
      * @param startDate  start date of the task
      * @param endDate   end date of the task
      * @return list of tasks of the collaborator
      */
-    public List<AgendaEntryDto> getTaskList(Collaborator collaborator, AgendaEntry.StatusOfEntry typeStatus, Date startDate, Date endDate) {
+    public List<AgendaEntryDto> getTaskList(AgendaEntry.StatusOfEntry typeStatus, Date startDate, Date endDate) {
+        Collaborator collaborator = getCollaboratorFromSession();
         List<Team> teamList = this.teamRepository.getTeamsByCollaborator(collaborator);
         List<AgendaEntry> agendaEntryList = this.agenda.getAgendaEntryList(teamList, startDate, endDate, typeStatus);
         AgendaEntryMapper mapper = new AgendaEntryMapper();
         return mapper.toDtoList(agendaEntryList);
+    }
+    private Collaborator getCollaboratorFromSession() {
+        String email = ApplicationSession.getInstance().getCurrentSession().getUserEmail();
+        return collaboratorRepository.getCollaboratorByEmail(email);
     }
 }

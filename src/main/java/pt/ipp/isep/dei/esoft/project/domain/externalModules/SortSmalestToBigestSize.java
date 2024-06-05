@@ -16,6 +16,14 @@ public class SortSmalestToBigestSize implements SortExternalModule {
 
     @Override
     public void sortList(List<GreenSpace> greenSpacesManagedByGSM) {
-        greenSpacesManagedByGSM.sort((gs1, gs2) -> Double.compare(gs1.getDimension(), gs2.getDimension()));
+        for (int i = 0; i < greenSpacesManagedByGSM.size(); i++) {
+            for (int j = i + 1; j < greenSpacesManagedByGSM.size(); j++) {
+                if (greenSpacesManagedByGSM.get(i).getDimension() > greenSpacesManagedByGSM.get(j).getDimension()) {
+                    GreenSpace temp = greenSpacesManagedByGSM.get(i);
+                    greenSpacesManagedByGSM.set(i, greenSpacesManagedByGSM.get(j));
+                    greenSpacesManagedByGSM.set(j, temp);
+                }
+            }
+        }
     }
 }

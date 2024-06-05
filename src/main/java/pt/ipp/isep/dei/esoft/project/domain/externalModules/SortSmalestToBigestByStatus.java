@@ -17,14 +17,17 @@ public class SortSmalestToBigestByStatus implements SortExternalModule {
 
     @Override
     public void sortList(List<GreenSpace> greenSpacesManagedByGSM) {
-        List<GreenSpace.TypeOfGreenSpace> typeOfGreenSpaceList = Arrays.asList(GreenSpace.TypeOfGreenSpace.values());
-        greenSpacesManagedByGSM.sort((gs1, gs2) -> {
-            int typeComparison = Integer.compare(typeOfGreenSpaceList.indexOf(gs1.getType()), typeOfGreenSpaceList.indexOf(gs2.getType()));
-            if (typeComparison != 0) {
-                return typeComparison;
+
+        int n = greenSpacesManagedByGSM.size();
+        for (int i = 0; i < n-1; i++) {
+            for (int j = 0; j < n-i-1; j++) {
+                if (greenSpacesManagedByGSM.get(j).getType().compareTo(greenSpacesManagedByGSM.get(j+1).getType()) > 0 || greenSpacesManagedByGSM.get(j).getDimension() > greenSpacesManagedByGSM.get(j+1).getDimension()) {
+                    GreenSpace temp = greenSpacesManagedByGSM.get(j);
+                    greenSpacesManagedByGSM.set(j, greenSpacesManagedByGSM.get(j+1));
+                    greenSpacesManagedByGSM.set(j+1, temp);
+                }
             }
-            return Double.compare(gs1.getDimension(), gs2.getDimension());
-        });
+        }
     }
 }
 
