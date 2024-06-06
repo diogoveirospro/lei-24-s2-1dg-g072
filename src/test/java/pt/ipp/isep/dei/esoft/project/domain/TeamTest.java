@@ -23,7 +23,7 @@ public class TeamTest {
 
     {
         try {
-            c1 = new Collaborator("Ana");
+            c1 = new Collaborator("Ana", new Date(1990, 2, 3), new Date(2010, 3, 1), "Rua1", "912345669", "ana@collaborator.com", "123456789", Collaborator.IdDocType.CC, "234564321zx7", "ABC1234");
         } catch (InvalidCollaboratorDataException e) {
             throw new RuntimeException(e);
         }
@@ -33,7 +33,7 @@ public class TeamTest {
 
     {
         try {
-            c2 = new Collaborator("João");
+            c2 = new Collaborator("João", new Date(1980, 2, 3), new Date(2010, 3, 1), "Rua2", "912345669", "joao@collaborator.com", "234567899", Collaborator.IdDocType.BI, "232566381", "ABC1234");
         } catch (InvalidCollaboratorDataException e) {
             throw new RuntimeException(e);
         }
@@ -43,7 +43,7 @@ public class TeamTest {
 
     {
         try {
-            c3 = new Collaborator("André");
+            c3 = new Collaborator("André", new Date(1970, 2, 3), new Date(2010, 3, 1), "Rua3", "912345669", "andre@collaborator.com", "345678907", Collaborator.IdDocType.NISS, "23456432125", "ABC1234");
         } catch (InvalidCollaboratorDataException e) {
             throw new RuntimeException(e);
         }
@@ -53,7 +53,7 @@ public class TeamTest {
 
     {
         try {
-            c4 = new Collaborator("Manuel");
+            c4 = new Collaborator("Manuel", new Date(1999, 2, 3), new Date(2020, 3, 1), "Rua4", "912345669", "manuel@collaborator.com", "456789014", Collaborator.IdDocType.PASSPORT, "H234564", "ABC1234");
         } catch (InvalidCollaboratorDataException e) {
             throw new RuntimeException(e);
         }

@@ -3,7 +3,6 @@ package pt.ipp.isep.dei.esoft.project.domain;
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidTaskDataException;
 
 import java.io.Serializable;
-import java.time.Instant;
 import java.util.Objects;
 
 /**
@@ -110,21 +109,5 @@ public class Task implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(duration, task);
-    }
-
-    public Object getStatus() {
-        return null;
-    }
-
-    public Instant getStartDate() {
-        return null;
-    }
-
-    public Instant getEndDate() {
-        return null;
-    }
-
-    public int getId() {
-        return 0;
     }
 }

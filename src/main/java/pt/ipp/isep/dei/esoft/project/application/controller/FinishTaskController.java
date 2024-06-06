@@ -1,45 +1,49 @@
+/*
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
-import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidCollaboratorDataException;
-import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
-import pt.ipp.isep.dei.esoft.project.domain.Date;
-import pt.ipp.isep.dei.esoft.project.domain.Task;
-import pt.ipp.isep.dei.esoft.project.dto.AgendaEntryDto;
 import pt.ipp.isep.dei.esoft.project.repository.Agenda;
+import pt.ipp.isep.dei.esoft.project.domain.AgendaEntry;
+import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
+import pt.ipp.isep.dei.esoft.project.dto.AgendaEntryDto;
+import pt.ipp.isep.dei.esoft.project.Mapper.AgendaEntryMapper;
+import pt.ipp.isep.dei.esoft.project.repository.CollaboratorRepository;
+import pt.ipp.isep.dei.esoft.project.repository.Repositories;
+import pt.ipp.isep.dei.esoft.project.application.session.ApplicationSession;
 
+import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 public class FinishTaskController {
 
     private final Agenda agenda;
+    private final CollaboratorRepository collaboratorRepository;
+    private final ApplicationSession appSession;
 
     public FinishTaskController() {
-        this.agenda = new Agenda();
+        this.agenda = Repositories.getInstance().getAgenda();
+        this.collaboratorRepository = Repositories.getInstance().getCollaboratorRepository();
+        this.appSession = ApplicationSession.getInstance();
     }
 
-    public List<String> getStatusList() {
-        // Return the list of statuses
-        return List.of("Not Started", "In Progress", "Completed");
+    public Collaborator getCollaboratorByEmail(String email) {
+        return collaboratorRepository.getCollaboratorByEmail(email);
     }
 
-    public Collaborator getCollaboratorByEmail(String email) throws InvalidCollaboratorDataException {
-        // Logic to get Collaborator by email
-        return agenda.getCollaboratorByEmail(email);
+    public List<AgendaEntryDto> getTaskList(Collaborator collaborator, Date dateI, Date dateF, String typeStatus) {
+        List<AgendaEntry> agendaEntries = agenda.getCollaboratorAgendaEntries(collaborator, dateI, dateF, typeStatus);
+        return AgendaEntryMapper.toDTOList(agendaEntries);
     }
 
-    public List<AgendaEntryDto> getTaskList(Collaborator collaborator, String status, Date startDate, Date endDate) {
-        // Logic to get task list based on criteria
-        return agenda.getTasksByCollaborator(collaborator).stream()
-                .filter(task -> task.getStatus().toString().equals(status)
-                        && !task.getStartDate().isBefore(startDate)
-                        && !task.getEndDate().isAfter(endDate))
-                .map(AgendaEntryDto::new)
-                .collect(Collectors.toList());
-    }
-
-    public void markTaskAsCompleted(int taskId) {
-        // Logic to mark task as completed
-        agenda.markTaskAsCompleted(taskId);
+    public Optional<AgendaEntryDto> markTaskAsCompleted(String taskId) {
+        Optional<AgendaEntry> optionalAgendaEntry = agenda.getAgendaEntry(taskId);
+        if (optionalAgendaEntry.isPresent()) {
+            AgendaEntry agendaEntry = optionalAgendaEntry.get();
+            agendaEntry.markAsCompleted();
+            return Optional.of(AgendaEntryMapper.toDTO(agendaEntry));
+        }
+        return Optional.empty();
     }
 }
+
+ */
