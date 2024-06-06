@@ -62,5 +62,10 @@ public class ToDoList extends SerializableRepository<List<ToDoListEntry>> implem
 
     public void addEntry(ToDoListEntry toDoListEntry) {
         this.toDoListEntries.add(toDoListEntry);
+        save(toDoListEntries);
+    }
+
+    public void saveToDoListToFile() {
+        save(toDoListEntries);
     }
 }

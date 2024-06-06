@@ -63,6 +63,7 @@ public class JobRepository extends SerializableRepository<List<Job>> implements 
         }
 
         jobs.add(newJob);
+        saveJobRepositoryToFile();
 
     }
 
@@ -92,5 +93,9 @@ public class JobRepository extends SerializableRepository<List<Job>> implements 
     public boolean exists(String jobName){
         Job job = new Job(jobName);
         return jobs.contains(job);
+    }
+
+    public void saveJobRepositoryToFile() {
+        save(jobs);
     }
 }
