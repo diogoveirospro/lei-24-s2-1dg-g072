@@ -49,6 +49,7 @@ public class VehicleRepository extends SerializableRepository<List<Vehicle>> imp
         boolean success = true;
         if (checkVehicleInList(newVehicle) && (newVehicle.validateVehicle())){
             vehicleList.add(newVehicle.clone());
+            saveVehicleRepositoryToFile();
         }else {
             success = false;
             throw new IllegalArgumentException("Invalid vehicle to add");
@@ -157,5 +158,9 @@ public class VehicleRepository extends SerializableRepository<List<Vehicle>> imp
             }
         }
         return validVehicles;
+    }
+
+    public void saveVehicleRepositoryToFile() {
+        save(vehicleList);
     }
 }

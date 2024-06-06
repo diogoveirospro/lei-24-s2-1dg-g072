@@ -68,6 +68,7 @@ public class CollaboratorRepository extends SerializableRepository<List<Collabor
             throw new IllegalArgumentException("Invalid collaborator to add");
         }
         collaborators.add(newCollaborator);
+        saveCollaboratorRepositoryToFile();
     }
 
     /**
@@ -105,6 +106,7 @@ public class CollaboratorRepository extends SerializableRepository<List<Collabor
             throw new IllegalArgumentException("Invalid skill");
         }
         collaborator.assignSkill(skill);
+        saveCollaboratorRepositoryToFile();
     }
 
     /**
@@ -139,5 +141,9 @@ public class CollaboratorRepository extends SerializableRepository<List<Collabor
      */
     public boolean exist(Collaborator collaborator) {
         return collaborators.contains(collaborator);
+    }
+
+    public void saveCollaboratorRepositoryToFile() {
+        save(collaborators);
     }
 }

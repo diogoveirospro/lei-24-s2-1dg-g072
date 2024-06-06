@@ -93,5 +93,10 @@ public class GreenSpaceRepository extends SerializableRepository<List<GreenSpace
 
     public void addGreenSpace(GreenSpace greenSpace) {
         greenSpaceList.add(greenSpace);
+        saveGreenSpaceRepositoryToFile();
+    }
+
+    public void saveGreenSpaceRepositoryToFile() {
+        save(greenSpaceList);
     }
 }

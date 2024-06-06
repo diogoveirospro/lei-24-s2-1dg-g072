@@ -81,6 +81,7 @@ public class TeamRepository extends SerializableRepository<List<Team>> implement
     public boolean addTeam(Team team) {
         if (validateTeam(team)) {
             teams.add(team);
+            saveTeamRepositoryToFile();
             return true;
         }
         return false;
@@ -132,6 +133,10 @@ public class TeamRepository extends SerializableRepository<List<Team>> implement
             }
         }
         return validTeams;
+    }
+
+    public void saveTeamRepositoryToFile() {
+        save(teams);
     }
 
 }

@@ -42,7 +42,9 @@ public class Task implements Serializable {
     }
 
     private boolean isValidDuration(String duration) throws InvalidTaskDataException {
-        if (!duration.matches("\\d+")) {
+        if (duration == null || duration.isBlank()) {
+            throw new InvalidTaskDataException("Invalid Input. The duration of the task cannot be empty or blank.");
+        } else if (!duration.matches("\\d+")) {
             throw new InvalidTaskDataException("Invalid Input. The duration of the task must be a number.");
         } else {
             return true;
