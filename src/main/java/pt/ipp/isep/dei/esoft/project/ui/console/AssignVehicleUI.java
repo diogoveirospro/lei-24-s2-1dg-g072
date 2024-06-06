@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
-
 import pt.ipp.isep.dei.esoft.project.application.controller.AssignVehicleController;
 import pt.ipp.isep.dei.esoft.project.domain.AgendaEntry;
 import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
@@ -46,7 +45,7 @@ public class AssignVehicleUI {
         Vehicle selectedVehicle = validVehicles.get(vehicleIndex);
 
 
-        boolean success = controller.assignVehicleToAgendaEntry(selectedEntry, selectedVehicle);
+        boolean success = controller.assignVehicle(selectedEntry, selectedVehicle);
         if (success) {
             System.out.println("Vehicle successfully assigned to agenda entry.");
         } else {
