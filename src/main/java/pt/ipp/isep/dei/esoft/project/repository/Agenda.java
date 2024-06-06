@@ -52,8 +52,8 @@ public class Agenda {
      * @return the newly created AgendaEntry object.
      * @throws InvalidEntryDataException if the provided data is invalid.
      */
-    public AgendaEntry createAgendaEntry(Task task, GreenSpace greenSpace, Date startDate, AgendaEntry.HourOfDay startHour,
-                                         Date endDate, AgendaEntry.HourOfDay endHour) throws InvalidEntryDataException {
+    public AgendaEntry createAgendaEntry(Task task, GreenSpace greenSpace, Date startDate, AgendaEntry.WorkingDayHours startHour,
+                                         Date endDate, AgendaEntry.WorkingDayHours endHour) throws InvalidEntryDataException {
 
         try {
             return new AgendaEntry(task, greenSpace, startDate, startHour, endDate, endHour);

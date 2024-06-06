@@ -31,15 +31,10 @@ public class ToDoList {
         return AgendaEntry.StatusOfEntry.getStatusList();
     }
 
-    /**
-     * Retrieves a ToDoListEntry object by matching the task's hash code.
-     *
-     * @param taskHashCode the hash code of the task to search for.
-     * @return the matching ToDoListEntry object, or null if not found.
-     */
-    public ToDoListEntry getToDoListEntryByTaskHashCode(int taskHashCode) {
+
+    public ToDoListEntry getToDoListEntryByTaskName(String taskName) {
         for (ToDoListEntry toDoListEntry : toDoListEntries) {
-            if (toDoListEntry.getTask().hashCode() == taskHashCode) {
+            if (toDoListEntry.getTask().getTaskId().equals(taskName)) {
                 return toDoListEntry;
             }
         }

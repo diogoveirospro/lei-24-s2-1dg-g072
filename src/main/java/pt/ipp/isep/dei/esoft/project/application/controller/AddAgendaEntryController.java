@@ -108,7 +108,7 @@ public class AddAgendaEntryController {
      * @return              The new agenda entry created.
      * @throws InvalidEntryDataException If the provided data is invalid.
      */
-    public AgendaEntry createAgendaEntry(Task task, GreenSpace greenSpace, Date startDate, AgendaEntry.HourOfDay startHour, Date endDate, AgendaEntry.HourOfDay endHour) throws InvalidEntryDataException {
+    public AgendaEntry createAgendaEntry(Task task, GreenSpace greenSpace, Date startDate, AgendaEntry.WorkingDayHours startHour, Date endDate, AgendaEntry.WorkingDayHours endHour) throws InvalidEntryDataException {
         agenda = Repositories.getInstance().getAgenda();
         return agenda.createAgendaEntry(task, greenSpace, startDate, startHour, endDate, endHour);
     }
@@ -138,7 +138,7 @@ public class AddAgendaEntryController {
         if (dto instanceof GreenSpaceDto) {
             return greenSpaceRepository.getGreenSpaceByParkName(((GreenSpaceDto) dto).getParkName());
         } else if (dto instanceof ToDoListEntryDto) {
-            return toDoList.getToDoListEntryByTaskHashCode(((ToDoListEntryDto) dto).getTaskHashCode());
+            return toDoList.getToDoListEntryByTaskName(((ToDoListEntryDto) dto).getTaskName());
         }
         return null;
     }
@@ -151,7 +151,10 @@ public class AddAgendaEntryController {
 
     public ToDoListEntryDto getToDoListEntry(String selectedItem, GreenSpaceDto greenSpaceDto) {
         GreenSpace greenSpace = (GreenSpace) toDomain(greenSpaceDto);
-        ToDoListEntry toDoListEntry = greenSpace.getToDoList().getToDoListEntryByTaskHashCode(selectedItem.hashCode());
+
+        String taskName = selectedItem.substring(0, selectedItem.indexOf("-")).trim();
+
+        ToDoListEntry toDoListEntry = greenSpace.getToDoList().getToDoListEntryByTaskName(taskName);
         return new ToDoListEntryDto(toDoListEntry);
     }
 }

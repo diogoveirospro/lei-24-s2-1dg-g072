@@ -19,9 +19,9 @@ public class AgendaEntry extends Entry {
     private Team team;
     private ToDoListEntry toDoListEntry;
     private Date startDate;
-    private HourOfDay startHour;
+    private WorkingDayHours startHour;
     private Date endDate;
-    private HourOfDay endHour;
+    private WorkingDayHours endHour;
     private StatusOfEntry status;
     private List<Vehicle> vehicleList;
     private int duration;
@@ -32,31 +32,15 @@ public class AgendaEntry extends Entry {
     /**
      * Enum representing the hours of the day.
      */
-    public enum HourOfDay {
-        H00("00:00"),
-        H01("01:00"),
-        H02("02:00"),
-        H03("03:00"),
-        H04("04:00"),
-        H05("05:00"),
-        H06("06:00"),
-        H07("07:00"),
-        H08("08:00"),
-        H09("09:00"),
+    public enum WorkingDayHours {
+        H09("9:00"),
         H10("10:00"),
         H11("11:00"),
         H12("12:00"),
-        H13("13:00"),
         H14("14:00"),
         H15("15:00"),
         H16("16:00"),
-        H17("17:00"),
-        H18("18:00"),
-        H19("19:00"),
-        H20("20:00"),
-        H21("21:00"),
-        H22("22:00"),
-        H23("23:00");
+        H17("17:00");
 
         private final String hour;
 
@@ -65,7 +49,7 @@ public class AgendaEntry extends Entry {
          *
          * @param hour the hour represented as a string in HH:mm format
          */
-        HourOfDay(String hour) {
+        WorkingDayHours(String hour) {
             this.hour = hour;
         }
 
@@ -90,8 +74,8 @@ public class AgendaEntry extends Entry {
          * @return the HourOfDay enum
          * @throws IllegalArgumentException if the hour string is invalid
          */
-        public static HourOfDay fromString(String hour) throws InvalidEntryDataException {
-            for (HourOfDay hourOfDay : HourOfDay.values()) {
+        public static WorkingDayHours fromString(String hour) throws InvalidEntryDataException {
+            for (WorkingDayHours hourOfDay : WorkingDayHours.values()) {
                 if (hourOfDay.getHour().equals(hour)) {
                     return hourOfDay;
                 }
@@ -104,8 +88,8 @@ public class AgendaEntry extends Entry {
          *
          * @return a list of all hours
          */
-        public static List<HourOfDay> getAllHours() {
-            return new ArrayList<>(Arrays.asList(HourOfDay.values()));
+        public static List<WorkingDayHours> getAllHours() {
+            return new ArrayList<>(Arrays.asList(WorkingDayHours.values()));
         }
 
         /**
@@ -114,7 +98,7 @@ public class AgendaEntry extends Entry {
          * @param otherHour the other hour to compare
          * @return true if this hour is greater than the other hour, false otherwise
          */
-        public boolean isGreater(HourOfDay otherHour) {
+        public boolean isGreater(WorkingDayHours otherHour) {
             if (otherHour == null || this == otherHour){
                 return false;
             }
@@ -197,7 +181,7 @@ public class AgendaEntry extends Entry {
      * @param endDate    the end date of the task
      * @throws InvalidEntryDataException if the start date is later than the end date
      */
-    public AgendaEntry(Task task, GreenSpace greenSpace, Date startDate, HourOfDay startHour, Date endDate, HourOfDay endHour) throws InvalidEntryDataException {
+    public AgendaEntry(Task task, GreenSpace greenSpace, Date startDate, WorkingDayHours startHour, Date endDate, WorkingDayHours endHour) throws InvalidEntryDataException {
         super(task, greenSpace);
         if (validateDates(startDate, endDate, startHour, endHour)) {
             throw new InvalidEntryDataException("The start date of the task cannot be later than the end date.");
@@ -210,6 +194,7 @@ public class AgendaEntry extends Entry {
         this.vehicleList = new ArrayList<>();
         this.team = null;
         this.status = StatusOfEntry.SCHEDULED;
+        this.toDoListEntry = greenSpace.getToDoList().getToDoListEntryByTaskName(task.getTaskId());
 
     }
 
@@ -226,7 +211,7 @@ public class AgendaEntry extends Entry {
      *
      * @return the start hour
      */
-    public HourOfDay getStartHour() {
+    public WorkingDayHours getStartHour() {
         return startHour;
     }
 
@@ -244,7 +229,7 @@ public class AgendaEntry extends Entry {
      *
      * @return the end hour
      */
-    public HourOfDay getEndHour() {
+    public WorkingDayHours getEndHour() {
         return endHour;
     }
 
@@ -302,7 +287,7 @@ public class AgendaEntry extends Entry {
      * @param startHour the new start hour
      * @throws InvalidEntryDataException if the start hour is later than the end hour
      */
-    public void setStartHour(HourOfDay startHour) throws InvalidEntryDataException {
+    public void setStartHour(WorkingDayHours startHour) throws InvalidEntryDataException {
         if (validateDates(startDate, endDate, startHour, endHour)) {
             throw new InvalidEntryDataException("The start hour of the task cannot be later than the end hour.");
         }
@@ -328,7 +313,7 @@ public class AgendaEntry extends Entry {
      * @param endHour the new end hour
      * @throws InvalidEntryDataException if the end hour is earlier than the start hour
      */
-    public void setEndHour(HourOfDay endHour) throws InvalidEntryDataException {
+    public void setEndHour(WorkingDayHours endHour) throws InvalidEntryDataException {
         if (validateDates(startDate, endDate, startHour, endHour)) {
             throw new InvalidEntryDataException("The end hour of the task cannot be earlier than the start hour.");
         }
@@ -380,7 +365,7 @@ public class AgendaEntry extends Entry {
      * @param endHour   the end hour
      * @return true if the end date and hour are greater than or equal to the start date and hour, false otherwise
      */
-    private boolean validateDates(Date startDate, Date endDate, HourOfDay startHour, HourOfDay endHour) {
+    private boolean validateDates(Date startDate, Date endDate, WorkingDayHours startHour, WorkingDayHours endHour) {
 
 
         if (startDate == null ||  endDate == null || startHour == null || endHour == null) {

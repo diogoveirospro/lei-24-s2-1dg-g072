@@ -109,7 +109,12 @@ public class AddAgendaEntryUIController {
      * Populates the combo boxes for start and end hours.
      */
     public void populateHoursComboBox() {
-        for (int i = 0; i < 24; i++) {
+        for (int i = 9; i < 13; i++) {
+            cbStartHour.getItems().add(i + ":00");
+            cbEndHour.getItems().add(i + ":00");
+        }
+
+        for (int i = 14; i < 19; i++) {
             cbStartHour.getItems().add(i + ":00");
             cbEndHour.getItems().add(i + ":00");
         }
@@ -134,8 +139,8 @@ public class AddAgendaEntryUIController {
             LocalDate startLocalDate = getStartDate();
             LocalDate endLocalDate = getEndDate();
 
-            AgendaEntry.HourOfDay startHourOfDay = AgendaEntry.HourOfDay.fromString(startHour);
-            AgendaEntry.HourOfDay endHourOfDay = AgendaEntry.HourOfDay.fromString(endHour);
+            AgendaEntry.WorkingDayHours startHourOfDay = AgendaEntry.WorkingDayHours.fromString(startHour);
+            AgendaEntry.WorkingDayHours endHourOfDay = AgendaEntry.WorkingDayHours.fromString(endHour);
 
             Task task = controller.getTask(toDoListEntryDto);
             GreenSpace greenSpace = (GreenSpace) controller.toDomain(greenSpaceDto);

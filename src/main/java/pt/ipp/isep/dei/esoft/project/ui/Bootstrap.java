@@ -199,11 +199,11 @@ public class Bootstrap {
 
 
         Entry entry1 = new Entry(taskRepository.findTaskById("Task One"), greenSpaceRepository.getGreenSpaceByParkName("Cidade"));
-        AgendaEntry agendaEntry1 = new AgendaEntry(entry1.getTask(), greenSpaceRepository.getGreenSpaceByParkName("Cidade"), new Date(2024, 6, 6), AgendaEntry.HourOfDay.H01,new Date(2024, 6, 20), AgendaEntry.HourOfDay.H06);
+        AgendaEntry agendaEntry1 = new AgendaEntry(entry1.getTask(), greenSpaceRepository.getGreenSpaceByParkName("Cidade"), new Date(2024, 6, 6), AgendaEntry.WorkingDayHours.H09,new Date(2024, 6, 20), AgendaEntry.WorkingDayHours.H12);
         agenda.addAgendaEntry(agendaEntry1);
 
         Entry entry2 = new Entry(taskRepository.findTaskById("Task Two"), greenSpaceRepository.getGreenSpaceByParkName("São Roque"));
-        AgendaEntry agendaEntry2 = new AgendaEntry(entry2.getTask(), greenSpaceRepository.getGreenSpaceByParkName("São Roque"), new Date(2024, 6, 7), AgendaEntry.HourOfDay.H01,new Date(2024, 6, 8), AgendaEntry.HourOfDay.H06);
+        AgendaEntry agendaEntry2 = new AgendaEntry(entry2.getTask(), greenSpaceRepository.getGreenSpaceByParkName("São Roque"), new Date(2024, 6, 7), AgendaEntry.WorkingDayHours.H10,new Date(2024, 6, 8), AgendaEntry.WorkingDayHours.H14);
         agenda.addAgendaEntry(agendaEntry2);
     }
 

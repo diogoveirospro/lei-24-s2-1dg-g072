@@ -75,7 +75,7 @@ public class AgendaTest {
 
 
         agendaEntry1 = new AgendaEntry(task1, greenSpace1, new Date(2024, 6, 5),
-                AgendaEntry.HourOfDay.H09, new Date(2024, 6, 7), AgendaEntry.HourOfDay.H10);
+                AgendaEntry.WorkingDayHours.H09, new Date(2024, 6, 7), AgendaEntry.WorkingDayHours.H10);
 
         agendaEntry1.addTeam(team1);
 
@@ -86,8 +86,8 @@ public class AgendaTest {
         greenSpace2 = new GreenSpace(GreenSpace.TypeOfGreenSpace.GARDEN, "São Roque", 4,
                 "R. São Roque da Lameira 2040, 4350-307 Porto", gsm);
 
-        agendaEntry2 = new AgendaEntry(task2, greenSpace2, new Date(2024, 6, 5), AgendaEntry.HourOfDay.H16,
-                new Date(2024, 6, 8), AgendaEntry.HourOfDay.H17);
+        agendaEntry2 = new AgendaEntry(task2, greenSpace2, new Date(2024, 6, 5), AgendaEntry.WorkingDayHours.H16,
+                new Date(2024, 6, 8), AgendaEntry.WorkingDayHours.H17);
 
         agendaEntry2.addTeam(team2);
 
@@ -107,7 +107,7 @@ public class AgendaTest {
     @Test
     void createAgendaEntryTest1() throws InvalidEntryDataException, InvalidTaskDataException {
         AgendaEntry agendaEntry = agenda.createAgendaEntry(new Task("Task three", "2"), greenSpace1, new Date(2024, 6, 5),
-                AgendaEntry.HourOfDay.H09, new Date(2024, 6, 7), AgendaEntry.HourOfDay.H10);
+                AgendaEntry.WorkingDayHours.H09, new Date(2024, 6, 7), AgendaEntry.WorkingDayHours.H10);
 
         assertEquals(agendaEntry, agendaEntry);
     }
@@ -116,7 +116,7 @@ public class AgendaTest {
     void createAgendaEntryTest2() {
         try {
             AgendaEntry agendaEntry = agenda.createAgendaEntry(task1, greenSpace1, new Date(2024, 6, 7),
-                    AgendaEntry.HourOfDay.H09, new Date(2024, 6, 5), AgendaEntry.HourOfDay.H08);
+                    AgendaEntry.WorkingDayHours.H10, new Date(2024, 6, 5), AgendaEntry.WorkingDayHours.H09);
         }catch (InvalidEntryDataException e){
             assertEquals("The start date of the task cannot be later than the end date.", e.getMessage());
         }

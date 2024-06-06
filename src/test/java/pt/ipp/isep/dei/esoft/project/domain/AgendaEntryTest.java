@@ -20,9 +20,9 @@ class AgendaEntryTest {
     private Task task;
     private GreenSpace greenSpace;
     private Date startDate;
-    private AgendaEntry.HourOfDay startHour;
+    private AgendaEntry.WorkingDayHours startHour;
     private Date endDate;
-    private AgendaEntry.HourOfDay endHour;
+    private AgendaEntry.WorkingDayHours endHour;
     private CollaboratorRepository collaboratorRepository = Repositories.getInstance().getCollaboratorRepository();
     private VehicleRepository vehicleRepository = Repositories.getInstance().getVehicleRepository();
     private TeamRepository teamRepository = Repositories.getInstance().getTeamRepository();
@@ -38,9 +38,9 @@ class AgendaEntryTest {
 
             greenSpace = new GreenSpace(GreenSpace.TypeOfGreenSpace.GARDEN, "Garden", 100.0, "123 Main St", gsm);
             startDate = new Date(2024, 6, 3);
-            startHour = AgendaEntry.HourOfDay.H08;
+            startHour = AgendaEntry.WorkingDayHours.H09;
             endDate = new Date(2024, 6, 4);
-            endHour = AgendaEntry.HourOfDay.H12;
+            endHour = AgendaEntry.WorkingDayHours.H12;
 
         } catch (InvalidTaskDataException | InvalidGreenSpaceDataException | InvalidCollaboratorDataException e) {
             fail("Exception thrown when it shouldn't have been: " + e.getMessage());
@@ -130,46 +130,40 @@ class AgendaEntryTest {
     }
 
     @Test
-    void getHourOfHourOfDayTest(){
-        assertEquals("08:00", AgendaEntry.HourOfDay.H08.getHour());
-        assertEquals("12:00", AgendaEntry.HourOfDay.H12.getHour());
-        assertEquals("16:00", AgendaEntry.HourOfDay.H16.getHour());
-        assertEquals("20:00", AgendaEntry.HourOfDay.H20.getHour());
+    void getHourOfWorkingDayHoursTest(){
+        assertEquals("12:00", AgendaEntry.WorkingDayHours.H12.getHour());
+        assertEquals("16:00", AgendaEntry.WorkingDayHours.H16.getHour());
     }
 
     @Test
-    void toStringHourOfDayTest(){
-        assertEquals("08:00", AgendaEntry.HourOfDay.H08.toString());
-        assertEquals("12:00", AgendaEntry.HourOfDay.H12.toString());
-        assertEquals("16:00", AgendaEntry.HourOfDay.H16.toString());
-        assertEquals("20:00", AgendaEntry.HourOfDay.H20.toString());
+    void toStringWorkingDayHoursTest(){
+        assertEquals("12:00", AgendaEntry.WorkingDayHours.H12.toString());
+        assertEquals("16:00", AgendaEntry.WorkingDayHours.H16.toString());
     }
 
     @Test
-    void fromStringHourOfDayTest() throws InvalidEntryDataException {
-        assertEquals(AgendaEntry.HourOfDay.H08, AgendaEntry.HourOfDay.fromString("08:00"));
-        assertEquals(AgendaEntry.HourOfDay.H12, AgendaEntry.HourOfDay.fromString("12:00"));
-        assertEquals(AgendaEntry.HourOfDay.H16, AgendaEntry.HourOfDay.fromString("16:00"));
-        assertEquals(AgendaEntry.HourOfDay.H20, AgendaEntry.HourOfDay.fromString("20:00"));
+    void fromStringWorkingDayHoursTest() throws InvalidEntryDataException {
+        assertEquals(AgendaEntry.WorkingDayHours.H12, AgendaEntry.WorkingDayHours.fromString("12:00"));
+        assertEquals(AgendaEntry.WorkingDayHours.H16, AgendaEntry.WorkingDayHours.fromString("16:00"));
 
-        assertThrows(InvalidEntryDataException.class, () -> AgendaEntry.HourOfDay.fromString("08:01"));
+        assertThrows(InvalidEntryDataException.class, () -> AgendaEntry.WorkingDayHours.fromString("08:01"));
     }
 
     @Test
-    void getAllHoursOfDayTest(){
-        assertEquals(24, AgendaEntry.HourOfDay.getAllHours().size());
+    void getAllWorkingDayHoursTest(){
+        assertEquals(8, AgendaEntry.WorkingDayHours.getAllHours().size());
     }
 
     @Test
-    void isGreaterHourOfDayTest(){
-        assertTrue(AgendaEntry.HourOfDay.H20.isGreater(AgendaEntry.HourOfDay.H16));
-        assertTrue(AgendaEntry.HourOfDay.H16.isGreater(AgendaEntry.HourOfDay.H12));
-        assertTrue(AgendaEntry.HourOfDay.H12.isGreater(AgendaEntry.HourOfDay.H08));
-        assertFalse(AgendaEntry.HourOfDay.H08.isGreater(AgendaEntry.HourOfDay.H12));
-        assertFalse(AgendaEntry.HourOfDay.H12.isGreater(AgendaEntry.HourOfDay.H16));
-        assertFalse(AgendaEntry.HourOfDay.H16.isGreater(AgendaEntry.HourOfDay.H20));
-        assertFalse(AgendaEntry.HourOfDay.H20.isGreater(AgendaEntry.HourOfDay.H20));
-        assertFalse(AgendaEntry.HourOfDay.H16.isGreater(null));
+    void isGreaterWorkingDayHoursTest(){
+        assertTrue(AgendaEntry.WorkingDayHours.H17.isGreater(AgendaEntry.WorkingDayHours.H16));
+        assertTrue(AgendaEntry.WorkingDayHours.H16.isGreater(AgendaEntry.WorkingDayHours.H12));
+        assertTrue(AgendaEntry.WorkingDayHours.H12.isGreater(AgendaEntry.WorkingDayHours.H09));
+        assertFalse(AgendaEntry.WorkingDayHours.H09.isGreater(AgendaEntry.WorkingDayHours.H12));
+        assertFalse(AgendaEntry.WorkingDayHours.H12.isGreater(AgendaEntry.WorkingDayHours.H16));
+        assertFalse(AgendaEntry.WorkingDayHours.H16.isGreater(AgendaEntry.WorkingDayHours.H17));
+        assertFalse(AgendaEntry.WorkingDayHours.H16.isGreater(AgendaEntry.WorkingDayHours.H16));
+        assertFalse(AgendaEntry.WorkingDayHours.H16.isGreater(null));
     }
 
     @Test
@@ -268,8 +262,8 @@ class AgendaEntryTest {
         try {
             startDate = new Date(2024, 6, 6);
             endDate = new Date(2024, 6, 6);
-            startHour = AgendaEntry.HourOfDay.H12;
-            endHour = AgendaEntry.HourOfDay.H12;
+            startHour = AgendaEntry.WorkingDayHours.H12;
+            endHour = AgendaEntry.WorkingDayHours.H12;
             AgendaEntry agendaEntry = new AgendaEntry(task, greenSpace, startDate, startHour, endDate, endHour);
             fail("The method should throw an InvalidEntryDataException");
         } catch (InvalidEntryDataException e) {
@@ -282,8 +276,8 @@ class AgendaEntryTest {
         try {
             startDate = new Date(2024, 6, 6);
             endDate = new Date(2024, 6, 6);
-            startHour = AgendaEntry.HourOfDay.H15;
-            endHour = AgendaEntry.HourOfDay.H12;
+            startHour = AgendaEntry.WorkingDayHours.H15;
+            endHour = AgendaEntry.WorkingDayHours.H12;
             AgendaEntry agendaEntry = new AgendaEntry(task, greenSpace, startDate, startHour, endDate, endHour);
             fail("The method should throw an InvalidEntryDataException");
         } catch (InvalidEntryDataException e) {
@@ -295,7 +289,7 @@ class AgendaEntryTest {
     @Test
     void setStartHour1() throws InvalidEntryDataException {
         AgendaEntry agendaEntry = new AgendaEntry(task, greenSpace, startDate, startHour, endDate, endHour);
-        startHour = AgendaEntry.HourOfDay.H12;
+        startHour = AgendaEntry.WorkingDayHours.H12;
         agendaEntry.setStartHour(startHour);
         assertEquals(startHour, agendaEntry.getStartHour());
 
@@ -335,7 +329,7 @@ class AgendaEntryTest {
     @Test
     void setEndHour1() throws InvalidEntryDataException {
         AgendaEntry agendaEntry = new AgendaEntry(task, greenSpace, startDate, startHour, endDate, endHour);
-        endHour = AgendaEntry.HourOfDay.H16;
+        endHour = AgendaEntry.WorkingDayHours.H16;
         agendaEntry.setEndHour(endHour);
         assertEquals(endHour, agendaEntry.getEndHour());
     }
