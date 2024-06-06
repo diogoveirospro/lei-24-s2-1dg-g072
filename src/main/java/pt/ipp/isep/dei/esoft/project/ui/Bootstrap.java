@@ -41,7 +41,6 @@ public class Bootstrap {
         addToDoListEntry();
         addTeam();
     }
-
     private void addToDoListEntry() throws InvalidTaskDataException, InvalidEntryDataException {
         Task task3 = new Task("Task Three", "3");
         Task task4 = new Task("Task Four", "4");
@@ -228,11 +227,10 @@ public class Bootstrap {
     }
 
 
-
     private void addVehicle() {
-        Vehicle vehicle1 = new Vehicle("GG-69-EZ","BMW","i4","hibrid",3500.0,4500.0,1000.0,new Date(2024,1,10), new  Date(2024,1,26),10000.0,0.0);
-        Vehicle vehicle2 = new Vehicle("69-WP-42","Toyota","Avensis","Diesel",3000.0,4000.0,42000.0,new Date(2018,12,10), new  Date(2019,1,10),20000.0,30000.0);
-        Vehicle vehicle3 = new Vehicle("04-20-VC","ferrari","diablo","Petrol",3000.0,4000.0,100000.0,new Date(2000,12,10), new  Date(2003,10,11),10000.0,75432.3);
+        Vehicle vehicle1 = new Vehicle("GG-69-EZ", "BMW", "i4", "hibrid", 3500.0, 4500.0, 1000.0, new Date(2024, 1, 10), new Date(2024, 1, 26), 10000.0, 0.0);
+        Vehicle vehicle2 = new Vehicle("69-WP-42", "Toyota", "Avensis", "Diesel", 3000.0, 4000.0, 42000.0, new Date(2018, 12, 10), new Date(2019, 1, 10), 20000.0, 30000.0);
+        Vehicle vehicle3 = new Vehicle("04-20-VC", "ferrari", "diablo", "Petrol", 3000.0, 4000.0, 100000.0, new Date(2000, 12, 10), new Date(2003, 10, 11), 10000.0, 75432.3);
         vehicleRepository.addVehicle(vehicle1);
         vehicleRepository.addVehicle(vehicle2);
         vehicleRepository.addVehicle(vehicle3);
@@ -249,11 +247,11 @@ public class Bootstrap {
 
 
         Entry entry1 = new Entry(taskRepository.findTaskById("Task One"), greenSpaceRepository.getGreenSpaceByParkName("Cidade"));
-        AgendaEntry agendaEntry1 = new AgendaEntry(entry1.getTask(), greenSpaceRepository.getGreenSpaceByParkName("Cidade"), new Date(2024, 6, 6), AgendaEntry.WorkingDayHours.H09,new Date(2024, 6, 20), AgendaEntry.WorkingDayHours.H12);
+        AgendaEntry agendaEntry1 = new AgendaEntry(entry1.getTask(), greenSpaceRepository.getGreenSpaceByParkName("Cidade"), new Date(2024, 6, 6), AgendaEntry.WorkingDayHours.H09, new Date(2024, 6, 20), AgendaEntry.WorkingDayHours.H12);
         agenda.addAgendaEntry(agendaEntry1);
 
         Entry entry2 = new Entry(taskRepository.findTaskById("Task Two"), greenSpaceRepository.getGreenSpaceByParkName("São Roque"));
-        AgendaEntry agendaEntry2 = new AgendaEntry(entry2.getTask(), greenSpaceRepository.getGreenSpaceByParkName("São Roque"), new Date(2024, 6, 7), AgendaEntry.WorkingDayHours.H10,new Date(2024, 6, 8), AgendaEntry.WorkingDayHours.H14);
+        AgendaEntry agendaEntry2 = new AgendaEntry(entry2.getTask(), greenSpaceRepository.getGreenSpaceByParkName("São Roque"), new Date(2024, 6, 7), AgendaEntry.WorkingDayHours.H10, new Date(2024, 6, 8), AgendaEntry.WorkingDayHours.H14);
         agenda.addAgendaEntry(agendaEntry2);
     }
 
@@ -294,7 +292,7 @@ public class Bootstrap {
         greenSpaceRepository.addGreenSpace(greenSpace2);
     }
 
-    private void addTasks() throws InvalidTaskDataException{
+    private void addTasks() throws InvalidTaskDataException {
         Task task3 = new Task("Task Three", "3");
         Task task4 = new Task("Task Four", "4");
         Task task5 = new Task("Task Five", "5");

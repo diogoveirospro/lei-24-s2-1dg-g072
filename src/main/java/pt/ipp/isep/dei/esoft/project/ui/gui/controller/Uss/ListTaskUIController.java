@@ -97,8 +97,10 @@ public class ListTaskUIController {
             } else if (startDate.getValue().isAfter(endDate.getValue())) {
                 throw new IllegalArgumentException("The start date must be before the end date.");
             } else{
-
-                AgendaEntry.StatusOfEntry status = (AgendaEntry.StatusOfEntry) statusList.getValue();
+                AgendaEntry.StatusOfEntry status = null;
+                if (!statusList.getValue().toString().equalsIgnoreCase("None")) {
+                    status = AgendaEntry.StatusOfEntry.valueOf((String) statusList.getValue());
+                }
                 Date startDate = getStartDate();
                 Date endDate = getEndDate();
                 List<AgendaEntryDto> taskList = controller.getTaskList(status, startDate, endDate);

@@ -6,10 +6,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.Output.ShowListTaskController">
    <children>
-      <Button fx:id="btnCancel" cancelButton="true" layoutX="57.0" layoutY="349.0" mnemonicParsing="false" text="Back" />
+      <Button fx:id="btnCancel" cancelButton="true" layoutX="57.0" layoutY="349.0" mnemonicParsing="false" onAction="#handleCancelButtonAction" text="Back" />
       <VBox prefHeight="336.0" prefWidth="600.0">
          <children>
             <ScrollPane prefHeight="345.0" prefWidth="600.0">

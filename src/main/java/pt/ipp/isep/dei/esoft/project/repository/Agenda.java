@@ -30,8 +30,14 @@ public class Agenda extends SerializableRepository<List<AgendaEntry>> implements
         List<AgendaEntry> agendaEntryList = new ArrayList<>();
         for (Team team : teamList) {
             for (AgendaEntry agendaEntry : entriesAgenda) {
-                if ((agendaEntry.getTeam().equals(team)) && (agendaEntry.getStartDate().compareTo(startDate) >= 0 && agendaEntry.getEndDate().compareTo(endDate) >= 0) && agendaEntry.getStatus().equals(typeStatus)) {
-                    agendaEntryList.add(agendaEntry);
+                if (typeStatus != null){
+                    if ((agendaEntry.getTeam().equals(team)) && (agendaEntry.getStartDate().compareTo(startDate) >= 0 && agendaEntry.getEndDate().compareTo(endDate) >= 0) && agendaEntry.getStatus().equals(typeStatus)) {
+                        agendaEntryList.add(agendaEntry);
+                    }
+                } else {
+                    if ((agendaEntry.getTeam().equals(team)) && (agendaEntry.getStartDate().compareTo(startDate) >= 0 && agendaEntry.getEndDate().compareTo(endDate) >= 0)) {
+                        agendaEntryList.add(agendaEntry);
+                    }
                 }
             }
         }
