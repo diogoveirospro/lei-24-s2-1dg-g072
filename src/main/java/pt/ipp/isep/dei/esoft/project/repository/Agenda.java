@@ -70,6 +70,10 @@ public class Agenda extends SerializableRepository<List<AgendaEntry>> implements
                                          Date endDate, AgendaEntry.WorkingDayHours endHour) throws InvalidEntryDataException {
 
         try {
+
+            if (endDate.difference(startDate) != Integer.parseInt(task.getDuration())) {
+                throw new InvalidEntryDataException("The estimated duration is not met!");
+            }
             return new AgendaEntry(task, greenSpace, startDate, startHour, endDate, endHour);
         } catch (InvalidEntryDataException e) {
             throw new InvalidEntryDataException(e.getMessage());

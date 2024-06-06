@@ -5,9 +5,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane prefHeight="660.0" prefWidth="550.0" style="-fx-background-color: #F1F8E9;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.GenerateTeamProposalUIController">
+<BorderPane style="-fx-background-color: #F1F8E9;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.GenerateTeamProposalUIController">
    <center>
-      <VBox prefHeight="625.0" prefWidth="550.0">
+      <VBox>
          <children>
             <HBox prefHeight="33.0" prefWidth="550.0">
                <children>
@@ -51,21 +51,27 @@
                         <Insets left="5.0" />
                      </HBox.margin>
                   </ListView>
-                  <VBox prefHeight="100.0" prefWidth="107.0">
+                  <VBox prefHeight="168.0" prefWidth="117.0">
                      <children>
-                        <Button fx:id="btnAddSkill" mnemonicParsing="false" onAction="#handleAddSkill" style="-fx-background-color: #4169e1; -fx-text-fill: white;" text="Add Skill">
+                        <Button fx:id="btnAddSkill" mnemonicParsing="false" onAction="#handleAddSkill" style="-fx-background-color: #4169e1; -fx-text-fill: white; -fx-background-radius: 15;" text="Add Skill">
                            <VBox.margin>
                               <Insets left="10.0" right="10.0" />
                            </VBox.margin>
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
                         </Button>
-                        <Button fx:id="btnRemoveSkill" mnemonicParsing="false" onAction="#handleRemoveSkill" prefHeight="25.0" prefWidth="113.0" style="-fx-background-color: #4169e1; -fx-text-fill: white;" text="Remove Skill">
+                        <Button fx:id="btnRemoveSkill" mnemonicParsing="false" onAction="#handleRemoveSkill" prefHeight="25.0" prefWidth="113.0" style="-fx-background-color: #4169e1; -fx-text-fill: white; -fx-background-radius: 15;" text="Remove Skill">
                            <VBox.margin>
                               <Insets left="10.0" right="10.0" top="10.0" />
                            </VBox.margin>
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
                         </Button>
                      </children>
                   </VBox>
-                  <ListView fx:id="lvSelectedSkills" prefHeight="168.0" prefWidth="175.0">
+                  <ListView fx:id="lvSelectedSkills" prefHeight="200.0" prefWidth="175.0">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -75,10 +81,13 @@
                   <Insets left="10.0" right="10.0" top="15.0" />
                </VBox.margin>
             </HBox>
-            <Button fx:id="btnGenerate" mnemonicParsing="false" onAction="#handleGenerate" style="-fx-background-color: #388E3C; -fx-text-fill: white;" text="Generate">
+            <Button fx:id="btnGenerate" mnemonicParsing="false" onAction="#handleGenerate" style="-fx-background-color: #388E3C; -fx-text-fill: white; -fx-background-radius: 15;" text="Generate">
                <VBox.margin>
                   <Insets left="10.0" top="10.0" />
                </VBox.margin>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
             </Button>
             <VBox prefHeight="338.0" prefWidth="550.0">
                <children>
@@ -102,11 +111,17 @@
                         </ListView>
                         <VBox prefHeight="207.0" prefWidth="150.0">
                            <children>
-                              <Button fx:id="btnAddMember" mnemonicParsing="false" style="-fx-background-color: #4169e1; -fx-text-fill: white;" text="Add Member" />
-                              <Button fx:id="btnRemoveMember" mnemonicParsing="false" style="-fx-background-color: #4169e1; -fx-text-fill: white;" text="Remove Member">
+                              <Button fx:id="btnAddMember" mnemonicParsing="false" style="-fx-background-color: #4169e1; -fx-text-fill: white; -fx-background-radius: 15;" text="Add Member">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font></Button>
+                              <Button fx:id="btnRemoveMember" mnemonicParsing="false" style="-fx-background-color: #4169e1; -fx-text-fill: white; -fx-background-radius: 15;" text="Remove Member">
                                  <VBox.margin>
                                     <Insets top="10.0" />
                                  </VBox.margin>
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
                               </Button>
                            </children>
                            <HBox.margin>
@@ -125,12 +140,26 @@
                   </HBox>
                   <HBox prefHeight="41.0" prefWidth="550.0">
                      <children>
-                        <Button fx:id="btnAcceptProposal" mnemonicParsing="false" onAction="#handleAcceptProposal" style="-fx-background-color: #388E3C; -fx-text-fill: white;" text="Accept Proposal">
+                        <Button fx:id="btnAcceptProposal" mnemonicParsing="false" onAction="#handleAcceptProposal" style="-fx-background-color: #388E3C; -fx-text-fill: white; -fx-background-radius: 15;" text="Accept Proposal">
                            <HBox.margin>
                               <Insets left="10.0" right="10.0" />
                            </HBox.margin>
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
                         </Button>
-                        <Button fx:id="btnDeclineProposal" mnemonicParsing="false" onAction="#handleDeclineProposal" style="-fx-background-color: #D32F2F; -fx-text-fill: white;" text="Decline Proposal" />
+                        <Button fx:id="btnDeclineProposal" mnemonicParsing="false" onAction="#handleDeclineProposal" style="-fx-background-color: #D32F2F; -fx-text-fill: white; -fx-background-radius: 15;" text="Decline Proposal">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Button>
+                        <Button fx:id="btnCancel" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#handleCancel" style="-fx-background-color: #80cbc4; -fx-text-fill: white; -fx-background-radius: 15;" text="Cancel">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="200.0" />
+                           </HBox.margin>
+                        </Button>
                      </children>
                      <VBox.margin>
                         <Insets top="10.0" />
@@ -142,7 +171,7 @@
       </VBox>
    </center>
    <top>
-      <VBox prefHeight="52.0" prefWidth="550.0" style="-fx-background-color: #2E7D32;" BorderPane.alignment="CENTER">
+      <VBox style="-fx-background-color: #80cbc4;" BorderPane.alignment="CENTER">
          <children>
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Generate Team Proposal" textAlignment="CENTER" wrappingWidth="548.544921875">
                <font>
@@ -153,6 +182,12 @@
                </VBox.margin>
             </Text>
          </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <padding>
+            <Insets bottom="5.0" />
+         </padding>
       </VBox>
    </top>
 </BorderPane>

@@ -12,6 +12,9 @@ import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
 import pt.ipp.isep.dei.esoft.project.domain.Team;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.GSMUI;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.HRMUI;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.MainMenuUI;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss.GenerateTeamProposalUI;
 
 import java.io.IOException;
@@ -71,6 +74,9 @@ public class GenerateTeamProposalUIController {
         btnAddMember.setVisible(false);
         btnRemoveMember.setVisible(false);
         lvCollaborators.setMouseTransparent(true);
+
+        btnAcceptProposal.setDisable(true);
+        btnDeclineProposal.setDisable(true);
     }
 
     @FXML
@@ -109,6 +115,10 @@ public class GenerateTeamProposalUIController {
         try {
             Team teamProposal = generateTeamProposalController.generateTeamProposal(minSize, maxSize, selectedSkills, collaborators);
             lvTeamProposal.setItems(FXCollections.observableArrayList(teamProposal.getTeam()));
+
+            btnAcceptProposal.setDisable(false);
+            btnDeclineProposal.setDisable(false);
+
         } catch (IllegalArgumentException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -128,6 +138,9 @@ public class GenerateTeamProposalUIController {
             alert.setTitle("Success");
             alert.setHeaderText("Team proposal accepted");
             alert.showAndWait();
+
+            lvTeamProposal.getItems().clear();
+
         }else {
 
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -140,12 +153,24 @@ public class GenerateTeamProposalUIController {
 
     @FXML
     public void handleDeclineProposal() {
-        lvTeamProposal.getItems().clear();
 
         lvCollaborators.setVisible(true);
         btnAddMember.setVisible(true);
         btnRemoveMember.setVisible(true);
         lvCollaborators.setMouseTransparent(false);
+    }
+
+    /**
+     * Handles the action of canceling and returning to the main UI.
+     */
+    @FXML
+    public void handleCancel() {
+        HRMUI hrmui = new HRMUI();
+        try {
+            hrmui.showUI(MainMenuUI.getPrimaryStage());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void setGenerateTeamProposal(GenerateTeamProposalUI generateTeamProposalUI) {
