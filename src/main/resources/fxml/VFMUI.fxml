@@ -40,10 +40,10 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <Button alignment="CENTER" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" text="Register Vehicle" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                <Button defaultButton="true" mnemonicParsing="false" text="Register Maintenance" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                <Button defaultButton="true" mnemonicParsing="false" text="List Maintenance" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                <Button cancelButton="true" mnemonicParsing="false" text="Logout" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                <Button fx:id="btnRegisterVehicle" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#handleRegisterVehicleAction" text="Register Vehicle" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Button fx:id="btnRegisterMaintenance" defaultButton="true" mnemonicParsing="false" onAction="#handleRegisterMaintenanceAction" text="Register Maintenance" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                <Button fx:id="btnListMaintenance" defaultButton="true" mnemonicParsing="false" onAction="#handleListMaintenanceAction" text="List Maintenance" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Button fx:id="btnLogout" cancelButton="true" mnemonicParsing="false" onAction="#handleLogoutButtonAction" text="Logout" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
             </children>
         </GridPane>
     </center>

@@ -61,6 +61,7 @@ public class LoginController {
                 showLoginError();
             }
         } catch (Exception e) {
+            e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Login Error", "An error occurred while handling the login action: " + e.getMessage());
         }
     }

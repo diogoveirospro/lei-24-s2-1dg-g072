@@ -16,7 +16,7 @@ public class FMUI implements Initializable {
     public FMController fmController;
     public final String FM = "FM";
     public void showUI(Stage stage) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GSMUI.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/VFMUI.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         stage.setTitle(FM);
