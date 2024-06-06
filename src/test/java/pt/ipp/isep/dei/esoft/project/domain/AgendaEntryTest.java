@@ -31,9 +31,8 @@ class AgendaEntryTest {
     void setUp() {
         try {
             task = new Task("Task", "10");
-            Collaborator gsm = new Collaborator("GSM", new Date(1988, 2, 3), new Date(2020,
-                    3, 1), "Rua6", "912645629", "gsm@gsm.com", "232139687",
-                    Collaborator.IdDocType.CC, "122472678cc3", "ABC1234");
+            Collaborator gsm = new Collaborator("GSM"
+            );
             collaboratorRepository.addCollaborator(gsm);
 
             greenSpace = new GreenSpace(GreenSpace.TypeOfGreenSpace.GARDEN, "Garden", 100.0, "123 Main St", gsm);
@@ -227,13 +226,11 @@ class AgendaEntryTest {
     @Test
     void getTeamTest() throws InvalidCollaboratorDataException, InvalidEntryDataException {
 
-        Collaborator c1 = new Collaborator("Ana", new Date(1990, 2, 3),
-                new Date(2010, 3, 1), "Rua1", "912345669", "ana@collaborator.com",
-                "123456789", Collaborator.IdDocType.CC, "234564321zx7", "ABC1234");
+        Collaborator c1 = new Collaborator("Ana"
+        );
 
-        Collaborator c2 = new Collaborator("João", new Date(1980, 2, 3), new Date(2010,
-                3, 1), "Rua2", "912345669", "joao@collaborator.com", "234567899",
-                Collaborator.IdDocType.BI, "232566381", "ABC1234");
+        Collaborator c2 = new Collaborator("João"
+        );
 
         List<Collaborator> members = List.of(c1, c2);
         Team team = new Team(members);
@@ -348,13 +345,11 @@ class AgendaEntryTest {
     @Test
     void addTeam(){
         try {
-            Collaborator c1 = new Collaborator("Ana", new Date(1990, 2, 3),
-                    new Date(2010, 3, 1), "Rua1", "912345669", "ana@collaborator.com",
-                    "123456789", Collaborator.IdDocType.CC, "234564321zx7", "ABC1234");
+            Collaborator c1 = new Collaborator("Ana"
+            );
 
-            Collaborator c2 = new Collaborator("João", new Date(1980, 2, 3), new Date(2010,
-                    3, 1), "Rua2", "912345669", "joao@collaborator.com", "234567899",
-                    Collaborator.IdDocType.BI, "232566381", "ABC1234");
+            Collaborator c2 = new Collaborator("João"
+            );
 
             List<Collaborator> members = List.of(c1, c2);
             Team team = new Team(members);

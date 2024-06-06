@@ -3,13 +3,11 @@ package pt.ipp.isep.dei.esoft.project.ui;
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidEntryDataException;
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidGreenSpaceDataException;
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidTaskDataException;
-import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
 import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidCollaboratorDataException;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 import pt.ipp.isep.dei.esoft.project.domain.Date;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -91,57 +89,49 @@ public class Bootstrap {
     }
 
     private void addCollaborator() throws InvalidCollaboratorDataException {
-        Collaborator c1 = new Collaborator("Ana", new Date(1990, 2, 3),
-                new Date(2010, 3, 1), "Rua1", "912345669", "ana@collaborator.com",
-                "123456789", Collaborator.IdDocType.CC, "234564321zx7", "ABC1234");
+        Collaborator c1 = new Collaborator("Ana"
+        );
 
 
         c1.assignSkill(new Skill("Sustainable Land Use Practices"));
         c1.assignSkill(new Skill("Ecological Restoration"));
         c1.assignSkill(new Skill("Landscape Design"));
 
-        Collaborator c2 = new Collaborator("João", new Date(1980, 2, 3), new Date(2010,
-                3, 1), "Rua2", "912345669", "joao@collaborator.com", "234567899",
-                Collaborator.IdDocType.BI, "232566381", "ABC1234");
+        Collaborator c2 = new Collaborator("João"
+        );
 
 
         c2.assignSkill(new Skill("Plant Identification"));
         c2.assignSkill(new Skill("Tree Care and Maintenance"));
         c2.assignSkill(new Skill("Native Plant Gardening"));
 
-        Collaborator c3 = new Collaborator("André", new Date(1970, 2, 3), new Date(2010,
-                3, 1), "Rua3", "912345669", "andre@collaborator.com", "345678907",
-                Collaborator.IdDocType.NISS, "23456432125", "ABC1234");
+        Collaborator c3 = new Collaborator("André"
+        );
 
 
         c3.assignSkill(new Skill("Plant Identification"));
         c3.assignSkill(new Skill("Native Plant Gardening"));
         c3.assignSkill(new Skill("Landscape Design"));
 
-        Collaborator c4 = new Collaborator("Manuel", new Date(1999, 2, 3), new Date(2020,
-                3, 1), "Rua4", "912345669", "manuel@collaborator.com", "456789014",
-                Collaborator.IdDocType.PASSPORT, "H234564", "ABC1234");
+        Collaborator c4 = new Collaborator("Manuel"
+        );
 
 
         c3.assignSkill(new Skill("Plant Identification"));
         c3.assignSkill(new Skill("Tree Care and Maintenance"));
         c3.assignSkill(new Skill("Pest and Disease Management in Landscapes"));
 
-        Collaborator hrm = new Collaborator("HRM", new Date(1999, 2, 3), new Date(2020,
-                3, 1), "Rua5", "912632669", "hrm@hrm.com", "212826077",
-                Collaborator.IdDocType.CC, "123454678cc3", "ABC1234");
+        Collaborator hrm = new Collaborator("HRM"
+        );
 
-        Collaborator gsm = new Collaborator("GSM", new Date(1988, 2, 3), new Date(2020,
-                3, 1), "Rua6", "912645629", "gsm@gsm.com", "232139687",
-                Collaborator.IdDocType.CC, "122472678cc3", "ABC1234");
+        Collaborator gsm = new Collaborator("GSM"
+        );
 
-        Collaborator vfm = new Collaborator("VFM", new Date(1989, 2, 3), new Date(2020,
-                3, 1), "Rua7", "914657324", "vfm@vfm.com", "269999450",
-                Collaborator.IdDocType.CC, "123453678zz3", "ABC1234");
+        Collaborator vfm = new Collaborator("VFM"
+        );
 
-        Collaborator qam = new Collaborator("QAM", new Date(1999, 2, 3), new Date(2024,
-                3, 1), "Rua8", "913456734", "qam@qam.com", "241319692",
-                Collaborator.IdDocType.CC, "123485678xx3", "ABC1234");
+        Collaborator qam = new Collaborator("QAM"
+        );
 
 
         collaboratorRepository.addCollaborator(c1);
@@ -257,21 +247,17 @@ public class Bootstrap {
 
     private void addTeam() throws InvalidCollaboratorDataException {
 
-        Collaborator c1 = new Collaborator("Ana", new Date(1990, 2, 3),
-                new Date(2010, 3, 1), "Rua1", "912345669", "ana@collaborator.com",
-                "123456789", Collaborator.IdDocType.CC, "234564321zx7", "ABC1234");
+        Collaborator c1 = new Collaborator("Ana"
+        );
 
-        Collaborator c2 = new Collaborator("João", new Date(1980, 2, 3), new Date(2010,
-                3, 1), "Rua2", "912345669", "joao@collaborator.com", "234567899",
-                Collaborator.IdDocType.BI, "232566381", "ABC1234");
+        Collaborator c2 = new Collaborator("João"
+        );
 
-        Collaborator c3 = new Collaborator("André", new Date(1970, 2, 3), new Date(2010,
-                3, 1), "Rua3", "912345669", "andre@collaborator.com", "345678907",
-                Collaborator.IdDocType.NISS, "23456432125", "ABC1234");
+        Collaborator c3 = new Collaborator("André"
+        );
 
-        Collaborator c4 = new Collaborator("Manuel", new Date(1999, 2, 3), new Date(2020,
-                3, 1), "Rua4", "912345669", "manuel@collaborator.com", "456789014",
-                Collaborator.IdDocType.PASSPORT, "H234564", "ABC1234");
+        Collaborator c4 = new Collaborator("Manuel"
+        );
 
 
         Team team1 = new Team(List.of(c1, c2));

@@ -8,7 +8,6 @@ import pt.ipp.isep.dei.esoft.project.repository.CollaboratorRepository;
 import pt.ipp.isep.dei.esoft.project.repository.JobRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -64,8 +63,8 @@ public class RegisterCollaboratorController {
     public void registerCollaborator(String name, Date birthDate, Date admissionDate, String address,
                                      String mobile, String email, String taxpayerNumber, Collaborator.IdDocType idDocType, String idDocNumber, String jobName) throws InvalidCollaboratorDataException, pt.ipp.isep.dei.esoft.project.Exceptions.InvalidCollaboratorDataException {
 
-        this.collaboratorRepository.addCollaborator(new Collaborator(name, birthDate, admissionDate, address, mobile,
-                email, taxpayerNumber, idDocType, idDocNumber, jobName));
+        this.collaboratorRepository.addCollaborator(new Collaborator(name
+        ));
     }
 
     /**

@@ -23,6 +23,10 @@ public class LoginUI implements Initializable {
     public MainMenuUI mainMenuUI;
     public static final String LOGIN = "Login";
 
+    public static String getEmail() {
+        return null;
+    }
+
 
     public void loginAction(Stage stage) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Login.fxml"));

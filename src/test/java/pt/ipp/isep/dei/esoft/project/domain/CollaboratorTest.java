@@ -23,8 +23,8 @@ class CollaboratorTest {
         String idDocNumber = "234564321zx7";
         String pwd = "ABC1234";
 
-        Collaborator collaborator = new Collaborator(name, birthDate, admissionDate, address, mobile, email,
-                taxpayerNumber, idDocType, idDocNumber, pwd);
+        Collaborator collaborator = new Collaborator(name
+        );
 
         assertNotNull(collaborator);
         assertEquals(name, collaborator.getName());
@@ -55,8 +55,8 @@ class CollaboratorTest {
         JobRepository jobRepository = Repositories.getInstance().getJobRepository();
         jobRepository.addJob(new Job("Landscape Designer"));
 
-        Collaborator collaborator = new Collaborator(name, birthDate, admissionDate, address, mobile, email,
-                taxpayerNumber, idDocType, idDocNumber, jobName);
+        Collaborator collaborator = new Collaborator(name
+        );
 
         assertNotNull(collaborator);
         assertEquals(name, collaborator.getName());

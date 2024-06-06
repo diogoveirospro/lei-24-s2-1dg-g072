@@ -41,27 +41,22 @@ public class AgendaTest {
     void setUp() throws InvalidTaskDataException, InvalidCollaboratorDataException, InvalidGreenSpaceDataException, InvalidEntryDataException {
         agenda = new Agenda();
 
-        gsm = new Collaborator("GSM", new Date(1988, 2, 3), new Date(2020,
-                3, 1), "Rua6", "912645629", "gsm@gsm.com", "232139687",
-                Collaborator.IdDocType.CC, "122472678cc3", "ABC1234");
+        gsm = new Collaborator("GSM"
+        );
 
         collaboratorRepository.addCollaborator(gsm);
 
-        c1 = new Collaborator("Ana", new Date(1990, 2, 3),
-                new Date(2010, 3, 1), "Rua1", "912345669", "ana@collaborator.com",
-                "123456789", Collaborator.IdDocType.CC, "234564321zx7", "ABC1234");
+        c1 = new Collaborator("Ana"
+        );
 
-        c2 = new Collaborator("João", new Date(1980, 2, 3), new Date(2010,
-                3, 1), "Rua2", "912345669", "joao@collaborator.com", "234567899",
-                Collaborator.IdDocType.BI, "232566381", "ABC1234");
+        c2 = new Collaborator("João"
+        );
 
-        c3 = new Collaborator("André", new Date(1970, 2, 3),
-                new Date(2010, 3, 1), "Rua3", "912345669", "andre@collaborator.com",
-                "345678907", Collaborator.IdDocType.NISS, "23456432125", "ABC1234");
+        c3 = new Collaborator("André"
+        );
 
-        c4 = new Collaborator("Manuel", new Date(1999, 2, 3),
-                new Date(2020, 3, 1), "Rua4", "912345669", "manuel@collaborator.com",
-                "456789014", Collaborator.IdDocType.PASSPORT, "H234564", "ABC1234");
+        c4 = new Collaborator("Manuel"
+        );
 
         team1 = new Team(List.of(c1, c2));
         team2 = new Team(List.of(c3, c4));

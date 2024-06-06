@@ -34,9 +34,8 @@ public class EntryTest {
     void setUp() throws InvalidTaskDataException, InvalidCollaboratorDataException, InvalidGreenSpaceDataException, InvalidEntryDataException {
         task = new Task("Task", "10");
         anotherTask = new Task("AnotherTask", "20");
-        gsm = new Collaborator("GSM", new Date(1988, 2, 3), new Date(2020,
-                3, 1), "Rua6", "912645629", "gsm@gsm.com", "232139687",
-                Collaborator.IdDocType.CC, "122472678cc3", "ABC1234");
+        gsm = new Collaborator("GSM"
+        );
 
         cr.addCollaborator(gsm);
         anotherGreenSpace = new GreenSpace(GreenSpace.TypeOfGreenSpace.LPARK, "Porto", 100.5, "Porto", gsm);

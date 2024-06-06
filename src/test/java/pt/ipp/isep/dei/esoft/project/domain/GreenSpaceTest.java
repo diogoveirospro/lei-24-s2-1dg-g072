@@ -26,9 +26,8 @@ public class GreenSpaceTest {
 
     @BeforeEach
     void setUp() throws InvalidCollaboratorDataException, InvalidGreenSpaceDataException, InvalidEntryDataException, InvalidTaskDataException {
-        gsm = new Collaborator("GSM", new Date(1988, 2, 3), new Date(2020,
-                3, 1), "Rua6", "912645629", "gsm@gsm.com", "232139687",
-                Collaborator.IdDocType.CC, "122472678cc3", "ABC1234");
+        gsm = new Collaborator("GSM"
+        );
         cr.addCollaborator(gsm);
         anotherGreenSpace = new GreenSpace(GreenSpace.TypeOfGreenSpace.LPARK, "Porto", 100.5, "Porto", gsm);
         greenSpace = new GreenSpace(GreenSpace.TypeOfGreenSpace.GARDEN, "Ovar", 40.5, "Ovar", gsm);
@@ -273,9 +272,8 @@ public class GreenSpaceTest {
 
     @Test
     public void testCollaboratorDoesNotExist() throws InvalidCollaboratorDataException {
-        Collaborator collaborator = new Collaborator("GSM", new Date(1988, 2, 3), new Date(2020,
-                3, 1), "Rua6", "912645629", "gsm@gsm.com", "232139687",
-                Collaborator.IdDocType.CC, "122472678cc3", "ABC1234");
+        Collaborator collaborator = new Collaborator("GSM"
+        );
         assertThrows(InvalidGreenSpaceDataException.class, () -> {
             GreenSpace greenSpace = new GreenSpace(GreenSpace.TypeOfGreenSpace.GARDEN, "Ovar", 40.5, "Ovar", collaborator);
         });

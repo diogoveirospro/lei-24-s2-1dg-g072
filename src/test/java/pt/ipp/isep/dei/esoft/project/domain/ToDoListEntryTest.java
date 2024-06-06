@@ -26,9 +26,8 @@ public class ToDoListEntryTest {
     private ToDoListEntry toDoListEntry2;
     @BeforeEach
     public void setUp() throws InvalidCollaboratorDataException, InvalidGreenSpaceDataException, InvalidTaskDataException, InvalidEntryDataException {
-        Collaborator gsm = new Collaborator("GSM", new Date(1988, 2, 3), new Date(2020,
-                3, 1), "Rua6", "912645629", "gsm@gsm.com", "232139687",
-                Collaborator.IdDocType.CC, "122472678cc3", "ABC1234");
+        Collaborator gsm = new Collaborator("GSM"
+        );
         collaboratorRepository.addCollaborator(gsm);
         greenSpace1 = new GreenSpace(GreenSpace.TypeOfGreenSpace.MPARK,"Poro",30.1,"Porto",gsm);
         greenSpace2 = new GreenSpace(GreenSpace.TypeOfGreenSpace.MPARK,"Poro",30.1,"Porto",gsm);
