@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
+import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidTaskDataException;
 import pt.ipp.isep.dei.esoft.project.domain.Task;
 import pt.ipp.isep.dei.esoft.project.repository.data.SerializableRepository;
 
@@ -57,5 +58,14 @@ public class TaskRepository extends SerializableRepository<List<Task>> implement
 
     public void saveTaskRepositoryToFile() {
         save(tasks);
+    }
+
+    public Task findTaskById(String taskOne) throws InvalidTaskDataException {
+        for (Task task : tasks) {
+            if (task.getTaskId().equals(taskOne)) {
+                return task;
+            }
+        }
+        throw new InvalidTaskDataException("Task not found");
     }
 }
