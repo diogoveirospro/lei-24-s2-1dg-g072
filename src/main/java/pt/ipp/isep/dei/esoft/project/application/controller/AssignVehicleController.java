@@ -4,17 +4,19 @@ package pt.ipp.isep.dei.esoft.project.application.controller;
 
 import pt.ipp.isep.dei.esoft.project.domain.AgendaEntry;
 import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
+import pt.ipp.isep.dei.esoft.project.domain.externalModules.VehicleServicesExternalModule;
 import pt.ipp.isep.dei.esoft.project.repository.Agenda;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.repository.VehicleRepository;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
-
 
 /**
  * The AssignVehicleController class represents the controller for assigning vehicles to agenda entries.
@@ -93,19 +95,23 @@ public class AssignVehicleController {
      * @param service     the vehicle service provider to be contacted
      * @return true if the service request is successfully sent, otherwise false
      */
-    /*
     public boolean sendServiceRequest(AgendaEntry agendaEntry, String service) {
         Vehicle assignedVehicle = agendaEntry.getAssignedVehicle();
         try {
             Class<?> vehicleServiceClass = Class.forName("pt.ipp.isep.dei.esoft.project.domain.externalModules." + service + "VehicleService");
             VehicleServicesExternalModule vehicleModule = (VehicleServicesExternalModule) vehicleServiceClass.getDeclaredConstructor().newInstance();
-            return vehicleModule.requestService(assignedVehicle);
-        } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InstantiationException e) {
+            vehicleModule.requestService(assignedVehicle);
+            return true;
+        } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InstantiationException | FileNotFoundException e) {
             e.printStackTrace();
+            return false;
+        } catch (InvocationTargetException e) {
+            // Tratar a exceção lançada pelo método invocado
+            e.getTargetException().printStackTrace();
             return false;
         }
     }
-    */
+
     /**
      * Retrieves the list of agenda entries without assigned vehicles.
      *
@@ -115,3 +121,4 @@ public class AssignVehicleController {
         return this.agenda.getAgendaEntriesWithoutVehicle();
     }
 }
+

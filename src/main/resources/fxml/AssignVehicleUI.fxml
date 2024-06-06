@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="pt.ipp.isep.dei.esoft.project.application.controller.AssignVehicleController"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <Label text="Assign Vehicle to Agenda Entry" layoutX="20" layoutY="20" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+    <Label text="Agenda Entries:" layoutX="20" layoutY="60" />
+    <ComboBox fx:id="agendaEntryComboBox" layoutX="150" layoutY="60" prefWidth="200" />
+    <Label text="Valid Vehicles for Selected Entry:" layoutX="20" layoutY="100" />
+    <ComboBox fx:id="vehicleComboBox" layoutX="200" layoutY="100" prefWidth="200" />
+    <Button text="Assign Vehicle" layoutX="20" layoutY="150" onAction="#assignVehicle" />
+    <Label fx:id="statusLabel" layoutX="20" layoutY="200" text="" />
+
+</AnchorPane>
