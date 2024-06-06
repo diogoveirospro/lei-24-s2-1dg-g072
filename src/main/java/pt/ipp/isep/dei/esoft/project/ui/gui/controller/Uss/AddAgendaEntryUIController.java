@@ -126,17 +126,7 @@ public class AddAgendaEntryUIController {
             Date endDate = new Date(dpEndDate.getValue().getYear(), dpEndDate.getValue().getMonthValue(), dpEndDate.getValue().getDayOfMonth());
 
             agendaEntry = controller.createAgendaEntry(task, greenSpace, startDate, startHourOfDay, endDate, endHourOfDay);
-            added = controller.addAgendaEntry(agendaEntry);
 
-            GSMUI gsmui = new GSMUI();
-            gsmui.showUI(new Stage());
-        } catch (InvalidEntryDataException e) {
-            AlertUI.createAnAlert(Alert.AlertType.ERROR, "Add Agenda Entry", "Error.", e.getMessage()).show();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        if (added) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirmation");
             alert.setHeaderText("Are you sure you want to add this agenda entry?");
@@ -150,7 +140,18 @@ public class AddAgendaEntryUIController {
                     AlertUI.createAnAlert(Alert.AlertType.ERROR, "Add Agenda Entry", "Error.", e.getMessage()).show();
                 }
             }
+            AlertUI.createAnAlert(Alert.AlertType.INFORMATION, "Add Agenda Entry", "Success.", "Agenda entry added successfully.").show();
+            GSMUI gsmui = new GSMUI();
+            gsmui.showUI(MainMenuUI.getPrimaryStage());
+        } catch (InvalidEntryDataException e) {
+            AlertUI.createAnAlert(Alert.AlertType.ERROR, "Add Agenda Entry", "Error.", e.getMessage()).show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
+
+
+
+
     }
 
     /**
@@ -166,7 +167,7 @@ public class AddAgendaEntryUIController {
         }
     }
 
-    public void setAddAgendaEntryUI (AddAgendaEntryUI addAgendaEntryUI) {
+    public void setAddAgendaEntryUI(AddAgendaEntryUI addAgendaEntryUI) {
         this.addAgendaEntryUI = addAgendaEntryUI;
     }
 
