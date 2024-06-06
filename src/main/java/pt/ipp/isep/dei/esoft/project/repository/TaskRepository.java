@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
 import pt.ipp.isep.dei.esoft.project.domain.Task;
+import pt.ipp.isep.dei.esoft.project.repository.data.SerializableRepository;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import java.util.Map;
  *
  * @author Group 072 - Byte Masters - ISEP
  */
-public class TaskRepository implements Serializable {
+public class TaskRepository extends SerializableRepository<List<Task>> implements Serializable {
 
     private Map<String, Task> tasks;
 
@@ -21,6 +22,7 @@ public class TaskRepository implements Serializable {
      * Constructs a new TaskRepository with an empty task map.
      */
     public TaskRepository() {
+        super("taskRepository.ser");
         this.tasks = new HashMap<>();
     }
 

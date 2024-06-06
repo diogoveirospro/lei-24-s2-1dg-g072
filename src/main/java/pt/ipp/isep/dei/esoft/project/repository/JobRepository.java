@@ -1,7 +1,9 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
+import pt.ipp.isep.dei.esoft.project.domain.AgendaEntry;
 import pt.ipp.isep.dei.esoft.project.domain.Job;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
+import pt.ipp.isep.dei.esoft.project.repository.data.SerializableRepository;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -14,7 +16,7 @@ import java.util.Optional;
  *
  * @author Group 072 - Byte Masters - ISEP
  */
-public class JobRepository implements Serializable {
+public class JobRepository extends SerializableRepository<List<Job>> implements Serializable {
     /**
      * List containing all jobs.
      */
@@ -24,6 +26,7 @@ public class JobRepository implements Serializable {
      * Job Repository builder.
      */
     public JobRepository(){
+        super("jobRepository.ser");
         jobs = new ArrayList<>();
     }
 

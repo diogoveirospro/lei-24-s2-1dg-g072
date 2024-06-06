@@ -10,7 +10,8 @@ public abstract class SerializableRepository<T> {
     }
 
     public void save(T data) {
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filename))) {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(
+                "src/main/java/pt/ipp/isep/dei/esoft/project/repository/data/" + filename))) {
             out.writeObject(data);
         } catch (IOException e) {
             e.printStackTrace();
@@ -18,12 +19,18 @@ public abstract class SerializableRepository<T> {
     }
 
     @SuppressWarnings("unchecked")
-    public T load() {
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(filename))) {
-            return (T) in.readObject();
+    protected T load() {
+        T data = null;
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("src/main/java/pt/ipp/isep/dei/esoft/project/repository/data/" + filename))) {
+            data = (T) ois.readObject();
+        } catch (EOFException e) {
+            return null;
+        } catch (FileNotFoundException e) {
+            System.err.println("File not found. Returning null: " + filename);
+            return null;
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
-            return null;
         }
+        return data;
     }
 }

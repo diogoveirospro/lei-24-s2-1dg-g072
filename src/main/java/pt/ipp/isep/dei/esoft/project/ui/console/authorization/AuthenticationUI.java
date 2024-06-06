@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.esoft.project.ui.console.authorization;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidCollaboratorDataException;
+import pt.ipp.isep.dei.esoft.project.ui.console.menu.HrmUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
 import java.io.IOException;
@@ -16,11 +17,7 @@ public class AuthenticationUI implements Runnable {
     @Override
     public void run() {
         try {
-            if (doLogin()) {
-                System.out.println("Login successful. Redirected to appropriate UI.");
-            } else {
-                System.out.println("Login unsuccessful. Exiting...");
-            }
+            doLogin();
         } catch (InvalidCollaboratorDataException | IOException e) {
             System.out.println("An error occurred: " + e.getMessage());
         } finally {
@@ -34,7 +31,7 @@ public class AuthenticationUI implements Runnable {
         while (maxAttempts > 0) {
             String email = Utils.readLineFromConsole("Enter UserId/Email: ");
             String password = Utils.readLineFromConsole("Enter Password: ");
-            if (ctrl.login(email, password)) {
+            if (ctrl.loginConsole(email, password)) {
                 return true;
             } else {
                 maxAttempts--;

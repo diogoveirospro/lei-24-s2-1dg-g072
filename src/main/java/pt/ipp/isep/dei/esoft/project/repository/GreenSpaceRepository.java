@@ -1,10 +1,12 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
+import pt.ipp.isep.dei.esoft.project.domain.AgendaEntry;
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import pt.ipp.isep.dei.esoft.project.domain.GreenSpace;
 import pt.ipp.isep.dei.esoft.project.domain.externalModules.SortExternalModule;
 import pt.ipp.isep.dei.esoft.project.domain.externalModules.SortSmalestToBigestByStatus;
 import pt.ipp.isep.dei.esoft.project.domain.externalModules.SortSmalestToBigestSize;
+import pt.ipp.isep.dei.esoft.project.repository.data.SerializableRepository;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -15,12 +17,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
-public class GreenSpaceRepository implements Serializable {
+public class GreenSpaceRepository extends SerializableRepository<List<GreenSpace>>  implements Serializable {
     List<GreenSpace> greenSpaceList;
     private static final String CONFIGURATION_FILENAME = "src/main/resources/config/config.properties";
     private static final String SORT_METHODS = "sort.methods";
 
     public GreenSpaceRepository() {
+        super("greenSpaceRepository.ser");
         this.greenSpaceList = new ArrayList<>();
     }
 

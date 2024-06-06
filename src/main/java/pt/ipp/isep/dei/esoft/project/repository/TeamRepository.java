@@ -5,6 +5,7 @@ import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
 import pt.ipp.isep.dei.esoft.project.domain.Team;
 import pt.ipp.isep.dei.esoft.project.dto.AgendaEntryDto;
+import pt.ipp.isep.dei.esoft.project.repository.data.SerializableRepository;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import java.util.List;
  *
  * @author Group 072 - Byte Masters - ISEP
  */
-public class TeamRepository implements Serializable {
+public class TeamRepository extends SerializableRepository<List<Team>> implements Serializable {
     /**
      * List representing all TeamRepository teams.
      */
@@ -25,6 +26,7 @@ public class TeamRepository implements Serializable {
      * Team Repository builder.
      */
     public TeamRepository() {
+        super("teamRepository.ser");
         teams = new ArrayList<>();
     }
 

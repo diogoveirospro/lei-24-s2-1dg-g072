@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.esoft.project.repository;
 import pt.ipp.isep.dei.esoft.project.domain.AgendaEntry;
 import pt.ipp.isep.dei.esoft.project.domain.Date;
 import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
+import pt.ipp.isep.dei.esoft.project.repository.data.SerializableRepository;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import java.util.Optional;
  *
  * @author Group 072 - Byte Masters - ISEP
  */
-public class VehicleRepository implements Serializable {
+public class VehicleRepository extends SerializableRepository<List<Vehicle>> implements Serializable {
 
     /**
      * List containing all vehicles
@@ -26,6 +27,7 @@ public class VehicleRepository implements Serializable {
      * Repository builder
      */
     public VehicleRepository() {
+        super("vehicleRepository.ser");
         vehicleList = new ArrayList<Vehicle>();
     }
 

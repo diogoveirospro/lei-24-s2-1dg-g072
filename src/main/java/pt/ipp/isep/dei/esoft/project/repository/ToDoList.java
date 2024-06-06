@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
 import pt.ipp.isep.dei.esoft.project.domain.*;
+import pt.ipp.isep.dei.esoft.project.repository.data.SerializableRepository;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.List;
  *
  * @author Group 072 - Byte Masters - ISEP
  */
-public class ToDoList implements Serializable {
+public class ToDoList extends SerializableRepository<List<ToDoListEntry>> implements Serializable {
     private List<ToDoListEntry> toDoListEntries;
 
     /**
@@ -20,6 +21,7 @@ public class ToDoList implements Serializable {
      * Initializes the list of ToDoListEntry objects.
      */
     public ToDoList() {
+        super("toDoList.ser");
         this.toDoListEntries = new ArrayList<>();
     }
 

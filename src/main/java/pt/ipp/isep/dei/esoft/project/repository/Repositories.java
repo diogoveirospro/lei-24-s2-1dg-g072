@@ -1,14 +1,18 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
 
+import pt.ipp.isep.dei.esoft.project.domain.AgendaEntry;
+import pt.ipp.isep.dei.esoft.project.repository.data.SerializableRepository;
+
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * It represents a list of all the repositories.
  *
  * @author Group 072 - Byte Masters - ISEP
  */
-public class Repositories implements Serializable {
+public class Repositories {
 
     private static Repositories instance;
     private JobRepository jobRepository;
@@ -21,7 +25,6 @@ public class Repositories implements Serializable {
     private Agenda agenda;
     private GreenSpaceRepository greenSpaceRepository;
     private ToDoList toDoList;
-    // Este está temporariamente no codigo enquanto tentamos perceber o que fazer
     private AuthenticationRepository authenticationRepository;
 
     /**
