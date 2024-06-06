@@ -10,6 +10,7 @@ import pt.ipp.isep.dei.esoft.project.dto.GreenSpaceDto;
 import pt.ipp.isep.dei.esoft.project.dto.ToDoListEntryDto;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.AlertUI;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.GSMUI;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.MainMenuUI;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss.AddAgendaEntryUI;
 
 import java.io.IOException;
@@ -23,8 +24,9 @@ import java.util.stream.Collectors;
  * This controller handles the creation and addition of agenda entries, as well as retrieving green spaces and to-do list entries.
  */
 public class AddAgendaEntryUIController {
-
+    @FXML
     public Button btnAddAgendaEntry;
+    @FXML
     public Button btnCancel;
     @FXML
     private ComboBox<String> cbGreenSpace;
@@ -175,7 +177,7 @@ public class AddAgendaEntryUIController {
     public void handleCancel() {
         GSMUI gsmui = new GSMUI();
         try {
-            gsmui.showUI(new Stage());
+            gsmui.showUI(MainMenuUI.getPrimaryStage());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
