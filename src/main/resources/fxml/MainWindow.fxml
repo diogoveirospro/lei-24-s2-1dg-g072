@@ -5,9 +5,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane prefHeight="352.0" prefWidth="620.0" style="-fx-background-color: #F1F8E9;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.MainMenuController">
+<BorderPane style="-fx-background-color: #F1F8E9;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.MainMenuController">
    <top>
-      <Pane prefHeight="152.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <Pane BorderPane.alignment="CENTER">
          <children>
             <Text fill="#678362" layoutX="43.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Musgo Sublime">
                <font>
@@ -23,7 +23,7 @@
       </Pane>
    </top>
    <center>
-      <VBox prefHeight="200.0" prefWidth="4168.0" BorderPane.alignment="CENTER">
+      <VBox BorderPane.alignment="CENTER">
          <children>
              <Button fx:id="loginButton" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" onAction="#handleLoginButtonAction" prefHeight="31.0" prefWidth="186.0" style="-fx-background-color: #80CBC4; -fx-text-fill: white; -fx-background-radius: 15;" text="LOGIN" textAlignment="CENTER">
                <font>

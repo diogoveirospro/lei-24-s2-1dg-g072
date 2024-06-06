@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane prefHeight="449.0" prefWidth="522.0" style="-fx-background-color: F1F8E9;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.DevTeamController">
+<BorderPane style="-fx-background-color: F1F8E9;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.DevTeamController">
    <top>
       <Text fill="#bb6140" strokeType="OUTSIDE" strokeWidth="0.0" text="Byte Masters" BorderPane.alignment="CENTER">
          <font>
@@ -17,7 +17,7 @@
       </Text>
    </top>
    <center>
-      <TableView fx:id="tvTeam" prefHeight="238.0" prefWidth="324.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="tvTeam" prefHeight="157.0" prefWidth="320.0" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn fx:id="name" editable="false" minWidth="50.0" prefWidth="159.0" text="Name" />
           <TableColumn fx:id="email" editable="false" minWidth="50.0" prefWidth="159.0" text="Email" />
