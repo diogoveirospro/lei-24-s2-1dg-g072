@@ -3,13 +3,14 @@ package pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
+import javafx.scene.control.*;
+import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidCollaboratorDataException;
+import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidEntryDataException;
 import pt.ipp.isep.dei.esoft.project.application.controller.ListTaskController;
 import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.dto.AgendaEntryDto;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.AlertUI;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.CollaboratorUI;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.MainMenuUI;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss.ListTaskUI;
@@ -18,6 +19,7 @@ import pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss.Output.ShowTaskListUI;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * This class serves as the controller for the functionality of listing all the tasks
@@ -69,13 +71,14 @@ public class ListTaskUIController {
      */
     @FXML
     public void initialize() {
-        try{
+        try {
             statusList.setItems(status);
 
         } catch (Exception e) {
             System.out.println("Error while loading the status list.");
         }
     }
+
     /**
      * Handles the cancel button action
      */
@@ -87,44 +90,67 @@ public class ListTaskUIController {
             System.out.println("An error occurred while handling the cancel action: " + e.getMessage());
         }
     }
+
     /**
      * Handles the show button action
      */
     public void handleShowButtonAction() {
-        try {
-            if (startDate.getValue() == null || endDate.getValue() == null || statusList.getValue() == null) {
-                throw new IllegalArgumentException("Please fill in all the fields.");
-            } else if (startDate.getValue().isAfter(endDate.getValue())) {
-                throw new IllegalArgumentException("The start date must be before the end date.");
-            } else{
-                AgendaEntry.StatusOfEntry status = null;
-                if (!statusList.getValue().toString().equalsIgnoreCase("None")) {
-                    status = AgendaEntry.StatusOfEntry.valueOf((String) statusList.getValue());
-                }
-                Date startDate = getStartDate();
-                Date endDate = getEndDate();
-                List<AgendaEntryDto> taskList = controller.getTaskList(status, startDate, endDate);
-                List<String> taskListString = new ArrayList<>();
-                String[][] dates = new String[taskList.size()][2];
-                for (AgendaEntryDto task : taskList) {
-                    taskListString.add(task.getTask().getTaskId());
-                }
-                for (int i = 0; i < taskList.size(); i++) {
-                    dates[i][0] = taskList.get(i).getStartDate().toString();
-                    dates[i][1] = taskList.get(i).getEndDate().toString();
-                }
-                showTaskListUI = new ShowTaskListUI();
-                showTaskListUI.showUI(MainMenuUI.getPrimaryStage(),taskListString,dates);
-            }
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText("Are you sure you want to list all the tasks?");
+        alert.setContentText("The data provided will be used to all the tasks attributed to you.");
 
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+        ((Button) alert.getDialogPane().lookupButton(ButtonType.OK)).setText("Yes");
+        ((Button) alert.getDialogPane().lookupButton(ButtonType.CANCEL)).setText("No");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            try {
+                Date dateI = getStartDate();
+                Date dateF = getEndDate();
+                if (startDate.getValue() == null || endDate.getValue() == null || statusList.getValue() == null) {
+                    AlertUI.createAnAlert(Alert.AlertType.ERROR, "List Task", "Error.", "Please fill in all the fields.").show();
+                    throw new IllegalArgumentException("Please fill in all the fields.");
+                } else if (startDate.getValue().isAfter(endDate.getValue())) {
+                    AlertUI.createAnAlert(Alert.AlertType.ERROR, "List Task", "Error.", "The start date must be before the end date.").show();
+                    throw new IllegalArgumentException("The start date must be before the end date.");
+
+                } else if (dateI.compareTo(Date.currentDate()) >= 0 || dateF.compareTo(Date.currentDate()) >= 0) {
+                    AlertUI.createAnAlert(Alert.AlertType.ERROR, "List Task", "Error.", "Please insert a date that is greater or equal to the current date.").show();
+                    throw new IllegalArgumentException("The end date must be after the start date.");
+
+                }
+                else {
+                    AgendaEntry.StatusOfEntry status = null;
+                    if (!statusList.getValue().toString().equalsIgnoreCase("None")) {
+                        status = AgendaEntry.StatusOfEntry.valueOf((String) statusList.getValue());
+                    }
+                    Date startDate = getStartDate();
+                    Date endDate = getEndDate();
+                    List<AgendaEntryDto> taskList = controller.getTaskList(status, startDate, endDate);
+                    List<String> taskListString = new ArrayList<>();
+                    String[][] dates = new String[taskList.size()][2];
+                    for (AgendaEntryDto task : taskList) {
+                        taskListString.add(task.getTask().getTaskId());
+                    }
+                    for (int i = 0; i < taskList.size(); i++) {
+                        dates[i][0] = taskList.get(i).getStartDate().toString();
+                        dates[i][1] = taskList.get(i).getEndDate().toString();
+                    }
+                    showTaskListUI = new ShowTaskListUI();
+                    showTaskListUI.showUI(MainMenuUI.getPrimaryStage(), taskListString, dates);
+                }
+
+            } catch (InvalidCollaboratorDataException | InvalidEntryDataException e) {
+                AlertUI.createAnAlert(Alert.AlertType.ERROR, "List Task", "Error.", e.getMessage()).show();
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+            }
         }
+
     }
 
     /**
      * Gets the start date
-     *
      */
     public Date getStartDate() {
         Date startDate = new Date(this.startDate.getValue().getDayOfMonth(), this.startDate.getValue().getMonthValue(), this.startDate.getValue().getYear());
@@ -138,6 +164,7 @@ public class ListTaskUIController {
         Date endDate = new Date(this.endDate.getValue().getDayOfMonth(), this.endDate.getValue().getMonthValue(), this.endDate.getValue().getYear());
         return endDate;
     }
+
     /**
      * Gets the status
      */

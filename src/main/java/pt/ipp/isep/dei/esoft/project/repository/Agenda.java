@@ -27,7 +27,7 @@ public class Agenda extends SerializableRepository<List<AgendaEntry>> implements
      * @param typeStatus the status of the entries to filter.
      * @return a list of entries matching the specified tasks and date range.
      */
-    public List<AgendaEntry> getAgendaEntryList(List<Team> teamList, Date startDate, Date endDate, AgendaEntry.StatusOfEntry typeStatus) {
+    public List<AgendaEntry> getAgendaEntryList(List<Team> teamList, Date startDate, Date endDate, AgendaEntry.StatusOfEntry typeStatus) throws InvalidEntryDataException {
         List<AgendaEntry> agendaEntryList = new ArrayList<>();
         for (Team team : teamList) {
             for (AgendaEntry agendaEntry : entriesAgenda) {
@@ -41,6 +41,9 @@ public class Agenda extends SerializableRepository<List<AgendaEntry>> implements
                     }
                 }
             }
+        }
+        if (agendaEntryList.isEmpty()) {
+            throw new InvalidEntryDataException("No entries found for the specified criteria.");
         }
         return agendaEntryList;
     }

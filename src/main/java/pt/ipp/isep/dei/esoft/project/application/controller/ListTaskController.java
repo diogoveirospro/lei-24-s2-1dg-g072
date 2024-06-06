@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
+import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidCollaboratorDataException;
+import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidEntryDataException;
 import pt.ipp.isep.dei.esoft.project.Mapper.AgendaEntryMapper;
 import pt.ipp.isep.dei.esoft.project.application.session.ApplicationSession;
 import pt.ipp.isep.dei.esoft.project.domain.*;
@@ -156,7 +158,7 @@ public class ListTaskController {
      * @param endDate   end date of the task
      * @return list of tasks of the collaborator
      */
-    public List<AgendaEntryDto> getTaskList(AgendaEntry.StatusOfEntry typeStatus, Date startDate, Date endDate) {
+    public List<AgendaEntryDto> getTaskList(AgendaEntry.StatusOfEntry typeStatus, Date startDate, Date endDate) throws InvalidCollaboratorDataException, InvalidEntryDataException {
         Collaborator collaborator = getCollaboratorFromSession();
         List<Team> teamList = this.teamRepository.getTeamsByCollaborator(collaborator);
         List<AgendaEntry> agendaEntryList = this.agenda.getAgendaEntryList(teamList, startDate, endDate, typeStatus);

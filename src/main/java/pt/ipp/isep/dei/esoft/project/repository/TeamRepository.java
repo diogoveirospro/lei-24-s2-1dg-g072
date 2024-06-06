@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
+import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidCollaboratorDataException;
 import pt.ipp.isep.dei.esoft.project.domain.AgendaEntry;
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
@@ -102,9 +103,9 @@ public class TeamRepository extends SerializableRepository<List<Team>> implement
      * Get the teams with the collaborator.
      *
      * @param collaborator collaborator being searched in all teams
-     * @return
+     * @return teams with the collaborator
      */
-    public List<Team> getTeamsByCollaborator(Collaborator collaborator) {
+    public List<Team> getTeamsByCollaborator(Collaborator collaborator) throws InvalidCollaboratorDataException {
         List<Team> teamList = new ArrayList<>();
         for (Team team : teams) {
             boolean inTeam = team.validateCollaboratorTeam(collaborator, team);
@@ -113,7 +114,7 @@ public class TeamRepository extends SerializableRepository<List<Team>> implement
             }
         }
         if (teamList.isEmpty()) {
-            throw new IllegalArgumentException("Collaborator not found in any team.");
+            throw new InvalidCollaboratorDataException("You were not found in any team.");
         } else {
             return teamList;
         }
