@@ -174,7 +174,7 @@ class AgendaEntryTest {
 
     @Test
     void getStatusOfStatusOfEntryTest(){
-        assertEquals("Schedule", AgendaEntry.StatusOfEntry.SCHEDULED.getStatus());
+        assertEquals("Scheduled", AgendaEntry.StatusOfEntry.SCHEDULED.getStatus());
         assertEquals("Postponed", AgendaEntry.StatusOfEntry.POSTPONED.getStatus());
         assertEquals("Canceled", AgendaEntry.StatusOfEntry.CANCELED.getStatus());
         assertEquals("Done", AgendaEntry.StatusOfEntry.DONE.getStatus());
@@ -182,7 +182,7 @@ class AgendaEntryTest {
 
     @Test
     void toStringOdStatusOfEntryTest(){
-        assertEquals("Schedule", AgendaEntry.StatusOfEntry.SCHEDULED.toString());
+        assertEquals("Scheduled", AgendaEntry.StatusOfEntry.SCHEDULED.toString());
         assertEquals("Postponed", AgendaEntry.StatusOfEntry.POSTPONED.toString());
         assertEquals("Canceled", AgendaEntry.StatusOfEntry.CANCELED.toString());
         assertEquals("Done", AgendaEntry.StatusOfEntry.DONE.toString());
@@ -190,7 +190,7 @@ class AgendaEntryTest {
 
     @Test
     void getStatusOfEntryFromStringTest() throws InvalidEntryDataException {
-        assertEquals(AgendaEntry.StatusOfEntry.SCHEDULED, AgendaEntry.StatusOfEntry.getStatusOfEntry("Schedule"));
+        assertEquals(AgendaEntry.StatusOfEntry.SCHEDULED, AgendaEntry.StatusOfEntry.getStatusOfEntry("Scheduled"));
         assertEquals(AgendaEntry.StatusOfEntry.POSTPONED, AgendaEntry.StatusOfEntry.getStatusOfEntry("Postponed"));
         assertEquals(AgendaEntry.StatusOfEntry.CANCELED, AgendaEntry.StatusOfEntry.getStatusOfEntry("Canceled"));
         assertEquals(AgendaEntry.StatusOfEntry.DONE, AgendaEntry.StatusOfEntry.getStatusOfEntry("Done"));
@@ -202,7 +202,7 @@ class AgendaEntryTest {
     void getStatusListTest(){
 
         List<String> statusList = AgendaEntry.StatusOfEntry.getStatusList();
-        List<String> expectedList = List.of("Schedule", "Postponed", "Canceled", "Done");
+        List<String> expectedList = List.of("Scheduled", "Postponed", "Canceled", "Done");
 
         assertEquals(4, statusList.size());
         assertEquals(expectedList, statusList);
@@ -401,6 +401,8 @@ class AgendaEntryTest {
         try {
             AgendaEntry agendaEntry = new AgendaEntry(task, greenSpace, startDate, startHour, endDate, endHour);
             agendaEntry.postponeEntry(new Date(2024, 6, 5));
+            agendaEntry.taskPostponed();
+            assertEquals(agendaEntry.getStartDate(), new Date(2024, 6, 5));
             assertEquals(AgendaEntry.StatusOfEntry.POSTPONED, agendaEntry.getStatus());
         } catch (InvalidEntryDataException e) {
             fail("Exception thrown when it shouldn't have been: " + e.getMessage());
