@@ -63,8 +63,8 @@ public class RegisterCollaboratorUIController {
     public void registerCollaborator(String name, Date birthDate, Date admissionDate, String address,
                                      String mobile, String email, String taxpayerNumber, Collaborator.IdDocType idDocType, String idDocNumber, String jobName) throws InvalidCollaboratorDataException, InvalidCollaboratorDataException {
 
-        this.collaboratorRepository.addCollaborator(new Collaborator(name
-        ));
+        this.collaboratorRepository.addCollaborator(new Collaborator(name, birthDate, admissionDate, address, mobile,
+                email, taxpayerNumber, idDocType, idDocNumber, jobName));
     }
 
     /**

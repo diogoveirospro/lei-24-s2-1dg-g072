@@ -230,9 +230,19 @@ public class Collaborator implements Comparable<Collaborator>, Serializable {
      * Constructor for Collaborator class.
      * Initializes collaborator attributes based on provided parameters.
      *
-     * @param name Collaborator name.
+     * @param name           Collaborator name.
+     * @param birthDate      Collaborator birthdate.
+     * @param admissionDate  Collaborator admission date.
+     * @param address        Collaborator address.
+     * @param mobile         Collaborator mobile number.
+     * @param email          Collaborator email.
+     * @param taxpayerNumber Collaborator taxpayer number.
+     * @param idDocType      Collaborator ID document type.
+     * @param idDocNumber    Collaborator ID document number.
+     * @param pwd            Collaborator password.
      */
-    public Collaborator(String name) throws InvalidCollaboratorDataException {
+    public Collaborator(String name, Date birthDate, Date admissionDate, String address, String mobile, String email,
+                        String taxpayerNumber, IdDocType idDocType, String idDocNumber, String pwd) throws InvalidCollaboratorDataException {
 
         if (!ValidatorUtils.isValidName(name)) {
             throw new InvalidCollaboratorDataException("Invalid name.");

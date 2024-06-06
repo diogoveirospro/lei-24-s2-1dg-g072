@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
-import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidCollaboratorDataException;
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidEntryDataException;
 import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.repository.data.SerializableRepository;
@@ -185,22 +184,6 @@ public class Agenda extends SerializableRepository<List<AgendaEntry>> implements
             System.err.println("Erro ao atribuir veículo à entrada da agenda: " + e.getMessage());
             return false;
         }
-    }
-    public Collaborator getCollaboratorByEmail(String email) throws InvalidCollaboratorDataException {
-        // Logic to get Collaborator by email
-        // This is a placeholder implementation
-        return new Collaborator(email);
-    }
-
-    public List<Task> getTasksByCollaborator(Collaborator collaborator) {
-        // Logic to get tasks by collaborator
-        // This is a placeholder implementation
-        return List.of(); // Return an empty list for now
-    }
-
-    public void markTaskAsCompleted(int taskId) {
-        // Logic to mark task as completed
-        // This is a placeholder implementation
     }
 
     public void saveAgendaToFile() {
