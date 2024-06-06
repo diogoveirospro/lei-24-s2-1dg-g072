@@ -106,7 +106,7 @@ public class AssignVehicleController {
             e.printStackTrace();
             return false;
         } catch (InvocationTargetException e) {
-            // Tratar a exceção lançada pelo método invocado
+
             e.getTargetException().printStackTrace();
             return false;
         }
@@ -119,6 +119,17 @@ public class AssignVehicleController {
      */
     public List<AgendaEntry> getAgendaEntriesWithoutVehicle() {
         return this.agenda.getAgendaEntriesWithoutVehicle();
+    }
+
+    /**
+     * Assigns the specified vehicle to the specified agenda entry.
+     *
+     * @param agendaEntry the agenda entry to be assigned to
+     * @param vehicle     the vehicle to be assigned
+     * @return true if the vehicle is successfully assigned to the agenda entry, otherwise false
+     */
+    public boolean assignVehicle(AgendaEntry agendaEntry, Vehicle vehicle) {
+        return agenda.assignVehicleToAgendaEntry(agendaEntry, vehicle);
     }
 }
 

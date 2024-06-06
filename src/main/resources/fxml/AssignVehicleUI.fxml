@@ -15,7 +15,7 @@
     <ComboBox fx:id="agendaEntryComboBox" layoutX="150" layoutY="60" prefWidth="200" />
     <Label text="Valid Vehicles for Selected Entry:" layoutX="20" layoutY="100" />
     <ComboBox fx:id="vehicleComboBox" layoutX="200" layoutY="100" prefWidth="200" />
-    <Button text="Assign Vehicle" layoutX="20" layoutY="150" onAction="#assignVehicle" />
+    <Button text="Assign Vehicle" layoutX="20" layoutY="150" onAction="#handleAssignVehicle" />
     <Label fx:id="statusLabel" layoutX="20" layoutY="200" text="" />
 
 </AnchorPane>
