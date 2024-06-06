@@ -4,6 +4,7 @@ import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidEntryDataException;
 import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.repository.data.SerializableRepository;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -79,6 +80,8 @@ public class Agenda extends SerializableRepository<List<AgendaEntry>> implements
      * @return true if the agenda entry was added successfully, false otherwise.
      */
     public boolean addAgendaEntry(AgendaEntry agendaEntry) {
+
+        saveAgendaToFile();
         return entriesAgenda.add(agendaEntry);
     }
 
@@ -130,6 +133,7 @@ public class Agenda extends SerializableRepository<List<AgendaEntry>> implements
 
 
     public boolean assignTeamToAgendaEntry(AgendaEntry agendaEntry, Team team) {
+        saveAgendaToFile();
         return agendaEntry.assignTeam(team);
     }
 
@@ -166,14 +170,17 @@ public class Agenda extends SerializableRepository<List<AgendaEntry>> implements
 
     public boolean assignVehicleToAgendaEntry(AgendaEntry agendaEntry, Vehicle vehicle) {
         try {
-
             agendaEntry.assignVehicle(vehicle);
+            saveAgendaToFile();
             return true;
         } catch (InvalidEntryDataException e) {
-
             System.err.println("Erro ao atribuir veículo à entrada da agenda: " + e.getMessage());
             return false;
         }
+    }
+
+    public void saveAgendaToFile() {
+        save(entriesAgenda);
     }
 
 }

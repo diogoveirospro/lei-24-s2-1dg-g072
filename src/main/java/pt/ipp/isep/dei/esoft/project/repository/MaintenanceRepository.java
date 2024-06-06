@@ -83,6 +83,7 @@ public class MaintenanceRepository extends SerializableRepository<List<Maintenan
             mutableVehicleList.remove(vehicle);
             vehicles = mutableVehicleList;
         }
+        saveMaintenanceRepositoryToFile();
         return vehicles;
     }
 
@@ -114,6 +115,7 @@ public class MaintenanceRepository extends SerializableRepository<List<Maintenan
                 maintenance.setVehicleMaintenance(vehicle);
 
                     maintenanceList.add(maintenance);
+                    saveMaintenanceRepositoryToFile();
                     System.out.println("Maintenance added for vehicle with plate: " + maintenance.getPlateNumber());
 
             }
@@ -134,6 +136,10 @@ public class MaintenanceRepository extends SerializableRepository<List<Maintenan
 
     public List<Maintenance> getMaintenanceList(){
         return List.copyOf(maintenanceList);
+    }
+
+    public void saveMaintenanceRepositoryToFile() {
+        save(maintenanceList);
     }
 
 }

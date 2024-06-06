@@ -42,6 +42,7 @@ public class SkillRepository extends SerializableRepository<List<Skill>> impleme
             throw new IllegalArgumentException("Skill can't have special characters");
         }
         skills.add(skill);
+        saveSkillRepositoryToFile();
     }
 
     /**
@@ -52,6 +53,10 @@ public class SkillRepository extends SerializableRepository<List<Skill>> impleme
     public List<Skill> listSkills() {
         Collections.sort(skills);
         return List.copyOf(skills);
+    }
+
+    public void saveSkillRepositoryToFile() {
+        save(skills);
     }
 
 
