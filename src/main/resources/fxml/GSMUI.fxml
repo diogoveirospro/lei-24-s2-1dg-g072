@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -19,15 +20,15 @@
          <children>
             <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#80cbc4" height="38.0" stroke="TRANSPARENT" strokeType="INSIDE" width="384.0">
                <GridPane.margin>
-                  <Insets left="15.0" />
+                  <Insets left="133.0" />
                </GridPane.margin>
             </Rectangle>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome GSM! What are we doing today?">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome GSM! What are we doing today?" textAlignment="CENTER" wrappingWidth="612.162109375">
                <font>
                   <Font name="Georgia" size="20.0" />
                </font>
                <GridPane.margin>
-                  <Insets left="20.0" />
+                  <Insets left="20.0" right="20.0" />
                </GridPane.margin>
             </Text>
          </children>
@@ -41,20 +42,23 @@
          <children>
             <HBox alignment="CENTER">
                <children>
-                      <Button fx:id="RegisterGreenSpaceButton" alignment="CENTER" contentDisplay="TOP" defaultButton="true" mnemonicParsing="false" onAction="#handleRegisterGreenSpaceButtonAction" prefHeight="79.0" prefWidth="144.0" style="-fx-background-color: #80cbc4; -fx-text-fill: white; -fx-background-radius: 15;" text="Register GreenSpace" textAlignment="CENTER">
+                      <Button fx:id="RegisterGreenSpaceButton" alignment="CENTER" contentDisplay="TOP" defaultButton="true" mnemonicParsing="false" onAction="#handleRegisterGreenSpaceButtonAction" prefHeight="79.0" prefWidth="144.0" style="-fx-background-color: #80cbc4; -fx-text-fill: white; -fx-background-radius: 15;" text="Register Green Space" textAlignment="CENTER">
                      <font>
                         <Font name="Britannic Bold" size="12.0" />
                      </font>
                      <graphic>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/register_greenSpace.png" />
+                              <Image url="@../images/greenSpace.png" />
                            </image>
                         </ImageView>
                      </graphic>
                      <HBox.margin>
                         <Insets right="20.0" />
                      </HBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                       <Button fx:id="AssignTeamButton" alignment="CENTER" contentDisplay="TOP" defaultButton="true" mnemonicParsing="false" onAction="#handleAssignTeamButtonAction" prefHeight="79.0" prefWidth="144.0" style="-fx-background-color: #80cbc4; -fx-text-fill: white; -fx-background-radius: 15;" text="Assign Team">
                      <font>
@@ -63,24 +67,30 @@
                      <graphic>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/assign_team.png" />
+                              <Image url="@../images/team.png" />
                            </image>
                         </ImageView>
                      </graphic>
                      <HBox.margin>
                         <Insets right="20.0" />
-                     </HBox.margin></Button>
-                      <Button fx:id="AddToDoListEntryButton" contentDisplay="TOP" defaultButton="true" mnemonicParsing="false" onAction="#handleAddToDoListEntryButtonAction" prefHeight="79.0" prefWidth="144.0" style="-fx-background-color: #80cbc4; -fx-text-fill: white; -fx-background-radius: 15;" text="Add Entry ToDoList" textAlignment="CENTER">
+                     </HBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+                      <Button fx:id="AddToDoListEntryButton" contentDisplay="TOP" defaultButton="true" mnemonicParsing="false" onAction="#handleAddToDoListEntryButtonAction" prefHeight="79.0" prefWidth="144.0" style="-fx-background-color: #80cbc4; -fx-text-fill: white; -fx-background-radius: 15;" text="Add To-Do List Entry" textAlignment="CENTER">
                      <graphic>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/add_todolistentry.png" />
+                              <Image url="@../images/todolistentry.png" />
                            </image>
                         </ImageView>
                      </graphic>
                      <font>
                         <Font name="Britannic Bold" size="12.0" />
-                     </font></Button>
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
                </children>
                <VBox.margin>
                   <Insets bottom="20.0" />
@@ -88,11 +98,11 @@
             </HBox>
             <HBox alignment="CENTER">
                <children>
-                      <Button fx:id="AddAgendaEntryButton" contentDisplay="TOP" defaultButton="true" mnemonicParsing="false" onAction="#handleAddAgendaEntryButtonAction" prefHeight="79.0" prefWidth="144.0" style="-fx-background-color: #80cbc4; -fx-text-fill: white; -fx-background-radius: 15;" text="Add Entry Agenda">
+                      <Button fx:id="AddAgendaEntryButton" contentDisplay="TOP" defaultButton="true" mnemonicParsing="false" onAction="#handleAddAgendaEntryButtonAction" prefHeight="79.0" prefWidth="144.0" style="-fx-background-color: #80cbc4; -fx-text-fill: white; -fx-background-radius: 15;" text="Add Agenda Entry">
                      <graphic>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/add_agendaentry.png" />
+                              <Image url="@../images/agendaentry.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -101,8 +111,11 @@
                      </font>
                      <HBox.margin>
                         <Insets right="20.0" />
-                     </HBox.margin></Button>
-                      <Button fx:id="PostponeEntryButton" contentDisplay="TOP" defaultButton="true" mnemonicParsing="false" onAction="#handlePostponeEntryButtonAction" prefHeight="79.0" prefWidth="144.0" style="-fx-background-color: #80cbc4; -fx-text-fill: white; -fx-background-radius: 15;" text="PostPone Entry">
+                     </HBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+                      <Button fx:id="PostponeEntryButton" contentDisplay="TOP" defaultButton="true" mnemonicParsing="false" onAction="#handlePostponeEntryButtonAction" prefHeight="79.0" prefWidth="144.0" style="-fx-background-color: #80cbc4; -fx-text-fill: white; -fx-background-radius: 15;" text="Post Pone Entry">
                      <graphic>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -115,7 +128,10 @@
                      </font>
                      <HBox.margin>
                         <Insets right="20.0" />
-                     </HBox.margin></Button>
+                     </HBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
                       <Button fx:id="CancelEntryButton" contentDisplay="TOP" defaultButton="true" mnemonicParsing="false" onAction="#handleCancelEntryButtonAction" prefHeight="79.0" prefWidth="144.0" style="-fx-background-color: #80cbc4; -fx-text-fill: white; -fx-background-radius: 15;" text="Cancel Entry">
                      <graphic>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
@@ -126,14 +142,17 @@
                      </graphic>
                      <font>
                         <Font name="Britannic Bold" size="12.0" />
-                     </font></Button>
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
                </children>
                <VBox.margin>
                   <Insets bottom="20.0" />
                </VBox.margin></HBox>
             <HBox alignment="CENTER">
                <children>
-                  <Button fx:id="AssignVehicleButton" contentDisplay="TOP" defaultButton="true" mnemonicParsing="false" onAction="#handleAssignVehicleButtonAction" prefHeight="79.0" prefWidth="144.0" style="-fx-background-color: #80cbc4; -fx-text-fill: white; -fx-background-radius: 15;" text="AssignVehicles">
+                  <Button fx:id="AssignVehicleButton" contentDisplay="TOP" defaultButton="true" mnemonicParsing="false" onAction="#handleAssignVehicleButtonAction" prefHeight="79.0" prefWidth="144.0" style="-fx-background-color: #80cbc4; -fx-text-fill: white; -fx-background-radius: 15;" text="Assign Vehicles">
                      <graphic>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -146,8 +165,11 @@
                      </HBox.margin>
                      <font>
                         <Font name="Britannic Bold" size="12.0" />
-                     </font></Button>
-                  <Button fx:id="ListGreenSpacesButton" contentDisplay="TOP" defaultButton="true" mnemonicParsing="false" onAction="#handleListGreenSpacesButtonAction" prefHeight="79.0" prefWidth="144.0" style="-fx-background-color: #80cbc4; -fx-text-fill: white; -fx-background-radius: 15;" text="List GreenSpaces">
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+                  <Button fx:id="ListGreenSpacesButton" contentDisplay="TOP" defaultButton="true" mnemonicParsing="false" onAction="#handleListGreenSpacesButtonAction" prefHeight="79.0" prefWidth="144.0" style="-fx-background-color: #80cbc4; -fx-text-fill: white; -fx-background-radius: 15;" text="List Green Spaces">
                      <graphic>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -160,7 +182,10 @@
                      </HBox.margin>
                      <font>
                         <Font name="Britannic Bold" size="12.0" />
-                     </font></Button>
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
                   <Button fx:id="LogOutButton" cancelButton="true" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleLogoutButtonAction" prefHeight="79.0" prefWidth="144.0" style="-fx-background-color: #80cbc4; -fx-text-fill: white; -fx-background-radius: 15;" text="Logout">
                      <graphic>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
@@ -171,7 +196,10 @@
                      </graphic>
                      <font>
                         <Font name="Britannic Bold" size="12.0" />
-                     </font></Button>
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
                </children>
                <VBox.margin>
                   <Insets bottom="20.0" />
