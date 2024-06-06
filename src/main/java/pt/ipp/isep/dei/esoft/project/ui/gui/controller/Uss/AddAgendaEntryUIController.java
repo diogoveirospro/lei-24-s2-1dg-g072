@@ -126,32 +126,45 @@ public class AddAgendaEntryUIController {
             Date endDate = new Date(dpEndDate.getValue().getYear(), dpEndDate.getValue().getMonthValue(), dpEndDate.getValue().getDayOfMonth());
 
             agendaEntry = controller.createAgendaEntry(task, greenSpace, startDate, startHourOfDay, endDate, endHourOfDay);
+            added = controller.addAgendaEntry(agendaEntry);
 
+        } catch (InvalidEntryDataException e) {
+            AlertUI.createAnAlert(Alert.AlertType.ERROR, "Add Agenda Entry", "Error.", e.getMessage()).show();
+        }
+
+        if (added) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirmation");
             alert.setHeaderText("Are you sure you want to add this agenda entry?");
             alert.setContentText("The data provided will be used to create the new entry.");
 
             Optional<ButtonType> result = alert.showAndWait();
+
             if (result.isPresent() && result.get() == ButtonType.OK) {
                 try {
                     controller.addAgendaEntry(agendaEntry);
+                    Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+                    alert2.setTitle("Add Agenda Entry");
+                    alert2.setHeaderText("Success.");
+                    alert2.setContentText("Agenda entry added successfully.");
+
+                    Optional<ButtonType> result2 = alert2.showAndWait();
+
+                    if (result2.isPresent() && result2.get() == ButtonType.OK) {
+                        GSMUI gsmui = new GSMUI();
+                        try {
+                            gsmui.showUI(MainMenuUI.getPrimaryStage());
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+
+
                 } catch (InvalidEntryDataException e) {
                     AlertUI.createAnAlert(Alert.AlertType.ERROR, "Add Agenda Entry", "Error.", e.getMessage()).show();
                 }
             }
-            AlertUI.createAnAlert(Alert.AlertType.INFORMATION, "Add Agenda Entry", "Success.", "Agenda entry added successfully.").show();
-            GSMUI gsmui = new GSMUI();
-            gsmui.showUI(MainMenuUI.getPrimaryStage());
-        } catch (InvalidEntryDataException e) {
-            AlertUI.createAnAlert(Alert.AlertType.ERROR, "Add Agenda Entry", "Error.", e.getMessage()).show();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
-
-
-
-
     }
 
     /**
@@ -167,7 +180,7 @@ public class AddAgendaEntryUIController {
         }
     }
 
-    public void setAddAgendaEntryUI(AddAgendaEntryUI addAgendaEntryUI) {
+    public void setAddAgendaEntryUI (AddAgendaEntryUI addAgendaEntryUI) {
         this.addAgendaEntryUI = addAgendaEntryUI;
     }
 
