@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
+import pt.ipp.isep.dei.esoft.project.repository.data.SerializableRepository;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -11,7 +12,7 @@ import java.util.Map;
  *
  * @autor Group 072 - Byte Masters - ISEP
  */
-public class AuthenticationRepository implements Serializable {
+public class AuthenticationRepository {
     private static final Map<String, String> users = new HashMap<>();
     private static final Map<String, String> roles = new HashMap<>();
     private static String authenticatedUserEmail;

@@ -86,25 +86,6 @@ public class AddAgendaEntryUIController {
         }
     }
 
-
-    /**
-     * Gets the start date from the date picker.
-     *
-     * @return The selected start date.
-     */
-    private LocalDate getStartDate() {
-        return dpStartDate.getValue();
-    }
-
-    /**
-     * Gets the end date from the date picker.
-     *
-     * @return The selected end date.
-     */
-    private LocalDate getEndDate() {
-        return dpEndDate.getValue();
-    }
-
     /**
      * Populates the combo boxes for start and end hours.
      */
@@ -136,16 +117,13 @@ public class AddAgendaEntryUIController {
             String startHour = cbStartHour.getSelectionModel().getSelectedItem();
             String endHour = cbEndHour.getSelectionModel().getSelectedItem();
 
-            LocalDate startLocalDate = getStartDate();
-            LocalDate endLocalDate = getEndDate();
-
             AgendaEntry.WorkingDayHours startHourOfDay = AgendaEntry.WorkingDayHours.fromString(startHour);
             AgendaEntry.WorkingDayHours endHourOfDay = AgendaEntry.WorkingDayHours.fromString(endHour);
 
             Task task = controller.getTask(toDoListEntryDto);
             GreenSpace greenSpace = (GreenSpace) controller.toDomain(greenSpaceDto);
-            Date startDate = new Date(startLocalDate.getYear(), startLocalDate.getMonthValue(), startLocalDate.getDayOfMonth());
-            Date endDate = new Date(endLocalDate.getYear(), endLocalDate.getMonthValue(), endLocalDate.getDayOfMonth());
+            Date startDate = new Date(dpStartDate.getValue().getYear(), dpStartDate.getValue().getMonthValue(), dpStartDate.getValue().getDayOfMonth());
+            Date endDate = new Date(dpEndDate.getValue().getYear(), dpEndDate.getValue().getMonthValue(), dpEndDate.getValue().getDayOfMonth());
 
             agendaEntry = controller.createAgendaEntry(task, greenSpace, startDate, startHourOfDay, endDate, endHourOfDay);
             added = controller.addAgendaEntry(agendaEntry);
