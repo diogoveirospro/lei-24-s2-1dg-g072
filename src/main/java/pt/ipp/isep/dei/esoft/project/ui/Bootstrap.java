@@ -35,6 +35,7 @@ public class Bootstrap {
         addVehicleMaintenance();
         addUsers();
         addGreenSpaces();
+        addTasks();
         addAgendaEntry();
     }
 
@@ -241,5 +242,43 @@ public class Bootstrap {
 
         greenSpaceRepository.addGreenSpace(greenSpace1);
         greenSpaceRepository.addGreenSpace(greenSpace2);
+    }
+
+    private void addTasks() throws InvalidTaskDataException, InvalidEntryDataException {
+        Task task3 = new Task("Task Three", "3");
+        Task task4 = new Task("Task Four", "4");
+        Task task5 = new Task("Task Five", "5");
+        Task task6 = new Task("Task Six", "6");
+        Task task7 = new Task("Task Seven", "7");
+        Task task8 = new Task("Task Eight", "8");
+        Task task9 = new Task("Task Nine", "9");
+        Task task10 = new Task("Task Ten", "10");
+        Task task11 = new Task("Task Eleven", "11");
+        Task task12 = new Task("Task Twelve", "12");
+
+        GreenSpace greenSpace1 = greenSpaceRepository.getGreenSpaceByParkName("Cidade");
+        GreenSpace greenSpace2 = greenSpaceRepository.getGreenSpaceByParkName("São Roque");
+
+        ToDoListEntry toDoListEntry1 = new ToDoListEntry(task3, greenSpace1, ToDoListEntry.DegreeOfUrgency.LOW);
+        ToDoListEntry toDoListEntry2 = new ToDoListEntry(task4, greenSpace1, ToDoListEntry.DegreeOfUrgency.MEDIUM);
+        ToDoListEntry toDoListEntry3 = new ToDoListEntry(task5, greenSpace1, ToDoListEntry.DegreeOfUrgency.HIGH);
+        ToDoListEntry toDoListEntry4 = new ToDoListEntry(task6, greenSpace1, ToDoListEntry.DegreeOfUrgency.LOW);
+        ToDoListEntry toDoListEntry5 = new ToDoListEntry(task7, greenSpace1, ToDoListEntry.DegreeOfUrgency.MEDIUM);
+        ToDoListEntry toDoListEntry6 = new ToDoListEntry(task8, greenSpace2, ToDoListEntry.DegreeOfUrgency.HIGH);
+        ToDoListEntry toDoListEntry7 = new ToDoListEntry(task9, greenSpace2, ToDoListEntry.DegreeOfUrgency.LOW);
+        ToDoListEntry toDoListEntry8 = new ToDoListEntry(task10, greenSpace2, ToDoListEntry.DegreeOfUrgency.MEDIUM);
+        ToDoListEntry toDoListEntry9 = new ToDoListEntry(task11, greenSpace2, ToDoListEntry.DegreeOfUrgency.HIGH);
+        ToDoListEntry toDoListEntry10 = new ToDoListEntry(task12, greenSpace2, ToDoListEntry.DegreeOfUrgency.LOW);
+
+        greenSpace1.getToDoList().addEntry(toDoListEntry1);
+        greenSpace1.getToDoList().addEntry(toDoListEntry2);
+        greenSpace1.getToDoList().addEntry(toDoListEntry3);
+        greenSpace1.getToDoList().addEntry(toDoListEntry4);
+        greenSpace1.getToDoList().addEntry(toDoListEntry5);
+        greenSpace2.getToDoList().addEntry(toDoListEntry6);
+        greenSpace2.getToDoList().addEntry(toDoListEntry7);
+        greenSpace2.getToDoList().addEntry(toDoListEntry8);
+        greenSpace2.getToDoList().addEntry(toDoListEntry9);
+        greenSpace2.getToDoList().addEntry(toDoListEntry10);
     }
 }

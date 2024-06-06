@@ -115,6 +115,8 @@ public class GreenSpace {
         } else {
             throw new InvalidGreenSpaceDataException("Invalid green space manager.");
         }
+
+        this.toDoList = new ToDoList();
     }
 
     // Method to validate if the manager of the green space is valid
