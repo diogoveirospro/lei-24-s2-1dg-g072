@@ -57,9 +57,11 @@ public class PostponeEntryController {
     public void postponeAgendaEntry(AgendaEntry agendaEntry, Date newDate) throws InvalidEntryDataException {
         if (agendaEntry == null || newDate == null) {
             throw new InvalidEntryDataException("Agenda Entry is invalid.");
-        } else
+        } else {
             agendaEntry.postponeEntry(newDate);
-        agendaEntry.taskPostponed();
+            agendaEntry.taskPostponed();
+
+        }
     }
 
     /**

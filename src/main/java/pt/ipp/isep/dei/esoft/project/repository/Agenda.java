@@ -4,7 +4,6 @@ import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidEntryDataException;
 import pt.ipp.isep.dei.esoft.project.domain.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -37,7 +36,7 @@ public class Agenda {
         return agendaEntryList;
     }
 
-    public Agenda(){
+    public Agenda() {
         this.entriesAgenda = new ArrayList<>();
     }
 
@@ -85,16 +84,40 @@ public class Agenda {
         return entryList;
     }
 
+    /**
+     * Gets the list of agenda entries with scheduled status as Strings.
+     *
+     * @return
+     */
     public List<String> getAgendaEntryList() {
         List<AgendaEntry> entryList;
         List<String> entryListString = new ArrayList<>();
         entryList = getEntryList();
         for (int i = 0; i < entryList.size(); i++) {
-            entryListString.add(entryList.get(i).getName());
+            if (entryList.get(i).getStatus().equals(AgendaEntry.StatusOfEntry.SCHEDULED)) {
+                entryListString.add(entryList.get(i).getName());
+            }
         }
 
         return entryListString;
     }
+
+    /**
+     * Gets the list of all agenda entries as Strings.
+     * @return List of Strings
+     */
+    public List<String> getAllAgendaEntryList() {
+        List<AgendaEntry> entryList;
+        List<String> entryListString = new ArrayList<>();
+        entryList = getEntryList();
+        for (int i = 0; i < entryList.size(); i++) {
+            if (!entryList.get(i).getStatus().equals(AgendaEntry.StatusOfEntry.CANCELED)) {
+                entryListString.add(entryList.get(i).getName());
+            }
+        }
+        return entryListString;
+    }
+
 
     public boolean assignTeamToAgendaEntry(AgendaEntry agendaEntry, Team team) {
         return agendaEntry.assignTeam(team);

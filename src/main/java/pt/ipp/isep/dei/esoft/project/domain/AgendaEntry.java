@@ -131,7 +131,7 @@ public class AgendaEntry extends Entry {
      * Enumeration representing the status of an agenda entry.
      */
     public enum StatusOfEntry {
-        SCHEDULE("Schedule"),
+        SCHEDULED("Scheduled"),
         POSTPONED("Postponed"),
         CANCELED("Canceled"),
         DONE("Done");
@@ -209,7 +209,7 @@ public class AgendaEntry extends Entry {
         this.duration = calculateDuration();
         this.vehicleList = new ArrayList<>();
         this.team = null;
-        this.status = StatusOfEntry.SCHEDULE;
+        this.status = StatusOfEntry.SCHEDULED;
 
     }
 
@@ -276,6 +276,14 @@ public class AgendaEntry extends Entry {
     }
 
     /**
+     * Gets the duration of the task.
+     * @return the duration of the task
+     */
+    public int getDuration() {
+        return duration;
+    }
+
+    /**
      * Sets the start date of the task.
      *
      * @param startDate the new start date
@@ -339,7 +347,7 @@ public class AgendaEntry extends Entry {
      * Sets the status of the task to "Scheduled".
      */
     public void taskSchedule() {
-        status = StatusOfEntry.SCHEDULE;
+        status = StatusOfEntry.SCHEDULED;
     }
 
     /**
@@ -395,8 +403,6 @@ public class AgendaEntry extends Entry {
      */
     public void postponeEntry(Date newDate) {
         this.startDate = newDate;
-        taskPostponed();
-
     }
 
     /**
@@ -445,6 +451,12 @@ public class AgendaEntry extends Entry {
             throw new InvalidEntryDataException("The vehicle is not in the repository.");
         }
         this.vehicleList.add(vehicle);
+    }
+
+    public AgendaEntry cloneEntry() throws InvalidEntryDataException {
+        AgendaEntry newEntry = new AgendaEntry(super.getTask(), super.getGreenSpace(), this.startDate, this.startHour, this.endDate, this.endHour);
+        newEntry.status.equals(StatusOfEntry.SCHEDULED);
+        return newEntry;
     }
 
     @Override
