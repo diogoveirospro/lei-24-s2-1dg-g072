@@ -10,6 +10,7 @@ import pt.ipp.isep.dei.esoft.project.domain.AgendaEntry;
 import pt.ipp.isep.dei.esoft.project.domain.Team;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.AlertUI;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.GSMUI;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.MainMenuUI;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss.AssignTeamUI;
 
 import java.io.IOException;
@@ -104,7 +105,7 @@ public class AssignTeamUIController {
     public void handleCancel() {
         GSMUI gsmui = new GSMUI();
         try {
-            gsmui.showUI(new Stage());
+            gsmui.showUI(MainMenuUI.getPrimaryStage());
         } catch (IOException e) {
             AlertUI.createAnAlert(Alert.AlertType.ERROR, "Cancel Assign Team",
                     "It was not possible to return to the menu.", e.getMessage());

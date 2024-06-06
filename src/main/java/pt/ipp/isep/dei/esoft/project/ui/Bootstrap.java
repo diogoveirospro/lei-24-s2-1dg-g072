@@ -191,11 +191,17 @@ public class Bootstrap {
         GreenSpaceRepository greenSpaceRepository = Repositories.getInstance().getGreenSpaceRepository();
         TaskRepository taskRepository = Repositories.getInstance().getTaskRepository();
         Task task = new Task("Task", "14");
+        Task task2 = new Task("SecondTask", "14");
         taskRepository.addTask(task);
+        taskRepository.addTask(task2);
         GreenSpace greenSpace = new GreenSpace(GreenSpace.TypeOfGreenSpace.GARDEN, "GreenSpace description", 1000.0, "Address", collaboratorRepository.getCollaborator("H234564"));
         greenSpaceRepository.addGreenSpace(greenSpace);
+        Entry entry22 = new Entry(taskRepository.findTaskById("SecondTask"), greenSpaceRepository.getGreenSpaceByParkName("GreenSpace description"));
         Entry entry = new Entry(taskRepository.findTaskById("Task"), greenSpaceRepository.getGreenSpaceByParkName("GreenSpace description"));
         AgendaEntry entry1 = new AgendaEntry(entry.getTask(), greenSpaceRepository.getGreenSpaceByParkName("GreenSpace description"), new Date(2021, 1, 1), AgendaEntry.HourOfDay.H01,new Date(2021, 1, 1), AgendaEntry.HourOfDay.H06);
+        AgendaEntry entry2 = new AgendaEntry(entry22.getTask(), greenSpaceRepository.getGreenSpaceByParkName("GreenSpace description"), new Date(2021, 1, 1), AgendaEntry.HourOfDay.H01,new Date(2021, 1, 1), AgendaEntry.HourOfDay.H06);
+
+        agenda.addAgendaEntry(entry2);
         agenda.addAgendaEntry(entry1);
     }
 

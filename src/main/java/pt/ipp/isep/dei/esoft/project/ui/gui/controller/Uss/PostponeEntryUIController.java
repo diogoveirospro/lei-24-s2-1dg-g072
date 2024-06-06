@@ -143,7 +143,8 @@ public class PostponeEntryUIController {
             al.showAndWait();
             closeWindow(actionEvent);
         } catch (Exception e) {
-            alertUI.createAnAlert(Alert.AlertType.ERROR, "Musgo Sublime","Postpone Entry Error", "An error occurred while postponing entry.");
+            Alert alError = AlertUI.createAnAlert(Alert.AlertType.ERROR, "Musgo Sublime","Postpone Entry Error", "An error occurred while postponing entry.");
+            alError.showAndWait();
         }
     }
 

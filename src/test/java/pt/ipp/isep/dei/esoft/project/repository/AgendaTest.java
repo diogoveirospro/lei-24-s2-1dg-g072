@@ -99,7 +99,7 @@ public class AgendaTest {
         List<AgendaEntry> entries = List.of(agendaEntry1, agendaEntry2);
 
         List<AgendaEntry> result = agenda.getAgendaEntryList(List.of(team1, team2), new Date(2024, 6, 5),
-                new Date(2024, 6, 7), AgendaEntry.StatusOfEntry.SCHEDULE);
+                new Date(2024, 6, 7), AgendaEntry.StatusOfEntry.SCHEDULED);
 
         assertEquals(entries, result);
     }

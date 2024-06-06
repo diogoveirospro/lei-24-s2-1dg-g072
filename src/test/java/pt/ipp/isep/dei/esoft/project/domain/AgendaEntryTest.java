@@ -174,7 +174,7 @@ class AgendaEntryTest {
 
     @Test
     void getStatusOfStatusOfEntryTest(){
-        assertEquals("Schedule", AgendaEntry.StatusOfEntry.SCHEDULE.getStatus());
+        assertEquals("Schedule", AgendaEntry.StatusOfEntry.SCHEDULED.getStatus());
         assertEquals("Postponed", AgendaEntry.StatusOfEntry.POSTPONED.getStatus());
         assertEquals("Canceled", AgendaEntry.StatusOfEntry.CANCELED.getStatus());
         assertEquals("Done", AgendaEntry.StatusOfEntry.DONE.getStatus());
@@ -182,7 +182,7 @@ class AgendaEntryTest {
 
     @Test
     void toStringOdStatusOfEntryTest(){
-        assertEquals("Schedule", AgendaEntry.StatusOfEntry.SCHEDULE.toString());
+        assertEquals("Schedule", AgendaEntry.StatusOfEntry.SCHEDULED.toString());
         assertEquals("Postponed", AgendaEntry.StatusOfEntry.POSTPONED.toString());
         assertEquals("Canceled", AgendaEntry.StatusOfEntry.CANCELED.toString());
         assertEquals("Done", AgendaEntry.StatusOfEntry.DONE.toString());
@@ -190,7 +190,7 @@ class AgendaEntryTest {
 
     @Test
     void getStatusOfEntryFromStringTest() throws InvalidEntryDataException {
-        assertEquals(AgendaEntry.StatusOfEntry.SCHEDULE, AgendaEntry.StatusOfEntry.getStatusOfEntry("Schedule"));
+        assertEquals(AgendaEntry.StatusOfEntry.SCHEDULED, AgendaEntry.StatusOfEntry.getStatusOfEntry("Schedule"));
         assertEquals(AgendaEntry.StatusOfEntry.POSTPONED, AgendaEntry.StatusOfEntry.getStatusOfEntry("Postponed"));
         assertEquals(AgendaEntry.StatusOfEntry.CANCELED, AgendaEntry.StatusOfEntry.getStatusOfEntry("Canceled"));
         assertEquals(AgendaEntry.StatusOfEntry.DONE, AgendaEntry.StatusOfEntry.getStatusOfEntry("Done"));
@@ -382,7 +382,7 @@ class AgendaEntryTest {
             assertEquals(AgendaEntry.StatusOfEntry.POSTPONED, agendaEntry.getStatus());
 
             agendaEntry.taskSchedule();
-            assertEquals(AgendaEntry.StatusOfEntry.SCHEDULE, agendaEntry.getStatus());
+            assertEquals(AgendaEntry.StatusOfEntry.SCHEDULED, agendaEntry.getStatus());
 
             agendaEntry.taskCanceled();
             assertEquals(AgendaEntry.StatusOfEntry.CANCELED, agendaEntry.getStatus());
