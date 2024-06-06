@@ -124,7 +124,7 @@ public class AgendaTest {
 
     @Test
     void getStatusListTest(){
-        List<String> statusList = List.of("Schedule", "Postponed", "Canceled", "Done");
+        List<String> statusList = List.of("Scheduled", "Postponed", "Canceled", "Done");
 
         assertEquals(statusList, agenda.getStatusList());
     }
