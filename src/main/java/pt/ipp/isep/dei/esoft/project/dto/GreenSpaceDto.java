@@ -54,6 +54,16 @@ public class GreenSpaceDto {
         this.address = address;
 
     }
+
+    public GreenSpaceDto(GreenSpace greenSpace){
+        this.parkName = greenSpace.getParkName();
+        this.dimension = greenSpace.getDimension();
+        this.greenSpaceManager = greenSpace.getGreenSpaceManager();
+        this.toDoList = greenSpace.getToDoList();
+        this.type = greenSpace.getType();
+        this.address = greenSpace.getAddress();
+    }
+
     /**
      * Lets the user get the dimension of the green space
      *

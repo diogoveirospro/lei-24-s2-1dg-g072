@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Controller for managing agenda entries.
@@ -26,10 +27,10 @@ public class AddAgendaEntryUIController {
     public Button btnAddAgendaEntry;
     public Button btnCancel;
     @FXML
-    private ComboBox<GreenSpaceDto> cbGreenSpace;
+    private ComboBox<String> cbGreenSpace;
 
     @FXML
-    private ComboBox<ToDoListEntryDto> cbTask;
+    private ComboBox<String> cbTask;
 
     @FXML
     private DatePicker dpStartDate;
@@ -47,21 +48,42 @@ public class AddAgendaEntryUIController {
     AddAgendaEntryUI addAgendaEntryUI = new AddAgendaEntryUI();
 
     /**
-     * Populates the combo box with green spaces.
+     * Populates the combo box with green space names.
      */
     public void populateGreenSpacesComboBox() {
         List<GreenSpaceDto> greenSpaceDtoList = controller.getListGreenSpaces();
-        cbGreenSpace.getItems().addAll(greenSpaceDtoList);
+        cbGreenSpace.getItems().addAll(greenSpaceDtoList.stream().map(GreenSpaceDto::getParkName).collect(Collectors.toList()));
     }
 
     /**
      * Populates the combo box with to-do list entries based on the selected green space.
      */
     public void populateToDoListEntriesComboBox() {
-        GreenSpaceDto greenSpaceDto = cbGreenSpace.getSelectionModel().getSelectedItem();
-        List<ToDoListEntryDto> toDoListEntryDtoList = controller.getToDoListEntries(greenSpaceDto);
-        cbTask.getItems().addAll(toDoListEntryDtoList);
+        cbTask.getItems().clear();
+        String selectedGreenSpaceName = cbGreenSpace.getSelectionModel().getSelectedItem();
+        if (selectedGreenSpaceName != null) {
+            GreenSpaceDto selectedGreenSpaceDto = controller.getGreenSpaceByName(selectedGreenSpaceName);
+            if (selectedGreenSpaceDto != null) {
+                GreenSpace selectedGreenSpace = (GreenSpace) controller.toDomain(selectedGreenSpaceDto);
+
+                try {
+                    List<ToDoListEntryDto> toDoListEntryDtoList = controller.getToDoListEntries(selectedGreenSpace);
+                    cbTask.getItems().addAll(toDoListEntryDtoList.stream()
+                            .map(entry -> String.format("%s - Duration: %s - Urgency: %s", entry.getTaskName(), entry.getDuration(), entry.getUrgency()))
+                            .collect(Collectors.toList()));
+                } catch (NullPointerException e) {
+                    AlertUI.createAnAlert(Alert.AlertType.ERROR, "Add Agenda Entry", "Error.", "No tasks found for the selected green space.").show();
+                }
+
+
+            } else {
+                AlertUI.createAnAlert(Alert.AlertType.ERROR, "Add Agenda Entry", "Error.", "Green space not found.").show();
+            }
+        } else {
+            AlertUI.createAnAlert(Alert.AlertType.ERROR, "Add Agenda Entry", "Error.", "Please select a green space first.").show();
+        }
     }
+
 
     /**
      * Gets the start date from the date picker.
@@ -101,8 +123,8 @@ public class AddAgendaEntryUIController {
         AgendaEntry agendaEntry = null;
 
         try {
-            GreenSpaceDto greenSpaceDto = cbGreenSpace.getSelectionModel().getSelectedItem();
-            ToDoListEntryDto toDoListEntryDto = cbTask.getSelectionModel().getSelectedItem();
+            GreenSpaceDto greenSpaceDto = controller.getGreenSpaceByName(cbGreenSpace.getSelectionModel().getSelectedItem());
+            ToDoListEntryDto toDoListEntryDto = controller.getToDoListEntry(cbTask.getSelectionModel().getSelectedItem(), greenSpaceDto);
 
             String startHour = cbStartHour.getSelectionModel().getSelectedItem();
             String endHour = cbEndHour.getSelectionModel().getSelectedItem();
@@ -167,6 +189,7 @@ public class AddAgendaEntryUIController {
     public void initialize() {
         populateGreenSpacesComboBox();
         populateHoursComboBox();
-        populateToDoListEntriesComboBox();
+
+        cbGreenSpace.setOnAction(event -> populateToDoListEntriesComboBox());
     }
 }

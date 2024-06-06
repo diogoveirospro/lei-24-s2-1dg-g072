@@ -24,4 +24,16 @@ public class ToDoListEntryDto {
         return this.task.hashCode();
 
     }
+
+    public String getTaskName(){
+        return this.task.getTaskId();
+    }
+
+    public String getDuration(){
+        return this.task.getDuration();
+    }
+
+    public String getUrgency(){
+        return this.degreeOfUrgency.toString();
+    }
 }

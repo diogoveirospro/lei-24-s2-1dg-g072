@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -16,6 +17,7 @@ import pt.ipp.isep.dei.esoft.project.ui.gui.controller.MainMenuController;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class MainMenuUI extends Application {
@@ -31,7 +33,7 @@ public class MainMenuUI extends Application {
     }
 
     public void loadMainMenu() {
-        try{
+        try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainWindow.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
@@ -43,21 +45,29 @@ public class MainMenuUI extends Application {
             primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
                 public void handle(WindowEvent event) {
-                    Alert alerta = AlertUI.createAnAlert(Alert.AlertType.CONFIRMATION, ENTERPRISE_NAME,
-                            "Confirmação da ação.", "Deseja mesmo encerrar a aplicação?");
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle(ENTERPRISE_NAME);
+                    alert.setHeaderText("Confirmation of action.");
+                    alert.setContentText("Do you really want to close the application?");
 
-                    if (alerta.showAndWait().get() == ButtonType.CANCEL) {
+                    ButtonType yesButton = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
+                    ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+                    alert.getButtonTypes().setAll(yesButton, noButton);
+
+                    Optional<ButtonType> result = alert.showAndWait();
+                    if (result.isPresent() && result.get() == noButton) {
                         event.consume();
                     }
                 }
             });
             primaryStage.show();
-
-        }catch (IOException ex){
+        } catch (IOException ex) {
             ex.printStackTrace(System.out);
             AlertUI.createAnAlert(Alert.AlertType.ERROR, ENTERPRISE_NAME, "Problems in the application startup.", ex.getMessage()).show();
         }
     }
+
 
 
     public MainMenuController getMainMenuController() {

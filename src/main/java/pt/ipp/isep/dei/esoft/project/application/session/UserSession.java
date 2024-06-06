@@ -1,43 +1,34 @@
 package pt.ipp.isep.dei.esoft.project.application.session;
 
-import pt.isep.lei.esoft.auth.mappers.dto.UserRoleDTO;
-
-import java.util.List;
-
 /**
+ * Represents a user session.
  *
- *
- * @author Group 072 - Byte Masters - ISEP
+ * @autor Group 072 - Byte Masters - ISEP
  */
 public class UserSession {
+    private String userEmail;
+    private String userRole;
 
-    private pt.isep.lei.esoft.auth.UserSession userSession;
-
-    public UserSession(pt.isep.lei.esoft.auth.UserSession userSession) {
-        this.userSession = userSession;
+    public UserSession(String userEmail, String userRole) {
+        this.userEmail = userEmail;
+        this.userRole = userRole;
     }
 
+    /**
+     * Gets the user email.
+     *
+     * @return the user email
+     */
     public String getUserEmail() {
-        return this.userSession.getUserId().getEmail();
+        return userEmail;
     }
 
-    public String getUserName() {
-        return this.userSession.getUserName();
-    }
-
-    public List<UserRoleDTO> getUserRoles() {
-        return this.userSession.getUserRoles();
-    }
-
-    public void doLogout() {
-        this.userSession.doLogout();
-    }
-
-    public boolean isLoggedIn() {
-        return this.userSession.isLoggedIn();
-    }
-
-    public boolean isLoggedInWithRole(String roleId) {
-        return this.userSession.isLoggedInWithRole(roleId);
+    /**
+     * Gets the user role.
+     *
+     * @return the user role
+     */
+    public String getUserRole() {
+        return userRole;
     }
 }

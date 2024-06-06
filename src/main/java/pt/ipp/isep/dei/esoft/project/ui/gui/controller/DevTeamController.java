@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class DevTeamController {
+public class DevTeamController implements Initializable{
     public DevTeamUI devTeamUI;
     private MainMenuUI mainMenuUI;
     @FXML
@@ -56,5 +56,10 @@ public class DevTeamController {
 
     public void setDevTeamUI(DevTeamUI devTeamUI) {
         this.devTeamUI = devTeamUI;
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
     }
 }

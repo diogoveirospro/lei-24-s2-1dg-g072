@@ -77,11 +77,10 @@ public class AddAgendaEntryController {
     /**
      * Retrieves a list of to-do list entries for a given green space.
      *
-     * @param greenSpaceDto the green space DTO
+     * @param greenSpace the green space
      * @return a list of ToDoListEntryDto representing the to-do list entries
      */
-    public List<ToDoListEntryDto> getToDoListEntries(GreenSpaceDto greenSpaceDto) {
-        GreenSpace greenSpace = (GreenSpace) toDomain(greenSpaceDto);
+    public List<ToDoListEntryDto> getToDoListEntries(GreenSpace greenSpace) {
         List<ToDoListEntry> listEntries = greenSpace.getToDoList().getToDoListEntries();
         return ToDoListMapper.toDoListEntriesToDto(listEntries);
     }
@@ -142,5 +141,17 @@ public class AddAgendaEntryController {
             return toDoList.getToDoListEntryByTaskHashCode(((ToDoListEntryDto) dto).getTaskHashCode());
         }
         return null;
+    }
+
+    public GreenSpaceDto getGreenSpaceByName(String selectedGreenSpaceName) {
+        GreenSpace greenSpace = greenSpaceRepository.getGreenSpaceByParkName(selectedGreenSpaceName);
+        return new GreenSpaceDto(greenSpace);
+    }
+
+
+    public ToDoListEntryDto getToDoListEntry(String selectedItem, GreenSpaceDto greenSpaceDto) {
+        GreenSpace greenSpace = (GreenSpace) toDomain(greenSpaceDto);
+        ToDoListEntry toDoListEntry = greenSpace.getToDoList().getToDoListEntryByTaskHashCode(selectedItem.hashCode());
+        return new ToDoListEntryDto(toDoListEntry);
     }
 }

@@ -25,6 +25,7 @@ public class Bootstrap {
     private final JobRepository jobRepository = Repositories.getInstance().getJobRepository();
     private final Agenda agenda = Repositories.getInstance().getAgenda();
     private final TeamRepository teamRepository = Repositories.getInstance().getTeamRepository();
+    private final GreenSpaceRepository greenSpaceRepository = Repositories.getInstance().getGreenSpaceRepository();
 
     public void run() throws InvalidCollaboratorDataException, InvalidTaskDataException, InvalidEntryDataException, InvalidGreenSpaceDataException {
         addSkill();
@@ -33,6 +34,7 @@ public class Bootstrap {
         addVehicle();
         addVehicleMaintenance();
         addUsers();
+        addGreenSpaces();
         addAgendaEntry();
     }
 
@@ -150,30 +152,29 @@ public class Bootstrap {
     }
 
 
-    private void addUsers() throws InvalidCollaboratorDataException {
-        AuthenticationRepository authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
-        authenticationRepository.addUserRole(AuthenticationController.ROLE_HRM, AuthenticationController.ROLE_HRM);
-        authenticationRepository.addUserRole(AuthenticationController.ROLE_VFM, AuthenticationController.ROLE_VFM);
-        authenticationRepository.addUserRole(AuthenticationController.ROLE_GSM, AuthenticationController.ROLE_GSM);
-        authenticationRepository.addUserRole(AuthenticationController.ROLE_QAM, AuthenticationController.ROLE_QAM);
-        authenticationRepository.addUserRole(AuthenticationController.ROLE_COL, AuthenticationController.ROLE_COL);
+    private void addUsers() {
 
         for (Collaborator c : collaboratorRepository.getCollaborators()) {
+            String email = c.getEmail();
+            String role;
 
-            if (c.getEmail().contains("@hrm.com")){
-                authenticationRepository.addUserWithRole(c, AuthenticationController.ROLE_HRM);
-            } else if (c.getEmail().contains("@gsm.com")) {
-                authenticationRepository.addUserWithRole(c, AuthenticationController.ROLE_GSM);
-            } else if (c.getEmail().contains("@vfm.com")) {
-                authenticationRepository.addUserWithRole(c, AuthenticationController.ROLE_VFM);
-            } else if (c.getEmail().contains("@qam.com")) {
-                authenticationRepository.addUserWithRole(c, AuthenticationController.ROLE_QAM);
+            if (email.contains("@hrm.com")) {
+                role = "HRM";
+            } else if (email.contains("@gsm.com")) {
+                role = "GSM";
+            } else if (email.contains("@vfm.com")) {
+                role = "VFM";
+            } else if (email.contains("@qam.com")) {
+                role = "QAM";
             } else {
-                authenticationRepository.addUserWithRole(c, AuthenticationController.ROLE_COL);
+                role = "COLLABORATOR";
             }
-        }
 
+            AuthenticationRepository.addUser(email, c.getPwd(), role);
+        }
     }
+
+
 
     private void addVehicle() {
         Vehicle vehicle1 = new Vehicle("GG-69-EZ","BMW","i4","hibrid",3500.0,4500.0,1000.0,new Date(2024,1,10), new  Date(2024,1,26),10000.0,0.0);
@@ -190,19 +191,19 @@ public class Bootstrap {
     private void addAgendaEntry() throws InvalidEntryDataException, InvalidTaskDataException, InvalidGreenSpaceDataException {
         GreenSpaceRepository greenSpaceRepository = Repositories.getInstance().getGreenSpaceRepository();
         TaskRepository taskRepository = Repositories.getInstance().getTaskRepository();
-        Task task = new Task("Task", "14");
-        Task task2 = new Task("SecondTask", "14");
-        taskRepository.addTask(task);
+        Task task1 = new Task("Task One", "14");
+        Task task2 = new Task("Task Two", "2");
+        taskRepository.addTask(task1);
         taskRepository.addTask(task2);
-        GreenSpace greenSpace = new GreenSpace(GreenSpace.TypeOfGreenSpace.GARDEN, "GreenSpace description", 1000.0, "Address", collaboratorRepository.getCollaborator("H234564"));
-        greenSpaceRepository.addGreenSpace(greenSpace);
-        Entry entry22 = new Entry(taskRepository.findTaskById("SecondTask"), greenSpaceRepository.getGreenSpaceByParkName("GreenSpace description"));
-        Entry entry = new Entry(taskRepository.findTaskById("Task"), greenSpaceRepository.getGreenSpaceByParkName("GreenSpace description"));
-        AgendaEntry entry1 = new AgendaEntry(entry.getTask(), greenSpaceRepository.getGreenSpaceByParkName("GreenSpace description"), new Date(2021, 1, 1), AgendaEntry.HourOfDay.H01,new Date(2021, 1, 1), AgendaEntry.HourOfDay.H06);
-        AgendaEntry entry2 = new AgendaEntry(entry22.getTask(), greenSpaceRepository.getGreenSpaceByParkName("GreenSpace description"), new Date(2021, 1, 1), AgendaEntry.HourOfDay.H01,new Date(2021, 1, 1), AgendaEntry.HourOfDay.H06);
 
-        agenda.addAgendaEntry(entry2);
-        agenda.addAgendaEntry(entry1);
+
+        Entry entry1 = new Entry(taskRepository.findTaskById("Task One"), greenSpaceRepository.getGreenSpaceByParkName("Cidade"));
+        AgendaEntry agendaEntry1 = new AgendaEntry(entry1.getTask(), greenSpaceRepository.getGreenSpaceByParkName("Cidade"), new Date(2024, 6, 6), AgendaEntry.HourOfDay.H01,new Date(2024, 6, 20), AgendaEntry.HourOfDay.H06);
+        agenda.addAgendaEntry(agendaEntry1);
+
+        Entry entry2 = new Entry(taskRepository.findTaskById("Task Two"), greenSpaceRepository.getGreenSpaceByParkName("São Roque"));
+        AgendaEntry agendaEntry2 = new AgendaEntry(entry2.getTask(), greenSpaceRepository.getGreenSpaceByParkName("São Roque"), new Date(2024, 6, 7), AgendaEntry.HourOfDay.H01,new Date(2024, 6, 8), AgendaEntry.HourOfDay.H06);
+        agenda.addAgendaEntry(agendaEntry2);
     }
 
     private void addTeam() throws InvalidCollaboratorDataException {
@@ -229,5 +230,16 @@ public class Bootstrap {
 
         teamRepository.addTeam(team1);
         teamRepository.addTeam(team2);
+    }
+
+    private void addGreenSpaces() throws InvalidGreenSpaceDataException {
+        GreenSpace greenSpace1 = new GreenSpace(GreenSpace.TypeOfGreenSpace.LPARK, "Cidade", 83,
+                "Estrada Interior da Circunvalação, 4100-083 Porto", collaboratorRepository.getCollaborator("122472678cc3"));
+
+        GreenSpace greenSpace2 = new GreenSpace(GreenSpace.TypeOfGreenSpace.GARDEN, "São Roque", 4,
+                "R. São Roque da Lameira 2040, 4350-307 Porto", collaboratorRepository.getCollaborator("122472678cc3"));
+
+        greenSpaceRepository.addGreenSpace(greenSpace1);
+        greenSpaceRepository.addGreenSpace(greenSpace2);
     }
 }
