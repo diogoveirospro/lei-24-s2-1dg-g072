@@ -7,13 +7,14 @@ import java.util.List;
 
 
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
+import pt.ipp.isep.dei.esoft.project.repository.data.SerializableRepository;
 
 /**
  *
  *
  * @author Group 072 - Byte Masters - ISEP
  */
-public class SkillRepository implements Serializable {
+public class SkillRepository extends SerializableRepository<List<Skill>> implements Serializable {
     private List<Skill> skills;
 
     /**
@@ -21,6 +22,7 @@ public class SkillRepository implements Serializable {
      *
      */
     public SkillRepository(){
+        super("skillRepository.ser");
         skills = new ArrayList<>();
     }
 

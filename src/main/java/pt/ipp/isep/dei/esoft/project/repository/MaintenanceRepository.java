@@ -1,7 +1,9 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
+import pt.ipp.isep.dei.esoft.project.domain.AgendaEntry;
 import pt.ipp.isep.dei.esoft.project.domain.Maintenance;
 import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
+import pt.ipp.isep.dei.esoft.project.repository.data.SerializableRepository;
 
 import javax.management.InstanceAlreadyExistsException;
 import java.io.Serializable;
@@ -14,7 +16,7 @@ import java.util.Optional;
  *
  * @author Group 072 - Byte Masters - ISEP
  */
-public class MaintenanceRepository implements Serializable {
+public class MaintenanceRepository extends SerializableRepository<List<Maintenance>> implements Serializable {
     /**
      * List of vehicles that need maintenance
      */
@@ -25,6 +27,7 @@ public class MaintenanceRepository implements Serializable {
      *
      */
     public MaintenanceRepository(){
+        super("maintenanceRepository.ser");
         maintenanceList = new ArrayList<>();
     }
     /**

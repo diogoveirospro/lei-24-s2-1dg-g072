@@ -2,6 +2,9 @@ package pt.ipp.isep.dei.esoft.project.application.controller.authorization;
 
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidCollaboratorDataException;
 import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
+import pt.ipp.isep.dei.esoft.project.ui.console.menu.GsmUI;
+import pt.ipp.isep.dei.esoft.project.ui.console.menu.HrmUI;
+import pt.ipp.isep.dei.esoft.project.ui.console.menu.VfmUI;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.*;
 
 import java.io.IOException;
@@ -31,6 +34,24 @@ public class AuthenticationController {
                     break;
                 case "VFM":
                     new FMUI().showUI(MainMenuUI.getPrimaryStage());
+                    break;
+                default:
+                    throw new InvalidCollaboratorDataException("Invalid role.");
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public boolean loginConsole(String email, String password) throws InvalidCollaboratorDataException, IOException {
+        if (AuthenticationRepository.authenticate(email, password)) {
+            String role = AuthenticationRepository.getAuthenticatedUserRole();
+            switch (role) {
+                case "HRM":
+                    new HrmUI().run();
+                    break;
+                case "VFM":
+                    new VfmUI().run();
                     break;
                 default:
                     throw new InvalidCollaboratorDataException("Invalid role.");
