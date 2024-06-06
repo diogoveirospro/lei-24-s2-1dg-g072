@@ -4,6 +4,7 @@ import pt.ipp.isep.dei.esoft.project.domain.Maintenance;
 import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
 
 import javax.management.InstanceAlreadyExistsException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -13,7 +14,7 @@ import java.util.Optional;
  *
  * @author Group 072 - Byte Masters - ISEP
  */
-public class MaintenanceRepository {
+public class MaintenanceRepository implements Serializable {
     /**
      * List of vehicles that need maintenance
      */

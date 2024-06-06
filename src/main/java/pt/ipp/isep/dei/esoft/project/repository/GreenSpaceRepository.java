@@ -9,12 +9,13 @@ import pt.ipp.isep.dei.esoft.project.domain.externalModules.SortSmalestToBigestS
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
-public class GreenSpaceRepository {
+public class GreenSpaceRepository implements Serializable {
     List<GreenSpace> greenSpaceList;
     private static final String CONFIGURATION_FILENAME = "src/main/resources/config/config.properties";
     private static final String SORT_METHODS = "sort.methods";

@@ -4,6 +4,7 @@ import pt.ipp.isep.dei.esoft.project.domain.AgendaEntry;
 import pt.ipp.isep.dei.esoft.project.domain.Date;
 import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -14,7 +15,7 @@ import java.util.Optional;
  *
  * @author Group 072 - Byte Masters - ISEP
  */
-public class VehicleRepository {
+public class VehicleRepository implements Serializable {
 
     /**
      * List containing all vehicles

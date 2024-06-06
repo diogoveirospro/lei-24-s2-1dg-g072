@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.esoft.project.repository;
 
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,25 +11,12 @@ import java.util.Map;
  *
  * @autor Group 072 - Byte Masters - ISEP
  */
-public class AuthenticationRepository {
+public class AuthenticationRepository implements Serializable {
     private static final Map<String, String> users = new HashMap<>();
     private static final Map<String, String> roles = new HashMap<>();
     private static String authenticatedUserEmail;
 
     private static AuthenticationRepository instance;
-/*
-    public static AuthenticationRepository getInstance() {
-        if (instance == null) {
-            synchronized (AuthenticationRepository.class) {
-                if (instance == null) {
-                    instance = new AuthenticationRepository();
-                }
-            }
-        }
-        return instance;
-    }
-
- */
 
     /**
      * Adds a user to the repository.

@@ -5,12 +5,14 @@ import pt.ipp.isep.dei.esoft.project.repository.CollaboratorRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.repository.ToDoList;
 
+import java.io.Serializable;
+
 /**
  * Represents a green space in the project domain.
  *
  * @author Group 072 - Byte Masters - ISEP
  */
-public class GreenSpace {
+public class GreenSpace implements Serializable {
     /**
      * The name of the green space.
      */

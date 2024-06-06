@@ -1,12 +1,14 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.io.Serializable;
+
 /**
  * The Skill class represents a skill with a unique name that can be registered
  * in the HR management system. It enforces that the skill name must not be null or empty.
  * @author Group 072 - Byte Masters - ISEP
  */
 
-public class Skill implements Comparable<Skill> {
+public class Skill implements Comparable<Skill>, Serializable {
     private String name;
 
     /**

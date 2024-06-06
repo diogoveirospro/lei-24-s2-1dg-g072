@@ -5,6 +5,7 @@ import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidCollaboratorDataException
 import pt.ipp.isep.dei.esoft.project.repository.JobRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
  *
  * @author Group 072 - Byte Masters - ISEP
  */
-public class Collaborator implements Comparable<Collaborator> {
+public class Collaborator implements Comparable<Collaborator>, Serializable {
 
     /**
      * Collaborator name.

@@ -2,13 +2,15 @@ package pt.ipp.isep.dei.esoft.project.domain;
 
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidEntryDataException;
 
+import java.io.Serializable;
+
 /**
  * Represents an entry in a to-do list.
  * Contains a task, a green space, and a degree of urgency.
  *
  * @author Group 072 - Byte Masters - ISEP
  */
-public class ToDoListEntry extends Entry {
+public class ToDoListEntry extends Entry implements Serializable {
     private DegreeOfUrgency degreeOfUrgency;
 
 

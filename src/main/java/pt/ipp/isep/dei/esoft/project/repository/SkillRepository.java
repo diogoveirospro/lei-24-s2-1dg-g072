@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -12,7 +13,7 @@ import pt.ipp.isep.dei.esoft.project.domain.Skill;
  *
  * @author Group 072 - Byte Masters - ISEP
  */
-public class SkillRepository {
+public class SkillRepository implements Serializable {
     private List<Skill> skills;
 
     /**

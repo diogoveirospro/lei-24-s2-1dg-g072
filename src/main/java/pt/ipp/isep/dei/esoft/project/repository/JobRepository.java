@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.esoft.project.repository;
 import pt.ipp.isep.dei.esoft.project.domain.Job;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.Optional;
  *
  * @author Group 072 - Byte Masters - ISEP
  */
-public class JobRepository {
+public class JobRepository implements Serializable {
     /**
      * List containing all jobs.
      */

@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.esoft.project.domain;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.repository.VehicleRepository;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
@@ -11,7 +12,7 @@ import java.util.Objects;
  *
  * @author Group 072 - Byte Masters - ISEP
  */
-public class Vehicle {
+public class Vehicle implements Serializable {
 
     /**
      * Max year for the vehicle.

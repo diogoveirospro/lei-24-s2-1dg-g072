@@ -2,10 +2,11 @@ package pt.ipp.isep.dei.esoft.project.domain;
 
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidEntryDataException;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Entry {
+public class Entry implements Serializable {
     private Task task;
     private GreenSpace greenSpace;
 

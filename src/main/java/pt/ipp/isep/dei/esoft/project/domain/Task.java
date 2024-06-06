@@ -1,6 +1,8 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidTaskDataException;
+
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -8,7 +10,7 @@ import java.util.Objects;
  *
  * @author Group 072 - Byte Masters - ISEP
  */
-public class Task {
+public class Task implements Serializable {
     /**
      * The duration of the task.
      */

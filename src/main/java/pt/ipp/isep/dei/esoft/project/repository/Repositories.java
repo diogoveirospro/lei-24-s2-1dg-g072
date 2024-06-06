@@ -1,13 +1,14 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
 
+import java.io.Serializable;
 
 /**
  * It represents a list of all the repositories.
  *
  * @author Group 072 - Byte Masters - ISEP
  */
-public class Repositories {
+public class Repositories implements Serializable {
 
     private static Repositories instance;
     private JobRepository jobRepository;
