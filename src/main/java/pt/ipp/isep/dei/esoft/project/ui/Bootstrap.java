@@ -26,17 +26,69 @@ public class Bootstrap {
     private final Agenda agenda = Repositories.getInstance().getAgenda();
     private final TeamRepository teamRepository = Repositories.getInstance().getTeamRepository();
     private final GreenSpaceRepository greenSpaceRepository = Repositories.getInstance().getGreenSpaceRepository();
+    private final TaskRepository taskRepository = Repositories.getInstance().getTaskRepository();
+    private final ToDoList toDoList = Repositories.getInstance().getToDoList();
 
     public void run() throws InvalidCollaboratorDataException, InvalidTaskDataException, InvalidEntryDataException, InvalidGreenSpaceDataException {
         addSkill();
         addJob();
         addCollaborator();
         addVehicle();
-        addVehicleMaintenance();
         addUsers();
         addGreenSpaces();
         addTasks();
         addAgendaEntry();
+        addToDoListEntry();
+        addTeam();
+    }
+
+    private void addToDoListEntry() throws InvalidTaskDataException, InvalidEntryDataException {
+        Task task3 = new Task("Task Three", "3");
+        Task task4 = new Task("Task Four", "4");
+        Task task5 = new Task("Task Five", "5");
+        Task task6 = new Task("Task Six", "6");
+        Task task7 = new Task("Task Seven", "7");
+        Task task8 = new Task("Task Eight", "8");
+        Task task9 = new Task("Task Nine", "9");
+        Task task10 = new Task("Task Ten", "10");
+        Task task11 = new Task("Task Eleven", "11");
+        Task task12 = new Task("Task Twelve", "12");
+
+        GreenSpace greenSpace1 = greenSpaceRepository.getGreenSpaceByParkName("Cidade");
+        GreenSpace greenSpace2 = greenSpaceRepository.getGreenSpaceByParkName("São Roque");
+
+        ToDoListEntry toDoListEntry1 = new ToDoListEntry(task3, greenSpace1, ToDoListEntry.DegreeOfUrgency.LOW);
+        ToDoListEntry toDoListEntry2 = new ToDoListEntry(task4, greenSpace1, ToDoListEntry.DegreeOfUrgency.MEDIUM);
+        ToDoListEntry toDoListEntry3 = new ToDoListEntry(task5, greenSpace1, ToDoListEntry.DegreeOfUrgency.HIGH);
+        ToDoListEntry toDoListEntry4 = new ToDoListEntry(task6, greenSpace1, ToDoListEntry.DegreeOfUrgency.LOW);
+        ToDoListEntry toDoListEntry5 = new ToDoListEntry(task7, greenSpace1, ToDoListEntry.DegreeOfUrgency.MEDIUM);
+        ToDoListEntry toDoListEntry6 = new ToDoListEntry(task8, greenSpace2, ToDoListEntry.DegreeOfUrgency.HIGH);
+        ToDoListEntry toDoListEntry7 = new ToDoListEntry(task9, greenSpace2, ToDoListEntry.DegreeOfUrgency.LOW);
+        ToDoListEntry toDoListEntry8 = new ToDoListEntry(task10, greenSpace2, ToDoListEntry.DegreeOfUrgency.MEDIUM);
+        ToDoListEntry toDoListEntry9 = new ToDoListEntry(task11, greenSpace2, ToDoListEntry.DegreeOfUrgency.HIGH);
+        ToDoListEntry toDoListEntry10 = new ToDoListEntry(task12, greenSpace2, ToDoListEntry.DegreeOfUrgency.LOW);
+
+        toDoList.addEntry(toDoListEntry1);
+        toDoList.addEntry(toDoListEntry2);
+        toDoList.addEntry(toDoListEntry3);
+        toDoList.addEntry(toDoListEntry4);
+        toDoList.addEntry(toDoListEntry5);
+        toDoList.addEntry(toDoListEntry6);
+        toDoList.addEntry(toDoListEntry7);
+        toDoList.addEntry(toDoListEntry8);
+        toDoList.addEntry(toDoListEntry9);
+        toDoList.addEntry(toDoListEntry10);
+
+        greenSpace1.getToDoList().addEntry(toDoListEntry1);
+        greenSpace1.getToDoList().addEntry(toDoListEntry2);
+        greenSpace1.getToDoList().addEntry(toDoListEntry3);
+        greenSpace1.getToDoList().addEntry(toDoListEntry4);
+        greenSpace1.getToDoList().addEntry(toDoListEntry5);
+        greenSpace2.getToDoList().addEntry(toDoListEntry6);
+        greenSpace2.getToDoList().addEntry(toDoListEntry7);
+        greenSpace2.getToDoList().addEntry(toDoListEntry8);
+        greenSpace2.getToDoList().addEntry(toDoListEntry9);
+        greenSpace2.getToDoList().addEntry(toDoListEntry10);
     }
 
     private void addCollaborator() throws InvalidCollaboratorDataException {
@@ -185,9 +237,7 @@ public class Bootstrap {
         vehicleRepository.addVehicle(vehicle2);
         vehicleRepository.addVehicle(vehicle3);
     }
-    private void addVehicleMaintenance(){
 
-    }
 
     private void addAgendaEntry() throws InvalidEntryDataException, InvalidTaskDataException, InvalidGreenSpaceDataException {
         GreenSpaceRepository greenSpaceRepository = Repositories.getInstance().getGreenSpaceRepository();
@@ -244,7 +294,7 @@ public class Bootstrap {
         greenSpaceRepository.addGreenSpace(greenSpace2);
     }
 
-    private void addTasks() throws InvalidTaskDataException, InvalidEntryDataException {
+    private void addTasks() throws InvalidTaskDataException{
         Task task3 = new Task("Task Three", "3");
         Task task4 = new Task("Task Four", "4");
         Task task5 = new Task("Task Five", "5");
@@ -256,29 +306,17 @@ public class Bootstrap {
         Task task11 = new Task("Task Eleven", "11");
         Task task12 = new Task("Task Twelve", "12");
 
-        GreenSpace greenSpace1 = greenSpaceRepository.getGreenSpaceByParkName("Cidade");
-        GreenSpace greenSpace2 = greenSpaceRepository.getGreenSpaceByParkName("São Roque");
+        taskRepository.addTask(task3);
+        taskRepository.addTask(task4);
+        taskRepository.addTask(task5);
+        taskRepository.addTask(task6);
+        taskRepository.addTask(task7);
+        taskRepository.addTask(task8);
+        taskRepository.addTask(task9);
+        taskRepository.addTask(task10);
+        taskRepository.addTask(task11);
+        taskRepository.addTask(task12);
 
-        ToDoListEntry toDoListEntry1 = new ToDoListEntry(task3, greenSpace1, ToDoListEntry.DegreeOfUrgency.LOW);
-        ToDoListEntry toDoListEntry2 = new ToDoListEntry(task4, greenSpace1, ToDoListEntry.DegreeOfUrgency.MEDIUM);
-        ToDoListEntry toDoListEntry3 = new ToDoListEntry(task5, greenSpace1, ToDoListEntry.DegreeOfUrgency.HIGH);
-        ToDoListEntry toDoListEntry4 = new ToDoListEntry(task6, greenSpace1, ToDoListEntry.DegreeOfUrgency.LOW);
-        ToDoListEntry toDoListEntry5 = new ToDoListEntry(task7, greenSpace1, ToDoListEntry.DegreeOfUrgency.MEDIUM);
-        ToDoListEntry toDoListEntry6 = new ToDoListEntry(task8, greenSpace2, ToDoListEntry.DegreeOfUrgency.HIGH);
-        ToDoListEntry toDoListEntry7 = new ToDoListEntry(task9, greenSpace2, ToDoListEntry.DegreeOfUrgency.LOW);
-        ToDoListEntry toDoListEntry8 = new ToDoListEntry(task10, greenSpace2, ToDoListEntry.DegreeOfUrgency.MEDIUM);
-        ToDoListEntry toDoListEntry9 = new ToDoListEntry(task11, greenSpace2, ToDoListEntry.DegreeOfUrgency.HIGH);
-        ToDoListEntry toDoListEntry10 = new ToDoListEntry(task12, greenSpace2, ToDoListEntry.DegreeOfUrgency.LOW);
 
-        greenSpace1.getToDoList().addEntry(toDoListEntry1);
-        greenSpace1.getToDoList().addEntry(toDoListEntry2);
-        greenSpace1.getToDoList().addEntry(toDoListEntry3);
-        greenSpace1.getToDoList().addEntry(toDoListEntry4);
-        greenSpace1.getToDoList().addEntry(toDoListEntry5);
-        greenSpace2.getToDoList().addEntry(toDoListEntry6);
-        greenSpace2.getToDoList().addEntry(toDoListEntry7);
-        greenSpace2.getToDoList().addEntry(toDoListEntry8);
-        greenSpace2.getToDoList().addEntry(toDoListEntry9);
-        greenSpace2.getToDoList().addEntry(toDoListEntry10);
     }
 }

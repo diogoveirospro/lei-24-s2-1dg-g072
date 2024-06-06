@@ -64,10 +64,12 @@ public class ListGreenSpacesUIController {
     }
     public void handleShowButtonAction() {
         try {
+            listGreenSpace.getItems().clear();
             String sortMethod = (String) listSortMethod.getValue();
             List<GreenSpaceDto> greenSpaces = listGreenSpacesController.getGreenSpaceList(sortMethod);
             for (GreenSpaceDto greenSpace : greenSpaces) {
-                listGreenSpace.getItems().add(greenSpace.getParkName());
+                String toBeShown = "GreenSpace " + greenSpace.getParkName() + " of the type " + greenSpace.getType().toString() + " and with an area of " + greenSpace.getDimension() + " ha.";
+                listGreenSpace.getItems().add(toBeShown);
             }
         } catch (Exception e) {
             System.out.println("An error occurred while handling the show action: " + e.getMessage());
