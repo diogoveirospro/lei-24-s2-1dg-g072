@@ -49,26 +49,6 @@ This diagram shows the full sequence of interactions between the classes involve
 
 ![us029-sequence-diagram-full.svg](svg%2Fus029-sequence-diagram-full.svg)
 
-### Split Diagrams
-
-The following diagram shows the same sequence of interactions between the classes involved in the realization of this user story, but it is split in partial diagrams to better illustrate the interactions between the classes.
-
-It uses Interaction Occurrence (a.k.a. Interaction Use).
-
-![us029-sequence-diagram-split.svg](svg%2Fus029-sequence-diagram-split.svg) 
-
-**Get Collaborator By Email**
-
-![us029-sequence-diagram-partial-get-collaborator-by-email.svg](svg%2Fus029-sequence-diagram-partial-get-collaborator-by-email.svg)
-
-**Get Task List**
-
-![us029-sequence-diagram-partial-get-tasks-list.svg](svg%2Fus029-sequence-diagram-partial-get-tasks-list.svg)
-
-**Mark Task As Completed**
-
-![us029-sequence-diagram-partial-mark-task-as-completed.svg](svg%2Fus029-sequence-diagram-partial-mark-task-as-completed.svg)![Sequence Diagram - Partial - Get Green Space](svg/us022-sequence-diagram-partial-get-green-space.svg)
-
 ## 3.3. Class Diagram (CD)
 
-![us029-class-diagram.svg](svg%2Fus029-class-diagram.svg)![Class Diagram](svg/us022-class-diagram.svg)
+![us029-class-diagram.svg](svg%2Fus029-class-diagram.svg)

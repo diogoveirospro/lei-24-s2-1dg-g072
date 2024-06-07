@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane prefHeight="387.0" prefWidth="637.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.AddAgendaEntryUIController">
+<BorderPane style="-fx-background-color: #f1f8e9;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.AddAgendaEntryUIController">
    <center>
-      <VBox prefHeight="426.0" prefWidth="767.0" style="-fx-background-color: #F1F8E9;">
+      <VBox style="-fx-background-color: #F1F8E9;">
          <children>
-            <HBox prefHeight="70.0" prefWidth="812.0">
+            <HBox>
                <children>
                   <Label text="Green Space: ">
                      <padding>
@@ -30,14 +32,17 @@
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
                   </Label>
                   <ComboBox fx:id="cbTask" prefHeight="31.0" prefWidth="212.0" promptText="Select Task" />
                </children>
                <VBox.margin>
-                  <Insets top="20.0" />
+                  <Insets bottom="10.0" top="20.0" />
                </VBox.margin>
             </HBox>
-            <HBox prefHeight="57.0" prefWidth="812.0">
+            <HBox>
                <children>
                   <Label text="Start Date: ">
                      <HBox.margin>
@@ -46,19 +51,22 @@
                      <padding>
                         <Insets right="10.0" />
                      </padding>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
                   </Label>
                   <DatePicker fx:id="dpStartDate" prefHeight="31.0" prefWidth="262.0" />
                   <ComboBox fx:id="cbStartHour" prefHeight="31.0" prefWidth="222.0" promptText="Select Hour">
                      <HBox.margin>
-                        <Insets left="10.0" />
+                        <Insets left="20.0" />
                      </HBox.margin>
                   </ComboBox>
                </children>
                <VBox.margin>
-                  <Insets bottom="10.0" top="20.0" />
+                  <Insets bottom="10.0" top="10.0" />
                </VBox.margin>
             </HBox>
-            <HBox prefHeight="60.0" prefWidth="812.0">
+            <HBox>
                <children>
                   <Label text="End Date: ">
                      <HBox.margin>
@@ -67,11 +75,14 @@
                      <padding>
                         <Insets right="15.0" />
                      </padding>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
                   </Label>
                   <DatePicker fx:id="dpEndDate" prefHeight="31.0" prefWidth="269.0" />
                   <ComboBox fx:id="cbEndHour" prefHeight="31.0" prefWidth="222.0" promptText="Select Hour">
                      <HBox.margin>
-                        <Insets left="10.0" />
+                        <Insets left="20.0" />
                      </HBox.margin>
                   </ComboBox>
                </children>
@@ -79,38 +90,51 @@
                   <Insets top="5.0" />
                </VBox.margin>
             </HBox>
-            <HBox prefHeight="75.0" prefWidth="812.0">
+            <HBox alignment="CENTER">
                <children>
-                  <Button fx:id="btnAddAgendaEntry" mnemonicParsing="false" onAction="#handleAddAgendaEntry" style="-fx-background-color: #388E3C; -fx-text-fill: white;" text="Add Agenda Entry">
+                  <Button fx:id="btnAddAgendaEntry" mnemonicParsing="false" onAction="#handleAddAgendaEntry" style="-fx-background-color: #388E3C; -fx-text-fill: white; -fx-background-radius: 15;" text="Add Agenda Entry">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
-                  <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#handleCancel" style="-fx-background-color: #D32F2F; -fx-text-fill: white;" text="Cancel">
+                  <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#handleCancel" style="-fx-background-color: #D32F2F; -fx-text-fill: white; -fx-background-radius: 15;" text="Cancel">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                </children>
                <VBox.margin>
-                  <Insets top="20.0" />
+                  <Insets bottom="20.0" top="20.0" />
                </VBox.margin>
             </HBox>
          </children>
       </VBox>
    </center>
    <top>
-      <VBox prefHeight="51.0" prefWidth="766.0" style="-fx-background-color: #2E7D32;" BorderPane.alignment="CENTER">
+      <GridPane prefHeight="75.0" prefWidth="644.0" BorderPane.alignment="CENTER">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+         </rowConstraints>
          <children>
+            <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#80cbc4" height="38.0" stroke="TRANSPARENT" strokeType="INSIDE" width="384.0">
+               <GridPane.margin>
+                  <Insets left="130.0" />
+               </GridPane.margin></Rectangle>
             <Text fill="WHITE" strokeType="INSIDE" strokeWidth="0.0" text="Add New Entry to the Agenda" textAlignment="CENTER" wrappingWidth="639.935546875">
                <font>
-                  <Font name="System Bold" size="28.0" />
+                  <Font name="Georgia" size="20.0" />
                </font>
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
             </Text>
          </children>
-      </VBox>
+      </GridPane>
    </top>
 </BorderPane>

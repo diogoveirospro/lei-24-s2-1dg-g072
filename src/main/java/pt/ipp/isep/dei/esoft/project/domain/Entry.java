@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidEntryDataException;
+import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidTaskDataException;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -37,5 +38,9 @@ public class Entry implements Serializable {
 
     public void setTask(Task task) {
         this.task = task;
+    }
+
+    protected Task cloneTask() throws InvalidTaskDataException {
+        return new Task(this.task.getTaskId(), this.task.getDuration());
     }
 }

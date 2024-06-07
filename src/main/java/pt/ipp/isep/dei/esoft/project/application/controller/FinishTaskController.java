@@ -1,49 +1,108 @@
-/*
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
-import pt.ipp.isep.dei.esoft.project.repository.Agenda;
-import pt.ipp.isep.dei.esoft.project.domain.AgendaEntry;
-import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
-import pt.ipp.isep.dei.esoft.project.dto.AgendaEntryDto;
-import pt.ipp.isep.dei.esoft.project.Mapper.AgendaEntryMapper;
-import pt.ipp.isep.dei.esoft.project.repository.CollaboratorRepository;
-import pt.ipp.isep.dei.esoft.project.repository.Repositories;
+import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidTaskDataException;
 import pt.ipp.isep.dei.esoft.project.application.session.ApplicationSession;
+import pt.ipp.isep.dei.esoft.project.domain.*;
+import pt.ipp.isep.dei.esoft.project.repository.*;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-
+/**
+ * This class serves as the controller for the functionality of finishing a task
+ * assigned to the collaborator.
+ *
+ * @autor Group 072 - Byte Masters - ISEP
+ */
 public class FinishTaskController {
+    /**
+     * taskRepository contains all tasks
+     */
+    private TaskRepository taskRepository;
+    /**
+     * collaboratorRepository contains all collaborators
+     */
+    private CollaboratorRepository collaboratorRepository;
+    /**
+     * agenda contains all entries inside the agenda
+     */
+    private Agenda agenda;
+    private java.lang.String String;
 
-    private final Agenda agenda;
-    private final CollaboratorRepository collaboratorRepository;
-    private final ApplicationSession appSession;
-
+    /**
+     * Empty FinishTaskController builder.
+     */
     public FinishTaskController() {
-        this.agenda = Repositories.getInstance().getAgenda();
+        this.taskRepository = Repositories.getInstance().getTaskRepository();
         this.collaboratorRepository = Repositories.getInstance().getCollaboratorRepository();
-        this.appSession = ApplicationSession.getInstance();
+        this.agenda = Repositories.getInstance().getAgenda();
     }
 
-    public Collaborator getCollaboratorByEmail(String email) {
+    /**
+     * FinishTaskController builder
+     *
+     * @param taskRepository         contains all tasks
+     * @param collaboratorRepository contains all collaborators
+     * @param agenda                 contains all tasks
+     */
+    public FinishTaskController(TaskRepository taskRepository, CollaboratorRepository collaboratorRepository, Agenda agenda) {
+        this.taskRepository = taskRepository;
+        this.collaboratorRepository = collaboratorRepository;
+        this.agenda = agenda;
+    }
+
+    /**
+     * Lets the controller get the task repository
+     *
+     * @return taskRepository
+     */
+    public TaskRepository getTaskRepository() {
+        if (taskRepository == null) {
+            Repositories repositories = Repositories.getInstance();
+
+            taskRepository = repositories.getTaskRepository();
+        }
+        return taskRepository;
+    }
+
+    /**
+     * Lets the controller get the collaborator repository
+     *
+     * @return collaboratorRepository
+     */
+    public CollaboratorRepository getCollaboratorRepository() {
+        if (collaboratorRepository == null) {
+            Repositories repositories = Repositories.getInstance();
+
+            collaboratorRepository = repositories.getCollaboratorRepository();
+        }
+        return collaboratorRepository;
+    }
+
+    /**
+     * Lets the controller get the agenda
+     *
+     * @return agenda
+     */
+    public Agenda getAgenda() {
+        if (agenda == null) {
+            Repositories repositories = Repositories.getInstance();
+
+            agenda = repositories.getAgenda();
+        }
+        return agenda;
+    }
+
+    /**
+     * Finish a task by its ID.
+     *
+     * @param taskId the ID of the task to finish
+     */
+    public void finishTask(String taskId) throws InvalidTaskDataException {
+        AgendaEntry agendaEntry = agenda.getAgendaEntry(taskId);
+        agendaEntry.taskDone();
+    }
+
+
+    private Collaborator getCollaboratorFromSession() {
+        String email = ApplicationSession.getInstance().getCurrentSession().getUserEmail();
         return collaboratorRepository.getCollaboratorByEmail(email);
     }
-
-    public List<AgendaEntryDto> getTaskList(Collaborator collaborator, Date dateI, Date dateF, String typeStatus) {
-        List<AgendaEntry> agendaEntries = agenda.getCollaboratorAgendaEntries(collaborator, dateI, dateF, typeStatus);
-        return AgendaEntryMapper.toDTOList(agendaEntries);
-    }
-
-    public Optional<AgendaEntryDto> markTaskAsCompleted(String taskId) {
-        Optional<AgendaEntry> optionalAgendaEntry = agenda.getAgendaEntry(taskId);
-        if (optionalAgendaEntry.isPresent()) {
-            AgendaEntry agendaEntry = optionalAgendaEntry.get();
-            agendaEntry.markAsCompleted();
-            return Optional.of(AgendaEntryMapper.toDTO(agendaEntry));
-        }
-        return Optional.empty();
-    }
 }
-
- */

@@ -44,20 +44,7 @@ _**Note that SSD - Alternative One is adopted.**_
 
 This diagram shows the full sequence of interactions between the classes involved in the realization of this user story.
 
-![us020-sequence-diagram-full.svg](svg%2Fus020-sequence-diagram-full.svg)![Sequence Diagram - Full](svg/us022-sequence-diagram-full.svg)
-
-### Split Diagrams
-
-The following diagram shows the same sequence of interactions between the classes involved in the realization of this user story, but it is split in partial diagrams to better illustrate the interactions between the classes.
-
-It uses Interaction Occurrence (a.k.a. Interaction Use).
-
-![us020-sequence-diagram-split.svg](svg%2Fus020-sequence-diagram-split.svg)![Sequence Diagram - split](svg/us022-sequence-diagram-split.svg)
-
-**Register Green Space**
-
-![us020-sequence-diagram-partial-register-green-space.svg](svg%2Fus020-sequence-diagram-partial-register-green-space.svg)
-
+![us020-sequence-diagram-full.svg](svg%2Fus020-sequence-diagram-full.svg)
 
 ## 3.3. Class Diagram (CD)
 

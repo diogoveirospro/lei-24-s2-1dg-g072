@@ -394,7 +394,7 @@ class AgendaEntryTest {
     void postponeEntryTest(){
         try {
             AgendaEntry agendaEntry = new AgendaEntry(task, greenSpace, startDate, startHour, endDate, endHour);
-            agendaEntry.postponeEntry(new Date(2024, 6, 5));
+            agendaEntry.postponeEntry(new Date(2024, 6, 5), new Date(2024, 6, 8));
             agendaEntry.taskPostponed();
             assertEquals(agendaEntry.getStartDate(), new Date(2024, 6, 5));
             assertEquals(AgendaEntry.StatusOfEntry.POSTPONED, agendaEntry.getStatus());

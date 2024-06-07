@@ -1,25 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="505.0" prefWidth="949.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.ListMaintenanceUIController">
-   <children>
-      <TableView fx:id="maintenanceTable" prefHeight="309.0" prefWidth="600.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <columns>
-          <TableColumn fx:id="plateNumber" prefWidth="89.0" text="Plate" />
-          <TableColumn fx:id="brand" prefWidth="79.0" text="Brand" />
-            <TableColumn fx:id="model" prefWidth="118.0" text="Model" />
-            <TableColumn fx:id="currentKms" prefWidth="149.0" text="Curr.Kms" />
-            <TableColumn fx:id="frequency" prefWidth="157.0" text="Freq" />
-            <TableColumn fx:id="lastMaintenance" prefWidth="185.0" text="Last" />
-            <TableColumn fx:id="nextMaintenance" prefWidth="171.0" text="Next" />
-        </columns>
-      </TableView>
-      <Button fx:id="btnShowList" defaultButton="true" layoutX="685.0" layoutY="429.0" mnemonicParsing="false" onAction="#handleShowListAction" prefHeight="36.0" prefWidth="92.0" text="Show" AnchorPane.bottomAnchor="29.0" AnchorPane.rightAnchor="36.0" AnchorPane.topAnchor="445.0" />
-      <Button fx:id="btnBack" layoutX="47.0" layoutY="443.0" mnemonicParsing="false" onAction="#handleBackButtonAction" prefHeight="36.0" prefWidth="92.0" text="Back" AnchorPane.bottomAnchor="26.0" AnchorPane.leftAnchor="36.0" AnchorPane.rightAnchor="810.0" />
-   </children>
-</AnchorPane>
+<BorderPane prefHeight="275.0" prefWidth="989.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.ListMaintenanceUIController">
+   <top>
+      <GridPane prefHeight="75.0" prefWidth="644.0" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#80cbc4" height="38.0" stroke="TRANSPARENT" strokeType="INSIDE" width="283.0">
+               <GridPane.margin>
+                  <Insets left="350.0" />
+               </GridPane.margin></Rectangle>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="List Maintenance" textAlignment="CENTER" wrappingWidth="989.6328125">
+               <font>
+                  <Font name="Georgia" size="20.0" />
+               </font></Text>
+         </children>
+      </GridPane>
+   </top>
+   <bottom>
+      <AnchorPane BorderPane.alignment="CENTER" />
+   </bottom>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <TableView fx:id="maintenanceTable" prefHeight="175.0" prefWidth="1004.0">
+              <columns>
+                <TableColumn fx:id="plateNumber" prefWidth="89.0" text="Plate" />
+                <TableColumn fx:id="brand" prefWidth="79.0" text="Brand" />
+                  <TableColumn fx:id="model" prefWidth="118.0" text="Model" />
+                  <TableColumn fx:id="currentKms" prefWidth="149.0" text="Curr.Kms" />
+                  <TableColumn fx:id="frequency" prefWidth="157.0" text="Freq" />
+                  <TableColumn fx:id="lastMaintenance" prefWidth="185.0" text="Last" />
+                  <TableColumn fx:id="nextMaintenance" prefWidth="171.0" text="Next" />
+              </columns>
+               <VBox.margin>
+                  <Insets left="20.0" right="20.0" />
+               </VBox.margin>
+            </TableView>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+               <children>
+                  <Button fx:id="btnShowList" defaultButton="true" mnemonicParsing="false" onAction="#handleShowListAction" style="-fx-background-color: #388E3C; -fx-text-fill: white; -fx-background-radius: 15;" text="Show" />
+                  <Button fx:id="btnBack" mnemonicParsing="false" onAction="#handleBackButtonAction" style="-fx-background-color: #D32F2F; -fx-text-fill: white; -fx-background-radius: 15;" text="Back" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>

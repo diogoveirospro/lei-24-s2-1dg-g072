@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidEntryDataException;
+import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidTaskDataException;
 import pt.ipp.isep.dei.esoft.project.domain.AgendaEntry;
 import pt.ipp.isep.dei.esoft.project.domain.Date;
 import pt.ipp.isep.dei.esoft.project.repository.Agenda;
@@ -50,16 +51,20 @@ public class PostponeEntryController {
 
     /**
      * Postpones an agenda entry
+     *
      * @param agendaEntry the agenda entry
-     * @param newDate the new date
+     * @param newDate     the new date
+     * @param endDate
      * @throws InvalidEntryDataException the invalid entry data exception
      */
-    public void postponeAgendaEntry(AgendaEntry agendaEntry, Date newDate) throws InvalidEntryDataException {
+    public void postponeAgendaEntry(AgendaEntry agendaEntry, Date newDate, Date endDate) throws InvalidEntryDataException, CloneNotSupportedException, InvalidTaskDataException {
         if (agendaEntry == null || newDate == null) {
             throw new InvalidEntryDataException("Agenda Entry is invalid.");
         } else {
-            agendaEntry.postponeEntry(newDate);
+            agendaEntry.postponeEntry(newDate, endDate);
             agendaEntry.taskPostponed();
+            AgendaEntry newEntry = agendaEntry.cloneEntry();
+            agenda.addAgendaEntry(newEntry);
 
         }
     }

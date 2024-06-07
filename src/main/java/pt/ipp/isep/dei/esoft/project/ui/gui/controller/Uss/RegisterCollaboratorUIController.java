@@ -1,78 +1,134 @@
 package pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss;
 
+import javafx.fxml.FXML;
+import javafx.scene.control.*;
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidCollaboratorDataException;
+import pt.ipp.isep.dei.esoft.project.application.controller.RegisterCollaboratorController;
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import pt.ipp.isep.dei.esoft.project.domain.Date;
-import pt.ipp.isep.dei.esoft.project.domain.Job;
-import pt.ipp.isep.dei.esoft.project.repository.CollaboratorRepository;
-import pt.ipp.isep.dei.esoft.project.repository.JobRepository;
-import pt.ipp.isep.dei.esoft.project.repository.Repositories;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.AlertUI;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.HRMUI;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.MainMenuUI;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss.RegisterCollaboratorUI;
 
-import java.util.List;
-
-/**
- * Controller class for registering a new collaborator.
- * Responsible for handling the registration of a new collaborator.
- * Uses CollaboratorRepository and JobRepository to access and manage collaborator and job data.
- * Collaborator registration is done by providing basic information and job name.
- * Collaborator object is created and added to the CollaboratorRepository.
- * CollaboratorRepository and JobRepository instances are obtained from Repositories singleton.
- * If needed, custom repositories can be injected through the constructor.
- *
- * @author Group 072 - Byte Masters - ISEP
- */
 public class RegisterCollaboratorUIController {
+    private HRMUI hrmui;
+    private RegisterCollaboratorUI registerCollaboratorUI;
+    private RegisterCollaboratorController registerCollaboratorController;
+    @FXML
+    private TextField phoneNumberField;
 
-    private final CollaboratorRepository collaboratorRepository;
-    private final JobRepository jobRepository;
+    @FXML
+    private DatePicker admissionDatePicker;
 
-    /**
-     * Constructs a new RegisterCollaboratorController object.
-     * Initializes CollaboratorRepository and JobRepository from the Repositories singleton.
-     */
-    public RegisterCollaboratorUIController() {
-        this.collaboratorRepository = Repositories.getInstance().getCollaboratorRepository();
-        this.jobRepository = Repositories.getInstance().getJobRepository();
+    @FXML
+    private DatePicker birthDatePicker;
+
+    @FXML
+    private TextField idNumberField;
+
+    @FXML
+    private TextField adressField;
+
+    @FXML
+    private TextField nameField;
+
+    @FXML
+    private TextField idTypeField;
+
+    @FXML
+    private TextField pswField;
+
+    @FXML
+    private TextField emailField;
+
+    @FXML
+    private ComboBox jobComboBox;
+
+    @FXML
+    private Button btnRegister;
+
+    @FXML
+    private TextField taxNumberField;
+
+    @FXML
+    private Button btnCancel;
+
+
+    public void handleRegisterAction() {
+        try {
+            if (nameField.getText().isEmpty() || emailField.getText().isEmpty() || pswField.getText().isEmpty() || idTypeField.getText().isEmpty() || idNumberField.getText().isEmpty() || adressField.getText().isEmpty() || phoneNumberField.getText().isEmpty() || taxNumberField.getText().isEmpty() || jobComboBox.getValue().toString().isEmpty() || birthDatePicker.getValue().toString().isEmpty() || admissionDatePicker.getValue().toString().isEmpty()) {
+                throw new InvalidCollaboratorDataException("All fields must be filled.");
+            }
+            String name = nameField.getText();
+            String email = emailField.getText();
+            String psw = pswField.getText();
+            String idType = idTypeField.getText();
+            String idNumber = idNumberField.getText();
+            String address = adressField.getText();
+            String phoneNumber = phoneNumberField.getText();
+            String taxNumber = taxNumberField.getText();
+            String job = jobComboBox.getValue().toString();
+            String birthDateStr = birthDatePicker.getValue().toString();
+            String admissionDateStr = admissionDatePicker.getValue().toString();
+            Collaborator.IdDocType idDocType = Collaborator.IdDocType.valueOf(idType);
+
+            String[] dateParts = birthDateStr.split("-");
+            int year1 = Integer.parseInt(dateParts[0]);
+            int month1 = Integer.parseInt(dateParts[1]);
+            int day1 = Integer.parseInt(dateParts[2]);
+
+            Date birthDate = new Date(year1, month1, day1);
+            dateParts = admissionDateStr.split("-");
+            int year2 = Integer.parseInt(dateParts[0]);
+            int month2 = Integer.parseInt(dateParts[1]);
+            int day2 = Integer.parseInt(dateParts[2]);
+
+            Date admissionDate = new Date(year2, month2, day2);
+            Collaborator collaborator = new Collaborator(name, birthDate, admissionDate, address, phoneNumber, email, taxNumber, idDocType, idNumber, job, psw);
+            if (birthDate.compareTo(admissionDate) > 0) {
+                throw new InvalidCollaboratorDataException("The birth date must be before the admission date.");
+            } else {
+                registerCollaboratorController.registerCollaborator(name, birthDate, admissionDate, address, phoneNumber, email, taxNumber, idDocType, idNumber, job, psw);
+            }
+
+        } catch (Exception e) {
+            if (e.getMessage().equalsIgnoreCase("The birth date must be before the admission date.")) {
+                AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error", "Error Registering Collaborator", e.getMessage());
+            } else if (e.getMessage().equalsIgnoreCase("All fields must be filled.")) {
+                AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error", "Error Registering Collaborator", "All fields must be filled.");
+            } else if (e.getMessage().equalsIgnoreCase("Invalid email.")) {
+                AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error", "Error Registering Collaborator", e.getMessage());
+            } else if (e.getMessage().equalsIgnoreCase("Invalid taxpayer number.")) {
+                AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error", "Error Registering Collaborator", e.getMessage());
+            } else if (e.getMessage().equalsIgnoreCase("Invalid mobile number.")) {
+                AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error", "Error Registering Collaborator", e.getMessage());
+            } else if (e.getMessage().equalsIgnoreCase("Invalid ID document number.")) {
+                AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error", "Error Registering Collaborator", e.getMessage());
+            } else if (e.getMessage().equalsIgnoreCase("Invalid name.")) {
+                AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error", "Error Registering Collaborator", e.getMessage());
+            } else if (e.getMessage().equalsIgnoreCase("Invalid password.")) {
+                AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error", "Error Registering Collaborator", e.getMessage());
+            } else if (e.getMessage().equalsIgnoreCase("Invalid birthdate.")) {
+                AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error", "Error Registering Collaborator", e.getMessage());
+            } else if (e.getMessage().equalsIgnoreCase("Invalid admission date.")) {
+                AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error", "Error Registering Collaborator", e.getMessage());
+            } else {
+                AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error", "Error Registering Collaborator", "An error occurred while registering the collaborator.");
+            }
+        }
     }
 
-    /**
-     * Constructs a new RegisterCollaboratorController object with custom repositories.
-     *
-     * @param collaboratorRepository the CollaboratorRepository instance to be used
-     * @param jobRepository          the JobRepository instance to be used
-     */
-    public RegisterCollaboratorUIController(CollaboratorRepository collaboratorRepository, JobRepository jobRepository) {
-        this.collaboratorRepository = collaboratorRepository;
-        this.jobRepository = jobRepository;
+    public void handleCancelAction() {
+        try {
+            hrmui = new HRMUI();
+            hrmui.showUI(MainMenuUI.getPrimaryStage());
+        } catch (Exception e) {
+            System.out.println("An error occurred while handling the cancel action: " + e.getMessage());
+        }
     }
 
-    /**
-     * Registers a new collaborator with the provided information.
-     *
-     * @param name           the name of the collaborator
-     * @param birthDate      the birthdate of the collaborator
-     * @param admissionDate  the admission date of the collaborator
-     * @param address        the address of the collaborator
-     * @param mobile         the contact number of the collaborator
-     * @param email          the email address of the collaborator
-     * @param taxpayerNumber the taxpayer number of the collaborator
-     * @param idDocType      the type of ID document of the collaborator
-     * @param idDocNumber    the number of the ID document of the collaborator
-     * @param jobName        the name of the job of the collaborator
-     */
-    public void registerCollaborator(String name, Date birthDate, Date admissionDate, String address,
-                                     String mobile, String email, String taxpayerNumber, Collaborator.IdDocType idDocType, String idDocNumber, String jobName) throws InvalidCollaboratorDataException, InvalidCollaboratorDataException {
-
-        this.collaboratorRepository.addCollaborator(new Collaborator(name, birthDate, admissionDate, address, mobile,
-                email, taxpayerNumber, idDocType, idDocNumber, jobName));
-    }
-
-    /**
-     * Retrieves a list of jobs.
-     *
-     * @return a list of jobs
-     */
-    public List<Job> getJobs(){
-        return jobRepository.getJobs();
+    public void setRegisterCollaboratorUI(RegisterCollaboratorUI registerCollaboratorUI) {
+        this.registerCollaboratorUI = registerCollaboratorUI;
     }
 }

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="542.0" prefWidth="644.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.CollaboratorController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #f1f8e9;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.CollaboratorController">
     <top>
         <GridPane prefHeight="75.0" prefWidth="644.0" BorderPane.alignment="CENTER">
             <columnConstraints>
@@ -18,32 +18,74 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome Collaborator! What are we doing today?">
+            <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#80cbc4" height="38.0" stroke="TRANSPARENT" strokeType="INSIDE" width="446.0">
+               <GridPane.margin>
+                  <Insets left="100.0" />
+               </GridPane.margin>
+            </Rectangle>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome Collaborator! What are we doing today?" textAlignment="CENTER" wrappingWidth="643.70166015625">
                <font>
-                  <Font name="Times New Roman Bold" size="23.0" />
+                  <Font name="Georgia" size="20.0" />
                </font>
                <GridPane.margin>
-                  <Insets left="20.0" />
+                  <Insets />
                </GridPane.margin>
             </Text>
          </children>
         </GridPane>
     </top>
     <center>
-        <GridPane alignment="CENTER" BorderPane.alignment="CENTER">
-            <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            </rowConstraints>
-            <children>
-                <Button fx:id="btnListTasks" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#handleListTasksButtonAction" text="List Tasks" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                <Button fx:id="btnFinishTask" defaultButton="true" mnemonicParsing="false" onAction="#handleFinishTaskButtonAction" text="Finish Task" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                <Button fx:id="btnLogout" cancelButton="true" mnemonicParsing="false" onAction="#handleLogoutButtonAction" text="Logout" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-            </children>
-        </GridPane>
+      <VBox alignment="CENTER" BorderPane.alignment="CENTER">
+         <children>
+                <Button fx:id="btnListTasks" alignment="CENTER" contentDisplay="TOP" defaultButton="true" mnemonicParsing="false" onAction="#handleListTasksButtonAction" prefHeight="79.0" prefWidth="144.0" style="-fx-background-color: #80cbc4; -fx-text-fill: white; -fx-background-radius: 15;" text="List Tasks" textAlignment="CENTER">
+               <graphic>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/list.png" />
+                     </image></ImageView>
+               </graphic>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <font>
+                  <Font name="Britannic Bold" size="12.0" />
+               </font></Button>
+                <Button fx:id="btnFinishTask" contentDisplay="TOP" defaultButton="true" mnemonicParsing="false" onAction="#handleFinishTaskButtonAction" prefHeight="79.0" prefWidth="144.0" style="-fx-background-color: #80cbc4; -fx-text-fill: white; -fx-background-radius: 15;" text="Finish Task">
+               <graphic>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/finish%20task.png" />
+                     </image></ImageView>
+               </graphic>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <font>
+                  <Font name="Britannic Bold" size="12.0" />
+               </font></Button>
+                <Button fx:id="btnLogout" cancelButton="true" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleLogoutButtonAction" prefHeight="79.0" prefWidth="144.0" style="-fx-background-color: #80cbc4; -fx-text-fill: white; -fx-background-radius: 15;" text="Logout">
+               <graphic>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/logout.png" />
+                     </image></ImageView>
+               </graphic>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <font>
+                  <Font name="Britannic Bold" size="12.0" />
+               </font></Button>
+         </children>
+      </VBox>
     </center>
 </BorderPane>
