@@ -1,67 +1,41 @@
 package pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss;
 
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
-import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
-import pt.ipp.isep.dei.esoft.project.domain.Skill;
-import pt.ipp.isep.dei.esoft.project.repository.CollaboratorRepository;
-import pt.ipp.isep.dei.esoft.project.repository.Repositories;
-import pt.ipp.isep.dei.esoft.project.repository.SkillRepository;
+import pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.AssignSkillUIController;
 
-import java.util.List;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  *
  *
  * @author Group 072 - Byte Masters - ISEP
  */
-public class AssignSkillUI {
+public class AssignSkillUI implements Initializable {
 
-    /**
-     * Skill Repository.
-     */
-    private final SkillRepository skillRepository;
-
-    /**
-     * Collaborator repository.
-     */
-    private final CollaboratorRepository collaboratorRepository;
+    public static final String ASSIGNSKILL = "Assign Skill to Collaborator";
+    public AssignSkillUIController assignSkillUIController;
 
 
-    /**
-     * Empty AssignSkillController builder.
-     */
-    public AssignSkillUI(){
-        this.skillRepository = Repositories.getInstance().getSkillRepository();
-        this.collaboratorRepository = Repositories.getInstance().getCollaboratorRepository();
-    }
-
-    /**
-     * AssignSkillController builder
-     * @param skillRepository skill repository
-     * @param collaboratorRepository collaborator repository
-     */
-    public AssignSkillUI(SkillRepository skillRepository, CollaboratorRepository collaboratorRepository){
-        this.skillRepository = skillRepository;
-        this.collaboratorRepository = collaboratorRepository;
-    }
-
-    /**
-     * List the skills on the skill repository.
-     * @return list of skills.
-     */
-    public List<Skill> listSkills(){
-        return skillRepository.listSkills();
-    }
-
-    /**
-     * List the collaborators.
-     * @return list of collaborators.
-     */
-    public List<Collaborator> getCollaborators(){
-        return collaboratorRepository.getCollaborators();
+    public void showUI(Stage stage) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/USs/AssignSkills.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        stage.setTitle(ASSIGNSKILL);
+        stage.setScene(scene);
+        assignSkillUIController = loader.getController();
+        assignSkillUIController.setAssignSkill(new AssignSkillUI());
+        stage.show();
     }
 
 
-    public void showUI(Stage primaryStage) {
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
     }
 }
