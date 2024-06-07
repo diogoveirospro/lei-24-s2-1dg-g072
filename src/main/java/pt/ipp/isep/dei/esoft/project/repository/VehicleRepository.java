@@ -28,7 +28,7 @@ public class VehicleRepository extends SerializableRepository<List<Vehicle>> imp
      */
     public VehicleRepository() {
         super("vehicleRepository.ser");
-        vehicleList = new ArrayList<Vehicle>();
+        vehicleList =super.load();
     }
 
     public Optional<Vehicle> registerVehicle(String plate, String brand, String model, String type, Double tare, Double grossWeight, Double currentKms, Date registrationDate, Date acquisitionDate, Double serviceFrequency, Double kmAtLastMaintenance){

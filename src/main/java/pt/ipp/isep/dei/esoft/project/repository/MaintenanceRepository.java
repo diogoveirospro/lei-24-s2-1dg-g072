@@ -28,7 +28,7 @@ public class MaintenanceRepository extends SerializableRepository<List<Maintenan
      */
     public MaintenanceRepository(){
         super("maintenanceRepository.ser");
-        maintenanceList = new ArrayList<>();
+        maintenanceList = super.load();
     }
     /**
      * Get a vehicle from the repository by its details.
