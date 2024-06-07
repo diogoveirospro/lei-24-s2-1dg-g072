@@ -28,7 +28,7 @@ public class TeamRepository extends SerializableRepository<List<Team>> implement
      */
     public TeamRepository() {
         super("teamRepository.ser");
-        teams = new ArrayList<>();
+        teams = super.load();
     }
 
     /**

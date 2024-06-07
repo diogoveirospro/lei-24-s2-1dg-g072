@@ -49,7 +49,7 @@ public class Agenda extends SerializableRepository<List<AgendaEntry>> implements
 
     public Agenda() {
         super("agenda.ser");
-        this.entriesAgenda = new ArrayList<>();
+        this.entriesAgenda = super.load();
 
     }
 
@@ -86,7 +86,6 @@ public class Agenda extends SerializableRepository<List<AgendaEntry>> implements
      * @return true if the agenda entry was added successfully, false otherwise.
      */
     public boolean addAgendaEntry(AgendaEntry agendaEntry) {
-
         saveAgendaToFile();
         return entriesAgenda.add(agendaEntry);
     }

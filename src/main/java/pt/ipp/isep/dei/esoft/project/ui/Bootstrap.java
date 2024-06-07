@@ -7,6 +7,7 @@ import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidCollaboratorDataException;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 import pt.ipp.isep.dei.esoft.project.domain.Date;
+import pt.ipp.isep.dei.esoft.project.repository.data.SerializableRepository;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ import java.util.List;
  * @author Group 072 - Byte Masters - ISEP
  */
 public class Bootstrap {
+
     private final SkillRepository skillRepository = Repositories.getInstance().getSkillRepository();
     private final CollaboratorRepository collaboratorRepository = Repositories.getInstance().getCollaboratorRepository();
     private final VehicleRepository vehicleRepository = Repositories.getInstance().getVehicleRepository();
@@ -28,16 +30,22 @@ public class Bootstrap {
     private final ToDoList toDoList = Repositories.getInstance().getToDoList();
 
     public void run() throws InvalidCollaboratorDataException, InvalidTaskDataException, InvalidEntryDataException, InvalidGreenSpaceDataException {
-        addSkill();
-        addJob();
-        addCollaborator();
-        addVehicle();
+        if (collaboratorRepository.getCollaborators().isEmpty()) {
+            addCollaborator();
+        }
+        if (!Repositories.getInstance().hasData()){
+            addSkill();
+            addJob();
+            addCollaborator();
+            addVehicle();
+            addUsers();
+            addGreenSpaces();
+            addTasks();
+            addAgendaEntry();
+            addToDoListEntry();
+            addTeam();
+        }
         addUsers();
-        addGreenSpaces();
-        addTasks();
-        addAgendaEntry();
-        addToDoListEntry();
-        addTeam();
     }
     private void addToDoListEntry() throws InvalidTaskDataException, InvalidEntryDataException {
         Task task3 = new Task("Task Three", "3");

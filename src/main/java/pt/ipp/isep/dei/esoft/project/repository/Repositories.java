@@ -147,4 +147,17 @@ public class Repositories {
     public AuthenticationRepository getAuthenticationRepository() {
         return authenticationRepository;
     }
+
+    public boolean hasData() {
+        return !jobRepository.getJobs().isEmpty() ||
+                !skillRepository.listSkills().isEmpty() ||
+                !collaboratorRepository.getCollaborators().isEmpty() ||
+                !teamRepository.getTeams().isEmpty() ||
+                !vehicleRepository.getVehicleList().isEmpty() ||
+                !taskRepository.getAllTasks().isEmpty() ||
+                !agenda.getEntryList().isEmpty() ||
+                !greenSpaceRepository.getGreenSpaceList().isEmpty() ||
+                !toDoList.getToDoListEntries().isEmpty();
+
+    }
 }
