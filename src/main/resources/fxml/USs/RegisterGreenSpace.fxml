@@ -62,7 +62,7 @@
                 </HBox>
                 <HBox alignment="CENTER">
                     <children>
-                        <Label text="Area (in square meters): ">
+                        <Label text="Area (in ha): ">
                             <padding>
                                 <Insets right="10.0" />
                             </padding>
