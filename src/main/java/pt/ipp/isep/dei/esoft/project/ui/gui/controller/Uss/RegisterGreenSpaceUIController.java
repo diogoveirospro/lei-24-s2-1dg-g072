@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidGreenSpaceDataException;
 import pt.ipp.isep.dei.esoft.project.application.controller.RegisterGreenSpaceController;
@@ -26,7 +27,7 @@ public class RegisterGreenSpaceUIController {
     private TextField parkNameField;
 
     @FXML
-    private TextField typeField;
+    private ComboBox<String> typeField;
 
     @FXML
     private TextField dimensionField;
@@ -41,21 +42,19 @@ public class RegisterGreenSpaceUIController {
         this.registerGreenSpaceUI = new RegisterGreenSpaceUI();
     }
 
-    public void registerGreenSpace() {
+    public void registerGreenSpace() throws InvalidGreenSpaceDataException {
         String parkName = parkNameField.getText();
-        String type = typeField.getText();
+        String type = typeField.getValue().toString();
         double dimension = Double.parseDouble(dimensionField.getText());
         String address = addressField.getText();
-
+        GreenSpace.TypeOfGreenSpace typeOfGreenSpace = TypeOfGreenSpace.getTypeOfGreenSpace(type);
         try {
-            Optional<GreenSpace> newGreenSpace = controller.registerGreenSpace(parkName, dimension, address, type);
-            if (newGreenSpace.isPresent()) {
+            Boolean isPresent = controller.registerGreenSpace(parkName, dimension, address, typeOfGreenSpace);
+            if (isPresent) {
                 showAlert(Alert.AlertType.INFORMATION, "Success", "Green Space registered successfully.");
             } else {
                 showAlert(Alert.AlertType.ERROR, "Error", "Failed to register Green Space.");
             }
-        } catch (InvalidGreenSpaceDataException e) {
-            showAlert(Alert.AlertType.ERROR, "Error", e.getMessage());
         } catch (NumberFormatException e) {
             showAlert(Alert.AlertType.ERROR, "Error", "Invalid dimension. Please enter a valid number.");
         }

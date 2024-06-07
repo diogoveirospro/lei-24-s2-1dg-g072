@@ -3,9 +3,14 @@ package pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidCollaboratorDataException;
 import pt.ipp.isep.dei.esoft.project.application.controller.FinishTaskController;
+import pt.ipp.isep.dei.esoft.project.domain.AgendaEntry;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss.FinishTaskUI;
+
+import java.util.List;
 
 /**
  * Controller class for managing the Finish Task UI.
@@ -18,7 +23,7 @@ public class FinishTaskUIController {
     private FinishTaskUI finishTaskUI;
 
     @FXML
-    private TextField taskIdField;
+    private ComboBox<String> taskIdCb;
 
     @FXML
     private Button finishTaskButton;
@@ -32,8 +37,13 @@ public class FinishTaskUIController {
     }
 
     @FXML
+    public void initialize() throws InvalidCollaboratorDataException {
+        List<AgendaEntry> agendaEntryList = finishTaskController.getAgendaEntries();
+        taskIdCb.getItems().addAll();
+    }
+    @FXML
     public void finishTask() {
-        String taskId = taskIdField.getText();
+        String taskId = taskIdCb.getValue();
         try {
             finishTaskController.finishTask(taskId);
             showAlert(Alert.AlertType.INFORMATION, "Success", "Task marked as completed successfully.");

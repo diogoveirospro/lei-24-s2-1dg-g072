@@ -13,8 +13,43 @@
 
 <BorderPane style="-fx-background-color: #f1f8e9;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.RegisterGreenSpaceUIController">
     <center>
-        <VBox style="-fx-background-color: #F1F8E9;">
+        <VBox prefHeight="345.0" prefWidth="644.0" style="-fx-background-color: #F1F8E9;">
             <children>
+                <HBox alignment="CENTER" prefHeight="43.0" prefWidth="644.0">
+                    <children>
+                        <Label text="Green Space Name: ">
+                            <padding>
+                                <Insets right="10.0" />
+                            </padding>
+                            <HBox.margin>
+                                <Insets left="20.0" />
+                            </HBox.margin>
+                            <font>
+                                <Font name="System Bold" size="12.0" />
+                            </font>
+                        </Label>
+                        <TextField fx:id="parkNameField" prefWidth="150.0" promptText="Enter Name" />
+                    </children>
+                    <VBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                    </VBox.margin>
+                </HBox>
+            <HBox alignment="CENTER" prefHeight="46.0" prefWidth="644.0">
+               <children>
+                  <Label text="Adress:">
+                     <padding>
+                        <Insets right="10.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="addressField" prefWidth="150.0" promptText="Enter adress" />
+               </children>
+            </HBox>
                 <HBox alignment="CENTER">
                     <children>
                         <Label text="Green Space Type: ">
@@ -28,37 +63,18 @@
                                 <Font name="System Bold" size="12.0" />
                             </font>
                         </Label>
-                        <ComboBox fx:id="typeComboBox" prefWidth="150.0" promptText="Select Type">
+                        <ComboBox fx:id="typeField" prefWidth="150.0" promptText="Select Type">
                             <items>
                                 <FXCollections fx:factory="observableArrayList">
                                     <String fx:value="Garden" />
-                                    <String fx:value="Medium-sized Park" />
-                                    <String fx:value="Large-sized Park" />
+                                    <String fx:value="Medium-sized park" />
+                                    <String fx:value="Large-sized park" />
                                 </FXCollections>
                             </items>
                         </ComboBox>
                     </children>
                     <VBox.margin>
                         <Insets bottom="10.0" top="20.0" />
-                    </VBox.margin>
-                </HBox>
-                <HBox alignment="CENTER">
-                    <children>
-                        <Label text="Green Space Name: ">
-                            <padding>
-                                <Insets right="10.0" />
-                            </padding>
-                            <HBox.margin>
-                                <Insets left="20.0" />
-                            </HBox.margin>
-                            <font>
-                                <Font name="System Bold" size="12.0" />
-                            </font>
-                        </Label>
-                        <TextField fx:id="nameTextField" prefWidth="150.0" promptText="Enter Name" />
-                    </children>
-                    <VBox.margin>
-                        <Insets bottom="10.0" top="10.0" />
                     </VBox.margin>
                 </HBox>
                 <HBox alignment="CENTER">
@@ -74,7 +90,7 @@
                                 <Font name="System Bold" size="12.0" />
                             </font>
                         </Label>
-                        <TextField fx:id="areaTextField" prefWidth="150.0" promptText="Enter Area" />
+                        <TextField fx:id="dimensionField" prefWidth="150.0" promptText="Enter Area" />
                     </children>
                     <VBox.margin>
                         <Insets bottom="20.0" top="10.0" />

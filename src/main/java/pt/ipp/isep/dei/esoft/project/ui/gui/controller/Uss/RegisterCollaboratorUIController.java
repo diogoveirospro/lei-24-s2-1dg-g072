@@ -6,15 +6,18 @@ import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidCollaboratorDataException
 import pt.ipp.isep.dei.esoft.project.application.controller.RegisterCollaboratorController;
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import pt.ipp.isep.dei.esoft.project.domain.Date;
+import pt.ipp.isep.dei.esoft.project.domain.Job;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.AlertUI;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.HRMUI;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.MainMenuUI;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss.RegisterCollaboratorUI;
 
+import java.util.List;
+
 public class RegisterCollaboratorUIController {
     private HRMUI hrmui;
     private RegisterCollaboratorUI registerCollaboratorUI;
-    private RegisterCollaboratorController registerCollaboratorController;
+    private RegisterCollaboratorController registerCollaboratorController = new RegisterCollaboratorController();
     @FXML
     private TextField phoneNumberField;
 
@@ -34,7 +37,7 @@ public class RegisterCollaboratorUIController {
     private TextField nameField;
 
     @FXML
-    private TextField idTypeField;
+    private ComboBox<String> idTypeCB;
 
     @FXML
     private TextField pswField;
@@ -43,7 +46,7 @@ public class RegisterCollaboratorUIController {
     private TextField emailField;
 
     @FXML
-    private ComboBox jobComboBox;
+    private ComboBox<String> jobComboBox;
 
     @FXML
     private Button btnRegister;
@@ -54,16 +57,27 @@ public class RegisterCollaboratorUIController {
     @FXML
     private Button btnCancel;
 
+    public void initialize() {
+        List<Job> jobs = registerCollaboratorController.getJobs();
+        for (Job job : jobs) {
+            jobComboBox.getItems().add(job.getName());
+        }
 
+        idTypeCB.getItems().add(Collaborator.IdDocType.BI.getDisplayName());
+        idTypeCB.getItems().add(Collaborator.IdDocType.CC.getDisplayName());
+        idTypeCB.getItems().add(Collaborator.IdDocType.PASSPORT.getDisplayName());
+        idTypeCB.getItems().add(Collaborator.IdDocType.NISS.getDisplayName());
+
+    }
     public void handleRegisterAction() {
         try {
-            if (nameField.getText().isEmpty() || emailField.getText().isEmpty() || pswField.getText().isEmpty() || idTypeField.getText().isEmpty() || idNumberField.getText().isEmpty() || adressField.getText().isEmpty() || phoneNumberField.getText().isEmpty() || taxNumberField.getText().isEmpty() || jobComboBox.getValue().toString().isEmpty() || birthDatePicker.getValue().toString().isEmpty() || admissionDatePicker.getValue().toString().isEmpty()) {
+            if (nameField.getText().isEmpty() || emailField.getText().isEmpty() || pswField.getText().isEmpty() || idTypeCB.getValue().isEmpty() || idNumberField.getText().isEmpty() || adressField.getText().isEmpty() || phoneNumberField.getText().isEmpty() || taxNumberField.getText().isEmpty() || jobComboBox.getValue().toString().isEmpty() || birthDatePicker.getValue().toString().isEmpty() || admissionDatePicker.getValue().toString().isEmpty()) {
                 throw new InvalidCollaboratorDataException("All fields must be filled.");
             }
             String name = nameField.getText();
             String email = emailField.getText();
             String psw = pswField.getText();
-            String idType = idTypeField.getText();
+            String idType = idTypeCB.getValue();
             String idNumber = idNumberField.getText();
             String address = adressField.getText();
             String phoneNumber = phoneNumberField.getText();
@@ -86,6 +100,7 @@ public class RegisterCollaboratorUIController {
 
             Date admissionDate = new Date(year2, month2, day2);
             Collaborator collaborator = new Collaborator(name, birthDate, admissionDate, address, phoneNumber, email, taxNumber, idDocType, idNumber, job, psw);
+
             if (birthDate.compareTo(admissionDate) > 0) {
                 throw new InvalidCollaboratorDataException("The birth date must be before the admission date.");
             } else {

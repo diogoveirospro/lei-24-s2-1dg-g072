@@ -187,5 +187,14 @@ public class Agenda extends SerializableRepository<List<AgendaEntry>> implements
     public void saveAgendaToFile() {
         save(entriesAgenda);
     }
+    public List<AgendaEntry> getAgendaEntriesByTeamList(List<Team> teamList) {
+        List<AgendaEntry> agendaEntries = new ArrayList<>();
+        for (AgendaEntry agendaEntry : entriesAgenda) {
+            if (teamList.contains(agendaEntry.getTeam())) {
+                agendaEntries.add(agendaEntry);
+            }
+        }
+        return agendaEntries;
+    }
 
 }
