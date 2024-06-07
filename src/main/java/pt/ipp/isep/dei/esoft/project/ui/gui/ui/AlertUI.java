@@ -5,15 +5,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 
 public class AlertUI {
-    public static Alert createAnAlert(Alert.AlertType alertType, String interpriseName, String description, String message) {
+    public static Alert createAnAlert(Alert.AlertType alertType, String Title, String description, String message) {
         Alert alert = new Alert(alertType);
-        alert.setTitle(interpriseName);
+        alert.setTitle(Title);
         alert.setHeaderText(description);
         alert.setContentText(message);
 
         if (alertType == Alert.AlertType.CONFIRMATION) {
-            ((Button) alert.getDialogPane().lookupButton(ButtonType.OK)).setText("Sim");
-            ((Button) alert.getDialogPane().lookupButton(ButtonType.CANCEL)).setText("Não");
+            ((Button) alert.getDialogPane().lookupButton(ButtonType.OK)).setText("Yes");
+            ((Button) alert.getDialogPane().lookupButton(ButtonType.CANCEL)).setText("No");
         }
 
         return alert;

@@ -6,9 +6,20 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="fxml.USs.ListMaintenance"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="505.0" prefWidth="949.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.ListMaintenanceUIController">
+   <children>
+      <TableView fx:id="maintenanceTable" prefHeight="309.0" prefWidth="600.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columns>
+          <TableColumn fx:id="plateNumber" prefWidth="89.0" text="Plate" />
+          <TableColumn fx:id="brand" prefWidth="79.0" text="Brand" />
+            <TableColumn fx:id="model" prefWidth="118.0" text="Model" />
+            <TableColumn fx:id="currentKms" prefWidth="149.0" text="Curr.Kms" />
+            <TableColumn fx:id="frequency" prefWidth="157.0" text="Freq" />
+            <TableColumn fx:id="lastMaintenance" prefWidth="185.0" text="Last" />
+            <TableColumn fx:id="nextMaintenance" prefWidth="171.0" text="Next" />
+        </columns>
+      </TableView>
+      <Button fx:id="btnShowList" defaultButton="true" layoutX="685.0" layoutY="429.0" mnemonicParsing="false" onAction="#handleShowListAction" prefHeight="36.0" prefWidth="92.0" text="Show" AnchorPane.bottomAnchor="29.0" AnchorPane.rightAnchor="36.0" AnchorPane.topAnchor="445.0" />
+      <Button fx:id="btnBack" layoutX="47.0" layoutY="443.0" mnemonicParsing="false" onAction="#handleBackButtonAction" prefHeight="36.0" prefWidth="92.0" text="Back" AnchorPane.bottomAnchor="26.0" AnchorPane.leftAnchor="36.0" AnchorPane.rightAnchor="810.0" />
+   </children>
 </AnchorPane>

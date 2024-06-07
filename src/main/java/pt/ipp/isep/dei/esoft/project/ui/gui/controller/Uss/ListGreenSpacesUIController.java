@@ -3,18 +3,20 @@ package pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
+import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidEntryDataException;
 import pt.ipp.isep.dei.esoft.project.application.controller.ListGreenSpacesController;
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import pt.ipp.isep.dei.esoft.project.dto.GreenSpaceDto;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.AlertUI;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.CollaboratorUI;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.GSMUI;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.MainMenuUI;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss.ListGreenSpacesUI;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 public class ListGreenSpacesUIController {
     private final ListGreenSpacesController listGreenSpacesController = new ListGreenSpacesController();
@@ -63,14 +65,30 @@ public class ListGreenSpacesUIController {
         }
     }
     public void handleShowButtonAction() {
-        try {
-            String sortMethod = (String) listSortMethod.getValue();
-            List<GreenSpaceDto> greenSpaces = listGreenSpacesController.getGreenSpaceList(sortMethod);
-            for (GreenSpaceDto greenSpace : greenSpaces) {
-                listGreenSpace.getItems().add(greenSpace.getParkName());
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText("Are you sure you want to list all the green spaces?");
+        alert.setContentText("The data provided will be used to list green spaces, managed by you.");
+
+        ((Button) alert.getDialogPane().lookupButton(ButtonType.OK)).setText("Yes");
+        ((Button) alert.getDialogPane().lookupButton(ButtonType.CANCEL)).setText("No");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            try {
+                listGreenSpace.getItems().clear();
+                String sortMethod = (String) listSortMethod.getValue();
+                if (sortMethod == null) {
+                    AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error", "Please select a sort method.","You need to select a sort method to proceed.").show();
+                }
+                List<GreenSpaceDto> greenSpaces = listGreenSpacesController.getGreenSpaceList(sortMethod);
+                for (GreenSpaceDto greenSpace : greenSpaces) {
+                    String toBeShown = "GreenSpace " + greenSpace.getParkName() + " of the type " + greenSpace.getType().toString() + " and with an area of " + greenSpace.getDimension() + " ha.";
+                    listGreenSpace.getItems().add(toBeShown);
+                }
+            } catch (Exception e) {
+                System.out.println("An error occurred while handling the show action: " + e.getMessage());
             }
-        } catch (Exception e) {
-            System.out.println("An error occurred while handling the show action: " + e.getMessage());
         }
+
     }
 }

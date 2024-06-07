@@ -11,7 +11,7 @@ graph G {
     AP -- Pavilhao [label="5", color="black"];
     AP -- Topo [label="9", color="black"];
     AP -- Lago [label="9", color="black"];
-    AP -- Escadas1 [label="10", color="black"];
+    AP -- Escadas1 [label="10", color="red"];
     Pavilhao -- Lago [label="6", color="black"];
     Topo -- ParqueInfantil [label="7", color="black"];
     Topo -- Miradouro [label="3", color="black"];

@@ -1,14 +1,18 @@
 package pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss;
 
-import pt.ipp.isep.dei.esoft.project.Mapper.VehicleMapper;
-import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
-import pt.ipp.isep.dei.esoft.project.dto.VehicleDto;
-import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
-import pt.ipp.isep.dei.esoft.project.repository.MaintenanceRepository;
-import pt.ipp.isep.dei.esoft.project.repository.Repositories;
-import pt.ipp.isep.dei.esoft.project.repository.VehicleRepository;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.ListMaintenanceUIController;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.MainMenuUI;
 
+
+import java.io.IOException;
+import java.net.URL;
 import java.util.List;
+import java.util.ResourceBundle;
 
 /**
  * This class serves as the controller for the functionality of listing all the vehicles
@@ -16,70 +20,29 @@ import java.util.List;
  *
  * @author Group 072 - Byte Masters - ISEP
  */
-public class ListMaintenanceUI {
-    private MaintenanceRepository maintenanceRepository;
-    private AuthenticationRepository authenticationRepository;
-    private VehicleRepository vehicleRepository;
-    /**
-     * Empty ListMaintenanceController builder.
-     *
-     */
-    public ListMaintenanceUI(){
-        this.maintenanceRepository = Repositories.getInstance().getMaintenanceRepository();
-        this.authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
-        this.vehicleRepository = Repositories.getInstance().getVehicleRepository();
+public class ListMaintenanceUI implements Initializable {
+    public ListMaintenanceUIController listMaintenanceUIController;
+    public MainMenuUI mainMenuUI;
+    public static final String LOGIN = "List Maintenance";
+
+    public void showUI(Stage stage) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/USs/ListMaintenance.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        stage.setTitle(LOGIN);
+        stage.setScene(scene);
+        listMaintenanceUIController = loader.getController();
+        listMaintenanceUIController.setListMaintenanceUI(new ListMaintenanceUI());
+        stage.show();
     }
 
-    /**
-     * ListMaintenanceController builder
-     *
-     * @param maintenanceRepository contains all vehicles that need maintenance
-     * @param authenticationRepository authenticates the app
-     */
-    public ListMaintenanceUI(MaintenanceRepository maintenanceRepository, AuthenticationRepository authenticationRepository){
-        this.authenticationRepository = authenticationRepository;
-        this.maintenanceRepository = maintenanceRepository;
-    }
 
-    /**
-     * Lets the controller get the maintenance repository
-     *
-     * @return maintenanceRepository
-     */
-    private MaintenanceRepository getMaintenanceRepository(){
-        if (maintenanceRepository == null) {
-            Repositories repositories = Repositories.getInstance();
-
-            maintenanceRepository = repositories.getMaintenanceRepository();
-        }
-        return maintenanceRepository;
-    }
-
-    /**
-     * Lets the controller get the authentication repository
-     *
-     * @return authenticationRepository
-     */
-
-    private AuthenticationRepository getAuthenticationRepository(){
-        if (authenticationRepository == null) {
-            Repositories repositories = Repositories.getInstance();
-
-            authenticationRepository = repositories.getAuthenticationRepository();
-        }
-        return authenticationRepository;
-    }
-    /**
-     * Lets the controller get access to the maintenanceList
-     *
-     * @return vehicleList copy
-     */
-    public List<VehicleDto> getVehicleList(){
-        List<Vehicle> vehicleList =  vehicleRepository.getVehicleList();
-        vehicleList = maintenanceRepository.getVehicleList(vehicleList);
-        VehicleMapper vehicleMapper = new VehicleMapper();
-        return vehicleMapper.toDTO(vehicleList);
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
 
+    public ListMaintenanceUIController getListMaintenanceUIController() {
+        return listMaintenanceUIController;
+    }
 }

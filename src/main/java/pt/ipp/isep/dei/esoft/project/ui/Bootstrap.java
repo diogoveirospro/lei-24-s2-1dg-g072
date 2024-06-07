@@ -3,11 +3,12 @@ package pt.ipp.isep.dei.esoft.project.ui;
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidEntryDataException;
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidGreenSpaceDataException;
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidTaskDataException;
-import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
 import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidCollaboratorDataException;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 import pt.ipp.isep.dei.esoft.project.domain.Date;
+
+import java.util.List;
 
 /**
  * This class serves as a way to add objects to the system so
@@ -21,15 +22,70 @@ public class Bootstrap {
     private final VehicleRepository vehicleRepository = Repositories.getInstance().getVehicleRepository();
     private final JobRepository jobRepository = Repositories.getInstance().getJobRepository();
     private final Agenda agenda = Repositories.getInstance().getAgenda();
+    private final TeamRepository teamRepository = Repositories.getInstance().getTeamRepository();
+    private final GreenSpaceRepository greenSpaceRepository = Repositories.getInstance().getGreenSpaceRepository();
+    private final TaskRepository taskRepository = Repositories.getInstance().getTaskRepository();
+    private final ToDoList toDoList = Repositories.getInstance().getToDoList();
 
     public void run() throws InvalidCollaboratorDataException, InvalidTaskDataException, InvalidEntryDataException, InvalidGreenSpaceDataException {
         addSkill();
         addJob();
         addCollaborator();
         addVehicle();
-        addVehicleMaintenance();
         addUsers();
+        addGreenSpaces();
+        addTasks();
         addAgendaEntry();
+        addToDoListEntry();
+        addTeam();
+    }
+    private void addToDoListEntry() throws InvalidTaskDataException, InvalidEntryDataException {
+        Task task3 = new Task("Task Three", "3");
+        Task task4 = new Task("Task Four", "4");
+        Task task5 = new Task("Task Five", "5");
+        Task task6 = new Task("Task Six", "6");
+        Task task7 = new Task("Task Seven", "7");
+        Task task8 = new Task("Task Eight", "8");
+        Task task9 = new Task("Task Nine", "9");
+        Task task10 = new Task("Task Ten", "10");
+        Task task11 = new Task("Task Eleven", "11");
+        Task task12 = new Task("Task Twelve", "12");
+
+        GreenSpace greenSpace1 = greenSpaceRepository.getGreenSpaceByParkName("Cidade");
+        GreenSpace greenSpace2 = greenSpaceRepository.getGreenSpaceByParkName("São Roque");
+
+        ToDoListEntry toDoListEntry1 = new ToDoListEntry(task3, greenSpace1, ToDoListEntry.DegreeOfUrgency.LOW);
+        ToDoListEntry toDoListEntry2 = new ToDoListEntry(task4, greenSpace1, ToDoListEntry.DegreeOfUrgency.MEDIUM);
+        ToDoListEntry toDoListEntry3 = new ToDoListEntry(task5, greenSpace1, ToDoListEntry.DegreeOfUrgency.HIGH);
+        ToDoListEntry toDoListEntry4 = new ToDoListEntry(task6, greenSpace1, ToDoListEntry.DegreeOfUrgency.LOW);
+        ToDoListEntry toDoListEntry5 = new ToDoListEntry(task7, greenSpace1, ToDoListEntry.DegreeOfUrgency.MEDIUM);
+        ToDoListEntry toDoListEntry6 = new ToDoListEntry(task8, greenSpace2, ToDoListEntry.DegreeOfUrgency.HIGH);
+        ToDoListEntry toDoListEntry7 = new ToDoListEntry(task9, greenSpace2, ToDoListEntry.DegreeOfUrgency.LOW);
+        ToDoListEntry toDoListEntry8 = new ToDoListEntry(task10, greenSpace2, ToDoListEntry.DegreeOfUrgency.MEDIUM);
+        ToDoListEntry toDoListEntry9 = new ToDoListEntry(task11, greenSpace2, ToDoListEntry.DegreeOfUrgency.HIGH);
+        ToDoListEntry toDoListEntry10 = new ToDoListEntry(task12, greenSpace2, ToDoListEntry.DegreeOfUrgency.LOW);
+
+        toDoList.addEntry(toDoListEntry1);
+        toDoList.addEntry(toDoListEntry2);
+        toDoList.addEntry(toDoListEntry3);
+        toDoList.addEntry(toDoListEntry4);
+        toDoList.addEntry(toDoListEntry5);
+        toDoList.addEntry(toDoListEntry6);
+        toDoList.addEntry(toDoListEntry7);
+        toDoList.addEntry(toDoListEntry8);
+        toDoList.addEntry(toDoListEntry9);
+        toDoList.addEntry(toDoListEntry10);
+
+        greenSpace1.getToDoList().addEntry(toDoListEntry1);
+        greenSpace1.getToDoList().addEntry(toDoListEntry2);
+        greenSpace1.getToDoList().addEntry(toDoListEntry3);
+        greenSpace1.getToDoList().addEntry(toDoListEntry4);
+        greenSpace1.getToDoList().addEntry(toDoListEntry5);
+        greenSpace2.getToDoList().addEntry(toDoListEntry6);
+        greenSpace2.getToDoList().addEntry(toDoListEntry7);
+        greenSpace2.getToDoList().addEntry(toDoListEntry8);
+        greenSpace2.getToDoList().addEntry(toDoListEntry9);
+        greenSpace2.getToDoList().addEntry(toDoListEntry10);
     }
 
     private void addCollaborator() throws InvalidCollaboratorDataException {
@@ -146,52 +202,117 @@ public class Bootstrap {
     }
 
 
-    private void addUsers() throws InvalidCollaboratorDataException {
-        AuthenticationRepository authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
-        authenticationRepository.addUserRole(AuthenticationController.ROLE_HRM, AuthenticationController.ROLE_HRM);
-        authenticationRepository.addUserRole(AuthenticationController.ROLE_VFM, AuthenticationController.ROLE_VFM);
-        authenticationRepository.addUserRole(AuthenticationController.ROLE_GSM, AuthenticationController.ROLE_GSM);
-        authenticationRepository.addUserRole(AuthenticationController.ROLE_QAM, AuthenticationController.ROLE_QAM);
-        authenticationRepository.addUserRole(AuthenticationController.ROLE_COL, AuthenticationController.ROLE_COL);
+    private void addUsers() {
 
         for (Collaborator c : collaboratorRepository.getCollaborators()) {
+            String email = c.getEmail();
+            String role;
 
-            if (c.getEmail().contains("@hrm.com")){
-                authenticationRepository.addUserWithRole(c, AuthenticationController.ROLE_HRM);
-            } else if (c.getEmail().contains("@gsm.com")) {
-                authenticationRepository.addUserWithRole(c, AuthenticationController.ROLE_GSM);
-            } else if (c.getEmail().contains("@vfm.com")) {
-                authenticationRepository.addUserWithRole(c, AuthenticationController.ROLE_VFM);
-            } else if (c.getEmail().contains("@qam.com")) {
-                authenticationRepository.addUserWithRole(c, AuthenticationController.ROLE_QAM);
+            if (email.contains("@hrm.com")) {
+                role = "HRM";
+            } else if (email.contains("@gsm.com")) {
+                role = "GSM";
+            } else if (email.contains("@vfm.com")) {
+                role = "VFM";
+            } else if (email.contains("@qam.com")) {
+                role = "QAM";
             } else {
-                authenticationRepository.addUserWithRole(c, AuthenticationController.ROLE_COL);
+                role = "COLLABORATOR";
             }
-        }
 
+            AuthenticationRepository.addUser(email, c.getPwd(), role);
+        }
     }
 
+
     private void addVehicle() {
-        Vehicle vehicle1 = new Vehicle("GG-69-EZ","BMW","i4","hibrid",3500.0,4500.0,1000.0,new Date(2024,1,10), new  Date(2024,1,26),10000.0,0.0);
-        Vehicle vehicle2 = new Vehicle("69-WP-42","Toyota","Avensis","Diesel",3000.0,4000.0,42000.0,new Date(2018,12,10), new  Date(2019,1,10),20000.0,30000.0);
-        Vehicle vehicle3 = new Vehicle("04-20-VC","ferrari","diablo","Petrol",3000.0,4000.0,100000.0,new Date(2000,12,10), new  Date(2003,10,11),10000.0,75432.3);
+        Vehicle vehicle1 = new Vehicle("GG-69-EZ", "BMW", "i4", "hibrid", 3500.0, 4500.0, 1000.0, new Date(2024, 1, 10), new Date(2024, 1, 26), 10000.0, 0.0);
+        Vehicle vehicle2 = new Vehicle("69-WP-42", "Toyota", "Avensis", "Diesel", 3000.0, 4000.0, 42000.0, new Date(2018, 12, 10), new Date(2019, 1, 10), 20000.0, 30000.0);
+        Vehicle vehicle3 = new Vehicle("04-20-VC", "ferrari", "diablo", "Petrol", 3000.0, 4000.0, 100000.0, new Date(2000, 12, 10), new Date(2003, 10, 11), 10000.0, 75432.3);
         vehicleRepository.addVehicle(vehicle1);
         vehicleRepository.addVehicle(vehicle2);
         vehicleRepository.addVehicle(vehicle3);
     }
-    private void addVehicleMaintenance(){
 
-    }
 
     private void addAgendaEntry() throws InvalidEntryDataException, InvalidTaskDataException, InvalidGreenSpaceDataException {
         GreenSpaceRepository greenSpaceRepository = Repositories.getInstance().getGreenSpaceRepository();
         TaskRepository taskRepository = Repositories.getInstance().getTaskRepository();
-        Task task = new Task("Task", "14");
-        taskRepository.addTask(task);
-        GreenSpace greenSpace = new GreenSpace(GreenSpace.TypeOfGreenSpace.GARDEN, "GreenSpace description", 1000.0, "Address", collaboratorRepository.getCollaborator("H234564"));
-        greenSpaceRepository.addGreenSpace(greenSpace);
-        Entry entry = new Entry(taskRepository.findTaskById("Task"), greenSpaceRepository.getGreenSpaceByParkName("GreenSpace description"));
-        AgendaEntry entry1 = new AgendaEntry(entry.getTask(), greenSpaceRepository.getGreenSpaceByParkName("GreenSpace description"), new Date(2021, 1, 1), AgendaEntry.HourOfDay.H01,new Date(2021, 1, 1), AgendaEntry.HourOfDay.H06);
-        agenda.addAgendaEntry(entry1);
+        Task task1 = new Task("Task One", "14");
+        Task task2 = new Task("Task Two", "2");
+        taskRepository.addTask(task1);
+        taskRepository.addTask(task2);
+
+
+        Entry entry1 = new Entry(taskRepository.findTaskById("Task One"), greenSpaceRepository.getGreenSpaceByParkName("Cidade"));
+        AgendaEntry agendaEntry1 = new AgendaEntry(entry1.getTask(), greenSpaceRepository.getGreenSpaceByParkName("Cidade"), new Date(2024, 6, 6), AgendaEntry.WorkingDayHours.H09, new Date(2024, 6, 20), AgendaEntry.WorkingDayHours.H12);
+        agenda.addAgendaEntry(agendaEntry1);
+
+        Entry entry2 = new Entry(taskRepository.findTaskById("Task Two"), greenSpaceRepository.getGreenSpaceByParkName("São Roque"));
+        AgendaEntry agendaEntry2 = new AgendaEntry(entry2.getTask(), greenSpaceRepository.getGreenSpaceByParkName("São Roque"), new Date(2024, 6, 7), AgendaEntry.WorkingDayHours.H10, new Date(2024, 6, 8), AgendaEntry.WorkingDayHours.H14);
+        agenda.addAgendaEntry(agendaEntry2);
+    }
+
+    private void addTeam() throws InvalidCollaboratorDataException {
+
+        Collaborator c1 = new Collaborator("Ana", new Date(1990, 2, 3),
+                new Date(2010, 3, 1), "Rua1", "912345669", "ana@collaborator.com",
+                "123456789", Collaborator.IdDocType.CC, "234564321zx7", "ABC1234");
+
+        Collaborator c2 = new Collaborator("João", new Date(1980, 2, 3), new Date(2010,
+                3, 1), "Rua2", "912345669", "joao@collaborator.com", "234567899",
+                Collaborator.IdDocType.BI, "232566381", "ABC1234");
+
+        Collaborator c3 = new Collaborator("André", new Date(1970, 2, 3), new Date(2010,
+                3, 1), "Rua3", "912345669", "andre@collaborator.com", "345678907",
+                Collaborator.IdDocType.NISS, "23456432125", "ABC1234");
+
+        Collaborator c4 = new Collaborator("Manuel", new Date(1999, 2, 3), new Date(2020,
+                3, 1), "Rua4", "912345669", "manuel@collaborator.com", "456789014",
+                Collaborator.IdDocType.PASSPORT, "H234564", "ABC1234");
+
+
+        Team team1 = new Team(List.of(c1, c2));
+        Team team2 = new Team(List.of(c3, c4));
+
+        teamRepository.addTeam(team1);
+        teamRepository.addTeam(team2);
+    }
+
+    private void addGreenSpaces() throws InvalidGreenSpaceDataException {
+        GreenSpace greenSpace1 = new GreenSpace(GreenSpace.TypeOfGreenSpace.LPARK, "Cidade", 83,
+                "Estrada Interior da Circunvalação, 4100-083 Porto", collaboratorRepository.getCollaborator("122472678cc3"));
+
+        GreenSpace greenSpace2 = new GreenSpace(GreenSpace.TypeOfGreenSpace.GARDEN, "São Roque", 4,
+                "R. São Roque da Lameira 2040, 4350-307 Porto", collaboratorRepository.getCollaborator("122472678cc3"));
+
+        greenSpaceRepository.addGreenSpace(greenSpace1);
+        greenSpaceRepository.addGreenSpace(greenSpace2);
+    }
+
+    private void addTasks() throws InvalidTaskDataException {
+        Task task3 = new Task("Task Three", "3");
+        Task task4 = new Task("Task Four", "4");
+        Task task5 = new Task("Task Five", "5");
+        Task task6 = new Task("Task Six", "6");
+        Task task7 = new Task("Task Seven", "7");
+        Task task8 = new Task("Task Eight", "8");
+        Task task9 = new Task("Task Nine", "9");
+        Task task10 = new Task("Task Ten", "10");
+        Task task11 = new Task("Task Eleven", "11");
+        Task task12 = new Task("Task Twelve", "12");
+
+        taskRepository.addTask(task3);
+        taskRepository.addTask(task4);
+        taskRepository.addTask(task5);
+        taskRepository.addTask(task6);
+        taskRepository.addTask(task7);
+        taskRepository.addTask(task8);
+        taskRepository.addTask(task9);
+        taskRepository.addTask(task10);
+        taskRepository.addTask(task11);
+        taskRepository.addTask(task12);
+
+
     }
 }

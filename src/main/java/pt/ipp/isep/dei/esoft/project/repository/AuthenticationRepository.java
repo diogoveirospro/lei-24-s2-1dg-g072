@@ -1,38 +1,73 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
-import pt.isep.lei.esoft.auth.AuthFacade;
-import pt.isep.lei.esoft.auth.UserSession;
+import pt.ipp.isep.dei.esoft.project.repository.data.SerializableRepository;
+
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
+ * Repository for managing authentication and user sessions.
  *
- *
- * @author Group 072 - Byte Masters - ISEP
+ * @autor Group 072 - Byte Masters - ISEP
  */
 public class AuthenticationRepository {
-    private final AuthFacade authenticationFacade;
+    private static final Map<String, String> users = new HashMap<>();
+    private static final Map<String, String> roles = new HashMap<>();
+    private static String authenticatedUserEmail;
 
-    public AuthenticationRepository() {
-        authenticationFacade = new AuthFacade();
+    private static AuthenticationRepository instance;
+
+    /**
+     * Adds a user to the repository.
+     *
+     * @param email    the email of the user
+     * @param password the password of the user
+     * @param role     the role of the user
+     */
+    public static void addUser(String email, String password, String role) {
+        users.put(email, password);
+        roles.put(email, role);
     }
 
-    public boolean doLogin(String email, String pwd) {
-        return authenticationFacade.doLogin(email, pwd).isLoggedIn();
+    /**
+     * Authenticates a user.
+     *
+     * @param email    the email of the user
+     * @param password the password of the user
+     * @return true if authentication is successful, false otherwise
+     */
+    public static boolean authenticate(String email, String password) {
+        if (users.containsKey(email) && users.get(email).equals(password)) {
+            authenticatedUserEmail = email;
+            return true;
+        }
+        return false;
     }
 
-    public void doLogout() {
-        authenticationFacade.doLogout();
+    /**
+     * Logs out the authenticated user.
+     */
+    public static void logout() {
+        authenticatedUserEmail = null;
     }
 
-    public UserSession getCurrentUserSession() {
-        return authenticationFacade.getCurrentUserSession();
+    /**
+     * Gets the email of the authenticated user.
+     *
+     * @return the email of the authenticated user, or null if no user is authenticated
+     */
+    public static String getAuthenticatedUserEmail() {
+        return authenticatedUserEmail;
     }
 
-    public boolean addUserRole(String id, String description) {
-        return authenticationFacade.addUserRole(id, description);
-    }
-
-    public boolean addUserWithRole(Collaborator collaborator, String roleId) {
-        return authenticationFacade.addUserWithRole(collaborator.getName(), collaborator.getEmail(), collaborator.getPwd(), roleId);
+    /**
+     * Gets the role of the authenticated user.
+     *
+     * @return the role of the authenticated user, or null if no user is authenticated
+     */
+    public static String getAuthenticatedUserRole() {
+        return roles.get(authenticatedUserEmail);
     }
 }

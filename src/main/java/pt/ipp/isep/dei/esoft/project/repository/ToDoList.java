@@ -1,7 +1,9 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
 import pt.ipp.isep.dei.esoft.project.domain.*;
+import pt.ipp.isep.dei.esoft.project.repository.data.SerializableRepository;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +13,7 @@ import java.util.List;
  *
  * @author Group 072 - Byte Masters - ISEP
  */
-public class ToDoList {
+public class ToDoList extends SerializableRepository<List<ToDoListEntry>> implements Serializable {
     private List<ToDoListEntry> toDoListEntries;
 
     /**
@@ -19,6 +21,7 @@ public class ToDoList {
      * Initializes the list of ToDoListEntry objects.
      */
     public ToDoList() {
+        super("toDoList.ser");
         this.toDoListEntries = new ArrayList<>();
     }
 
@@ -31,15 +34,10 @@ public class ToDoList {
         return AgendaEntry.StatusOfEntry.getStatusList();
     }
 
-    /**
-     * Retrieves a ToDoListEntry object by matching the task's hash code.
-     *
-     * @param taskHashCode the hash code of the task to search for.
-     * @return the matching ToDoListEntry object, or null if not found.
-     */
-    public ToDoListEntry getToDoListEntryByTaskHashCode(int taskHashCode) {
+
+    public ToDoListEntry getToDoListEntryByTaskName(String taskName) {
         for (ToDoListEntry toDoListEntry : toDoListEntries) {
-            if (toDoListEntry.getTask().hashCode() == taskHashCode) {
+            if (toDoListEntry.getTask().getTaskId().equals(taskName)) {
                 return toDoListEntry;
             }
         }
@@ -64,5 +62,10 @@ public class ToDoList {
 
     public void addEntry(ToDoListEntry toDoListEntry) {
         this.toDoListEntries.add(toDoListEntry);
+        save(toDoListEntries);
+    }
+
+    public void saveToDoListToFile() {
+        save(toDoListEntries);
     }
 }

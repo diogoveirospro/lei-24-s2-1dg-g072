@@ -1,11 +1,13 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.io.Serializable;
+
 /**
  * It represents a job with all its attributes.
  *
  * @author Group 072 - Byte Masters - ISEP
  */
-public class Job implements Comparable<Job> {
+public class Job implements Comparable<Job>, Serializable {
     /**
      * Name that represents the job.
      */

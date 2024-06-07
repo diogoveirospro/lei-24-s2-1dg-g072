@@ -95,6 +95,9 @@ public class PostponeEntryUIController {
     @FXML
     private DatePicker btnDate;
 
+    @FXML
+    private DatePicker btnEndDate;
+
     /**
      * Initializes the controller
      */
@@ -105,6 +108,7 @@ public class PostponeEntryUIController {
             cmbAgendaEntries.setItems(methods);
             btnDate.setDisable(true);
             btnPostpone.setDisable(true);
+            btnEndDate.setDisable(true);
         } catch (Exception e) {
             System.out.println("Error while loading the status list.");
         }
@@ -136,14 +140,17 @@ public class PostponeEntryUIController {
             AgendaEntry selectedEntry = postponeEntryController.getAgendaEntryByTaskName(selectedEntryName);
             LocalDate newDate = btnDate.getValue();
             Date date = new Date(newDate.getYear(), newDate.getMonthValue(), newDate.getDayOfMonth());
+            LocalDate newEndDate = btnEndDate.getValue();
+            Date endDate = new Date(newEndDate.getYear(), newEndDate.getMonthValue(), newEndDate.getDayOfMonth());
             cmbAgendaEntries.getItems().setAll(selectedEntryName);
 
-            postponeEntryController.postponeAgendaEntry(selectedEntry, date);
+            postponeEntryController.postponeAgendaEntry(selectedEntry, date, endDate);
             Alert al = AlertUI.createAnAlert(Alert.AlertType.INFORMATION, "Musgo Sublime","Postpone Entry", "The entry has been successfully postponed!");
             al.showAndWait();
             closeWindow(actionEvent);
         } catch (Exception e) {
-            alertUI.createAnAlert(Alert.AlertType.ERROR, "Musgo Sublime","Postpone Entry Error", "An error occurred while postponing entry.");
+            Alert alError = AlertUI.createAnAlert(Alert.AlertType.ERROR, "Musgo Sublime","Postpone Entry Error", "An error occurred while postponing entry.");
+            alError.showAndWait();
         }
     }
 
@@ -179,6 +186,26 @@ public class PostponeEntryUIController {
             btnPostpone.setDisable(true);
             btnDate.setValue(null);
             Alert al = AlertUI.createAnAlert(Alert.AlertType.ERROR, "Musgo Sublime","Postpone Entry", "The date must be after the entry date!");
+            al.showAndWait();
+        } else {
+            btnEndDate.setDisable(false);
+        }
+
+    }
+
+    public void handleEndDate(ActionEvent actionEvent) {
+        AgendaEntry selectedEntry = postponeEntryController.getAgendaEntryByTaskName(cmbAgendaEntries.getValue());
+        LocalDate newDate = btnEndDate.getValue();
+
+        if (newDate == null){
+            return;
+        }
+        Date date = new Date(newDate.getYear(), newDate.getMonthValue(), newDate.getDayOfMonth());
+
+        if (selectedEntry.getEndDate().isGreater(date)){
+            btnPostpone.setDisable(true);
+            btnEndDate.setValue(null);
+            Alert al = AlertUI.createAnAlert(Alert.AlertType.ERROR, "Musgo Sublime","Postpone Entry", "The date must be after the entry end date!");
             al.showAndWait();
         } else {
             btnPostpone.setDisable(false);

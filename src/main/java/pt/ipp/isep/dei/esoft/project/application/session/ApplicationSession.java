@@ -1,7 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.application.session;
 
 import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
-import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -9,50 +8,79 @@ import java.io.InputStream;
 import java.util.Properties;
 
 /**
+ * Manages the application session.
  *
- *
- * @author Group 072 - Byte Masters - ISEP
+ * @autor Group 072 - Byte Masters - ISEP
  */
 public class ApplicationSession {
-    private final AuthenticationRepository authenticationRepository;
     private static final String CONFIGURATION_FILENAME = "src/main/resources/config/config.properties";
     private static final String COMPANY_DESIGNATION = "Company.Designation";
 
+    private Properties properties;
+    private static ApplicationSession singleton = null;
+
     private ApplicationSession() {
-        this.authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
-        Properties props = getProperties();
+        properties = loadProperties();
     }
 
+    /**
+     * Gets the current session.
+     *
+     * @return the current user session
+     */
     public UserSession getCurrentSession() {
-        pt.isep.lei.esoft.auth.UserSession userSession = this.authenticationRepository.getCurrentUserSession();
-        return new UserSession(userSession);
+        String authenticatedUserEmail = AuthenticationRepository.getAuthenticatedUserEmail();
+        String authenticatedUserRole = AuthenticationRepository.getAuthenticatedUserRole();
+
+        if (authenticatedUserEmail == null) {
+            return null; // No user is authenticated
+        }
+
+        return new UserSession(authenticatedUserEmail, authenticatedUserRole);
     }
 
-    private Properties getProperties() {
+    /**
+     * Loads the properties from the configuration file.
+     *
+     * @return the properties
+     */
+    private Properties loadProperties() {
         Properties props = new Properties();
 
         // Add default properties and values
         props.setProperty(COMPANY_DESIGNATION, "MusgoSublime");
 
         // Read configured values
-        try {
-            InputStream in = new FileInputStream(CONFIGURATION_FILENAME);
+        try (InputStream in = new FileInputStream(CONFIGURATION_FILENAME)) {
             props.load(in);
-            in.close();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
         return props;
     }
 
-    private static ApplicationSession singleton = null;
-
+    /**
+     * Gets the singleton instance of the application session.
+     *
+     * @return the application session instance
+     */
     public static ApplicationSession getInstance() {
         if (singleton == null) {
             synchronized (ApplicationSession.class) {
-                singleton = new ApplicationSession();
+                if (singleton == null) {
+                    singleton = new ApplicationSession();
+                }
             }
         }
         return singleton;
+    }
+
+    /**
+     * Gets the company designation from the properties.
+     *
+     * @return the company designation
+     */
+    public String getCompanyDesignation() {
+        return properties.getProperty(COMPANY_DESIGNATION);
     }
 }

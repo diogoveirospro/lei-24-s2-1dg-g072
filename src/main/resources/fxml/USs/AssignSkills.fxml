@@ -6,9 +6,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="fxml.USs.AssignSkills"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.AssignSkillUIController">
+   <children>
+      <ListView layoutX="18.0" layoutY="66.0" prefHeight="269.0" prefWidth="282.0" />
+      <Label layoutX="53.0" layoutY="34.0" text="Choose the skills to be assigned" />
+      <ComboBox layoutX="379.0" layoutY="66.0" prefWidth="150.0" />
+      <Label layoutX="379.0" layoutY="34.0" text="Select the collaborator" />
+      <Button defaultButton="true" layoutX="497.0" layoutY="304.0" mnemonicParsing="false" text="Assign" />
+      <Button layoutX="347.0" layoutY="304.0" mnemonicParsing="false" text="Cancel" />
+   </children>
 </AnchorPane>

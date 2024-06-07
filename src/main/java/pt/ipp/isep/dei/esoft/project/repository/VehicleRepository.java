@@ -1,8 +1,11 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
+import pt.ipp.isep.dei.esoft.project.domain.AgendaEntry;
 import pt.ipp.isep.dei.esoft.project.domain.Date;
 import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
+import pt.ipp.isep.dei.esoft.project.repository.data.SerializableRepository;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -13,7 +16,7 @@ import java.util.Optional;
  *
  * @author Group 072 - Byte Masters - ISEP
  */
-public class VehicleRepository {
+public class VehicleRepository extends SerializableRepository<List<Vehicle>> implements Serializable {
 
     /**
      * List containing all vehicles
@@ -24,6 +27,7 @@ public class VehicleRepository {
      * Repository builder
      */
     public VehicleRepository() {
+        super("vehicleRepository.ser");
         vehicleList = new ArrayList<Vehicle>();
     }
 
@@ -45,6 +49,7 @@ public class VehicleRepository {
         boolean success = true;
         if (checkVehicleInList(newVehicle) && (newVehicle.validateVehicle())){
             vehicleList.add(newVehicle.clone());
+            saveVehicleRepositoryToFile();
         }else {
             success = false;
             throw new IllegalArgumentException("Invalid vehicle to add");
@@ -141,5 +146,21 @@ public class VehicleRepository {
             }
         }
         return null;
+    }
+
+    public List<Vehicle> getValidVehicles(AgendaEntry agendaEntry) {
+        List<Vehicle> validVehicles = new ArrayList<>();
+        List<Vehicle> allVehicles = Repositories.getInstance().getVehicleRepository().getVehicleList();
+
+        for (Vehicle vehicle : allVehicles) {
+            if (vehicle.validateVehicleForEntry(agendaEntry)) {
+                validVehicles.add(vehicle);
+            }
+        }
+        return validVehicles;
+    }
+
+    public void saveVehicleRepositoryToFile() {
+        save(vehicleList);
     }
 }

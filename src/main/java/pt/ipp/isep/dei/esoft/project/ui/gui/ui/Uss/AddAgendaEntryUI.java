@@ -16,7 +16,7 @@ import java.util.ResourceBundle;
  */
 public class AddAgendaEntryUI implements Initializable {
 
-    public static final String ADDAGENDAENTRY = "GSM | Add New Entry to the Agenda";
+    public static final String ADDAGENDAENTRY = "Add New Entry to the Agenda";
     public AddAgendaEntryUIController addAgendaEntryUIController;
 
     /**

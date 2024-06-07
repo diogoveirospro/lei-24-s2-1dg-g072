@@ -1,6 +1,8 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidTaskDataException;
+
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -8,7 +10,7 @@ import java.util.Objects;
  *
  * @author Group 072 - Byte Masters - ISEP
  */
-public class Task {
+public class Task implements Serializable {
     /**
      * The duration of the task.
      */
@@ -40,7 +42,9 @@ public class Task {
     }
 
     private boolean isValidDuration(String duration) throws InvalidTaskDataException {
-        if (!duration.matches("\\d+")) {
+        if (duration == null || duration.isBlank()) {
+            throw new InvalidTaskDataException("Invalid Input. The duration of the task cannot be empty or blank.");
+        } else if (!duration.matches("\\d+")) {
             throw new InvalidTaskDataException("Invalid Input. The duration of the task must be a number.");
         } else {
             return true;
@@ -105,5 +109,9 @@ public class Task {
     @Override
     public int hashCode() {
         return Objects.hash(duration, task);
+    }
+
+    public void setName(String newName) {
+        this.task = newName;
     }
 }

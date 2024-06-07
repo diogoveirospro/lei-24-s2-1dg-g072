@@ -9,11 +9,11 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 1190.5)">
 <title>G</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-1190.5 882.76,-1190.5 882.76,4 -4,4"/>
-<!-- ﻿Biblioteca -->
+<!-- Biblioteca -->
 <g id="node1" class="node">
-<title>﻿Biblioteca</title>
+<title>Biblioteca</title>
 <ellipse fill="none" stroke="black" cx="509.26" cy="-1168.5" rx="53.4" ry="18"/>
-<text text-anchor="middle" x="509.26" y="-1163.45" font-family="Helvetica,Arial,sans-serif" font-size="14.00">﻿Biblioteca</text>
+<text text-anchor="middle" x="509.26" y="-1163.45" font-family="Helvetica,Arial,sans-serif" font-size="14.00">Biblioteca</text>
 </g>
 <!-- Teatro -->
 <g id="node2" class="node">
@@ -21,9 +21,9 @@
 <ellipse fill="none" stroke="black" cx="417.26" cy="-1080" rx="39.07" ry="18"/>
 <text text-anchor="middle" x="417.26" y="-1074.95" font-family="Helvetica,Arial,sans-serif" font-size="14.00">Teatro</text>
 </g>
-<!-- ﻿Biblioteca&#45;&#45;Teatro -->
+<!-- Biblioteca&#45;&#45;Teatro -->
 <g id="edge1" class="edge">
-<title>﻿Biblioteca&#45;&#45;Teatro</title>
+<title>Biblioteca&#45;&#45;Teatro</title>
 <path fill="none" stroke="black" d="M491.96,-1151.23C475.3,-1135.57 450.29,-1112.05 433.87,-1096.61"/>
 <text text-anchor="middle" x="476.39" y="-1119.2" font-family="Helvetica,Arial,sans-serif" font-size="14.00">8</text>
 </g>
@@ -33,16 +33,16 @@
 <ellipse fill="none" stroke="black" cx="600.26" cy="-991.5" rx="27" ry="18"/>
 <text text-anchor="middle" x="600.26" y="-986.45" font-family="Helvetica,Arial,sans-serif" font-size="14.00">AP</text>
 </g>
-<!-- ﻿Biblioteca&#45;&#45;AP -->
+<!-- Biblioteca&#45;&#45;AP -->
 <g id="edge2" class="edge">
-<title>﻿Biblioteca&#45;&#45;AP</title>
+<title>Biblioteca&#45;&#45;AP</title>
 <path fill="none" stroke="black" d="M518.16,-1150.4C535.69,-1116.69 574.5,-1042.04 591.74,-1008.9"/>
 <text text-anchor="middle" x="571.51" y="-1074.95" font-family="Helvetica,Arial,sans-serif" font-size="14.00">10</text>
 </g>
 <!-- Teatro&#45;&#45;AP -->
 <g id="edge3" class="edge">
 <title>Teatro&#45;&#45;AP</title>
-<path fill="none" stroke="red" d="M443.87,-1066.42C480.26,-1049.23 544.83,-1018.7 578.49,-1002.79"/>
+<path fill="none" stroke="black" d="M443.87,-1066.42C480.26,-1049.23 544.83,-1018.7 578.49,-1002.79"/>
 <text text-anchor="middle" x="529.39" y="-1030.7" font-family="Helvetica,Arial,sans-serif" font-size="14.00">7</text>
 </g>
 <!-- Topo -->
@@ -60,7 +60,7 @@
 <!-- AP&#45;&#45;Topo -->
 <g id="edge6" class="edge">
 <title>AP&#45;&#45;Topo</title>
-<path fill="none" stroke="black" d="M578.21,-980.91C541.07,-964.77 466.26,-932.25 426.87,-915.13"/>
+<path fill="none" stroke="red" d="M578.21,-980.91C541.07,-964.77 466.26,-932.25 426.87,-915.13"/>
 <text text-anchor="middle" x="523.39" y="-942.2" font-family="Helvetica,Arial,sans-serif" font-size="14.00">9</text>
 </g>
 <!-- Pavilhao -->
@@ -114,7 +114,7 @@
 <!-- Topo&#45;&#45;ParqueInfantil -->
 <g id="edge10" class="edge">
 <title>Topo&#45;&#45;ParqueInfantil</title>
-<path fill="none" stroke="black" d="M408.18,-884.91C414.28,-869.84 423.12,-847.99 429.24,-832.85"/>
+<path fill="none" stroke="red" d="M408.18,-884.91C414.28,-869.84 423.12,-847.99 429.24,-832.85"/>
 <text text-anchor="middle" x="426.39" y="-853.7" font-family="Helvetica,Arial,sans-serif" font-size="14.00">7</text>
 </g>
 <!-- Miradouro -->

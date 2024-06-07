@@ -6,11 +6,14 @@ import java.util.*;
 public class Main {
 
     public static final int QUANTITY_OF_FILES = 30;
+    private static final String FILE_PATH = "src/main/java/PI_MDISC_Group_072/Output/graph_Dijkstra.csv";
 
     public static void main(String[] args) throws IOException, InterruptedException {
         Locale.setDefault(Locale.US);
         Scanner sc = new Scanner(System.in);
+        clearFileIfExists();
         int option = 0;
+
 
         do {
             System.out.println("""
@@ -42,6 +45,16 @@ public class Main {
         } while (option < 1 || option > 4);
     }
 
+    private static void clearFileIfExists() {
+        File file = new File(FILE_PATH);
+        if (file.exists()) {
+            try (PrintWriter writer = new PrintWriter(new FileWriter(FILE_PATH))) {
+                // File will be cleared when opened with FileWriter without append mode
+            } catch (IOException e) {
+                System.err.println("Error clearing the CSV file: " + e.getMessage());
+            }
+        }
+    }
     private static void US18() throws IOException, InterruptedException {
         Scanner sc = new Scanner(System.in);
         StringBuilder inputVerticesFile = new StringBuilder(getFileVertices(sc));
@@ -50,9 +63,11 @@ public class Main {
         StringBuilder fileVertices = new StringBuilder("src/main/java/PI_MDISC_Group_072/Input/" + inputVerticesFile + ".csv");
 
         ArrayList<Vertex> vertices = readVertexFile(fileVertices);
+        int i = 0;
         for (Vertex vertex : vertices) {
             String sanitizedVertexName = sanitizeVertexName(vertex.getV());
-            vertex.setV(sanitizedVertexName);
+            vertices.get(i).setV(sanitizedVertexName);
+            i++;
         }
         int[][] weights = readWeightFile(fileWeights);
         ArrayList<Edge> graphEdges = new ArrayList<>();
@@ -138,9 +153,11 @@ public class Main {
         StringBuilder fileVertices = new StringBuilder("src/main/java/PI_MDISC_Group_072/Input/" + inputVerticesFile + ".csv");
 
         ArrayList<Vertex> vertices = readVertexFile(fileVertices);
+        int i = 0;
         for (Vertex vertex : vertices) {
             String sanitizedVertexName = sanitizeVertexName(vertex.getV());
-            vertex.setV(sanitizedVertexName);
+            vertices.get(i).setV(sanitizedVertexName);
+            i++;
         }
         int[][] weights = readWeightFile(fileWeights);
         ArrayList<Edge> graphEdges = new ArrayList<>();
@@ -149,10 +166,6 @@ public class Main {
         createGraph(graph, inputVerticesFile);
         String MP = getMP(vertices);
 
-
-        for (Vertex vertex : vertices) {
-            System.out.println(vertex.getV());
-        }
 
         if (MP == null) {
             System.out.println("There is no Meeting Point in the file!");
@@ -182,7 +195,7 @@ public class Main {
     }
 
     public static String sanitizeVertexName(String inputName) {
-        return inputName.replace("\uFEFF", "");
+        return inputName.replaceAll("[^a-zA-Z0-9_-]", "");
     }
 
     public static Graph DijkstraUS17(ArrayList<Edge> edges, String start, String MP) {
@@ -242,12 +255,11 @@ public class Main {
             }
             Collections.reverse(path);
 
-            Graph shortestPath = new Graph();
             for (int i = 0; i < path.size() - 1; i++) {
                 Vertex origin = path.get(i);
                 Vertex destiny = path.get(i + 1);
                 int cost = initialGraph.getEdgeCost(origin, destiny);
-                shortestPath.addEdge(new Edge(origin, destiny, cost));
+                shortestPaths.addEdge(new Edge(origin, destiny, cost));
             }
 
 
@@ -411,19 +423,6 @@ public class Main {
         return shortestPaths;
     }
 
-    private static int minDistance(int[] dist, boolean[] visited, List<Vertex> vertices) {
-        int min = -1, minIndex = -1;
-
-        for (int v = 0; v < vertices.size(); v++) {
-
-            if (!visited[v] && dist[v] >= min) {
-                min = dist[v];
-                minIndex = v;
-            }
-
-        }
-        return minIndex;
-    }
 
 
     private static void createGraphDisktra(Graph graph, StringBuilder file, List<Edge> shortestPath, String vertex) throws IOException, InterruptedException {
@@ -593,17 +592,25 @@ public class Main {
     }
 
     private static void makeGraphCsv(Graph graph, String vertex) {
-        try (PrintWriter writer = new PrintWriter(new FileWriter("src/main/java/PI_MDISC_Group_072/Output/graph_" + vertex + ".csv"))) {
-            int totalCost = 0;
-            for (Edge edge : graph.getEdges()) {
-                String origin = edge.getOrigin().getV();
-                String destiny = edge.getDestiny().getV();
-                int cost = edge.getCost();
-                String edgeString = String.format("    %s -- %s cost : %d;", origin, destiny, cost);
-                totalCost += cost;
-                writer.println(edgeString);
+        try (PrintWriter writer = new PrintWriter(new FileWriter("src/main/java/PI_MDISC_Group_072/Output/graph_Dijkstra.csv", true))) {
+            int totalCost = graph.getTotalCost();
+            List<Vertex> vertices = graph.getVertices();
+            writer.printf("Vertice de começo: %s%n", vertex);
+            writer.printf("%n");
+            writer.printf("(");
+            int i = 0;
+            for (Vertex vertex1 : vertices) {
+                if (i == vertices.size() - 1) {
+                    writer.printf("%s)", vertex1.getV());
+                } else {
+                    writer.printf("%s;", vertex1.getV());
+                }
+                i++;
             }
-            writer.println("Total cost of making path: " + totalCost);
+            writer.printf(" Custo total de fazer o caminho: " + totalCost);
+            writer.printf("%n");
+            writer.printf("%n");
+
             System.out.println("CSV file 'src/main/java/PI_MDISC_Group_072/Output/graph_" + vertex + ".csv' has been created successfully.");
         } catch (IOException e) {
             System.err.println("Error writing to CSV file: " + e.getMessage());

@@ -1,9 +1,12 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
+import pt.ipp.isep.dei.esoft.project.domain.AgendaEntry;
 import pt.ipp.isep.dei.esoft.project.domain.Maintenance;
 import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
+import pt.ipp.isep.dei.esoft.project.repository.data.SerializableRepository;
 
 import javax.management.InstanceAlreadyExistsException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -13,7 +16,7 @@ import java.util.Optional;
  *
  * @author Group 072 - Byte Masters - ISEP
  */
-public class MaintenanceRepository {
+public class MaintenanceRepository extends SerializableRepository<List<Maintenance>> implements Serializable {
     /**
      * List of vehicles that need maintenance
      */
@@ -24,6 +27,7 @@ public class MaintenanceRepository {
      *
      */
     public MaintenanceRepository(){
+        super("maintenanceRepository.ser");
         maintenanceList = new ArrayList<>();
     }
     /**
@@ -79,6 +83,7 @@ public class MaintenanceRepository {
             mutableVehicleList.remove(vehicle);
             vehicles = mutableVehicleList;
         }
+        saveMaintenanceRepositoryToFile();
         return vehicles;
     }
 
@@ -110,6 +115,7 @@ public class MaintenanceRepository {
                 maintenance.setVehicleMaintenance(vehicle);
 
                     maintenanceList.add(maintenance);
+                    saveMaintenanceRepositoryToFile();
                     System.out.println("Maintenance added for vehicle with plate: " + maintenance.getPlateNumber());
 
             }
@@ -130,6 +136,10 @@ public class MaintenanceRepository {
 
     public List<Maintenance> getMaintenanceList(){
         return List.copyOf(maintenanceList);
+    }
+
+    public void saveMaintenanceRepositoryToFile() {
+        save(maintenanceList);
     }
 
 }

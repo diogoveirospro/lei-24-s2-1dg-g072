@@ -1,100 +1,47 @@
 package pt.ipp.isep.dei.esoft.project.ui.console.authorization;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
-import pt.ipp.isep.dei.esoft.project.ui.console.menu.*;
+import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidCollaboratorDataException;
+import pt.ipp.isep.dei.esoft.project.ui.console.menu.HrmUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
-import pt.isep.lei.esoft.auth.mappers.dto.UserRoleDTO;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Objects;
-
-/**
- *
- *
- * @author Group 072 - Byte Masters - ISEP
- */
+import java.io.IOException;
 
 public class AuthenticationUI implements Runnable {
     private final AuthenticationController ctrl;
 
     public AuthenticationUI() {
-        ctrl = new AuthenticationController();
+        this.ctrl = new AuthenticationController();
     }
 
+    @Override
     public void run() {
-        boolean success = doLogin();
+        try {
+            doLogin();
+        } catch (InvalidCollaboratorDataException | IOException e) {
+            System.out.println("An error occurred: " + e.getMessage());
+        } finally {
+            this.logout(); // Ensures logout is called regardless of login success
+        }
+    }
 
-        if (success) {
-            List<UserRoleDTO> roles = this.ctrl.getUserRoles();
-            if ((roles == null) || (roles.isEmpty())) {
-                System.out.println("No role assigned to user.");
+    private boolean doLogin() throws InvalidCollaboratorDataException, IOException {
+        System.out.println("\n\n--- LOGIN UI ---------------------------");
+        int maxAttempts = 3;
+        while (maxAttempts > 0) {
+            String email = Utils.readLineFromConsole("Enter UserId/Email: ");
+            String password = Utils.readLineFromConsole("Enter Password: ");
+            if (ctrl.loginConsole(email, password)) {
+                return true;
             } else {
-                UserRoleDTO role = selectsRole(roles);
-                if (!Objects.isNull(role)) {
-                    List<MenuItem> rolesUI = getMenuItemForRoles();
-                    this.redirectToRoleUI(rolesUI, role);
-                } else {
-                    System.out.println("No role selected.");
-                }
+                maxAttempts--;
+                System.out.println("Invalid UserId and/or Password. You have " + maxAttempts + " more attempt(s).");
             }
         }
-        this.logout();
-    }
-
-    private List<MenuItem> getMenuItemForRoles() {
-        List<MenuItem> rolesUI = new ArrayList<>();
-        rolesUI.add(new MenuItem(AuthenticationController.ROLE_HRM, new HrmUI()));
-        rolesUI.add(new MenuItem(AuthenticationController.ROLE_VFM, new VfmUI()));
-        rolesUI.add(new MenuItem(AuthenticationController.ROLE_GSM, new GsmUI()));
-        rolesUI.add(new MenuItem(AuthenticationController.ROLE_COL, new ColUI()));
-        return rolesUI;
-    }
-
-    private boolean doLogin() {
-        System.out.println("\n\n--- LOGIN UI ---------------------------");
-
-        int maxAttempts = 3;
-        boolean success = false;
-        do {
-            maxAttempts--;
-            String id = Utils.readLineFromConsole("Enter UserId/Email: ");
-            String pwd = Utils.readLineFromConsole("Enter Password: ");
-
-            success = ctrl.doLogin(id, pwd);
-            if (!success) {
-                System.out.println("Invalid UserId and/or Password. \n You have  " + maxAttempts + " more attempt(s).");
-            }
-
-        } while (!success && maxAttempts > 0);
-        return success;
+        return false;
     }
 
     private void logout() {
-        ctrl.doLogout();
-    }
-
-    private void redirectToRoleUI(List<MenuItem> rolesUI, UserRoleDTO role) {
-        boolean found = false;
-        Iterator<MenuItem> it = rolesUI.iterator();
-        while (it.hasNext() && !found) {
-            MenuItem item = it.next();
-            found = item.hasDescription(role.getDescription());
-            if (found) {
-                item.run();
-            }
-        }
-        if (!found) {
-            System.out.println("There is no UI for users with role '" + role.getDescription() + "'");
-        }
-    }
-
-    private UserRoleDTO selectsRole(List<UserRoleDTO> roles) {
-        if (roles.size() == 1) {
-            return roles.get(0);
-        } else {
-            return (UserRoleDTO) Utils.showAndSelectOne(roles, "Select the role you want to adopt in this session:");
-        }
+        ctrl.logout();
     }
 }

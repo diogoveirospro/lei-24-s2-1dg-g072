@@ -57,7 +57,7 @@ public class CancelEntryController {
      * @return List of Strings
      */
     public List<String> getAgendaEntryListString() {
-        return agenda.getAgendaEntryList();
+        return agenda.getAllAgendaEntryList();
     }
 
     /**

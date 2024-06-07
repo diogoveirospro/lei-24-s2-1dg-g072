@@ -1,26 +1,28 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
+import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidTaskDataException;
 import pt.ipp.isep.dei.esoft.project.domain.Task;
+import pt.ipp.isep.dei.esoft.project.repository.data.SerializableRepository;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Repository class for managing tasks.
  *
  * @author Group 072 - Byte Masters - ISEP
  */
-public class TaskRepository {
+public class TaskRepository extends SerializableRepository<List<Task>> implements Serializable {
 
-    private Map<String, Task> tasks;
+    private List<Task> tasks;
 
     /**
-     * Constructs a new TaskRepository with an empty task map.
+     * Constructs a new TaskRepository with an empty task list.
      */
     public TaskRepository() {
-        this.tasks = new HashMap<>();
+        super("taskRepository.ser");
+        this.tasks = new ArrayList<>();
     }
 
     /**
@@ -29,7 +31,8 @@ public class TaskRepository {
      * @param task the task to be added
      */
     public void addTask(Task task) {
-        tasks.put(task.getTaskId(), task);
+        tasks.add(task);
+        saveTaskRepositoryToFile();
     }
 
     /**
@@ -39,17 +42,9 @@ public class TaskRepository {
      * @return true if the task was successfully removed, false otherwise
      */
     public boolean removeTask(String taskId) {
-        return tasks.remove(taskId) != null;
-    }
-
-    /**
-     * Finds a task by its ID.
-     *
-     * @param taskId the ID of the task to find
-     * @return the found task, or null if not found
-     */
-    public Task findTaskById(String taskId) {
-        return tasks.get(taskId);
+        boolean b = tasks.removeIf(task -> task.getTaskId().equals(taskId));
+        saveTaskRepositoryToFile();
+        return b;
     }
 
     /**
@@ -58,6 +53,19 @@ public class TaskRepository {
      * @return a list of all tasks
      */
     public List<Task> getAllTasks() {
-        return new ArrayList<>(tasks.values());
+        return new ArrayList<>(tasks);
+    }
+
+    public void saveTaskRepositoryToFile() {
+        save(tasks);
+    }
+
+    public Task findTaskById(String taskOne) throws InvalidTaskDataException {
+        for (Task task : tasks) {
+            if (task.getTaskId().equals(taskOne)) {
+                return task;
+            }
+        }
+        throw new InvalidTaskDataException("Task not found");
     }
 }

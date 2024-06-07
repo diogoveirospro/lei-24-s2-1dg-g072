@@ -1,11 +1,14 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
+import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidCollaboratorDataException;
 import pt.ipp.isep.dei.esoft.project.domain.AgendaEntry;
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
 import pt.ipp.isep.dei.esoft.project.domain.Team;
 import pt.ipp.isep.dei.esoft.project.dto.AgendaEntryDto;
+import pt.ipp.isep.dei.esoft.project.repository.data.SerializableRepository;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +17,7 @@ import java.util.List;
  *
  * @author Group 072 - Byte Masters - ISEP
  */
-public class TeamRepository {
+public class TeamRepository extends SerializableRepository<List<Team>> implements Serializable {
     /**
      * List representing all TeamRepository teams.
      */
@@ -24,6 +27,7 @@ public class TeamRepository {
      * Team Repository builder.
      */
     public TeamRepository() {
+        super("teamRepository.ser");
         teams = new ArrayList<>();
     }
 
@@ -78,6 +82,7 @@ public class TeamRepository {
     public boolean addTeam(Team team) {
         if (validateTeam(team)) {
             teams.add(team);
+            saveTeamRepositoryToFile();
             return true;
         }
         return false;
@@ -98,9 +103,9 @@ public class TeamRepository {
      * Get the teams with the collaborator.
      *
      * @param collaborator collaborator being searched in all teams
-     * @return
+     * @return teams with the collaborator
      */
-    public List<Team> getTeamsByCollaborator(Collaborator collaborator) {
+    public List<Team> getTeamsByCollaborator(Collaborator collaborator) throws InvalidCollaboratorDataException {
         List<Team> teamList = new ArrayList<>();
         for (Team team : teams) {
             boolean inTeam = team.validateCollaboratorTeam(collaborator, team);
@@ -109,12 +114,18 @@ public class TeamRepository {
             }
         }
         if (teamList.isEmpty()) {
-            throw new IllegalArgumentException("Collaborator not found in any team.");
+            throw new InvalidCollaboratorDataException("You were not found in any team.");
         } else {
             return teamList;
         }
     }
 
+    /**
+     * Retrieves a list of teams that are valid to be assigned to the specified agenda entry.
+     *
+     * @param agendaEntry the agenda entry to which the teams are being validated for assignment
+     * @return a list of valid teams
+     */
     public List<Team> getValidTeams(AgendaEntry agendaEntry) {
         List<Team> validTeams = new ArrayList<>();
         for (Team team : teams) {
@@ -124,4 +135,9 @@ public class TeamRepository {
         }
         return validTeams;
     }
+
+    public void saveTeamRepositoryToFile() {
+        save(teams);
+    }
+
 }

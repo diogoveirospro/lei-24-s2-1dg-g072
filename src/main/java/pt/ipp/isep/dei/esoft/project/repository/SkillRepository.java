@@ -1,18 +1,20 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
+import pt.ipp.isep.dei.esoft.project.repository.data.SerializableRepository;
 
 /**
  *
  *
  * @author Group 072 - Byte Masters - ISEP
  */
-public class SkillRepository {
+public class SkillRepository extends SerializableRepository<List<Skill>> implements Serializable {
     private List<Skill> skills;
 
     /**
@@ -20,6 +22,7 @@ public class SkillRepository {
      *
      */
     public SkillRepository(){
+        super("skillRepository.ser");
         skills = new ArrayList<>();
     }
 
@@ -39,6 +42,7 @@ public class SkillRepository {
             throw new IllegalArgumentException("Skill can't have special characters");
         }
         skills.add(skill);
+        saveSkillRepositoryToFile();
     }
 
     /**
@@ -49,6 +53,10 @@ public class SkillRepository {
     public List<Skill> listSkills() {
         Collections.sort(skills);
         return List.copyOf(skills);
+    }
+
+    public void saveSkillRepositoryToFile() {
+        save(skills);
     }
 
 

@@ -1,0 +1,68 @@
+Vertice de começo: Biblioteca
+
+(Biblioteca;AP) Custo total de fazer o caminho: 10
+
+Vertice de começo: Topo
+
+(Topo;AP) Custo total de fazer o caminho: 9
+
+Vertice de começo: Teatro
+
+(Teatro;AP) Custo total de fazer o caminho: 7
+
+Vertice de começo: Pavilhao
+
+(Pavilhao;AP) Custo total de fazer o caminho: 5
+
+Vertice de começo: ParqueInfantil
+
+(ParqueInfantil;Topo;AP) Custo total de fazer o caminho: 16
+
+Vertice de começo: Macieirinha
+
+(Macieirinha;ParqueInfantil;Topo;AP) Custo total de fazer o caminho: 26
+
+Vertice de começo: Fontaine
+
+(Fontaine;Miradouro;Topo;AP) Custo total de fazer o caminho: 20
+
+Vertice de começo: Miradouro
+
+(Miradouro;Topo;AP) Custo total de fazer o caminho: 12
+
+Vertice de começo: Capela
+
+(Capela;Topo;AP) Custo total de fazer o caminho: 13
+
+Vertice de começo: Torreao
+
+(Torreao;Miradouro;Topo;AP) Custo total de fazer o caminho: 21
+
+Vertice de começo: Lago
+
+(Lago;AP) Custo total de fazer o caminho: 9
+
+Vertice de começo: Escadas3
+
+(Escadas3;Escadas2;Escadas1;AP) Custo total de fazer o caminho: 18
+
+Vertice de começo: Sentimentos
+
+(Sentimentos;Escadas2;Escadas1;AP) Custo total de fazer o caminho: 20
+
+Vertice de começo: CasaRoseiral
+
+(CasaRoseiral;Escadas2;Escadas1;AP) Custo total de fazer o caminho: 17
+
+Vertice de começo: JardimRoseiral
+
+(JardimRoseiral;Escadas2;Escadas1;AP) Custo total de fazer o caminho: 16
+
+Vertice de começo: Escadas2
+
+(Escadas2;Escadas1;AP) Custo total de fazer o caminho: 13
+
+Vertice de começo: Escadas1
+
+(Escadas1;AP) Custo total de fazer o caminho: 10
+

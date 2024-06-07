@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.canvas.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="542.0" prefWidth="644.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.HRMController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="542.0" prefWidth="644.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.HRMController">
    <top>
       <GridPane prefHeight="75.0" prefWidth="644.0" BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -42,15 +38,15 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button alignment="CENTER" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" text="Register Skill" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <Button fx:id="btnRegisterSkill" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#handleRegisterSkillButtonAction" text="Register Skill" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin></Button>
-            <Button defaultButton="true" mnemonicParsing="false" text="Register Job" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-            <Button defaultButton="true" mnemonicParsing="false" text="Register Collaborator" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-            <Button defaultButton="true" mnemonicParsing="false" text="Generate Team Proposal" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-            <Button defaultButton="true" mnemonicParsing="false" text="Assign Skills" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-            <Button cancelButton="true" mnemonicParsing="false" text="Logout" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <Button fx:id="btnRegisterJob" defaultButton="true" mnemonicParsing="false" onAction="#handleRegisterJobButtonAction" text="Register Job" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <Button fx:id="btnRegisterCollaborator" defaultButton="true" mnemonicParsing="false" onAction="#handleRegisterCollaboratorButtonAction" text="Register Collaborator" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <Button fx:id="btnGenerateTeamProposal" defaultButton="true" mnemonicParsing="false" onAction="#handleGenerateTeamProposalButtonAction" text="Generate Team Proposal" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+            <Button fx:id="btnAssignSkills" defaultButton="true" mnemonicParsing="false" onAction="#handleAssignSkillsButtonAction" text="Assign Skills" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <Button fx:id="btnLogout" cancelButton="true" mnemonicParsing="false" onAction="#handleLogoutButtonAction" text="Logout" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
          </children>
       </GridPane>
    </center>

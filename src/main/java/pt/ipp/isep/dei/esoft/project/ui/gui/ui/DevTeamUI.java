@@ -35,8 +35,4 @@ public class DevTeamUI implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
-
-    public DevTeamController getDevTeamController() {
-        return devTeamController;
-    }
 }

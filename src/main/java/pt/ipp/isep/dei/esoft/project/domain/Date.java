@@ -1,8 +1,9 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
-public class Date implements Comparable<Date> {
+public class Date implements Comparable<Date>, Serializable {
 
     /**
      * Date year
@@ -233,6 +234,11 @@ public class Date implements Comparable<Date> {
         totalDays += day;
 
         return totalDays;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%02d/%02d/%04d", day, month, year);
     }
 }
 

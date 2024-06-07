@@ -90,6 +90,7 @@ public class GSMController {
             assignTeamUI = new AssignTeamUI();
             assignTeamUI.showUI(MainMenuUI.getPrimaryStage());
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("An error occurred while handling the assign team action: " + e.getMessage());
         }
     }

@@ -2,9 +2,10 @@ package pt.ipp.isep.dei.esoft.project.repository;
 
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidEntryDataException;
 import pt.ipp.isep.dei.esoft.project.domain.*;
+import pt.ipp.isep.dei.esoft.project.repository.data.SerializableRepository;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -13,7 +14,7 @@ import java.util.List;
  *
  * @author Group 072 - Byte Masters - ISEP
  */
-public class Agenda {
+public class Agenda extends SerializableRepository<List<AgendaEntry>> implements Serializable {
     private List<AgendaEntry> entriesAgenda;
 
     /**
@@ -25,20 +26,31 @@ public class Agenda {
      * @param typeStatus the status of the entries to filter.
      * @return a list of entries matching the specified tasks and date range.
      */
-    public List<AgendaEntry> getAgendaEntryList(List<Team> teamList, Date startDate, Date endDate, AgendaEntry.StatusOfEntry typeStatus) {
+    public List<AgendaEntry> getAgendaEntryList(List<Team> teamList, Date startDate, Date endDate, AgendaEntry.StatusOfEntry typeStatus) throws InvalidEntryDataException {
         List<AgendaEntry> agendaEntryList = new ArrayList<>();
         for (Team team : teamList) {
             for (AgendaEntry agendaEntry : entriesAgenda) {
-                if ((agendaEntry.getTeam().equals(team)) && (agendaEntry.getStartDate().compareTo(startDate) >= 0 && agendaEntry.getEndDate().compareTo(endDate) >= 0) && agendaEntry.getStatus().equals(typeStatus)) {
-                    agendaEntryList.add(agendaEntry);
+                if (typeStatus != null){
+                    if ((agendaEntry.getTeam().equals(team)) && (agendaEntry.getStartDate().compareTo(startDate) >= 0 && agendaEntry.getEndDate().compareTo(endDate) >= 0) && agendaEntry.getStatus().equals(typeStatus)) {
+                        agendaEntryList.add(agendaEntry);
+                    }
+                } else {
+                    if ((agendaEntry.getTeam().equals(team)) && (agendaEntry.getStartDate().compareTo(startDate) >= 0 && agendaEntry.getEndDate().compareTo(endDate) >= 0)) {
+                        agendaEntryList.add(agendaEntry);
+                    }
                 }
             }
+        }
+        if (agendaEntryList.isEmpty()) {
+            throw new InvalidEntryDataException("No entries found for the specified criteria.");
         }
         return agendaEntryList;
     }
 
-    public Agenda(){
+    public Agenda() {
+        super("agenda.ser");
         this.entriesAgenda = new ArrayList<>();
+
     }
 
     /**
@@ -53,10 +65,14 @@ public class Agenda {
      * @return the newly created AgendaEntry object.
      * @throws InvalidEntryDataException if the provided data is invalid.
      */
-    public AgendaEntry createAgendaEntry(Task task, GreenSpace greenSpace, Date startDate, AgendaEntry.HourOfDay startHour,
-                                         Date endDate, AgendaEntry.HourOfDay endHour) throws InvalidEntryDataException {
+    public AgendaEntry createAgendaEntry(Task task, GreenSpace greenSpace, Date startDate, AgendaEntry.WorkingDayHours startHour,
+                                         Date endDate, AgendaEntry.WorkingDayHours endHour) throws InvalidEntryDataException {
 
         try {
+
+            if (endDate.difference(startDate) != Integer.parseInt(task.getDuration())) {
+                throw new InvalidEntryDataException("The estimated duration is not met!");
+            }
             return new AgendaEntry(task, greenSpace, startDate, startHour, endDate, endHour);
         } catch (InvalidEntryDataException e) {
             throw new InvalidEntryDataException(e.getMessage());
@@ -70,6 +86,8 @@ public class Agenda {
      * @return true if the agenda entry was added successfully, false otherwise.
      */
     public boolean addAgendaEntry(AgendaEntry agendaEntry) {
+
+        saveAgendaToFile();
         return entriesAgenda.add(agendaEntry);
     }
 
@@ -85,18 +103,90 @@ public class Agenda {
         return entryList;
     }
 
+    /**
+     * Gets the list of agenda entries with scheduled status as Strings.
+     *
+     * @return
+     */
     public List<String> getAgendaEntryList() {
         List<AgendaEntry> entryList;
         List<String> entryListString = new ArrayList<>();
         entryList = getEntryList();
         for (int i = 0; i < entryList.size(); i++) {
-            entryListString.add(entryList.get(i).getName());
+            if (entryList.get(i).getStatus().equals(AgendaEntry.StatusOfEntry.SCHEDULED)) {
+                entryListString.add(entryList.get(i).getName());
+            }
         }
 
         return entryListString;
     }
 
+    /**
+     * Gets the list of all agenda entries as Strings.
+     * @return List of Strings
+     */
+    public List<String> getAllAgendaEntryList() {
+        List<AgendaEntry> entryList;
+        List<String> entryListString = new ArrayList<>();
+        entryList = getEntryList();
+        for (int i = 0; i < entryList.size(); i++) {
+            if (!entryList.get(i).getStatus().equals(AgendaEntry.StatusOfEntry.CANCELED)) {
+                entryListString.add(entryList.get(i).getName());
+            }
+        }
+        return entryListString;
+    }
+
+
     public boolean assignTeamToAgendaEntry(AgendaEntry agendaEntry, Team team) {
+        saveAgendaToFile();
         return agendaEntry.assignTeam(team);
     }
+
+    public List<AgendaEntry> getAgendaEntriesWithoutTeam() {
+
+        List<AgendaEntry> agendaEntriesWithoutTeam = new ArrayList<>();
+        for (AgendaEntry agendaEntry : entriesAgenda) {
+            if (agendaEntry.getTeam() == null) {
+                agendaEntriesWithoutTeam.add(agendaEntry);
+            }
+        }
+        return agendaEntriesWithoutTeam;
+
+    }
+
+    public AgendaEntry getAgendaEntry(String selectedAgendaEntryName) {
+        for (AgendaEntry agendaEntry : entriesAgenda) {
+            if (agendaEntry.getName().equals(selectedAgendaEntryName)) {
+                return agendaEntry;
+            }
+        }
+        return null;
+    }
+
+    public List<AgendaEntry> getAgendaEntriesWithoutVehicle() {
+        List<AgendaEntry> entriesWithoutVehicle = new ArrayList<>();
+        for (AgendaEntry entry : entriesAgenda) {
+            if (entry.getAssignedVehicle()== null) {
+                entriesWithoutVehicle.add(entry);
+            }
+        }
+        return entriesWithoutVehicle;
+    }
+
+    public boolean assignVehicleToAgendaEntry(AgendaEntry agendaEntry, Vehicle vehicle) {
+        try {
+            agendaEntry.assignVehicle(vehicle);
+            saveAgendaToFile();
+            return true;
+        } catch (InvalidEntryDataException e) {
+            System.err.println("Erro ao atribuir veículo à entrada da agenda: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public void saveAgendaToFile() {
+        save(entriesAgenda);
+    }
+
 }

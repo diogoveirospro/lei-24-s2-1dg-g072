@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss;
 
+import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidCollaboratorDataException;
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import pt.ipp.isep.dei.esoft.project.domain.Date;
@@ -74,5 +75,9 @@ public class RegisterCollaboratorUI {
      */
     public List<Job> getJobs(){
         return jobRepository.getJobs();
+    }
+
+    public void showUI(Stage primaryStage) {
+
     }
 }

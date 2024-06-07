@@ -6,9 +6,17 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.Output.ShowListTaskController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.Output.ShowListTaskController">
+   <children>
+      <Button fx:id="btnCancel" cancelButton="true" layoutX="57.0" layoutY="349.0" mnemonicParsing="false" onAction="#handleCancelButtonAction" text="Back" />
+      <VBox prefHeight="336.0" prefWidth="600.0">
+         <children>
+            <ScrollPane prefHeight="345.0" prefWidth="600.0">
+               <content>
+                  <ListView fx:id="listTasks" prefHeight="336.0" prefWidth="595.0" />
+               </content>
+            </ScrollPane>
+         </children>
+      </VBox>
+   </children>
 </AnchorPane>

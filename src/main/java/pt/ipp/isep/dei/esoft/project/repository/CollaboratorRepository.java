@@ -1,8 +1,11 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
+import pt.ipp.isep.dei.esoft.project.domain.AgendaEntry;
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
+import pt.ipp.isep.dei.esoft.project.repository.data.SerializableRepository;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -12,7 +15,7 @@ import java.util.List;
  *
  * @author Group 072 - Byte Masters - ISEP
  */
-public class CollaboratorRepository {
+public class CollaboratorRepository extends SerializableRepository<List<Collaborator>>  implements Serializable {
 
     private final SkillRepository skillRepository;
 
@@ -27,8 +30,15 @@ public class CollaboratorRepository {
      * @param skillRepository the skill repository to use
      */
     public CollaboratorRepository(SkillRepository skillRepository) {
+        super("collaboratorRepository.ser");
+
+        List<Collaborator> collaborators1;
         this.skillRepository = skillRepository;
-        this.collaborators = new ArrayList<>();
+        collaborators1 = super.load();
+        if (collaborators1 == null) {
+            collaborators1 = new ArrayList<>();
+        }
+        this.collaborators = collaborators1;
     }
 
     /**
@@ -58,6 +68,7 @@ public class CollaboratorRepository {
             throw new IllegalArgumentException("Invalid collaborator to add");
         }
         collaborators.add(newCollaborator);
+        saveCollaboratorRepositoryToFile();
     }
 
     /**
@@ -95,6 +106,7 @@ public class CollaboratorRepository {
             throw new IllegalArgumentException("Invalid skill");
         }
         collaborator.assignSkill(skill);
+        saveCollaboratorRepositoryToFile();
     }
 
     /**
@@ -129,5 +141,9 @@ public class CollaboratorRepository {
      */
     public boolean exist(Collaborator collaborator) {
         return collaborators.contains(collaborator);
+    }
+
+    public void saveCollaboratorRepositoryToFile() {
+        save(collaborators);
     }
 }
