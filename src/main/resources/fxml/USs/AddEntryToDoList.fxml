@@ -9,7 +9,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane style="-fx-background-color: #f1f8e9;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.AddToDoListEntryUIController">
+<BorderPane style="-fx-background-color: #f1f8e9;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.AddToDoListEntryUIController">
     <top>
         <GridPane prefHeight="75.0" prefWidth="644.0" BorderPane.alignment="CENTER">
             <columnConstraints>
@@ -61,7 +61,7 @@
                             <font>
                                 <Font name="System Bold" size="12.0" />
                             </font></Label>
-                        <TextField fx:id="greenSpaceNameTextField" prefWidth="150.0" />
+                  <ComboBox fx:id="greenSpaceNameCB" prefWidth="150.0" />
                         <Label text="Degree of Urgency" textAlignment="CENTER">
                             <font>
                                 <Font name="System Bold" size="12.0" />
@@ -69,9 +69,7 @@
                         <ComboBox fx:id="degreeOfUrgencyComboBox" prefWidth="150.0">
                             <items>
                                 <FXCollections fx:factory="observableArrayList">
-                                    <String fx:value="Low" />
-                                    <String fx:value="Medium" />
-                                    <String fx:value="High" />
+
                                 </FXCollections>
                             </items>
                         </ComboBox>
@@ -90,7 +88,7 @@
                     <cursor>
                         <Cursor fx:constant="HAND" />
                     </cursor></Button>
-                <Button fx:id="btnCancel" onAction="#cancelEntry" mnemonicParsing="false" style="-fx-background-color: #D32F2F; -fx-text-fill: white; -fx-background-radius: 15;" text="Cancel">
+                <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#cancelEntry" style="-fx-background-color: #D32F2F; -fx-text-fill: white; -fx-background-radius: 15;" text="Cancel">
                     <HBox.margin>
                         <Insets left="20.0" />
                     </HBox.margin>
@@ -101,4 +99,3 @@
         </HBox>
     </bottom>
 </BorderPane>
-

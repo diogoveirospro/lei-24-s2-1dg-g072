@@ -5,6 +5,13 @@ import javafx.scene.control.*;
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidEntryDataException;
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidTaskDataException;
 import pt.ipp.isep.dei.esoft.project.application.controller.AddToDoListController;
+import pt.ipp.isep.dei.esoft.project.dto.GreenSpaceDto;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.AlertUI;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.GSMUI;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.MainMenuUI;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss.AddToDoListEntryUI;
+
+import java.util.List;
 
 /**
  * Controller class for the Add To-Do List Entry UI.
@@ -12,7 +19,8 @@ import pt.ipp.isep.dei.esoft.project.application.controller.AddToDoListControlle
  */
 
 public class AddToDoListEntryUIController {
-
+    private AddToDoListEntryUI addToDoListEntryUI;
+    private GSMUI gsmui;
     @FXML
     private TextField taskNameTextField;
 
@@ -20,7 +28,7 @@ public class AddToDoListEntryUIController {
     private TextField taskDurationTextField;
 
     @FXML
-    private TextField greenSpaceNameTextField;
+    private ComboBox<String> greenSpaceNameCB;
 
     @FXML
     private ComboBox<String> degreeOfUrgencyComboBox;
@@ -34,10 +42,8 @@ public class AddToDoListEntryUIController {
     @FXML
     private Button btnCancel;
 
-    @FXML
-    private Label statusLabel;
 
-    private AddToDoListController controller;
+    private AddToDoListController controller = new AddToDoListController();
 
     /**
      * Initializes the controller class. This method is automatically called after the fxml file has been loaded.
@@ -45,8 +51,16 @@ public class AddToDoListEntryUIController {
      */
     @FXML
     public void initialize() {
-        controller = new AddToDoListController();
-        degreeOfUrgencyComboBox.getItems().addAll("Low", "Medium", "High");
+        try {
+            degreeOfUrgencyComboBox.getItems().addAll(controller.getDegreeOgUrgencyList());
+            List<GreenSpaceDto> greenSpaceList = controller.getGreenSpaceList();
+            for (GreenSpaceDto greenSpace : greenSpaceList) {
+                greenSpaceNameCB.getItems().add(greenSpace.getParkName());
+            }
+        } catch (Exception e) {
+            AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error", "Error loading lists.",e.getMessage());
+        }
+
     }
 
     /**
@@ -59,16 +73,14 @@ public class AddToDoListEntryUIController {
         try {
             String taskName = taskNameTextField.getText();
             String taskDuration = taskDurationTextField.getText();
-            String greenSpaceName = greenSpaceNameTextField.getText();
+            String greenSpaceName = greenSpaceNameCB.getValue();
             String degreeOfUrgency = degreeOfUrgencyComboBox.getValue();
 
             controller.addNewToDoListEntry(taskName, taskDuration, greenSpaceName, degreeOfUrgency);
             taskListView.getItems().add(taskName + " - " + taskDuration + " - " + greenSpaceName + " - " + degreeOfUrgency);
-            statusLabel.setText("To-Do list entry added successfully!");
-        } catch (InvalidTaskDataException | InvalidEntryDataException e) {
-            statusLabel.setText("Failed to add entry: " + e.getMessage());
+            AlertUI.createAnAlert(Alert.AlertType.INFORMATION, "Success", "Entry added successfully.", "The entry was added successfully.");
         } catch (Exception e) {
-            statusLabel.setText("An unexpected error occurred: " + e.getMessage());
+            AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error", "Error adding entry.", e.getMessage());
         }
     }
 
@@ -79,10 +91,15 @@ public class AddToDoListEntryUIController {
      */
     @FXML
     private void cancelEntry() {
-        taskNameTextField.clear();
-        taskDurationTextField.clear();
-        greenSpaceNameTextField.clear();
-        degreeOfUrgencyComboBox.getSelectionModel().clearSelection();
-        statusLabel.setText("Entry cancelled.");
+        try {
+            gsmui = new GSMUI();
+            gsmui.showUI(MainMenuUI.getPrimaryStage());
+        } catch (Exception e) {
+            System.out.println("An error occurred while handling the cancel action: " + e.getMessage());
+        }
+    }
+
+    public void setAddToDoListEntryUI(AddToDoListEntryUI addToDoListEntryUI) {
+        this.addToDoListEntryUI = addToDoListEntryUI;
     }
 }
