@@ -90,7 +90,7 @@
                   <Insets top="5.0" />
                </VBox.margin>
             </HBox>
-            <HBox>
+            <HBox alignment="CENTER">
                <children>
                   <Button fx:id="btnAddAgendaEntry" mnemonicParsing="false" onAction="#handleAddAgendaEntry" style="-fx-background-color: #388E3C; -fx-text-fill: white; -fx-background-radius: 15;" text="Add Agenda Entry">
                      <HBox.margin>
