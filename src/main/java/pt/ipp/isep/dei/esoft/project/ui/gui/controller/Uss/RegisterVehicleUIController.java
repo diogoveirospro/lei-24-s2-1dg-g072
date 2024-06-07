@@ -1,86 +1,73 @@
 package pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss;
 
-import pt.ipp.isep.dei.esoft.project.domain.Date;
-import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
-import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
-import pt.ipp.isep.dei.esoft.project.repository.Repositories;
-import pt.ipp.isep.dei.esoft.project.repository.VehicleRepository;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.CollaboratorUI;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.FMUI;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.HRMUI;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.MainMenuUI;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss.RegisterVehicleUI;
 
-import java.util.Optional;
-
-/**
- *
- *
- * @author Group 072 - Byte Masters - ISEP
- */
 public class RegisterVehicleUIController {
 
-    /**
-     * Authentication repository.
-     */
-    private AuthenticationRepository authenticationRepository;
+    private RegisterVehicleUI registerVehicleUI;
+    private FMUI fmui;
+    @FXML
+    private TextField modelField;
 
-    /**
-     * Vehicle repository.
-     */
-    private VehicleRepository vehicleRepository;
+    @FXML
+    private TextField grossWeightField;
 
-    /**
-     * Empty RegisterVehicleController builder
-     */
-    public RegisterVehicleUIController(){
-        this.authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
-        this.vehicleRepository = Repositories.getInstance().getVehicleRepository();
+    @FXML
+    private TextField kmAtLastMaintenanceField;
+
+    @FXML
+    private TextField plateNumberField;
+
+    @FXML
+    private TextField brandField;
+
+    @FXML
+    private TextField currKmsField;
+
+    @FXML
+    private TextField tareField;
+
+    @FXML
+    private DatePicker acquisitionDatePicker;
+
+    @FXML
+    private TextField maintenanceFrequencyField;
+
+    @FXML
+    private DatePicker registrationDatePicker;
+
+    @FXML
+    private Button btnRegister;
+
+    @FXML
+    private TextField typeField;
+
+    @FXML
+    private Button btnCancel;
+
+
+    public void handleRegisterAction() {
+        // TODO implement here
     }
 
-    /**
-     * Lets the controller get the vehicle repository.
-     * @return vehicleRepository.
-     */
-    private VehicleRepository getVehicleRepository(){
-        if(vehicleRepository == null){
-            Repositories repositories = Repositories.getInstance();
-            vehicleRepository = repositories.getVehicleRepository();
+    public void handleCancelButtonAction() {
+        try {
+            fmui = new FMUI();
+            fmui.showUI(MainMenuUI.getPrimaryStage());
+        } catch (Exception e) {
+            System.out.println("An error occurred while handling the cancel action: " + e.getMessage());
         }
-        return vehicleRepository;
     }
 
-    /**
-     * Lets the controller get the authentication repository.
-     * @return authenticationRepository.
-     */
-    private AuthenticationRepository getAuthenticationRepository(){
-        if (authenticationRepository == null) {
-            Repositories repositories = Repositories.getInstance();
-
-            authenticationRepository = repositories.getAuthenticationRepository();
-        }
-        return authenticationRepository;
-    }
-
-    /**
-     *
-     * @param plate plate number.
-     * @param model vehicle model.
-     * @param brand vehicle brand.
-     * @param type vehicle type.
-     * @param tare vehicle tare.
-     * @param grossWeight vehicle gross weight.
-     * @param currentKms vehicle's currrent kms.
-     * @param registrationDate vehicle's registration date.
-     * @param acquisitionDate vehicle's acquisition date.
-     * @param serviceFrequency vehicle service frequency.
-     * @param kmAtLastMaintenance vehicle's km at last maintenance.
-     * @return new vehicle.
-     */
-    public Optional<Vehicle> registerVehicle(String plate, String model, String brand, String type, Double tare, Double grossWeight, Double currentKms, Date registrationDate, Date acquisitionDate, Double serviceFrequency, Double kmAtLastMaintenance) {
-
-        Optional<VehicleRepository> vehicleRepository = Optional.ofNullable(getVehicleRepository());
-        Optional<Vehicle> newVehicle = Optional.empty();
-
-        if(vehicleRepository.isPresent()){
-            newVehicle = vehicleRepository.get().registerVehicle(plate, model, brand, type, tare, grossWeight, currentKms, registrationDate, acquisitionDate, serviceFrequency, kmAtLastMaintenance);
-        }
-        return newVehicle;
+    public void setRegisterVehicleUI(RegisterVehicleUI registerVehicleUI) {
+        this.registerVehicleUI = registerVehicleUI;
     }
 }

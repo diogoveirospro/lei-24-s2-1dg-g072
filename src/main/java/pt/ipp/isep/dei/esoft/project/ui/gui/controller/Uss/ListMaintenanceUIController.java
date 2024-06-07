@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -19,7 +20,7 @@ import java.util.List;
 
 public class ListMaintenanceUIController {
     private ListMaintenanceUI listMaintenanceUI;
-    private ListMaintenanceController listMaintenanceController;
+    private ListMaintenanceController listMaintenanceController = new ListMaintenanceController();
     private FMUI fmUI;
 
     public void setListMaintenanceUI(ListMaintenanceUI listMaintenanceUI) {
@@ -30,12 +31,12 @@ public class ListMaintenanceUIController {
      * Last maintenance column
      */
     @FXML
-    private TableColumn lastMaintenance;
+    private TableColumn<VehicleDto,String> lastMaintenance;
     /**
      * TableView for the maintenance list
      */
     @FXML
-    private TableView maintenanceTable;
+    private TableView<VehicleDto> maintenanceTable;
     /**
      * Model column
      */
@@ -52,37 +53,37 @@ public class ListMaintenanceUIController {
      */
 
     @FXML
-    private TableColumn model;
+    private TableColumn<VehicleDto,String> model;
 
     /**
      * Next maintenance column
      */
     @FXML
-    private TableColumn nextMaintenance;
+    private TableColumn<VehicleDto,String> nextMaintenance;
 
     /**
      * Plate number column
      */
     @FXML
-    private TableColumn plateNumber;
+    private TableColumn<VehicleDto,String> plateNumber;
 
     /**
      * Brand column
      */
     @FXML
-    private TableColumn brand;
+    private TableColumn<VehicleDto,String> brand;
 
     /**
      * Current kms column
      */
     @FXML
-    private TableColumn currentKms;
+    private TableColumn<VehicleDto,String> currentKms;
 
     /**
      * Frequency column
      */
     @FXML
-    private TableColumn frequency;
+    private TableColumn<VehicleDto,String> frequency;
 
     ObservableList<VehicleDto> vehicles;
 
@@ -92,9 +93,27 @@ public class ListMaintenanceUIController {
      */
     public void handleShowListAction() {
         List<VehicleDto> lstVehicles = this.listMaintenanceController.getVehicleList();
-        vehicles = FXCollections.observableArrayList(lstVehicles);
         try {
-            maintenanceTable.setItems(vehicles);
+            maintenanceTable.getItems().clear();
+
+
+            ObservableList<VehicleDto> vehicleData = FXCollections.observableArrayList(lstVehicles);
+
+            lastMaintenance.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getKmAtLastMaintenance().toString()));
+            model.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getModel()));
+            nextMaintenance.setCellValueFactory(cellData -> {
+                Double nextMaintenance = cellData.getValue().getKmAtLastMaintenance() + cellData.getValue().getServiceFrequency();
+                if (cellData.getValue().getCurrentKms() > nextMaintenance) {
+                    nextMaintenance = cellData.getValue().getCurrentKms();
+                }
+                return new SimpleStringProperty(nextMaintenance.toString());
+            });
+            plateNumber.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPlateNumber()));
+            brand.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getBrand()));
+            currentKms.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCurrentKms().toString()));
+            frequency.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getServiceFrequency().toString()));
+
+            maintenanceTable.setItems(vehicleData);
         } catch (Exception e) {
             System.out.println("An error occurred while handling the show list action: " + e.getMessage());
         }

@@ -1,50 +1,40 @@
 package pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss;
-import pt.ipp.isep.dei.esoft.project.domain.Skill;
-import pt.ipp.isep.dei.esoft.project.repository.Repositories;
-import pt.ipp.isep.dei.esoft.project.repository.SkillRepository;
 
-/**
- * The RegisterSkillController class is responsible for managing the registration
- * of new skills within the system. It utilizes a SkillRepository to persist skills.
- *
- * @author Group 072 - Byte Masters - ISEP
- */
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.HRMUI;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.MainMenuUI;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss.RegisterSkillUI;
 
 public class RegisterSkillUIController {
-    private SkillRepository skillRepository;
+    private HRMUI hrmui;
+    private RegisterSkillUI registerSkillUI;
+    @FXML
+    private Button btnCancel;
 
-    /**
-     * Empty RegisterJobController builder.
-     */
+    @FXML
+    private TextField txtSkill;
 
-    public RegisterSkillUIController(){
-        this.skillRepository = Repositories.getInstance().getSkillRepository();
+    @FXML
+    private Button btnRegister;
+
+
+    public void handleRegisterAction() {
+        // TODO implement here
     }
 
 
-    /**
-     * Constructs a RegisterSkillController with a specified SkillRepository.
-     *
-     * @param skillRepository The repository used for skill management and persistence.
-     */
-
-    public RegisterSkillUIController(SkillRepository skillRepository){
-        this.skillRepository = skillRepository;
-    }
-
-    /**
-     * Registers a new skill with the specified name in the system. This involves
-     * creating a Skill object and adding it to the repository.
-     *
-     * @param name The name of the skill to addSkill. It must not be null or empty.
-     */
-
-    public void registerSkill (String name){
-        Skill skill = new Skill(name);
+    public void handleCancelAction() {
         try {
-            skillRepository.addSkill(skill);
-        }catch (IllegalArgumentException e){
-            System.out.println(e.getMessage());
+            hrmui = new HRMUI();
+            hrmui.showUI(MainMenuUI.getPrimaryStage());
+        } catch (Exception e) {
+            System.out.println("An error occurred while handling the cancel action: " + e.getMessage());
         }
+    }
+
+    public void setRegisterSkillUI(RegisterSkillUI registerSkillUI) {
+        this.registerSkillUI = registerSkillUI;
     }
 }
