@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="542.0" prefWidth="644.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.FMController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #f1f8e9;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.FMController">
     <top>
         <GridPane prefHeight="75.0" prefWidth="644.0" BorderPane.alignment="CENTER">
             <columnConstraints>
@@ -18,33 +18,101 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome VFM! What are we doing today?">
+            <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#80cbc4" height="38.0" stroke="TRANSPARENT" strokeType="INSIDE" width="384.0">
+               <GridPane.margin>
+                  <Insets left="130.0" />
+               </GridPane.margin></Rectangle>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome VFM! What are we doing today?" textAlignment="CENTER" wrappingWidth="604.3115234375">
                <font>
-                  <Font name="Times New Roman Bold" size="23.0" />
+                  <Font name="Georgia" size="20.0" />
                </font>
                <GridPane.margin>
-                  <Insets left="20.0" />
+                  <Insets left="20.0" right="20.0" />
                </GridPane.margin>
             </Text>
          </children>
         </GridPane>
     </top>
     <center>
-        <GridPane alignment="CENTER" BorderPane.alignment="CENTER">
-            <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            </rowConstraints>
-            <children>
-                <Button fx:id="btnRegisterVehicle" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#handleRegisterVehicleAction" text="Register Vehicle" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                <Button fx:id="btnRegisterMaintenance" defaultButton="true" mnemonicParsing="false" onAction="#handleRegisterMaintenanceAction" text="Register Maintenance" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                <Button fx:id="btnListMaintenance" defaultButton="true" mnemonicParsing="false" onAction="#handleListMaintenanceAction" text="List Maintenance" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                <Button fx:id="btnLogout" cancelButton="true" mnemonicParsing="false" onAction="#handleLogoutButtonAction" text="Logout" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-            </children>
-        </GridPane>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER">
+               <children>
+                      <Button fx:id="btnRegisterVehicle" alignment="CENTER" contentDisplay="TOP" defaultButton="true" mnemonicParsing="false" onAction="#handleRegisterVehicleAction" prefHeight="79.0" prefWidth="144.0" style="-fx-background-color: #80cbc4; -fx-text-fill: white; -fx-background-radius: 15;" text="Register Vehicle" textAlignment="CENTER">
+                     <font>
+                        <Font name="Britannic Bold" size="12.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/vehicles.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+                      <Button fx:id="btnRegisterMaintenance" contentDisplay="TOP" defaultButton="true" mnemonicParsing="false" onAction="#handleRegisterMaintenanceAction" prefHeight="79.0" prefWidth="144.0" style="-fx-background-color: #80cbc4; -fx-text-fill: white; -fx-background-radius: 15;" text="Register Maintenance">
+                     <font>
+                        <Font name="Britannic Bold" size="12.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/maintenance.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER">
+               <children>
+                      <Button fx:id="btnListMaintenance" contentDisplay="TOP" defaultButton="true" mnemonicParsing="false" onAction="#handleListMaintenanceAction" prefHeight="79.0" prefWidth="144.0" style="-fx-background-color: #80cbc4; -fx-text-fill: white; -fx-background-radius: 15;" text="List Maintenance">
+                     <font>
+                        <Font name="Britannic Bold" size="12.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/list.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+                      <Button fx:id="btnLogout" cancelButton="true" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleLogoutButtonAction" prefHeight="79.0" prefWidth="144.0" style="-fx-background-color: #80cbc4; -fx-text-fill: white; -fx-background-radius: 15;" text="Logout">
+                     <font>
+                        <Font name="Britannic Bold" size="12.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/logout.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
     </center>
 </BorderPane>

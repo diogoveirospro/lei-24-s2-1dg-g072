@@ -1,4 +1,5 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
+
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.repository.SkillRepository;
@@ -17,7 +18,7 @@ public class RegisterSkillController {
      * Empty RegisterJobController builder.
      */
 
-    public RegisterSkillController(){
+    public RegisterSkillController() {
         this.skillRepository = Repositories.getInstance().getSkillRepository();
     }
 
@@ -28,7 +29,7 @@ public class RegisterSkillController {
      * @param skillRepository The repository used for skill management and persistence.
      */
 
-    public RegisterSkillController(SkillRepository skillRepository){
+    public RegisterSkillController(SkillRepository skillRepository) {
         this.skillRepository = skillRepository;
     }
 
@@ -39,12 +40,9 @@ public class RegisterSkillController {
      * @param name The name of the skill to addSkill. It must not be null or empty.
      */
 
-    public void registerSkill (String name){
+    public void registerSkill(String name) {
         Skill skill = new Skill(name);
-        try {
-            skillRepository.addSkill(skill);
-        }catch (IllegalArgumentException e){
-            System.out.println(e.getMessage());
-        }
+        skillRepository.addSkill(skill);
+
     }
 }

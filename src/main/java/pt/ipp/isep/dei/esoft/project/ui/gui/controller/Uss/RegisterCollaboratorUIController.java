@@ -1,78 +1,71 @@
 package pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss;
 
-import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidCollaboratorDataException;
-import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
-import pt.ipp.isep.dei.esoft.project.domain.Date;
-import pt.ipp.isep.dei.esoft.project.domain.Job;
-import pt.ipp.isep.dei.esoft.project.repository.CollaboratorRepository;
-import pt.ipp.isep.dei.esoft.project.repository.JobRepository;
-import pt.ipp.isep.dei.esoft.project.repository.Repositories;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.HRMUI;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.MainMenuUI;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss.RegisterCollaboratorUI;
 
-import java.util.List;
-
-/**
- * Controller class for registering a new collaborator.
- * Responsible for handling the registration of a new collaborator.
- * Uses CollaboratorRepository and JobRepository to access and manage collaborator and job data.
- * Collaborator registration is done by providing basic information and job name.
- * Collaborator object is created and added to the CollaboratorRepository.
- * CollaboratorRepository and JobRepository instances are obtained from Repositories singleton.
- * If needed, custom repositories can be injected through the constructor.
- *
- * @author Group 072 - Byte Masters - ISEP
- */
 public class RegisterCollaboratorUIController {
+    private HRMUI hrmui;
+    private RegisterCollaboratorUI registerCollaboratorUI;
+    @FXML
+    private TextField phoneNumberField;
 
-    private final CollaboratorRepository collaboratorRepository;
-    private final JobRepository jobRepository;
+    @FXML
+    private DatePicker admissionDatePicker;
 
-    /**
-     * Constructs a new RegisterCollaboratorController object.
-     * Initializes CollaboratorRepository and JobRepository from the Repositories singleton.
-     */
-    public RegisterCollaboratorUIController() {
-        this.collaboratorRepository = Repositories.getInstance().getCollaboratorRepository();
-        this.jobRepository = Repositories.getInstance().getJobRepository();
+    @FXML
+    private DatePicker birthDatePicker;
+
+    @FXML
+    private TextField idNumberField;
+
+    @FXML
+    private TextField adressField;
+
+    @FXML
+    private TextField nameField;
+
+    @FXML
+    private TextField idTypeField;
+
+    @FXML
+    private TextField pswField;
+
+    @FXML
+    private TextField emailField;
+
+    @FXML
+    private ComboBox<?> jobComboBox;
+
+    @FXML
+    private Button btnRegister;
+
+    @FXML
+    private TextField taxNumberField;
+
+    @FXML
+    private Button btnCancel;
+
+
+    public void handleRegisterAction() {
+        // TODO: implement here
     }
 
-    /**
-     * Constructs a new RegisterCollaboratorController object with custom repositories.
-     *
-     * @param collaboratorRepository the CollaboratorRepository instance to be used
-     * @param jobRepository          the JobRepository instance to be used
-     */
-    public RegisterCollaboratorUIController(CollaboratorRepository collaboratorRepository, JobRepository jobRepository) {
-        this.collaboratorRepository = collaboratorRepository;
-        this.jobRepository = jobRepository;
+    public void handleCancelAction() {
+        try {
+            hrmui = new HRMUI();
+            hrmui.showUI(MainMenuUI.getPrimaryStage());
+        } catch (Exception e) {
+            System.out.println("An error occurred while handling the cancel action: " + e.getMessage());
+        }
     }
 
-    /**
-     * Registers a new collaborator with the provided information.
-     *
-     * @param name           the name of the collaborator
-     * @param birthDate      the birthdate of the collaborator
-     * @param admissionDate  the admission date of the collaborator
-     * @param address        the address of the collaborator
-     * @param mobile         the contact number of the collaborator
-     * @param email          the email address of the collaborator
-     * @param taxpayerNumber the taxpayer number of the collaborator
-     * @param idDocType      the type of ID document of the collaborator
-     * @param idDocNumber    the number of the ID document of the collaborator
-     * @param jobName        the name of the job of the collaborator
-     */
-    public void registerCollaborator(String name, Date birthDate, Date admissionDate, String address,
-                                     String mobile, String email, String taxpayerNumber, Collaborator.IdDocType idDocType, String idDocNumber, String jobName) throws InvalidCollaboratorDataException, InvalidCollaboratorDataException {
-
-        this.collaboratorRepository.addCollaborator(new Collaborator(name, birthDate, admissionDate, address, mobile,
-                email, taxpayerNumber, idDocType, idDocNumber, jobName));
-    }
-
-    /**
-     * Retrieves a list of jobs.
-     *
-     * @return a list of jobs
-     */
-    public List<Job> getJobs(){
-        return jobRepository.getJobs();
+    public void setRegisterCollaboratorUI(RegisterCollaboratorUI registerCollaboratorUI) {
+        this.registerCollaboratorUI = registerCollaboratorUI;
     }
 }

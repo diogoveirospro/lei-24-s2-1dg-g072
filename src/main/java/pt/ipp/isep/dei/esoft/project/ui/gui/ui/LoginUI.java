@@ -29,6 +29,7 @@ public class LoginUI implements Initializable {
         Parent root = loader.load();
         Scene scene = new Scene(root);
         stage.setTitle(LOGIN);
+        stage.setResizable(false);
         stage.setScene(scene);
         loginController = loader.getController();
         loginController.setLoginUI(new LoginUI());
