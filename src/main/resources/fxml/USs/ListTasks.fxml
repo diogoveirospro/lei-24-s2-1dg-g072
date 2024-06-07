@@ -69,7 +69,10 @@
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>
-                  <Button fx:id="btnCancel" cancelButton="true" mnemonicParsing="false" onAction="#handleCancelButtonAction" style="-fx-background-color: #D32F2F; -fx-text-fill: white; -fx-background-radius: 15;" text="Cancel" />
+                  <Button fx:id="btnCancel" cancelButton="true" mnemonicParsing="false" onAction="#handleCancelButtonAction" style="-fx-background-color: #D32F2F; -fx-text-fill: white; -fx-background-radius: 15;" text="Cancel">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
                </children>
             </HBox>
          </children>
