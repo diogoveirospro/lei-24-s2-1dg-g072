@@ -1,44 +1,41 @@
 package pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss;
 
-import pt.ipp.isep.dei.esoft.project.domain.Job;
-import pt.ipp.isep.dei.esoft.project.repository.JobRepository;
-import pt.ipp.isep.dei.esoft.project.repository.Repositories;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.FMUI;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.HRMUI;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.MainMenuUI;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss.RegisterJobUI;
 
-/**
- * RegisterJobController is a class responsible for making requests related to the registration of jobs, requested by the UI.
- *
- * @author Group 072 - Byte Masters - ISEP
- */
 public class RegisterJobUIController {
-    /**
-     * Repository containing the jobs.
-     */
-    private JobRepository jobRepository;
+    private HRMUI hrmui;
+    private RegisterJobUI registerJobUI;
+    @FXML
+    private Button btnCancel;
 
-    /**
-     * Empty RegisterJobController builder.
-     */
-    public RegisterJobUIController(){
-        this.jobRepository = Repositories.getInstance().getJobRepository();
+    @FXML
+    private Button btnRegister;
+
+    @FXML
+    private TextField txtJob;
+
+
+    public void handleRegisterAction() {
+        // TODO: implement here
     }
 
-    /**
-     * RegisterJobController builder.
-     * @param jobRepository job repository
-     */
-    public RegisterJobUIController(JobRepository jobRepository){
 
-        this.jobRepository = jobRepository;
+    public void handleCancelAction() {
+        try {
+            hrmui = new HRMUI();
+            hrmui.showUI(MainMenuUI.getPrimaryStage());
+        } catch (Exception e) {
+            System.out.println("An error occurred while handling the cancel action: " + e.getMessage());
+        }
     }
 
-    /**
-     * Register a job
-     * @param name job name
-     */
-    public void registerJob(String name) {
-
-        Job job = new Job(name);
-        jobRepository.addJob(job);
+    public void setRegisterJobUI(RegisterJobUI registerJobUI) {
+        this.registerJobUI = registerJobUI;
     }
-
 }

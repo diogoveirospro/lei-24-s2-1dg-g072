@@ -1,49 +1,38 @@
 package pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
-import pt.ipp.isep.dei.esoft.project.domain.Skill;
-import pt.ipp.isep.dei.esoft.project.repository.Repositories;
-import pt.ipp.isep.dei.esoft.project.repository.SkillRepository;
+import pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.RegisterSkillUIController;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
 
 /**
- * The RegisterSkillController class is responsible for managing the registration
- * of new skills within the system. It utilizes a SkillRepository to persist skills.
  *
  * @author Group 072 - Byte Masters - ISEP
  */
 
-public class RegisterSkillUI {
-    private SkillRepository skillRepository;
+public class RegisterSkillUI implements Initializable {
 
-    /**
-     * Empty RegisterJobController builder.
-     */
-
-    public RegisterSkillUI(){
-        this.skillRepository = Repositories.getInstance().getSkillRepository();
+    private RegisterSkillUIController registerSkillUIController;
+    private final String REGISTER_SKILL = "Register Skill";
+    public void showUI(Stage stage) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/USs/RegisterSkill.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        stage.setTitle(REGISTER_SKILL);
+        stage.setScene(scene);
+        registerSkillUIController = loader.getController();
+        registerSkillUIController.setRegisterSkillUI(new RegisterSkillUI());
+        stage.show();
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
 
-    /**
-     * Constructs a RegisterSkillController with a specified SkillRepository.
-     *
-     * @param skillRepository The repository used for skill management and persistence.
-     */
-
-    public RegisterSkillUI(SkillRepository skillRepository){
-        this.skillRepository = skillRepository;
-    }
-
-    /**
-     * Registers a new skill with the specified name in the system. This involves
-     * creating a Skill object and adding it to the repository.
-     *
-     * @param name The name of the skill to addSkill. It must not be null or empty.
-     */
-
-    public void registerSkill(String name) {
-
-    }
-
-    public void showUI(Stage primaryStage) {
     }
 }

@@ -4,7 +4,6 @@ import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidEntryDataException;
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidTaskDataException;
 import pt.ipp.isep.dei.esoft.project.domain.AgendaEntry;
 import pt.ipp.isep.dei.esoft.project.domain.Date;
-import pt.ipp.isep.dei.esoft.project.domain.Entry;
 import pt.ipp.isep.dei.esoft.project.repository.Agenda;
 import pt.ipp.isep.dei.esoft.project.repository.GreenSpaceRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;

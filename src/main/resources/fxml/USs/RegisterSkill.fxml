@@ -6,9 +6,24 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="fxml.RegisterSkill"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="226.0" prefWidth="390.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.RegisterSkillUIController">
+   <children>
+      <GridPane layoutX="88.0" layoutY="47.0" prefHeight="132.0" prefWidth="235.0" AnchorPane.leftAnchor="67.0" AnchorPane.rightAnchor="67.0">
+        <columnConstraints>
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button fx:id="btnRegister" defaultButton="true" mnemonicParsing="false" onAction="#handleRegisterAction" text="Register" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="Insert skill" />
+            <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#handleCancelAction" text="Cancel" GridPane.rowIndex="1" />
+            <TextField fx:id="txtSkill" promptText="Skill..." GridPane.columnIndex="1" />
+         </children>
+      </GridPane>
+   </children>
 </AnchorPane>
