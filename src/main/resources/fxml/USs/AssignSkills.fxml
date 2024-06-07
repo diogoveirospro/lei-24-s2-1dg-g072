@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
@@ -63,8 +64,14 @@
    <bottom>
       <HBox alignment="CENTER" prefHeight="62.0" prefWidth="356.0" spacing="20.0" BorderPane.alignment="CENTER">
          <children>
-            <Button defaultButton="true" mnemonicParsing="false" style="-fx-background-color: #388E3C; -fx-text-fill: white; -fx-background-radius: 15;" text="Assign Skill" />
-            <Button mnemonicParsing="false" style="-fx-background-color: #D32F2F; -fx-text-fill: white; -fx-background-radius: 15;" text="Cancel" />
+            <Button defaultButton="true" mnemonicParsing="false" style="-fx-background-color: #388E3C; -fx-text-fill: white; -fx-background-radius: 15;" text="Assign Skill">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <Button mnemonicParsing="false" style="-fx-background-color: #D32F2F; -fx-text-fill: white; -fx-background-radius: 15;" text="Cancel">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
          </children>
          <BorderPane.margin>
             <Insets />
