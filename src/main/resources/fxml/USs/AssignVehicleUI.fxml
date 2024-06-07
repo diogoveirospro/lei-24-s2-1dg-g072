@@ -1,35 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
-<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<GridPane alignment="CENTER" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.AssignVehicleUIController">
-   <children>
-   
-       <Label style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Assign Vehicle to Agenda Entry" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" />
-       <Label text="Agenda Entries:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-       <ComboBox fx:id="agendaEntryComboBox" prefWidth="200" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-       <Label text="Valid Vehicles for Selected Entry:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-       <ComboBox fx:id="vehicleComboBox" prefWidth="200" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-       <Button fx:id="assignVehicleButton" defaultButton="true" onAction="#assignVehicle" prefHeight="31.0" prefWidth="126.0" text="Assign Vehicle" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-       <Label fx:id="statusLabel" text="" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="4" />
-      <Button fx:id="CancelBtn" mnemonicParsing="false" onAction="#handleCancelButtonAction" prefHeight="31.0" prefWidth="126.0" text="Cancel" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-   </children>
-   <columnConstraints>
-      <ColumnConstraints halignment="CENTER" />
-      <ColumnConstraints />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints valignment="CENTER" />
-      <RowConstraints />
-   </rowConstraints>
-</GridPane>
+<BorderPane prefHeight="235.0" prefWidth="491.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.AssignVehicleUIController">
+   <center>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <HBox spacing="20.0">
+               <children>
+                   <Label text="Agenda Entries:">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                   <ComboBox fx:id="agendaEntryComboBox" prefWidth="200" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" top="20.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox spacing="20.0">
+               <children>
+                   <Label text="Valid Vehicles for Selected Entry:">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                   <ComboBox fx:id="vehicleComboBox" prefWidth="200" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+   <bottom>
+      <HBox BorderPane.alignment="CENTER">
+         <children>
+             <Button fx:id="assignVehicleButton" defaultButton="true" onAction="#assignVehicle" prefHeight="31.0" prefWidth="126.0" text="Assign Vehicle" />
+            <Button fx:id="CancelBtn" mnemonicParsing="false" onAction="#handleCancelButtonAction" prefHeight="31.0" prefWidth="126.0" text="Cancel" />
+         </children>
+      </HBox>
+   </bottom>
+   <top>
+      <GridPane prefHeight="75.0" prefWidth="684.0" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Assign Vehicle to Agenda Entry" textAlignment="CENTER" wrappingWidth="379.9921875">
+               <font>
+                  <Font name="Georgia" size="20.0" />
+               </font>
+            </Text>
+            <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#f1f8e9" height="38.0" stroke="BLACK" strokeType="INSIDE" width="384.0" />
+         </children>
+      </GridPane>
+   </top>
+</BorderPane>

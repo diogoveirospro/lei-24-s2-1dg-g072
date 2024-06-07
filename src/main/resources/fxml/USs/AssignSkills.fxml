@@ -6,7 +6,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.AssignSkillUIController">
+<BorderPane style="-fx-background-color: #F1F8E9;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.AssignSkillUIController">
    <top>
       <GridPane prefHeight="75.0" prefWidth="552.0" BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -29,7 +29,7 @@
       </GridPane>
    </top>
    <center>
-      <HBox prefHeight="171.0" prefWidth="472.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" prefHeight="171.0" prefWidth="472.0" BorderPane.alignment="CENTER">
          <children>
             <VBox prefHeight="171.0" prefWidth="235.0" spacing="10.0">
                <children>
@@ -41,7 +41,7 @@
                   <ListView prefHeight="140.0" prefWidth="238.0" />
                </children>
                <HBox.margin>
-                  <Insets left="20.0" />
+                  <Insets />
                </HBox.margin>
             </VBox>
             <VBox prefHeight="171.0" prefWidth="235.0" spacing="10.0">
@@ -67,7 +67,7 @@
             <Button mnemonicParsing="false" style="-fx-background-color: #D32F2F; -fx-text-fill: white; -fx-background-radius: 15;" text="Cancel" />
          </children>
          <BorderPane.margin>
-            <Insets top="20.0" />
+            <Insets />
          </BorderPane.margin>
       </HBox>
    </bottom>
