@@ -4,25 +4,30 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
 <BorderPane style="-fx-background-color: #F1F8E9;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.AssignTeamUIController">
    <top>
-      <VBox style="-fx-background-color: #80cbc4;" BorderPane.alignment="CENTER">
+      <GridPane prefHeight="75.0" prefWidth="644.0" BorderPane.alignment="CENTER">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+         </rowConstraints>
          <children>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Assign Team To Agenda Entry" textAlignment="CENTER" wrappingWidth="957.4867553710938">
+            <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#80cbc4" height="38.0" stroke="TRANSPARENT" strokeType="INSIDE" width="306.0">
+               <GridPane.margin>
+                  <Insets left="200.0" />
+               </GridPane.margin></Rectangle>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Assign Team To Agenda Entry" textAlignment="CENTER" wrappingWidth="703.4867553710938">
                <font>
-                  <Font name="System Bold" size="28.0" />
+                  <Font name="Georgia" size="20.0" />
                </font>
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
             </Text>
          </children>
-         <padding>
-            <Insets bottom="5.0" />
-         </padding>
-      </VBox>
+      </GridPane>
    </top>
    <center>
       <VBox BorderPane.alignment="CENTER">
@@ -31,31 +36,34 @@
                <children>
                   <Label text="Agenda Entry: ">
                      <font>
-                        <Font name="System Bold" size="16.0" />
+                        <Font name="System Bold" size="12.0" />
                      </font>
                      <HBox.margin>
                         <Insets left="20.0" top="20.0" />
                      </HBox.margin>
                   </Label>
-                  <ListView fx:id="lvAgendaEntries" prefHeight="293.0" prefWidth="345.0">
+                  <ListView fx:id="lvAgendaEntries">
                      <HBox.margin>
                         <Insets bottom="5.0" top="20.0" />
                      </HBox.margin>
                   </ListView>
                   <Label text="Team: ">
                      <font>
-                        <Font name="System Bold" size="16.0" />
+                        <Font name="System Bold" size="12.0" />
                      </font>
                      <HBox.margin>
                         <Insets left="10.0" top="20.0" />
                      </HBox.margin>
                   </Label>
-                  <ListView fx:id="lvTeams" prefHeight="293.0" prefWidth="345.0">
+                  <ListView fx:id="lvTeams">
                      <HBox.margin>
                         <Insets bottom="5.0" top="20.0" />
                      </HBox.margin>
                   </ListView>
                </children>
+               <padding>
+                  <Insets right="60.0" />
+               </padding>
             </HBox>
             <ComboBox fx:id="cbEmailService" prefHeight="22.0" prefWidth="242.0" promptText="Email Service">
                <VBox.margin>
@@ -66,14 +74,14 @@
       </VBox>
    </center>
    <bottom>
-      <HBox BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="btnAssignTeam" mnemonicParsing="false" onAction="#handleAssignTeam" style="-fx-background-color: #388E3C; -fx-text-fill: white; -fx-background-radius: 15;" text="Assign Team">
                <HBox.margin>
                   <Insets left="20.0" right="20.0" />
                </HBox.margin>
                <font>
-                  <Font name="System Bold" size="14.0" />
+                  <Font name="System Bold" size="12.0" />
                </font>
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -81,7 +89,7 @@
             </Button>
             <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#handleCancel" style="-fx-background-color: #D32F2F; -fx-text-fill: white; -fx-background-radius: 15;" text="Cancel">
                <font>
-                  <Font name="System Bold" size="14.0" />
+                  <Font name="System Bold" size="12.0" />
                </font>
                <cursor>
                   <Cursor fx:constant="HAND" />
