@@ -1,22 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
 <?import javafx.scene.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.Output.ShowListTaskController">
-   <children>
-      <Button fx:id="btnCancel" cancelButton="true" layoutX="57.0" layoutY="349.0" mnemonicParsing="false" onAction="#handleCancelButtonAction" text="Back" />
-      <VBox prefHeight="336.0" prefWidth="600.0">
+<BorderPane prefHeight="532.0" prefWidth="644.0" style="-fx-background-color: #f1f8e9;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.Output.ShowListTaskController">
+   <top>
+      <GridPane prefHeight="75.0" prefWidth="644.0" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
          <children>
-            <ScrollPane prefHeight="345.0" prefWidth="600.0">
+            <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#80cbc4" height="38.0" stroke="#ffffff00" strokeType="INSIDE" width="235.0">
+               <GridPane.margin>
+                  <Insets left="200.0" />
+               </GridPane.margin>
+            </Rectangle>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Task List" textAlignment="CENTER" wrappingWidth="645.44921875">
+               <font>
+                  <Font name="Georgia" size="20.0" />
+               </font>
+            </Text>
+         </children>
+      </GridPane>
+   </top>
+   <center>
+      <Pane BorderPane.alignment="CENTER">
+         <children>
+            <ScrollPane layoutX="22.0" layoutY="44.0" prefHeight="345.0" prefWidth="600.0">
                <content>
-                  <ListView fx:id="listTasks" prefHeight="336.0" prefWidth="595.0" />
+                  <ListView fx:id="listTasks" prefHeight="411.0" prefWidth="594.0" />
                </content>
             </ScrollPane>
          </children>
-      </VBox>
-   </children>
-</AnchorPane>
+      </Pane>
+   </center>
+   <bottom>
+      <HBox alignment="CENTER" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="btnCancel" cancelButton="true" mnemonicParsing="false" onAction="#handleCancelButtonAction" style="-fx-background-color: #80cbc4; -fx-text-fill: white; -fx-background-radius: 15;" text="Back" textAlignment="CENTER">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="20.0" />
+         </BorderPane.margin>
+      </HBox>
+   </bottom>
+</BorderPane>

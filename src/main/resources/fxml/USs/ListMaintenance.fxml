@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane prefHeight="275.0" prefWidth="989.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.ListMaintenanceUIController">
+<BorderPane prefHeight="275.0" prefWidth="989.0" style="-fx-background-color: #f1f8e9;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.ListMaintenanceUIController">
    <top>
       <GridPane prefHeight="75.0" prefWidth="644.0" BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -49,8 +50,14 @@
             </TableView>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                <children>
-                  <Button fx:id="btnShowList" defaultButton="true" mnemonicParsing="false" onAction="#handleShowListAction" style="-fx-background-color: #388E3C; -fx-text-fill: white; -fx-background-radius: 15;" text="Show" />
-                  <Button fx:id="btnBack" mnemonicParsing="false" onAction="#handleBackButtonAction" style="-fx-background-color: #D32F2F; -fx-text-fill: white; -fx-background-radius: 15;" text="Back" />
+                  <Button fx:id="btnShowList" defaultButton="true" mnemonicParsing="false" onAction="#handleShowListAction" style="-fx-background-color: #388E3C; -fx-text-fill: white; -fx-background-radius: 15;" text="Show">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+                  <Button fx:id="btnBack" mnemonicParsing="false" onAction="#handleBackButtonAction" style="-fx-background-color: #D32F2F; -fx-text-fill: white; -fx-background-radius: 15;" text="Back">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
                </children>
             </HBox>
          </children>

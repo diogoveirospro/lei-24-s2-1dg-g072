@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
@@ -44,8 +45,14 @@
    <bottom>
       <HBox alignment="CENTER" spacing="20.0" BorderPane.alignment="CENTER">
          <children>
-                <Button fx:id="btnCancelEntry" onAction="#handleCancelEntry" style="-fx-background-color: #388E3C; -fx-text-fill: white; -fx-background-radius: 15;" text="Cancel Entry" />
-                <Button fx:id="btnCancel" onAction="#handleCancelButtonAction" style="-fx-background-color: #D32F2F; -fx-text-fill: white; -fx-background-radius: 15;" text="Cancel" />
+                <Button fx:id="btnCancelEntry" onAction="#handleCancelEntry" style="-fx-background-color: #388E3C; -fx-text-fill: white; -fx-background-radius: 15;" text="Cancel Entry">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+                <Button fx:id="btnCancel" onAction="#handleCancelButtonAction" style="-fx-background-color: #D32F2F; -fx-text-fill: white; -fx-background-radius: 15;" text="Cancel">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
          </children>
          <BorderPane.margin>
             <Insets bottom="20.0" />
