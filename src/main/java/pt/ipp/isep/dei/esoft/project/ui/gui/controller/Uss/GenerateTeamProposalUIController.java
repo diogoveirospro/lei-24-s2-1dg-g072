@@ -84,7 +84,7 @@ public class GenerateTeamProposalUIController {
         Skill selectedSkill = lvSkills.getSelectionModel().getSelectedItem();
         if (selectedSkill != null) {
             lvSelectedSkills.getItems().add(selectedSkill);
-        }else {
+        } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Please select a skill to add");
@@ -92,12 +92,12 @@ public class GenerateTeamProposalUIController {
         }
     }
 
-    @FXML
+
     public void handleRemoveSkill() {
         Skill selectedSkill = lvSelectedSkills.getSelectionModel().getSelectedItem();
         if (selectedSkill != null) {
             lvSelectedSkills.getItems().remove(selectedSkill);
-        }else {
+        } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Please select a skill to remove");
@@ -105,35 +105,59 @@ public class GenerateTeamProposalUIController {
         }
     }
 
-    @FXML
+
     public void handleGenerate() {
-        int minSize = Integer.parseInt(tfMinSize.getText());
-        int maxSize = Integer.parseInt(tfMaxSize.getText());
-        java.util.List<Skill> selectedSkills = lvSelectedSkills.getItems();
-        java.util.List<Collaborator> collaborators = Repositories.getInstance().getCollaboratorRepository().getCollaborators();
 
-        try {
-            Team teamProposal = generateTeamProposalController.generateTeamProposal(minSize, maxSize, selectedSkills, collaborators);
-            lvTeamProposal.setItems(FXCollections.observableArrayList(teamProposal.getTeam()));
-
-            btnAcceptProposal.setDisable(false);
-            btnDeclineProposal.setDisable(false);
-
-        } catch (IllegalArgumentException e) {
+        if (tfMaxSize.getText().isEmpty() || tfMinSize.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
-            alert.setHeaderText(e.getMessage());
+            alert.setHeaderText("Please write the minimum and maximum size of the team");
             alert.showAndWait();
+        } else {
+            int minSize = Integer.parseInt(tfMinSize.getText());
+            int maxSize = Integer.parseInt(tfMaxSize.getText());
+            List<Skill> selectedSkills = lvSelectedSkills.getItems();
+            List<Collaborator> collaborators = Repositories.getInstance().getCollaboratorRepository().getCollaborators();
+            if (minSize > maxSize) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Minimum size must be less than maximum size");
+                alert.showAndWait();
+
+            } else if (selectedSkills.isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Please select at least one skill");
+                alert.showAndWait();
+            } else if (collaborators.isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Please select at least one collaborator");
+                alert.showAndWait();
+            } else {
+                try {
+                    Team teamProposal = generateTeamProposalController.generateTeamProposal(minSize, maxSize, selectedSkills, collaborators);
+                    lvTeamProposal.setItems(FXCollections.observableArrayList(teamProposal.getTeam()));
+
+                    btnAcceptProposal.setDisable(false);
+                    btnDeclineProposal.setDisable(false);
+
+                } catch (IllegalArgumentException e) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText(e.getMessage());
+                    alert.showAndWait();
+                }
+            }
         }
 
     }
 
-    @FXML
     public void handleAcceptProposal() {
         ObservableList<Collaborator> members = lvTeamProposal.getItems();
         Team teamProposal = new Team(members);
 
-        if (generateTeamProposalController.addTeam(teamProposal)){
+        if (generateTeamProposalController.addTeam(teamProposal)) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Success");
             alert.setHeaderText("Team proposal accepted");
@@ -141,7 +165,7 @@ public class GenerateTeamProposalUIController {
 
             lvTeamProposal.getItems().clear();
 
-        }else {
+        } else {
 
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -151,7 +175,6 @@ public class GenerateTeamProposalUIController {
 
     }
 
-    @FXML
     public void handleDeclineProposal() {
 
         lvCollaborators.setVisible(true);

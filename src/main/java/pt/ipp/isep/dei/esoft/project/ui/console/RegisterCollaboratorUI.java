@@ -77,7 +77,7 @@ public class RegisterCollaboratorUI implements Runnable {
         // Registering the collaborator
         try {
             controller.registerCollaborator(name, birthDate, admissionDate, address, mobile, email, taxpayerNumber,
-                    idDocType, idDocNumber, jobName);
+                    idDocType, idDocNumber, jobName,password);
         } catch (InvalidCollaboratorDataException e) {
             System.out.println(e.getMessage());
         }
