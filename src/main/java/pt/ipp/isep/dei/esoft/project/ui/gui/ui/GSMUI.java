@@ -22,8 +22,6 @@ public class GSMUI implements Initializable {
         Parent root = loader.load();
         Scene scene = new Scene(root);
         stage.setTitle(GSM);
-        stage.setResizable(true);
-        stage.setMaximized(true);
         stage.setScene(scene);
         gsmController = loader.getController();
         gsmController.setGsmui(new GSMUI());

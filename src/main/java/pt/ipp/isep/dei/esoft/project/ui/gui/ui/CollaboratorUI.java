@@ -22,8 +22,6 @@ public class CollaboratorUI implements Initializable {
         Parent root = loader.load();
         Scene scene = new Scene(root);
         stage.setTitle(HRM);
-        stage.setResizable(true);
-        stage.setMaximized(true);
         stage.setScene(scene);
         collaboratorController = loader.getController();
         collaboratorController.setCollaboratorUI(new CollaboratorUI());
