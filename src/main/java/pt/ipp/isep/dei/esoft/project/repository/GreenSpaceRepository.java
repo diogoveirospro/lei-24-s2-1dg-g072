@@ -24,7 +24,7 @@ public class GreenSpaceRepository extends SerializableRepository<List<GreenSpace
 
     public GreenSpaceRepository() {
         super("greenSpaceRepository.ser");
-        this.greenSpaceList = new ArrayList<>();
+        this.greenSpaceList = super.load();
     }
 
     public List<GreenSpace> getGreenSpaceListSorted(Collaborator greenSpaceManager, String sortingOption) {
@@ -98,5 +98,9 @@ public class GreenSpaceRepository extends SerializableRepository<List<GreenSpace
 
     public void saveGreenSpaceRepositoryToFile() {
         save(greenSpaceList);
+    }
+
+    public List<GreenSpace> getGreenSpaceList() {
+        return greenSpaceList;
     }
 }

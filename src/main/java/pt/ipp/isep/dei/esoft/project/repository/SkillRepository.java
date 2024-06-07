@@ -23,7 +23,7 @@ public class SkillRepository extends SerializableRepository<List<Skill>> impleme
      */
     public SkillRepository(){
         super("skillRepository.ser");
-        skills = new ArrayList<>();
+        skills = super.load();
     }
 
     /**
