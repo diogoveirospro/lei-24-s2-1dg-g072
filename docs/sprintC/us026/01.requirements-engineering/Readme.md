@@ -14,19 +14,23 @@ The GSM wants to assign one or more vehicles to an entry int the agenda.
 
 **From the client clarifications:**
 
-> **Question:** 
+> **Question:** Should each GSM only be able to assign vehicles to its own entries or every GSM can assign vehicles to every entry, even if the green space associated with the task is not registered with their email?
 > 
-> **Answer:**
- 
-> **Question:** 
+> **Answer:** For the sake of simplicity, you can assume that GSM will only manage its Agenda Entries.
+
+> **Question:** Is the number of vehicles to be assigned provided by the Green Spaces Manager?
 > 
-> **Answer:** 
+> **Answer:** There is no specification concerning the number of vehicles, is upt to GSM decide what vehicles the task needs.
+
+> **Question:** Todos os veículos da empresa devem estar disponíveis para os atribuir a uma entrada da agenda, ou só os veículos com a manutenção em dia?
+>
+> **Answer:** Todos os veiculos que não estejam assignados a uma tarefa no mesmo periodo.
+
 
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** 
-
+* **AC1:** The vehicle mustn't be assigned to another entry in the same period.
 
 ### 1.4. Found out Dependencies
 

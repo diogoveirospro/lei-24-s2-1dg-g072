@@ -19,7 +19,7 @@ loop
         System --> Employee : shows registered entries
     deactivate System
 
-    Employee -> System : chooses entries to cancel
+    Employee -> System : chooses entry to cancel
     activate System
 
 end

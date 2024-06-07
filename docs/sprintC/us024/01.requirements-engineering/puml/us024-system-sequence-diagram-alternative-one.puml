@@ -19,7 +19,7 @@ loop
         System --> Employee : shows registered entries
     deactivate System
 
-    Employee -> System : chooses entries to postpone and \nthe date to postpone them
+    Employee -> System : chooses entry to postpone and \nthe date to be postponed
     activate System
 
 end

@@ -433,6 +433,13 @@ Each troubleshooting statement (referred as “ISSUE”) must include:
 - Solution – suggestions to address the identified problem
 - Additional resource(s) – reference to possible support channels
 
+### ISSUE 1: Unable to postpone a entry in the Agenda
+**Symptom:** The user is unable to postpone an entry in the Agenda to a specific future date.
+**Instructions:** Check if the new date selected is within the valid range, after the previous start date. 
+If it his then check if the end date is after the start date.
+**Solution:** Select a valid date range and try again.
+**Additional resource(s):** If the problem persists, contact the development team.
+
 ## Frequently Asked Questions
 
 This section includes a list of questions the users may ask about the application, and the

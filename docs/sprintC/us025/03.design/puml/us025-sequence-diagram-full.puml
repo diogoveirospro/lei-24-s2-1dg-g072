@@ -96,10 +96,10 @@ activate GSM
             CTRL --> UI : entryListDto
         deactivate CTRL
         loop
-        UI --> GSM: shows all the entries registered in the \nAgenda and asks you to select the \nones you want to cancel
+        UI --> GSM: shows all the entries registered in the \nAgenda and asks you to select the \none you want to cancel
     deactivate UI
 
-    GSM -> UI: select the desired entries
+    GSM -> UI: select the desired entry
     activate UI
         end
 

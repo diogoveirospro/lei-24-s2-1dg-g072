@@ -7,10 +7,7 @@
 
 The GSM wants to cancel an entry in the Agenda.
 
-### 1.2. Customer Specifications and Clarifications 
-
-**From the project statement document:**
- 
+### 1.2. Customer Specifications and Clarifications
 
 **From the client clarifications:**
 
@@ -22,6 +19,11 @@ The GSM wants to cancel an entry in the Agenda.
 > 
 > **Answer:** No
 
+> **Question:** When the GSM wants to cancel a task, this task can only be canceled if its status is PLANNED or POSTPONED, correct?
+> 
+> **Answer:** No, just planned because if there is a Postponed entry then there is also an Planned Entry with the new date.
+
+ 
 
 ### 1.3. Acceptance Criteria
 
