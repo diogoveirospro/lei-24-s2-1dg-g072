@@ -5,9 +5,10 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.AddToDoListEntryUIController">
+<BorderPane style="-fx-background-color: #f1f8e9;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.AddToDoListEntryUIController">
    <top>
       <GridPane prefHeight="75.0" prefWidth="644.0" BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -17,53 +18,78 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Add New Entry to the To-Do List" textAlignment="CENTER" wrappingWidth="267.13671875" />
+            <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#80cbc4" height="38.0" stroke="TRANSPARENT" strokeType="INSIDE" width="334.0">
+               <GridPane.margin>
+                  <Insets left="150.0" />
+               </GridPane.margin></Rectangle>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Add New Entry to the To-Do List" textAlignment="CENTER" wrappingWidth="643.13671875">
+               <font>
+                  <Font name="Georgia" size="20.0" />
+               </font></Text>
          </children>
       </GridPane>
    </top>
    <center>
       <HBox BorderPane.alignment="CENTER">
          <children>
-            <VBox prefHeight="200.0" prefWidth="100.0">
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="317.0" spacing="5.0">
                <children>
          
-                   <Label text="Tasks" />
-                   <ListView fx:id="taskListView" prefHeight="162.0" prefWidth="100.0" />
+                   <Label prefHeight="17.0" prefWidth="37.0" text="Tasks" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Label>
+                   <ListView fx:id="taskListView" prefHeight="183.0" prefWidth="245.0" />
                </children>
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
             </VBox>
-            <VBox prefHeight="200.0" prefWidth="100.0">
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="262.0" spacing="10.0">
                <children>
          
-                   <Label text="Green Space Name" />
+                   <Label text="Green Space Name">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Label>
                   <ComboBox fx:id="cbGreenSpaceName" prefWidth="150.0" />
+                  <VBox alignment="CENTER" spacing="10">
+                      <padding>
+                          <Insets bottom="10" left="10" right="10" top="10" />
+                      </padding>
+            
+                      <Label text="Degree of Urgency" textAlignment="CENTER">
+                        <font>
+                           <Font name="System Bold" size="12.0" />
+                        </font>
+                     </Label>
+                      <ComboBox fx:id="degreeOfUrgencyComboBox" prefWidth="150.0">
+                          <items>
+                              <FXCollections fx:factory="observableArrayList">
+                                  <String fx:value="Low" />
+                                  <String fx:value="Medium" />
+                                  <String fx:value="High" />
+                              </FXCollections>
+                          </items>
+                      </ComboBox>
+                  </VBox>
                </children>
-            </VBox>
-            <VBox alignment="CENTER" spacing="10">
-                <padding>
-                    <Insets bottom="10" left="10" right="10" top="10" />
-                </padding>
-      
-                <Label text="Degree of Urgency" />
-                <ComboBox fx:id="degreeOfUrgencyComboBox">
-                    <items>
-                        <FXCollections fx:factory="observableArrayList">
-                            <String fx:value="Low" />
-                            <String fx:value="Medium" />
-                            <String fx:value="High" />
-                        </FXCollections>
-                    </items>
-                </ComboBox>
-               <HBox prefHeight="100.0" prefWidth="200.0" />
+               <padding>
+                  <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+               </padding>
             </VBox>
          </children>
       </HBox>
    </center>
    <bottom>
-      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
       
-             <Button fx:id="confirmButton" text="Add Entry" />
-            <Button fx:id="btnCancel" mnemonicParsing="false" text="Button" />
+             <Button fx:id="confirmButton" style="-fx-background-color: #388E3C; -fx-text-fill: white; -fx-background-radius: 15;" text="Add To-Do List Entry" />
+            <Button fx:id="btnCancel" mnemonicParsing="false" style="-fx-background-color: #D32F2F; -fx-text-fill: white; -fx-background-radius: 15;" text="Cancel">
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin></Button>
          </children>
       </HBox>
    </bottom>
