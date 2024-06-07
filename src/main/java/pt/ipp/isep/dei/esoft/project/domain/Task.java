@@ -110,4 +110,8 @@ public class Task implements Serializable {
     public int hashCode() {
         return Objects.hash(duration, task);
     }
+
+    public void setName(String newName) {
+        this.task = newName;
+    }
 }

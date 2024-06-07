@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidEntryDataException;
+import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidTaskDataException;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 
 import java.io.Serializable;
@@ -387,8 +388,9 @@ public class AgendaEntry extends Entry implements Serializable {
      *
      * @param newDate the new date
      */
-    public void postponeEntry(Date newDate) {
+    public void postponeEntry(Date newDate, Date endDate) {
         this.startDate = newDate;
+        this.endDate = endDate;
     }
 
     /**
@@ -439,10 +441,18 @@ public class AgendaEntry extends Entry implements Serializable {
         this.vehicleList.add(vehicle);
     }
 
-    public AgendaEntry cloneEntry() throws InvalidEntryDataException {
+    public AgendaEntry cloneEntry() throws InvalidEntryDataException, InvalidTaskDataException {
         AgendaEntry newEntry = new AgendaEntry(super.getTask(), super.getGreenSpace(), this.startDate, this.startHour, this.endDate, this.endHour);
+        //newEntry.setTaskName("Postponed " + super.getTask().getTaskId());
+        newEntry.setTask(setTaskName("Postponed " + super.getTask().getTaskId()));
         newEntry.status.equals(StatusOfEntry.SCHEDULED);
         return newEntry;
+    }
+
+    public Task setTaskName(String newName) throws InvalidTaskDataException {
+        Task newTask = super.cloneTask();
+        newTask.setName(newName);
+        return newTask;
     }
 
     @Override
