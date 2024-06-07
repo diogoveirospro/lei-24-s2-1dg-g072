@@ -95,7 +95,7 @@ public class AgendaTest {
     }
 
     @Test
-    void getAgendaEntryListTest(){
+    void getAgendaEntryListTest() throws InvalidEntryDataException {
         List<AgendaEntry> entries = List.of(agendaEntry1, agendaEntry2);
 
         List<AgendaEntry> result = agenda.getAgendaEntryList(List.of(team1, team2), new Date(2024, 6, 5),
