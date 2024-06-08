@@ -5,9 +5,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
+import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidCollaboratorDataException;
 import pt.ipp.isep.dei.esoft.project.application.controller.RegisterJobController;
 import pt.ipp.isep.dei.esoft.project.domain.Job;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
+import pt.ipp.isep.dei.esoft.project.domain.utils.ValidatorUtils;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.AlertUI;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.FMUI;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.HRMUI;
@@ -45,6 +47,7 @@ public class RegisterJobUIController {
             try {
                 Job newJob = new Job(job);
                 newJob.validateJobName(job);
+                ValidatorUtils.isValidName(job);
                 if (job.isEmpty()) {
                     AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error", "Please write a job.", "You need to write a job to proceed.").show();
                 } else{
@@ -53,18 +56,8 @@ public class RegisterJobUIController {
                     hrmui = new HRMUI();
                     hrmui.showUI(MainMenuUI.getPrimaryStage());
                 }
-            } catch (IllegalArgumentException | IOException e) {
-                if (e.getMessage().equalsIgnoreCase("Job already exists!")) {
-                    AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error", "Error registering job. Job already exists.", e.getMessage()).show();
-                } else if (e.getMessage().equalsIgnoreCase("Job cannot be null")) {
-                    AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error", "Error registering job. Job cannot be null.", e.getMessage()).show();
-                } else if (e.getMessage().equalsIgnoreCase("Job can't have special characters")) {
-                    AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error", "Error registering job. Job needs to only have letters.", e.getMessage()).show();
-                } else if (e.getMessage().equalsIgnoreCase("Job cannot be null")) {
-                    AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error", "Error registering job. Job cannot be null.", e.getMessage()).show();
-                } else {
-                    AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error", "Error registering job.", e.getMessage()).show();
-                }
+            } catch (IllegalArgumentException | IOException | InvalidCollaboratorDataException e) {
+                AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error", "Error registering job.", e.getMessage()).show();
             }
         }
     }

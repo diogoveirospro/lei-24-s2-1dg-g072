@@ -12,7 +12,20 @@ import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidCollaboratorDataException
  * @author Group 072 - Byte Masters - ISEP
  */
 public class ValidatorUtils {
+    /**
+     * Max year for the vehicle.
+     */
+    private static final int MAX_YEAR_ID = 2020;
 
+    /**
+     * Middle year of the vehicle.
+     */
+    private static final int HALF_YEAR_ID = 2005;
+
+    /**
+     * Minimum year of the vehicle.
+     */
+    private static final int MIN_YEAR_ID = 1992;
     /**
      * Validates a collaborator's name.
      *
@@ -223,18 +236,18 @@ public class ValidatorUtils {
      */
     public static boolean isValidDocumentNumber(Collaborator.IdDocType idDocType, String idDocNumber) throws InvalidCollaboratorDataException {
 
-        if (idDocType == Collaborator.IdDocType.CC && idDocNumber.length() != 12 && !idDocNumber.matches("[0-9]{9}[A-Z]{2}[0-9]")) {
+        if (idDocType == Collaborator.IdDocType.CC && (idDocNumber.length() != 12 || !idDocNumber.matches("[0-9]{9}[A-Z]{2}[0-9]"))) {
 
             throw new InvalidCollaboratorDataException("Invalid input. The CC number must be 12 characters " +
                     "long and must be of the form 012345678ZZ9.");
 
-        } else if (idDocType == Collaborator.IdDocType.BI && idDocNumber.length() != 9 && idDocNumber.matches("[0-9]{9}")) {
+        } else if (idDocType == Collaborator.IdDocType.BI && (idDocNumber.length() != 9 || !idDocNumber.matches("[0-9]{9}"))) {
             throw new InvalidCollaboratorDataException("Invalid input. The BI must be 9 characters.");
 
-        } else if (idDocType == Collaborator.IdDocType.NISS && idDocNumber.length() != 11 && idDocNumber.matches("[0-9]{11}")) {
+        } else if (idDocType == Collaborator.IdDocType.NISS && (idDocNumber.length() != 11 || !idDocNumber.matches("[0-9]{11}"))) {
             throw new InvalidCollaboratorDataException("Invalid input. The NISS must be 11 characters.");
 
-        } else if (idDocType == Collaborator.IdDocType.PASSPORT && idDocNumber.length() != 7 && idDocNumber.matches("[A-Z][0-9]{6}")) {
+        } else if (idDocType == Collaborator.IdDocType.PASSPORT && (idDocNumber.length() != 7 || !idDocNumber.matches("[A-Z][0-9]{6}"))) {
             throw new InvalidCollaboratorDataException("Invalid input. The Passport must be 7 characters long and must be of the form A012345");
 
         } else {
@@ -242,17 +255,67 @@ public class ValidatorUtils {
         }
     }
 
-    public static boolean isValidPlate(String plate) throws InvalidVehicleDataException {
+    public static boolean isValidPlate(String plate, Date accisitionDate) throws InvalidVehicleDataException {
         if(plate.length() > 5) {
             String validation = String.valueOf(plate.charAt(2));
             String validation2 = String.valueOf(plate.charAt(5));
             if (!validation.equals("-") || !validation2.equals("-")) {
-                throw new InvalidVehicleDataException("Invalid plate, please try again.");
+                throw new InvalidVehicleDataException("Invalid plate, it must have this formal NN-NN-NN, please try again.");
             }
         }else {
             throw new InvalidVehicleDataException("Invalid plate, the plate must have eight characters");
         }
+        if (accisitionDate.getYear() > MAX_YEAR_ID) {
+            if (validatePlate(plate, 1)) {
+                throw new InvalidVehicleDataException("Invalid plate, for the plate use this format AA-99-AA, please try again.");
+            }
+
+        } else if (accisitionDate.getYear() > HALF_YEAR_ID) {
+            if (validatePlate(plate, 2)) {
+                throw new InvalidVehicleDataException("Invalid plate, for the plate use this format 99-AA-99, please try again.");
+            }
+
+        } else if (accisitionDate.getYear() > MIN_YEAR_ID) {
+            if (validatePlate(plate, 3)) {
+                throw new InvalidVehicleDataException("Invalid plate, for the plate use this format 99-99-AA, please try again.");
+            }
+        }
         return true;
+    }
+
+    /**
+     * Checks if the plate number of the vehicle is valid according to the year of registration of the vehicle.
+     * @param validationProcess process used to validate the plate number according to year of registration.
+     * @return true if plate number is valid, else return false.
+     */
+    public static boolean validatePlate(String plate, int validationProcess) {
+        boolean validate = true;
+        String[] plateId;
+        plateId = plate.split("-");
+
+        if (validationProcess == 1) {
+            if (!plateId[0].matches("[A-Z]*") || !plateId[2].matches("[A-Z]*"))
+                validate = false;
+
+            if (!plateId[1].matches("[0-9]*"))
+                validate = false;
+
+        } else if (validationProcess == 2) {
+            if (!plateId[0].matches("[0-9]*") || !plateId[2].matches("[0-9]*"))
+                validate = false;
+
+            if (!plateId[1].matches("[A-Z]*"))
+                validate = false;
+        } else {
+            if(!plateId[0].matches("[0-9]*") || !plateId[1].matches("[0-9]*"))
+                validate = false;
+
+
+            if(!plateId[2].matches("[A-Z]*"))
+                validate = false;
+        }
+
+        return !validate;
     }
 
     public static boolean isValidBrand(String brand) throws InvalidVehicleDataException {

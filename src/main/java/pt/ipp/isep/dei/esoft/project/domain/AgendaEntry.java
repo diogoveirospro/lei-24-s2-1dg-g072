@@ -423,10 +423,7 @@ public class AgendaEntry extends Entry implements Serializable {
     public boolean assignTeam(Team team) {
         if (team == null) {
             throw new IllegalArgumentException("The team is null.");
-        } else if (!teamRepository.getTeams().contains(team)) {
-            throw new IllegalArgumentException("The team is not in the repository.");
-
-        } else if (this.team == null) {
+        } else if (!(this.team == null)) {
             throw new IllegalArgumentException("The entry already has an associated team.");
         }
 

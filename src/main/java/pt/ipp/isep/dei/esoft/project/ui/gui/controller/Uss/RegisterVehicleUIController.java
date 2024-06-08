@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import pt.ipp.isep.dei.esoft.project.application.controller.RegisterVehicleController;
 import pt.ipp.isep.dei.esoft.project.domain.Date;
+import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
 import pt.ipp.isep.dei.esoft.project.domain.utils.ValidatorUtils;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.*;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss.RegisterVehicleUI;
@@ -86,8 +87,7 @@ public class RegisterVehicleUIController {
                     double kmAtLastMaintenanceDouble = Double.parseDouble(kmAtLastMaintenance);
                     double maintenanceFrequencyDouble = Double.parseDouble(maintenanceFrequency);
                     double currKmsDouble = Double.parseDouble(currKms);
-                    ValidatorUtils.isValidPlate(plateNumber);
-                    ValidatorUtils.isValidName(model);
+
                     ValidatorUtils.isValidBrand(brand);
                     ValidatorUtils.isValidName(type);
                     ValidatorUtils.isValidNumber(currKms);
@@ -119,6 +119,7 @@ public class RegisterVehicleUIController {
                         int day2 = Integer.parseInt(dateParts[2]);
 
                         Date registrationDate = new Date(year2, month2, day2);
+                        ValidatorUtils.isValidPlate(plateNumber,acquisitionDate);
                         if (acquisitionDate.isGreater(Date.currentDate()) || registrationDate.isGreater(Date.currentDate())) {
                             AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error", "Error registering vehicle.", "The dates must be in the past.").show();
 

@@ -138,8 +138,9 @@ public class Agenda extends SerializableRepository<List<AgendaEntry>> implements
 
 
     public boolean assignTeamToAgendaEntry(AgendaEntry agendaEntry, Team team) {
+        agendaEntry.assignTeam(team);
         saveAgendaToFile();
-        return agendaEntry.assignTeam(team);
+        return true;
     }
 
     public List<AgendaEntry> getAgendaEntriesWithoutTeam() {

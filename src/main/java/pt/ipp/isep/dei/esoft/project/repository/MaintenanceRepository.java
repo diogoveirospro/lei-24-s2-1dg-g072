@@ -98,11 +98,11 @@ public class MaintenanceRepository extends SerializableRepository<List<Maintenan
         checkIfMaintenanceNotNull(maintenance);
         VehicleRepository vehicleRepository = Repositories.getInstance().getVehicleRepository();
         Vehicle vehicle = vehicleRepository.getVehicleFromPlate(maintenance.getPlateNumber());
-
+        List<Vehicle> vehicleList = vehicleRepository.getVehicleList();
         if (!maintenance.validateVehicleMaintenance(vehicle)) {
             throw new IllegalArgumentException("Invalid maintenance data for vehicle with plate: " + maintenance.getPlateNumber());
         }
-
+        maintenance.setVehicleMaintenance(vehicle);
         Optional<Maintenance> existingMaintenanceOpt = maintenanceList.stream()
                 .filter(m -> m.getPlateNumber().equals(maintenance.getPlateNumber()))
                 .findFirst();
@@ -110,12 +110,23 @@ public class MaintenanceRepository extends SerializableRepository<List<Maintenan
         if (existingMaintenanceOpt.isPresent()) {
             Maintenance existingMaintenance = existingMaintenanceOpt.get();
             existingMaintenance.updateFrom(maintenance);
+            for (Vehicle v : vehicleList) {
+                if (v.getPlateNumber().equals(maintenance.getPlateNumber())) {
+                    v.setKmAtLastMaintenance(maintenance.getKmAtMaintenance());
+                }
+            }
+            vehicleRepository.saveVehicleRepositoryToFile();
             System.out.println("Maintenance updated for vehicle with plate: " + maintenance.getPlateNumber());
         } else {
-            maintenance.setVehicleMaintenance(vehicle);
 
+            for (Vehicle v : vehicleList) {
+                if (v.getPlateNumber().equals(maintenance.getPlateNumber())) {
+                    v.setKmAtLastMaintenance(maintenance.getKmAtMaintenance());
+                }
+            }
             maintenanceList.add(maintenance);
             saveMaintenanceRepositoryToFile();
+            vehicleRepository.saveVehicleRepositoryToFile();
             System.out.println("Maintenance added for vehicle with plate: " + maintenance.getPlateNumber());
 
         }

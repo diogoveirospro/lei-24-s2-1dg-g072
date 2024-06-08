@@ -87,7 +87,10 @@ public class RegisterCollaboratorUIController {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
             try {
-                if (nameField.getText().isEmpty() || emailField.getText().isEmpty() || pswField.getText().isEmpty() || idTypeCB.getValue().isEmpty() || idNumberField.getText().isEmpty() || adressField.getText().isEmpty() || phoneNumberField.getText().isEmpty() || taxNumberField.getText().isEmpty() || jobComboBox.getValue().toString().isEmpty() || birthDatePicker.getValue().toString().isEmpty() || admissionDatePicker.getValue().toString().isEmpty()) {
+                if (jobComboBox.getValue() == null || idTypeCB.getValue() == null || birthDatePicker.getValue() == null || admissionDatePicker.getValue() == null) {
+                    throw new InvalidCollaboratorDataException("All fields must be filled.");
+                }
+                if (nameField.getText().isEmpty() || emailField.getText().isEmpty() || pswField.getText().isEmpty() || idTypeCB.getValue().isEmpty() || idNumberField.getText().isEmpty() || adressField.getText().isEmpty() || phoneNumberField.getText().isEmpty() || taxNumberField.getText().isEmpty() || jobComboBox.getValue().isEmpty() || birthDatePicker.getValue().toString().isEmpty() || admissionDatePicker.getValue().toString().isEmpty()) {
                     throw new InvalidCollaboratorDataException("All fields must be filled.");
                 }
                 String name = nameField.getText();
@@ -104,6 +107,7 @@ public class RegisterCollaboratorUIController {
                 Collaborator.IdDocType idDocType = Collaborator.IdDocType.fromDisplayName(idType);
                 ValidatorUtils.isValidName(name);
                 ValidatorUtils.isValidEmail(email);
+                ValidatorUtils.isValidAddress(address);
                 ValidatorUtils.isValidTaxpayerNumber(taxNumber);
                 ValidatorUtils.isValidMobileNumber(phoneNumber);
                 ValidatorUtils.isValidDocumentNumber(idDocType, idNumber);
