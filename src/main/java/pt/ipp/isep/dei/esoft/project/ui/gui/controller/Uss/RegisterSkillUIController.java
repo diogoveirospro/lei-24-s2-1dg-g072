@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import pt.ipp.isep.dei.esoft.project.application.controller.RegisterSkillController;
 import pt.ipp.isep.dei.esoft.project.domain.Job;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
+import pt.ipp.isep.dei.esoft.project.domain.utils.ValidatorUtils;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.AlertUI;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.HRMUI;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.MainMenuUI;
@@ -44,6 +45,7 @@ public class RegisterSkillUIController {
             try {
                 Skill newskill = new Skill(skill);
                 newskill.validateSkill(skill);
+                ValidatorUtils.isValidName(skill);
                 if (skill.isEmpty()) {
                     AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error", "Please write a skill.", "You need to write a skill to proceed.").show();
                 } else {
@@ -53,15 +55,7 @@ public class RegisterSkillUIController {
                     hrmui.showUI(MainMenuUI.getPrimaryStage());
                 }
             } catch (Exception e) {
-                if (e.getMessage().contains("Skill can't have special characters")){
-                    AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error", "Error registering skill. Skill needs to only have letters.", e.getMessage()).show();
-                } else if (e.getMessage().contains("This skill already exists " + skill)){
-                    AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error", "Error registering skill. Skill already exists.", e.getMessage()).show();
-                } else if(e.getMessage().contains("Skill cannot be null")){
-                    AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error", "Error registering skill. Skill cannot be null.", e.getMessage()).show();
-                } else {
-                    AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error", "Error registering skill.", e.getMessage()).show();
-                }
+                AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error", "Error registering skill.", e.getMessage()).show();
             }
         }
     }

@@ -163,4 +163,5 @@ public class VehicleRepository extends SerializableRepository<List<Vehicle>> imp
     public void saveVehicleRepositoryToFile() {
         save(vehicleList);
     }
+
 }

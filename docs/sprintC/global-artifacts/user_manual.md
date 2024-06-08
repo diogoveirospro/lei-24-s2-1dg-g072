@@ -267,7 +267,7 @@ minimum and maximum size of the team and the set of skills required for a given 
 > - Click on "Visualize" to obtain the Asymptotic Behavior graph.
 
 > ### 15. The monthly cost associated with water consumption in each park is related to its size | GSM
-> **Purpose:** To enable the Human Resources Manager (HRM) to create a skill or set of skills to later be added to a Collaborator/Employee.
+> **Purpose:** To enable the Green Space Manager (GSM) to create a skill or set of skills to later be added to a Collaborator/Employee.
 >
 > **Instructions**:
 > - Log in to your Human Resources Manager account;

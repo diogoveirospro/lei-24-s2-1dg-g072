@@ -8,6 +8,8 @@ import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.application.controller.AssignTeamController;
 import pt.ipp.isep.dei.esoft.project.domain.AgendaEntry;
 import pt.ipp.isep.dei.esoft.project.domain.Team;
+import pt.ipp.isep.dei.esoft.project.repository.Repositories;
+import pt.ipp.isep.dei.esoft.project.repository.TeamRepository;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.AlertUI;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.GSMUI;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.MainMenuUI;
@@ -62,6 +64,7 @@ public class AssignTeamUIController {
 
     public void populateTeamsListView() {
         List<Team> teams = controller.getValidTeams(selectedAgendaEntry);
+        lvTeams.getItems().clear();
         lvTeams.getItems().addAll(teams);
     }
 
@@ -90,13 +93,28 @@ public class AssignTeamUIController {
 
     @FXML
     public void handleAssignTeam() {
+        TeamRepository teamRepository = Repositories.getInstance().getTeamRepository();
+        List<Team> teams = teamRepository.getTeams();
         try {
-            controller.assignTeamToAgendaEntry(selectedAgendaEntry, selectedTeam);
-            controller.sendEmailToTeamMembers(selectedTeam, selectedEmailService);
-            assignTeamUI.showUI(new Stage());
-        } catch (IOException e) {
+            Team team = null;
+            for (Team t : teams) {
+                if (t.toString().equalsIgnoreCase(selectedTeam.toString())) {
+                    team = t;
+                    break;
+                }
+            }
+            if (team == null) {
+                throw new IllegalArgumentException("The team does not exist.");
+            }
+            controller.assignTeamToAgendaEntry(selectedAgendaEntry, team);
+            controller.sendEmailToTeamMembers(team, selectedEmailService);
+            AlertUI.createAnAlert(Alert.AlertType.INFORMATION, "Assign Team",
+                    "The team was successfully assigned to the agenda entry.", "").show();
+            assignTeamUI = new AssignTeamUI();
+            assignTeamUI.showUI(MainMenuUI.getPrimaryStage());
+        } catch (Exception e) {
             AlertUI.createAnAlert(Alert.AlertType.ERROR, "Assign Team",
-                    "It was not possible to assign the team to the agenda entry.", e.getMessage());
+                    "It was not possible to assign the team to the agenda entry.", e.getMessage()).show();
         }
 
     }

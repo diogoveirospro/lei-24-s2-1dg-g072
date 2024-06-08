@@ -5,10 +5,13 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidCollaboratorDataException;
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidGreenSpaceDataException;
 import pt.ipp.isep.dei.esoft.project.application.controller.RegisterGreenSpaceController;
 import pt.ipp.isep.dei.esoft.project.domain.GreenSpace;
 import pt.ipp.isep.dei.esoft.project.domain.GreenSpace.TypeOfGreenSpace;
+import pt.ipp.isep.dei.esoft.project.domain.utils.ValidatorUtils;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.AlertUI;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.GSMUI;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.MainMenuUI;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss.RegisterGreenSpaceUI;
@@ -44,12 +47,20 @@ public class RegisterGreenSpaceUIController {
     }
 
     public void registerGreenSpace() throws InvalidGreenSpaceDataException {
-        String parkName = parkNameField.getText();
-        String type = typeField.getValue().toString();
-        double dimension = Double.parseDouble(dimensionField.getText());
-        String address = addressField.getText();
-        GreenSpace.TypeOfGreenSpace typeOfGreenSpace = TypeOfGreenSpace.getTypeOfGreenSpace(type);
+
         try {
+            if (parkNameField.getText().isEmpty() || typeField.getValue() == null || dimensionField.getText().isEmpty() || addressField.getText().isEmpty()) {
+                throw new InvalidGreenSpaceDataException("Please fill in all fields.");
+            }
+            String parkName = parkNameField.getText();
+            String type = typeField.getValue();
+            String dimensionStr = dimensionField.getText();
+            String address = addressField.getText();
+            ValidatorUtils.isValidName(parkName);
+            ValidatorUtils.isValidAddress(address);
+            ValidatorUtils.isValidNumber(dimensionStr);
+            double dimension = Double.parseDouble(dimensionStr);
+            GreenSpace.TypeOfGreenSpace typeOfGreenSpace = TypeOfGreenSpace.getTypeOfGreenSpace(type);
             Boolean isPresent = controller.registerGreenSpace(parkName, dimension, address, typeOfGreenSpace);
             if (isPresent) {
                 showAlert(Alert.AlertType.INFORMATION, "Success", "Green Space registered successfully.");
@@ -58,10 +69,8 @@ public class RegisterGreenSpaceUIController {
             } else {
                 showAlert(Alert.AlertType.ERROR, "Error", "Failed to register Green Space.");
             }
-        } catch (NumberFormatException e) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Invalid dimension. Please enter a valid number.");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error", "Error registering Green Space.", e.getMessage()).show();
         }
     }
 

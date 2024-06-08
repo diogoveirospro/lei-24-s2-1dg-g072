@@ -20,8 +20,6 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- *
- *
  * @author Group 072 - Byte Masters - ISEP
  */
 public class AssignSkillUIController {
@@ -61,33 +59,43 @@ public class AssignSkillUIController {
     }
 
     public void handleAssignSkill() {
-        String skill = lvSkills.getSelectionModel().getSelectedItem();
-        String collaborator = lvCollaborators.getSelectionModel().getSelectedItem();
-
-        if (skill == null && collaborator == null) {
+        if (lvSkills.getSelectionModel().getSelectedItem() == null) {
             AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error",
-                    "Please select a skill and a collaborator.", "Please select a skill and a collaborator.");
+                    "Please select a skill.", "Please select a skill.").show();
+        } else if (lvCollaborators.getSelectionModel().getSelectedItem() == null) {
+            AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error",
+                    "Please select a collaborator.", "Please select a collaborator.").show();
+        } else {
+            try {
+                String skill = lvSkills.getSelectionModel().getSelectedItem();
+                String collaborator = lvCollaborators.getSelectionModel().getSelectedItem();
+
+                if (skill == null && collaborator == null) {
+                    AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error",
+                            "Please select a skill and a collaborator.", "Please select a skill and a collaborator.");
+                }
+
+                assert collaborator != null;
+                String[] collaboratorParts = collaborator.split(" - ");
+                String collaboratorIDNumber = collaboratorParts[1];
+
+                Skill skillObj = controller.getSkill(skill);
+                Collaborator collaboratorObj = controller.getCollaborator(collaboratorIDNumber);
+
+                controller.assignSkill(skillObj, collaboratorObj);
+                AlertUI.createAnAlert(Alert.AlertType.INFORMATION, "Success",
+                        "Skill assigned successfully.", "Skill assigned successfully.").show();
+                HRMUI hrmui = new HRMUI();
+                hrmui.showUI(MainMenuUI.getPrimaryStage());
+            } catch (IllegalArgumentException e) {
+                AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error",
+                        "Error assigning skill.", e.getMessage());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
         }
 
-        assert collaborator != null;
-        String[] collaboratorParts = collaborator.split(" - ");
-        String collaboratorIDNumber = collaboratorParts[1];
-
-        Skill skillObj = controller.getSkill(skill);
-        Collaborator collaboratorObj = controller.getCollaborator(collaboratorIDNumber);
-
-        try {
-            controller.assignSkill(skillObj, collaboratorObj);
-            AlertUI.createAnAlert(Alert.AlertType.INFORMATION, "Success",
-                    "Skill assigned successfully.", "Skill assigned successfully.").show();
-            HRMUI hrmui = new HRMUI();
-            hrmui.showUI(MainMenuUI.getPrimaryStage());
-        } catch (IllegalArgumentException e) {
-            AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error",
-                    "Error assigning skill.", e.getMessage());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
 
@@ -101,7 +109,7 @@ public class AssignSkillUIController {
         }
     }
 
-    public void setAssignSkill (AssignSkillUI assignSkillUI) {
+    public void setAssignSkill(AssignSkillUI assignSkillUI) {
         this.assignSkillUI = assignSkillUI;
     }
 }

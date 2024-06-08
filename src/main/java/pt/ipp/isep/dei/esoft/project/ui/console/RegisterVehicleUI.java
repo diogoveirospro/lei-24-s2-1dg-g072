@@ -329,10 +329,10 @@ public class RegisterVehicleUI implements Runnable {
         String plate = "";
         boolean valid = false;
         while (!valid) {
-
+            Date date = new Date(2000,11,12);
             try {
                 plate = sc.nextLine();
-                valid = ValidatorUtils.isValidPlate(plate);
+                valid = ValidatorUtils.isValidPlate(plate,date);
 
             } catch (InvalidVehicleDataException e) {
                 System.out.println(e.getMessage());

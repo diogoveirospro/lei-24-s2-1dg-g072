@@ -38,7 +38,7 @@ public class TeamRepository extends SerializableRepository<List<Team>> implement
      * @return the team list.
      */
     public List<Team> getTeams() {
-        return List.copyOf(teams);
+        return teams;
     }
 
     /**
@@ -137,8 +137,13 @@ public class TeamRepository extends SerializableRepository<List<Team>> implement
         return validTeams;
     }
 
+    /**
+     * Save the team repository to a file.
+     */
     public void saveTeamRepositoryToFile() {
         save(teams);
     }
+
+
 
 }
