@@ -49,7 +49,7 @@ public class Agenda extends SerializableRepository<List<AgendaEntry>> implements
 
     public Agenda() {
         super("agenda.ser");
-        this.entriesAgenda = super.load();
+        entriesAgenda = super.load();
 
     }
 

@@ -22,7 +22,7 @@ public class ToDoList extends SerializableRepository<List<ToDoListEntry>> implem
      */
     public ToDoList() {
         super("toDoList.ser");
-        this.toDoListEntries = super.load();
+        toDoListEntries = super.load();
     }
 
     /**

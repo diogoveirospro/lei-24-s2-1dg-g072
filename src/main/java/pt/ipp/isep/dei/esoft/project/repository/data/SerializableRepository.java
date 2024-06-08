@@ -39,14 +39,18 @@ public abstract class SerializableRepository<T> {
         try  {
             ois = new ObjectInputStream(new FileInputStream("src/main/java/pt/ipp/isep/dei/esoft/project/repository/data/" + filename));
             data = (T) ois.readObject();
+            return data;
         } catch (EOFException e) {
             System.err.println("EOFException caught while loading " + filename);
+            e.printStackTrace();
             return null;
         } catch (FileNotFoundException e) {
             System.err.println("FileNotFoundException caught while loading " + filename);
+            e.printStackTrace();
             return null;
         } catch (StreamCorruptedException e) {
             System.err.println("StreamCorruptedException caught while loading " + filename);
+            e.printStackTrace();
             clear();
             return null;
         } catch (IOException | ClassNotFoundException e) {
