@@ -24,12 +24,12 @@ public class MaintenanceRepository extends SerializableRepository<List<Maintenan
 
     /**
      * Initiates the maintenanceList
-     *
      */
-    public MaintenanceRepository(){
+    public MaintenanceRepository() {
         super("maintenanceRepository.ser");
         maintenanceList = super.load();
     }
+
     /**
      * Get a vehicle from the repository by its details.
      *
@@ -47,13 +47,13 @@ public class MaintenanceRepository extends SerializableRepository<List<Maintenan
     /**
      * Lets the user get the maintenance of a specific vehicle
      *
-     * @param vehicle that we want to get
+     * @param vehicle  that we want to get
      * @param vehicles list of all vehicles (will be changed in accord with the fact of needing or not maintenance)
      */
     private List<Vehicle> getMaintenance(Vehicle vehicle, List<Vehicle> vehicles) {
         try {
             vehicles = removeVehicle(vehicle, vehicles);
-        }catch (IllegalArgumentException | NullPointerException e){
+        } catch (IllegalArgumentException | NullPointerException e) {
             System.out.println("There is no vehicle with the plate number: " + vehicle.getPlateNumber());
         }
         return vehicles;
@@ -62,7 +62,7 @@ public class MaintenanceRepository extends SerializableRepository<List<Maintenan
     /**
      * Checks if vehicle exists or not
      */
-    private static void checkIfMaintenanceNotNull( Maintenance maintenance) {
+    private static void checkIfMaintenanceNotNull(Maintenance maintenance) {
         if (maintenance == null) {
             throw new NullPointerException("Invalid vehicle that needs maintenance to add");
         }
@@ -71,8 +71,8 @@ public class MaintenanceRepository extends SerializableRepository<List<Maintenan
     /**
      * Lets the user get the maintenance of a specific vehicle if it exists
      *
-     * @param vehicle the vehicle we want to check
-     * @param vehicles    list of vehicles
+     * @param vehicle  the vehicle we want to check
+     * @param vehicles list of vehicles
      */
     private List<Vehicle> removeVehicle(Vehicle vehicle, List<Vehicle> vehicles) {
         Maintenance m1 = new Maintenance(vehicle);
@@ -94,37 +94,32 @@ public class MaintenanceRepository extends SerializableRepository<List<Maintenan
      * @param maintenance: new vehicle that need maintenance.
      */
     public void addVehicleMaintenance(Maintenance maintenance) {
-        try {
-            checkIfMaintenanceNotNull(maintenance);
-            VehicleRepository vehicleRepository = Repositories.getInstance().getVehicleRepository();
-            Vehicle vehicle = vehicleRepository.getVehicleFromPlate(maintenance.getPlateNumber());
 
-            if (!maintenance.validateVehicleMaintenance(vehicle)) {
-                throw new IllegalArgumentException("Invalid maintenance data for vehicle with plate: " + maintenance.getPlateNumber());
-            }
+        checkIfMaintenanceNotNull(maintenance);
+        VehicleRepository vehicleRepository = Repositories.getInstance().getVehicleRepository();
+        Vehicle vehicle = vehicleRepository.getVehicleFromPlate(maintenance.getPlateNumber());
 
-            Optional<Maintenance> existingMaintenanceOpt = maintenanceList.stream()
-                    .filter(m -> m.getPlateNumber().equals(maintenance.getPlateNumber()))
-                    .findFirst();
-
-            if (existingMaintenanceOpt.isPresent()) {
-                Maintenance existingMaintenance = existingMaintenanceOpt.get();
-                existingMaintenance.updateFrom(maintenance);
-                System.out.println("Maintenance updated for vehicle with plate: " + maintenance.getPlateNumber());
-            } else {
-                maintenance.setVehicleMaintenance(vehicle);
-
-                    maintenanceList.add(maintenance);
-                    saveMaintenanceRepositoryToFile();
-                    System.out.println("Maintenance added for vehicle with plate: " + maintenance.getPlateNumber());
-
-            }
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        } catch (NullPointerException e) {
-            System.out.println(e.getMessage());
-            throw e;
+        if (!maintenance.validateVehicleMaintenance(vehicle)) {
+            throw new IllegalArgumentException("Invalid maintenance data for vehicle with plate: " + maintenance.getPlateNumber());
         }
+
+        Optional<Maintenance> existingMaintenanceOpt = maintenanceList.stream()
+                .filter(m -> m.getPlateNumber().equals(maintenance.getPlateNumber()))
+                .findFirst();
+
+        if (existingMaintenanceOpt.isPresent()) {
+            Maintenance existingMaintenance = existingMaintenanceOpt.get();
+            existingMaintenance.updateFrom(maintenance);
+            System.out.println("Maintenance updated for vehicle with plate: " + maintenance.getPlateNumber());
+        } else {
+            maintenance.setVehicleMaintenance(vehicle);
+
+            maintenanceList.add(maintenance);
+            saveMaintenanceRepositoryToFile();
+            System.out.println("Maintenance added for vehicle with plate: " + maintenance.getPlateNumber());
+
+        }
+
     }
 
     /**
@@ -134,7 +129,7 @@ public class MaintenanceRepository extends SerializableRepository<List<Maintenan
      */
 
 
-    public List<Maintenance> getMaintenanceList(){
+    public List<Maintenance> getMaintenanceList() {
         return List.copyOf(maintenanceList);
     }
 

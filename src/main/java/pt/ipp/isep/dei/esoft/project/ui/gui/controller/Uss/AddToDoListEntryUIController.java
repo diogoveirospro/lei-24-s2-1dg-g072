@@ -5,6 +5,8 @@ import javafx.scene.control.*;
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidEntryDataException;
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidTaskDataException;
 import pt.ipp.isep.dei.esoft.project.application.controller.AddToDoListController;
+import pt.ipp.isep.dei.esoft.project.domain.Task;
+import pt.ipp.isep.dei.esoft.project.domain.utils.ValidatorUtils;
 import pt.ipp.isep.dei.esoft.project.dto.GreenSpaceDto;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.AlertUI;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.GSMUI;
@@ -22,7 +24,7 @@ public class AddToDoListEntryUIController {
     private AddToDoListEntryUI addToDoListEntryUI;
     private GSMUI gsmui;
     @FXML
-    private TextField taskNameTextField;
+    private ComboBox<String> taskNameComboBox;
 
     @FXML
     private TextField taskDurationTextField;
@@ -52,13 +54,17 @@ public class AddToDoListEntryUIController {
     @FXML
     public void initialize() {
         try {
+            List<Task> taskList = controller.getTaskList();
+            for (Task task : taskList) {
+                taskNameComboBox.getItems().add(task.getTaskId());
+            }
             degreeOfUrgencyComboBox.getItems().addAll(controller.getDegreeOgUrgencyList());
             List<GreenSpaceDto> greenSpaceList = controller.getGreenSpaceList();
             for (GreenSpaceDto greenSpace : greenSpaceList) {
                 greenSpaceNameCB.getItems().add(greenSpace.getParkName());
             }
         } catch (Exception e) {
-            AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error", "Error loading lists.",e.getMessage());
+            AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error", "Error loading lists.", e.getMessage());
         }
 
     }
@@ -70,19 +76,29 @@ public class AddToDoListEntryUIController {
      */
     @FXML
     private void addToDoListEntry() {
-        try {
-            String taskName = taskNameTextField.getText();
-            String taskDuration = taskDurationTextField.getText();
-            String greenSpaceName = greenSpaceNameCB.getValue();
-            String degreeOfUrgency = degreeOfUrgencyComboBox.getValue();
+        if (taskNameComboBox.getValue() == null || taskDurationTextField.getText().isEmpty() || greenSpaceNameCB.getValue() == null || degreeOfUrgencyComboBox.getValue() == null) {
+            AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error", "Error adding entry.", "Please fill in all fields.").show();
+        } else {
 
-            controller.addNewToDoListEntry(taskName, taskDuration, greenSpaceName, degreeOfUrgency);
-            taskListView.getItems().add(taskName + " - " + taskDuration + " - " + greenSpaceName + " - " + degreeOfUrgency);
-            AlertUI.createAnAlert(Alert.AlertType.INFORMATION, "Success", "Entry added successfully.", "The entry was added successfully.");
-        } catch (Exception e) {
-            AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error", "Error adding entry.", e.getMessage());
+            try {
+                String taskName = taskNameComboBox.getValue();
+                String taskDuration = taskDurationTextField.getText();
+                String greenSpaceName = greenSpaceNameCB.getValue();
+                String degreeOfUrgency = degreeOfUrgencyComboBox.getValue();
+                ValidatorUtils.isValidNumber(taskDuration);
+                int duration = Integer.parseInt(taskDuration);
+                if (duration <= 0){
+                    throw new InvalidEntryDataException("Invalid task duration.");
+                }
+                controller.addNewToDoListEntry(taskName, taskDuration, greenSpaceName, degreeOfUrgency);
+                taskListView.getItems().add(taskName + " - " + taskDuration + " - " + greenSpaceName + " - " + degreeOfUrgency);
+                AlertUI.createAnAlert(Alert.AlertType.INFORMATION, "Success", "Entry added successfully.", "The entry was added successfully.").show();
+            } catch (Exception e) {
+                AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error", "Error adding entry.", e.getMessage());
+            }
         }
     }
+
 
     /**
      * Handles the action of cancelling the entry.

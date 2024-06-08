@@ -64,6 +64,9 @@ public class AddToDoListController {
         ToDoListEntry toDoListEntry = new ToDoListEntry(task, greenSpace, degree);
         toDoList.addEntry(toDoListEntry);
     }
+    public List<Task> getTaskList(){
+        return taskRepository.getAllTasks();
+    }
 }
 
 
