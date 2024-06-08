@@ -13,6 +13,7 @@ import pt.ipp.isep.dei.esoft.project.ui.gui.ui.GSMUI;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.MainMenuUI;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss.RegisterGreenSpaceUI;
 
+import java.io.IOException;
 import java.util.Optional;
 
 /**
@@ -52,11 +53,15 @@ public class RegisterGreenSpaceUIController {
             Boolean isPresent = controller.registerGreenSpace(parkName, dimension, address, typeOfGreenSpace);
             if (isPresent) {
                 showAlert(Alert.AlertType.INFORMATION, "Success", "Green Space registered successfully.");
+                gsmui = new GSMUI();
+                gsmui.showUI(MainMenuUI.getPrimaryStage());
             } else {
                 showAlert(Alert.AlertType.ERROR, "Error", "Failed to register Green Space.");
             }
         } catch (NumberFormatException e) {
             showAlert(Alert.AlertType.ERROR, "Error", "Invalid dimension. Please enter a valid number.");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 

@@ -65,7 +65,7 @@ public class RegisterCollaboratorController {
                                      String mobile, String email, String taxpayerNumber, Collaborator.IdDocType idDocType, String idDocNumber, String jobName, String pwd) throws InvalidCollaboratorDataException, pt.ipp.isep.dei.esoft.project.Exceptions.InvalidCollaboratorDataException {
 
         this.collaboratorRepository.addCollaborator(new Collaborator(name, birthDate, admissionDate, address, mobile,
-                email, taxpayerNumber, idDocType, idDocNumber, jobName));
+                email, taxpayerNumber, idDocType, idDocNumber, pwd,jobName));
     }
 
     /**
