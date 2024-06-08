@@ -26,7 +26,7 @@
                                 <Font name="System Bold" size="12.0" />
                             </font>
                         </Label>
-                        <TextField fx:id="taskIdField" layoutX="230.0" layoutY="95.0" prefWidth="200.0" promptText="Enter Task ID"/>
+                  <ComboBox fx:id="taskIdCb" prefWidth="150.0" />
                     </children>
                     <VBox.margin>
                         <Insets bottom="10.0" top="20.0" />
@@ -34,7 +34,7 @@
                 </HBox>
                 <HBox alignment="CENTER">
                     <children>
-                        <Button fx:id="btnMarkAsDone" mnemonicParsing="false" style="-fx-background-color: #388E3C; -fx-text-fill: white; -fx-background-radius: 15;" text="Mark as Done">
+                        <Button fx:id="finishTaskButton" mnemonicParsing="false" onAction="#finishTask" style="-fx-background-color: #388E3C; -fx-text-fill: white; -fx-background-radius: 15;" text="Mark as Done">
                             <HBox.margin>
                                 <Insets left="20.0" />
                             </HBox.margin>
@@ -42,7 +42,7 @@
                                 <Cursor fx:constant="HAND" />
                             </cursor>
                         </Button>
-                        <Button fx:id="btnCancel" mnemonicParsing="false" style="-fx-background-color: #D32F2F; -fx-text-fill: white; -fx-background-radius: 15;" text="Cancel">
+                        <Button fx:id="CancelButton" mnemonicParsing="false" onAction="#handleCancelButtonAction" style="-fx-background-color: #D32F2F; -fx-text-fill: white; -fx-background-radius: 15;" text="Cancel">
                             <HBox.margin>
                                 <Insets left="20.0" />
                             </HBox.margin>
@@ -81,5 +81,3 @@
         </GridPane>
     </top>
 </BorderPane>
-
-

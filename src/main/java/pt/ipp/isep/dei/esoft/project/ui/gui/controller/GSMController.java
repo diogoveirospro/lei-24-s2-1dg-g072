@@ -54,7 +54,7 @@ public class GSMController {
     public void handleRegisterGreenSpaceButtonAction() {
         try {
             registerGreenSpaceUI = new RegisterGreenSpaceUI();
-            //registerGreenSpaceUI.showUI(MainMenuUI.getPrimaryStage());
+            registerGreenSpaceUI.showUI(MainMenuUI.getPrimaryStage());
         } catch (Exception e) {
             System.out.println("An error occurred while handling the register green space action: " + e.getMessage());
         }

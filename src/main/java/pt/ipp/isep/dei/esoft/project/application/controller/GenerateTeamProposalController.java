@@ -8,6 +8,7 @@ import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.repository.SkillRepository;
 import pt.ipp.isep.dei.esoft.project.repository.TeamRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -70,7 +71,19 @@ public class GenerateTeamProposalController {
      * @return collaborators
      */
     public List<Collaborator> getCollaborators(){
-        return collaboratorRepository.getCollaborators();
+
+        List<Collaborator> collaborators = collaboratorRepository.getCollaborators();
+        List<Collaborator> lstCollaborators = new ArrayList<>();
+
+        for (Collaborator collaborator : collaborators) {
+            if (!collaborator.getEmail().contains("@hrm.com") && !collaborator.getEmail().contains("@vfm.com") &&
+                    !collaborator.getEmail().contains("@gsm.com") && !collaborator.getEmail().contains("@qam.com")) {
+                lstCollaborators.add(collaborator);
+            }
+
+        }
+
+        return lstCollaborators;
     }
 
     /**
@@ -93,5 +106,13 @@ public class GenerateTeamProposalController {
      */
     public boolean addTeam(Team team){
         return teamRepository.addTeam(team);
+    }
+
+    public Skill getSkill(String selectedItem) {
+        return skillRepository.getSkill(selectedItem);
+    }
+
+    public Collaborator getCollaborator(String s) {
+        return collaboratorRepository.getCollaborator(s);
     }
 }

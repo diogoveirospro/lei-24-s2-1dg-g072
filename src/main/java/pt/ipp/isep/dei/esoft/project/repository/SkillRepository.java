@@ -23,7 +23,7 @@ public class SkillRepository extends SerializableRepository<List<Skill>> impleme
      */
     public SkillRepository(){
         super("skillRepository.ser");
-        skills = new ArrayList<>();
+        skills = super.load();
     }
 
     /**
@@ -60,4 +60,12 @@ public class SkillRepository extends SerializableRepository<List<Skill>> impleme
     }
 
 
+    public Skill getSkill(String skill) {
+        for (Skill s : skills) {
+            if (s.getName().equals(skill)) {
+                return s;
+            }
+        }
+        return null;
+    }
 }

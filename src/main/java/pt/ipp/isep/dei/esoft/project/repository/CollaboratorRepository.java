@@ -35,9 +35,7 @@ public class CollaboratorRepository extends SerializableRepository<List<Collabor
         List<Collaborator> collaborators1;
         this.skillRepository = skillRepository;
         collaborators1 = super.load();
-        if (collaborators1 == null) {
-            collaborators1 = new ArrayList<>();
-        }
+
         this.collaborators = collaborators1;
     }
 

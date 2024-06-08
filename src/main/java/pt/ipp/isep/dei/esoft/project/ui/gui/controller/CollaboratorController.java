@@ -44,6 +44,7 @@ public class CollaboratorController {
             finishTaskUI = new FinishTaskUI();
             finishTaskUI.showUI(MainMenuUI.getPrimaryStage());
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("An error occurred while handling the finish tasks action: " + e.getMessage());
         }
     }

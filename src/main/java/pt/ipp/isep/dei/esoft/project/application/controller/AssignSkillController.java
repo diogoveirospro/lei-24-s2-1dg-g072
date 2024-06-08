@@ -61,4 +61,16 @@ public class AssignSkillController {
     }
 
 
+    public Skill getSkill(String skill) {
+        return skillRepository.getSkill(skill);
+    }
+
+    public Collaborator getCollaborator(String collaboratorIDNumber) {
+        return collaboratorRepository.getCollaborator(collaboratorIDNumber);
+    }
+
+    public void assignSkill(Skill skill, Collaborator collaborator){
+        collaborator.assignSkill(skill);
+        collaboratorRepository.saveCollaboratorRepositoryToFile();
+    }
 }

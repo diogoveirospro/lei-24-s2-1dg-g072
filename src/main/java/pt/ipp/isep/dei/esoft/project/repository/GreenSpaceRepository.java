@@ -24,13 +24,13 @@ public class GreenSpaceRepository extends SerializableRepository<List<GreenSpace
 
     public GreenSpaceRepository() {
         super("greenSpaceRepository.ser");
-        this.greenSpaceList = new ArrayList<>();
+        greenSpaceList = super.load();
     }
 
     public List<GreenSpace> getGreenSpaceListSorted(Collaborator greenSpaceManager, String sortingOption) {
         List<GreenSpace> greenSpacesManagedByGSM = new ArrayList<>();
         for (GreenSpace greenSpace : greenSpaceList) {
-            if (greenSpace.getGreenSpaceManager().equals(greenSpaceManager)) {
+            if (greenSpace.getGreenSpaceManager().getName().equalsIgnoreCase(greenSpaceManager.getName())) {
                 greenSpacesManagedByGSM.add(greenSpace);
             }
         }
@@ -98,5 +98,9 @@ public class GreenSpaceRepository extends SerializableRepository<List<GreenSpace
 
     public void saveGreenSpaceRepositoryToFile() {
         save(greenSpaceList);
+    }
+
+    public List<GreenSpace> getGreenSpaceList() {
+        return greenSpaceList;
     }
 }

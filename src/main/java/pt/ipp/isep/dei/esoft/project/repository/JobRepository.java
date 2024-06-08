@@ -27,7 +27,7 @@ public class JobRepository extends SerializableRepository<List<Job>> implements 
      */
     public JobRepository(){
         super("jobRepository.ser");
-        jobs = new ArrayList<>();
+        jobs = super.load();
     }
 
     /**

@@ -1,25 +1,218 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
-<?import java.util.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="535.0" prefWidth="606.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.RegisterCollaboratorUIController">
-   <children>
-      <TextField fx:id="adressField" layoutX="78.0" layoutY="305.0" promptText="Enter adress..." />
-      <TextField fx:id="idNumberField" layoutX="349.0" layoutY="230.0" promptText="Enter ID number..." />
-      <TextField fx:id="idTypeField" layoutX="349.0" layoutY="156.0" promptText="Enter ID type..." />
-      <TextField fx:id="taxNumberField" layoutX="349.0" layoutY="92.0" promptText="Enter taxpayer number..." />
-      <TextField fx:id="pswField" layoutX="349.0" layoutY="305.0" promptText="Enter password..." />
-      <TextField fx:id="nameField" layoutX="78.0" layoutY="92.0" promptText="Enter name..." />
-      <TextField fx:id="emailField" layoutX="78.0" layoutY="446.0" promptText="Enter email adress..." />
-      <TextField fx:id="phoneNumberField" layoutX="78.0" layoutY="374.0" promptText="Enter phone number..." />
-      <Button fx:id="btnRegister" defaultButton="true" layoutX="361.0" layoutY="446.0" mnemonicParsing="false" onAction="#handleRegisterAction" prefHeight="31.0" prefWidth="164.0" text="Register" />
-      <DatePicker fx:id="birthDatePicker" layoutX="78.0" layoutY="156.0" prefHeight="31.0" prefWidth="187.0" promptText="Enter birth date..." />
-      <DatePicker fx:id="admissionDatePicker" layoutX="78.0" layoutY="230.0" prefHeight="31.0" prefWidth="187.0" promptText="Enter admission date..." />
-      <ComboBox fx:id="jobComboBox" editable="true" layoutX="349.0" layoutY="374.0" prefHeight="31.0" prefWidth="187.0" promptText="Select job..." />
-      <Button fx:id="btnCancel" cancelButton="true" layoutX="361.0" layoutY="490.0" mnemonicParsing="false" onAction="#handleCancelAction" prefHeight="31.0" prefWidth="164.0" text="Cancel" />
-   </children>
-</AnchorPane>
+<BorderPane style="-fx-background-color: #f1f8e9;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.RegisterCollaboratorUIController">
+   <top>
+      <GridPane prefHeight="75.0" prefWidth="644.0" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#80cbc4" height="38.0" stroke="TRANSPARENT" strokeType="INSIDE" width="238.0">
+               <GridPane.margin>
+                  <Insets left="200.0" />
+               </GridPane.margin>
+            </Rectangle>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Register Collaborator" textAlignment="CENTER" wrappingWidth="641.330078125">
+               <font>
+                  <Font name="Georgia" size="20.0" />
+               </font>
+            </Text>
+         </children>
+      </GridPane>
+   </top>
+   <center>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
+               <children>
+                  <VBox spacing="5.0">
+                     <children>
+                        <Label text="Name:">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Label>
+                        <TextField fx:id="nameField" prefHeight="25.0" prefWidth="200.0" promptText="Enter name..." />
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" />
+                     </padding>
+                  </VBox>
+                  <VBox layoutX="10.0" layoutY="10.0" spacing="5.0">
+                     <children>
+                        <Label text="Taxpayer Number:">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Label>
+                        <TextField fx:id="taxNumberField" prefHeight="25.0" prefWidth="200.0" promptText="Enter taxpayer number..." />
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
+               <children>
+                  <VBox spacing="5.0">
+                     <children>
+                        <Label text="Birthdate:">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Label>
+                        <DatePicker fx:id="birthDatePicker" prefHeight="25.0" prefWidth="200.0" promptText="Enter birthdate..." />
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" />
+                     </padding>
+                  </VBox>
+                  <VBox layoutX="10.0" layoutY="10.0" spacing="5.0">
+                     <children>
+                        <Label text="ID Type:">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Label>
+                        <ComboBox fx:id="idTypeCB" prefHeight="31.0" prefWidth="200.0" />
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="110.0" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
+               <children>
+                  <VBox spacing="5.0">
+                     <children>
+                        <Label text="Admission Date:">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Label>
+                        <DatePicker fx:id="admissionDatePicker" prefHeight="25.0" prefWidth="200.0" promptText="Enter admission date..." />
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" />
+                     </padding>
+                  </VBox>
+                  <VBox layoutX="10.0" layoutY="10.0" spacing="5.0">
+                     <children>
+                        <Label text="ID Number:">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Label>
+                        <TextField fx:id="idNumberField" prefHeight="25.0" prefWidth="200.0" promptText="Enter ID number..." />
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="144.0" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
+               <children>
+                  <VBox spacing="5.0">
+                     <children>
+                        <Label text="Address:">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Label>
+                        <TextField fx:id="adressField" prefHeight="25.0" prefWidth="200.0" promptText="Enter adress..." />
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" />
+                     </padding>
+                  </VBox>
+                  <VBox layoutX="10.0" layoutY="10.0" spacing="5.0">
+                     <children>
+                        <Label text="E-mail:">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Label>
+                        <TextField fx:id="emailField" prefHeight="25.0" prefWidth="200.0" promptText="Enter e-mail adress..." />
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="160.0" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
+               <children>
+                  <VBox spacing="5.0">
+                     <children>
+                        <Label text="Mobile Number: ">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Label>
+                        <TextField fx:id="phoneNumberField" prefHeight="25.0" prefWidth="200.0" promptText="Enter mobile number..." />
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" />
+                     </padding>
+                  </VBox>
+                  <VBox layoutX="10.0" layoutY="10.0" spacing="5.0">
+                     <children>
+                        <Label text="Password:">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Label>
+                        <TextField fx:id="pswField" prefHeight="25.0" prefWidth="200.0" promptText="Enter password..." />
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="178.0" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
+               <children>
+                  <VBox spacing="5.0">
+                     <children>
+                        <Label text="Job:">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Label>
+                        <ComboBox fx:id="jobComboBox" editable="true" prefHeight="25.0" prefWidth="200.0" promptText="Select job..." />
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" />
+                     </padding>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+   <bottom>
+      <HBox alignment="CENTER" spacing="20.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="btnRegister" defaultButton="true" mnemonicParsing="false" onAction="#handleRegisterAction" style="-fx-background-color: #388E3C; -fx-text-fill: white; -fx-background-radius: 15;" text="Register">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="btnCancel" cancelButton="true" mnemonicParsing="false" onAction="#handleCancelAction" style="-fx-background-color: #D32F2F; -fx-text-fill: white; -fx-background-radius: 15;" text="Cancel" textAlignment="CENTER">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="20.0" />
+         </BorderPane.margin>
+      </HBox>
+   </bottom>
+</BorderPane>

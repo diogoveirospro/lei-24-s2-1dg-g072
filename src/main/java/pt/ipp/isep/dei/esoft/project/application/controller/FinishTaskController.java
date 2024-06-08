@@ -1,9 +1,12 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
+import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidCollaboratorDataException;
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidTaskDataException;
 import pt.ipp.isep.dei.esoft.project.application.session.ApplicationSession;
 import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.repository.*;
+
+import java.util.List;
 
 /**
  * This class serves as the controller for the functionality of finishing a task
@@ -12,6 +15,10 @@ import pt.ipp.isep.dei.esoft.project.repository.*;
  * @autor Group 072 - Byte Masters - ISEP
  */
 public class FinishTaskController {
+    /**
+     * teamRepository contains all teams
+     */
+    private TeamRepository teamRepository;
     /**
      * taskRepository contains all tasks
      */
@@ -24,12 +31,13 @@ public class FinishTaskController {
      * agenda contains all entries inside the agenda
      */
     private Agenda agenda;
-    private java.lang.String String;
+    private String String;
 
     /**
      * Empty FinishTaskController builder.
      */
     public FinishTaskController() {
+        this.teamRepository = Repositories.getInstance().getTeamRepository();
         this.taskRepository = Repositories.getInstance().getTaskRepository();
         this.collaboratorRepository = Repositories.getInstance().getCollaboratorRepository();
         this.agenda = Repositories.getInstance().getAgenda();
@@ -42,7 +50,8 @@ public class FinishTaskController {
      * @param collaboratorRepository contains all collaborators
      * @param agenda                 contains all tasks
      */
-    public FinishTaskController(TaskRepository taskRepository, CollaboratorRepository collaboratorRepository, Agenda agenda) {
+    public FinishTaskController(TaskRepository taskRepository, CollaboratorRepository collaboratorRepository, Agenda agenda, TeamRepository teamRepository) {
+        this.teamRepository = teamRepository;
         this.taskRepository = taskRepository;
         this.collaboratorRepository = collaboratorRepository;
         this.agenda = agenda;
@@ -88,6 +97,11 @@ public class FinishTaskController {
             agenda = repositories.getAgenda();
         }
         return agenda;
+    }
+    public List<AgendaEntry> getAgendaEntries() throws InvalidCollaboratorDataException {
+        Collaborator collaborator = getCollaboratorFromSession();
+        List<Team> teamList = this.teamRepository.getTeamsByCollaborator(collaborator);
+        return agenda.getAgendaEntriesByTeamList(teamList);
     }
 
     /**

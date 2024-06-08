@@ -4,6 +4,7 @@ package pt.ipp.isep.dei.esoft.project.application.controller;
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidEntryDataException;
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidTaskDataException;
 import pt.ipp.isep.dei.esoft.project.Mapper.GreenSpaceMapper;
+import pt.ipp.isep.dei.esoft.project.application.session.ApplicationSession;
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import pt.ipp.isep.dei.esoft.project.domain.GreenSpace;
 import pt.ipp.isep.dei.esoft.project.domain.Task;
@@ -40,10 +41,15 @@ public class AddToDoListController {
     public Collaborator getCollaboratorByEmail(String email) {
         return this.collaboratorRepository.getCollaboratorByEmail(email);
     }
-    public List<GreenSpaceDto> getGreenSpaceList(Collaborator greenSpaceManager){
+    public List<GreenSpaceDto> getGreenSpaceList(){
+        Collaborator greenSpaceManager = getCollaboratorFromSession();
         List<GreenSpace> greenSpaceList = greenSpaceRepository.getListGreenSpacesManagedByGsm(greenSpaceManager);
         GreenSpaceMapper mapper = new GreenSpaceMapper();
         return mapper.greenSpaceListToDto(greenSpaceList);
+    }
+    private Collaborator getCollaboratorFromSession() {
+        String email = ApplicationSession.getInstance().getCurrentSession().getUserEmail();
+        return collaboratorRepository.getCollaboratorByEmail(email);
     }
     public List<String> getDegreeOgUrgencyList() {
         toDoList = Repositories.getInstance().getToDoList();
@@ -57,6 +63,9 @@ public class AddToDoListController {
         Task task = new Task(taskName, duration);
         ToDoListEntry toDoListEntry = new ToDoListEntry(task, greenSpace, degree);
         toDoList.addEntry(toDoListEntry);
+    }
+    public List<Task> getTaskList(){
+        return taskRepository.getAllTasks();
     }
 }
 

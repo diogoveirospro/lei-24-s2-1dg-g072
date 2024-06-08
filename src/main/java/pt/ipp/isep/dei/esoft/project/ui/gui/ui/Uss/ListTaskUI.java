@@ -23,14 +23,14 @@ public class ListTaskUI implements Initializable {
 
     public ListTaskUIController listTaskUIController;
     public MainMenuUI mainMenuUI;
-    public static final String LOGIN = "Login";
+    public static final String LISTTASKS = "List Tasks";
 
 
     public void showUI(Stage stage) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/USs/ListTasks.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
-        stage.setTitle(LOGIN);
+        stage.setTitle(LISTTASKS);
         stage.setScene(scene);
         listTaskUIController = loader.getController();
         listTaskUIController.setListTaskUI(new ListTaskUI());

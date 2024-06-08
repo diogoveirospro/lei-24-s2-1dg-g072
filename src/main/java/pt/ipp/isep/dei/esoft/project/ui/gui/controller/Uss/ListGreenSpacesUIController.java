@@ -32,9 +32,9 @@ public class ListGreenSpacesUIController {
     @FXML
     private Button btnShow;
     @FXML
-    private ComboBox listSortMethod;
+    private ComboBox<String> listSortMethod;
     @FXML
-    private ListView listGreenSpace;
+    private ListView<String> listGreenSpace;
     /**
      * List of all the tasks
      */
@@ -76,7 +76,7 @@ public class ListGreenSpacesUIController {
         if (result.isPresent() && result.get() == ButtonType.OK) {
             try {
                 listGreenSpace.getItems().clear();
-                String sortMethod = (String) listSortMethod.getValue();
+                String sortMethod = listSortMethod.getValue();
                 if (sortMethod == null) {
                     AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error", "Please select a sort method.","You need to select a sort method to proceed.").show();
                 }

@@ -1,20 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.ListTaskUIController">
-   <children>
-      <DatePicker fx:id="startDate" layoutX="232.0" layoutY="106.0" onAction="#getStartDate" promptText="Enter a date..." />
-      <DatePicker fx:id="endDate" layoutX="232.0" layoutY="169.0" onAction="#getEndDate" promptText="Enter a date..." />
-      <Label layoutX="151.0" layoutY="111.0" text="Start Date" />
-      <Label layoutX="154.0" layoutY="174.0" text="End Date" />
-      <ComboBox fx:id="statusList" editable="true" layoutX="232.0" layoutY="230.0" onAction="#getStatus" prefHeight="31.0" prefWidth="218.0" promptText="Choose One..." />
-      <Label layoutX="164.0" layoutY="235.0" text="Status" />
-      <Button fx:id="btnShow" defaultButton="true" layoutX="450.0" layoutY="305.0" mnemonicParsing="false" onAction="#handleShowButtonAction" text="Show" />
-      <Button fx:id="btnCancel" cancelButton="true" layoutX="99.0" layoutY="305.0" mnemonicParsing="false" onAction="#handleCancelButtonAction" text="Cancel" />
-   </children>
-</AnchorPane>
+<BorderPane style="-fx-background-color: #f1f8e9;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.ListTaskUIController">
+   <top>
+      <GridPane prefHeight="75.0" prefWidth="644.0" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#80cbc4" height="38.0" stroke="TRANSPARENT" strokeType="INSIDE" width="235.0">
+               <GridPane.margin>
+                  <Insets left="200.0" />
+               </GridPane.margin>
+            </Rectangle>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="List Tasks" textAlignment="CENTER" wrappingWidth="644.541015625">
+               <font>
+                  <Font name="Georgia" size="20.0" />
+               </font>
+            </Text>
+         </children>
+      </GridPane>
+   </top>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+               <children>
+                  <Label text="Start Date:">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <DatePicker fx:id="startDate" onAction="#getStartDate" promptText="Enter a date..." />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+               <children>
+                  <Label text="End Date:">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <DatePicker fx:id="endDate" onAction="#getEndDate" promptText="Enter a date..." />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+               <children>
+                  <Label text="Status:">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="statusList" editable="true" onAction="#getStatus" prefHeight="31.0" prefWidth="218.0" promptText="Choose One..." />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+               <children>
+                  <Button fx:id="btnShow" defaultButton="true" mnemonicParsing="false" onAction="#handleShowButtonAction" style="-fx-background-color: #388E3C; -fx-text-fill: white; -fx-background-radius: 15;" text="Show">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+                  <Button fx:id="btnCancel" cancelButton="true" mnemonicParsing="false" onAction="#handleCancelButtonAction" style="-fx-background-color: #D32F2F; -fx-text-fill: white; -fx-background-radius: 15;" text="Cancel">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>

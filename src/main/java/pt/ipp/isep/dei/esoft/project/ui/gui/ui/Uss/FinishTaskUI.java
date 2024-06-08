@@ -24,13 +24,13 @@ public class FinishTaskUI implements Initializable {
     public static final String FINISH_TASK = "Finish Task";
 
     public void showUI(Stage stage) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/USs/FinishTask.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/USs/ChangeAnAgendaEntryToDone.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         stage.setTitle(FINISH_TASK);
         stage.setScene(scene);
         finishTaskUIController = loader.getController();
-        finishTaskUIController.setFinishTaskUI(this);
+        finishTaskUIController.setFinishTaskUI(new FinishTaskUI());
         stage.show();
     }
 
