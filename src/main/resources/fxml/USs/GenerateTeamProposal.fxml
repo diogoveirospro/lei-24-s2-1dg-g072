@@ -122,14 +122,14 @@
                         </ListView>
                         <VBox prefHeight="207.0" prefWidth="150.0">
                            <children>
-                              <Button fx:id="btnAddMember" mnemonicParsing="false" style="-fx-background-color: #4169e1; -fx-text-fill: white; -fx-background-radius: 15;" text="Add Member">
+                              <Button fx:id="btnAddMember" mnemonicParsing="false" onAction="#handleAddMember" style="-fx-background-color: #4169e1; -fx-text-fill: white; -fx-background-radius: 15;" text="Add Member">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor></Button>
-                              <Button fx:id="btnRemoveMember" mnemonicParsing="false" style="-fx-background-color: #4169e1; -fx-text-fill: white; -fx-background-radius: 15;" text="Remove Member">
+                              <Button fx:id="btnRemoveMember" mnemonicParsing="false" onAction="#handleRemoveMember" style="-fx-background-color: #4169e1; -fx-text-fill: white; -fx-background-radius: 15;" text="Remove Member">
                                  <VBox.margin>
                                     <Insets top="10.0" />
                                  </VBox.margin>
