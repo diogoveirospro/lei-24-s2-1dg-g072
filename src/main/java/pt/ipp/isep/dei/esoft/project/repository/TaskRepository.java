@@ -22,7 +22,7 @@ public class TaskRepository extends SerializableRepository<List<Task>> implement
      */
     public TaskRepository() {
         super("taskRepository.ser");
-        this.tasks = super.load();
+        tasks = super.load();
     }
 
     /**

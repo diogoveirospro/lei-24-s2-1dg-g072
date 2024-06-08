@@ -87,6 +87,7 @@ public class GenerateTeamProposalUIController implements Initializable {
     }
 
     private void populateCollaboratorsListView() {
+        lvCollaborators.getItems().clear();
         List<Collaborator> lstCollaborators = generateTeamProposalController.getCollaborators();
         List<String> teamProposalString = lvTeamProposal.getItems();
 
@@ -316,6 +317,7 @@ public class GenerateTeamProposalUIController implements Initializable {
     }
 
     public void handleRemoveMember() {
+
         String selectedCollaborator = lvTeamProposal.getSelectionModel().getSelectedItem();
         if (selectedCollaborator != null) {
             lvCollaborators.getItems().add(selectedCollaborator);

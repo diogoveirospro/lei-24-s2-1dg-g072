@@ -1,21 +1,29 @@
 package pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import pt.ipp.isep.dei.esoft.project.application.controller.ListMaintenanceController;
+import pt.ipp.isep.dei.esoft.project.application.controller.RegisterVehicleController;
+import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
+import pt.ipp.isep.dei.esoft.project.dto.VehicleDto;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.FMUI;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.MainMenuUI;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss.RegisterVehicleMaintenanceUI;
+
+import java.util.List;
 
 public class RegisterVehicleMaintenanceUIController {
 
     private FMUI fmui;
     private RegisterVehicleMaintenanceUI registerVehicleMaintenanceUI;
+    private ListMaintenanceController controller = new ListMaintenanceController();
     @FXML
     private Button btnCancel;
 
     @FXML
-    private ListView<?> lstVehiclesRegistred;
+    private ListView<String> lstVehiclesRegistred;
 
     @FXML
     private Button btnShow;
@@ -27,14 +35,28 @@ public class RegisterVehicleMaintenanceUIController {
     private Button btnAddVehicle;
 
     @FXML
-    private ListView<?> lvSelectedVehicles;
+    private ListView<String> lvSelectedVehicles;
 
     @FXML
-    private ListView<?> lvVehicles;
+    private ListView<String> lvVehicles;
 
+    @FXML
+    public void initialize() {
+        List<VehicleDto> vehicles = controller.getVehicleList();
+        for (VehicleDto vehicle : vehicles) {
+            String vehicleString = "Vehicle: " + vehicle.getPlateNumber() + "Current kms: " + vehicle.getCurrentKms() + "Last maintenance: " + vehicle.getKmAtLastMaintenance();
+            lvVehicles.getItems().add(vehicleString);
+        }
+
+        lvSelectedVehicles.setVisible(true);
+        btnAddVehicle.setVisible(false);
+        btnRemoveVehicle.setVisible(false);
+
+
+    }
 
     public void handleAddVehicle() {
-        // TODO
+
     }
 
 

@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import pt.ipp.isep.dei.esoft.project.application.controller.RegisterVehicleController;
 import pt.ipp.isep.dei.esoft.project.domain.Date;
+import pt.ipp.isep.dei.esoft.project.domain.utils.ValidatorUtils;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.*;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss.RegisterVehicleUI;
 
@@ -85,28 +86,49 @@ public class RegisterVehicleUIController {
                     double kmAtLastMaintenanceDouble = Double.parseDouble(kmAtLastMaintenance);
                     double maintenanceFrequencyDouble = Double.parseDouble(maintenanceFrequency);
                     double currKmsDouble = Double.parseDouble(currKms);
+                    ValidatorUtils.isValidPlate(plateNumber);
+                    ValidatorUtils.isValidName(model);
+                    ValidatorUtils.isValidBrand(brand);
+                    ValidatorUtils.isValidName(type);
+                    ValidatorUtils.isValidNumber(currKms);
+                    ValidatorUtils.isValidNumber(grossWeight);
+                    ValidatorUtils.isValidNumber(tare);
+                    ValidatorUtils.isValidNumber(kmAtLastMaintenance);
+                    ValidatorUtils.isValidNumber(maintenanceFrequency);
+                    ValidatorUtils.isValidDate(acquisitionDateStr);
+                    ValidatorUtils.isValidDate(registrationDateStr);
 
-                    String[] dateParts = acquisitionDateStr.split("-");
-                    int year1 = Integer.parseInt(dateParts[0]);
-                    int month1 = Integer.parseInt(dateParts[1]);
-                    int day1 = Integer.parseInt(dateParts[2]);
+                    if (maintenanceFrequencyDouble < 0 || kmAtLastMaintenanceDouble < 0 || currKmsDouble < 0 || tareDouble < 0 || grossWeightDouble < 0) {
+                        AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error", "Error registering vehicle.", "The values must be positive.").show();
 
-                    Date acquisitionDate = new Date(year1, month1, day1);
-                    dateParts = registrationDateStr.split("-");
-                    int year2 = Integer.parseInt(dateParts[0]);
-                    int month2 = Integer.parseInt(dateParts[1]);
-                    int day2 = Integer.parseInt(dateParts[2]);
-
-                    Date registrationDate = new Date(year2, month2, day2);
-                    if (acquisitionDate.isGreater(Date.currentDate()) || registrationDate.isGreater(Date.currentDate())) {
-                        AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error", "Error registering vehicle.", "The dates must be in the past.").show();
+                    } else if (kmAtLastMaintenanceDouble > currKmsDouble) {
+                        AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error", "Error registering vehicle.", "The kilometers at last maintenance must be less than the current kilometers.").show();
+                    } else if (tareDouble > grossWeightDouble) {
+                        AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error", "Error registering vehicle.", "The tare weight must be less than the gross weight.").show();
 
                     } else {
-                        controller = new RegisterVehicleController();
-                        controller.registerVehicle(plateNumber, model, brand, type, tareDouble, grossWeightDouble, currKmsDouble, registrationDate, acquisitionDate, maintenanceFrequencyDouble, kmAtLastMaintenanceDouble);
+                        String[] dateParts = acquisitionDateStr.split("-");
+                        int year1 = Integer.parseInt(dateParts[0]);
+                        int month1 = Integer.parseInt(dateParts[1]);
+                        int day1 = Integer.parseInt(dateParts[2]);
 
-                        fmui = new FMUI();
-                        fmui.showUI(MainMenuUI.getPrimaryStage());
+                        Date acquisitionDate = new Date(year1, month1, day1);
+                        dateParts = registrationDateStr.split("-");
+                        int year2 = Integer.parseInt(dateParts[0]);
+                        int month2 = Integer.parseInt(dateParts[1]);
+                        int day2 = Integer.parseInt(dateParts[2]);
+
+                        Date registrationDate = new Date(year2, month2, day2);
+                        if (acquisitionDate.isGreater(Date.currentDate()) || registrationDate.isGreater(Date.currentDate())) {
+                            AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error", "Error registering vehicle.", "The dates must be in the past.").show();
+
+                        } else {
+                            controller = new RegisterVehicleController();
+                            controller.registerVehicle(plateNumber, model, brand, type, tareDouble, grossWeightDouble, currKmsDouble, registrationDate, acquisitionDate, maintenanceFrequencyDouble, kmAtLastMaintenanceDouble);
+                            AlertUI.createAnAlert(Alert.AlertType.INFORMATION, "Success", "Vehicle registered successfully.", "The vehicle was registered successfully.").show();
+                            fmui = new FMUI();
+                            fmui.showUI(MainMenuUI.getPrimaryStage());
+                        }
                     }
 
                 }
