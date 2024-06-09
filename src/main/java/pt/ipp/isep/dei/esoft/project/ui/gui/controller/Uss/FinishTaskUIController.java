@@ -10,12 +10,10 @@ import javafx.scene.control.TextField;
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidCollaboratorDataException;
 import pt.ipp.isep.dei.esoft.project.application.controller.FinishTaskController;
 import pt.ipp.isep.dei.esoft.project.domain.AgendaEntry;
-import pt.ipp.isep.dei.esoft.project.ui.gui.ui.CollaboratorUI;
-import pt.ipp.isep.dei.esoft.project.ui.gui.ui.GSMUI;
-import pt.ipp.isep.dei.esoft.project.ui.gui.ui.HRMUI;
-import pt.ipp.isep.dei.esoft.project.ui.gui.ui.MainMenuUI;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.*;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss.FinishTaskUI;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +42,7 @@ public class FinishTaskUIController {
     }
 
     @FXML
-    public void initialize() throws InvalidCollaboratorDataException {
+    public void initialize() throws InvalidCollaboratorDataException, IOException {
         try {
             List<AgendaEntry> agendaEntryList = finishTaskController.getAgendaEntries();
             List<String> taskList = new ArrayList<>();
@@ -54,7 +52,9 @@ public class FinishTaskUIController {
             taskListString = FXCollections.observableArrayList(taskList);
             taskIdCb.setItems(taskListString);
         } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Error", e.getMessage());
+            AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error","Error", e.getMessage()).show();
+            GSMUI gsmUI = new GSMUI();
+            gsmUI.showUI(MainMenuUI.getPrimaryStage());
         }
 
     }
@@ -63,24 +63,20 @@ public class FinishTaskUIController {
         String taskId = taskIdCb.getValue();
         try {
             finishTaskController.finishTask(taskId);
-            showAlert(Alert.AlertType.INFORMATION, "Success", "Task marked as completed successfully.");
+            AlertUI.createAnAlert(Alert.AlertType.INFORMATION, "Success",
+                    "The task has been successfully completed.","Task marked as completed successfully.").show();
         } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Error", e.getMessage());
+            AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error", "Error", e.getMessage()).show();
         }
     }
 
-    private void showAlert(Alert.AlertType alertType, String title, String message) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
     public void handleCancelButtonAction() {
         try {
             collaboratorUI = new CollaboratorUI();
             collaboratorUI.showUI(MainMenuUI.getPrimaryStage());
         } catch (Exception e) {
-            System.out.println("An error occurred while handling the cancel action: " + e.getMessage());
+            AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error",
+                    "An error occurred while handling the cancel action:", e.getMessage()).show();
         }
     }
 }
