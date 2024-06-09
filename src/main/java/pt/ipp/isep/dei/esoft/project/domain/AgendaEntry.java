@@ -322,6 +322,12 @@ public class AgendaEntry extends Entry implements Serializable {
         this.endHour = endHour;
     }
 
+    /**
+     * Adds a team to the controller.
+     *
+     * @param team the team to be added
+     * @throws InvalidEntryDataException if the team is not in the repository
+     */
 
     public void addTeam(Team team) throws InvalidEntryDataException {
         if (!teamRepository.getTeams().contains(team)) {
@@ -410,6 +416,12 @@ public class AgendaEntry extends Entry implements Serializable {
         return this.startDate.difference(this.endDate);
     }
 
+    /**
+     * Adds a list of vehicles to the entry.
+     *
+     * @param vehicleList the list of vehicles to be added
+     * @throws InvalidEntryDataException if any vehicle in the list is not in the repository
+     */
 
     public void addVehicleList(List<Vehicle> vehicleList) throws InvalidEntryDataException {
         for (Vehicle vehicle : vehicleList) {
@@ -419,6 +431,14 @@ public class AgendaEntry extends Entry implements Serializable {
         }
         this.vehicleList = vehicleList;
     }
+
+    /**
+     * Assigns a team to the entry.
+     *
+     * @param team the team to be assigned
+     * @return true if the team is successfully assigned, false otherwise
+     * @throws IllegalArgumentException if the team is null or if the entry already has an associated team
+     */
 
     public boolean assignTeam(Team team) {
         if (team == null) {
@@ -431,12 +451,27 @@ public class AgendaEntry extends Entry implements Serializable {
         return team.assignAgendaEntry(this);
     }
 
+    /**
+     * Adds a vehicle to the entry.
+     *
+     * @param vehicle the vehicle to be added
+     * @throws InvalidEntryDataException if the vehicle is not in the repository
+     */
+
     public void addVehicle(Vehicle vehicle) throws InvalidEntryDataException {
         if (!vehicleRepository.getVehicleList().contains(vehicle)) {
             throw new InvalidEntryDataException("The vehicle is not in the repository.");
         }
         this.vehicleList.add(vehicle);
     }
+
+    /**
+     * Clones the agenda entry.
+     *
+     * @return a new cloned agenda entry
+     * @throws InvalidEntryDataException if there is invalid data for the entry
+     * @throws InvalidTaskDataException if there is invalid data for the task
+     */
 
     public AgendaEntry cloneEntry() throws InvalidEntryDataException, InvalidTaskDataException {
         AgendaEntry newEntry = new AgendaEntry(super.getTask(), super.getGreenSpace(), this.startDate, this.startHour, this.endDate, this.endHour);
@@ -446,11 +481,25 @@ public class AgendaEntry extends Entry implements Serializable {
         return newEntry;
     }
 
+    /**
+     * Sets a new name for the task associated with the entry.
+     *
+     * @param newName the new name for the task
+     * @return the new task with the updated name
+     * @throws InvalidTaskDataException if the new name results in invalid task data
+     */
+
     public Task setTaskName(String newName) throws InvalidTaskDataException {
         Task newTask = super.cloneTask();
         newTask.setName(newName);
         return newTask;
     }
+
+    /**
+     * Gets the task associated with the entry.
+     *
+     * @return the task associated with the entry
+     */
 
     @Override
     public Task getTask() {
@@ -465,6 +514,13 @@ public class AgendaEntry extends Entry implements Serializable {
     public Vehicle getAssignedVehicle() {
         return vehicleList.isEmpty() ? null : vehicleList.get(0);
     }
+
+    /**
+     * Assigns a vehicle to the agenda entry.
+     *
+     * @param vehicle the vehicle to be assigned
+     * @throws InvalidEntryDataException if the vehicle is not in the repository
+     */
 
     public void assignVehicleToAgendaEntry(Vehicle vehicle) throws InvalidEntryDataException {
         if (!vehicleRepository.getVehicleList().contains(vehicle)) {
