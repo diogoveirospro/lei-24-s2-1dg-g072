@@ -98,6 +98,17 @@ public class FinishTaskController {
         }
         return agenda;
     }
+
+    /**
+     * Retrieves the agenda entries for the teams associated with the currently logged-in collaborator.
+     *
+     * This method fetches the current collaborator from the session, retrieves the teams they belong to,
+     * and then gets the agenda entries for those teams.
+     *
+     * @return a list of agenda entries associated with the teams of the current collaborator
+     * @throws InvalidCollaboratorDataException if the collaborator data is invalid or not found
+     */
+
     public List<AgendaEntry> getAgendaEntries() throws InvalidCollaboratorDataException {
         Collaborator collaborator = getCollaboratorFromSession();
         List<Team> teamList = this.teamRepository.getTeamsByCollaborator(collaborator);
@@ -114,6 +125,14 @@ public class FinishTaskController {
         agendaEntry.taskDone();
     }
 
+    /**
+     * Retrieves the currently logged-in collaborator from the session.
+     *
+     * This method fetches the email of the current user from the application session
+     * and retrieves the corresponding collaborator from the repository.
+     *
+     * @return the collaborator associated with the currently logged-in user
+     */
 
     private Collaborator getCollaboratorFromSession() {
         String email = ApplicationSession.getInstance().getCurrentSession().getUserEmail();

@@ -165,6 +165,13 @@ public class ListTaskController {
         AgendaEntryMapper mapper = new AgendaEntryMapper();
         return mapper.toDtoList(agendaEntryList);
     }
+
+    /**
+     * Retrieves the current collaborator from the session based on the email stored in the session.
+     *
+     * @return the current Collaborator object
+     */
+
     private Collaborator getCollaboratorFromSession() {
         String email = ApplicationSession.getInstance().getCurrentSession().getUserEmail();
         return collaboratorRepository.getCollaboratorByEmail(email);

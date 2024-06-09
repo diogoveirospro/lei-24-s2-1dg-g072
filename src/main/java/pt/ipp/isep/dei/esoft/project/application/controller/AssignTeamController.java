@@ -18,6 +18,7 @@ import java.util.Properties;
 /**
  * The AssignTeamController class represents the controller for assigning teams to agenda entries.
  */
+
 public class AssignTeamController {
     private final Agenda agenda;
     private final TeamRepository teamRepository;
@@ -25,6 +26,7 @@ public class AssignTeamController {
     /**
      * Constructs a new AssignTeamController with the necessary repositories.
      */
+
     public AssignTeamController() {
         this.agenda = Repositories.getInstance().getAgenda();
         this.teamRepository = Repositories.getInstance().getTeamRepository();
@@ -35,6 +37,7 @@ public class AssignTeamController {
      *
      * @return the list of agenda entries
      */
+
     public List<AgendaEntry> getAgendaEntries() {
         return this.agenda.getEntryList();
     }
@@ -45,6 +48,7 @@ public class AssignTeamController {
      * @param name the name of the agenda entry
      * @return the agenda entry with the specified name
      */
+
     public AgendaEntry getAgendaEntry(String name) {
         return this.agenda.getAgendaEntry(name);
     }
@@ -55,6 +59,7 @@ public class AssignTeamController {
      * @param agendaEntry the agenda entry to be assigned to
      * @return the list of valid teams
      */
+
     public List<Team> getValidTeams (AgendaEntry agendaEntry) {
         return this.teamRepository.getValidTeams(agendaEntry);
     }
@@ -66,6 +71,7 @@ public class AssignTeamController {
      * @param team the team to be assigned
      * @return true if the team is successfully assigned to the agenda entry, otherwise false
      */
+
     public boolean assignTeamToAgendaEntry (AgendaEntry agendaEntry, Team team){
         return agenda.assignTeamToAgendaEntry(agendaEntry, team);
     }
@@ -76,6 +82,7 @@ public class AssignTeamController {
      * @return the list of available email services
      * @throws IOException if an I/O error occurs while reading the config.properties file
      */
+
     public List<String> showEmailServices () throws IOException {
         Properties props = new Properties();
         try (InputStream in = new FileInputStream("src/main/resources/config/config.properties")) {
@@ -92,6 +99,7 @@ public class AssignTeamController {
      * @param emailService the email service to be used for sending the email
      * @return true if the email is successfully sent, otherwise false
      */
+
     public boolean sendEmailToTeamMembers (Team team, String emailService){
         List<Collaborator> members = team.getTeam();
         try {
@@ -108,6 +116,11 @@ public class AssignTeamController {
             return false;
         }
     }
+    /**
+     * Retrieves a list of agenda entries that do not have an assigned team.
+     *
+     * @return a list of agenda entries without an assigned team
+     */
 
     public List<AgendaEntry> getAgendaEntriesWithoutTeam () {
         return this.agenda.getAgendaEntriesWithoutTeam();

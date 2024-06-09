@@ -143,11 +143,25 @@ public class AddAgendaEntryController {
         return null;
     }
 
+    /**
+     * Retrieves a GreenSpaceDto object by the name of the green space.
+     *
+     * @param selectedGreenSpaceName the name of the green space to retrieve
+     * @return the GreenSpaceDto object representing the green space with the specified name
+     */
+
     public GreenSpaceDto getGreenSpaceByName(String selectedGreenSpaceName) {
         GreenSpace greenSpace = greenSpaceRepository.getGreenSpaceByParkName(selectedGreenSpaceName);
         return new GreenSpaceDto(greenSpace);
     }
 
+    /**
+     * Retrieves a ToDoListEntryDto object by the task name from a specific green space.
+     *
+     * @param selectedItem the name of the task item in the format "taskName - otherInfo"
+     * @param greenSpaceDto the GreenSpaceDto object representing the green space containing the task
+     * @return the ToDoListEntryDto object representing the to-do list entry with the specified task name
+     */
 
     public ToDoListEntryDto getToDoListEntry(String selectedItem, GreenSpaceDto greenSpaceDto) {
         GreenSpace greenSpace = (GreenSpace) toDomain(greenSpaceDto);

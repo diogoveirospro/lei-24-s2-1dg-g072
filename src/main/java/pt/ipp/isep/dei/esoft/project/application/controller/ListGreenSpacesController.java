@@ -86,6 +86,14 @@ public class ListGreenSpacesController {
         return collaboratorRepository;
     }
 
+    /**
+     * Retrieves a list of green spaces managed by the current session's GSM (Green Space Manager),
+     * sorted based on the provided sorting option.
+     *
+     * @param sortingOption the option to sort the green spaces
+     * @return a list of GreenSpaceDto objects sorted based on the specified option
+     */
+
     public List<GreenSpaceDto> getGreenSpaceList(String sortingOption){
         Collaborator GSM = getCollaboratorFromSession();
         List<GreenSpace> greenSpaceList = greenSpaceRepository.getGreenSpaceListSorted(GSM, sortingOption);
@@ -93,10 +101,22 @@ public class ListGreenSpacesController {
         return mapper.greenSpaceListToDto(greenSpaceList);
     }
 
+    /**
+     * Retrieves the current collaborator from the session based on the email stored in the session.
+     *
+     * @return the current Collaborator object
+     */
+
     private Collaborator getCollaboratorFromSession() {
         String email = ApplicationSession.getInstance().getCurrentSession().getUserEmail();
         return collaboratorRepository.getCollaboratorByEmail(email);
     }
+
+    /**
+     * Retrieves a list of available sorting methods for green spaces.
+     *
+     * @return a list of strings representing the available sorting methods
+     */
 
     public List<String> getSortMethods() {
         return greenSpaceRepository.getSortMethods();
