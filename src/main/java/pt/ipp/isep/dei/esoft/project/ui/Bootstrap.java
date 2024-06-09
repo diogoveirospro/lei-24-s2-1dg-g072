@@ -150,11 +150,47 @@ public class Bootstrap {
         c3.assignSkill(new Skill("Tree Care and Maintenance"));
         c3.assignSkill(new Skill("Pest and Disease Management in Landscapes"));
 
+        Collaborator c5 = new Collaborator("Marta", new Date(1992, 5, 14),
+                new Date(2015, 4, 10), "Rua das Flores", "912345670", "marta@collaborator.com",
+                "274570963", Collaborator.IdDocType.CC, "235674321zx8", "ABC1234");
+
+        c5.assignSkill(new Skill("Sustainable Land Use Practices"));
+        c5.assignSkill(new Skill("Ecological Restoration"));
+        c5.assignSkill(new Skill("Landscape Design"));
+
+        Collaborator c6 = new Collaborator("Sofia", new Date(1985, 8, 20), new Date(2011,
+                5, 15), "Avenida dos Aliados", "912345671", "sofia@collaborator.com", "222674962",
+                Collaborator.IdDocType.BI, "237895641", "ABC1234");
+
+        c6.assignSkill(new Skill("Plant Identification"));
+        c6.assignSkill(new Skill("Tree Care and Maintenance"));
+        c6.assignSkill(new Skill("Pest and Disease Management in Landscapes"));
+
+        Collaborator c7 = new Collaborator("Ricardo", new Date(1975, 10, 30), new Date(2009,
+                2, 20), "Rua Santa Catarina", "912345672", "ricardo@collaborator.com", "296271381",
+                Collaborator.IdDocType.NISS, "23987654126", "ABC1234");
+
+        c7.assignSkill(new Skill("Water Conservation Techniques"));
+        c7.assignSkill(new Skill("Native Plant Gardening"));
+        c7.assignSkill(new Skill("Green Infrastructure Planning"));
+
+        Collaborator c8 = new Collaborator("Luis", new Date(1996, 1, 12), new Date(2018,
+                6, 5), "Praça da Batalha", "912345673", "luis@collaborator.com", "249503662",
+                Collaborator.IdDocType.PASSPORT, "G456789", "ABC1234");
+
+        c8.assignSkill(new Skill("Soil Management"));
+        c8.assignSkill(new Skill("Landscape Design"));
+        c8.assignSkill(new Skill("Ecological Restoration"));
+
 
         collaboratorRepository.addCollaborator(c1);
         collaboratorRepository.addCollaborator(c2);
         collaboratorRepository.addCollaborator(c3);
         collaboratorRepository.addCollaborator(c4);
+        collaboratorRepository.addCollaborator(c5);
+        collaboratorRepository.addCollaborator(c6);
+        collaboratorRepository.addCollaborator(c7);
+        collaboratorRepository.addCollaborator(c8);
 
     }
 
@@ -314,12 +350,32 @@ public class Bootstrap {
                 3, 1), "Rua4", "912345669", "manuel@collaborator.com", "456789014",
                 Collaborator.IdDocType.PASSPORT, "H234564", "ABC1234");
 
+        Collaborator c5 = new Collaborator("Marta", new Date(1992, 5, 14),
+                new Date(2015, 4, 10), "Rua das Flores", "912345670", "marta@collaborator.com",
+                "274570963", Collaborator.IdDocType.CC, "235674321zx8", "ABC1234");
+
+        Collaborator c6 = new Collaborator("Sofia", new Date(1985, 8, 20), new Date(2011,
+                5, 15), "Avenida dos Aliados", "912345671", "sofia@collaborator.com", "222674962",
+                Collaborator.IdDocType.BI, "237895641", "ABC1234");
+
+        Collaborator c7 = new Collaborator("Ricardo", new Date(1975, 10, 30), new Date(2009,
+                2, 20), "Rua Santa Catarina", "912345672", "ricardo@collaborator.com", "296271381",
+                Collaborator.IdDocType.NISS, "23987654126", "ABC1234");
+
+        Collaborator c8 = new Collaborator("Luis", new Date(1996, 1, 12), new Date(2018,
+                6, 5), "Praça da Batalha", "912345673", "luis@collaborator.com", "249503662",
+                Collaborator.IdDocType.PASSPORT, "G456789", "ABC1234");
+
 
         Team team1 = new Team(List.of(c1, c2));
         Team team2 = new Team(List.of(c3, c4));
+        Team team3 = new Team(List.of(c5, c6));
+        Team team4 = new Team(List.of(c7, c8));
 
         teamRepository.addTeam(team1);
         teamRepository.addTeam(team2);
+        teamRepository.addTeam(team3);
+        teamRepository.addTeam(team4);
     }
 
     private void addGreenSpaces() throws InvalidGreenSpaceDataException {
