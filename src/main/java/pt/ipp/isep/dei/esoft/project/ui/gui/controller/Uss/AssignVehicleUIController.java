@@ -1,12 +1,14 @@
 package pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import pt.ipp.isep.dei.esoft.project.application.controller.AssignVehicleController;
 import pt.ipp.isep.dei.esoft.project.domain.AgendaEntry;
 import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
+import pt.ipp.isep.dei.esoft.project.ui.gui.ui.AlertUI;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.GSMUI;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.MainMenuUI;
 import pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss.AssignVehicleUI;
@@ -23,9 +25,6 @@ public class AssignVehicleUIController {
 
     @FXML
     private ComboBox<String> vehicleComboBox;
-
-    @FXML
-    private Label statusLabel;
 
     @FXML
     private Button assignVehicleButton;
@@ -85,12 +84,14 @@ public class AssignVehicleUIController {
         if (selectedEntry != null && selectedVehicle != null) {
             boolean success = controller.assignVehicle(selectedEntry, selectedVehicle);
             if (success) {
-                statusLabel.setText("Vehicle assigned successfully.");
+                AlertUI.createAnAlert(Alert.AlertType.INFORMATION, "Success", "", "Vehicle assigned successfully.").show();
+                vehicleComboBox.getSelectionModel().clearSelection();
+                agendaEntryComboBox.getSelectionModel().clearSelection();
             } else {
-                statusLabel.setText("Failed to assign vehicle.");
+                AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error", "", "Failed to assign vehicle.").show();
             }
         } else {
-            statusLabel.setText("Please select both an agenda entry and a vehicle.");
+            AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error", "", "Please select both an agenda entry and a vehicle.").show();
         }
     }
 

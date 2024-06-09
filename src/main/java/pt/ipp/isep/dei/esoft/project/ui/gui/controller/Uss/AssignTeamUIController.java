@@ -97,6 +97,19 @@ public class AssignTeamUIController {
         List<Team> teams = teamRepository.getTeams();
         try {
             Team team = null;
+
+            if (selectedAgendaEntry == null) {
+                throw new IllegalArgumentException("Please select an entry from the agenda");
+            }
+
+            if (selectedTeam == null) {
+                throw new IllegalArgumentException("Please select a team");
+            }
+
+            if (selectedEmailService == null) {
+                throw new IllegalArgumentException("Please select an email service");
+            }
+
             for (Team t : teams) {
                 if (t.toString().equalsIgnoreCase(selectedTeam.toString())) {
                     team = t;
@@ -112,6 +125,8 @@ public class AssignTeamUIController {
                     "The team was successfully assigned to the agenda entry.", "").show();
             assignTeamUI = new AssignTeamUI();
             assignTeamUI.showUI(MainMenuUI.getPrimaryStage());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         } catch (Exception e) {
             AlertUI.createAnAlert(Alert.AlertType.ERROR, "Assign Team",
                     "It was not possible to assign the team to the agenda entry.", e.getMessage()).show();
