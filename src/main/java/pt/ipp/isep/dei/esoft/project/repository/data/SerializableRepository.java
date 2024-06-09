@@ -68,8 +68,12 @@ public abstract class SerializableRepository<T> {
         }
         return data;
     }
-    @SuppressWarnings("unchecked")
+
     public void clear() {
-        save((T) new ArrayList<>());
+        try (PrintWriter writer = new PrintWriter("src/main/java/pt/ipp/isep/dei/esoft/project/repository/data/" + filename)) {
+            writer.print("");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }

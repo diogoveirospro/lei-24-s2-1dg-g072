@@ -20,30 +20,25 @@ public class JobRepository extends SerializableRepository<List<Job>> implements 
     /**
      * List containing all jobs.
      */
-    private final List<Job> jobs;
+    private List<Job> jobs;
 
     /**
      * Job Repository builder.
      */
     public JobRepository(){
         super("jobRepository.ser");
-        List<Job> jobs1;
-        jobs1 = super.load();
-        if (jobs1 == null){
+        jobs = super.load();
+        if (jobs == null){
             jobs = new ArrayList<>();
-        } else {
-            jobs = jobs1;
         }
     }
     public JobRepository(String filename){
         super(filename);
-        List<Job> jobs1;
-        jobs1 = super.load();
-        if (jobs1 == null){
+        jobs = super.load();
+        if (jobs == null){
             jobs = new ArrayList<>();
-        } else {
-            jobs = jobs1;
         }
+
     }
 
     /**
