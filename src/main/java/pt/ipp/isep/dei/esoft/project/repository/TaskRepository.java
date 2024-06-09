@@ -23,6 +23,16 @@ public class TaskRepository extends SerializableRepository<List<Task>> implement
     public TaskRepository() {
         super("taskRepository.ser");
         tasks = super.load();
+        if (tasks == null) {
+            tasks = new ArrayList<>();
+        }
+    }
+    public TaskRepository(String filename) {
+        super(filename);
+        tasks = super.load();
+        if (tasks == null) {
+            tasks = new ArrayList<>();
+        }
     }
 
     /**
@@ -71,5 +81,6 @@ public class TaskRepository extends SerializableRepository<List<Task>> implement
 
     public void clear() {
         tasks.clear();
+        super.clear();
     }
 }

@@ -29,6 +29,17 @@ public class TeamRepository extends SerializableRepository<List<Team>> implement
     public TeamRepository() {
         super("teamRepository.ser");
         teams = super.load();
+        if (teams == null) {
+            teams = new ArrayList<>();
+        }
+
+    }
+    public TeamRepository(String filename) {
+        super(filename);
+        teams = super.load();
+        if (teams == null) {
+            teams = new ArrayList<>();
+        }
 
     }
 
@@ -143,7 +154,10 @@ public class TeamRepository extends SerializableRepository<List<Team>> implement
     public void saveTeamRepositoryToFile() {
         save(teams);
     }
-
+    public void clear() {
+        teams.clear();
+        super.clear();
+    }
 
 
 }

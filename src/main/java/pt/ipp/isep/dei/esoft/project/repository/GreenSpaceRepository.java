@@ -25,6 +25,17 @@ public class GreenSpaceRepository extends SerializableRepository<List<GreenSpace
     public GreenSpaceRepository() {
         super("greenSpaceRepository.ser");
         greenSpaceList = super.load();
+        if (greenSpaceList == null){
+            greenSpaceList = new ArrayList<>();
+        }
+
+    }
+    public GreenSpaceRepository(String filename) {
+        super(filename);
+        greenSpaceList = super.load();
+        if (greenSpaceList == null){
+            greenSpaceList = new ArrayList<>();
+        }
     }
 
     public List<GreenSpace> getGreenSpaceListSorted(Collaborator greenSpaceManager, String sortingOption) {
@@ -102,5 +113,9 @@ public class GreenSpaceRepository extends SerializableRepository<List<GreenSpace
 
     public List<GreenSpace> getGreenSpaceList() {
         return greenSpaceList;
+    }
+    public void clear() {
+        greenSpaceList.clear();
+        super.clear();
     }
 }
