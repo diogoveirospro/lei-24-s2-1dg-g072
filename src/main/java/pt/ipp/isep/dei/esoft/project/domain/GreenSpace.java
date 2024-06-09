@@ -90,28 +90,28 @@ public class GreenSpace implements Serializable {
             throw new InvalidGreenSpaceDataException("Invalid type of green space.");
         }
 
-        // Validate and initialize the name of the green space
+
         if (isValidParkName(parkName)) {
             this.parkName = parkName;
         } else {
             throw new InvalidGreenSpaceDataException("Invalid green space name.");
         }
 
-        // Validate and initialize the dimension of the green space
+
         if (dimension > 0) {
             this.dimension = dimension;
         } else {
             throw new InvalidGreenSpaceDataException("Invalid dimension of the green space.");
         }
 
-        // Validate and initialize the address of the green space
+
         if (isValidAddress(address)) {
             this.address = address;
         } else {
             throw new InvalidGreenSpaceDataException("Invalid address of the green space.");
         }
 
-        // Validate and initialize the manager of the green space
+
         if (isValidGreenSpaceManager(greenSpaceManager)) {
             this.greenSpaceManager = greenSpaceManager;
         } else {
@@ -121,11 +121,18 @@ public class GreenSpace implements Serializable {
         this.toDoList = new ToDoList();
     }
 
-    // Method to validate if the manager of the green space is valid
+    /**
+     * Checks if the provided green space manager is valid.
+     *
+     * @param greenSpaceManager the green space manager to validate
+     * @return true if the green space manager is valid, otherwise false
+     * @throws InvalidGreenSpaceDataException if the green space manager does not exist in the system
+     */
+
     private boolean isValidGreenSpaceManager(Collaborator greenSpaceManager) throws InvalidGreenSpaceDataException {
         CollaboratorRepository collaboratorRepository = Repositories.getInstance().getCollaboratorRepository();
 
-        // Check if the manager exists in the system
+
         if (!collaboratorRepository.exist(greenSpaceManager)) {
             throw new InvalidGreenSpaceDataException("The GSM provided does not exist in the system!");
         } else {
@@ -133,7 +140,15 @@ public class GreenSpace implements Serializable {
         }
     }
 
-    // Method to validate if the address of the green space is valid
+    /**
+     * Checks if the provided address is valid.
+     *
+     * @param address the address to validate
+     * @return true if the address is valid, otherwise false
+     * @throws InvalidGreenSpaceDataException if the address is null, empty, or blank
+     */
+
+
     private static boolean isValidAddress(String address) throws InvalidGreenSpaceDataException {
         if (address == null || address.isEmpty() || address.isBlank()) {
             throw new InvalidGreenSpaceDataException("The address cannot be empty or blank.");

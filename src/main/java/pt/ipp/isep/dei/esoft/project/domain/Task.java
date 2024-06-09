@@ -41,6 +41,14 @@ public class Task implements Serializable {
         }
     }
 
+    /**
+     * Checks if the provided duration is valid.
+     *
+     * @param duration the duration to validate
+     * @return true if the duration is valid, otherwise false
+     * @throws InvalidTaskDataException if the duration is null or blank, or if it is not a number
+     */
+
     private boolean isValidDuration(String duration) throws InvalidTaskDataException {
         if (duration == null || duration.isBlank()) {
             throw new InvalidTaskDataException("Invalid Input. The duration of the task cannot be empty or blank.");
@@ -110,6 +118,12 @@ public class Task implements Serializable {
     public int hashCode() {
         return Objects.hash(duration, task);
     }
+
+    /**
+     * Sets the name of the task.
+     *
+     * @param newName the new name to set for the task
+     */
 
     public void setName(String newName) {
         this.task = newName;
