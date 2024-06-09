@@ -39,5 +39,5 @@
 
 ## 6. Integration and Demo 
 
-* A new option on the Green Space Manager menu options was added, so he can postpone an agenda entry .
+* A new option on the Green Space Manager menu options was added, so he can postpone an agenda entry.
 
