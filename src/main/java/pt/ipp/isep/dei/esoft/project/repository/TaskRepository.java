@@ -66,10 +66,20 @@ public class TaskRepository extends SerializableRepository<List<Task>> implement
         return new ArrayList<>(tasks);
     }
 
+    /**
+     * Saves the current list of tasks to a file.
+     */
     public void saveTaskRepositoryToFile() {
         save(tasks);
     }
 
+    /**
+     * Finds a task by its ID.
+     *
+     * @param taskOne the ID of the task to find
+     * @return the task with the specified ID
+     * @throws InvalidTaskDataException if no task with the specified ID is found
+     */
     public Task findTaskById(String taskOne) throws InvalidTaskDataException {
         for (Task task : tasks) {
             if (task.getTaskId().equals(taskOne)) {
@@ -79,8 +89,13 @@ public class TaskRepository extends SerializableRepository<List<Task>> implement
         throw new InvalidTaskDataException("Task not found");
     }
 
+    /**
+     * Clears the current list of tasks.
+     */
     public void clear() {
-        tasks.clear();
+        if (tasks != null) {
+            tasks.clear();
+        }
         super.clear();
     }
 }
