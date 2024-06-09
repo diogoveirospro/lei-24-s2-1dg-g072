@@ -15,11 +15,15 @@ import pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss.AssignVehicleUI;
 
 import java.util.List;
 
+/**
+ * Controller class for the Assign Vehicle UI.
+ */
 public class AssignVehicleUIController {
     private GSMUI gsmui;
     private AssignVehicleUI assignVehicleUI;
     private List<Vehicle> vehicleList;
     List<AgendaEntry> agendaEntries;
+
     @FXML
     private ComboBox<String> agendaEntryComboBox;
 
@@ -28,17 +32,25 @@ public class AssignVehicleUIController {
 
     @FXML
     private Button assignVehicleButton;
+
     @FXML
     private Button CancelBtn;
 
     private final AssignVehicleController controller;
 
+    /**
+     * Constructs an instance of the AssignVehicleUIController.
+     */
     public AssignVehicleUIController() {
         this.controller = new AssignVehicleController();
     }
 
+    /**
+     * Initializes the controller and sets up the UI components.
+     */
     @FXML
     public void initialize() {
+
         agendaEntries = controller.getAgendaEntries();
         for (AgendaEntry entry : agendaEntries) {
             agendaEntryComboBox.getItems().add(entry.getName());
@@ -46,6 +58,9 @@ public class AssignVehicleUIController {
         agendaEntryComboBox.setOnAction(event -> loadVehicles());
     }
 
+    /**
+     * Loads the vehicles for the selected agenda entry.
+     */
     private void loadVehicles() {
         String selectedEntryString = agendaEntryComboBox.getSelectionModel().getSelectedItem();
         AgendaEntry selectedEntry = null;
@@ -63,8 +78,12 @@ public class AssignVehicleUIController {
         }
     }
 
+    /**
+     * Handles the action of assigning a vehicle to the selected agenda entry.
+     */
     @FXML
     private void assignVehicle() {
+
         String selectedEntryString = agendaEntryComboBox.getSelectionModel().getSelectedItem();
         AgendaEntry selectedEntry = null;
         for (AgendaEntry entry : agendaEntries) {
@@ -81,6 +100,7 @@ public class AssignVehicleUIController {
                 break;
             }
         }
+
         if (selectedEntry != null && selectedVehicle != null) {
             boolean success = controller.assignVehicle(selectedEntry, selectedVehicle);
             if (success) {
@@ -95,10 +115,16 @@ public class AssignVehicleUIController {
         }
     }
 
+    /**
+     * Sets the AssignVehicleUI instance.
+     */
     public void setAssignVehicleUI(AssignVehicleUI assignVehicleUI) {
         this.assignVehicleUI = assignVehicleUI;
     }
 
+    /**
+     * Handles the action of canceling the vehicle assignment.
+     */
     public void handleCancelButtonAction() {
         try {
             gsmui = new GSMUI();

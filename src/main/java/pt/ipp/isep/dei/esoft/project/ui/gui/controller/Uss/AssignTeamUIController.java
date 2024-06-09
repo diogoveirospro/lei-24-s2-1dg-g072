@@ -18,6 +18,10 @@ import pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss.AssignTeamUI;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Controller class for the Assign Team UI.
+ */
+
 public class AssignTeamUIController {
 
     @FXML
@@ -36,6 +40,10 @@ public class AssignTeamUIController {
     private Team selectedTeam;
     private String selectedEmailService;
 
+    /**
+     * Initializes the controller and sets up the UI components.
+     */
+
     @FXML
     public void initialize() {
         populateAgendaEntriesListView();
@@ -45,6 +53,9 @@ public class AssignTeamUIController {
         populateEmailServiceListView();
         setupEmailServiceListViewClickListener();
     }
+    /**
+     * Populates the agenda entries list view with the available agenda entries.
+     */
 
     public void populateAgendaEntriesListView() {
 
@@ -55,24 +66,37 @@ public class AssignTeamUIController {
         }
 
     }
+    /**
+     * Sets up a listener for the agenda entries list view selection.
+     */
 
     private void setupAgendaEntriesListViewClickListener() {
         lvAgendaEntries.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             this.selectedAgendaEntry = controller.getAgendaEntry(newValue);
         });
     }
+    /**
+     * Populates the teams list view with the available teams for the selected agenda entry.
+     */
 
     public void populateTeamsListView() {
         List<Team> teams = controller.getValidTeams(selectedAgendaEntry);
         lvTeams.getItems().clear();
         lvTeams.getItems().addAll(teams);
     }
+    /**
+     * Sets up a listener for the teams list view selection.
+     */
 
     private void setupTeamsListViewClickListener() {
         lvTeams.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             this.selectedTeam = newValue;
         });
     }
+
+    /**
+     * Populates the email service combo box with the available email services.
+     */
 
     private void populateEmailServiceListView() {
         try {
@@ -85,11 +109,19 @@ public class AssignTeamUIController {
 
     }
 
+    /**
+     * Sets up a listener for the email service combo box selection.
+     */
+
     private void setupEmailServiceListViewClickListener() {
         cbEmailService.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             this.selectedEmailService = newValue;
         });
     }
+
+    /**
+     * Handles the action of assigning a team to the selected agenda entry.
+     */
 
     @FXML
     public void handleAssignTeam() {
@@ -133,6 +165,9 @@ public class AssignTeamUIController {
         }
 
     }
+    /**
+     * Handles the action of canceling the team assignment.
+     */
 
     @FXML
     public void handleCancel() {

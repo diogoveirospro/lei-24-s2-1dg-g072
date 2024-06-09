@@ -33,11 +33,20 @@ public class AssignSkillUIController {
     private AssignSkillController controller = new AssignSkillController();
     private AssignSkillUI assignSkillUI = new AssignSkillUI();
 
+    /**
+     * Initializes the UI components by populating the skills and collaborators list views.
+     * This method is typically called when the UI is initialized.
+     */
+
     public void initialize() {
 
         populateSkillsListView();
         populateCollaboratorsListView();
     }
+
+    /**
+     * Populates the skills list view with the available skills.
+     */
 
     private void populateSkillsListView() {
         List<Skill> lstSkills = controller.listSkills();
@@ -46,6 +55,10 @@ public class AssignSkillUIController {
             lvSkills.getItems().add(skill.toString());
         }
     }
+
+    /**
+     * Populates the collaborators list view with the available collaborators.
+     */
 
     private void populateCollaboratorsListView() {
         List<Collaborator> lstCollaborators = controller.getCollaborators();
@@ -57,6 +70,10 @@ public class AssignSkillUIController {
             }
         }
     }
+
+    /**
+     * Handles the action of assigning a skill to a collaborator.
+     */
 
     public void handleAssignSkill() {
         if (lvSkills.getSelectionModel().getSelectedItem() == null) {
@@ -98,6 +115,9 @@ public class AssignSkillUIController {
 
     }
 
+    /**
+     * Handles the action of canceling the skill assignment.
+     */
 
     @FXML
     public void handleCancel() {
@@ -108,6 +128,12 @@ public class AssignSkillUIController {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * Sets the AssignSkillUI instance for this controller.
+     *
+     * @param assignSkillUI the AssignSkillUI instance to set
+     */
 
     public void setAssignSkill(AssignSkillUI assignSkillUI) {
         this.assignSkillUI = assignSkillUI;

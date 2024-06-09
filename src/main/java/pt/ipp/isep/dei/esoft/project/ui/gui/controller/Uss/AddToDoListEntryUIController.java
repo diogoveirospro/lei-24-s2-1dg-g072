@@ -112,6 +112,12 @@ public class AddToDoListEntryUIController {
         }
     }
 
+    /**
+     * Sets the AddToDoListEntryUI instance for this controller.
+     *
+     * @param addToDoListEntryUI the AddToDoListEntryUI instance to set
+     */
+
     public void setAddToDoListEntryUI(AddToDoListEntryUI addToDoListEntryUI) {
         this.addToDoListEntryUI = addToDoListEntryUI;
     }
