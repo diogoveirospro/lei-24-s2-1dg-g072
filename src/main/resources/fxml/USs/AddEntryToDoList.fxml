@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.collections.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.*?>
@@ -9,7 +8,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane style="-fx-background-color: #f1f8e9;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.AddToDoListEntryUIController">
+<BorderPane style="-fx-background-color: #f1f8e9;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss.AddToDoListEntryUIController">
     <top>
         <GridPane prefHeight="75.0" prefWidth="644.0" BorderPane.alignment="CENTER">
             <columnConstraints>
@@ -51,7 +50,7 @@
                             <font>
                                 <Font name="System Bold" size="12.0" />
                             </font></Label>
-                  <ComboBox fx:id="taskNameComboBox" prefWidth="150.0" />
+                  <TextField fx:id="tfTaskName" />
                         <Label text="Task Duration">
                             <font>
                                 <Font name="System Bold" size="12.0" />

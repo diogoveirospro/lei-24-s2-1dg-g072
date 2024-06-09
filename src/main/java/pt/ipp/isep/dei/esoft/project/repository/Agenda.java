@@ -50,16 +50,6 @@ public class Agenda extends SerializableRepository<List<AgendaEntry>> implements
     public Agenda() {
         super("agenda.ser");
         entriesAgenda = super.load();
-        if (entriesAgenda == null) {
-            entriesAgenda = new ArrayList<>();
-        }
-    }
-    public Agenda(String filename) {
-        super(filename);
-        entriesAgenda = super.load();
-        if (entriesAgenda == null) {
-            entriesAgenda = new ArrayList<>();
-        }
 
     }
 
@@ -146,12 +136,25 @@ public class Agenda extends SerializableRepository<List<AgendaEntry>> implements
         return entryListString;
     }
 
+    /**
+     * Atribui uma equipe a uma entrada da agenda e salva a agenda em arquivo.
+     *
+     * @param agendaEntry a entrada da agenda
+     * @param team        a equipe a ser atribuída
+     * @return true se a equipe for atribuída com sucesso; false caso contrário
+     */
 
     public boolean assignTeamToAgendaEntry(AgendaEntry agendaEntry, Team team) {
         agendaEntry.assignTeam(team);
         saveAgendaToFile();
         return true;
     }
+
+    /**
+     * Retorna uma lista de entradas da agenda que não têm equipe atribuída.
+     *
+     * @return uma lista de entradas da agenda sem equipe atribuída
+     */
 
     public List<AgendaEntry> getAgendaEntriesWithoutTeam() {
 
@@ -165,6 +168,13 @@ public class Agenda extends SerializableRepository<List<AgendaEntry>> implements
 
     }
 
+    /**
+     * Retorna a entrada da agenda com o nome especificado.
+     *
+     * @param selectedAgendaEntryName o nome da entrada da agenda
+     * @return a entrada da agenda com o nome especificado, ou null se não for encontrada
+     */
+
     public AgendaEntry getAgendaEntry(String selectedAgendaEntryName) {
         for (AgendaEntry agendaEntry : entriesAgenda) {
             if (agendaEntry.getName().equals(selectedAgendaEntryName)) {
@@ -173,6 +183,12 @@ public class Agenda extends SerializableRepository<List<AgendaEntry>> implements
         }
         return null;
     }
+
+    /**
+     * Retorna uma lista de entradas da agenda que não têm veículo atribuído.
+     *
+     * @return uma lista de entradas da agenda sem veículo atribuído
+     */
 
     public List<AgendaEntry> getAgendaEntriesWithoutVehicle() {
         List<AgendaEntry> entriesWithoutVehicle = new ArrayList<>();
@@ -183,6 +199,14 @@ public class Agenda extends SerializableRepository<List<AgendaEntry>> implements
         }
         return entriesWithoutVehicle;
     }
+
+    /**
+     * Atribui um veículo a uma entrada da agenda e salva a agenda em arquivo.
+     *
+     * @param agendaEntry a entrada da agenda
+     * @param vehicle     o veículo a ser atribuído
+     * @return true se o veículo for atribuído com sucesso; false caso contrário
+     */
 
     public boolean assignVehicleToAgendaEntry(AgendaEntry agendaEntry, Vehicle vehicle) {
         try {
@@ -195,9 +219,21 @@ public class Agenda extends SerializableRepository<List<AgendaEntry>> implements
         }
     }
 
+    /**
+     * Salva a agenda em um arquivo.
+     */
+
     public void saveAgendaToFile() {
         save(entriesAgenda);
     }
+
+    /**
+     * Retorna uma lista de entradas da agenda associadas a uma lista de equipes.
+     *
+     * @param teamList a lista de equipes
+     * @return uma lista de entradas da agenda associadas à lista de equipes
+     */
+
     public List<AgendaEntry> getAgendaEntriesByTeamList(List<Team> teamList) {
         List<AgendaEntry> agendaEntries = new ArrayList<>();
         for (AgendaEntry agendaEntry : entriesAgenda) {
@@ -206,10 +242,6 @@ public class Agenda extends SerializableRepository<List<AgendaEntry>> implements
             }
         }
         return agendaEntries;
-    }
-    public void clear() {
-        entriesAgenda.clear();
-        super.clear();
     }
 
 }

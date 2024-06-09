@@ -389,6 +389,13 @@ public class Vehicle implements Serializable {
         return new Vehicle(this.plateNumber, this.brand, this.model, this.type, this.tare, this.grossWeight, this.currentKms, this.registrationDate, this.acquisitionDate, this.serviceFrequency, this.kmAtLastMaintenance);
     }
 
+    /**
+     * Indicates whether some other object is "equal to" this one. Two vehicles are considered equal if they have the same plate number, brand, model, type, tare, gross weight, current kilometers, registration date, acquisition date, service frequency, and kilometers at last maintenance.
+     *
+     * @param vehicleObject the reference object with which to compare
+     * @return true if this vehicle is the same as the vehicleObject argument; false otherwise
+     */
+
     @Override
     public boolean equals(Object vehicleObject) {
         if (this == vehicleObject) return true;
@@ -407,11 +414,23 @@ public class Vehicle implements Serializable {
                 Objects.equals(kmAtLastMaintenance, vehicle.kmAtLastMaintenance);
     }
 
+    /**
+     * Returns a hash code value for the object. This method is supported for the benefit of hash tables such as those provided by HashMap.
+     *
+     * @return a hash code value for this object
+     */
 
     @Override
     public int hashCode() {
         return Objects.hash(plateNumber, brand, model, type, tare, grossWeight, currentKms, registrationDate, acquisitionDate, serviceFrequency, kmAtLastMaintenance);
     }
+
+    /**
+     * Validates if the vehicle can be assigned to an agenda entry. A vehicle is valid for an entry if it is not already included in the entry's vehicle list.
+     *
+     * @param agendaEntry the agenda entry to validate against
+     * @return true if the vehicle can be assigned to the agenda entry; false otherwise
+     */
 
     public boolean validateVehicleForEntry(AgendaEntry agendaEntry) {
         return !agendaEntry.getVehicleList().contains(this);

@@ -236,6 +236,12 @@ public class Date implements Comparable<Date>, Serializable {
         return totalDays;
     }
 
+    /**
+     * Returns a string representation of the date in the format "dd/MM/yyyy".
+     *
+     * @return a string representation of the date
+     */
+
     @Override
     public String toString() {
         return String.format("%02d/%02d/%04d", day, month, year);

@@ -64,6 +64,13 @@ public class ListGreenSpacesUIController {
             System.out.println("An error occurred while handling the cancel action: " + e.getMessage());
         }
     }
+
+    /**
+     * Handles the action of displaying a confirmation dialog before listing all the green spaces.
+     * If the user confirms the action, the method retrieves a list of green spaces based on the selected sorting method
+     * and displays them in the ListView. If no sorting method is selected, an error alert is shown.
+     */
+
     public void handleShowButtonAction() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");

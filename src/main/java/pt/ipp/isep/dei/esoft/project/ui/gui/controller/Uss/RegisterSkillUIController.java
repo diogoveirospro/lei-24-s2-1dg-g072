@@ -16,6 +16,11 @@ import pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss.RegisterSkillUI;
 
 import java.util.Optional;
 
+/**
+ * Controller class for the Register Skill User Interface.
+ * This class handles user interactions and events related to registering a new skill.
+ */
+
 public class RegisterSkillUIController {
     private HRMUI hrmui;
     private RegisterSkillUI registerSkillUI;
@@ -30,6 +35,11 @@ public class RegisterSkillUIController {
     @FXML
     private Button btnRegister;
 
+    /**
+     * Handles the action when the user clicks on the Register button.
+     * It prompts the user for confirmation before registering the skill.
+     * If confirmed, it validates the skill name and registers it.
+     */
 
     public void handleRegisterAction() {
         String skill = txtSkill.getText();
@@ -60,6 +70,10 @@ public class RegisterSkillUIController {
         }
     }
 
+    /**
+     * Handles the action when the user clicks on the Cancel button.
+     * It navigates back to the HR Management UI.
+     */
 
     public void handleCancelAction() {
         try {
@@ -69,6 +83,11 @@ public class RegisterSkillUIController {
             System.out.println("An error occurred while handling the cancel action: " + e.getMessage());
         }
     }
+
+    /**
+     * Setter method for the Register Skill User Interface.
+     * @param registerSkillUI The Register Skill User Interface to be set.
+     */
 
     public void setRegisterSkillUI(RegisterSkillUI registerSkillUI) {
         this.registerSkillUI = registerSkillUI;

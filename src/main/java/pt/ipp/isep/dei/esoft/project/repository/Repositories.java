@@ -45,6 +45,12 @@ public class Repositories {
         toDoList = new ToDoList();
     }
 
+    /**
+     * Gets the singleton instance of the Repositories class.
+     *
+     * @return The singleton instance of Repositories.
+     */
+
     public static Repositories getInstance() {
         if (instance == null) {
             synchronized (Repositories.class) {
@@ -150,6 +156,12 @@ public class Repositories {
     public AuthenticationRepository getAuthenticationRepository() {
         return authenticationRepository;
     }
+
+    /**
+     * Checks if any of the repositories contain data.
+     *
+     * @return {@code true} if any of the repositories contain data, {@code false} otherwise.
+     */
 
     public boolean hasData() {
         return !jobRepository.getJobs().isEmpty() ||

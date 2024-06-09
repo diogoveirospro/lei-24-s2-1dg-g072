@@ -19,6 +19,11 @@ import pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss.RegisterJobUI;
 import java.io.IOException;
 import java.util.Optional;
 
+/**
+ * Controller class for the Register Job User Interface.
+ * This class handles user interactions and events related to registering a new job.
+ */
+
 public class RegisterJobUIController {
     private RegisterJobController registerJobController = new RegisterJobController();
     private HRMUI hrmui;
@@ -32,6 +37,11 @@ public class RegisterJobUIController {
     @FXML
     private TextField txtJob;
 
+    /**
+     * Handles the action when the user clicks on the Register button.
+     * It prompts the user for confirmation before registering the job.
+     * If confirmed, it validates the job name and registers it.
+     */
 
     public void handleRegisterAction() {
         String job = txtJob.getText();
@@ -62,6 +72,10 @@ public class RegisterJobUIController {
         }
     }
 
+    /**
+     * Handles the action when the user clicks on the Cancel button.
+     * It navigates back to the HR Management UI.
+     */
 
     public void handleCancelAction() {
         try {
@@ -71,6 +85,11 @@ public class RegisterJobUIController {
             System.out.println("An error occurred while handling the cancel action: " + e.getMessage());
         }
     }
+
+    /**
+     * Setter method for the Register Job User Interface.
+     * @param registerJobUI The Register Job User Interface to be set.
+     */
 
     public void setRegisterJobUI(RegisterJobUI registerJobUI) {
         this.registerJobUI = registerJobUI;

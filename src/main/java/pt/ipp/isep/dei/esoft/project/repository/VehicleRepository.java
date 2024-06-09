@@ -28,19 +28,25 @@ public class VehicleRepository extends SerializableRepository<List<Vehicle>> imp
      */
     public VehicleRepository() {
         super("vehicleRepository.ser");
-        List<Vehicle> vehicleList1;
-        vehicleList1 =super.load();
-        if (vehicleList1 == null) {
-            vehicleList = new ArrayList<>();
-        } else {
-            vehicleList = vehicleList1;
-        }
-
-    }
-    public VehicleRepository(String filename) {
-        super(filename);
         vehicleList =super.load();
     }
+
+    /**
+     * Registers a new vehicle with the provided details.
+     *
+     * @param plate            the plate number of the vehicle
+     * @param brand            the brand of the vehicle
+     * @param model            the model of the vehicle
+     * @param type             the type of the vehicle
+     * @param tare             the tare weight of the vehicle
+     * @param grossWeight      the gross weight of the vehicle
+     * @param currentKms       the current kilometers traveled by the vehicle
+     * @param registrationDate the registration date of the vehicle
+     * @param acquisitionDate  the acquisition date of the vehicle
+     * @param serviceFrequency the service frequency of the vehicle
+     * @param kmAtLastMaintenance the kilometers traveled at the last maintenance of the vehicle
+     * @return an Optional containing the registered vehicle if successful, otherwise an empty Optional
+     */
 
     public Optional<Vehicle> registerVehicle(String plate, String brand, String model, String type, Double tare, Double grossWeight, Double currentKms, Date registrationDate, Date acquisitionDate, Double serviceFrequency, Double kmAtLastMaintenance){
 
@@ -159,6 +165,13 @@ public class VehicleRepository extends SerializableRepository<List<Vehicle>> imp
         return null;
     }
 
+    /**
+     * Retrieves a list of valid vehicles for the given agenda entry.
+     *
+     * @param agendaEntry the agenda entry for which valid vehicles are to be retrieved
+     * @return a list of valid vehicles for the given agenda entry
+     */
+
     public List<Vehicle> getValidVehicles(AgendaEntry agendaEntry) {
         List<Vehicle> validVehicles = new ArrayList<>();
         List<Vehicle> allVehicles = Repositories.getInstance().getVehicleRepository().getVehicleList();
@@ -171,11 +184,12 @@ public class VehicleRepository extends SerializableRepository<List<Vehicle>> imp
         return validVehicles;
     }
 
+    /**
+     * Saves the vehicle repository data to a file.
+     */
+
     public void saveVehicleRepositoryToFile() {
         save(vehicleList);
     }
-    public void clear() {
-        vehicleList.clear();
-        super.clear();
-    }
+
 }

@@ -50,6 +50,13 @@ public class RegisterGreenSpaceController {
         }
 
     }
+
+    /**
+     * Obtains the collaborator from the current session.
+     *
+     * @return the collaborator obtained from the session
+     */
+
     private Collaborator getCollaboratorFromSession() {
         String email = ApplicationSession.getInstance().getCurrentSession().getUserEmail();
         return collaboratorRepository.getCollaboratorByEmail(email);

@@ -180,9 +180,21 @@ public class AddAgendaEntryUIController {
         }
     }
 
+    /**
+     * Sets the AddAgendaEntryUI instance for this controller.
+     *
+     * @param addAgendaEntryUI the AddAgendaEntryUI instance to set
+     */
+
     public void setAddAgendaEntryUI (AddAgendaEntryUI addAgendaEntryUI) {
         this.addAgendaEntryUI = addAgendaEntryUI;
     }
+
+    /**
+     * Initializes the controller after its root element has been completely processed.
+     * This method is called once all fxml elements have been completely loaded.
+     * It populates the GreenSpaces ComboBox and Hours ComboBox and sets up event handlers.
+     */
 
     @FXML
     public void initialize() {
@@ -190,6 +202,5 @@ public class AddAgendaEntryUIController {
         populateHoursComboBox();
 
         cbGreenSpace.setOnAction(event -> populateToDoListEntriesComboBox());
-
     }
 }

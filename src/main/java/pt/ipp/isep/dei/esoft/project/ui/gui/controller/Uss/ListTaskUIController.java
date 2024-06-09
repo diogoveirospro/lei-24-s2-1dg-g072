@@ -122,7 +122,7 @@ public class ListTaskUIController {
                 else {
                     AgendaEntry.StatusOfEntry status = null;
                     if (!statusList.getValue().toString().equalsIgnoreCase("None")) {
-                        status = AgendaEntry.StatusOfEntry.valueOf((String) statusList.getValue());
+                        status = AgendaEntry.StatusOfEntry.getStatusOfEntry((String) statusList.getValue());
                     }
                     Date startDate = getStartDate();
                     Date endDate = getEndDate();
@@ -172,6 +172,11 @@ public class ListTaskUIController {
         String status = (String) this.statusList.getValue();
     }
 
+    /**
+     * Sets the ListTaskUI instance for this controller.
+     *
+     * @param listTaskUI The ListTaskUI instance to set.
+     */
 
     public void setListTaskUI(ListTaskUI listTaskUI) {
         this.listTaskUI = listTaskUI;
