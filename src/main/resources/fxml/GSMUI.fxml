@@ -115,7 +115,7 @@
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>
-                      <Button fx:id="PostponeEntryButton" contentDisplay="TOP" defaultButton="true" mnemonicParsing="false" onAction="#handlePostponeEntryButtonAction" prefHeight="79.0" prefWidth="144.0" style="-fx-background-color: #80cbc4; -fx-text-fill: white; -fx-background-radius: 15;" text="Post Pone Entry">
+                      <Button fx:id="PostponeEntryButton" contentDisplay="TOP" defaultButton="true" mnemonicParsing="false" onAction="#handlePostponeEntryButtonAction" prefHeight="79.0" prefWidth="144.0" style="-fx-background-color: #80cbc4; -fx-text-fill: white; -fx-background-radius: 15;" text="Postpone Entry">
                      <graphic>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>

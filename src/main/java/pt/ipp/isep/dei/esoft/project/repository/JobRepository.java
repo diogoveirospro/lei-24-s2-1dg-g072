@@ -27,7 +27,23 @@ public class JobRepository extends SerializableRepository<List<Job>> implements 
      */
     public JobRepository(){
         super("jobRepository.ser");
-        jobs = super.load();
+        List<Job> jobs1;
+        jobs1 = super.load();
+        if (jobs1 == null){
+            jobs = new ArrayList<>();
+        } else {
+            jobs = jobs1;
+        }
+    }
+    public JobRepository(String filename){
+        super(filename);
+        List<Job> jobs1;
+        jobs1 = super.load();
+        if (jobs1 == null){
+            jobs = new ArrayList<>();
+        } else {
+            jobs = jobs1;
+        }
     }
 
     /**
@@ -97,5 +113,9 @@ public class JobRepository extends SerializableRepository<List<Job>> implements 
 
     public void saveJobRepositoryToFile() {
         save(jobs);
+    }
+    public void clear() {
+        jobs.clear();
+        super.clear();
     }
 }

@@ -190,5 +190,6 @@ public class AddAgendaEntryUIController {
         populateHoursComboBox();
 
         cbGreenSpace.setOnAction(event -> populateToDoListEntriesComboBox());
+
     }
 }

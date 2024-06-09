@@ -14,8 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class GreenSpaceTest {
     private static GreenSpaceRepository gsr = Repositories.getInstance().getGreenSpaceRepository();
-    private static CollaboratorRepository cr = Repositories.getInstance().getCollaboratorRepository();
     private static SkillRepository skillRepository = Repositories.getInstance().getSkillRepository();
+    private static CollaboratorRepository cr = Repositories.getInstance().getCollaboratorRepository();
     private static ToDoList toDoList = Repositories.getInstance().getToDoList();
     private static TaskRepository taskRepository = Repositories.getInstance().getTaskRepository();
     private GreenSpace greenSpace;
@@ -26,9 +26,10 @@ public class GreenSpaceTest {
 
     @BeforeEach
     void setUp() throws InvalidCollaboratorDataException, InvalidGreenSpaceDataException, InvalidEntryDataException, InvalidTaskDataException {
+
         gsm = new Collaborator("GSM", new Date(1988, 2, 3), new Date(2020,
                 3, 1), "Rua6", "912645629", "gsm@gsm.com", "232139687",
-                Collaborator.IdDocType.CC, "122472678cc3", "ABC1234");
+                Collaborator.IdDocType.CC, "122472678CC3", "ABC1234");
         cr.addCollaborator(gsm);
         anotherGreenSpace = new GreenSpace(GreenSpace.TypeOfGreenSpace.LPARK, "Porto", 100.5, "Porto", gsm);
         greenSpace = new GreenSpace(GreenSpace.TypeOfGreenSpace.GARDEN, "Ovar", 40.5, "Ovar", gsm);
@@ -39,6 +40,7 @@ public class GreenSpaceTest {
         toDoListEntry = new ToDoListEntry(task, greenSpace, ToDoListEntry.DegreeOfUrgency.HIGH);
         toDoList.addEntry(toDoListEntry);
         greenSpace.setToDoList(toDoList);
+
     }
 
 
@@ -275,12 +277,11 @@ public class GreenSpaceTest {
     public void testCollaboratorDoesNotExist() throws InvalidCollaboratorDataException {
         Collaborator collaborator = new Collaborator("GSM", new Date(1988, 2, 3), new Date(2020,
                 3, 1), "Rua6", "912645629", "gsm@gsm.com", "232139687",
-                Collaborator.IdDocType.CC, "122472678cc3", "ABC1234");
+                Collaborator.IdDocType.CC, "122472678CC3", "ABC1234");
         assertThrows(InvalidGreenSpaceDataException.class, () -> {
             GreenSpace greenSpace = new GreenSpace(GreenSpace.TypeOfGreenSpace.GARDEN, "Ovar", 40.5, "Ovar", collaborator);
         });
     }
-
 
 
     @AfterAll
