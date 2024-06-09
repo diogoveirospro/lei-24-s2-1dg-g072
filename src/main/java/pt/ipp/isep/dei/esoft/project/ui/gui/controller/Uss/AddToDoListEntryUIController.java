@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.esoft.project.ui.gui.controller.Uss;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidCollaboratorDataException;
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidEntryDataException;
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidTaskDataException;
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidVehicleDataException;
@@ -83,14 +84,16 @@ public class AddToDoListEntryUIController {
                 String greenSpaceName = greenSpaceNameCB.getValue();
                 String degreeOfUrgency = degreeOfUrgencyComboBox.getValue();
                 ValidatorUtils.isValidNumber(taskDuration);
+                ValidatorUtils.isValidName(taskName);
                 int duration = Integer.parseInt(taskDuration);
-                if (duration <= 0){
+                if (duration <= 0) {
                     throw new InvalidEntryDataException("Invalid task duration.");
                 }
                 controller.addNewToDoListEntry(taskName, taskDuration, greenSpaceName, degreeOfUrgency);
                 taskListView.getItems().add(taskName + " - " + taskDuration + " - " + greenSpaceName + " - " + degreeOfUrgency);
                 AlertUI.createAnAlert(Alert.AlertType.INFORMATION, "Success", "Entry added successfully.", "The entry was added successfully.").show();
-            } catch (InvalidTaskDataException | InvalidEntryDataException | InvalidVehicleDataException e) {
+            } catch (InvalidTaskDataException | InvalidEntryDataException | InvalidVehicleDataException |
+                     InvalidCollaboratorDataException e) {
                 AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error", "Error adding entry.", e.getMessage()).show();
             }
         }

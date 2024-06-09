@@ -211,7 +211,7 @@ public class PostponeEntryUIController {
         if (selectedEntry.getEndDate().isGreater(date)){
             btnPostpone.setDisable(true);
             btnEndDate.setValue(null);
-            Alert al = AlertUI.createAnAlert(Alert.AlertType.ERROR, "Musgo Sublime","Postpone Entry", "The new end date must be after the entry end date!");
+            Alert al = AlertUI.createAnAlert(Alert.AlertType.ERROR, "Musgo Sublime","Postpone Entry", "The new end date must be after the entry end date! " + selectedEntry.getEndDate().toString());
             al.showAndWait();
         } else {
             btnPostpone.setDisable(false);

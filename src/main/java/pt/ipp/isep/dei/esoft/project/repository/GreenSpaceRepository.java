@@ -78,7 +78,7 @@ public class GreenSpaceRepository extends SerializableRepository<List<GreenSpace
     public List<GreenSpace> getListGreenSpacesManagedByGsm(Collaborator greenSpaceManager) {
         List<GreenSpace> greenSpacesManagedByGSM = new ArrayList<>();
         for (GreenSpace greenSpace : greenSpaceList) {
-            if (greenSpace.getGreenSpaceManager().equals(greenSpaceManager)) {
+            if (greenSpace.getGreenSpaceManager().getName().equalsIgnoreCase(greenSpaceManager.getName())) {
                 greenSpacesManagedByGSM.add(greenSpace);
             }
         }
@@ -106,12 +106,13 @@ public class GreenSpaceRepository extends SerializableRepository<List<GreenSpace
 
     public GreenSpace getGreenSpaceByParkName(String parkName) {
         for (GreenSpace greenSpace : greenSpaceList) {
-            if (greenSpace.getParkName().equals(parkName)) {
+            if (greenSpace.getParkName().equalsIgnoreCase(parkName)) {
                 return greenSpace;
             }
         }
         return null;
     }
+
 
     /**
      * Retorna uma lista de métodos de classificação disponíveis para espaços verdes.

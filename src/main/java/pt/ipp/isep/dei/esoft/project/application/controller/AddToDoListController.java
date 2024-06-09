@@ -113,6 +113,7 @@ public class AddToDoListController {
         GreenSpace greenSpace = greenSpaceRepository.getGreenSpaceByParkName(greenSpaceName);
         ToDoListEntry.DegreeOfUrgency degree = ToDoListEntry.DegreeOfUrgency.getDegreeOfUrgency(degreeOfUrgency);
         Task task = new Task(taskName, duration);
+        taskRepository.addTask(task);
         ToDoListEntry toDoListEntry = new ToDoListEntry(task, greenSpace, degree);
         toDoList.addEntry(toDoListEntry);
     }

@@ -8,6 +8,8 @@ import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.dto.GreenSpaceDto;
 import pt.ipp.isep.dei.esoft.project.dto.ToDoListEntryDto;
 import pt.ipp.isep.dei.esoft.project.repository.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -81,8 +83,14 @@ public class AddAgendaEntryController {
      * @return a list of ToDoListEntryDto representing the to-do list entries
      */
     public List<ToDoListEntryDto> getToDoListEntries(GreenSpace greenSpace) {
-        List<ToDoListEntry> listEntries = greenSpace.getToDoList().getToDoListEntries();
-        return ToDoListMapper.toDoListEntriesToDto(listEntries);
+        List<ToDoListEntry> listEntries = toDoList.getToDoListEntries();
+        List<ToDoListEntry> listEntriesForGreenSpace = new ArrayList<>();
+        for (ToDoListEntry entry : listEntries) {
+            if (entry.getGreenSpace().getParkName().equalsIgnoreCase(greenSpace.getParkName())) {
+                listEntriesForGreenSpace.add(entry);
+            }
+        }
+        return ToDoListMapper.toDoListEntriesToDto(listEntriesForGreenSpace);
     }
 
     /**
@@ -168,7 +176,8 @@ public class AddAgendaEntryController {
 
         String taskName = selectedItem.substring(0, selectedItem.indexOf("-")).trim();
 
-        ToDoListEntry toDoListEntry = greenSpace.getToDoList().getToDoListEntryByTaskName(taskName);
+        ToDoListEntry toDoListEntry = toDoList.getToDoListEntryByTaskName(taskName);
         return new ToDoListEntryDto(toDoListEntry);
     }
+
 }

@@ -87,6 +87,7 @@ public class Agenda extends SerializableRepository<List<AgendaEntry>> implements
      */
     public boolean addAgendaEntry(AgendaEntry agendaEntry) {
         saveAgendaToFile();
+        agendaEntry.taskSchedule();
         return entriesAgenda.add(agendaEntry);
     }
 
