@@ -23,16 +23,6 @@ public class ToDoList extends SerializableRepository<List<ToDoListEntry>> implem
     public ToDoList() {
         super("toDoList.ser");
         toDoListEntries = super.load();
-        if (toDoListEntries == null) {
-            toDoListEntries = new ArrayList<>();
-        }
-    }
-    public ToDoList(String filename) {
-        super(filename);
-        toDoListEntries = super.load();
-        if (toDoListEntries == null) {
-            toDoListEntries = new ArrayList<>();
-        }
     }
 
     /**
@@ -77,9 +67,5 @@ public class ToDoList extends SerializableRepository<List<ToDoListEntry>> implem
 
     public void saveToDoListToFile() {
         save(toDoListEntries);
-    }
-    public void clear() {
-        toDoListEntries.clear();
-        super.clear();
     }
 }

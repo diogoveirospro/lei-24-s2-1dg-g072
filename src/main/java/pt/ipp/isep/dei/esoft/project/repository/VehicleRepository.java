@@ -28,17 +28,6 @@ public class VehicleRepository extends SerializableRepository<List<Vehicle>> imp
      */
     public VehicleRepository() {
         super("vehicleRepository.ser");
-        List<Vehicle> vehicleList1;
-        vehicleList1 =super.load();
-        if (vehicleList1 == null) {
-            vehicleList = new ArrayList<>();
-        } else {
-            vehicleList = vehicleList1;
-        }
-
-    }
-    public VehicleRepository(String filename) {
-        super(filename);
         vehicleList =super.load();
     }
 
@@ -174,8 +163,5 @@ public class VehicleRepository extends SerializableRepository<List<Vehicle>> imp
     public void saveVehicleRepositoryToFile() {
         save(vehicleList);
     }
-    public void clear() {
-        vehicleList.clear();
-        super.clear();
-    }
+
 }

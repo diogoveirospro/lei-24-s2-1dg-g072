@@ -15,7 +15,7 @@ import java.util.List;
  *
  * @author Group 072 - Byte Masters - ISEP
  */
-public class CollaboratorRepository extends SerializableRepository<List<Collaborator>> implements Serializable {
+public class CollaboratorRepository extends SerializableRepository<List<Collaborator>>  implements Serializable {
 
     private final SkillRepository skillRepository;
 
@@ -31,26 +31,12 @@ public class CollaboratorRepository extends SerializableRepository<List<Collabor
      */
     public CollaboratorRepository(SkillRepository skillRepository) {
         super("collaboratorRepository.ser");
-        List<Collaborator> collaborators1;
-        this.skillRepository = skillRepository;
-        collaborators1 = super.load();
-        if (collaborators1 == null) {
-            this.collaborators = new ArrayList<>();
-        } else {
-            this.collaborators = collaborators1;
-        }
-    }
 
-    public CollaboratorRepository(SkillRepository skillRepository, String filename) {
-        super(filename);
         List<Collaborator> collaborators1;
         this.skillRepository = skillRepository;
         collaborators1 = super.load();
-        if (collaborators1 == null) {
-            this.collaborators = new ArrayList<>();
-        } else {
-            this.collaborators = collaborators1;
-        }
+
+        this.collaborators = collaborators1;
     }
 
     /**
@@ -157,10 +143,5 @@ public class CollaboratorRepository extends SerializableRepository<List<Collabor
 
     public void saveCollaboratorRepositoryToFile() {
         save(collaborators);
-    }
-
-    public void clear() {
-        collaborators.clear();
-        super.clear();
     }
 }

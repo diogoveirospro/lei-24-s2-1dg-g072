@@ -1,8 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidTaskDataException;
@@ -20,19 +18,18 @@ public class TaskRepositoryTest {
     private Task task2;
 
     @BeforeEach
-    public void setUp() throws InvalidTaskDataException {
-        String tempFileName = "taskRepositoryTest.ser";
-        taskRepository = new TaskRepository(tempFileName);
+    public void setUp() {
+        taskRepository = new TaskRepository();
+        try {
+            task1 = new Task("Task One", "12");
+            task2 = new Task("Task Two", "10");
+        } catch (InvalidTaskDataException e) {
+            fail("Setup failed: " + e.getMessage());
+        }
         taskRepository.clear();
-        task1 = new Task("Task One", "12");
-        task2 = new Task("Task Two", "10");
         taskRepository.addTask(task1);
         taskRepository.addTask(task2);
-    }
 
-    @AfterEach
-    public void tearDown() {
-        taskRepository.clear();
     }
 
     @Test
@@ -92,6 +89,5 @@ public class TaskRepositoryTest {
             assertEquals("Task not found", e.getMessage());
         }
     }
-
 }
 

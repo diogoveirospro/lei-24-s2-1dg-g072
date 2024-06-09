@@ -28,18 +28,6 @@ public class MaintenanceRepository extends SerializableRepository<List<Maintenan
     public MaintenanceRepository() {
         super("maintenanceRepository.ser");
         maintenanceList = super.load();
-        if (maintenanceList == null) {
-            maintenanceList = new ArrayList<>();
-        }
-
-    }
-
-    public MaintenanceRepository(String filename) {
-        super(filename);
-        maintenanceList = super.load();
-        if (maintenanceList == null) {
-            maintenanceList = new ArrayList<>();
-        }
     }
 
     /**
@@ -158,11 +146,6 @@ public class MaintenanceRepository extends SerializableRepository<List<Maintenan
 
     public void saveMaintenanceRepositoryToFile() {
         save(maintenanceList);
-    }
-
-    public void clear() {
-        maintenanceList.clear();
-        super.clear();
     }
 
 }
