@@ -114,6 +114,8 @@ public class AssignTeamController {
         } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InstantiationException
                  | InvocationTargetException | FileNotFoundException e) {
             return false;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
     /**

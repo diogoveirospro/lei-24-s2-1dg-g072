@@ -122,7 +122,7 @@ public class ListTaskUIController {
                 else {
                     AgendaEntry.StatusOfEntry status = null;
                     if (!statusList.getValue().toString().equalsIgnoreCase("None")) {
-                        status = AgendaEntry.StatusOfEntry.valueOf((String) statusList.getValue());
+                        status = AgendaEntry.StatusOfEntry.getStatusOfEntry((String) statusList.getValue());
                     }
                     Date startDate = getStartDate();
                     Date endDate = getEndDate();

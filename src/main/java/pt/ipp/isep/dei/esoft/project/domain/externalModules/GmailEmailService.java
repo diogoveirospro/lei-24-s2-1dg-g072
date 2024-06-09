@@ -5,7 +5,8 @@ import pt.ipp.isep.dei.esoft.project.repository.CollaboratorRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
@@ -18,25 +19,23 @@ public class GmailEmailService implements EmailServicesExternalModule {
      * Sends an email to the specified email address using the Gmail email service.
      *
      * @param email the email address of the recipient
-     * @throws FileNotFoundException if the file to write the email content is not found
      */
     @Override
-    public void sendEmail(String email) throws FileNotFoundException {
-        try {
-            CollaboratorRepository collaboratorRepository = Repositories.getInstance().getCollaboratorRepository();
-            Collaborator collaborator = collaboratorRepository.getCollaboratorByEmail(email);
-
-            writeEmail(collaborator);
-        } catch (FileNotFoundException e) {
-            throw new FileNotFoundException("File not found");
-        }
+    public void sendEmail(String email) throws IOException {
+        CollaboratorRepository collaboratorRepository = Repositories.getInstance().getCollaboratorRepository();
+        Collaborator collaborator = collaboratorRepository.getCollaboratorByEmail(email);
+        writeEmail(collaborator);
     }
 
+    /**
+     * Writes an email to the specified collaborator using the Gmail email service.
+     *
+     * @param collaborator the collaborator to send the email to
+     */
     @Override
-    public void writeEmail(Collaborator collaborator) throws FileNotFoundException {
-        try {
-            File emailBox = new File("src/main/java/pt/ipp/isep/dei/esoft/project/EmailBox/Gmail.txt");
-            PrintWriter writer = new PrintWriter(emailBox);
+    public void writeEmail(Collaborator collaborator) throws IOException {
+        File emailBox = new File("src/main/java/pt/ipp/isep/dei/esoft/project/EmailBox/Gmail.txt");
+        try (FileWriter fw = new FileWriter(emailBox, true); PrintWriter writer = new PrintWriter(fw)) {
 
             writer.println("From: gsm@gmail.com");
             writer.println("To: " + collaborator.getEmail());
@@ -50,11 +49,9 @@ public class GmailEmailService implements EmailServicesExternalModule {
             writer.println("Best regards, GSM Team");
             writer.println("This is an automated email. Please do not reply.");
             writer.println("-------------------------------------------------");
-            writer.close();
 
-        } catch (FileNotFoundException e) {
-            throw new FileNotFoundException("File not found");
+        } catch (IOException e) {
+            throw new IOException("An error occurred while writing to the file", e);
         }
     }
 }
-
