@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidCollaboratorDataException;
@@ -10,13 +11,18 @@ import pt.ipp.isep.dei.esoft.project.domain.*;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AgendaTest {
 
     private Agenda agenda;
-    private CollaboratorRepository collaboratorRepository = Repositories.getInstance().getCollaboratorRepository();
-    private TeamRepository teamRepository = Repositories.getInstance().getTeamRepository();
+    private CollaboratorRepository collaboratorRepository;
+    private TeamRepository teamRepository;
+    private SkillRepository skillRepository;
+    private String skillFileName = "skillRepositoryTest.ser";
+    private String agendaFileName = "agendaTest.ser";
+    private String collaboratorFileName = "collaboratorRepositoryTest.ser";
+    private String teamFileName = "teamRepositoryTest.ser";
 
     private Collaborator gsm;
     private Collaborator c1;
@@ -35,71 +41,66 @@ public class AgendaTest {
     private Task task2;
     private GreenSpace greenSpace2;
 
-
-
     @BeforeEach
     void setUp() throws InvalidTaskDataException, InvalidCollaboratorDataException, InvalidGreenSpaceDataException, InvalidEntryDataException {
-        agenda = new Agenda();
+        skillRepository = new SkillRepository(skillFileName);
+        skillRepository.clear();
+        collaboratorRepository = new CollaboratorRepository(skillRepository,collaboratorFileName);
+        collaboratorRepository.clear();
+        teamRepository = new TeamRepository(teamFileName);
+        teamRepository.clear();
+        agenda = new Agenda(agendaFileName);
+        agenda.clear();
 
-        gsm = new Collaborator("GSM", new Date(1988, 2, 3), new Date(2020,
-                3, 1), "Rua6", "912645629", "gsm@gsm.com", "232139687",
-                Collaborator.IdDocType.CC, "122472678cc3", "ABC1234");
-
+        gsm = new Collaborator("GSM", new Date(1988, 2, 3), new Date(2020, 3, 1), "Rua6", "912645629", "gsm@gsm.com", "232139687",
+                Collaborator.IdDocType.CC, "122472678CC3", "ABC1234");
         collaboratorRepository.addCollaborator(gsm);
-
-        c1 = new Collaborator("Ana", new Date(1990, 2, 3),
-                new Date(2010, 3, 1), "Rua1", "912345669", "ana@collaborator.com",
-                "123456789", Collaborator.IdDocType.CC, "234564321zx7", "ABC1234");
-
-        c2 = new Collaborator("João", new Date(1980, 2, 3), new Date(2010,
-                3, 1), "Rua2", "912345669", "joao@collaborator.com", "234567899",
+        c1 = new Collaborator("Ana", new Date(1990, 2, 3), new Date(2010, 3, 1), "Rua1", "912345669", "ana@collaborator.com", "123456789",
+                Collaborator.IdDocType.CC, "234564321ZX7", "ABC1234");
+        c2 = new Collaborator("João", new Date(1980, 2, 3), new Date(2010, 3, 1), "Rua2", "912345669", "joao@collaborator.com", "234567899",
                 Collaborator.IdDocType.BI, "232566381", "ABC1234");
-
-        c3 = new Collaborator("André", new Date(1970, 2, 3),
-                new Date(2010, 3, 1), "Rua3", "912345669", "andre@collaborator.com",
-                "345678907", Collaborator.IdDocType.NISS, "23456432125", "ABC1234");
-
-        c4 = new Collaborator("Manuel", new Date(1999, 2, 3),
-                new Date(2020, 3, 1), "Rua4", "912345669", "manuel@collaborator.com",
-                "456789014", Collaborator.IdDocType.PASSPORT, "H234564", "ABC1234");
+        c3 = new Collaborator("André", new Date(1970, 2, 3), new Date(2010, 3, 1), "Rua3", "912345669", "andre@collaborator.com", "345678907",
+                Collaborator.IdDocType.NISS, "23456432125", "ABC1234");
+        c4 = new Collaborator("Manuel", new Date(1999, 2, 3), new Date(2020, 3, 1), "Rua4", "912345669", "manuel@collaborator.com", "456789014",
+                Collaborator.IdDocType.PASSPORT, "H234564", "ABC1234");
+        collaboratorRepository.addCollaborator(c1);
+        collaboratorRepository.addCollaborator(c2);
+        collaboratorRepository.addCollaborator(c3);
+        collaboratorRepository.addCollaborator(c4);
 
         team1 = new Team(List.of(c1, c2));
         team2 = new Team(List.of(c3, c4));
-
         teamRepository.addTeam(team1);
         teamRepository.addTeam(team2);
-
         task1 = new Task("Task one", "2");
         greenSpace1 = new GreenSpace(GreenSpace.TypeOfGreenSpace.LPARK, "Cidade", 83,
                 "Estrada Interior da Circunvalação, 4100-083 Porto", gsm);
 
-
-        agendaEntry1 = new AgendaEntry(task1, greenSpace1, new Date(2024, 6, 5),
-                AgendaEntry.WorkingDayHours.H09, new Date(2024, 6, 7), AgendaEntry.WorkingDayHours.H10);
-
+        agendaEntry1 = new AgendaEntry(task1, greenSpace1, new Date(2024, 6, 5), AgendaEntry.WorkingDayHours.H09, new Date(2024, 6, 7), AgendaEntry.WorkingDayHours.H10);
         agendaEntry1.addTeam(team1);
-
         agenda.addAgendaEntry(agendaEntry1);
-
-
         task2 = new Task("Task two", "3");
         greenSpace2 = new GreenSpace(GreenSpace.TypeOfGreenSpace.GARDEN, "São Roque", 4,
                 "R. São Roque da Lameira 2040, 4350-307 Porto", gsm);
-
         agendaEntry2 = new AgendaEntry(task2, greenSpace2, new Date(2024, 6, 5), AgendaEntry.WorkingDayHours.H16,
                 new Date(2024, 6, 8), AgendaEntry.WorkingDayHours.H17);
-
         agendaEntry2.addTeam(team2);
-
         agenda.addAgendaEntry(agendaEntry2);
+    }
+
+    @AfterEach
+    void tearDown() {
+        skillRepository.clear();
+        collaboratorRepository.clear();
+        teamRepository.clear();
+        agenda.clear();
     }
 
     @Test
     void getAgendaEntryListTest() throws InvalidEntryDataException {
         List<AgendaEntry> entries = List.of(agendaEntry1, agendaEntry2);
 
-        List<AgendaEntry> result = agenda.getAgendaEntryList(List.of(team1, team2), new Date(2024, 6, 5),
-                new Date(2024, 6, 7), AgendaEntry.StatusOfEntry.SCHEDULED);
+        List<AgendaEntry> result = agenda.getAgendaEntryList(List.of(team1, team2), new Date(2024, 6, 5), new Date(2024, 6, 7), AgendaEntry.StatusOfEntry.SCHEDULED);
 
         assertEquals(entries, result);
     }
@@ -117,32 +118,32 @@ public class AgendaTest {
         try {
             AgendaEntry agendaEntry = agenda.createAgendaEntry(task1, greenSpace1, new Date(2024, 6, 7),
                     AgendaEntry.WorkingDayHours.H10, new Date(2024, 6, 5), AgendaEntry.WorkingDayHours.H09);
-        }catch (InvalidEntryDataException e){
+            fail("Expected InvalidEntryDataException to be thrown");
+        } catch (InvalidEntryDataException e) {
             assertEquals("The start date of the task cannot be later than the end date.", e.getMessage());
         }
     }
 
     @Test
-    void getStatusListTest(){
+    void getStatusListTest() {
         List<String> statusList = List.of("Scheduled", "Postponed", "Canceled", "Done");
 
         assertEquals(statusList, agenda.getStatusList());
     }
 
     @Test
-    void getEntryListTest(){
+    void getEntryListTest() {
         List<AgendaEntry> entries = List.of(agendaEntry1, agendaEntry2);
 
         assertEquals(entries, agenda.getEntryList());
     }
 
     @Test
-    void getAgendaEntryListStringTest(){
+    void getAgendaEntryListStringTest() {
         List<String> entries = List.of(agendaEntry1.getName(), agendaEntry2.getName());
 
         List<String> result = agenda.getAgendaEntryList();
 
         assertEquals(entries, result);
     }
-
 }

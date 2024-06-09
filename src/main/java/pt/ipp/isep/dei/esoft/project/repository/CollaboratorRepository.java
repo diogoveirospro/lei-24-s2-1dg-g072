@@ -22,34 +22,28 @@ public class CollaboratorRepository extends SerializableRepository<List<Collabor
     /**
      * List containing all collaborators.
      */
-    private final List<Collaborator> collaborators;
+    private List<Collaborator> collaborators;
 
     /**
      * Constructs a new CollaboratorRepository with the specified skill repository.
      *
      * @param skillRepository the skill repository to use
      */
+
     public CollaboratorRepository(SkillRepository skillRepository) {
         super("collaboratorRepository.ser");
-        List<Collaborator> collaborators1;
         this.skillRepository = skillRepository;
-        collaborators1 = super.load();
-        if (collaborators1 == null) {
-            this.collaborators = new ArrayList<>();
-        } else {
-            this.collaborators = collaborators1;
+        collaborators = super.load();
+        if (collaborators == null) {
+            collaborators = new ArrayList<>();
         }
     }
-
     public CollaboratorRepository(SkillRepository skillRepository, String filename) {
         super(filename);
-        List<Collaborator> collaborators1;
         this.skillRepository = skillRepository;
-        collaborators1 = super.load();
-        if (collaborators1 == null) {
-            this.collaborators = new ArrayList<>();
-        } else {
-            this.collaborators = collaborators1;
+        collaborators = super.load();
+        if (collaborators == null) {
+            collaborators = new ArrayList<>();
         }
     }
 
@@ -159,8 +153,4 @@ public class CollaboratorRepository extends SerializableRepository<List<Collabor
         save(collaborators);
     }
 
-    public void clear() {
-        collaborators.clear();
-        super.clear();
-    }
 }

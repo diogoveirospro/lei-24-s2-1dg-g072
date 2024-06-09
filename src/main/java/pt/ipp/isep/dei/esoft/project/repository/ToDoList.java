@@ -78,8 +78,5 @@ public class ToDoList extends SerializableRepository<List<ToDoListEntry>> implem
     public void saveToDoListToFile() {
         save(toDoListEntries);
     }
-    public void clear() {
-        toDoListEntries.clear();
-        super.clear();
-    }
+
 }

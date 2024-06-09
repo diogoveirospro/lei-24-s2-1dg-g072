@@ -160,9 +160,6 @@ public class MaintenanceRepository extends SerializableRepository<List<Maintenan
         save(maintenanceList);
     }
 
-    public void clear() {
-        maintenanceList.clear();
-        super.clear();
-    }
+
 
 }
