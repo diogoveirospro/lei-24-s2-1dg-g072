@@ -24,6 +24,16 @@ public class SkillRepository extends SerializableRepository<List<Skill>> impleme
     public SkillRepository(){
         super("skillRepository.ser");
         skills = super.load();
+        if (skills == null) {
+            skills = new ArrayList<>();
+        }
+    }
+    public SkillRepository(String filename){
+        super(filename);
+        skills = super.load();
+        if (skills == null) {
+            skills = new ArrayList<>();
+        }
     }
 
     /**
@@ -67,5 +77,9 @@ public class SkillRepository extends SerializableRepository<List<Skill>> impleme
             }
         }
         return null;
+    }
+    public void clear() {
+        skills.clear();
+        super.clear();
     }
 }

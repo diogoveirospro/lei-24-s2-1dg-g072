@@ -185,7 +185,7 @@ public class PostponeEntryUIController {
         if (selectedEntry.getStartDate().isGreater(date)){
             btnPostpone.setDisable(true);
             btnDate.setValue(null);
-            Alert al = AlertUI.createAnAlert(Alert.AlertType.ERROR, "Musgo Sublime","Postpone Entry", "The date must be after the entry date!");
+            Alert al = AlertUI.createAnAlert(Alert.AlertType.ERROR, "Musgo Sublime","Postpone Entry", "The new start date must be after the entry start date!");
             al.showAndWait();
         } else {
             btnEndDate.setDisable(false);
@@ -205,7 +205,7 @@ public class PostponeEntryUIController {
         if (selectedEntry.getEndDate().isGreater(date)){
             btnPostpone.setDisable(true);
             btnEndDate.setValue(null);
-            Alert al = AlertUI.createAnAlert(Alert.AlertType.ERROR, "Musgo Sublime","Postpone Entry", "The date must be after the entry end date!");
+            Alert al = AlertUI.createAnAlert(Alert.AlertType.ERROR, "Musgo Sublime","Postpone Entry", "The new end date must be after the entry end date!");
             al.showAndWait();
         } else {
             btnPostpone.setDisable(false);

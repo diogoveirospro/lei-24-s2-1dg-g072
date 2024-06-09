@@ -6,34 +6,30 @@ import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidEntryDataException;
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidCollaboratorDataException;
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidGreenSpaceDataException;
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidTaskDataException;
-import pt.ipp.isep.dei.esoft.project.repository.CollaboratorRepository;
-import pt.ipp.isep.dei.esoft.project.repository.Repositories;
-import pt.ipp.isep.dei.esoft.project.repository.TeamRepository;
-import pt.ipp.isep.dei.esoft.project.repository.VehicleRepository;
+import pt.ipp.isep.dei.esoft.project.repository.*;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class AgendaEntryTest {
-
     private Task task;
     private GreenSpace greenSpace;
     private Date startDate;
     private AgendaEntry.WorkingDayHours startHour;
     private Date endDate;
     private AgendaEntry.WorkingDayHours endHour;
+    private SkillRepository skillRepository = Repositories.getInstance().getSkillRepository();
     private CollaboratorRepository collaboratorRepository = Repositories.getInstance().getCollaboratorRepository();
     private VehicleRepository vehicleRepository = Repositories.getInstance().getVehicleRepository();
     private TeamRepository teamRepository = Repositories.getInstance().getTeamRepository();
-
     @BeforeEach
     void setUp() {
         try {
             task = new Task("Task", "10");
             Collaborator gsm = new Collaborator("GSM", new Date(1988, 2, 3), new Date(2020,
                     3, 1), "Rua6", "912645629", "gsm@gsm.com", "232139687",
-                    Collaborator.IdDocType.CC, "122472678cc3", "ABC1234");
+                    Collaborator.IdDocType.CC, "122472678CC3", "ABC1234");
             collaboratorRepository.addCollaborator(gsm);
 
             greenSpace = new GreenSpace(GreenSpace.TypeOfGreenSpace.GARDEN, "Garden", 100.0, "123 Main St", gsm);

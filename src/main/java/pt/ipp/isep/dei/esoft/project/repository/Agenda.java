@@ -50,6 +50,16 @@ public class Agenda extends SerializableRepository<List<AgendaEntry>> implements
     public Agenda() {
         super("agenda.ser");
         entriesAgenda = super.load();
+        if (entriesAgenda == null) {
+            entriesAgenda = new ArrayList<>();
+        }
+    }
+    public Agenda(String filename) {
+        super(filename);
+        entriesAgenda = super.load();
+        if (entriesAgenda == null) {
+            entriesAgenda = new ArrayList<>();
+        }
 
     }
 
@@ -196,6 +206,10 @@ public class Agenda extends SerializableRepository<List<AgendaEntry>> implements
             }
         }
         return agendaEntries;
+    }
+    public void clear() {
+        entriesAgenda.clear();
+        super.clear();
     }
 
 }

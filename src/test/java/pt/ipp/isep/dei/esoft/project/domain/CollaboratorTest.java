@@ -8,7 +8,7 @@ import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CollaboratorTest {
-
+    private static final boolean SAVE_TO_FILE = false;
     @Test
     void ensureCollaboratorIsCreatedSuccessfully() throws InvalidCollaboratorDataException {
 
@@ -20,7 +20,7 @@ class CollaboratorTest {
         String email = "ana@collaborator.com";
         String taxpayerNumber = "123456789";
         Collaborator.IdDocType idDocType = Collaborator.IdDocType.CC;
-        String idDocNumber = "234564321zx7";
+        String idDocNumber = "234564321ZX7";
         String pwd = "ABC1234";
 
         Collaborator collaborator = new Collaborator(name, birthDate, admissionDate, address, mobile, email,
@@ -49,10 +49,10 @@ class CollaboratorTest {
         String email = "ana@gmail.com";
         String taxpayerNumber = "123456789";
         Collaborator.IdDocType idDocType = Collaborator.IdDocType.CC;
-        String idDocNumber = "234564321zx7";
+        String idDocNumber = "234564321ZX7";
         String jobName = "Landscape Designer";
 
-        JobRepository jobRepository = Repositories.getInstance().getJobRepository();
+        JobRepository jobRepository = new JobRepository();
         jobRepository.addJob(new Job("Landscape Designer"));
 
         Collaborator collaborator = new Collaborator(name, birthDate, admissionDate, address, mobile, email,

@@ -382,7 +382,7 @@ public class Main {
                 dist[vertices.indexOf(startVertex)] = 0;
                 queue.add(startVertex);
 
-                int[] oldDist = dist.clone();
+                //int[] oldDist = dist.clone();
 
                 while (!queue.isEmpty()) {
                     Vertex u = queue.poll();
