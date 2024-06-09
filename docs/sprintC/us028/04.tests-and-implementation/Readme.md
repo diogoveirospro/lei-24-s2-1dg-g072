@@ -1,8 +1,8 @@
-# US006 - Register a vehicle 
+# US028 - Consult Assigned Tasks
 
 ## 4. Tests 
 
-### Class VehicleTest
+### Class AgendaEntryTest
 
 **Test 1:** Check if method getPlateNumber() is working. 
 
