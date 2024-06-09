@@ -7,13 +7,14 @@ autonumber
 
 actor "Collaborator" as Col
 participant ":RecordCompletionUI" as UI
-participant ":RecordCompletionController" as CTRL
+participant ":FinishTaskController" as CTRL
 participant ":ApplicationSession" as _APP
 participant "appSession\n:ApplicationSession" as APP
 participant "currentSession\n:UserSession" as SESSION
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as REP
 participant "collaboratorRepository\n:CollaboratorRepository" as collaboratorRepository
+participant "teamRepository\n:TeamRepository" as teamRepository
 participant "agenda\n:Agenda" as AGENDA
 participant "agendaEntry\n:AgendaEntry" as AGENDAENTRY
 participant "agendaEntries\n:List<AgendaEntry>" as AGENDAENTRIES
@@ -23,43 +24,44 @@ participant "agendaEntryDto\n:AgendaEntryDto" as DTO
 
 activate Col
 
-Col -> UI : Requests to record task completion
-activate UI
+Col -> UI : requests to consult tasks assigned to him
+    activate UI
 
-UI -> CTRL** : Create
+    UI -> CTRL** : create
+    UI -> CTRL : getCollaboratorByEmail(email)
+        activate CTRL
 
-UI -> CTRL : getCollaboratorByEmail(email)
-activate CTRL
+            CTRL -> CTRL : getCollaboratorFromSession(email)
+            activate CTRL
+           CTRL -> _APP**: getInstance()
+           activate _APP
 
-    CTRL -> _APP**: getInstance()
-    activate _APP
+                _APP -> CTRL: appSession
+           deactivate _APP
 
-        _APP -> CTRL: appSession
-    deactivate _APP
+           CTRL -> APP**: getCurrentSession()
+           activate APP
 
-    CTRL -> APP**: getCurrentSession()
-    activate APP
+                APP --> CTRL: currentSession
+           deactivate APP
 
-        APP --> CTRL: currentSession
-    deactivate APP
+           CTRL -> SESSION**: getUserEmail()
+           activate SESSION
 
-    CTRL -> SESSION**: getUserEmail()
-    activate SESSION
+                SESSION --> CTRL: email
+           deactivate SESSION
 
-        SESSION --> CTRL: email
-    deactivate SESSION
+        CTRL -> RepositorySingleton : getInstance()
+            activate RepositorySingleton
 
-    CTRL -> RepositorySingleton : getInstance()
-    activate RepositorySingleton
+            RepositorySingleton --> CTRL : repositories
+            deactivate RepositorySingleton
 
-        RepositorySingleton --> CTRL : repositories
-    deactivate RepositorySingleton
+        CTRL -> REP : getCollaboratorRepository
+            activate REP
 
-    CTRL -> REP : getCollaboratorRepository()
-    activate REP
-
-        REP --> CTRL : collaboratorRepository
-    deactivate REP
+            REP --> CTRL : collaboratorRepository
+            deactivate REP
 
         CTRL -> collaboratorRepository : getCollaboratorByEmail(email)
             activate collaboratorRepository
@@ -67,13 +69,15 @@ activate CTRL
             collaboratorRepository -> collaboratorRepository : getCollaboratorByEmail(email)
             activate collaboratorRepository
 
+            collaboratorRepository --> CTRL : collaborator
+
+                deactivate collaboratorRepository
+
             deactivate collaboratorRepository
+        CTRL --> UI : collaborator
+        deactivate CTRL
 
-        collaboratorRepository --> CTRL : collaborator
-    deactivate collaboratorRepository
-
-CTRL --> UI : collaborator
-deactivate CTRL
+        deactivate CTRL
 
 UI -> Col : Asks to select the beginning and end date of the search
 deactivate UI
@@ -96,14 +100,30 @@ activate CTRL
         REP --> CTRL : agenda
     deactivate REP
 
-    CTRL -> AGENDA : getCollaboratorAgendaEntries(collaborator, dateI, dateF, typeStatus)
+    CTRL -> REP : getTeamRepository()
+    activate REP
+
+        REP --> CTRL : teamRepository
+    deactivate REP
+
+    CTRL -> teamRepository : getTeamsByCollaborator(collaborator)
+    activate teamRepository
+
+        teamRepository -> teamRepository : getTeamsByCollaborator(collaborator)
+        activate teamRepository
+
+        teamRepository --> CTRL : teamList
+        deactivate teamRepository
+        deactivate teamRepository
+
+    CTRL -> AGENDA : getAgendaEntriesByTeamList(teamList)
     activate AGENDA
 
         AGENDA --> AGENDAENTRIES** : create()
-            loop for each agendaEntry in the specified date range and status
-                AGENDA -> AGENDAENTRIES : add(agendaEntry)
-                activate AGENDAENTRIES
-            end
+        loop for each agendaEntry in the specified date range and status
+            AGENDA -> AGENDAENTRIES : add(agendaEntry)
+            activate AGENDAENTRIES
+        end
         AGENDAENTRIES --> AGENDA : agendaEntryList
         deactivate AGENDAENTRIES
     AGENDA --> CTRL : agendaEntryList
@@ -113,20 +133,22 @@ activate CTRL
     activate Mapper
 
         Mapper --> ListAgendaEntriesDto** : create()
-            loop for each agendaEntry in agendaEntryList
-                Mapper -> AGENDAENTRIES : get(i)
-                    activate AGENDAENTRIES
+        loop for each agendaEntry in agendaEntryList
+            Mapper -> DTO : get(i)
+            activate DTO
 
-                    AGENDAENTRIES --> Mapper : agendaEntry
-                    deactivate AGENDAENTRIES
-                Mapper -> DTO : toDTOEntry(agendaEntry)
-                    activate DTO
+            DTO --> Mapper : agendaEntry
+            deactivate DTO
 
-                    DTO --> Mapper : agendaEntryDto
-                    deactivate DTO
-                Mapper -> ListAgendaEntriesDto : add(agendaEntryDto)
-                    activate ListAgendaEntriesDto
-            end
+            Mapper -> DTO : toDTOEntry(agendaEntry)
+            activate DTO
+
+            DTO --> Mapper : agendaEntryDto
+            deactivate DTO
+
+            Mapper -> ListAgendaEntriesDto : add(agendaEntryDto)
+            activate ListAgendaEntriesDto
+        end
         ListAgendaEntriesDto --> Mapper : agendaEntryListDto
         deactivate ListAgendaEntriesDto
 
@@ -142,7 +164,7 @@ deactivate UI
 Col -> UI : Selects the task to mark as completed
 activate UI
 
-UI -> CTRL : markTaskAsCompleted(taskId)
+UI -> CTRL : finishTask(taskId)
 activate CTRL
 
     CTRL -> RepositorySingleton : getInstance()
@@ -163,23 +185,38 @@ activate CTRL
         AGENDA --> CTRL : agendaEntry
     deactivate AGENDA
 
-    CTRL -> AGENDAENTRY : markAsCompleted()
+    CTRL -> AGENDAENTRY : taskDone()
     activate AGENDAENTRY
 
-    AGENDAENTRY --> CTRL : operation success
+        AGENDAENTRY --> CTRL : operation success
     deactivate AGENDAENTRY
 
-    CTRL -> Mapper : toDTO(agendaEntry)
-    activate Mapper
+            CTRL -> Mapper : toDTOList(agendaEntryList)
+                activate Mapper
 
-        Mapper -> DTO : toDTOEntry(agendaEntry)
-        activate DTO
+                Mapper --> ListAgendaEntriesDto** : create()
+                    loop for each agendaEntry in agendaEntryList
+                        Mapper -> DTO : get(i)
+                            activate DTO
 
-            DTO --> Mapper : agendaEntryDto
-        deactivate DTO
+                            DTO --> Mapper : agendaEntry
+                            deactivate DTO
+                        Mapper -> DTO : toDTOEntry(agendaEntry)
+                            activate DTO
 
-    Mapper --> CTRL : agendaEntryDto
-    deactivate Mapper
+                            DTO --> Mapper : agendaEntryDto
+                            deactivate DTO
+                        Mapper -> ListAgendaEntriesDto : add(agendaEntryDto)
+                            activate ListAgendaEntriesDto
+                    end
+
+
+                ListAgendaEntriesDto --> Mapper : agendaEntryListDto
+                 deactivate ListAgendaEntriesDto
+
+                 Mapper --> CTRL : agendaEntryListDto
+                deactivate Mapper
+
 
 CTRL --> UI : agendaEntryDto
 deactivate CTRL
