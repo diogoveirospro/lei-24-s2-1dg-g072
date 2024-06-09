@@ -1,1 +1,56 @@
 
+From: gsm@dei.com
+To: ana@collaborator.com
+Subject: New Task Assigned
+
+Dear Ana,
+Musgo Sublime's green space management team informs the collaborator with ID Number 234564321zx7 that their team has been assigned to a new agenda entry.
+Please check the agenda for more details.
+
+Best regards, GSM Team
+This is an automated email. Please do not reply.
+-------------------------------------------------
+From: gsm@dei.com
+To: andre@collaborator.com
+Subject: New Task Assigned
+
+Dear André,
+Musgo Sublime's green space management team informs the collaborator with ID Number 23456432125 that their team has been assigned to a new agenda entry.
+Please check the agenda for more details.
+
+Best regards, GSM Team
+This is an automated email. Please do not reply.
+-------------------------------------------------
+From: gsm@dei.com
+To: joao@collaborator.com
+Subject: New Task Assigned
+
+Dear João,
+Musgo Sublime's green space management team informs the collaborator with ID Number 232566381 that their team has been assigned to a new agenda entry.
+Please check the agenda for more details.
+
+Best regards, GSM Team
+This is an automated email. Please do not reply.
+-------------------------------------------------
+From: gsm@dei.com
+To: ana@collaborator.com
+Subject: New Task Assigned
+
+Dear Ana,
+Musgo Sublime's green space management team informs the collaborator with ID Number 234564321zx7 that their team has been assigned to a new agenda entry.
+Please check the agenda for more details.
+
+Best regards, GSM Team
+This is an automated email. Please do not reply.
+-------------------------------------------------
+From: gsm@dei.com
+To: andre@collaborator.com
+Subject: New Task Assigned
+
+Dear André,
+Musgo Sublime's green space management team informs the collaborator with ID Number 23456432125 that their team has been assigned to a new agenda entry.
+Please check the agenda for more details.
+
+Best regards, GSM Team
+This is an automated email. Please do not reply.
+-------------------------------------------------
