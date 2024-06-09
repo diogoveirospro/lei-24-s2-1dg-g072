@@ -151,31 +151,12 @@ public class Bootstrap {
         c3.assignSkill(new Skill("Tree Care and Maintenance"));
         c3.assignSkill(new Skill("Pest and Disease Management in Landscapes"));
 
-        Collaborator hrm = new Collaborator("HRM", new Date(1999, 2, 3), new Date(2020,
-                3, 1), "Rua5", "912632669", "hrm@hrm.com", "212826077",
-                Collaborator.IdDocType.CC, "123454678cc3", "ABC1234");
-
-        Collaborator gsm = new Collaborator("GSM", new Date(1988, 2, 3), new Date(2020,
-                3, 1), "Rua6", "912645629", "gsm@gsm.com", "232139687",
-                Collaborator.IdDocType.CC, "122472678cc3", "ABC1234");
-
-        Collaborator vfm = new Collaborator("VFM", new Date(1989, 2, 3), new Date(2020,
-                3, 1), "Rua7", "914657324", "vfm@vfm.com", "269999450",
-                Collaborator.IdDocType.CC, "123453678zz3", "ABC1234");
-
-        Collaborator qam = new Collaborator("QAM", new Date(1999, 2, 3), new Date(2024,
-                3, 1), "Rua8", "913456734", "qam@qam.com", "241319692",
-                Collaborator.IdDocType.CC, "123485678xx3", "ABC1234");
-
 
         collaboratorRepository.addCollaborator(c1);
         collaboratorRepository.addCollaborator(c2);
         collaboratorRepository.addCollaborator(c3);
         collaboratorRepository.addCollaborator(c4);
-        collaboratorRepository.addCollaborator(hrm);
-        collaboratorRepository.addCollaborator(gsm);
-        collaboratorRepository.addCollaborator(vfm);
-        collaboratorRepository.addCollaborator(qam);
+
     }
 
     private void addJob() {
@@ -228,7 +209,44 @@ public class Bootstrap {
     }
 
 
-    private void addUsers() {
+    private void addUsers() throws InvalidCollaboratorDataException {
+
+        Collaborator hrm1 = new Collaborator("HRM One", new Date(1999, 2, 3), new Date(2020,
+                3, 1), "Rua5", "912632669", "hrm1@hrm.com", "212826077",
+                Collaborator.IdDocType.CC, "123454678VV3", "ABC1234");
+
+        Collaborator hrm2 = new Collaborator("HRM Two", new Date(2000, 2, 3), new Date(2020,
+                3, 1), "Rua6", "912453649", "hrm2@hrm.com", "253272653",
+                Collaborator.IdDocType.CC, "123454678DD3", "ABC1234");
+
+        Collaborator gsm1 = new Collaborator("GSM One", new Date(1988, 2, 3), new Date(2020,
+                3, 1), "Rua7", "912645629", "gsm1@gsm.com", "232139687",
+                Collaborator.IdDocType.CC, "122472678AA3", "ABC1234");
+
+        Collaborator gsm2 = new Collaborator("GSM Two", new Date(1983, 2, 3), new Date(2020,
+                3, 1), "Rua8", "912235629", "gsm2@gsm.com", "290148510",
+                Collaborator.IdDocType.CC, "122472678BB3", "ABC1234");
+
+        Collaborator vfm1 = new Collaborator("VFM One", new Date(1989, 2, 3), new Date(2020,
+                3, 1), "Rua9", "914657324", "vfm1@vfm.com", "269999450",
+                Collaborator.IdDocType.CC, "123453678ZZ3", "ABC1234");
+
+        Collaborator vfm2 = new Collaborator("VFM Two", new Date(1970, 2, 3), new Date(2020,
+                3, 1), "Rua10", "914651224", "vfm2@vfm.com", "209072156",
+                Collaborator.IdDocType.CC, "123453678CC3", "ABC1234");
+
+        Collaborator qam = new Collaborator("QAM", new Date(1999, 2, 3), new Date(2024,
+                3, 1), "Rua11", "913456734", "qam@qam.com", "241319692",
+                Collaborator.IdDocType.CC, "123485678XX3", "ABC1234");
+
+        collaboratorRepository.addCollaborator(hrm1);
+        collaboratorRepository.addCollaborator(hrm2);
+        collaboratorRepository.addCollaborator(gsm1);
+        collaboratorRepository.addCollaborator(gsm2);
+        collaboratorRepository.addCollaborator(vfm1);
+        collaboratorRepository.addCollaborator(vfm2);
+        collaboratorRepository.addCollaborator(qam);
+
 
         for (Collaborator c : collaboratorRepository.getCollaborators()) {
             String email = c.getEmail();
