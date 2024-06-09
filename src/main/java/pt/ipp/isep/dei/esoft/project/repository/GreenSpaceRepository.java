@@ -115,13 +115,4 @@ public class GreenSpaceRepository extends SerializableRepository<List<GreenSpace
         return greenSpaceList;
     }
 
-    public void clear() {
-        if (greenSpaceList == null) {
-            greenSpaceList = new ArrayList<>();
-        } else {
-            greenSpaceList.clear();
-        }
-        save(greenSpaceList);
-    }
-
 }

@@ -78,5 +78,8 @@ public class SkillRepository extends SerializableRepository<List<Skill>> impleme
         }
         return null;
     }
-
+    public void clear() {
+        skills.clear();
+        super.clear();
+    }
 }

@@ -21,25 +21,25 @@ public class VehicleRepository extends SerializableRepository<List<Vehicle>> imp
     /**
      * List containing all vehicles
      */
-    private  List <Vehicle> vehicleList;
+    private final List <Vehicle> vehicleList;
 
     /**
      * Repository builder
      */
     public VehicleRepository() {
         super("vehicleRepository.ser");
-        vehicleList = super.load();
-        if (vehicleList == null) {
+        List<Vehicle> vehicleList1;
+        vehicleList1 =super.load();
+        if (vehicleList1 == null) {
             vehicleList = new ArrayList<>();
+        } else {
+            vehicleList = vehicleList1;
         }
 
     }
     public VehicleRepository(String filename) {
         super(filename);
-        vehicleList = super.load();
-        if (vehicleList == null) {
-            vehicleList = new ArrayList<>();
-        }
+        vehicleList =super.load();
     }
 
     public Optional<Vehicle> registerVehicle(String plate, String brand, String model, String type, Double tare, Double grossWeight, Double currentKms, Date registrationDate, Date acquisitionDate, Double serviceFrequency, Double kmAtLastMaintenance){
@@ -174,5 +174,8 @@ public class VehicleRepository extends SerializableRepository<List<Vehicle>> imp
     public void saveVehicleRepositoryToFile() {
         save(vehicleList);
     }
-
+    public void clear() {
+        vehicleList.clear();
+        super.clear();
+    }
 }
