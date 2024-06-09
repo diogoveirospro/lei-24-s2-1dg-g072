@@ -32,13 +32,6 @@ The GSM wants to postpone an entry in the Agenda to a specific date in the futur
 > 
 > **Answer:** When postponing a task, the new predicated date for execution should be inserted.
 
-
-
-
-
-
-
-
 ### 1.3. Acceptance Criteria
 
 * **AC1:** The new date must be after the start date of the entry.

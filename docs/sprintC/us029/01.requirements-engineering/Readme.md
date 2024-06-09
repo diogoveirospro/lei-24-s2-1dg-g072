@@ -16,17 +16,33 @@ As a Collaborator, I want to record the completion of a task.
 
 **From the client clarifications:**
 
-> **Question:** 
+> **Question:** Do collaborators log in with a password (created by the respective manager when creating the collaborator), or with other information like the BI number or the TaxPayer?
 >
-> **Answer:** 
+> **Answer:** One can use email or taxpayer number.
 
-> **Question:** 
+> **Question:** "As a Collaborator, I want to record the completion of a task." This "record" refers to the act of only changing the status of the task, or do we want to save a list of the completed tasks within each Collaborator?
 >
-> **Answer:** 
+> **Answer:** It means to record that a task was completed (changing the status) with the finish time.
 
-> **Question:** 
+> **Question:** Can a collaborator mark a task as "done" only if it is in the "planned" status?
 >
-> **Answer:** 
+> **Answer:** It depends in the status set your team decide to have/use. But if you consider only status refered in the text and in the forum my answer would be, yes, just the "Planned" status can be changed to "Done".
+
+> **Question:** The collaborator should be able to change the status of any task or only tasks assigned to him?
+>
+> **Answer:** yes
+
+> **Question:** Can an employee record more than one completed task at a time?
+>
+> **Answer:** It's a matter of UX/UI, each dev team can decide about it.
+
+> **Question:** When a collaborator records a task, it should be asked for any observations regarding the completed task?
+>
+> **Answer:** Maybe if optional, not mandatory.
+
+> **Question:** The collaborator can see what type of entrys? Like what status can he filter ? Can he see canceled Entry's?
+>
+> **Answer:** The ones assigned to him. He can filter by the different values the status of the status, like planned, executed, canceled ...
 
 ### 1.3. Acceptance Criteria
 

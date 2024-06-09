@@ -16,14 +16,29 @@ area
 
 **From the client clarifications:**
 
-> **Question:** 
+> **Question:** To register a green space, what is the criteria needed to classify it as a medium-sized park or a large-sized park?
 > 
-> **Answer:** 
- 
-> **Question:** 
-> 
-> **Answer:** 
+> **Answer:** It's a GSM responsability to decide the classification.
 
+> **Question:** In the registration of a green space, should a green space's name be allowed to contain digits and special characters, or just letters and whitespaces?
+> 
+> **Answer:** Same rules for other names in the business, letters, spaces and dashes.
+
+> **Question:** In view of the description of GreenSpaces does it make sense to ask for optional mind for the different types this data? 
+>
+> **Answer:** In the current version, it is sufficient to define a park using name, size classification, area (hectare) and address.
+
+> **Question:** Should the Green Space have any field in which it would store the GSM who created it, meaning that green space is managed by that GSM?
+>
+> **Answer:** I have no knowledge about data models.
+
+> **Question:** I would like to know between what ranges of hectares a green space is classified as garden, medium or large, or if it is possible to register 2 green spaces with the same area but in different typology, depending on the GSM it registers.
+>
+> **Answer:** The classification is not automatic, it's up to GSM decide about it.
+
+> **Question:** In which unit should the area be measured in? Can the GSM register multiple green spaces at once?
+>
+> **Answer:** Usually, areas are measured in hectares. That's a matter of UX/UI, each dev team can decide about it.
 
 ### 1.3. Acceptance Criteria
 
