@@ -207,6 +207,9 @@ public class Agenda extends SerializableRepository<List<AgendaEntry>> implements
         }
         return agendaEntries;
     }
-
+    public void clear() {
+        entriesAgenda.clear();
+        super.clear();
+    }
 
 }

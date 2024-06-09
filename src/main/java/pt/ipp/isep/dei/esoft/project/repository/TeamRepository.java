@@ -154,7 +154,10 @@ public class TeamRepository extends SerializableRepository<List<Team>> implement
     public void saveTeamRepositoryToFile() {
         save(teams);
     }
-
+    public void clear() {
+        teams.clear();
+        super.clear();
+    }
 
 
 }
