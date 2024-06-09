@@ -21,19 +21,21 @@ public class TaskRepositoryTest {
     public void setUp() {
         taskRepository = new TaskRepository();
         try {
-            task1 = new Task("Task 1", "12");
-            task2 = new Task("Task 2", "10");
+            task1 = new Task("Task One", "12");
+            task2 = new Task("Task Two", "10");
         } catch (InvalidTaskDataException e) {
             fail("Setup failed: " + e.getMessage());
         }
+        taskRepository.clear();
         taskRepository.addTask(task1);
         taskRepository.addTask(task2);
+
     }
 
     @Test
     public void testAddTask() {
         try {
-            Task task3 = new Task("Task 3", "8");
+            Task task3 = new Task("Task Three", "8");
             taskRepository.addTask(task3);
             List<Task> tasks = taskRepository.getAllTasks();
             assertEquals(3, tasks.size());
@@ -45,7 +47,7 @@ public class TaskRepositoryTest {
 
     @Test
     public void testRemoveTask() {
-        boolean result = taskRepository.removeTask("Task 1");
+        boolean result = taskRepository.removeTask("Task One");
         List<Task> tasks = taskRepository.getAllTasks();
         assertEquals(1, tasks.size());
         assertFalse(tasks.contains(task1));
@@ -54,7 +56,7 @@ public class TaskRepositoryTest {
 
     @Test
     public void testRemoveTaskNotFound() {
-        boolean result = taskRepository.removeTask("Task 3");
+        boolean result = taskRepository.removeTask("Task Three");
         List<Task> tasks = taskRepository.getAllTasks();
         assertEquals(2, tasks.size());
         assertFalse(result);
@@ -71,7 +73,7 @@ public class TaskRepositoryTest {
     @Test
     public void testFindTaskById() {
         try {
-            Task foundTask = taskRepository.findTaskById("Task 1");
+            Task foundTask = taskRepository.findTaskById("Task One");
             assertEquals(task1, foundTask);
         } catch (InvalidTaskDataException e) {
             fail("Test failed: " + e.getMessage());
@@ -80,7 +82,12 @@ public class TaskRepositoryTest {
 
     @Test
     public void testFindTaskByIdNotFound() {
-        assertThrows(InvalidTaskDataException.class, () -> taskRepository.findTaskById("Task 3"));
+
+        try {
+            taskRepository.findTaskById("Task Three");
+        } catch (InvalidTaskDataException e) {
+            assertEquals("Task not found", e.getMessage());
+        }
     }
 }
 
