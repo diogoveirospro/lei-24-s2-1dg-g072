@@ -33,20 +33,38 @@ public class Bootstrap {
         if (collaboratorRepository.getCollaborators().isEmpty()) {
             addCollaborator();
         }
-        if (!Repositories.getInstance().hasData()){
-            addSkill();
+
+        if (jobRepository.getJobs().isEmpty()) {
             addJob();
-            addCollaborator();
+        }
+
+        if (skillRepository.listSkills().isEmpty()) {
+            addSkill();
+        }
+
+        if (vehicleRepository.getVehicleList().isEmpty()) {
             addVehicle();
-            addUsers();
-            addGreenSpaces();
-            addTasks();
-            addAgendaEntry();
-            addToDoListEntry();
+        }
+
+        if (teamRepository.getTeams().isEmpty()) {
             addTeam();
         }
+
+        if (greenSpaceRepository.getGreenSpaceList().isEmpty()) {
+            addGreenSpaces();
+        }
+
+        if (toDoList.getToDoListEntries().isEmpty()) {
+            addToDoListEntry();
+        }
+
+        if (agenda.getEntryList().isEmpty()) {
+            addAgendaEntry();
+        }
+
         addUsers();
     }
+
     private void addToDoListEntry() throws InvalidTaskDataException, InvalidEntryDataException {
         Task task3 = new Task("Task Three", "3");
         Task task4 = new Task("Task Four", "4");

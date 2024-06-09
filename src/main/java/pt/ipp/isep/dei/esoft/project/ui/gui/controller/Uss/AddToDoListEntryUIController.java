@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidEntryDataException;
 import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidTaskDataException;
+import pt.ipp.isep.dei.esoft.project.Exceptions.InvalidVehicleDataException;
 import pt.ipp.isep.dei.esoft.project.application.controller.AddToDoListController;
 import pt.ipp.isep.dei.esoft.project.domain.Task;
 import pt.ipp.isep.dei.esoft.project.domain.utils.ValidatorUtils;
@@ -24,7 +25,7 @@ public class AddToDoListEntryUIController {
     private AddToDoListEntryUI addToDoListEntryUI;
     private GSMUI gsmui;
     @FXML
-    private ComboBox<String> taskNameComboBox;
+    private TextField tfTaskName;
 
     @FXML
     private TextField taskDurationTextField;
@@ -54,10 +55,6 @@ public class AddToDoListEntryUIController {
     @FXML
     public void initialize() {
         try {
-            List<Task> taskList = controller.getTaskList();
-            for (Task task : taskList) {
-                taskNameComboBox.getItems().add(task.getTaskId());
-            }
             degreeOfUrgencyComboBox.getItems().addAll(controller.getDegreeOgUrgencyList());
             List<GreenSpaceDto> greenSpaceList = controller.getGreenSpaceList();
             for (GreenSpaceDto greenSpace : greenSpaceList) {
@@ -76,12 +73,12 @@ public class AddToDoListEntryUIController {
      */
     @FXML
     private void addToDoListEntry() {
-        if (taskNameComboBox.getValue() == null || taskDurationTextField.getText().isEmpty() || greenSpaceNameCB.getValue() == null || degreeOfUrgencyComboBox.getValue() == null) {
+        if (tfTaskName.getText().isEmpty() || taskDurationTextField.getText().isEmpty() || greenSpaceNameCB.getValue() == null || degreeOfUrgencyComboBox.getValue() == null) {
             AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error", "Error adding entry.", "Please fill in all fields.").show();
         } else {
 
             try {
-                String taskName = taskNameComboBox.getValue();
+                String taskName = tfTaskName.getText();
                 String taskDuration = taskDurationTextField.getText();
                 String greenSpaceName = greenSpaceNameCB.getValue();
                 String degreeOfUrgency = degreeOfUrgencyComboBox.getValue();
@@ -93,8 +90,8 @@ public class AddToDoListEntryUIController {
                 controller.addNewToDoListEntry(taskName, taskDuration, greenSpaceName, degreeOfUrgency);
                 taskListView.getItems().add(taskName + " - " + taskDuration + " - " + greenSpaceName + " - " + degreeOfUrgency);
                 AlertUI.createAnAlert(Alert.AlertType.INFORMATION, "Success", "Entry added successfully.", "The entry was added successfully.").show();
-            } catch (Exception e) {
-                AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error", "Error adding entry.", e.getMessage());
+            } catch (InvalidTaskDataException | InvalidEntryDataException | InvalidVehicleDataException e) {
+                AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error", "Error adding entry.", e.getMessage()).show();
             }
         }
     }

@@ -1,0 +1,11 @@
+From: gsm@dei.com
+To: joao@collaborator.com
+Subject: New Task Assigned
+
+Dear João,
+Musgo Sublime's green space management team informs the collaborator with ID Number 232566381 that their team has been assigned to a new agenda entry.
+Please check the agenda for more details.
+
+Best regards, GSM Team
+This is an automated email. Please do not reply.
+-------------------------------------------------
