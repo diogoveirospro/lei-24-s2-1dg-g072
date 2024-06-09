@@ -34,6 +34,12 @@ public class ToDoList extends SerializableRepository<List<ToDoListEntry>> implem
         return AgendaEntry.StatusOfEntry.getStatusList();
     }
 
+    /**
+     * Retrieves a to-do list entry by task name.
+     *
+     * @param taskName the name of the task associated with the entry
+     * @return the to-do list entry with the specified task name, or null if not found
+     */
 
     public ToDoListEntry getToDoListEntryByTaskName(String taskName) {
         for (ToDoListEntry toDoListEntry : toDoListEntries) {
@@ -60,10 +66,20 @@ public class ToDoList extends SerializableRepository<List<ToDoListEntry>> implem
         return degreeList;
     }
 
+    /**
+     * Adds a to-do list entry to the to-do list.
+     *
+     * @param toDoListEntry the to-do list entry to add
+     */
+
     public void addEntry(ToDoListEntry toDoListEntry) {
         this.toDoListEntries.add(toDoListEntry);
         save(toDoListEntries);
     }
+
+    /**
+     * Saves the to-do list entries to a file.
+     */
 
     public void saveToDoListToFile() {
         save(toDoListEntries);

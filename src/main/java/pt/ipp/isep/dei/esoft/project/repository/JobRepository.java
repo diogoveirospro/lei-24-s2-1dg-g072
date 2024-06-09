@@ -95,6 +95,10 @@ public class JobRepository extends SerializableRepository<List<Job>> implements 
         return jobs.contains(job);
     }
 
+    /**
+     * Saves the current state of the job repository to a file.
+     */
+
     public void saveJobRepositoryToFile() {
         save(jobs);
     }

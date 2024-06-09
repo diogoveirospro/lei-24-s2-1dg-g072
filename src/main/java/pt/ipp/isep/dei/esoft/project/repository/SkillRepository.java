@@ -55,10 +55,20 @@ public class SkillRepository extends SerializableRepository<List<Skill>> impleme
         return List.copyOf(skills);
     }
 
+    /**
+     * Saves the skill repository to a file.
+     */
+
     public void saveSkillRepositoryToFile() {
         save(skills);
     }
 
+    /**
+     * Retrieves a skill by its name.
+     *
+     * @param skill the name of the skill to retrieve.
+     * @return the skill with the specified name, or {@code null} if not found.
+     */
 
     public Skill getSkill(String skill) {
         for (Skill s : skills) {

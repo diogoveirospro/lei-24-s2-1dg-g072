@@ -144,6 +144,10 @@ public class MaintenanceRepository extends SerializableRepository<List<Maintenan
         return List.copyOf(maintenanceList);
     }
 
+    /**
+     * Saves the current state of the maintenance repository to a file.
+     */
+
     public void saveMaintenanceRepositoryToFile() {
         save(maintenanceList);
     }

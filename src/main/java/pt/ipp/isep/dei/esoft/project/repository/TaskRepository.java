@@ -79,6 +79,10 @@ public class TaskRepository extends SerializableRepository<List<Task>> implement
         throw new InvalidTaskDataException("Task not found");
     }
 
+    /**
+     * Clears all tasks from the repository.
+     */
+
     public void clear() {
         tasks.clear();
     }
