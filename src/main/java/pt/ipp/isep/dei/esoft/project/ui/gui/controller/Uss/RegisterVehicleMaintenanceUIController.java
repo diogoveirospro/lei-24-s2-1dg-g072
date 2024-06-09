@@ -19,6 +19,11 @@ import pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss.RegisterVehicleMaintenanceUI;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Controller class for the Register Vehicle Maintenance User Interface.
+ * This class handles user interactions and events related to registering vehicle maintenance.
+ */
+
 public class RegisterVehicleMaintenanceUIController {
 
     private FMUI fmui;
@@ -45,6 +50,10 @@ public class RegisterVehicleMaintenanceUIController {
     @FXML
     private ListView<String> lvVehicles;
 
+    /**
+     * Initializes the UI with the list of available vehicles.
+     */
+
     @FXML
     public void initialize() {
         List<Vehicle> vehicles = controller.getVehicleList();
@@ -52,11 +61,12 @@ public class RegisterVehicleMaintenanceUIController {
             String vehicleString = vehicle.getPlateNumber();
             lvVehicles.getItems().add(vehicleString);
         }
-
-
-
-
     }
+
+    /**
+     * Handles the action when the user clicks on the Add Vehicle button.
+     * It adds the selected vehicle to the list of selected vehicles.
+     */
 
     public void handleAddVehicle() {
         String selectedVehicle = lvVehicles.getSelectionModel().getSelectedItem();
@@ -71,6 +81,10 @@ public class RegisterVehicleMaintenanceUIController {
         }
     }
 
+    /**
+     * Handles the action when the user clicks on the Remove Vehicle button.
+     * It removes the selected vehicle from the list of selected vehicles.
+     */
 
     public void handleRemoveVehicle() {
         String selectedVehicle = lvSelectedVehicles.getSelectionModel().getSelectedItem();
@@ -85,6 +99,10 @@ public class RegisterVehicleMaintenanceUIController {
         }
     }
 
+    /**
+     * Handles the action when the user clicks on the Show button.
+     * It registers the selected vehicles for maintenance and displays a success message.
+     */
 
     public void handleShowButtonAction() {
         lstVehiclesRegistred.getItems().clear();
@@ -120,6 +138,10 @@ public class RegisterVehicleMaintenanceUIController {
         }
     }
 
+    /**
+     * Handles the action when the user clicks on the Cancel button.
+     * It navigates back to the Fleet Management UI.
+     */
 
     public void handleCancelButton() {
         try {
@@ -129,6 +151,11 @@ public class RegisterVehicleMaintenanceUIController {
             System.out.println("An error occurred while handling the cancel action: " + e.getMessage());
         }
     }
+
+    /**
+     * Setter method for the Register Vehicle Maintenance User Interface.
+     * @param registerVehicleMaintenanceUI The Register Vehicle Maintenance User Interface to be set.
+     */
 
     public void setRegisterVehicleMaintenanceUI(RegisterVehicleMaintenanceUI registerVehicleMaintenanceUI) {
         this.registerVehicleMaintenanceUI = registerVehicleMaintenanceUI;

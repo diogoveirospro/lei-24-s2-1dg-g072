@@ -19,6 +19,10 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * RegisterCollaboratorUIController - Controller class for the Register Collaborator UI.
+ */
+
 public class RegisterCollaboratorUIController {
     private HRMUI hrmui;
     private RegisterCollaboratorUI registerCollaboratorUI;
@@ -63,6 +67,10 @@ public class RegisterCollaboratorUIController {
     @FXML
     private Button btnCancel;
 
+    /**
+     * Initializes the controller.
+     */
+
     public void initialize() {
         List<Job> jobs = registerCollaboratorController.getJobs();
         for (Job job : jobs) {
@@ -75,6 +83,10 @@ public class RegisterCollaboratorUIController {
         idTypeCB.getItems().add(Collaborator.IdDocType.NISS.getDisplayName());
 
     }
+
+    /**
+     * Handles the action event for registering a collaborator.
+     */
 
     public void handleRegisterAction() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -145,6 +157,10 @@ public class RegisterCollaboratorUIController {
         }
     }
 
+    /**
+     * Handles the action event for canceling the registration.
+     */
+
     public void handleCancelAction() {
         try {
             hrmui = new HRMUI();
@@ -153,6 +169,12 @@ public class RegisterCollaboratorUIController {
             System.out.println("An error occurred while handling the cancel action: " + e.getMessage());
         }
     }
+
+    /**
+     * Sets the RegisterCollaboratorUI instance for this controller.
+     *
+     * @param registerCollaboratorUI the RegisterCollaboratorUI instance to set
+     */
 
     public void setRegisterCollaboratorUI(RegisterCollaboratorUI registerCollaboratorUI) {
         this.registerCollaboratorUI = registerCollaboratorUI;

@@ -36,10 +36,20 @@ public class FinishTaskUIController {
     @FXML
     private Button CancelButton;
 
+    /**
+     * Sets the FinishTaskUI instance.
+     * @param finishTaskUI The FinishTaskUI instance to set.
+     */
 
     public void setFinishTaskUI(FinishTaskUI finishTaskUI) {
         this.finishTaskUI = finishTaskUI;
     }
+
+    /**
+     * Initializes the controller and sets up the UI components.
+     * @throws InvalidCollaboratorDataException If the collaborator data is invalid.
+     * @throws IOException If an I/O error occurs.
+     */
 
     @FXML
     public void initialize() throws InvalidCollaboratorDataException, IOException {
@@ -58,6 +68,11 @@ public class FinishTaskUIController {
         }
 
     }
+
+    /**
+     * Handles the action of finishing a task.
+     */
+
     @FXML
     public void finishTask() {
         String taskId = taskIdCb.getValue();
@@ -69,6 +84,10 @@ public class FinishTaskUIController {
             AlertUI.createAnAlert(Alert.AlertType.ERROR, "Error", "Error", e.getMessage()).show();
         }
     }
+
+    /**
+     * Handles the action of canceling the task completion.
+     */
 
     public void handleCancelButtonAction() {
         try {

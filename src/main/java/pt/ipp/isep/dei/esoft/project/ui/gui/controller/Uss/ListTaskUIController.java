@@ -172,6 +172,11 @@ public class ListTaskUIController {
         String status = (String) this.statusList.getValue();
     }
 
+    /**
+     * Sets the ListTaskUI instance for this controller.
+     *
+     * @param listTaskUI The ListTaskUI instance to set.
+     */
 
     public void setListTaskUI(ListTaskUI listTaskUI) {
         this.listTaskUI = listTaskUI;

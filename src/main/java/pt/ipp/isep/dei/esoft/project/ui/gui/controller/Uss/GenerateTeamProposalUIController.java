@@ -20,6 +20,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * Controlador para a interface de usuário de geração de proposta de equipe.
+ */
 
 public class GenerateTeamProposalUIController implements Initializable {
 
@@ -65,6 +68,10 @@ public class GenerateTeamProposalUIController implements Initializable {
     GenerateTeamProposalController generateTeamProposalController = new GenerateTeamProposalController();
     GenerateTeamProposalUI generateTeamProposalUI = new GenerateTeamProposalUI();
 
+    /**
+     * Inicializa o controlador e configura os componentes da interface do usuário.
+     */
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         populateSkillsListView();
@@ -78,6 +85,10 @@ public class GenerateTeamProposalUIController implements Initializable {
         btnDeclineProposal.setDisable(true);
     }
 
+    /**
+     * Preenche a ListView de habilidades com as habilidades disponíveis.
+     */
+
     private void populateSkillsListView() {
         List<Skill> lstSkills = generateTeamProposalController.listSkills();
 
@@ -85,6 +96,10 @@ public class GenerateTeamProposalUIController implements Initializable {
             lvSkills.getItems().add(skill.getName());
         }
     }
+
+    /**
+     * Preenche a ListView de colaboradores com os colaboradores disponíveis.
+     */
 
     private void populateCollaboratorsListView() {
         lvCollaborators.getItems().clear();
@@ -115,6 +130,11 @@ public class GenerateTeamProposalUIController implements Initializable {
         }
     }
 
+    /**
+     * Manipula a adição de uma habilidade à lista de habilidades selecionadas.
+     * Adiciona a habilidade selecionada à ListView de habilidades selecionadas.
+     * Exibe um alerta de erro se nenhuma habilidade estiver selecionada.
+     */
 
     public void handleAddSkill() {
         Skill selectedSkill = generateTeamProposalController.getSkill(lvSkills.getSelectionModel().getSelectedItem());
@@ -128,6 +148,11 @@ public class GenerateTeamProposalUIController implements Initializable {
         }
     }
 
+    /**
+     * Manipula a remoção de uma habilidade da lista de habilidades selecionadas.
+     * Remove a habilidade selecionada da ListView de habilidades selecionadas.
+     * Exibe um alerta de erro se nenhuma habilidade estiver selecionada.
+     */
 
     public void handleRemoveSkill() {
         Skill selectedSkill = generateTeamProposalController.getSkill(lvSelectedSkills.getSelectionModel().getSelectedItem());
@@ -141,6 +166,12 @@ public class GenerateTeamProposalUIController implements Initializable {
         }
     }
 
+    /**
+     * Manipula a geração da proposta de equipe.
+     * Verifica se os campos de tamanho mínimo e máximo da equipe estão preenchidos.
+     * Exibe alertas de erro se os campos estiverem vazios ou se não forem selecionadas habilidades ou colaboradores suficientes.
+     * Cria uma equipe com base nos critérios fornecidos e exibe a proposta na ListView.
+     */
 
     public void handleGenerate() {
 
@@ -201,6 +232,13 @@ public class GenerateTeamProposalUIController implements Initializable {
         }
 
     }
+
+    /**
+     * Manipula a aceitação da proposta de equipe.
+     * Verifica se o tamanho da equipe está dentro dos limites especificados.
+     * Exibe alertas de confirmação se o tamanho da equipe ou as habilidades dos membros não estiverem adequados.
+     * Se confirmado, a equipe é adicionada e os membros são marcados como tendo uma equipe.
+     */
 
     public void handleAcceptProposal() {
         List<String> membersString = lvTeamProposal.getItems();
@@ -290,6 +328,12 @@ public class GenerateTeamProposalUIController implements Initializable {
 
     }
 
+    /**
+     * Manipula a recusa da proposta de equipe.
+     * Atualiza a ListView de colaboradores disponíveis.
+     * Exibe a ListView de colaboradores e botões de adicionar/remover membros.
+     */
+
     public void handleDeclineProposal() {
 
         populateCollaboratorsListView();
@@ -300,6 +344,11 @@ public class GenerateTeamProposalUIController implements Initializable {
         lvCollaborators.setMouseTransparent(false);
     }
 
+    /**
+     * Manipula a adição de um membro à proposta de equipe.
+     * Remove o colaborador selecionado da ListView de colaboradores e adiciona à ListView de proposta de equipe.
+     * Define que o colaborador selecionado agora tem uma equipe.
+     */
 
     public void handleAddMember() {
         String selectedCollaborator = lvCollaborators.getSelectionModel().getSelectedItem();
@@ -315,6 +364,12 @@ public class GenerateTeamProposalUIController implements Initializable {
             alert.showAndWait();
         }
     }
+
+    /**
+     * Manipula a remoção de um membro da proposta de equipe.
+     * Remove o colaborador selecionado da ListView de proposta de equipe e adiciona à ListView de colaboradores.
+     * Define que o colaborador selecionado não tem mais uma equipe.
+     */
 
     public void handleRemoveMember() {
 
@@ -345,6 +400,11 @@ public class GenerateTeamProposalUIController implements Initializable {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * Define a instância de GenerateTeamProposalUI.
+     * @param generateTeamProposalUI A instância de GenerateTeamProposalUI a ser definida.
+     */
 
     public void setGenerateTeamProposal(GenerateTeamProposalUI generateTeamProposalUI) {
         this.generateTeamProposalUI = generateTeamProposalUI;

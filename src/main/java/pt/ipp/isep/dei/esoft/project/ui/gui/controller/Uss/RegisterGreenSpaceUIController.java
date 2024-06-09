@@ -42,9 +42,20 @@ public class RegisterGreenSpaceUIController {
     @FXML
     private Button registerButton;
 
+    /**
+     * Constructs a new RegisterGreenSpaceUIController.
+     * Initializes the RegisterGreenSpaceUI instance.
+     */
+
     public RegisterGreenSpaceUIController() {
         this.registerGreenSpaceUI = new RegisterGreenSpaceUI();
     }
+
+    /**
+     * Registers a new green space.
+     *
+     * @throws InvalidGreenSpaceDataException if the data provided for the green space is invalid
+     */
 
     public void registerGreenSpace() throws InvalidGreenSpaceDataException {
 
@@ -74,6 +85,14 @@ public class RegisterGreenSpaceUIController {
         }
     }
 
+    /**
+     * Shows an alert dialog with the specified type, title, and message.
+     *
+     * @param alertType the type of the alert dialog
+     * @param title     the title of the alert dialog
+     * @param message   the message of the alert dialog
+     */
+
     private void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
@@ -81,9 +100,20 @@ public class RegisterGreenSpaceUIController {
         alert.showAndWait();
     }
 
+    /**
+     * Sets the RegisterGreenSpaceUI instance for this controller.
+     *
+     * @param registerGreenSpaceUI the RegisterGreenSpaceUI instance to set
+     */
+
     public void setRegisterGreenSpaceUI(RegisterGreenSpaceUI registerGreenSpaceUI) {
         this.registerGreenSpaceUI = registerGreenSpaceUI;
     }
+
+    /**
+     * Handles the action of canceling and returning to the Green Space Management UI.
+     */
+
     public void handleCancelButtonAction() {
         try {
             gsmui = new GSMUI();

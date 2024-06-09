@@ -11,6 +11,11 @@ import pt.ipp.isep.dei.esoft.project.ui.gui.ui.Uss.RegisterVehicleUI;
 
 import java.util.Optional;
 
+/**
+ * Controller class for the Register Vehicle User Interface.
+ * This class handles user interactions and events related to registering a new vehicle.
+ */
+
 public class RegisterVehicleUIController {
 
     private RegisterVehicleUI registerVehicleUI;
@@ -55,6 +60,11 @@ public class RegisterVehicleUIController {
     @FXML
     private Button btnCancel;
 
+    /**
+     * Handles the action when the user clicks on the Register button.
+     * It prompts the user for confirmation before registering the vehicle.
+     * If confirmed, it validates the input data and registers the vehicle.
+     */
 
     public void handleRegisterAction() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -140,6 +150,11 @@ public class RegisterVehicleUIController {
         }
     }
 
+    /**
+     * Handles the action when the user clicks on the Cancel button.
+     * It navigates back to the Fleet Management UI.
+     */
+
     public void handleCancelButtonAction() {
         try {
             fmui = new FMUI();
@@ -148,6 +163,11 @@ public class RegisterVehicleUIController {
             System.out.println("An error occurred while handling the cancel action: " + e.getMessage());
         }
     }
+
+    /**
+     * Setter method for the Register Vehicle User Interface.
+     * @param registerVehicleUI The Register Vehicle User Interface to be set.
+     */
 
     public void setRegisterVehicleUI(RegisterVehicleUI registerVehicleUI) {
         this.registerVehicleUI = registerVehicleUI;

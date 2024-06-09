@@ -193,6 +193,12 @@ public class PostponeEntryUIController {
 
     }
 
+    /**
+     * Handles the action event when selecting an end date for an agenda entry.
+     *
+     * @param actionEvent The ActionEvent triggered by selecting an end date.
+     */
+
     public void handleEndDate(ActionEvent actionEvent) {
         AgendaEntry selectedEntry = postponeEntryController.getAgendaEntryByTaskName(cmbAgendaEntries.getValue());
         LocalDate newDate = btnEndDate.getValue();
