@@ -114,5 +114,8 @@ public class GreenSpaceRepository extends SerializableRepository<List<GreenSpace
     public List<GreenSpace> getGreenSpaceList() {
         return greenSpaceList;
     }
-
+    public void clear() {
+        greenSpaceList.clear();
+        super.clear();
+    }
 }
