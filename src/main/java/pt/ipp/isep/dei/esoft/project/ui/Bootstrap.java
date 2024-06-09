@@ -26,7 +26,6 @@ public class Bootstrap {
     private final Agenda agenda = Repositories.getInstance().getAgenda();
     private final TeamRepository teamRepository = Repositories.getInstance().getTeamRepository();
     private final GreenSpaceRepository greenSpaceRepository = Repositories.getInstance().getGreenSpaceRepository();
-    private final TaskRepository taskRepository = Repositories.getInstance().getTaskRepository();
     private final ToDoList toDoList = Repositories.getInstance().getToDoList();
 
     public void run() throws InvalidCollaboratorDataException, InvalidTaskDataException, InvalidEntryDataException, InvalidGreenSpaceDataException {
@@ -325,38 +324,29 @@ public class Bootstrap {
 
     private void addGreenSpaces() throws InvalidGreenSpaceDataException {
         GreenSpace greenSpace1 = new GreenSpace(GreenSpace.TypeOfGreenSpace.LPARK, "Cidade", 83,
-                "Estrada Interior da Circunvalação, 4100-083 Porto", collaboratorRepository.getCollaborator("122472678cc3"));
+                "Estrada Interior da Circunvalação, 4100-083 Porto", collaboratorRepository.getCollaborator("122472678AA3"));
 
         GreenSpace greenSpace2 = new GreenSpace(GreenSpace.TypeOfGreenSpace.GARDEN, "São Roque", 4,
-                "R. São Roque da Lameira 2040, 4350-307 Porto", collaboratorRepository.getCollaborator("122472678cc3"));
+                "R. São Roque da Lameira 2040, 4350-307 Porto", collaboratorRepository.getCollaborator("122472678BB3"));
+
+        GreenSpace greenSpace3 = new GreenSpace(GreenSpace.TypeOfGreenSpace.GARDEN, "Cordoaria", 2,
+                "Campo dos Mártires da Pátria, 4050-367 Porto", collaboratorRepository.getCollaborator("122472678BB3"));
+
+        GreenSpace greenSpace4 = new GreenSpace(GreenSpace.TypeOfGreenSpace.MPARK, "Palácio de Cristal", 8,
+                "R. Dom Manuel II, 4050-346 Porto", collaboratorRepository.getCollaborator("122472678AA3"));
+
+        GreenSpace greenSpace5 = new GreenSpace(GreenSpace.TypeOfGreenSpace.LPARK, "Parque da Cidade", 83,
+                "Estrada da Circunvalação, 4100-183 Porto", collaboratorRepository.getCollaborator("122472678BB3"));
+
+        GreenSpace greenSpace6 = new GreenSpace(GreenSpace.TypeOfGreenSpace.GARDEN, "Jardim do Morro", 1,
+                "Avenida da República, 4430-148 Vila Nova de Gaia", collaboratorRepository.getCollaborator("122472678AA3"));
+
 
         greenSpaceRepository.addGreenSpace(greenSpace1);
         greenSpaceRepository.addGreenSpace(greenSpace2);
-    }
-
-    private void addTasks() throws InvalidTaskDataException {
-        Task task3 = new Task("Task Three", "3");
-        Task task4 = new Task("Task Four", "4");
-        Task task5 = new Task("Task Five", "5");
-        Task task6 = new Task("Task Six", "6");
-        Task task7 = new Task("Task Seven", "7");
-        Task task8 = new Task("Task Eight", "8");
-        Task task9 = new Task("Task Nine", "9");
-        Task task10 = new Task("Task Ten", "10");
-        Task task11 = new Task("Task Eleven", "11");
-        Task task12 = new Task("Task Twelve", "12");
-
-        taskRepository.addTask(task3);
-        taskRepository.addTask(task4);
-        taskRepository.addTask(task5);
-        taskRepository.addTask(task6);
-        taskRepository.addTask(task7);
-        taskRepository.addTask(task8);
-        taskRepository.addTask(task9);
-        taskRepository.addTask(task10);
-        taskRepository.addTask(task11);
-        taskRepository.addTask(task12);
-
-
+        greenSpaceRepository.addGreenSpace(greenSpace3);
+        greenSpaceRepository.addGreenSpace(greenSpace4);
+        greenSpaceRepository.addGreenSpace(greenSpace5);
+        greenSpaceRepository.addGreenSpace(greenSpace6);
     }
 }
